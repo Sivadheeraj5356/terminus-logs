@@ -1,3 +1,0 @@
-module delegationintegrity
-
-go 1.24

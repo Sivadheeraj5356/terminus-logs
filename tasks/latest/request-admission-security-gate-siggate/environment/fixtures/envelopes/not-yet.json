@@ -1,0 +1,29 @@
+{
+  "body": "{\"order_id\":\"o-1\",\"amount\":10}",
+  "covered": [
+    "authorization",
+    "content-type",
+    "host"
+  ],
+  "created": 1700000200,
+  "expires": 1700000300,
+  "headers": {
+    "Authorization": "Bearer tok",
+    "Content-Type": "application/json",
+    "Host": "api.example.test"
+  },
+  "kid": "main",
+  "mac": "pM8hDo9VvB5SPOOGaX5W6J4vOMKbw9-GgQFLtW8bYJo",
+  "method": "POST",
+  "path": "/v1/orders",
+  "query": [
+    {
+      "name": "tenant",
+      "value": "acme"
+    },
+    {
+      "name": "region",
+      "value": "us"
+    }
+  ]
+}

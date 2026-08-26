@@ -1,0 +1,10 @@
+[{:coord "org.alpha:gateway"
+  :version "[1.0.0,2.0.0)"
+  :scope :compile
+  :optional false
+  :exclusions ["org.legacy:bad-json"]}
+ {:coord "org.beta:app"
+  :version "2.0.0"
+  :scope :runtime
+  :optional false
+  :exclusions []}]

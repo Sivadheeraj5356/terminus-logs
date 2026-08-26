@@ -1,0 +1,11 @@
+{
+  "rows": [
+    {
+      "peer_tag": "vol_side",
+      "slots_free": 16,
+      "cleared_units": 0,
+      "lane_tick": 2,
+      "tick": 2
+    }
+  ]
+}

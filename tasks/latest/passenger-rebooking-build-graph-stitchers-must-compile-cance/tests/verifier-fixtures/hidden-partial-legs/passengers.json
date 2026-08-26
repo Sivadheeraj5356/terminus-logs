@@ -1,0 +1,32 @@
+{
+  "passengers": [
+    {
+      "passenger_id": "PAX-P1",
+      "name": "Partial",
+      "loyalty_tier": "gold",
+      "fare_class": "Y",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "UA900",
+          "carrier": "UA",
+          "origin": "DEN",
+          "destination": "ORD",
+          "departure_utc": "2026-09-03T08:00:00Z",
+          "arrival_utc": "2026-09-03T11:00:00Z",
+          "fare_class": "Y"
+        },
+        {
+          "leg_seq": 2,
+          "flight_id": "UA910",
+          "carrier": "UA",
+          "origin": "ORD",
+          "destination": "BOS",
+          "departure_utc": "2026-09-03T14:00:00Z",
+          "arrival_utc": "2026-09-03T17:00:00Z",
+          "fare_class": "Y"
+        }
+      ]
+    }
+  ]
+}

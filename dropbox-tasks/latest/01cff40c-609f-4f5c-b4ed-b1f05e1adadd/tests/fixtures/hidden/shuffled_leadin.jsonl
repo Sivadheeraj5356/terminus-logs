@@ -1,6 +1,0 @@
-{"crop_label":"tomato","event_seq":1,"event_type":"ZONE_REGISTER","line_crc":"B0A4","zone_id":"zone-a"}
-{"batch_id":"zone-a-shuffle","event_seq":2,"event_type":"BATCH_OPEN","line_crc":"B010","opened_at_unix":1714552400,"zone_id":"zone-a"}
-{"batch_id":"zone-a-shuffle","ec_mS":12,"event_seq":4,"event_type":"DOSE_TICK","line_crc":"9301","ph":6,"recorded_at_unix":1714553100,"volume_ml":400}
-{"batch_id":"zone-a-shuffle","ec_mS":2,"event_seq":3,"event_type":"DOSE_TICK","line_crc":"9397","ph":6,"recorded_at_unix":1714552500,"volume_ml":400}
-{"batch_id":"zone-a-shuffle","ec_mS":2,"event_seq":5,"event_type":"DOSE_TICK","line_crc":"FF94","ph":6,"recorded_at_unix":1714553700,"volume_ml":400}
-{"batch_id":"zone-a-shuffle","closed_at_unix":1714553800,"event_seq":6,"event_type":"BATCH_CLOSE","line_crc":"A75D"}

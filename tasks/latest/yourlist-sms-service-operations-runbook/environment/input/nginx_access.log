@@ -1,0 +1,8 @@
+# Edge proxy access log (ALB → nginx → Node). Not the same as PM2 stdout.
+192.168.1.10 - - [09/Jun/2026:21:05:55 +0000] "GET /health HTTP/1.1" 200 12 "-" "ELB-HealthChecker/2.0"
+192.168.1.22 - - [09/Jun/2026:21:08:12 +0000] "POST /api/v2/sms/send HTTP/1.1" 404 156 "-" "YourList-Web/1.0"
+192.168.1.22 - - [09/Jun/2026:21:08:44 +0000] "POST /api/sms/send HTTP/1.1" 400 58 "-" "YourList-Web/1.0"
+192.168.1.22 - - [09/Jun/2026:21:11:18 +0000] "POST /api/sms/send HTTP/1.1" 500 42 "-" "YourList-Web/1.0"
+192.168.1.22 - - [09/Jun/2026:21:13:02 +0000] "POST /api/sms/send?debug=1 HTTP/1.1" 500 42 "-" "YourList-Web/1.0"
+192.168.1.22 - - [09/Jun/2026:21:15:33 +0000] "POST /api/sms/send HTTP/1.1" 500 42 "-" "YourList-Web/1.0"
+192.168.1.10 - - [09/Jun/2026:21:16:01 +0000] "GET /static/logo.png HTTP/1.1" 304 0 "-" "Mozilla/5.0"

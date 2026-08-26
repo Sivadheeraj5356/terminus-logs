@@ -1,0 +1,5 @@
+{"event_id":"p1","timestamp":200,"op":"PAUSE","buffer_id":"BUF_B","lane_id":"-","qty":"0"}
+{"event_id":"i4","timestamp":210,"op":"INGEST","buffer_id":"BUF_B","lane_id":"L3","qty":"5"}
+{"event_id":"d3","timestamp":220,"op":"DISPATCH","buffer_id":"BUF_B","lane_id":"L3","qty":"2"}
+{"event_id":"u1","timestamp":230,"op":"UNPAUSE","buffer_id":"BUF_B","lane_id":"-","qty":"0"}
+{"event_id":"d4","timestamp":240,"op":"DISPATCH","buffer_id":"BUF_B","lane_id":"L3","qty":"4"}

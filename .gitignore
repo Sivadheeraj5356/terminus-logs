@@ -5,10 +5,13 @@ jobs/
 _jobs/
 .cache/
 
-# Keep extracted latest tasks; ignore other dropbox-tasks clutter
-dropbox-tasks/*
-!dropbox-tasks/latest/
-!dropbox-tasks/latest/**
+# Keep extracted latest tasks; ignore other tasks/ clutter
+tasks/*
+!tasks/latest/
+!tasks/latest/**
+
+# Legacy extract path — do not reintroduce
+dropbox-tasks/
 
 # Secrets at repo root. Task fixture .pem/.key files are part of the worlds.
 .env

@@ -10,16 +10,20 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE_DIR = ROOT / "dropbox-tasks" / "latest"
-INDEX_PATH = ROOT / "dropbox-tasks" / "_latest_index.json"
+SOURCE_DIR = ROOT / "tasks" / "latest"
+INDEX_PATH = ROOT / "catalog" / "_latest_index.json"
 CATALOG_DIR = ROOT / "catalog"
 TASK_CARDS_DIR = CATALOG_DIR / "tasks"
 JOB_SEARCH_ROOTS = [
-    ROOT / "dropbox-tasks" / "latest",
+    ROOT / "tasks" / "latest",
     ROOT / "jobs",
     ROOT / "_jobs",
     Path.home() / ".cache" / "harbor" / "jobs",
 ]
+UUID_RE = re.compile(
+    r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+    re.I,
+)
 
 PATH_RE = re.compile(r"(?:/app/[^\s)\]`'\"<>]+|[A-Za-z0-9_./-]+\.(?:txt|json|bin|py|sh|csv|pem|crt|key|md|html|R))")
 TIMEOUT_RE = re.compile(r"timeout|timed out|AgentTimeout|VerifierTimeout", re.I)
@@ -198,6 +202,23 @@ def derive_slug(task_dir: Path, task: dict, meta: dict, instruction: str) -> str
     return slugify(task_dir.name)
 
 
+def read_package_uuid(task_dir: Path) -> str:
+    for marker in (".extracted_from", ".extracted"):
+        path = task_dir / marker
+        if path.exists():
+            match = UUID_RE.search(path.read_text(encoding="utf-8", errors="replace"))
+            if match:
+                return match.group(0).lower()
+    if UUID_RE.fullmatch(task_dir.name):
+        return task_dir.name.lower()
+    summary = task_dir / "summary.md"
+    if summary.exists():
+        match = UUID_RE.search(summary.read_text(encoding="utf-8", errors="replace"))
+        if match:
+            return match.group(0).lower()
+    return task_dir.name
+
+
 def parse_task(task_dir: Path) -> dict:
     toml_path = task_dir / "task.toml"
     data = load_toml(toml_path)
@@ -214,13 +235,19 @@ def parse_task(task_dir: Path) -> dict:
         description = description[:397].rsplit(" ", 1)[0] + "..."
     category = meta.get("category") or ""
     tags = list(meta.get("tags") or task.get("keywords") or [])
-    slug = derive_slug(task_dir, task, meta, instruction)
+    uuid = read_package_uuid(task_dir)
+    if UUID_RE.fullmatch(task_dir.name):
+        slug = derive_slug(task_dir, task, meta, instruction)
+    else:
+        slug = task_dir.name
     has_oracle = first_existing(task_dir / "solution" / "solve.sh", task_dir / "solution" / "solve.bash") is not None
     test_sh = first_existing(task_dir / "tests" / "test.sh", task_dir / "tests" / "test.bat")
     test_py = list((task_dir / "tests").glob("test_*.py")) if (task_dir / "tests").exists() else []
     return {
         "id": slug,
-        "uuid": task_dir.name,
+        "uuid": uuid,
+        "sid": uuid,
+        "package_dir": f"tasks/latest/{slug}",
         "harbor_name": meta.get("name") or task.get("name") or slug,
         "description": description,
         "author": author,
@@ -262,9 +289,6 @@ def discover_job_roots() -> list[Path]:
     for root in JOB_SEARCH_ROOTS:
         if root.exists():
             roots.append(root)
-    extra = ROOT / "dropbox"
-    if extra.exists():
-        roots.append(extra)
     return roots
 
 
@@ -543,10 +567,10 @@ def main() -> None:
 
     inventory = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "dropbox_synced": True,
-        "dropbox_note": (
-            "Source is terminal-bench-tasks.zip (Dropbox folder). "
-            "Latest revision of each submission UUID was extracted to dropbox-tasks/latest. "
+        "archive_synced": True,
+        "archive_note": (
+            "Source is the private terminal-bench-tasks.zip archive. "
+            "Latest revision of each submission UUID was extracted to tasks/latest. "
             "Official GitHub terminal-bench-2 is not used."
         ),
         "task_source": str(SOURCE_DIR),
@@ -643,12 +667,12 @@ def main() -> None:
             f"{timeout if timeout is not None else '—'} | {score_s} | `{record['band']}` |"
         )
 
-    index = f"""# Dropbox Terminal-Bench task catalog
+    index = f"""# Terminal-Bench task catalog
 
 Generated {inventory['generated_at']}.
 
-Source: **Dropbox `terminal-bench-tasks.zip`** — latest revision of each
-submission UUID under `dropbox-tasks/latest` ({inventory['n_task_folders']} tasks).
+Source: private `terminal-bench-tasks.zip` archive — latest revision of each
+submission UUID under `tasks/latest` ({inventory['n_task_folders']} tasks).
 Official GitHub terminal-bench-2 is **not** included.
 Harbor trials found inside those submissions: **{inventory['n_local_trials']}**.
 
@@ -681,18 +705,18 @@ Harbor trials found inside those submissions: **{inventory['n_local_trials']}**.
 
     readme = f"""# Catalog notes
 
-Analysis catalog of the **Dropbox** Terminal-Bench tasks (`terminal-bench-tasks.zip`).
+Analysis catalog of the private Terminal-Bench archive (`terminal-bench-tasks.zip`).
 
 ## What is here
 
 - [index.md](index.md) — ranked table and stump bands
-- [tasks/](tasks/) — one card per Dropbox task (summary, logs, agent, stump)
+- [tasks/](tasks/) — one card per task (summary, logs, agent, stump)
 - [tasks.jsonl](tasks.jsonl) — machine-readable records
 - [inventory.json](inventory.json) — source inventory
 
 ## Sources used
 
-1. Task source: `dropbox-tasks/latest` — latest zip per submission UUID from
+1. Task source: `tasks/latest` — latest zip per submission UUID from
    `terminal-bench-tasks.zip` (1170 submission archives, 448 unique tasks).
 2. Harbor jobs: scanned `{', '.join(inventory['job_roots_configured'])}`.
    Found {inventory['n_local_trials']} trial `result.json` files inside the
@@ -707,7 +731,7 @@ Analysis catalog of the **Dropbox** Terminal-Bench tasks (`terminal-bench-tasks.
 - Rebuild:
 
 ```
-python scripts/unpack_dropbox.py
+python scripts/unpack_tasks.py
 python scripts/build_catalog.py
 ```
 """

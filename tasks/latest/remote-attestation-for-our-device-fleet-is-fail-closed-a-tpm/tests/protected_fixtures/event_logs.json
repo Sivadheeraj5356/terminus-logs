@@ -1,0 +1,290 @@
+[
+  {
+    "event_log_id": "elog-edge-ok",
+    "device_id": "dev-edge",
+    "events": [
+      {
+        "event_seq": 30,
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "version": "6.1.0",
+        "measurement_digest": "f43bc6aeceab8279b16cda7aaec9344aaaed6aacd8589764f1a8c2204c78b672"
+      },
+      {
+        "event_seq": 10,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "version": "1.0.0",
+        "measurement_digest": "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+      },
+      {
+        "event_seq": 40,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "version": "enabled",
+        "measurement_digest": "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+      },
+      {
+        "event_seq": 20,
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "version": "2.1.0",
+        "measurement_digest": "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-edge-forbidden",
+    "device_id": "dev-edge",
+    "events": [
+      {
+        "event_seq": 10,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "version": "1.0.0",
+        "measurement_digest": "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+      },
+      {
+        "event_seq": 20,
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "version": "2.1.0",
+        "measurement_digest": "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+      },
+      {
+        "event_seq": 30,
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "version": "6.1.0",
+        "measurement_digest": "f43bc6aeceab8279b16cda7aaec9344aaaed6aacd8589764f1a8c2204c78b672"
+      },
+      {
+        "event_seq": 40,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "version": "enabled",
+        "measurement_digest": "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+      },
+      {
+        "event_seq": 50,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_BOOT",
+        "component": "debug-loader",
+        "version": "evil",
+        "measurement_digest": "c729312e854b8d32cd8d52b370786673557ba8c5cd3219c3405eef6117dd5bd9"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-edge-mismatch",
+    "device_id": "dev-edge",
+    "events": [
+      {
+        "event_seq": 10,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "version": "1.0.0",
+        "measurement_digest": "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+      },
+      {
+        "event_seq": 20,
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "version": "2.1.0",
+        "measurement_digest": "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+      },
+      {
+        "event_seq": 30,
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "version": "6.1.0",
+        "measurement_digest": "0947c508092478cee4013be6292b4d05f7c1ff1604d7c5c533e0e583ad2b790f"
+      },
+      {
+        "event_seq": 40,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "version": "enabled",
+        "measurement_digest": "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-edge-order",
+    "device_id": "dev-edge",
+    "events": [
+      {
+        "event_seq": 10,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "version": "1.0.0",
+        "measurement_digest": "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+      },
+      {
+        "event_seq": 30,
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "version": "2.1.0",
+        "measurement_digest": "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+      },
+      {
+        "event_seq": 20,
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "version": "6.1.0",
+        "measurement_digest": "f43bc6aeceab8279b16cda7aaec9344aaaed6aacd8589764f1a8c2204c78b672"
+      },
+      {
+        "event_seq": 40,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "version": "enabled",
+        "measurement_digest": "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-edge-missing",
+    "device_id": "dev-edge",
+    "events": [
+      {
+        "event_seq": 10,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "version": "1.0.0",
+        "measurement_digest": "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+      },
+      {
+        "event_seq": 20,
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "version": "2.1.0",
+        "measurement_digest": "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+      },
+      {
+        "event_seq": 40,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "version": "enabled",
+        "measurement_digest": "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-edge-unknown",
+    "device_id": "dev-edge",
+    "events": [
+      {
+        "event_seq": 10,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "version": "1.0.0",
+        "measurement_digest": "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+      },
+      {
+        "event_seq": 20,
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "version": "2.1.0",
+        "measurement_digest": "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+      },
+      {
+        "event_seq": 30,
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "version": "6.1.0",
+        "measurement_digest": "f43bc6aeceab8279b16cda7aaec9344aaaed6aacd8589764f1a8c2204c78b672"
+      },
+      {
+        "event_seq": 40,
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "version": "enabled",
+        "measurement_digest": "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+      },
+      {
+        "event_seq": 45,
+        "pcr_index": 2,
+        "event_type": "EV_UNKNOWN",
+        "component": "mystery",
+        "version": "x",
+        "measurement_digest": "4f0d9e5f2d159c8bd63247f9470d09f15e1ff431cb88d5a101df49c4c01882e6"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-sensor-ok",
+    "device_id": "dev-sensor",
+    "events": [
+      {
+        "event_seq": 1,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "sensor-fw",
+        "version": "0.9",
+        "measurement_digest": "6fb8eb83e4f5760e9b3948518a5b5e23936c978085f4066539c4bfdeac5a3d4b"
+      },
+      {
+        "event_seq": 2,
+        "pcr_index": 0,
+        "event_type": "EV_COMPACT",
+        "component": "sensor-opt",
+        "version": "1.0",
+        "measurement_digest": "b537a584460cb26af59af54c02e526497880bae27840e807e0768a82fc1f0305"
+      },
+      {
+        "event_seq": 3,
+        "pcr_index": 0,
+        "event_type": "EV_UNKNOWN",
+        "component": "noise",
+        "version": "1",
+        "measurement_digest": "efe2a5c09e6d49d7eb735c9875f77404be5b887bb3f56378038968d4e3ff8198"
+      }
+    ]
+  },
+  {
+    "event_log_id": "elog-relay-ok",
+    "device_id": "dev-relay",
+    "events": [
+      {
+        "event_seq": 1,
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "relay-fw",
+        "version": "1.0",
+        "measurement_digest": "8e4ad4e9231dbf00d11a9e44521d812016351d3d358200954fce90108fe096aa"
+      },
+      {
+        "event_seq": 2,
+        "pcr_index": 2,
+        "event_type": "EV_SEPARATOR",
+        "component": "relay-cfg",
+        "version": "1.0",
+        "measurement_digest": "ed53dda697e15ca776abecccfc208e0179d1d705fb45505a43d90f00288b25ae"
+      }
+    ]
+  }
+]

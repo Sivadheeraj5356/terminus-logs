@@ -1,1 +1,0 @@
-Regression reports cover diagnostics, residual bins, and validation.

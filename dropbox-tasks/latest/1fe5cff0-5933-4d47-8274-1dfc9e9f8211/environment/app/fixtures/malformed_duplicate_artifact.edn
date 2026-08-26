@@ -1,9 +1,0 @@
-{"org.demo:dup"
- {"1.0.0" {:jar "repo/a.jar"
-           :sha256 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-           :license "MIT"
-           :deps []}
-  "1.0.0" {:jar "repo/b.jar"
-           :sha256 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-           :license "MIT"
-           :deps []}}}

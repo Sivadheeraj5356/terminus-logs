@@ -1,4 +1,4 @@
-"""Merge Harbor job results into Dropbox catalog cards."""
+"""Merge Harbor job results into catalog cards."""
 
 from __future__ import annotations
 
@@ -140,7 +140,7 @@ def band_for(stump_pct: float | None) -> str:
 
 def main() -> None:
     if not JSONL_PATH.exists():
-        raise SystemExit("catalog/tasks.jsonl missing; run build_dropbox_catalog.py first")
+        raise SystemExit("catalog/tasks.jsonl missing; run build_catalog.py first")
     trials = collect_trials()
     records = []
     with JSONL_PATH.open(encoding="utf-8") as fh:

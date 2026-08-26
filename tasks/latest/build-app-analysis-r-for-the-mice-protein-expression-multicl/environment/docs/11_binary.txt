@@ -1,0 +1,1 @@
+Binary reports cover threshold, calibration, coefficients, and optional subgroup metrics.

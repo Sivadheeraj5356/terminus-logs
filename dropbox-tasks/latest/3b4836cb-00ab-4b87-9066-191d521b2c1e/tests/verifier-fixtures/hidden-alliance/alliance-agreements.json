@@ -1,6 +1,0 @@
-{
-  "carriers": {
-    "UA": {"partners": ["LH", "AC"]},
-    "BA": {"partners": ["AA"]}
-  }
-}

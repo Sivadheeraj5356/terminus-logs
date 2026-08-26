@@ -1,0 +1,2 @@
+model_name: "reefnet-edge"
+confidence_threshold: 0.66

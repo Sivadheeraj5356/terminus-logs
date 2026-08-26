@@ -1,0 +1,6 @@
+Ops triage note (2026-06-09 21:20 UTC)
+---------------------------------------
+Frontend team says SMS is broken. Nginx shows 404 on /api/v2/sms/send — consider rolling back the v2 route deploy.
+Also seeing Telnyx spam filter 40002 in stderr; might be blocking all outbound SMS.
+
+Ignore for now: login and item POST lines in PM2 — unrelated smoke tests during deploy.

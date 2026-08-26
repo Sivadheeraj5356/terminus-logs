@@ -1,0 +1,22 @@
+column,description
+row_id,stable integer key
+age,client age
+job,type of job (mediates education)
+marital,marital status
+education,education level (PROTECTED ATTRIBUTE; must NOT be a model input)
+default,has credit in default
+housing,has housing loan
+loan,has personal loan
+contact,contact communication type
+month,last contact month
+day_of_week,last contact weekday
+campaign,contacts during this campaign
+pdays,days since last previous contact
+previous,number of prior contacts
+poutcome,previous campaign outcome
+emp.var.rate,employment variation rate
+cons.price.idx,consumer price index
+cons.conf.idx,consumer confidence index
+euribor3m,euribor 3 month rate
+nr.employed,number of employees
+y,subscribed (yes/no); blank for held-out contacts to score

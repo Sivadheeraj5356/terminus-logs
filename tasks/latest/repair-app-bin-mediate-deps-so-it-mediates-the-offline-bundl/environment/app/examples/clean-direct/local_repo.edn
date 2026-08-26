@@ -1,0 +1,5 @@
+{"org.demo:api"
+ {"1.2.3" {:jar "repo/org/demo/api/1.2.3/api.jar"
+           :sha256 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+           :license "Apache-2.0"
+           :deps []}}}

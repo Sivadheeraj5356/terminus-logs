@@ -1,0 +1,11 @@
+{
+  "rows": [
+    {
+      "peer_tag": "array_side",
+      "slots_free": 16,
+      "cleared_units": 12,
+      "lane_tick": 4,
+      "tick": 4
+    }
+  ]
+}

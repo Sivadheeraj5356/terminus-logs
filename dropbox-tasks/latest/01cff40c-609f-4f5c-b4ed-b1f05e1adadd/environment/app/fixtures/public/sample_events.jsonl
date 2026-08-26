@@ -1,5 +1,0 @@
-{"crop_label":"tomato","event_seq":1,"event_type":"ZONE_REGISTER","line_crc":"B0A4","zone_id":"zone-a"}
-{"batch_id":"batch-public-1","event_seq":2,"event_type":"BATCH_OPEN","line_crc":"309D","opened_at_unix":1714502400,"zone_id":"zone-a"}
-{"batch_id":"batch-public-1","ec_mS":2,"event_seq":3,"event_type":"DOSE_TICK","line_crc":"CE82","ph":6,"recorded_at_unix":1714502410,"volume_ml":500}
-{"batch_id":"batch-public-1","ec_mS":2,"event_seq":4,"event_type":"DOSE_TICK","line_crc":"3126","ph":6,"recorded_at_unix":1714502420,"volume_ml":500}
-{"batch_id":"batch-public-1","closed_at_unix":1714502500,"event_seq":5,"event_type":"BATCH_CLOSE","line_crc":"EB70"}

@@ -1,0 +1,6 @@
+{
+  "active_kid": "key-current",
+  "retiring_kid": "key-previous",
+  "rotated_at": 1717200000,
+  "grace_seconds": 3600
+}

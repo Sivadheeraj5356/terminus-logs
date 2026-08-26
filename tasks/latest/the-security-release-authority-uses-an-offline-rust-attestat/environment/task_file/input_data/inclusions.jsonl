@@ -1,0 +1,5 @@
+{"attestation_id":"att-api-build-a","leaf_index":0,"audit_path":[{"side":"right","hash":"0000000000000000000000000000000000000000000000000000000000000000"}]}
+{"attestation_id":"att-api-scan-a","leaf_index":0,"audit_path":[]}
+{"attestation_id":"att-worker-build-b","leaf_index":0,"audit_path":[]}
+{"attestation_id":"att-worker-scan-a","leaf_index":0,"audit_path":[]}
+{"attestation_id":"att-bad-build","leaf_index":0,"audit_path":[]}

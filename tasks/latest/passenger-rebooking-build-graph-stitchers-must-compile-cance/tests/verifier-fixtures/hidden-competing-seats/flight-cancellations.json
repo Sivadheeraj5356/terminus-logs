@@ -1,0 +1,13 @@
+{
+  "cancellations": [
+    {
+      "event_id": "CAN-H1",
+      "flight_id": "DL100",
+      "revision": 1,
+      "recorded_utc": "2026-06-30T18:00:00Z",
+      "replacement_pool": [
+        {"flight_id": "DL200", "carrier": "DL", "fare_class": "J"}
+      ]
+    }
+  ]
+}

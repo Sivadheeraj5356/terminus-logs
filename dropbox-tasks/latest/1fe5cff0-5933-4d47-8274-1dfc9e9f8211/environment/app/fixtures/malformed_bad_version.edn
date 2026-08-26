@@ -1,5 +1,0 @@
-{"org.demo:bad"
- {"not-a-version" {:jar "repo/bad.jar"
-                   :sha256 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                   :license "MIT"
-                   :deps []}}}

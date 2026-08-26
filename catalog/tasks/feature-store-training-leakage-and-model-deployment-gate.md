@@ -3,7 +3,7 @@
 Submission: `fd6e06f4-5580-4ea5-9d04-8af9d848f5c0`  
 Slug: `feature-store-training-leakage-and-model-deployment-gate`  
 Latest archive: `fd6e06f4-5580-4ea5-9d04-8af9d848f5c0_submission_2026-07-20T22_14_59.402Z.zip`  
-Revisions in Dropbox: 1
+Revisions: 1
 
 ## Task summary
 
@@ -27,7 +27,7 @@ Harbor smoke runs are in `jobs/`. Oracle (`jobs/smoke-oracle`) scored **reward 1
 
 ## Agent summary
 
-Terminus-2 started inside the container (`recording.cast` exists) and received the feature-store instruction, then the LLM call failed before any agent commands ran. No real attempt, plan, or wrong turn was recorded. `ANTHROPIC_API_KEY` on this machine is an OpenAI-style `sk-proj-...` key and is rejected by both Anthropic and OpenAI. A valid `sk-ant-...` or working `OPENAI_API_KEY` is required to produce a real agent summary. After that, run `scripts/run_dropbox_agents.ps1` then `python scripts/update_catalog_from_jobs.py`.
+Terminus-2 started inside the container (`recording.cast` exists) and received the feature-store instruction, then the LLM call failed before any agent commands ran. No real attempt, plan, or wrong turn was recorded. `ANTHROPIC_API_KEY` on this machine is an OpenAI-style `sk-proj-...` key and is rejected by both Anthropic and OpenAI. A valid `sk-ant-...` or working `OPENAI_API_KEY` is required to produce a real agent summary. After that, run `scripts/run_agents.ps1` then `python scripts/update_catalog_from_jobs.py`.
 
 ## Stump the models?
 

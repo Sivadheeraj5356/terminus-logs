@@ -1,1 +1,0 @@
-Predictions contain test rows sorted by row_id.

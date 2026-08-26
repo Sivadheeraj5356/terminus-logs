@@ -1,4 +1,0 @@
-workstation_id,hostname,chip_family,kernel_release,fixture_workload,ptrace_scope,core_pattern,suid_dumpable,coredump_conf_present,in_debug_group,in_media_group,ulimit_core_soft,ulimit_core_hard,scratch_perms,scratch_owner,scratch_group,fs_immutable
-ws-007,render-c01,apple-silicon,6.7.4,tiff,3,|/bin/false,2,false,false,true,0,0,0770,mediauser,media,false
-ws-008,render-c02,apple-silicon,6.7.4,png,3,core,2,false,true,false,0,0,2770,mediauser,media,false
-ws-009,render-c03,apple-silicon,6.7.4,mp4,0,|/bin/false,0,true,true,true,unlimited,unlimited,2775,mediauser,media,false

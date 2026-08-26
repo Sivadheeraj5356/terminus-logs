@@ -1,8 +1,0 @@
-# Export scope and digest fold settings for volume-side dashboards.
-
-export_transcript_mode = "active_window"
-export_epoch_from_transcript_tail = true
-export_use_first_digest_slots = false
-align_preserve_fixture_units_on_append = false
-digest_fold_prior_on_second_pass = false
-digest_use_array_slots_on_second_pass = false

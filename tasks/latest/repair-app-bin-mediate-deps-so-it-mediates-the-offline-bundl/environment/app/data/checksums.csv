@@ -1,0 +1,5 @@
+coord,version,sha256
+org.alpha:core,1.8.0,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+org.alpha:gateway,1.5.0,bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+org.beta:app,2.0.0,cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+org.demo:util,2.1.0,dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd

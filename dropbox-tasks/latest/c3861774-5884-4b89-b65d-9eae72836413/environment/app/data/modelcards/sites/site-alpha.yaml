@@ -1,3 +1,0 @@
-model_name: "reefnet-lite"
-confidence_threshold: 0.4
-labels_version: "labels-2025.09-pilot"

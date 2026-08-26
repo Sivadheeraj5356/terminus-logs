@@ -1,0 +1,15 @@
+{
+  "circuit_id": "circ_42",
+  "qubits": 1,
+  "gates": [
+    {
+      "op": "RZ",
+      "qubit": 0,
+      "theta": 1.5707963267948966
+    },
+    {
+      "op": "H",
+      "qubit": 0
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "scene_id": "scene_10",
+  "bodies": {
+    "A": {"layer": 1, "mass": 1.0, "sleeping": false},
+    "B": {"layer": 2, "mass": 1.0, "sleeping": false}
+  },
+  "layers": {"1": 2, "2": 1},
+  "frames": [
+    {
+      "frame": 0,
+      "contacts": [{"contact_id": "c1", "body_a": "A", "body_b": "B", "normal_y": 1.0, "penetration_m": 0.0005, "friction": 0.4, "restitution": 0.3, "manifold_id": "m10", "impulse_normal": 0.5, "impulse_tangent": 0.02}],
+      "positions": {"A": [0.0, 1.0], "B": [0.0, 0.0]},
+      "velocities": {"A": [0.0, -0.1], "B": [0.0, 0.0]},
+      "broadphase": [["A", "B"]],
+      "narrowphase": [["A", "B"]],
+      "constraints": []
+    },
+    {"frame": 1, "contacts": [], "positions": {"A": [0.0, 1.0], "B": [0.0, 0.0]}, "velocities": {"A": [0.0, 0.0], "B": [0.0, 0.0]}, "broadphase": [], "narrowphase": [], "constraints": []},
+    {"frame": 2, "contacts": [], "positions": {"A": [0.0, 1.0], "B": [0.0, 0.0]}, "velocities": {"A": [0.0, 0.0], "B": [0.0, 0.0]}, "broadphase": [], "narrowphase": [], "constraints": []},
+    {"frame": 3, "contacts": [], "positions": {"A": [0.0, 1.0], "B": [0.0, 0.0]}, "velocities": {"A": [0.0, 0.0], "B": [0.0, 0.0]}, "broadphase": [], "narrowphase": [], "constraints": []},
+    {"frame": 4, "contacts": [], "positions": {"A": [0.0, 1.0], "B": [0.0, 0.0]}, "velocities": {"A": [0.0, 0.0], "B": [0.0, 0.0]}, "broadphase": [], "narrowphase": [], "constraints": []}
+  ],
+  "stress": {"schedules": [{"schedule_id": "s1", "frame_order": [0, 1]}]}
+}

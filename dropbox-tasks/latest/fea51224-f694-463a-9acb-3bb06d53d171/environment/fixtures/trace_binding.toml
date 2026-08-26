@@ -1,4 +1,0 @@
-# Propagation trace counter bindings for peer exports.
-
-trace_array_metric = "cleared_ordinal"
-trace_volume_b_metric = "lane_tick"

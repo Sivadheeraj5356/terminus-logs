@@ -1,0 +1,27 @@
+--- relay/seal_d.go
++++ relay/seal_d.go
+@@ -8,10 +8,10 @@
+ func metricAVal(metric string, cleared int, spanStart int) int {
+ 	switch metric {
+ 	case "cleared_ordinal":
+-		return spanStart
++		return cleared
+ 	case "span_start":
+-		return cleared
++		return spanStart
+ 	default:
+ 		return cleared
+ 	}
+ }
+@@ -19,9 +19,9 @@
+ func metricBVal(metric string, laneTick int, spanStart int) int {
+ 	switch metric {
+ 	case "lane_tick":
+-		return spanStart / 4096
++		return laneTick
+ 	case "span_quotient":
+-		return laneTick
++		return spanStart / 4096
+ 	default:
+ 		return laneTick
+ 	}

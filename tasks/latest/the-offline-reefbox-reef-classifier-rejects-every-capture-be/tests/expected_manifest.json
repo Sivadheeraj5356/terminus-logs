@@ -1,0 +1,261 @@
+{
+  "manifest_version": "1.0",
+  "channel_order": [
+    "RED",
+    "GREEN",
+    "NIR"
+  ],
+  "devices": [
+    {
+      "device_id": "RBX-0922",
+      "site": "site-coral",
+      "source_png": "reef_008.png",
+      "sensor_variant": "A",
+      "channel_scales": {
+        "RED": 1.026745,
+        "GREEN": 0.872549,
+        "NIR": 1.136471
+      },
+      "model_name": "reefnet",
+      "model_version": "3.2.5",
+      "input_size": [
+        640,
+        640
+      ],
+      "confidence_threshold": 0.45,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-0A11",
+      "site": "site-alpha",
+      "source_png": "reef_002.png",
+      "sensor_variant": "B",
+      "channel_scales": {
+        "RED": 0.929882,
+        "GREEN": 1.04,
+        "NIR": 0.862745
+      },
+      "model_name": "reefnet-lite",
+      "model_version": "3.0.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.4,
+      "labels_version": "labels-2025.09-pilot"
+    },
+    {
+      "device_id": "RBX-0AF0",
+      "site": "site-bravo",
+      "source_png": "reef_012.png",
+      "sensor_variant": "A",
+      "channel_scales": {
+        "RED": 0.936275,
+        "GREEN": 1.003059,
+        "NIR": 1.09
+      },
+      "model_name": "reefnet",
+      "model_version": "3.0.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.3,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-0B57",
+      "site": "site-coral",
+      "source_png": "reef_004.png",
+      "sensor_variant": "B",
+      "channel_scales": {
+        "RED": 1.156863,
+        "GREEN": 0.949863,
+        "NIR": 0.996
+      },
+      "model_name": "reefnet",
+      "model_version": "3.2.0",
+      "input_size": [
+        640,
+        640
+      ],
+      "confidence_threshold": 0.45,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-0C90",
+      "site": "site-bravo",
+      "source_png": "reef_003.png",
+      "sensor_variant": "A",
+      "channel_scales": {
+        "RED": 0.91,
+        "GREEN": 0.99,
+        "NIR": 1.075
+      },
+      "model_name": "reefnet-pro",
+      "model_version": "3.5.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.3,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-0D33",
+      "site": "site-delta",
+      "source_png": "reef_005.png",
+      "sensor_variant": "A",
+      "channel_scales": {
+        "RED": 0.821804,
+        "GREEN": 1.11,
+        "NIR": 0.893529
+      },
+      "model_name": "reefnet",
+      "model_version": "3.1.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.3,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-0E48",
+      "site": "site-alpha",
+      "source_png": "reef_006.png",
+      "sensor_variant": "B",
+      "channel_scales": {
+        "RED": 0.94,
+        "GREEN": 1.005,
+        "NIR": 0.975
+      },
+      "model_name": "reefnet-lite",
+      "model_version": "3.0.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.4,
+      "labels_version": "labels-2025.09-pilot"
+    },
+    {
+      "device_id": "RBX-0F2A",
+      "site": "site-coral",
+      "source_png": "reef_001.png",
+      "sensor_variant": "A",
+      "channel_scales": {
+        "RED": 0.984314,
+        "GREEN": 0.911278,
+        "NIR": 1.125
+      },
+      "model_name": "reefnet",
+      "model_version": "3.2.1",
+      "input_size": [
+        640,
+        640
+      ],
+      "confidence_threshold": 0.45,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-10B4",
+      "site": "site-delta",
+      "source_png": "reef_010.png",
+      "sensor_variant": "B",
+      "channel_scales": {
+        "RED": 0.985,
+        "GREEN": 1.025,
+        "NIR": 0.922706
+      },
+      "model_name": "reefnet-edge",
+      "model_version": "3.1.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.3,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-2C5A",
+      "site": "site-bravo",
+      "source_png": "reef_015.png",
+      "sensor_variant": "B",
+      "channel_scales": {
+        "RED": 0.98,
+        "GREEN": 1.029412,
+        "NIR": 0.889412
+      },
+      "model_name": "reefnet",
+      "model_version": "3.4.0",
+      "input_size": [
+        512,
+        512
+      ],
+      "confidence_threshold": 0.3,
+      "labels_version": "labels-2026.01"
+    },
+    {
+      "device_id": "RBX-3D6B",
+      "site": "site-coral",
+      "source_png": "reef_018.png",
+      "sensor_variant": "A",
+      "channel_scales": {
+        "RED": 1.01,
+        "GREEN": 0.915412,
+        "NIR": 1.074118
+      },
+      "model_name": "reefnet",
+      "model_version": "3.2.0",
+      "input_size": [
+        640,
+        640
+      ],
+      "confidence_threshold": 0.45,
+      "labels_version": "labels-2026.01"
+    }
+  ],
+  "quarantined": [
+    {
+      "source_png": "reef_007.png",
+      "reason": "sensor_variant_c"
+    },
+    {
+      "source_png": "reef_009.png",
+      "reason": "missing_calibration"
+    },
+    {
+      "source_png": "reef_011.png",
+      "reason": "superseded"
+    },
+    {
+      "source_png": "reef_013.png",
+      "reason": "unknown_site"
+    },
+    {
+      "source_png": "reef_014.png",
+      "reason": "superseded"
+    },
+    {
+      "source_png": "reef_016.png",
+      "reason": "superseded"
+    },
+    {
+      "source_png": "reef_017.png",
+      "reason": "sensor_variant_c"
+    },
+    {
+      "source_png": "reef_019.png",
+      "reason": "bad_checksum"
+    },
+    {
+      "source_png": "reef_020.png",
+      "reason": "bad_checksum"
+    }
+  ],
+  "summary": {
+    "included": 11,
+    "quarantined": 9
+  }
+}

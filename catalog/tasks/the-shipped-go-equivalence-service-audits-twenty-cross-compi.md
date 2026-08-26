@@ -3,7 +3,7 @@
 Submission: `887c1838-7921-488f-9548-370711c061ef`  
 Slug: `the-shipped-go-equivalence-service-audits-twenty-cross-compi`  
 Latest archive: `887c1838-7921-488f-9548-370711c061ef_submission_2026-07-19T17_29_15.395Z (2).zip`  
-Revisions in Dropbox: 5
+Revisions: 5
 
 ## Task summary
 
@@ -23,7 +23,7 @@ Terminus-style flags (inspiration only): well-specified=yes, outcome-verified=ye
 
 ## Log summary
 
-Dropbox archive `887c1838-7921-488f-9548-370711c061ef_submission_2026-07-19T17_29_15.395Z (2).zip` is a task submission, not a Harbor job. 5 revision zip(s) exist for this submission id. This latest zip contains result.json/reward.txt — see extracted files.
+Archive `887c1838-7921-488f-9548-370711c061ef_submission_2026-07-19T17_29_15.395Z (2).zip` is a task submission, not a Harbor job. 5 revision zip(s) exist for this submission id. This latest zip contains result.json/reward.txt — see extracted files.
 
 ## Agent summary
 
@@ -31,6 +31,6 @@ No agent trajectories were packed in these submission zips. Likely failure modes
 
 ## Stump the models?
 
-- Local Harbor trials: none in Dropbox zip
+- Local Harbor trials: none in the archive
 - Valid-fail stump %: unknown
 - Band: `no_logs`

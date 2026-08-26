@@ -1,0 +1,46 @@
+{
+  "bundle_id": "exact_weight_match",
+  "custodians": {
+    "alpha": {
+      "public_key_hex": "c2ae7dc96d48e10ab7d41ab2f4ee91303b76b64496f8b92504220f515437d79c",
+      "weight": 3
+    },
+    "beta": {
+      "public_key_hex": "0f04e22af3ff0d9d5d22f3e9252ca569fa391f96bd652cd21522a191e9dd0cce",
+      "weight": 2
+    },
+    "delta": {
+      "public_key_hex": "9a1e1101475391cbed9f074b115d3686a43b2c0d0237ba5e367d8bca28c251e6",
+      "weight": 1
+    },
+    "epsilon": {
+      "public_key_hex": "f362e921c2a39ce63912b4547300b8b48aef69b6b25bcd1bc79be388a6149442",
+      "weight": 1
+    },
+    "gamma": {
+      "public_key_hex": "d78ba7727f3f59caf7f9f6a16ab28db1b70dfbe50363c61263319663e2ed3f9d",
+      "weight": 2
+    }
+  },
+  "queries": [
+    {
+      "artifact_sha256_hex": "139ae465e7e9d7f8ffca547b009b45f6cbcffc76e0bdbd7ddf0a8ba75d547431",
+      "eval_at": 1700000000,
+      "min_weight": 5,
+      "query_id": "edge",
+      "release_epoch": 1699999940,
+      "scope": "custody|release|/artifacts/stage/",
+      "signatures": [
+        {
+          "custodian_id": "alpha",
+          "signature_hex": "e758869c729fdb8672aeb9d59a9a11a8f7af7ed0c045d7eed7ea7ad764236398cc87aa7ea805d17737c364c2fb26123690fa5ed9c668f4fa813cc67375930608"
+        },
+        {
+          "custodian_id": "gamma",
+          "signature_hex": "c51dee506988e762ac9c91b1ded2bf88fbc54db41ad7a659dd05aff28a1f22a64d05e5712d8c1a35580828865f8272eee10cf5747ee09216aab5be905db6610f"
+        }
+      ]
+    }
+  ],
+  "revoked_custodians": []
+}

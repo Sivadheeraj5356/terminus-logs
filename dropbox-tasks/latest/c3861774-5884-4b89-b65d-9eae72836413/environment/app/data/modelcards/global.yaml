@@ -1,6 +1,0 @@
-model_name: "reefnet"
-model_version: "3.0.0"
-input_size: [512, 512]
-confidence_threshold: 0.3
-labels_version: "labels-2026.01"
-allowed_sites: [site-alpha, site-bravo, site-coral, site-delta]

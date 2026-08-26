@@ -1,2 +1,0 @@
-[{:coord "org.alpha:gateway" :version "1.5.0" :scope :compile :optional false :exclusions ["org.demo:json"]}
- {:coord "org.beta:app" :version "2.0.0" :scope :compile :optional false :exclusions []}]

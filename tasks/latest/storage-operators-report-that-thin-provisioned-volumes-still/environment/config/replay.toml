@@ -1,0 +1,20 @@
+[[peer]]
+
+peer_tag = "array_side"
+
+path = "/dev/sda"
+
+
+
+[[peer]]
+
+peer_tag = "vol_side"
+
+path = "/dev/mapper/vg-data"
+
+
+
+trace_array_metric = "span_start"
+
+trace_volume_b_metric = "span_quotient"
+

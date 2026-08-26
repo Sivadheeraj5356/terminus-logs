@@ -1,5 +1,0 @@
-{"org.final:a"
- {"1.0.0" {:jar "repo/org/final/a/1.0.0/a.jar"
-           :sha256 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-           :license "Apache-2.0"
-           :deps []}}}

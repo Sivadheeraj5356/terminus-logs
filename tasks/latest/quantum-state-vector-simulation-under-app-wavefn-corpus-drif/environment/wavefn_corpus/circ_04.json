@@ -1,0 +1,18 @@
+{
+  "circuit_id": "circ_04",
+  "qubits": 1,
+  "gates": [
+    {
+      "op": "H",
+      "qubit": 0
+    },
+    {
+      "op": "Z",
+      "qubit": 0
+    },
+    {
+      "op": "H",
+      "qubit": 0
+    }
+  ]
+}

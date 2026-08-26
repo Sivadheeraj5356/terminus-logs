@@ -1,0 +1,13 @@
+{
+  "flights": [
+    {
+      "flight_id": "UA821",
+      "carrier": "UA",
+      "origin": "SFO",
+      "destination": "LAX",
+      "departure_utc": "2026-09-02T16:00:00Z",
+      "arrival_utc": "2026-09-02T17:30:00Z",
+      "inventory": {"F": 0, "J": 0, "W": 4, "Y": 0}
+    }
+  ]
+}

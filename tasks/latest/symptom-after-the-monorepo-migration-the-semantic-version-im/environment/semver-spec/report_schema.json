@@ -1,0 +1,60 @@
+{
+  "root": {"projects": "array"},
+  "project_keys_order": [
+    "project_id",
+    "status",
+    "risk_score",
+    "upgrade_order",
+    "packages_impacted",
+    "constraint_violations",
+    "propagation_paths",
+    "schedule_conflicts"
+  ],
+  "package_impact_keys_order": [
+    "package_name",
+    "bump_type",
+    "blast_radius",
+    "risk_score",
+    "tier"
+  ],
+  "output_json": {
+    "compact": true,
+    "no_spaces_after_colon_or_comma": true,
+    "no_null": true,
+    "trailing_newline": true,
+    "exactly_one_trailing_newline": true,
+    "float_style": "shortest decimal with trailing .0 when integer-valued after round4 for risk_score fields; every risk_score must include a decimal point",
+    "arrays_empty_not_null": true
+  },
+  "raw_json_key_order": {
+    "project": "project_id before status before risk_score",
+    "package": "package_name before bump_type"
+  },
+  "status_values": ["BLOCKED", "RISK", "SAFE"],
+  "tier_values": ["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+  "project_order": "project_01 through project_20 per /app/release-graphs/workspace_manifest.json",
+  "propagation_path_example": "app-shell->core-lib|major|blocked",
+  "propagation_path_status_token_exact": "blocked",
+  "peer_edges_never_in_constraint_violations_or_blocked": true,
+  "package_risk_score_formula": "round4 project_risk times blast_radius over max_blast",
+  "build_outputs": {
+    "binary": "/app/build/svis",
+    "report": "/app/build/impact_report.json",
+    "build_dir_exact_members": ["svis", "impact_report.json"]
+  },
+  "main_go_contract": {
+    "must_contain_absolute_paths": [
+      "/app/release-graphs",
+      "workspace_manifest.json",
+      "/app/build/impact_report.json"
+    ],
+    "forbidden_substrings": [
+      "os/exec",
+      "bash -c",
+      ";curl",
+      ";wget",
+      ";bash",
+      ";sh"
+    ]
+  }
+}

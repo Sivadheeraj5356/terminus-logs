@@ -1,0 +1,20 @@
+# The Node.js CLI in `/app` evaluates an offline model-release cohort ledger. Comp
+
+- **UUID:** `1b17e5ed-99fd-44e3-bd00-aa45a5c1d61d`
+- **Slug:** `the-node-js-cli-in-app-evaluates-an-offline-model-release-co`
+- **Category:** machine-learning
+- **Difficulty:** hard
+
+## Summary
+
+The Node.js CLI in `/app` evaluates an offline model-release cohort ledger. Complete `/app/src/release.js`, keeping `/app/bin/model-release.js <input-json>` as the command interface, so it reads one JSON document from the input path, resolves each query against the applicable release snapshot, and prints deterministic model assignments as JSON to stdout.
+
+Treat `/app/MODEL_RELEASE_CONTRACT.md` as the binding public reference. It defines the input schema, subject canonicalization, release snapshot selection, prerequisite behavior, variant selection hierarchy, output fields, source strings, blocked states, and edge cases.
+
+## Harbor package
+
+- [instruction.md](instruction.md) — full agent prompt
+- [task.toml](task.toml) — Harbor metadata and timeouts
+- [environment/](environment/) — Docker world / fixtures
+- [solution/](solution/) — oracle solution
+- [tests/](tests/) — verifier

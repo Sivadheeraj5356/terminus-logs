@@ -1,0 +1,2 @@
+[{:coord "org.alpha:a" :version "1.0.0" :scope :compile :optional false :exclusions []}
+ {:coord "org.beta:b" :version "1.0.0" :scope :compile :optional false :exclusions []}]

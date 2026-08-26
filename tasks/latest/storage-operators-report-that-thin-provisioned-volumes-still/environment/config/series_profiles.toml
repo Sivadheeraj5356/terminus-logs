@@ -1,0 +1,14 @@
+[profiles.trim_dashboard]
+
+num_field = "fill_num"
+
+den_field = "fill_den"
+
+
+
+[profiles.group_inventory]
+
+num_field = "group_num"
+
+den_field = "group_den"
+

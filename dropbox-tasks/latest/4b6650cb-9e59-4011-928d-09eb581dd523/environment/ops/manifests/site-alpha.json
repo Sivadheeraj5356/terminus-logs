@@ -1,7 +1,0 @@
-{
-  "bound_rotate": 10,
-  "slack": 1,
-  "sweep_mask": 255,
-  "window_width_ms": 5000,
-  "manifest_gen": 3
-}

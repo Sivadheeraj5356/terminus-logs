@@ -1,0 +1,24 @@
+--- catalog/series_h.go
++++ catalog/series_h.go
+@@ -98,10 +98,18 @@
+ 		return ratio
+ 	}
+ 	fields := loadVolFields(root)
+ 	profile := activeProfile(root)
+-	_ = loadProfile(profile, root)
++	pf := loadProfile(profile, root)
++	numKey := pf.NumField
++	denKey := pf.DenField
++	if numKey == "" {
++		numKey = "fill_num"
++	}
++	if denKey == "" {
++		denKey = "fill_den"
++	}
+ 	return store.UtilRatio{
+-		SeriesNum: fields["group_num"],
+-		SeriesDen: fields["group_den"],
++		SeriesNum: fields[numKey],
++		SeriesDen: fields[denKey],
+ 	}
+ }

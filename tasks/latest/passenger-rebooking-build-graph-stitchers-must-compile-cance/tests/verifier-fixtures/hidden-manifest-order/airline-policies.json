@@ -1,0 +1,11 @@
+{
+  "connection_protection_minutes": 45,
+  "priority_weight": {
+    "loyalty": {"platinum": 400, "gold": 300, "silver": 200, "none": 100},
+    "fare_class": {"F": 40, "J": 30, "W": 20, "Y": 10}
+  },
+  "fare_class_rank": {"F": 4, "J": 3, "W": 2, "Y": 1},
+  "upgrade_on_cancel": true,
+  "max_fare_upgrade_steps": 1,
+  "priority_pick_mode": "manifest_passenger_order"
+}
