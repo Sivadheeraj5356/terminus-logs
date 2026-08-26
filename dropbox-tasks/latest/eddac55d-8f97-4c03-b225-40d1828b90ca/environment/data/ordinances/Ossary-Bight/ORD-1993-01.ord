@@ -1,0 +1,9 @@
+ordinance: ORD-1993-01
+jurisdiction: Ossary-Bight
+enacted: 1993-05-02
+effective: 1991-03-31T01:00:00 universal
+standard-offset: +08:00:00
+standard-label: OST
+observance:
+  begin: Mar lastSun 01:00:00 universal save +01:00:00 label ODT
+  end: Oct lastSun 01:00:00 universal

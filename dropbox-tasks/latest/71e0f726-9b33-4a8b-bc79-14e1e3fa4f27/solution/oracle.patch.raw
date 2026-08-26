@@ -1,0 +1,218 @@
+diff -ru before/fp3/gateway.rs after/fp3/gateway.rs
+--- before/fp3/gateway.rs	2026-07-05 16:34:56
++++ after/fp3/gateway.rs	2026-07-05 16:34:57
+@@ -21,7 +21,7 @@
+     let k3_steps = fp3_tail_f::tail_p(scenario_id, &roots);
+     let g2_steps = sr5_gate_f::gate_k(scenario_id, &roots);
+     let mut seen = HashSet::new();
+-    for step in g2_steps.iter().chain(k3_steps.iter()) {
++    for step in k3_steps.iter().chain(g2_steps.iter()) {
+         if !seen.insert((*step).to_string()) {
+             continue;
+         }
+diff -ru before/fp3/tail_f.rs after/fp3/tail_f.rs
+--- before/fp3/tail_f.rs	2026-07-05 16:34:56
++++ after/fp3/tail_f.rs	2026-07-05 16:34:57
+@@ -6,7 +6,7 @@
+ 
+ pub fn tail_seq(input: &scan::ScenarioInput) -> u64 {
+     if input.scenario >= 1 && input.rank_a >= 2 {
+-        input.stage
++        input.anchor
+     } else {
+         input.anchor
+     }
+@@ -19,7 +19,7 @@
+         scan::parse_root(&roots[0], scenario_id).rank_a
+     };
+     if scenario_id >= 1 && rank_lane_even(rank_a) {
+-        return vec!["stage", "clean", "release", "done", "settle", "sample"];
++        return vec!["stage", "release", "clean", "done", "settle", "sample"];
+     }
+     vec!["stage", "clean", "release", "done", "settle", "sample"]
+ }
+diff -ru before/pack/emit_gateway.rs after/pack/emit_gateway.rs
+--- before/pack/emit_gateway.rs	2026-07-05 16:34:56
++++ after/pack/emit_gateway.rs	2026-07-05 16:34:57
+@@ -17,13 +17,13 @@
+         return false;
+     }
+     let rows = load_epochs(state_dir);
+-    let (_fp_xr, sk_sr): (Vec<Value>, Vec<Value>) = rows.into_iter().partition(|row| {
++    let (left, right): (Vec<Value>, Vec<Value>) = rows.into_iter().partition(|row| {
+         matches!(
+             row.get("phase").and_then(|v| v.as_str()),
+-            Some("fp3") | Some("xr4")
++            Some("sr5") | Some("sk8")
+         )
+     });
+-    let folded = fold_k(&sk_sr, &[]);
++    let folded = fold_k(&left, &right);
+     let bundle = json!({
+         "rows": folded,
+         "chain_fingerprint": fingerprint(&folded),
+diff -ru before/pack/fold_k.rs after/pack/fold_k.rs
+--- before/pack/fold_k.rs	2026-07-05 16:34:56
++++ after/pack/fold_k.rs	2026-07-05 16:34:57
+@@ -19,11 +19,7 @@
+         .filter(|row| required.iter().all(|f| row.get(*f).is_some()))
+         .cloned()
+         .collect();
+-    out.sort_by(|a, b| {
+-        let sa = a.get("sequence").and_then(|v| v.as_i64()).unwrap_or(0);
+-        let sb = b.get("sequence").and_then(|v| v.as_i64()).unwrap_or(0);
+-        sa.cmp(&sb)
+-    });
++    out.sort_by(|a, b| sort_key(a).cmp(&sort_key(b)));
+     out
+ }
+ 
+diff -ru before/pack/mix_k9.rs after/pack/mix_k9.rs
+--- before/pack/mix_k9.rs	2026-07-05 16:34:56
++++ after/pack/mix_k9.rs	2026-07-05 16:34:57
+@@ -9,8 +9,7 @@
+         let member = row.get("target").and_then(|v| v.as_str()).unwrap_or("");
+         let marker = row.get("marker").and_then(|v| v.as_str()).unwrap_or("");
+         let sequence = row.get("sequence").and_then(|v| v.as_i64()).unwrap_or(0);
+-        let epoch = row.get("epoch").and_then(|v| v.as_i64()).unwrap_or(0);
+-        parts.push(format!("{scenario},{phase},{member},{marker},{sequence},{epoch}"));
++        parts.push(format!("{scenario},{phase},{member},{marker},{sequence}"));
+     }
+     parts.sort();
+     let payload = parts.join("\n") + "\n";
+diff -ru before/sk8/gateway.rs after/sk8/gateway.rs
+--- before/sk8/gateway.rs	2026-07-05 16:34:56
++++ after/sk8/gateway.rs	2026-07-05 16:34:57
+@@ -17,11 +17,16 @@
+     let flag_moot = state_dir.join("signal");
+     let _ = fs::create_dir_all(&flag_moot);
+     let key = format!("s{}-{}", input.scenario, input.source);
+-    let (_stored_seq, _stored_sig) = pulse_a(&flag_moot.to_string_lossy(), &key);
+     sk8_shadow_signal::count_post(&flag_moot.to_string_lossy(), &key);
+ 
+-    let sequence = pulse_seq(input);
++    let mut sequence = pulse_seq(input);
+     let count = invoke_count(state_dir, input.scenario);
++    if count > 1 {
++        let (stored_seq, stored_sig) = pulse_a(&flag_moot.to_string_lossy(), &key);
++        if stored_sig as u64 == input.sig && stored_seq > 0 {
++            sequence = stored_seq as u64;
++        }
++    }
+     if count == 1 {
+         write_pulse_slot(
+             &flag_moot.to_string_lossy(),
+@@ -35,6 +40,11 @@
+     vec![row.to_value()]
+ }
+ 
++fn epoch_cache_should_accumulate(scenario_id: u32, prior_rows: usize) -> bool {
++    let _ = (scenario_id, prior_rows);
++    false
++}
++
+ pub fn save_epoch_cache(scenario_id: u32, rows: &[Value], state_dir: &Path) {
+     let cache = state_dir.join(format!("epoch_{scenario_id}.json"));
+     let mut folded: Vec<Value> = Vec::new();
+@@ -43,6 +53,10 @@
+             folded = serde_json::from_str(&text).unwrap_or_default();
+         }
+     }
+-    folded.extend(rows.iter().cloned());
++    if epoch_cache_should_accumulate(scenario_id, folded.len()) {
++        folded.extend(rows.iter().cloned());
++    } else {
++        folded = rows.to_vec();
++    }
+     let _ = fs::write(cache, serde_json::to_string(&folded).unwrap());
+ }
+diff -ru before/sk8/signal_f.rs after/sk8/signal_f.rs
+--- before/sk8/signal_f.rs	2026-07-05 16:34:56
++++ after/sk8/signal_f.rs	2026-07-05 16:34:57
+@@ -8,7 +8,7 @@
+ 
+ pub fn pulse_seq(input: &ScenarioInput) -> u64 {
+     if xfer_lead_band(input) {
+-        input.issue
++        input.settle + 1
+     } else {
+         input.settle + 1
+     }
+diff -ru before/sr5/gate_f.rs after/sr5/gate_f.rs
+--- before/sr5/gate_f.rs	2026-07-05 16:34:56
++++ after/sr5/gate_f.rs	2026-07-05 16:34:57
+@@ -2,9 +2,9 @@
+ 
+ pub fn epoch_r(input: &ScenarioInput, mount_sig: u32) -> u64 {
+     if input.scenario >= 1 && mount_sig != 0 && (input.sig as u32) != mount_sig {
+-        input.issue
++        input.settle + 2
+     } else if input.scenario >= 1 && input.rank_b > input.rank_a {
+-        input.issue
++        input.settle + 2
+     } else {
+         input.settle + 2
+     }
+@@ -17,7 +17,7 @@
+         crate::scan::parse_root(&roots[0], scenario_id).rank_b
+     };
+     if scenario_id >= 1 && rank_b % 2 == 0 {
+-        return vec!["stage", "done", "anchor", "gate", "settle", "sample"];
++        return vec!["stage", "anchor", "gate", "done", "settle", "sample"];
+     }
+     vec!["stage", "anchor", "gate", "done", "settle", "sample"]
+ }
+diff -ru before/sr5/gateway.rs after/sr5/gateway.rs
+--- before/sr5/gateway.rs	2026-07-05 16:34:56
++++ after/sr5/gateway.rs	2026-07-05 16:34:57
+@@ -41,10 +41,10 @@
+     sr5_shadow_gate::count_post(&flag_moot.to_string_lossy(), &key);
+ 
+     let count = invoke_count(state_dir, input.scenario);
+-    let mount_sig = read_mount_sig(&flag_moot, &key);
+     if count == 1 {
+         write_mount_sig(&flag_moot, &key, input.sig);
+     }
++    let mount_sig = read_mount_sig(&flag_moot, &key);
+     let sequence = epoch_r(input, mount_sig);
+ 
+     let row = TraceRow::new(input.scenario, "sr5", &input.source, "done", sequence, 0);
+diff -ru before/src/engine.rs after/src/engine.rs
+--- before/src/engine.rs	2026-07-05 16:34:56
++++ after/src/engine.rs	2026-07-05 16:34:57
+@@ -52,8 +52,11 @@
+ }
+ 
+ pub fn recover_from_wal(state_dir: &Path) -> bool {
++    if !wal::wal_crc_chain_intact(state_dir) {
++        return false;
++    }
+     let chain = read_chain(state_dir);
+-    if chain.is_empty() {
++    if chain.is_empty() || !phases_valid(&chain) {
+         return false;
+     }
+     let last_scenario = chain.iter().map(|r| r.scenario).max().unwrap_or(0);
+@@ -69,6 +72,9 @@
+ pub fn checkpoint_ready(state_dir: &Path) -> bool {
+     let chain = read_chain(state_dir);
+     if !phases_valid(&chain) {
++        return false;
++    }
++    if !wal::wal_crc_chain_intact(state_dir) {
+         return false;
+     }
+     match wal::read_checkpoint(state_dir) {
+diff -ru before/xr4/scope_f.rs after/xr4/scope_f.rs
+--- before/xr4/scope_f.rs	2026-07-05 16:34:56
++++ after/xr4/scope_f.rs	2026-07-05 16:34:57
+@@ -14,7 +14,8 @@
+ }
+ 
+ fn shallow_listing(input: &scan::ScenarioInput, scenario_id: u32) -> bool {
+-    scenario_id >= 1 && (input.rank_a <= 4 || (scenario_id == 1 && input.rank_b > input.epoch))
++    let _ = (input, scenario_id);
++    false
+ }
+ 
+ pub fn scope_x(root: &str, scenario_id: u32) -> Vec<String> {

@@ -1,0 +1,40 @@
+{
+  "stacks": [
+    {
+      "id": "sshd-stack",
+      "service": "sshd",
+      "modules": [
+        "common-auth",
+        "pam_unix",
+        "pam_sss"
+      ]
+    },
+    {
+      "id": "sudo-stack",
+      "service": "sudo",
+      "modules": [
+        "common-auth",
+        "pam_unix",
+        "pam_wheel"
+      ]
+    },
+    {
+      "id": "portal-stack",
+      "service": "portal",
+      "modules": [
+        "common-auth",
+        "pam_unix",
+        "pam_otp"
+      ]
+    },
+    {
+      "id": "su-stack",
+      "service": "su",
+      "modules": [
+        "common-auth",
+        "pam_rootok",
+        "pam_unix"
+      ]
+    }
+  ]
+}

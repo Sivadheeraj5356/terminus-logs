@@ -1,0 +1,9 @@
+ordinance: ORD-2011-03
+jurisdiction: Sable-Point
+enacted: 2011-01-31
+effective: 2011-04-10T02:00:00 wall
+standard-offset: +09:00:00
+standard-label: PST
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label PDT
+  end: Oct lastSun 03:00:00 standard

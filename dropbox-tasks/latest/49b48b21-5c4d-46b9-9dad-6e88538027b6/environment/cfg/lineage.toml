@@ -1,0 +1,3 @@
+# Lineage defaults for frontier rebuilds. Re-read on each rebuild.
+generation_floor = 1
+fan_in_require_all = true

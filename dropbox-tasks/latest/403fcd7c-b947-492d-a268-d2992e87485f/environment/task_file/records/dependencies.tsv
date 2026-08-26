@@ -1,0 +1,4 @@
+service_id	depends_on
+api	db
+worker	api
+admin	api

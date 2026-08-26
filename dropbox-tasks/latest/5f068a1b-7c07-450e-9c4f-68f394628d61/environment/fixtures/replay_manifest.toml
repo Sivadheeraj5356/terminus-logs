@@ -1,0 +1,7 @@
+manifest_version = 2
+orchard_id = "north-ridge"
+profile = "profiles/base.toml"
+sensor_registry = "registries/sensors.csv"
+readings = [feeds/day1.csv, feeds/day2.csv]
+corrections = [corrections/day1.patch.csv]
+state_policy = "strict"

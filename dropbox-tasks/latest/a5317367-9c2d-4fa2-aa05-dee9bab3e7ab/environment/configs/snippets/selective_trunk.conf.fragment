@@ -1,0 +1,2 @@
+switchport trunk allowed vlan 2001-2180
+switchport mode trunk

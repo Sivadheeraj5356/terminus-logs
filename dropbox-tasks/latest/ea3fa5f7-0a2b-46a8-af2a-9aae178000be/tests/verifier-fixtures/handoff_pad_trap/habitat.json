@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "mission_label": "handoff-pad-trap-991",
+  "primary_lane": "standard",
+  "rov_lead_min": 2,
+  "berth_gap_min": 1,
+  "psi_gap": 80,
+  "handoff_pad_min": 4.0,
+  "berths": [
+    {
+      "berth_id": "north-dock",
+      "psi_min": 350,
+      "psi_max": 900
+    }
+  ],
+  "rov_bays": 2,
+  "rov_turn_min": 1,
+  "cold_cap_m3": 8.0,
+  "witness_salt": "handoff-991"
+}

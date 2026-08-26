@@ -1,0 +1,13 @@
+# Magnetised blast wave with adaptive refinement on the expanding shock (periodic box).
+preset = blast
+nx = 48
+ny = 48
+block = 8
+amr = 1
+regrid_interval = 5
+refine_threshold = 0.3
+cfl = 0.4
+tmax = 0.06
+B0 = 0.5
+p_center = 10
+p_ambient = 0.5

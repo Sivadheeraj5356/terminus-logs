@@ -1,0 +1,8 @@
+{
+  "cutover_id": "IRIS-CUTOVER-2024.11-draft",
+  "replace_match_policy": "list_scan_omega",
+  "checksum_peel_mode": "peel_all",
+  "scaffold_gate": "key_present",
+  "queue_timing": "pre_rewrite",
+  "digest_checksum_layout": "gnu_sha256sum_line"
+}

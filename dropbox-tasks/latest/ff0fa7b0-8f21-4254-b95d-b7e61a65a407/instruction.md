@@ -1,0 +1,5 @@
+Read `/app/task_file/scan_input/incident_case.txt` and write your answer to `/app/task_file/output/containment_schedule.json`. Leave everything under `scan_input` unchanged. This is a polar observatory calibration task: the case file describes a routed sensor graph, several independent interference hypotheses over that graph, transfer routes that can spread compromise, shielded instruments, maintenance paths, and telemetry evidence. Produce one wave-by-wave schedule that maximizes the response score.
+
+The complete row layout, action rules, simulation rules, scoring, tie-breaking, and JSON output contract are in `/app/task_file/guide.md`. Follow that specification exactly and keep the output exact, including ordering and field types.
+
+Do not change the input files, and do not change the output schema. The final JSON must be complete and deterministic.

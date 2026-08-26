@@ -1,0 +1,60 @@
+{
+  "scenario_id": "scenario_20",
+  "build_profile": "release",
+  "profile_mode": "target",
+  "workspace_members": [
+    "ws_app"
+  ],
+  "declared": [
+    {
+      "crate": "ws_app",
+      "version": "0.1.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {
+    "ws_app": "0.1.0",
+    "core": "5.0.0"
+  },
+  "workspace_features": {},
+  "feature_tags": {
+    "core": {
+      "dev_only_features": [
+        "bench"
+      ]
+    }
+  },
+  "edges": [
+    {
+      "parent": "ws_app:0.1.0",
+      "child": "core",
+      "version": "1.0.0",
+      "features_requested": [
+        "bench",
+        "runtime"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s20e1",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "ws_app:0.1.0",
+      "child": "core",
+      "version": "4.0.0",
+      "features_requested": [
+        "runtime"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s20e2",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

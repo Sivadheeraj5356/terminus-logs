@@ -1,0 +1,88 @@
+{
+  "serving_frameworks_allowed": [
+    "tensorflow-serving",
+    "triton",
+    "torchserve"
+  ],
+  "profile_aliases": {
+    "production": "production_lane",
+    "staging": "staging_lane",
+    "canary": "staging",
+    "qa": "canary",
+    "analytics": "qa",
+    "fleet": "analytics"
+  },
+  "profiles": {
+    "production_lane": {
+      "min_score": 0.70
+    },
+    "staging_lane": {
+      "min_score": 0.50
+    }
+  },
+  "verdict_lexicon": {
+    "ready": "cleared_for_serve",
+    "not_ready": "hold_back",
+    "deferred": "queue_hold"
+  },
+  "lexicon_scope": {
+    "applies_to": ["mlflow_tags", "artifacts"],
+    "excludes": ["drain_report"]
+  },
+  "rules_sets": {
+    "default": {
+      "binding_overrides": {}
+    },
+    "mem_lane": {
+      "extends": "default",
+      "binding_overrides": {
+        "memory_request_norm": {
+          "divisor": 5000
+        }
+      }
+    },
+    "mem_tight": {
+      "extends": "default",
+      "binding_overrides": {
+        "memory_request_norm": {
+          "divisor": 4600
+        }
+      }
+    },
+    "gpu_edge": {
+      "extends": "default",
+      "binding_overrides": {
+        "memory_request_norm": {
+          "divisor": 5800
+        }
+      }
+    },
+    "cpu_turbo": {
+      "extends": "default",
+      "binding_overrides": {
+        "cpu_request_norm": {
+          "divisor": 2800
+        }
+      }
+    },
+    "edge_strict": {
+      "extends": "gpu_edge",
+      "binding_overrides": {
+        "replicas_meets_min": {
+          "minimum": 3
+        }
+      }
+    },
+    "roll_ceil": {
+      "extends": "default",
+      "binding_overrides": {
+        "replicas_meets_min": {
+          "rolling_unavailable_parse": {
+            "percent_suffix": "%",
+            "percent_mode": "ceil_of_replicas"
+          }
+        }
+      }
+    }
+  }
+}

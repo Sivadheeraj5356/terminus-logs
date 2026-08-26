@@ -1,0 +1,9 @@
+CHAN/1
+win D dealer stock fresh
+uu 7v
+hand 5n 7v 8s 8s 8n 8s 8s 9n 8v 8v 8v 5s 9s 2n 2s 5v 7n 7n 5n
+layout ca(7v,7n);ca(7v,7n);ca(5v,5s);ca(2s,2n);ca(9n,9s);chan(8v,8v);ca(8s,8n);chan(5n,5n);ca(8v,8s);chan(8s,8s)
+log
+toss C 3n 1
+toss B 3n 1
+toss A 2n 2

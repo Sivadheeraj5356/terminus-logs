@@ -1,0 +1,13 @@
+{
+  "policy_id": "ocean-default",
+  "min_depth_m": 0,
+  "max_depth_m": 11000,
+  "allowed_obs_types": [
+    "SEAFLOOR_SAMPLE",
+    "MAGNETIC_ANOMALY",
+    "HYDROTHERMAL_VENT",
+    "BATHYMETRY",
+    "CORAL_REEF",
+    "SEDIMENT_CORE"
+  ]
+}

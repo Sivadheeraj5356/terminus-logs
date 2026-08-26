@@ -1,0 +1,11 @@
+{
+  "circuit_id": "circ_31",
+  "qubits": 2,
+  "gates": [
+    {
+      "op": "SWAP",
+      "a": 0,
+      "b": 0
+    }
+  ]
+}

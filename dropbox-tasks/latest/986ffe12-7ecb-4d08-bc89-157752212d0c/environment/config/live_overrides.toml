@@ -1,0 +1,10 @@
+# Live desk overlay — authoritative weekend knobs.
+pity_threshold = 999
+hmac_key = "desk-live-hmac-wrong"
+pity_gap_sec = 0
+
+[mac_domains]
+draw = "roll"
+item = "pick"
+receipt = "slip"
+digest = "board"

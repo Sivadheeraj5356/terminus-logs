@@ -1,0 +1,46 @@
+{
+  "bundle_id": "insufficient_weight",
+  "custodians": {
+    "alpha": {
+      "public_key_hex": "c2ae7dc96d48e10ab7d41ab2f4ee91303b76b64496f8b92504220f515437d79c",
+      "weight": 3
+    },
+    "beta": {
+      "public_key_hex": "0f04e22af3ff0d9d5d22f3e9252ca569fa391f96bd652cd21522a191e9dd0cce",
+      "weight": 2
+    },
+    "delta": {
+      "public_key_hex": "9a1e1101475391cbed9f074b115d3686a43b2c0d0237ba5e367d8bca28c251e6",
+      "weight": 1
+    },
+    "epsilon": {
+      "public_key_hex": "f362e921c2a39ce63912b4547300b8b48aef69b6b25bcd1bc79be388a6149442",
+      "weight": 1
+    },
+    "gamma": {
+      "public_key_hex": "d78ba7727f3f59caf7f9f6a16ab28db1b70dfbe50363c61263319663e2ed3f9d",
+      "weight": 2
+    }
+  },
+  "queries": [
+    {
+      "artifact_sha256_hex": "139ae465e7e9d7f8ffca547b009b45f6cbcffc76e0bdbd7ddf0a8ba75d547431",
+      "eval_at": 1700000000,
+      "min_weight": 5,
+      "query_id": "short",
+      "release_epoch": 1699999880,
+      "scope": "custody|release|/artifacts/prod/",
+      "signatures": [
+        {
+          "custodian_id": "beta",
+          "signature_hex": "d8e452cbb9e09603327d1c1e6475e7d5832208feb32828dcd42d9e02a9a38a8925f632a9246e0f2e64a01452b113946e6cc472760386f98ebc9ede646cfe870a"
+        },
+        {
+          "custodian_id": "delta",
+          "signature_hex": "4aa337a6c095f8474843a4eb3e0bfde0fb2fda1b117bf64acb25186f7fd8a519a9c12399bae24c83444ce04f7853e98f4733741d384e5091f8b90920ddd1a009"
+        }
+      ]
+    }
+  ],
+  "revoked_custodians": []
+}

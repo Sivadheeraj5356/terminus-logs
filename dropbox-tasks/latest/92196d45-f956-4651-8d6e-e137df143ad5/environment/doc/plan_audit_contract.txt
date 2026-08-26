@@ -1,0 +1,31 @@
+plan_audit.json contract
+=======================
+
+Top-level object fields:
+- schema_anchor: integer, copy from /app/stubs/schema_anchor.txt
+- scenarios: array of scenario rows in manifest order; each scenario appears twice (continuous then pause_resume)
+- summary: object with scenario_count, scenario_rows, pair_mismatch_count, step_mismatch_total
+
+Scenario row fields:
+- scenario_id: string
+- mode: "continuous" or "pause_resume"
+- step_alpha_id: join method token ("nest_loop" or "hash_join")
+- step_beta_id: build side token ("build_left" or "build_right")
+- step_gamma_id: access path token ("partial_scan" or "seq_scan")
+- stats_gen: unsigned integer generation used for the plan
+- stats_ok: boolean, true when stats_gen matches the live catalog generation at plan time
+- pair_ok: boolean, true when pause_resume row matches its continuous counterpart on parity fields named in /app/stubs/replay_contract.txt
+- plan_digest: 16 lowercase hex chars
+- finish_reason: "ok" on success
+
+Parity fields for continuous versus pause_resume on the same scenario_id:
+step_alpha_id, step_beta_id, step_gamma_id, stats_gen, plan_digest
+
+Summary counters:
+- scenario_count: distinct scenario_id values
+- scenario_rows: length of scenarios array
+- pair_mismatch_count: scenarios where pause_resume disagrees with continuous
+- step_mismatch_total: count of per-field mismatches across those scenarios
+
+Verifier note:
+The verifier compares every emitted row against an independent tape replay model derived from the bundled tapes. pair_ok and zero summary mismatch counters are necessary but not sufficient. step_gamma_id and plan_digest on pause_resume rows must match replay even when pair_ok is true.

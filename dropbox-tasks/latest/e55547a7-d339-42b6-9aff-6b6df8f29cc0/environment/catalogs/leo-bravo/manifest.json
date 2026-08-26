@@ -1,0 +1,7 @@
+{
+  "mission_slot": "LEO-BRAVO-2",
+  "dt_sec": 0.05,
+  "horizon_sec": 4.0,
+  "fragment_count": 4,
+  "min_sep_m": 5.0
+}

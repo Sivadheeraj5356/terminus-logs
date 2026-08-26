@@ -1,0 +1,2 @@
+{"event_id": "ev-e01-001", "tenant_id": "tn-arc", "service": "egress", "timestamp": "2027-03-06T08:00:00Z", "units": 15}
+{"event_id": "ev-e01-002", "tenant_id": "tn-flux", "service": "egress", "timestamp": "2027-03-14T08:00:00Z", "units": 22}

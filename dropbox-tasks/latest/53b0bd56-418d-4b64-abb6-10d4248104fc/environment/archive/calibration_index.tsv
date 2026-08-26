@@ -1,0 +1,13 @@
+system	species	reactions	horizon	rtol	atol	note
+autocat_dimer	3	3	40	9.9999999999999995e-07	1.0000000000000001e-09	autocatalytic dimerisation, widest rate spread in the suite
+catalytic_cycle	4	4	15	9.9999999999999995e-07	1.0000000000000001e-09	cycle closed by a slow catalyst decay
+chain_transfer	4	4	25	9.9999999999999995e-07	1.0000000000000001e-09	chain transfer with a reversible cross step
+enzyme_ladder	6	6	14	9.9999999999999995e-08	1e-10	six-species ladder, moderate stiffness
+ligand_exchange	5	5	9	9.9999999999999995e-08	1e-10	five-centre exchange, two fast branches
+michaelis_relay	4	4	8	9.9999999999999995e-07	1.0000000000000001e-09	saturating relay with a slow enzyme reservoir
+phase_swap	3	4	18	9.9999999999999995e-07	1.0000000000000001e-09	three-state swap with one fast leg
+proton_shuttle	4	4	6	9.9999999999999995e-08	1e-10	fast shuttle against a slow leak
+radical_pair	3	3	5	9.9999999999999995e-08	1e-10	radical recombination, fastest bimolecular rate in the suite
+redox_couple	3	3	10	9.9999999999999995e-07	1.0000000000000001e-09	bimolecular redox exchange with a slow return
+ring_isomerase	3	3	20	9.9999999999999995e-07	1.0000000000000001e-09	three-state isomerisation loop, well separated rates
+substrate_sink	5	5	30	1e-08	9.9999999999999994e-12	linear cascade drained to a slow sink

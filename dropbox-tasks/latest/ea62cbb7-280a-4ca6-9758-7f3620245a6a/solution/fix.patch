@@ -1,0 +1,378 @@
+diff --git a/lib/judge.js b/lib/judge.js
+index bc8698e..ae0b7c3 100644
+--- a/lib/judge.js
++++ b/lib/judge.js
+@@ -29,36 +29,361 @@ function actorOf(x) {
+   return "";
+ }
+ 
+-// Placeholder implementation: treats matching events as instantaneous and
+-// ignores deferred confirmations, freezes, and same-tick deadline ordering.
+ function computeIntervals(input) {
+-  const out = [];
++  if (input.keys !== undefined && input.keys !== null) return keyIntervals(input);
++  if (input.packages !== undefined && input.packages !== null) return packageIntervals(input);
++  if (input.sensors !== undefined && input.sensors !== null) return sensorIntervals(input);
++  if (input.players !== undefined && input.players !== null) return clockIntervals(input);
++  return [];
++}
++
++function keyIntervals(input) {
+   const until = asInt(input.until);
++  const cfgs = new Map();
++  for (const c of list(input.keys)) cfgs.set(str(c.id), c);
++  const state = new Map();
++  for (const k of cfgs.keys()) {
++    state.set(k, { reports: new Map(), revoked: false, pending: "", due: -1, frozen: false, fstart: 0, open: -1 });
++  }
++  const out = [];
++
++  const apply = (k, t) => {
++    const s = state.get(k);
++    if (s.pending === "open" && !s.revoked) {
++      s.revoked = true;
++      s.open = t;
++    }
++    if (s.pending === "close" && s.revoked) {
++      out.push({ key: k, start: s.open, end: t, reason: "confirmed_compromise" });
++      s.revoked = false;
++      s.open = -1;
++    }
++    s.pending = "";
++    s.due = -1;
++  };
++
++  const recalc = (k, at) => {
++    const s = state.get(k);
++    const c = cfgs.get(k);
++    if (s.frozen) return;
++    let bad = 0;
++    let clear = 0;
++    for (const r of list(c.reporters)) {
++      if (s.reports.get(str(r)) === true) bad += 1;
++      else clear += 1;
++    }
++    if (!s.revoked && bad >= asInt(c.compromiseQuorum)) {
++      if (s.pending !== "open") {
++        s.pending = "open";
++        s.due = at + asInt(c.confirmCompromise);
++      }
++    } else if (s.revoked && clear >= asInt(c.clearQuorum)) {
++      if (s.pending !== "close") {
++        s.pending = "close";
++        s.due = at + asInt(c.confirmClear);
++      }
++    } else {
++      s.pending = "";
++      s.due = -1;
++    }
++  };
++
+   for (const ev of list(input.events)) {
+     const at = asInt(ev.at);
++    for (const [k, s] of state) {
++      if (!s.frozen && s.due >= 0 && s.due <= at) apply(k, s.due);
++    }
++    const k = str(ev.key);
++    const s = state.get(k);
+     switch (str(ev.op)) {
+       case "report":
+-        if (ev.compromised === true) {
+-          out.push({ key: str(ev.key), start: at, end: until, reason: "confirmed_compromise" });
++        s.reports.set(str(ev.reporter), ev.compromised === true);
++        recalc(k, at);
++        break;
++      case "quarantine_start":
++        s.frozen = true;
++        s.fstart = at;
++        break;
++      case "quarantine_end":
++        if (s.frozen) {
++          if (s.due >= 0) s.due += at - s.fstart;
++          s.frozen = false;
++          recalc(k, at);
+         }
+         break;
++      case "replace": {
++        if (s.revoked) {
++          out.push({ key: k, start: s.open, end: at, reason: "confirmed_compromise" });
++          s.revoked = false;
++        }
++        const nk = str(ev.newKey);
++        const old = cfgs.get(k);
++        cfgs.set(nk, {
++          id: nk,
++          reporters: ev.reporters,
++          compromiseQuorum: old.compromiseQuorum,
++          clearQuorum: old.clearQuorum,
++          confirmCompromise: old.confirmCompromise,
++          confirmClear: old.confirmClear,
++        });
++        state.set(nk, { reports: new Map(), revoked: false, pending: "", due: -1, frozen: false, fstart: 0, open: -1 });
++        break;
++      }
++      default:
++        break;
++    }
++  }
++  for (const [k, s] of state) {
++    if (!s.frozen && s.due >= 0 && s.due <= until) apply(k, s.due);
++    if (s.revoked) out.push({ key: k, start: s.open, end: until, reason: "confirmed_compromise" });
++  }
++  return out;
++}
++
++function packageIntervals(input) {
++  const until = asInt(input.until);
++  const cfgs = new Map();
++  for (const c of list(input.packages)) cfgs.set(str(c.name), c);
++  const state = new Map();
++  for (const p of cfgs.keys()) {
++    state.set(p, { ready: new Map(), active: false, pending: false, due: -1, frozen: false, fstart: 0, open: -1 });
++  }
++  const out = [];
++
++  const quorum = (p) => {
++    let n = 0;
++    for (const ok of state.get(p).ready.values()) if (ok) n += 1;
++    return n >= asInt(cfgs.get(p).readyQuorum);
++  };
++
++  const opn = (p, t) => {
++    const s = state.get(p);
++    if (!s.active) {
++      s.active = true;
++      s.open = t;
++    }
++    s.pending = false;
++    s.due = -1;
++  };
++
++  const recalc = (p, at) => {
++    const s = state.get(p);
++    if (s.frozen) return;
++    if (!s.active && quorum(p)) {
++      if (!s.pending) {
++        s.pending = true;
++        s.due = at + asInt(cfgs.get(p).quiet);
++      }
++    } else if (!quorum(p)) {
++      s.pending = false;
++      s.due = -1;
++    }
++  };
++
++  for (const ev of list(input.events)) {
++    const at = asInt(ev.at);
++    for (const [p, s] of state) {
++      if (!s.frozen && s.pending && s.due <= at) opn(p, s.due);
++    }
++    const p = str(ev.package);
++    const s = state.get(p);
++    switch (str(ev.op)) {
+       case "artifact":
+-        if (ev.ready === true) {
+-          out.push({ package: str(ev.package), start: at, end: until, reason: "cache_admitted" });
++        s.ready.set(str(ev.dep), ev.ready === true);
++        recalc(p, at);
++        break;
++      case "freeze_start":
++        s.frozen = true;
++        s.fstart = at;
++        break;
++      case "freeze_end":
++        if (s.frozen) {
++          if (s.pending) s.due += at - s.fstart;
++          s.frozen = false;
++          recalc(p, at);
++        }
++        break;
++      case "invalidate":
++        if (s.active) {
++          out.push({ package: p, start: s.open, end: at, reason: "cache_admitted" });
++          s.active = false;
++        }
++        if (quorum(p)) {
++          s.pending = true;
++          s.due = at + asInt(cfgs.get(p).cooldown);
++        }
++        break;
++      default:
++        break;
++    }
++  }
++  for (const [p, s] of state) {
++    if (!s.frozen && s.pending && s.due <= until) opn(p, s.due);
++    if (s.active) out.push({ package: p, start: s.open, end: until, reason: "cache_admitted" });
++  }
++  return out;
++}
++
++function sensorIntervals(input) {
++  const until = asInt(input.until);
++  const cfgs = new Map();
++  for (const c of list(input.sensors)) cfgs.set(str(c.name), c);
++  const state = new Map();
++  for (const n of cfgs.keys()) {
++    state.set(n, { alarm: false, evidence: "", pending: "", due: -1, frozen: false, fstart: 0, open: -1 });
++  }
++  const out = [];
++
++  const apply = (n, t) => {
++    const s = state.get(n);
++    if (s.pending === "enter" && !s.alarm) {
++      s.alarm = true;
++      s.open = t;
++    }
++    if (s.pending === "exit" && s.alarm) {
++      out.push({ sensor: n, start: s.open, end: t, reason: "hysteresis_alarm" });
++      s.alarm = false;
++      s.open = -1;
++    }
++    s.pending = "";
++    s.due = -1;
++  };
++
++  const sched = (n, at) => {
++    const s = state.get(n);
++    const c = cfgs.get(n);
++    if (s.frozen) return;
++    if (!s.alarm && s.evidence === "alarm") {
++      s.pending = "enter";
++      s.due = at + asInt(c.enterDwell);
++    } else if (s.alarm && s.evidence === "clear") {
++      s.pending = "exit";
++      s.due = at + asInt(c.exitDwell);
++    } else {
++      s.pending = "";
++      s.due = -1;
++    }
++  };
++
++  for (const ev of list(input.events)) {
++    const at = asInt(ev.at);
++    for (const [n, s] of state) {
++      if (!s.frozen && s.due >= 0 && s.due <= at) apply(n, s.due);
++    }
++    const n = str(ev.sensor);
++    const s = state.get(n);
++    const c = cfgs.get(n);
++    switch (str(ev.op)) {
++      case "reading": {
++        const v = asFloat(ev.value);
++        if (v >= asFloat(c.high)) {
++          s.evidence = "alarm";
++          sched(n, at);
++        } else if (v <= asFloat(c.low)) {
++          s.evidence = "clear";
++          sched(n, at);
++        }
++        break;
++      }
++      case "hold_start":
++        s.frozen = true;
++        s.fstart = at;
++        break;
++      case "hold_end":
++        if (s.frozen) {
++          s.frozen = false;
++          sched(n, at);
+         }
+         break;
+-      case "reading":
+-        if (typeof ev.value === "number" && ev.value > 0) {
+-          out.push({ sensor: str(ev.sensor), start: at, end: until, reason: "hysteresis_alarm" });
++      default:
++        break;
++    }
++  }
++  for (const [n, s] of state) {
++    if (!s.frozen && s.due >= 0 && s.due <= until) apply(n, s.due);
++    if (s.alarm) out.push({ sensor: n, start: s.open, end: until, reason: "hysteresis_alarm" });
++  }
++  return out;
++}
++
++function clockIntervals(input) {
++  const until = asInt(input.until);
++  const cfgs = new Map();
++  for (const c of list(input.players)) cfgs.set(str(c.name), c);
++  const state = new Map();
++  for (const [p, c] of cfgs) {
++    state.set(p, { running: false, start: 0, rem: asInt(c.main), pending: false, due: -1, lost: false, open: -1 });
++  }
++  let current = "";
++  let paused = false;
++  let pauseAt = 0;
++  const out = [];
++
++  const applyDue = (t) => {
++    for (const s of state.values()) {
++      if (s.pending && s.due <= t && !s.lost) {
++        s.lost = true;
++        s.open = s.due;
++        s.pending = false;
++      }
++    }
++  };
++
++  for (const ev of list(input.events)) {
++    const at = asInt(ev.at);
++    if (!paused) applyDue(at);
++    switch (str(ev.op)) {
++      case "turn": {
++        current = str(ev.player);
++        const s = state.get(current);
++        s.running = true;
++        s.start = at;
++        s.due = at + s.rem + asInt(cfgs.get(current).grace);
++        s.pending = true;
++        break;
++      }
++      case "pause":
++        if (!paused) {
++          paused = true;
++          pauseAt = at;
+         }
+         break;
+-      case "turn":
+-        out.push({ player: str(ev.player), start: at, end: until, reason: "flag_fall" });
++      case "resume":
++        if (paused) {
++          const delta = at - pauseAt;
++          for (const s of state.values()) {
++            if (s.pending) s.due += delta;
++            if (s.running) s.start += delta;
++          }
++          paused = false;
++        }
+         break;
++      case "move": {
++        const p = str(ev.player);
++        const s = state.get(p);
++        if (s.lost && cfgs.get(p).recoverOnMove === true) {
++          out.push({ player: p, start: s.open, end: at, reason: "flag_fall" });
++          s.lost = false;
++          s.open = -1;
++        }
++        if (p === current) {
++          const elapsed = at - s.start;
++          s.rem -= elapsed;
++          if (s.rem < 0) s.rem = 0;
++          s.running = false;
++          s.pending = false;
++          current = "";
++        }
++        break;
++      }
+       default:
+         break;
+     }
+   }
++  if (!paused) applyDue(until);
++  for (const [p, s] of state) {
++    if (s.lost) out.push({ player: p, start: s.open, end: until, reason: "flag_fall" });
++  }
+   return out;
+ }
+ 

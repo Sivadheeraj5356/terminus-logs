@@ -1,0 +1,13 @@
+{
+  "config_id": "cascade_wave",
+  "seed": 42,
+  "profile": "cascade_wave",
+  "graph_id": "cascade_wave",
+  "tick_horizon": 40,
+  "node_count": 4,
+  "partition_count": 8,
+  "flags": {
+    "strict_deps": true,
+    "partition_trace": true
+  }
+}

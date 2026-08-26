@@ -1,0 +1,8 @@
+{"observation_id":"obs-008","service_id":"cdn-edge","observed_ts_ns":1700001800000000000,"offered_groups":["x25519"],"client_id":"client-cc08"}
+{"observation_id":"obs-007","service_id":"ledger-api","observed_ts_ns":1700001700000000000,"offered_groups":["x25519"],"client_id":"client-bb07"}
+{"observation_id":"obs-006","service_id":"gateway-prod","observed_ts_ns":1700001200000000000,"offered_groups":["x25519"],"client_id":"client-aa06"}
+{"observation_id":"obs-005","service_id":"ledger-api","observed_ts_ns":1700000700000000000,"offered_groups":["x25519_mlkem768"],"client_id":"client-bb05"}
+{"observation_id":"obs-004","service_id":"gateway-prod","observed_ts_ns":1700000700000000000,"client_id":"client-aa04"}
+{"observation_id":"obs-003","service_id":"gateway-prod","observed_ts_ns":"1700000300000000000","offered_groups":["x25519"],"client_id":"client-aa03"}
+{"observation_id":"obs-002","service_id":"gateway-prod","observed_ts_ns":1700000200000000000,"offered_groups":["x25519_mlkem768","x25519"],"client_id":"client-aa02"}
+{"observation_id":"obs-001","service_id":"gateway-prod","observed_ts_ns":1699999000000000000,"offered_groups":["x25519"],"client_id":"client-aa01"}

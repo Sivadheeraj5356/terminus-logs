@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": ["schema_mark", "tenants"],
+  "properties": {
+    "schema_mark": {"type": "integer"},
+    "tenants": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["effective_digest_hex", "resolved_key_count", "overlay_drifted"],
+        "properties": {
+          "effective_digest_hex": {"type": "string"},
+          "resolved_key_count": {"type": "integer"},
+          "overlay_drifted": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

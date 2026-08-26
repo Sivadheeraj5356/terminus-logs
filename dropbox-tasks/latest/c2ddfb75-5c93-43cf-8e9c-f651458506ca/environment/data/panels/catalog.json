@@ -1,0 +1,50 @@
+{
+  "panel_mandarin_cloud_suzhou": {
+    "kind": "brocade",
+    "weaver_id": "mw_suzhou_atelier",
+    "completion_year": 1716,
+    "label": "Suzhou Mandarin Cloud Brocade"
+  },
+  "panel_lotus_brocade_suzhou": {
+    "kind": "brocade",
+    "weaver_id": "mw_lyon_guild",
+    "completion_year": 1744,
+    "label": "Suzhou Lotus Silk Panel"
+  },
+  "panel_nishijin_karaori_kyoto": {
+    "kind": "karaori",
+    "weaver_id": "mw_kyoto_school",
+    "completion_year": 1598,
+    "label": "Kyoto Nishijin Karaori"
+  },
+  "panel_banarasi_jangla_varanasi": {
+    "kind": "jangla",
+    "weaver_id": "mw_varanasi_master",
+    "completion_year": 1888,
+    "label": "Varanasi Banarasi Jangla"
+  },
+  "panel_banarasi_archive": {
+    "alias_of": "panel_banarasi_jangla_varanasi"
+  },
+  "panel_lyon_velours_exchange": {
+    "kind": "velours",
+    "weaver_id": "mw_lyon_guild",
+    "completion_year": 1720,
+    "label": "Lyon Silk Velours Exchange"
+  },
+  "panel_isfahan_khata_persian": {
+    "kind": "khata",
+    "weaver_id": "mw_kyoto_school",
+    "completion_year": 1605,
+    "label": "Isfahan Persian Khata"
+  },
+  "panel_genoa_brocade_merchant": {
+    "kind": "brocade",
+    "weaver_id": "mw_genoa_guild",
+    "completion_year": 1660,
+    "label": "Genoa Merchant Brocade"
+  },
+  "panel_genoa_deposit": {
+    "alias_of": "panel_genoa_brocade_merchant"
+  }
+}

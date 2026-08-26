@@ -1,0 +1,9 @@
+{
+  "workstation_id": "ws-005",
+  "actions": [
+    "sysctl:kernel.yama.ptrace_scope=0",
+    "sysctl:kernel.core_pattern=core",
+    "ulimit:core:unlimited",
+    "fixture-perms:/app/fixtures/png/sample.png:0644"
+  ]
+}

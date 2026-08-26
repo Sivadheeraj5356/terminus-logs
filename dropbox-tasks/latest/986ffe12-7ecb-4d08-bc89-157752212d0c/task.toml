@@ -1,0 +1,31 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+category = "games"
+subcategories = []
+difficulty = "hard"
+codebase_size = "small"
+number_of_milestones = 0
+languages = ["go", "bash"]
+tags = ["esports", "lan-banner", "provably-fair", "pity-ledger", "pull-commitment"]
+expert_time_estimate_min = 90.0
+junior_time_estimate_min = 180.0
+
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600.0
+docker_flags = []
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+gpu_types = []
+workdir = "/app"

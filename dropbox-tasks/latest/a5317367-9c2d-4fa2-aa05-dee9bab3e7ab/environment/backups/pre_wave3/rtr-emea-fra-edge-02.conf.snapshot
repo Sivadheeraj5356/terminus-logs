@@ -1,0 +1,44 @@
+! apexora-pre-wave3-boundary snapshot — do not overwrite after migration edits
+! rtr-emea-fra-edge-02 — Cisco IOS-XE WAN edge router
+! migration_state: legacy
+version 17.9
+hostname rtr-emea-fra-edge-02
+!
+ip vrf CORP-IT
+ rd 65000:2032
+ route-target export 65000:2032
+ route-target import 65000:2032
+!
+ip vrf FINANCE
+ rd 65000:2132
+!
+interface Loopback0
+ ip vrf forwarding VRF-CORP
+ ip address 10.254.3.2 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ description MPLS PE handoff
+ ip vrf forwarding VRF-CORP
+ ip address 192.0.2.32 255.255.255.252
+ ip access-group ACL-EDGE-LEGACY in
+ service-policy output PM-WAN_EDGE
+!
+interface GigabitEthernet0/0/0.100
+ description CORP L3VPN subinterface
+ encapsulation dot1Q 100
+ ip vrf forwarding VRF-CORP
+ ip address 10.200.3.2 255.255.255.252
+!
+interface GigabitEthernet0/0/1
+ description DMZ handoff
+ ip vrf forwarding DMZ
+ ip address 10.240.3.2 255.255.255.252
+!
+router bgp 65000
+ bgp router-id 10.254.3.2
+ address-family ipv4 vrf VRF-CORP
+  redistribute connected
+  neighbor 192.0.2.31 remote-as 65001
+  neighbor 192.0.2.31 activate
+ exit-address-family
+!

@@ -1,0 +1,28 @@
+{
+  "seed_id": "flat_ridge",
+  "width": 8,
+  "height": 6,
+  "orient": "flat",
+  "wet_window": 0,
+  "start": [
+    0,
+    0
+  ],
+  "goal": [
+    2,
+    2
+  ],
+  "terrain": {
+    "0,0": 1,
+    "1,0": 1,
+    "1,1": 1,
+    "2,2": 1
+  },
+  "portals": [],
+  "steps": [
+    0,
+    5,
+    5,
+    3
+  ]
+}

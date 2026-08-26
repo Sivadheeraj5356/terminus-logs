@@ -1,0 +1,4 @@
+# remote_sink_epoch binding after strip-lane rewrite simulation.
+
+[remote]
+strip_substituted_epoch = "primary"

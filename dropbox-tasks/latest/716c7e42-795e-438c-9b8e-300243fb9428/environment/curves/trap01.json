@@ -1,0 +1,21 @@
+{
+  "pack": "trap01",
+  "bins": 5,
+  "active_stride": 5,
+  "half_w": 1,
+  "width_b": 1,
+  "snapshot": 3,
+  "total": 9,
+  "burst": true,
+  "samples": [
+    472,
+    214,
+    319,
+    377,
+    244,
+    478,
+    531,
+    652,
+    312
+  ]
+}

@@ -1,0 +1,9 @@
+ordinance: ORD-2013-02
+jurisdiction: Merrow-Kell
+enacted: 2013-01-21
+effective: 2013-03-31T02:00:00 wall
+standard-offset: +05:45:00
+standard-label: numeric
+observance:
+  begin: Mar lastSun 02:00:00 wall save +01:00:00 label numeric
+  end: Oct lastSun 03:00:00 wall

@@ -1,0 +1,9 @@
+aeiou bcdfg xyzzy
+dog gamma
+colour foo bird start dog foobar
+addr 92.73.36.120 hex 0x17fb token tok_914
+false hello
+addr 110.126.19.206 hex 0x3684 token tok_87
+addr 195.160.242.198 hex 0xe8a0 token tok_438
+digits 123 4567 89
+addr 247.122.48.252 hex 0x5095 token tok_732

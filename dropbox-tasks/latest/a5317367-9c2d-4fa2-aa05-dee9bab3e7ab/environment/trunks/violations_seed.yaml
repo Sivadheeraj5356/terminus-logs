@@ -1,0 +1,8 @@
+schema_version: apexora-trunk-violations-1
+violations:
+  - device: acc-emea-fra-lab-01
+    interface: TenGigabitEthernet1/1/1
+    issue: trunk_all_vlans
+  - device: core-apac-sin-01
+    interface: TenGigabitEthernet1/1/2
+    issue: over_permissive_allowed_vlan

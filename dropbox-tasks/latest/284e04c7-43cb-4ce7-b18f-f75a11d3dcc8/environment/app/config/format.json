@@ -1,0 +1,10 @@
+{
+  "format": "PFSEAL2",
+  "ociLabel": "io.prefect.pfseal",
+  "chunkManifestLabel": "io.prefect.pfseal.manifest",
+  "maximumChunks": 32,
+  "maximumChunkCharacters": 1024,
+  "maximumCiphertextBytes": 1048576,
+  "keyAttestationThreshold": 2,
+  "leaseSeconds": 60
+}

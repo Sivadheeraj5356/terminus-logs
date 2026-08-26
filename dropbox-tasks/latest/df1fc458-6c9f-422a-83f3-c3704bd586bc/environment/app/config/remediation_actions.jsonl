@@ -1,0 +1,5 @@
+{"seq":1,"cve_id":"CVE-2026-48558","action":"defer","owner":"identity-response","ticket":"IR-48558","effective_date":"2026-06-24","expires_on":"2026-07-10","source":"agency-waiver-2026-06"}
+{"seq":2,"cve_id":"CVE-2026-20262","action":"escalate","owner":"network-team","ticket":"NET-20262","effective_date":"2026-06-20","expires_on":"2026-06-30","source":"edge-priority"}
+{"seq":3,"cve_id":"CVE-2026-48907","action":"suppress","owner":"asset-inventory","ticket":"INV-48907","effective_date":"2026-06-18","expires_on":"2026-07-01","source":"not-federal-scope"}
+{"seq":4,"cve_id":"CVE-2026-45659","action":"escalate","owner":"appsec","ticket":"APP-45659","effective_date":"2026-07-05","expires_on":"2026-07-10","source":"future-review"}
+{"seq":5,"cve_id":"CVE-2026-20230","action":"ignore","owner":"network-team","ticket":"NET-20230","effective_date":"2026-06-25","expires_on":"2026-06-28","source":"invalid-action"}

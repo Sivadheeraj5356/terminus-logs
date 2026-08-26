@@ -1,0 +1,12 @@
+{
+  "gamma_lane": {
+    "kind": "scalar",
+    "value": "env-gamma"
+  },
+  "tags": {
+    "kind": "list",
+    "value": [
+      "gamma-overlay"
+    ]
+  }
+}

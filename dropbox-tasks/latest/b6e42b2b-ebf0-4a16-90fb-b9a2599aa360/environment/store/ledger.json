@@ -1,0 +1,22 @@
+{
+  "yard": {
+    "profile": "yard",
+    "step": 1,
+    "last_sd": "0000000000000000000000000000000000000000000000000000000000000000",
+    "last_seq": 2,
+    "rules": [
+      {
+        "class": "queue",
+        "action": "always",
+        "field": "depth",
+        "generation": 1,
+        "observed_authority": "operator"
+      }
+    ],
+    "runs": [
+      {"reload_id": "1", "phase": "apply", "scope_digest": "0000000000000000000000000000000000000000000000000000000000000000"},
+      {"reload_id": "1", "phase": "commit", "scope_digest": "0000000000000000000000000000000000000000000000000000000000000000"}
+    ],
+    "revoked": ["drain"]
+  }
+}

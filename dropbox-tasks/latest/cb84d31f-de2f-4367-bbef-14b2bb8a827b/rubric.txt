@@ -1,0 +1,17 @@
+Agent reports LOSS for the player to saw on a single rod of two units with no gaps, +3
+Agent reports WIN on the row 0 2 where the one gap turns the two into a winning cut, +3
+Agent reports LOSS on a single rod of six units though its length is not nought, +2
+Agent reports WIN on 0 6 and LOSS on 0 0 6, the same rod turning on the count of gaps, +3
+Agent gives the right verdict on batches of several nonzero rods under each parity of gaps, +5
+Agent names a winning cut on a numbered rod that leaves the opponent a batch which is itself a loss, +5
+Agent names two parts that add to the rod on a true blade and to one less on a heavy blade, +2
+Agent echoes the rod lengths in order, keeps the gaps and numbers the rods from one, +2
+Agent reports ILLEGAL for a rod above the bench bound or below nought, +2
+Agent skips a blank or non-numeric line and reports a negative length ILLEGAL rather than skipping it, +2
+Agent writes nothing and exits 2 on a wrong argument count or an unreadable mill file, +2
+Agent exits 0 and prints one output line per answered batch on a valid run, +1
+Agent reports WIN on a single rod of two units with no gaps, -5
+Agent reports LOSS on the row 0 2, missing that the one gap sets the true blade, -3
+Agent names a cut that leaves the opponent a batch that still wins, -3
+Agent names a cut whose two parts add up wrong for the blade or picks a rod too short to saw, -3
+Agent exits nonzero or prints extra output for a valid mill file and batch, -2

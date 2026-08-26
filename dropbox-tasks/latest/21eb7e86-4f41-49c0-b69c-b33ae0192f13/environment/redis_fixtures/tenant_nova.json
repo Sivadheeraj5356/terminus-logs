@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"Subsystem\":\"sftp internal-sftp\",\"AllowUsers\":\"alice\",\"PasswordAuthentication\":\"no\"}}"
+}

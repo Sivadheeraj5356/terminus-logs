@@ -1,0 +1,80 @@
+schema_version: apexora-stage-gates-1
+wave_id: wave_3
+
+dependency_spine:
+  order:
+    - vlan-check
+    - trunk-check
+    - acl-check
+    - render
+    - wave-plan
+    - rollback-audit
+    - evidence
+  documentation: docs/OPERATIONS.md
+
+inventory_identity:
+  description: Multi-source VLAN identity, VRF resolution, and assembly precedence
+  authority_checkpoint: config_authoritative_m1
+  requires:
+    consult_legacy_when_present: false
+    device_count: 96
+    in_scope_migration_states: [legacy, partial]
+    in_scope_count: 47
+    authoritative_vlan_range: "2001-2180"
+    access_vlan_range_excluded: "101-180"
+    vlan_resolution: operations_range ∩ vlans/catalog.yaml ∩ vlans/campuses/* (+ legacy_id_map consistency)
+    migration_state_map: inventory/device_inventory.yaml
+    migration_state_map_mutable: false
+    wan_edge_vrf_legacy_excluded: VRF-CORP
+    wan_edge_vrf_canonical: CORP-IT
+    vrf_resolution: vrfs/catalog.yaml ∩ vrfs/campus_route_targets/<region>.yaml
+  config_surfaces:
+    - configs/assembly/source_precedence.yaml
+    - inventory/device_inventory.yaml
+    - inventory/campus_index.yaml
+    - vlans/catalog.yaml
+    - vlans/campuses/*.yaml
+    - vlans/legacy_id_map.yaml
+    - vrfs/catalog.yaml
+    - vrfs/campus_route_targets/*.yaml
+    - switches/access/*/vlan.local.yaml
+    - routers/**/running.conf
+
+trunk_gateway:
+  description: Trunk conformance, gateway placement; feeds ACL and render
+  authority_checkpoint: config_authoritative_m2
+  includes_checkpoint: config_authoritative_m1
+  depends_on: [vlan-check]
+  requires:
+    trunk_violations_seed_empty: true
+    violations_seed_schema_version: apexora-trunk-violations-1
+    trunk_link_count_source: trunks/links/*.yaml
+    rendered_bundle_count: 47
+    gateway_bindings: interfaces/gateway/gateway_bindings.yaml
+  violations_seed: trunks/violations_seed.yaml
+  trunk_policy: interfaces/trunk/trunk_policy.yaml
+
+deployment_cutover:
+  description: VRF-derived ACL, render-derived waves, wave-derived rollback, evidence fan-in
+  authority_checkpoint: config_authoritative_m3
+  includes_checkpoint: config_authoritative_m2
+  depends_on: [trunk-check, acl-check, render, wave-plan]
+  requires:
+    validation_scope_hosts: inventory/wave3_validation_scope.yaml
+    validation_scope_count: 48
+    validation_scope_order_mutable: false
+    acl_from_resolved_vrfs: true
+    waves_from_rendered_bundles: true
+    rollback_from_wave_readiness: true
+    evidence_from_all_prior_stages: true
+    legacy_hooks_present: false
+    active_hook: services/hooks/post-validate.sh
+    deprecated_hook_removed: legacy/hooks/pre-validate-legacy.sh
+    regional_order: [amer, emea, apac]
+    canary_first: true
+    rollback_snapshots: backups/pre_wave3/
+    rollback_index: deployment/rollback/bundles.yaml
+  does_not_accept:
+    - forward paths under /app/output/rendered/
+    - rollback paths under /app/output/rendered/
+    - post-migration copies as rollback snapshots

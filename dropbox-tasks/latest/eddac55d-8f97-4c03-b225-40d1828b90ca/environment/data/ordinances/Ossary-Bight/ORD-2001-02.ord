@@ -1,0 +1,9 @@
+ordinance: ORD-2001-02
+jurisdiction: Ossary-Bight
+enacted: 2001-01-25
+effective: 2001-03-25T01:00:00 universal
+standard-offset: +08:00:00
+standard-label: OST
+observance:
+  begin: Mar lastSun 01:00:00 universal save +01:00:00 label ODT
+  end: Oct lastSun 01:00:00 universal

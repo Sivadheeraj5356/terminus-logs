@@ -1,0 +1,8 @@
+[package]
+name = "s3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+manifest = { package = "m0", path = "../manifest" }
+replay = { package = "r5", path = "../replay" }

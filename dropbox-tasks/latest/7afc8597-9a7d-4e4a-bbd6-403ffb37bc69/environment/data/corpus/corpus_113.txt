@@ -1,0 +1,10 @@
+addr 229.148.141.141 hex 0x8124 token tok_808
+value = 0xDEADbeef and 0x1234
+addr 96.101.187.33 hex 0xc457 token tok_704
+aeiou bcdfg xyzzy
+addr 238.158.15.49 hex 0xcc68 token tok_781
+tabs	and spaces here
+foo foobar foobarbaz
+addr 228.9.229.38 hex 0x790f token tok_444
+addr 176.37.51.56 hex 0x92cb token tok_41
+punct marks here

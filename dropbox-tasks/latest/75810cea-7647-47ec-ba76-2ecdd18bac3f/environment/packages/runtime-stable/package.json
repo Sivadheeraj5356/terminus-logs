@@ -1,0 +1,6 @@
+{
+  "name": "runtime-stable",
+  "version": "1.4.0",
+  "type": "module",
+  "main": "src/index.mjs"
+}

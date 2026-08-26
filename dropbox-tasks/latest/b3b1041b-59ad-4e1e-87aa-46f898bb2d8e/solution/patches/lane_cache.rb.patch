@@ -1,0 +1,13 @@
+--- a/environment/r41/lane_cache.rb
++++ b/environment/r41/lane_cache.rb
+@@ -17,10 +17,6 @@
+       return JSON.parse(File.read(path))
+     end
+     out = bind_merge_q(base: base, overlay: overlay, ctx: ctx)
+-    if overlay.is_a?(Hash)
+-      out["x_def"] = overlay["x_def"] if overlay.key?("x_def")
+-      out["__p"] = overlay["__p"] if overlay.key?("__p")
+-    end
+     File.write(path, JSON.generate(out))
+     out
+   end

@@ -1,0 +1,13 @@
+{
+  "config_id": "gradual_mesh",
+  "seed": 99,
+  "profile": "gradual_mesh",
+  "graph_id": "gradual_mesh",
+  "tick_horizon": 48,
+  "node_count": 4,
+  "partition_count": 6,
+  "flags": {
+    "strict_deps": true,
+    "partition_trace": true
+  }
+}

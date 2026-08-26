@@ -1,0 +1,22 @@
+[package]
+name = "hx06"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "nxctl"
+path = "src/main.rs"
+
+[[bin]]
+name = "nxd"
+path = "src/daemon.rs"
+
+[dependencies]
+hx01 = { workspace = true }
+hx02 = { workspace = true }
+hx03 = { workspace = true }
+hx04 = { workspace = true }
+hx05 = { workspace = true }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

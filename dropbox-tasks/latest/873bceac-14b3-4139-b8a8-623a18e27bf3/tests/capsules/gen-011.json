@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "catacomb",
+      "relicmaze.torch": "6.0",
+      "relicmaze.keeper_tz_offset_minutes": "0",
+      "relicmaze.carry_capacity": "400",
+      "relicmaze.goal_room": "spring",
+      "org.opencontainers.image.title": "gen-011"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:a5244966fc494ac79801327ede09273822d2bb9cf67cf59ecc84494efd016ea2"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "ENV torch_bonus=0.5"
+    }
+  ]
+}

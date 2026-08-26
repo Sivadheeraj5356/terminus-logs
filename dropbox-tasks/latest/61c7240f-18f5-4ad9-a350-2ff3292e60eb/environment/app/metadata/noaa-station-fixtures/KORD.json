@@ -1,0 +1,9 @@
+{
+  "id": "https://api.weather.gov/stations/KORD",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KORD",
+    "name": "Chicago/O'Hare International Airport",
+    "timeZone": "America/Chicago"
+  }
+}

@@ -1,0 +1,46 @@
+--- internal/pipeline/run.go
++++ internal/pipeline/run.go
+@@ -304,7 +304,7 @@
+ 		}
+ 	}
+ 	if pol.ExportEpochFromTranscript && len(transcript) > 0 {
+-		viewTick = transcript[0].LaneTick
++		viewTick = transcript[len(transcript)-1].LaneTick
+ 	}
+ 	body := bodyHex(prefix, viewTick)
+ 
+@@ -312,15 +312,12 @@
+ 	if cycle >= 2 && len(viewDigests) > 0 {
+ 		slotsFree = viewDigests[0].SlotsFree
+ 	}
++	slotsFree := volRow.SlotsFree
++	if pol.ExportFirstDigestSlots && len(viewDigests) > 0 {
++		slotsFree = viewDigests[0].SlotsFree
++	}
+ 	views := make([]store.ViewRow, 0, len(peers))
+ 	for i, peer := range peers {
+ 		peerSlots := slotsFree
+-		if cycle >= 2 && i < len(viewDigests) {
+-			peerSlots = viewDigests[0].SlotsFree
+-		}
+ 		if pol.ExportFirstDigestSlots && i < len(viewDigests) {
+ 			peerSlots = viewDigests[0].SlotsFree
+ 		}
+@@ -348,7 +345,7 @@
+ 			}
+ 			conv.Cycles = append(existing.Cycles, conv.Cycles...)
+ 		}
+-		if pol.ExportTranscriptMode == "active_window" || pol.ExportTranscriptMode == "cumulative" {
++		if pol.ExportTranscriptMode == "cumulative" {
+ 			prevTranscript := filepath.Join(outDir, "trim_transcript.json")
+ 			if b, err := os.ReadFile(prevTranscript); err == nil {
+ 				var prior store.TrimTranscript
+@@ -400,7 +397,7 @@
+ 	_ = ledger.WriteStaging(root, cycle, viewTick)
+ 
+ 	if pol.CoordinatorPhaseGeneration == "track_window" {
+-		phase[0] = 1
++		phase[0] = byte(cycle)
+ 	} else {
+ 		phase[0] = byte(cycle)
+ 	}

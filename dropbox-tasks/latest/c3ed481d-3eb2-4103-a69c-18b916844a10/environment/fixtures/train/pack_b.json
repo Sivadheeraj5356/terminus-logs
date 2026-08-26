@@ -1,0 +1,9 @@
+{
+  "id": "pack_b",
+  "cells": ["c0", "c1", "c2", "c3"],
+  "obs": [
+    {"ix": 0, "zone": 0, "weight": 2, "score": 50},
+    {"ix": 1, "zone": 0, "weight": 1, "score": 35},
+    {"ix": 2, "zone": 1, "weight": 1, "score": 25}
+  ]
+}

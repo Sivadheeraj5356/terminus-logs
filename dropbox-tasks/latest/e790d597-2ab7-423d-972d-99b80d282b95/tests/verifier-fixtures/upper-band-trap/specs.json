@@ -1,0 +1,12 @@
+{
+  "specifications": [
+    {
+      "spec_id": "SPEC-UP",
+      "priority": 100,
+      "bands": {
+        "IgG": {"lower": 39.0, "upper": 43.0},
+        "IgM": {"lower": 10.0, "upper": 13.0}
+      }
+    }
+  ]
+}

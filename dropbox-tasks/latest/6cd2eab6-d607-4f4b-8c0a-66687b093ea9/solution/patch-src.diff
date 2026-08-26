@@ -1,0 +1,436 @@
+diff -ruN environment/app/src/main/java/com/example/terminology/TerminologyApplication.java solution/fixed/src/main/java/com/example/terminology/TerminologyApplication.java
+--- environment/app/src/main/java/com/example/terminology/TerminologyApplication.java	2026-07-15 01:48:39.093920457 +0530
++++ solution/fixed/src/main/java/com/example/terminology/TerminologyApplication.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,8 +0,0 @@
+-
+-package com.example.terminology;
+-import org.springframework.boot.SpringApplication;
+-import org.springframework.boot.autoconfigure.SpringBootApplication;
+-@SpringBootApplication
+-public class TerminologyApplication {
+-  public static void main(String[] args) { SpringApplication.run(TerminologyApplication.class, args); }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/api/ErrorResponse.java solution/fixed/src/main/java/com/example/terminology/api/ErrorResponse.java
+--- environment/app/src/main/java/com/example/terminology/api/ErrorResponse.java	2026-07-15 01:48:39.094048898 +0530
++++ solution/fixed/src/main/java/com/example/terminology/api/ErrorResponse.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,6 +0,0 @@
+-
+-package com.example.terminology.api;
+-import java.util.Map;
+-public record ErrorResponse(ErrorBody error) {
+-  public record ErrorBody(String code, String message, Map<String, Object> details) {}
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/api/RouteRegistry.java solution/fixed/src/main/java/com/example/terminology/api/RouteRegistry.java
+--- environment/app/src/main/java/com/example/terminology/api/RouteRegistry.java	2026-07-15 01:48:39.094097530 +0530
++++ solution/fixed/src/main/java/com/example/terminology/api/RouteRegistry.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,14 +0,0 @@
+-
+-package com.example.terminology.api;
+-import org.springframework.stereotype.Component;
+-import java.util.Map;
+-@Component
+-public class RouteRegistry {
+-  public String routeForPath(String path) {
+-    if (path.startsWith("/v1/terms/")) return "public-synonym";
+-    return "unknown";
+-  }
+-  public String apiPathForRoute(String routeId) {
+-    return Map.of("public-synonym", "/v1/terms/{term}/synonyms").getOrDefault(routeId, "/unknown");
+-  }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/api/SynonymController.java solution/fixed/src/main/java/com/example/terminology/api/SynonymController.java
+--- environment/app/src/main/java/com/example/terminology/api/SynonymController.java	2026-07-15 01:48:39.094145134 +0530
++++ solution/fixed/src/main/java/com/example/terminology/api/SynonymController.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,24 +0,0 @@
+-
+-package com.example.terminology.api;
+-import com.example.terminology.synonyms.SynonymService;
+-import org.springframework.http.ResponseEntity;
+-import org.springframework.web.bind.annotation.*;
+-import java.util.List;
+-import java.util.Map;
+-@RestController
+-public class SynonymController {
+-  private final SynonymService service;
+-  public SynonymController(SynonymService service) { this.service = service; }
+-  @GetMapping("/v1/terms/{term}/synonyms")
+-  public ResponseEntity<Map<String, Object>> synonyms(@PathVariable String term) {
+-    List<Map<String, Object>> rows = service.lookup(term);
+-    if (rows.isEmpty()) {
+-      return ResponseEntity.status(404).body(Map.of(
+-        "error", Map.of("code", "term_not_found", "message", "No synonyms for term", "details", Map.of("term", term))
+-      ));
+-    }
+-    return ResponseEntity.ok(Map.of("term", term, "synonyms", rows));
+-  }
+-  @GetMapping("/health")
+-  public Map<String, String> health() { return Map.of("status", "ok"); }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/assets/AssetLock.java solution/fixed/src/main/java/com/example/terminology/assets/AssetLock.java
+--- environment/app/src/main/java/com/example/terminology/assets/AssetLock.java	2026-07-15 01:48:39.094274294 +0530
++++ solution/fixed/src/main/java/com/example/terminology/assets/AssetLock.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,15 +0,0 @@
+-
+-package com.example.terminology.assets;
+-import java.util.List;
+-public record AssetLock(
+-  String lockSchemaVersion,
+-  String repository,
+-  String revision,
+-  String sourceMetadataDigest,
+-  String transcriptDigest,
+-  String gradleLockDigest,
+-  List<RouteAssets> routes
+-) {
+-  public record RouteAssets(String routeId, List<FileAsset> files) {}
+-  public record FileAsset(String path, String sha256, long bytes) {}
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/assets/AssetLockLoader.java solution/fixed/src/main/java/com/example/terminology/assets/AssetLockLoader.java
+--- environment/app/src/main/java/com/example/terminology/assets/AssetLockLoader.java	2026-07-15 01:48:39.094312193 +0530
++++ solution/fixed/src/main/java/com/example/terminology/assets/AssetLockLoader.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,12 +0,0 @@
+-
+-package com.example.terminology.assets;
+-import com.fasterxml.jackson.databind.ObjectMapper;
+-import org.springframework.stereotype.Component;
+-import java.nio.file.Path;
+-@Component
+-public class AssetLockLoader {
+-  private final ObjectMapper mapper = new ObjectMapper();
+-  public AssetLock load(Path path) throws Exception {
+-    return mapper.readValue(path.toFile(), AssetLock.class);
+-  }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/assets/AssetLockValidator.java solution/fixed/src/main/java/com/example/terminology/assets/AssetLockValidator.java
+--- environment/app/src/main/java/com/example/terminology/assets/AssetLockValidator.java	2026-07-15 01:48:39.094343818 +0530
++++ solution/fixed/src/main/java/com/example/terminology/assets/AssetLockValidator.java	2026-07-15 01:50:04.139690972 +0530
+@@ -1,11 +1,132 @@
+-
+ package com.example.terminology.assets;
++
++import org.springframework.beans.factory.annotation.Value;
+ import org.springframework.stereotype.Component;
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.security.MessageDigest;
++import java.util.HexFormat;
++import java.util.HashSet;
++import java.util.List;
++import java.util.Set;
++import java.util.regex.Matcher;
++import java.util.regex.Pattern;
++import java.util.stream.Collectors;
++import java.util.stream.Stream;
++
+ @Component
+ public class AssetLockValidator {
+-  public void validate(AssetLock lock) {
+-    if (lock.revision() == null || lock.revision().isBlank()) {
+-      throw new IllegalStateException("missing revision");
++  private static final Pattern FINAL = Pattern.compile("<!--\\s*FINAL_RATIFIED:([^>]+)-->");
++  private static final String PUBLIC_ROUTE = "public-synonym";
++  private static final String REPO = "HuggingFaceFW/fineweb-edu-score-2";
++
++  @Value("${hf.mirror-root:/data/hf-mirror}")
++  private String mirrorRoot;
++
++  @Value("${hf.transcript:/app/docs/release-council-transcript.md}")
++  private String transcriptPath;
++
++  public void validate(AssetLock lock) throws Exception {
++    if (lock.lockSchemaVersion() == null || lock.lockSchemaVersion().isBlank()) {
++      throw new IllegalStateException("missing lock schema version");
++    }
++    if (!REPO.equals(lock.repository())) {
++      throw new IllegalStateException("repository mismatch");
++    }
++    Policy policy = loadPolicy();
++    if (!policy.revision.equals(lock.revision())) {
++      throw new IllegalStateException("revision mismatch");
++    }
++    String transcriptDigest = sha256(Files.readAllBytes(Path.of(transcriptPath)));
++    if (!transcriptDigest.equals(lock.transcriptDigest())) {
++      throw new IllegalStateException("transcript digest mismatch");
++    }
++    String gradleDigest = gradleDigest();
++    if (!gradleDigest.equals(lock.gradleLockDigest())) {
++      throw new IllegalStateException("gradle digest mismatch");
++    }
++  Path meta = Path.of(mirrorRoot, REPO, "fineweb-edu-score-2", "revisions", lock.revision(), "metadata.json");
++    String metaDigest = sha256(canonicalJson(Files.readString(meta)).getBytes());
++    if (!metaDigest.equals(lock.sourceMetadataDigest())) {
++      throw new IllegalStateException("metadata digest mismatch");
++    }
++    AssetLock.RouteAssets route = lock.routes().stream()
++        .filter(r -> PUBLIC_ROUTE.equals(r.routeId()))
++        .findFirst()
++        .orElseThrow(() -> new IllegalStateException("missing public route"));
++    Set<String> paths = route.files().stream().map(AssetLock.FileAsset::path).collect(Collectors.toSet());
++    if (!paths.containsAll(policy.files)) {
++      throw new IllegalStateException("missing required route file");
++    }
++    if (paths.stream().anyMatch(policy.forbidden::contains)) {
++      throw new IllegalStateException("forbidden route file present");
++    }
++    Path filesDir = Path.of(mirrorRoot, REPO, "fineweb-edu-score-2", "revisions", lock.revision(), "files");
++    for (AssetLock.FileAsset entry : route.files()) {
++      Path file = filesDir.resolve(entry.path());
++      byte[] data = Files.readAllBytes(file);
++      if (!sha256(data).equals(entry.sha256()) || data.length != entry.bytes()) {
++        throw new IllegalStateException("checksum mismatch for " + entry.path());
++      }
+     }
+   }
++
++  private record Policy(String revision, Set<String> files, Set<String> forbidden) {}
++
++  private Policy loadPolicy() throws IOException {
++    String text = Files.readString(Path.of(transcriptPath));
++    String revision = "";
++    Set<String> files = new HashSet<>();
++    Set<String> forbidden = new HashSet<>();
++    Matcher matcher = FINAL.matcher(text);
++    while (matcher.find()) {
++      String blob = matcher.group(1).trim();
++      String route = value(blob, "route");
++      if (!PUBLIC_ROUTE.equals(route)) continue;
++      String rev = value(blob, "revision");
++      if (!rev.isBlank()) revision = rev;
++      String fileList = value(blob, "files");
++      if (!fileList.isBlank()) {
++        for (String part : fileList.split(",")) if (!part.isBlank()) files.add(part);
++      }
++      String forb = value(blob, "forbidden");
++      if (!forb.isBlank()) {
++        for (String part : forb.split(",")) if (!part.isBlank()) forbidden.add(part);
++      }
++    }
++    return new Policy(revision, files, forbidden);
++  }
++
++  private static String value(String blob, String key) {
++    for (String part : blob.split("\\s+")) {
++      if (part.startsWith(key + "=")) return part.substring(key.length() + 1);
++    }
++    return "";
++  }
++
++  private static String gradleDigest() throws Exception {
++    Path root = Path.of("/app/gradle/dependency-locks");
++    MessageDigest digest = MessageDigest.getInstance("SHA-256");
++    try (Stream<Path> paths = Files.list(root)) {
++      for (Path path : paths.filter(p -> p.toString().endsWith(".lockfile")).sorted()::iterator) {
++        byte[] raw = Files.readAllBytes(path);
++        String normalized = new String(raw, java.nio.charset.StandardCharsets.UTF_8).replace("\r\n", "\n");
++        byte[] data = normalized.getBytes(java.nio.charset.StandardCharsets.UTF_8);
++        digest.update(path.getFileName().toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
++        digest.update((byte) 0);
++        digest.update(data);
++      }
++    }
++    return HexFormat.of().formatHex(digest.digest());
++  }
++
++  private static String sha256(byte[] data) throws Exception {
++    return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(data));
++  }
++
++  private static String canonicalJson(String raw) throws IOException {
++    var mapper = new com.fasterxml.jackson.databind.ObjectMapper();
++    return mapper.writeValueAsString(mapper.readTree(raw));
++  }
+ }
+diff -ruN environment/app/src/main/java/com/example/terminology/assets/DatasetRevision.java solution/fixed/src/main/java/com/example/terminology/assets/DatasetRevision.java
+--- environment/app/src/main/java/com/example/terminology/assets/DatasetRevision.java	2026-07-15 01:48:39.094367686 +0530
++++ solution/fixed/src/main/java/com/example/terminology/assets/DatasetRevision.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,3 +0,0 @@
+-
+-package com.example.terminology.assets;
+-public record DatasetRevision(String repository, String revision) {}
+diff -ruN environment/app/src/main/java/com/example/terminology/assets/HuggingFaceMirror.java solution/fixed/src/main/java/com/example/terminology/assets/HuggingFaceMirror.java
+--- environment/app/src/main/java/com/example/terminology/assets/HuggingFaceMirror.java	2026-07-15 01:48:39.094400536 +0530
++++ solution/fixed/src/main/java/com/example/terminology/assets/HuggingFaceMirror.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,14 +0,0 @@
+-
+-package com.example.terminology.assets;
+-import org.springframework.beans.factory.annotation.Value;
+-import org.springframework.stereotype.Component;
+-import java.nio.file.Path;
+-@Component
+-public class HuggingFaceMirror {
+-  @Value("${hf.mirror-root:/data/hf-mirror}")
+-  private String mirrorRoot;
+-  public Path revisionDir(String repo, String revision) {
+-    String slug = repo.replace("/", "/");
+-    return Path.of(mirrorRoot, slug, "revisions", revision);
+-  }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/assets/SynonymAssetResolver.java solution/fixed/src/main/java/com/example/terminology/assets/SynonymAssetResolver.java
+--- environment/app/src/main/java/com/example/terminology/assets/SynonymAssetResolver.java	2026-07-15 01:48:39.094437893 +0530
++++ solution/fixed/src/main/java/com/example/terminology/assets/SynonymAssetResolver.java	2026-07-15 01:50:00.165239234 +0530
+@@ -1,19 +1,18 @@
+-
+ package com.example.terminology.assets;
++
+ import org.springframework.stereotype.Component;
+ import java.util.ArrayList;
+ import java.util.List;
++
+ @Component
+ public class SynonymAssetResolver {
+   public List<String> resolve(AssetLock lock, String routeId, HuggingFaceMirror mirror) {
+     List<String> out = new ArrayList<>();
+     for (AssetLock.RouteAssets route : lock.routes()) {
+       if (!route.routeId().equals(routeId)) continue;
+-      for (AssetLock.FileAsset file : route.files()) out.add(file.path());
+-    }
+-    if (out.isEmpty()) {
+-      out.add("synonym-expansion-train.jsonl");
+-      out.add("rejected-adult-filter.jsonl");
++      for (AssetLock.FileAsset file : route.files()) {
++        out.add(file.path());
++      }
+     }
+     return out;
+   }
+diff -ruN environment/app/src/main/java/com/example/terminology/startup/StartupAssetGate.java solution/fixed/src/main/java/com/example/terminology/startup/StartupAssetGate.java
+--- environment/app/src/main/java/com/example/terminology/startup/StartupAssetGate.java	2026-07-15 01:48:39.094731019 +0530
++++ solution/fixed/src/main/java/com/example/terminology/startup/StartupAssetGate.java	2026-07-15 01:49:53.628515798 +0530
+@@ -1,24 +1,27 @@
+-
+ package com.example.terminology.startup;
+-import com.example.terminology.assets.*;
++
++import com.example.terminology.assets.AssetLock;
++import com.example.terminology.assets.AssetLockLoader;
++import com.example.terminology.assets.AssetLockValidator;
+ import org.springframework.boot.ApplicationArguments;
+ import org.springframework.boot.ApplicationRunner;
+ import org.springframework.stereotype.Component;
+ import java.nio.file.Path;
++
+ @Component
+ public class StartupAssetGate implements ApplicationRunner {
+   private final AssetLockLoader loader;
+   private final AssetLockValidator validator;
++
+   public StartupAssetGate(AssetLockLoader loader, AssetLockValidator validator) {
+-    this.loader = loader; this.validator = validator;
++    this.loader = loader;
++    this.validator = validator;
+   }
++
+   @Override
+   public void run(ApplicationArguments args) throws Exception {
+-    try {
+-      AssetLock lock = loader.load(Path.of("/app/config/hf-assets.lock.json"));
+-      validator.validate(lock);
+-    } catch (Exception ex) {
+-      System.err.println("WARN asset lock: " + ex.getMessage());
+-    }
++    Path lockPath = Path.of(System.getenv().getOrDefault("HF_ASSET_LOCK", "/app/config/hf-assets.lock.json"));
++    AssetLock lock = loader.load(lockPath);
++    validator.validate(lock);
+   }
+ }
+diff -ruN environment/app/src/main/java/com/example/terminology/startup/StartupFailureReporter.java solution/fixed/src/main/java/com/example/terminology/startup/StartupFailureReporter.java
+--- environment/app/src/main/java/com/example/terminology/startup/StartupFailureReporter.java	2026-07-15 01:48:39.094760742 +0530
++++ solution/fixed/src/main/java/com/example/terminology/startup/StartupFailureReporter.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,9 +0,0 @@
+-
+-package com.example.terminology.startup;
+-import com.example.terminology.api.ErrorResponse;
+-import java.util.Map;
+-public class StartupFailureReporter {
+-  public static ErrorResponse format(String code, String message) {
+-    return new ErrorResponse(new ErrorResponse.ErrorBody(code, message, Map.of()));
+-  }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/synonyms/SynonymService.java solution/fixed/src/main/java/com/example/terminology/synonyms/SynonymService.java
+--- environment/app/src/main/java/com/example/terminology/synonyms/SynonymService.java	2026-07-15 01:48:39.094568386 +0530
++++ solution/fixed/src/main/java/com/example/terminology/synonyms/SynonymService.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,38 +0,0 @@
+-
+-package com.example.terminology.synonyms;
+-import com.example.terminology.assets.*;
+-import com.fasterxml.jackson.core.type.TypeReference;
+-import com.fasterxml.jackson.databind.ObjectMapper;
+-import org.springframework.stereotype.Service;
+-import java.nio.file.Files;
+-import java.nio.file.Path;
+-import java.util.*;
+-@Service
+-public class SynonymService {
+-  private final AssetLockLoader loader;
+-  private final SynonymAssetResolver resolver;
+-  private final HuggingFaceMirror mirror;
+-  private final ObjectMapper mapper = new ObjectMapper();
+-  public SynonymService(AssetLockLoader loader, SynonymAssetResolver resolver, HuggingFaceMirror mirror) {
+-    this.loader = loader; this.resolver = resolver; this.mirror = mirror;
+-  }
+-  public List<Map<String, Object>> lookup(String term) throws Exception {
+-    AssetLock lock = loader.load(Path.of("/app/config/hf-assets.lock.json"));
+-    List<String> files = resolver.resolve(lock, "public-synonym", mirror);
+-    Path base = mirror.revisionDir(lock.repository(), lock.revision()).resolve("files");
+-    List<Map<String, Object>> hits = new ArrayList<>();
+-    for (String rel : files) {
+-      Path file = base.resolve(rel);
+-      if (!Files.exists(file)) continue;
+-      for (String line : Files.readAllLines(file)) {
+-        Map<String, Object> row = mapper.readValue(line, new TypeReference<>() {});
+-        if (term.equals(row.get("term"))) {
+-          @SuppressWarnings("unchecked")
+-          List<Map<String, Object>> syns = (List<Map<String, Object>>) row.get("synonyms");
+-          hits.addAll(syns);
+-        }
+-      }
+-    }
+-    return hits;
+-  }
+-}
+diff -ruN environment/app/src/main/java/com/example/terminology/synonyms/TermNormalizer.java solution/fixed/src/main/java/com/example/terminology/synonyms/TermNormalizer.java
+--- environment/app/src/main/java/com/example/terminology/synonyms/TermNormalizer.java	2026-07-15 01:48:39.094589964 +0530
++++ solution/fixed/src/main/java/com/example/terminology/synonyms/TermNormalizer.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,2 +0,0 @@
+-package com.example.terminology.synonyms;
+-public class TermNormalizer { public String normalize(String t){return t.trim().toLowerCase();}}
+diff -ruN environment/app/src/main/java/com/example/terminology/synonyms/WeightedSynonymIndex.java solution/fixed/src/main/java/com/example/terminology/synonyms/WeightedSynonymIndex.java
+--- environment/app/src/main/java/com/example/terminology/synonyms/WeightedSynonymIndex.java	2026-07-15 01:48:39.094610224 +0530
++++ solution/fixed/src/main/java/com/example/terminology/synonyms/WeightedSynonymIndex.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,2 +0,0 @@
+-package com.example.terminology.synonyms;
+-public class WeightedSynonymIndex {}
+diff -ruN environment/app/src/main/resources/application.yml solution/fixed/src/main/resources/application.yml
+--- environment/app/src/main/resources/application.yml	2026-07-15 01:48:39.094880631 +0530
++++ solution/fixed/src/main/resources/application.yml	1970-01-01 05:30:00.000000000 +0530
+@@ -1,7 +0,0 @@
+-
+-server:
+-  port: 8080
+-hf:
+-  mirror-root: ${HF_MIRROR_ROOT:/data/hf-mirror}
+-  transcript: ${HF_TRANSCRIPT:/app/docs/release-council-transcript.md}
+-  asset-lock: ${HF_ASSET_LOCK:/app/config/hf-assets.lock.json}
+diff -ruN environment/app/src/main/resources/logback.xml solution/fixed/src/main/resources/logback.xml
+--- environment/app/src/main/resources/logback.xml	2026-07-15 01:48:39.094915008 +0530
++++ solution/fixed/src/main/resources/logback.xml	1970-01-01 05:30:00.000000000 +0530
+@@ -1 +0,0 @@
+-<configuration><appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"><encoder><pattern>%msg%n</pattern></encoder></appender><root level="INFO"><appender-ref ref="STDOUT"/></root></configuration>
+diff -ruN environment/app/src/test/java/com/example/terminology/SynonymControllerTest.java solution/fixed/src/test/java/com/example/terminology/SynonymControllerTest.java
+--- environment/app/src/test/java/com/example/terminology/SynonymControllerTest.java	2026-07-15 01:48:39.095332476 +0530
++++ solution/fixed/src/test/java/com/example/terminology/SynonymControllerTest.java	1970-01-01 05:30:00.000000000 +0530
+@@ -1,7 +0,0 @@
+-
+-package com.example.terminology;
+-import org.junit.jupiter.api.Test;
+-import static org.junit.jupiter.api.Assertions.*;
+-class SynonymControllerTest {
+-  @Test void placeholder() { assertTrue(true); }
+-}
+diff -ruN environment/app/src/test/resources/application-test.yml solution/fixed/src/test/resources/application-test.yml
+--- environment/app/src/test/resources/application-test.yml	2026-07-15 01:48:39.095430635 +0530
++++ solution/fixed/src/test/resources/application-test.yml	1970-01-01 05:30:00.000000000 +0530
+@@ -1,2 +0,0 @@
+-server:
+-  port: 0

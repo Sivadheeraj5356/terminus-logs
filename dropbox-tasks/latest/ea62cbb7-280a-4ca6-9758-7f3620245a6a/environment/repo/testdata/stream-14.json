@@ -1,0 +1,90 @@
+{
+ "until": 40,
+ "packages": [
+  {
+   "name": "ceremony-1804",
+   "readyQuorum": 1,
+   "quiet": 3,
+   "cooldown": 5
+  }
+ ],
+ "events": [
+  {
+   "at": 4,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": true
+  },
+  {
+   "at": 8,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": true
+  },
+  {
+   "at": 11,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": false
+  },
+  {
+   "at": 13,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": false
+  },
+  {
+   "at": 15,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": true
+  },
+  {
+   "at": 17,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": true
+  },
+  {
+   "at": 18,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": true
+  },
+  {
+   "at": 22,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": false
+  },
+  {
+   "at": 23,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": true
+  },
+  {
+   "at": 23,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": true
+  },
+  {
+   "at": 27,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": false
+  }
+ ]
+}

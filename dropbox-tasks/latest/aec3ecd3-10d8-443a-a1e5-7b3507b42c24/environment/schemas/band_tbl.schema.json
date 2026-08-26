@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["pack_id", "r_abs", "r_rel", "abs_band", "rel_band", "trace_digest"],
+  "properties": {
+    "pack_id": { "type": "string" },
+    "r_abs": { "type": "number" },
+    "r_rel": { "type": "number" },
+    "abs_band": { "type": "number" },
+    "rel_band": { "type": "number" },
+    "trace_digest": { "type": "string", "minLength": 64, "maxLength": 64 }
+  },
+  "additionalProperties": false
+}

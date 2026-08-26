@@ -1,0 +1,14 @@
+# Block b0 leaves two values on the operand stack and branches to b1, which
+# pushes a third before folding them. The deepest point is three, reached only
+# because b1 inherits b0's stack height. `analyze` should report max_stack 3.
+func main() -> int {
+b0:
+  iconst 1
+  iconst 2
+  br b1
+b1:
+  iconst 3
+  iadd
+  iadd
+  ret
+}

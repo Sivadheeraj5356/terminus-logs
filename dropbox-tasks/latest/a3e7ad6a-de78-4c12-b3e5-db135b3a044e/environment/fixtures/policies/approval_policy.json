@@ -1,0 +1,42 @@
+{
+  "class_gates": {
+    "dept_merge": [
+      "hr_lead",
+      "cfo"
+    ],
+    "vendor_replace": [
+      "procurement",
+      "security_officer"
+    ],
+    "region_expand": [
+      "regional_vp",
+      "legal",
+      "cfo"
+    ],
+    "budget_realloc": [
+      "cfo"
+    ],
+    "program_cancel": [
+      "program_owner",
+      "cfo"
+    ]
+  },
+  "score_thresholds": [
+    {
+      "min_score": 3,
+      "extra_roles": [
+        "risk_committee"
+      ]
+    },
+    {
+      "min_score": 5,
+      "extra_roles": [
+        "board_observer"
+      ]
+    }
+  ],
+  "conditional": {
+    "exception_flag": "exception",
+    "extra_role": "exception_board"
+  }
+}

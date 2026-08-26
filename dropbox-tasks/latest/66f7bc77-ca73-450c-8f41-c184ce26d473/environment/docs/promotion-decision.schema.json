@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "candidate_id",
+    "approved",
+    "status",
+    "reasons",
+    "checks"
+  ],
+  "properties": {
+    "candidate_id": { "type": "string" },
+    "approved": { "type": "boolean" },
+    "status": {
+      "type": "string",
+      "enum": ["approved", "rejected"]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "upstream_tag_missing",
+          "metric_regression",
+          "latency_breach",
+          "compose_metadata_mismatch",
+          "canary_batch_mismatch",
+          "eval_stale",
+          "holdout_sample_insufficient",
+          "artifact_manifest_mismatch"
+        ]
+      }
+    },
+    "checks": {
+      "type": "object",
+      "required": [
+        "upstream_tag_present",
+        "metrics_ok",
+        "latency_ok",
+        "compose_ok",
+        "canary_ok",
+        "eval_fresh",
+        "holdout_ok",
+        "manifest_ok"
+      ],
+      "properties": {
+        "upstream_tag_present": { "type": "boolean" },
+        "metrics_ok": { "type": "boolean" },
+        "latency_ok": { "type": "boolean" },
+        "compose_ok": { "type": "boolean" },
+        "canary_ok": { "type": "boolean" },
+        "eval_fresh": { "type": "boolean" },
+        "holdout_ok": { "type": "boolean" },
+        "manifest_ok": { "type": "boolean" }
+      }
+    }
+  }
+}

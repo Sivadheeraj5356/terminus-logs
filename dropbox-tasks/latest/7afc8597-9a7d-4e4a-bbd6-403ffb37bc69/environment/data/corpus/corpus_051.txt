@@ -1,0 +1,6 @@
+the quick brown fox
+this is the end
+ip 192.168.0.1 and 10.0.0.255 here
+addr 129.33.129.10 hex 0xd936 token tok_133
+alpha baz world start true start gamma
+addr 6.11.70.126 hex 0xa74b token tok_247

@@ -1,0 +1,25 @@
+--- internal/surf/emit.go
++++ internal/surf/emit.go
+@@ -16,15 +16,20 @@
+ )
+ 
+ func seal_x(lines []string) string {
+-	cp := append([]string(nil), lines...)
+-	sort.Sort(sort.Reverse(sort.StringSlice(cp)))
++	cp := make([]string, 0, len(lines))
++	for _, line := range lines {
++		cp = append(cp, line)
++	}
++	sort.Strings(cp)
+ 	var b strings.Builder
++	b.Grow(len(cp) * 48)
+ 	for i, line := range cp {
+ 		if i > 0 {
+ 			b.WriteByte('\n')
+ 		}
+ 		b.WriteString(line)
+ 	}
++	b.WriteByte('\n')
+ 	sum := sha256.Sum256([]byte(b.String()))
+ 	return fmt.Sprintf("%x", sum)
+ }

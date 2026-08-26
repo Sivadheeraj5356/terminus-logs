@@ -1,0 +1,36 @@
+--- a/xfer/gate.go
++++ b/xfer/gate.go
+@@ -1,8 +1,11 @@
+ package xfer
+ 
+-import "pitctl/types"
++import (
++	"strconv"
++
++	"pitctl/types"
++)
+ 
+-// Gate memos pick results inside one materialize pass.
+ type Gate struct {
+ 	m map[string]types.PickResult
+ }
+@@ -11,13 +14,15 @@
+ 	return &Gate{m: map[string]types.PickResult{}}
+ }
+ 
++func key(entity string, eventMs int64) string {
++	return entity + "\x1e" + strconv.FormatInt(eventMs, 10)
++}
++
+ func (g *Gate) Recall(entity string, eventMs int64) (types.PickResult, bool) {
+-	_ = eventMs
+-	r, ok := g.m[entity]
++	r, ok := g.m[key(entity, eventMs)]
+ 	return r, ok
+ }
+ 
+ func (g *Gate) Remember(entity string, eventMs int64, r types.PickResult) {
+-	_ = eventMs
+-	g.m[entity] = r
++	g.m[key(entity, eventMs)] = r
+ }

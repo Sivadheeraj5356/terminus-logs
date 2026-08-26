@@ -1,0 +1,1 @@
+{"job_id": "job-005", "priority": 15, "spec_path": "/app/specs/torchserve-bad.yaml", "profile_ref": "production", "rules_ref": "default", "defer": false}

@@ -1,0 +1,288 @@
+--- a/environment/fp3/gateway.rs
++++ b/environment/fp3/gateway.rs
+@@ -21,7 +21,7 @@
+     let k3_steps = fp3_tail_f::tail_p(scenario_id, &roots);
+     let g2_steps = sr5_gate_f::gate_k(scenario_id, &roots);
+     let mut seen = HashSet::new();
+-    for step in g2_steps.iter().chain(k3_steps.iter()) {
++    for step in k3_steps.iter().chain(g2_steps.iter()) {
+         if !seen.insert((*step).to_string()) {
+             continue;
+         }
+--- a/environment/fp3/tail_f.rs
++++ b/environment/fp3/tail_f.rs
+@@ -6,7 +6,7 @@
+ 
+ pub fn tail_seq(input: &scan::ScenarioInput) -> u64 {
+     if input.scenario >= 1 && input.rank_a >= 2 {
+-        input.stage
++        input.anchor
+     } else {
+         input.anchor
+     }
+@@ -19,7 +19,7 @@
+         scan::parse_root(&roots[0], scenario_id).rank_a
+     };
+     if scenario_id >= 1 && rank_lane_even(rank_a) {
+-        return vec!["stage", "clean", "release", "done", "settle", "sample"];
++        return vec!["stage", "release", "clean", "done", "settle", "sample"];
+     }
+-    vec!["stage", "clean", "release", "done", "settle", "sample"]
++    vec!["stage", "release", "clean", "done", "settle", "sample"]
+ }
+--- a/environment/pack/emit_gateway.rs
++++ b/environment/pack/emit_gateway.rs
+@@ -17,13 +17,13 @@
+         return false;
+     }
+     let rows = load_epochs(state_dir);
+-    let (_fp_xr, sk_sr): (Vec<Value>, Vec<Value>) = rows.into_iter().partition(|row| {
++    let (left, right): (Vec<Value>, Vec<Value>) = rows.into_iter().partition(|row| {
+         matches!(
+             row.get("phase").and_then(|v| v.as_str()),
+-            Some("fp3") | Some("xr4")
++            Some("sr5") | Some("sk8")
+         )
+     });
+-    let folded = fold_k(&sk_sr, &[]);
++    let folded = fold_k(&left, &right);
+     let bundle = json!({
+         "rows": folded,
+         "chain_fingerprint": fingerprint(&folded),
+--- a/environment/pack/fold_k.rs
++++ b/environment/pack/fold_k.rs
+@@ -19,11 +19,7 @@
+         .filter(|row| required.iter().all(|f| row.get(*f).is_some()))
+         .cloned()
+         .collect();
+-    out.sort_by(|a, b| {
+-        let sa = a.get("sequence").and_then(|v| v.as_i64()).unwrap_or(0);
+-        let sb = b.get("sequence").and_then(|v| v.as_i64()).unwrap_or(0);
+-        sa.cmp(&sb)
+-    });
++    out.sort_by(|a, b| sort_key(a).cmp(&sort_key(b)));
+     out
+ }
+ 
+--- a/environment/pack/mix_k9.rs
++++ b/environment/pack/mix_k9.rs
+@@ -9,8 +9,7 @@
+         let member = row.get("target").and_then(|v| v.as_str()).unwrap_or("");
+         let marker = row.get("marker").and_then(|v| v.as_str()).unwrap_or("");
+         let sequence = row.get("sequence").and_then(|v| v.as_i64()).unwrap_or(0);
+-        let epoch = row.get("epoch").and_then(|v| v.as_i64()).unwrap_or(0);
+-        parts.push(format!("{scenario},{phase},{member},{marker},{sequence},{epoch}"));
++        parts.push(format!("{scenario},{phase},{member},{marker},{sequence}"));
+     }
+     parts.sort();
+     let payload = parts.join("\n") + "\n";
+--- a/environment/sk8/gateway.rs
++++ b/environment/sk8/gateway.rs
+@@ -17,11 +17,16 @@
+     let flag_moot = state_dir.join("signal");
+     let _ = fs::create_dir_all(&flag_moot);
+     let key = format!("s{}-{}", input.scenario, input.source);
+-    let (_stored_seq, _stored_sig) = pulse_a(&flag_moot.to_string_lossy(), &key);
+     sk8_shadow_signal::count_post(&flag_moot.to_string_lossy(), &key);
+ 
+-    let sequence = pulse_seq(input);
++    let mut sequence = pulse_seq(input);
+     let count = invoke_count(state_dir, input.scenario);
++    if count > 1 {
++        let (stored_seq, stored_sig) = pulse_a(&flag_moot.to_string_lossy(), &key);
++        if stored_sig as u64 == input.sig && stored_seq > 0 {
++            sequence = stored_seq as u64;
++        }
++    }
+     if count == 1 {
+         write_pulse_slot(
+             &flag_moot.to_string_lossy(),
+@@ -35,6 +40,11 @@
+     vec![row.to_value()]
+ }
+ 
++fn epoch_cache_should_accumulate(scenario_id: u32, prior_rows: usize) -> bool {
++    let _ = (scenario_id, prior_rows);
++    false
++}
++
+ pub fn save_epoch_cache(scenario_id: u32, rows: &[Value], state_dir: &Path) {
+     let cache = state_dir.join(format!("epoch_{scenario_id}.json"));
+     let mut folded: Vec<Value> = Vec::new();
+@@ -43,6 +53,10 @@
+             folded = serde_json::from_str(&text).unwrap_or_default();
+         }
+     }
+-    folded.extend(rows.iter().cloned());
++    if epoch_cache_should_accumulate(scenario_id, folded.len()) {
++        folded.extend(rows.iter().cloned());
++    } else {
++        folded = rows.to_vec();
++    }
+     let _ = fs::write(cache, serde_json::to_string(&folded).unwrap());
+ }
+--- a/environment/sk8/signal_f.rs
++++ b/environment/sk8/signal_f.rs
+@@ -8,7 +8,7 @@
+ 
+ pub fn pulse_seq(input: &ScenarioInput) -> u64 {
+     if xfer_lead_band(input) {
+-        input.issue
++        input.settle + 1
+     } else {
+         input.settle + 1
+     }
+--- a/environment/sr5/gate_f.rs
++++ b/environment/sr5/gate_f.rs
+@@ -2,9 +2,9 @@
+ 
+ pub fn epoch_r(input: &ScenarioInput, mount_sig: u32) -> u64 {
+     if input.scenario >= 1 && mount_sig != 0 && (input.sig as u32) != mount_sig {
+-        input.issue
++        input.settle + 2
+     } else if input.scenario >= 1 && input.rank_b > input.rank_a {
+-        input.issue
++        input.settle + 2
+     } else {
+         input.settle + 2
+     }
+@@ -17,7 +17,7 @@
+         crate::scan::parse_root(&roots[0], scenario_id).rank_b
+     };
+     if scenario_id >= 1 && rank_b % 2 == 0 {
+-        return vec!["stage", "done", "anchor", "gate", "settle", "sample"];
++        return vec!["stage", "anchor", "gate", "done", "settle", "sample"];
+     }
+     vec!["stage", "anchor", "gate", "done", "settle", "sample"]
+ }
+--- a/environment/sr5/gateway.rs
++++ b/environment/sr5/gateway.rs
+@@ -41,10 +41,10 @@
+     sr5_shadow_gate::count_post(&flag_moot.to_string_lossy(), &key);
+ 
+     let count = invoke_count(state_dir, input.scenario);
+-    let mount_sig = read_mount_sig(&flag_moot, &key);
+     if count == 1 {
+         write_mount_sig(&flag_moot, &key, input.sig);
+     }
++    let mount_sig = read_mount_sig(&flag_moot, &key);
+     let sequence = epoch_r(input, mount_sig);
+ 
+     let row = TraceRow::new(input.scenario, "sr5", &input.source, "done", sequence, 0);
+--- a/environment/src/engine.rs
++++ b/environment/src/engine.rs
+@@ -37,8 +37,8 @@
+     let _ = fs::write(&count_path, format!("{}\n", prior + 1));
+     let input = scan::parse(scenario_id);
+     let rows = scenario_rows(&input, state_dir);
++    fp3_gateway::append_wal_steps(state_dir, scenario_id);
+     seal_checkpoint(state_dir, scenario_id);
+-    fp3_gateway::append_wal_steps(state_dir, scenario_id);
+     rows
+ }
+ 
+@@ -52,8 +52,11 @@
+ }
+ 
+ pub fn recover_from_wal(state_dir: &Path) -> bool {
++    if !wal::wal_crc_chain_intact(state_dir) {
++        return false;
++    }
+     let chain = read_chain(state_dir);
+-    if chain.is_empty() {
++    if chain.is_empty() || !phases_valid(&chain) {
+         return false;
+     }
+     let last_scenario = chain.iter().map(|r| r.scenario).max().unwrap_or(0);
+@@ -61,7 +64,7 @@
+         last_scenario,
+         wal_seq: chain.last().map(|r| r.seq).unwrap_or(0),
+         order_seal: compute_order_seal(&chain),
+-        valid: true,
++        valid: phases_valid(&chain),
+     };
+     write_checkpoint(state_dir, &cp).is_ok()
+ }
+@@ -69,6 +72,9 @@
+ pub fn checkpoint_ready(state_dir: &Path) -> bool {
+     let chain = read_chain(state_dir);
+     if !phases_valid(&chain) {
++        return false;
++    }
++    if !wal::wal_crc_chain_intact(state_dir) {
+         return false;
+     }
+     match wal::read_checkpoint(state_dir) {
+--- a/environment/src/scan.rs
++++ b/environment/src/scan.rs
+@@ -1,7 +1,6 @@
+ use std::collections::HashMap;
+ use std::fs;
+ use std::path::Path;
+-use std::sync::{Mutex, OnceLock};
+ 
+ #[derive(Clone, Debug, Default, PartialEq, Eq)]
+ pub struct ScenarioInput {
+@@ -17,13 +16,6 @@
+     pub rank_a: u64,
+     pub rank_b: u64,
+     pub epoch: u64,
+-}
+-
+-type LedgerTriple = (u64, u64, u64);
+-
+-fn ledger_cache() -> &'static Mutex<HashMap<String, LedgerTriple>> {
+-    static CACHE: OnceLock<Mutex<HashMap<String, LedgerTriple>>> = OnceLock::new();
+-    CACHE.get_or_init(|| Mutex::new(HashMap::new()))
+ }
+ 
+ fn kv(path: &Path) -> HashMap<String, String> {
+@@ -51,22 +43,10 @@
+     map.get(key).cloned().unwrap_or_else(|| fallback.to_string())
+ }
+ 
+-fn ledger_fields(ledger_path: &Path) -> LedgerTriple {
+-    let cache_key = ledger_path.to_string_lossy().to_string();
+-    let mut cache = ledger_cache().lock().unwrap();
+-    if let Some(vals) = cache.get(&cache_key) {
+-        return *vals;
+-    }
+-    let ledger = kv(ledger_path);
+-    let vals = (num(&ledger, "stage"), num(&ledger, "anchor"), num(&ledger, "settle"));
+-    cache.insert(cache_key, vals);
+-    vals
+-}
+-
+ pub fn parse_root(root: &str, scenario_id: u32) -> ScenarioInput {
+     let base = Path::new(root);
+     let xfer = kv(&base.join("a0.evt"));
+-    let (stage, anchor, settle) = ledger_fields(&base.join("b0.evt"));
++    let ledger = kv(&base.join("b0.evt"));
+     let res = kv(&base.join("p0.res"));
+     ScenarioInput {
+         scenario: scenario_id,
+@@ -74,9 +54,9 @@
+         sig: num(&xfer, "sig"),
+         source: text(&xfer, "source", "na"),
+         target: text(&xfer, "target", "na"),
+-        stage,
+-        anchor,
+-        settle,
++        stage: num(&ledger, "stage"),
++        anchor: num(&ledger, "anchor"),
++        settle: num(&ledger, "settle"),
+         tail: num(&res, "tail"),
+         rank_a: num(&res, "rank_a"),
+         rank_b: num(&res, "rank_b"),
+--- a/environment/xr4/scope_f.rs
++++ b/environment/xr4/scope_f.rs
+@@ -14,7 +14,8 @@
+ }
+ 
+ fn shallow_listing(input: &scan::ScenarioInput, scenario_id: u32) -> bool {
+-    scenario_id >= 1 && (input.rank_a <= 4 || (scenario_id == 1 && input.rank_b > input.epoch))
++    let _ = (input, scenario_id);
++    false
+ }
+ 
+ pub fn scope_x(root: &str, scenario_id: u32) -> Vec<String> {

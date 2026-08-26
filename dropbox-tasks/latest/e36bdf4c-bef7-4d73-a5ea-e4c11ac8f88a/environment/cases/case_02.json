@@ -1,0 +1,6 @@
+{
+  "unit_id": "c02",
+  "query": "mode=open",
+  "uri": "file:///var/lib/ov/x.dat",
+  "alg": "dig-b"
+}

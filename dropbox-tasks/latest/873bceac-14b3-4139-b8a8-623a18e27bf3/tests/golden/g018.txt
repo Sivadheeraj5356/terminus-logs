@@ -1,0 +1,15 @@
+== Emberforge Hollow [volcanic] ==
+Omen: The deep remembers.
+Light: 7.0 lumens
+Relics:
+  - Ember Heart <legendary> 500g (cursed)
+  - Slag Idol <uncommon> 200g (cursed)
+Freshest: Ember Heart @ 16:20 KST
+Exits:
+  - north: sealed gate (torch 1.0)
+  - east: Mercury Spring (torch 1.5)
+Torch: 5.0 units
+Inventory: (empty)
+Route: you stand at the goal
+---ACTIONS---
+inspect ember-heart

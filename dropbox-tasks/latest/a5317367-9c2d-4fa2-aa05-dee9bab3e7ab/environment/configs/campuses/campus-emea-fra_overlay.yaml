@@ -1,0 +1,4 @@
+schema_version: apexora-campus-overlay-1
+campus: campus-emea-fra
+segmentation_wave: wave_3
+default_gateway_tier: distribution

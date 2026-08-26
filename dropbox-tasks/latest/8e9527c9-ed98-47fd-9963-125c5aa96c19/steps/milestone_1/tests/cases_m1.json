@@ -1,0 +1,606 @@
+[
+ {
+  "id": "parse_arith0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/arith0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_arith0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/arith0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_arith0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/arith0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_arith1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/arith1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_arith1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/arith1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_arith1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/arith1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_diamond0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/diamond0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_diamond0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/diamond0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_diamond0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/diamond0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_diamond1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/diamond1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_diamond1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/diamond1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_diamond1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/diamond1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_hier0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/hier0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_hier0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/hier0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_hier0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/hier0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_hier1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/hier1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_hier1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/hier1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_hier1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/hier1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_loop0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/loop0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_loop0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/loop0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_loop0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/loop0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_loop1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/loop1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_loop1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/loop1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_loop1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/loop1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_nest0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/nest0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_nest0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/nest0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_nest0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/nest0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_nest1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/nest1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_nest1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/nest1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_nest1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/nest1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_arr0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/arr0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_arr0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/arr0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_arr0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/arr0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_arr1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/arr1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_arr1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/arr1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_arr1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/arr1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_call0",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/call0.bvm"
+  ]
+ },
+ {
+  "id": "disasm_call0",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/call0.bvm"
+  ]
+ },
+ {
+  "id": "cfg_call0",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/call0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "parse_call1",
+  "args": [
+   "parse",
+   "--module",
+   "{DIR}/call1.bvm"
+  ]
+ },
+ {
+  "id": "disasm_call1",
+  "args": [
+   "disasm",
+   "--module",
+   "{DIR}/call1.bvm"
+  ]
+ },
+ {
+  "id": "cfg_call1",
+  "args": [
+   "cfg",
+   "--module",
+   "{DIR}/call1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_arith0",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_arith0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_arith0",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_arith0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_arith1",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_arith1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_arith1",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_arith1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_arr0",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_arr0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_arr0",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_arr0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_arr1",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_arr1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_arr1",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_arr1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_get0",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_get0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_get0",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_get0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_get1",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_get1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_get1",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_get1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_call0",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_call0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_call0",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_call0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_call1",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_call1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_call1",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_call1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_swap0",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_swap0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_swap0",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_swap0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_swap1",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_swap1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_swap1",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_swap1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_cmp0",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_cmp0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_cmp0",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_cmp0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "opcheck_cmp1",
+  "args": [
+   "opcheck",
+   "--module",
+   "{DIR}/sl_cmp1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "stackmap_cmp1",
+  "args": [
+   "stackmap",
+   "--module",
+   "{DIR}/sl_cmp1.bvm",
+   "--func",
+   "main"
+  ]
+ }
+]

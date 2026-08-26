@@ -1,0 +1,7 @@
+{
+  "name": "spdlog",
+  "provide": "fmt",
+  "version": "1.13.0",
+  "resolved": "https://github.com/acme/spdlog/archive/v1.13.0.tgz",
+  "integrity": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

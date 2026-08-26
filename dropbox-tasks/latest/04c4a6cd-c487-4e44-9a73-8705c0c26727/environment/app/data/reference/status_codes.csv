@@ -1,0 +1,4 @@
+status,meaning
+active,Employee is active in the roster
+leave,Employee is retained but not currently working
+terminated,Employment has ended and the row is a current tombstone

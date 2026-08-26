@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: LAB
+description: Apexora LAB macro-segment
+rd: "65018:1018"
+rt_export: "65018:1018"
+rt_import:
+  - "65018:1018"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

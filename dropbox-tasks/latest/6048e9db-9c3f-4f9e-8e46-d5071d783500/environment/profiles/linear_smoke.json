@@ -1,0 +1,13 @@
+{
+  "config_id": "linear_smoke",
+  "seed": 7,
+  "profile": "linear_smoke",
+  "graph_id": "linear_smoke",
+  "tick_horizon": 24,
+  "node_count": 2,
+  "partition_count": 4,
+  "flags": {
+    "strict_deps": true,
+    "partition_trace": false
+  }
+}

@@ -1,0 +1,2 @@
+{"seq":1,"ts":4100,"actor":"grace@CORP.EXAMPLE.COM","module":"common-auth","result":"ok","service":"sudo"}
+{"seq":2,"ts":4101,"actor":"grace@CORP.EXAMPLE.COM","module":"pam_wheel","result":"ok","service":"sudo"}

@@ -1,0 +1,3 @@
+Implement report generation in the coinsurance-report module. `netRecovery` must follow the documented formula in `/app/docs/pricing-policy.md`. Sort policies by `netRecovery` descending, then `id` ascending. The report must include `generatedAt`, all required row and summary fields, Gson pretty-printing with a space after each colon, and two-decimal JSON numeric literals for every money field plus pass-through rate fields (`adjustmentRate` and `coinsuranceRate`).
+
+Regenerate `/app/output/coinsurance-report.json` from `/app` with `mvn -q -B -o install -DskipTests` followed by `mvn -q -B -o -pl coinsurance-batch exec:java`. Do not hardcode totals or write the report with a script.

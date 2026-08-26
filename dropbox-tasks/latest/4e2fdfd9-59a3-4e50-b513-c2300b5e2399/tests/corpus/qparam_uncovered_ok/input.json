@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-c2be0990b7ea": {
+      "alg": "hmac-sha256",
+      "secret": "79c7148d6141cbd147332e33e815f822947e79929c12ba1bbeebc67fc745a4c3"
+    }
+  },
+  "message": {
+    "authority": "svc2.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "sig1=:laN8kJMrQQI7RHG9/+uuCgm5Q6Vb6kc5DF/Hfy7qIlg=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query-param\";name=\"user\");created=1700000057;expires=1700000417;keyid=\"k-c2be0990b7ea\";alg=\"hmac-sha256\""
+    },
+    "method": "POST",
+    "path": "/api/v0/resource/117",
+    "query": "user=carol&role=guest&id=117"
+  },
+  "now": 1700000117
+}

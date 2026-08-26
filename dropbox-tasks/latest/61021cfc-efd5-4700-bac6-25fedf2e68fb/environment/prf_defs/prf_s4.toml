@@ -1,0 +1,6 @@
+public_id = "dale"
+tree_prefix = "/stage/dale"
+epoch = 4
+backend = "bk_d"
+size_ceiling = 3584
+seed = 3103

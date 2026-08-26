@@ -1,0 +1,16 @@
+{
+  "modules": [],
+  "host_calls": [
+    {"cap": "c1", "op": "write", "fuel": 3}
+  ],
+  "fuel_budget": 25,
+  "capabilities": [
+    {
+      "id": "c1",
+      "ops": ["read", "write"],
+      "baseline_ops": ["read"],
+      "uses_left": 4
+    }
+  ],
+  "expected_digest": "1835cb6e5711b223"
+}

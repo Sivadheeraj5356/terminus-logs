@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Developer build: compile the workspace in release mode from vendored sources.
+set -euo pipefail
+
+SRC="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$SRC"
+cargo build --release --workspace

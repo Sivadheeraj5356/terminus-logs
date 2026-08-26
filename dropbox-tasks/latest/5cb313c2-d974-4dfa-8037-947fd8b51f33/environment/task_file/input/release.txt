@@ -1,0 +1,14 @@
+KEY fulcio-prod fulcio@example.com ci@example.com 100 10000 1
+KEY old fulcio@example.com ci@example.com 1 500 1
+KEY untrusted fulcio@example.com ci@example.com 1 10000 0
+IMAGE api sha256aaa prod critical
+IMAGE worker sha256bbb prod standard
+ATTEST api sha256aaa slsa-build github fulcio-prod 900 50 srcA
+ATTEST api sha256aaa vuln-scan trivy fulcio-prod 910 53 srcA
+ATTEST worker sha256bbb slsa-build github old 450 10 srcB
+ATTEST worker sha256bbb slsa-build github fulcio-prod 920 65 srcB
+REQUIRE prod critical slsa-build github fulcio@example.com 200 40 hard
+REQUIRE prod critical vuln-scan trivy fulcio@example.com 200 40 warn
+REQUIRE prod standard slsa-build github fulcio@example.com 200 40 hard
+REQUEST api sha256aaa 1000
+REQUEST worker sha256bbb 1000

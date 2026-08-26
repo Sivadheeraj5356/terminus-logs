@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+category = "data-processing"
+subcategories = []
+languages = ["rust"]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+codebase_size = "large"
+number_of_milestones = 0
+tags = ["holdback-buffer", "jsonl-replay", "lane-ledger", "per-lane-slices", "buffer-custody", "state-machine"]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 720
+
+[environment]
+allow_internet = false
+build_timeout_sec = 900
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 900

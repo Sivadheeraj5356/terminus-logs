@@ -1,0 +1,27 @@
+[
+  {
+    "from": "contractor",
+    "to": "grp-contractors",
+    "hits": 4
+  },
+  {
+    "from": "contractor",
+    "to": "role-viewer",
+    "hits": 7
+  },
+  {
+    "from": "role-viewer",
+    "to": "role-admin",
+    "hits": 3
+  },
+  {
+    "from": "svc-worker",
+    "to": "k8s-editor",
+    "hits": 15
+  },
+  {
+    "from": "role-admin",
+    "to": "cluster-admin",
+    "hits": 6
+  }
+]

@@ -1,0 +1,9 @@
+ordinance: ORD-2002-03
+jurisdiction: Kestrel-Downs
+enacted: 2002-02-06
+effective: 2002-03-31T01:00:00 universal
+standard-offset: +01:00:00
+standard-label: IST
+observance:
+  begin: Oct lastSun 02:00:00 universal save -01:00:00 label GMT
+  end: Mar lastSun 01:00:00 universal

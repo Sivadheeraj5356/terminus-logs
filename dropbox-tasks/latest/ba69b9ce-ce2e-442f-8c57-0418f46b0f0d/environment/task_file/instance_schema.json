@@ -1,0 +1,63 @@
+{
+  "format": "MiniZinc data contract for shelter_staging.mzn",
+  "indexing": "All pallet, wave, zone, team, and handling-class arrays use one-based MiniZinc indices.",
+  "dimensions": {
+    "P": {"type": "positive integer", "meaning": "number of pallets"},
+    "W": {"type": "positive integer", "meaning": "maximum intake waves"},
+    "Z": {"type": "positive integer", "meaning": "shelter zones"},
+    "T": {"type": "positive integer", "meaning": "volunteer teams"},
+    "H": {"type": "positive integer", "meaning": "handling classes"}
+  },
+  "pallet_fields": {
+    "pallet_count": {"type": "array[1..P] of positive integer", "meaning": "capacity units consumed by a scheduled pallet"},
+    "protection": {"type": "array[1..P] of nonnegative integer", "meaning": "primary objective value"},
+    "mandatory": {"type": "array[1..P] of bool", "meaning": "true pallets must be scheduled"},
+    "handling_class": {"type": "array[1..P] of 1..H", "meaning": "class that determines wave compatibility and changeover"},
+    "arrival_minute": {"type": "array[1..P] of nonnegative integer", "meaning": "earliest processing start"},
+    "process_minutes": {"type": "array[1..P] of positive integer", "meaning": "wave duration is the maximum among its members"},
+    "deadline_minute": {"type": "array[1..P] of nonnegative integer", "meaning": "the assigned wave must finish by this value"},
+    "parent": {"type": "array[1..P] of 0..P", "meaning": "zero means no dependency; otherwise the referenced pallet is scheduled no later"}
+  },
+  "eligibility_matrices": {
+    "zone_allowed": {"type": "array[1..P,1..Z] of bool", "meaning": "allowed pallet-zone assignments"},
+    "team_allowed": {"type": "array[1..P,1..T] of bool", "meaning": "allowed pallet-team assignments"}
+  },
+  "capacity_vectors": {
+    "wave_capacity": {"type": "array[1..W] of nonnegative integer", "load": "sum pallet_count for pallets assigned to the wave"},
+    "zone_capacity": {"type": "array[1..Z] of nonnegative integer", "load": "sum pallet_count for pallets assigned to the zone"},
+    "team_capacity": {"type": "array[1..T] of nonnegative integer", "load": "sum pallet_count for pallets assigned to the team"}
+  },
+  "conflict_fields": {
+    "C": {"type": "nonnegative integer", "meaning": "number of conflict pairs"},
+    "conflict_a": {"type": "array[1..C] of 1..P", "meaning": "left endpoint"},
+    "conflict_b": {"type": "array[1..C] of 1..P", "meaning": "right endpoint"},
+    "rule": "A pair may both be scheduled, but its endpoints cannot share a wave."
+  },
+  "coverage_fields": {
+    "min_scheduled": {"type": "0..P", "meaning": "inclusive lower scheduled-count bound"},
+    "max_scheduled": {"type": "0..P", "meaning": "inclusive upper scheduled-count bound"},
+    "min_cells": {"type": "nonnegative integer", "meaning": "minimum distinct occupied wave/team pairs"},
+    "class_min_waves": {"type": "array[1..H] of nonnegative integer", "meaning": "minimum occupied waves assigned to each class"}
+  },
+  "sequence_fields": {
+    "class_changeover": {"type": "array[1..H,1..H] of nonnegative integer", "meaning": "directed setup from the preceding class to the current class; diagonal entries are initial setup"},
+    "occupied_wave_rule": "Occupied waves form a nonempty prefix beginning with wave 1.",
+    "single_class_rule": "All pallets assigned to one occupied wave have the same handling_class.",
+    "start_rule": "Wave 1 starts after its initial setup and all member arrivals; later waves start after member arrivals and the previous finish plus directed setup.",
+    "finish_rule": "A wave finishes after the maximum process_minutes among its members."
+  },
+  "roster_fields": {
+    "team_wave_limit": {"type": "array[1..T] of nonnegative integer", "meaning": "maximum distinct occupied waves in which a team appears"}
+  },
+  "decisions": {
+    "wave": {"type": "array[1..P] of var 0..W", "zero": "unscheduled"},
+    "zone": {"type": "array[1..P] of var 0..Z", "zero": "unscheduled"},
+    "team": {"type": "array[1..P] of var 0..T", "zero": "unscheduled"},
+    "objective": {"type": "var int", "sense": "maximize"}
+  },
+  "output": {
+    "record": "RESULT <wave>|<zone>|<team>|<objective>",
+    "array_rendering": "MiniZinc show(array) representation",
+    "selection": "The final RESULT record is the optimal solution consumed by the verifier."
+  }
+}

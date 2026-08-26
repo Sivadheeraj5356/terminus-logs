@@ -1,0 +1,26 @@
+{
+  "wave_id": "a",
+  "carry_token": "WAVE_A",
+  "objects": [
+    {
+      "name": "fw_alpha",
+      "lane": "B"
+    },
+    {
+      "name": "fw_beta",
+      "lane": "B"
+    },
+    {
+      "name": "mod_core",
+      "lane": "O"
+    },
+    {
+      "name": "mod_net",
+      "lane": "O"
+    },
+    {
+      "name": "mod_rtc",
+      "lane": "B"
+    }
+  ]
+}

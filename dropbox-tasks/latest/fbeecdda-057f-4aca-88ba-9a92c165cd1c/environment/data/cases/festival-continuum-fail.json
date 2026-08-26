@@ -1,0 +1,27 @@
+{
+  "case_id": "festival-continuum-fail",
+  "temp_c": 20.0,
+  "rh_pct": 50.0,
+  "threshold": 0.035,
+  "reels": [
+    {
+      "reel_id": "R1",
+      "samples": [
+        {"pos": 0.0, "cyan": 0.495, "magenta": 0.432, "yellow": 0.378, "silver": 0.270},
+        {"pos": 0.5, "cyan": 0.55, "magenta": 0.48, "yellow": 0.42, "silver": 0.30},
+        {"pos": 1.0, "cyan": 0.55, "magenta": 0.48, "yellow": 0.42, "silver": 0.30}
+      ]
+    },
+    {
+      "reel_id": "R2",
+      "samples": [
+        {"pos": 0.0, "cyan": 1.375, "magenta": 1.20, "yellow": 1.05, "silver": 0.75},
+        {"pos": 0.5, "cyan": 0.55, "magenta": 0.48, "yellow": 0.42, "silver": 0.30},
+        {"pos": 1.0, "cyan": 0.605, "magenta": 0.528, "yellow": 0.462, "silver": 0.330}
+      ]
+    }
+  ],
+  "splices": [
+    {"splice_id": "S1", "reel_a": "R1", "reel_b": "R2"}
+  ]
+}

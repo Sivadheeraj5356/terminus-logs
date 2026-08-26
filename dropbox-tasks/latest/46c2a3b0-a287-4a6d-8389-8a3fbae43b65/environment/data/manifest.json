@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "baseline",
+      "src": "jobs/baseline/src",
+      "config": "jobs/baseline/backup_config.json"
+    },
+    {
+      "id": "sparse-primary",
+      "src": "jobs/sparse-primary/src",
+      "config": "jobs/sparse-primary/backup_config.json"
+    },
+    {
+      "id": "cross-job-alpha",
+      "src": "jobs/cross-job-alpha/src",
+      "config": "jobs/cross-job-alpha/backup_config.json"
+    },
+    {
+      "id": "cross-job-beta",
+      "src": "jobs/cross-job-beta/src",
+      "config": "jobs/cross-job-beta/backup_config.json"
+    },
+    {
+      "id": "symlink-pack",
+      "src": "jobs/symlink-pack/src",
+      "config": "jobs/symlink-pack/backup_config.json"
+    },
+    {
+      "id": "hardlink-cluster",
+      "src": "jobs/hardlink-cluster/src",
+      "config": "jobs/hardlink-cluster/backup_config.json"
+    },
+    {
+      "id": "exclude-heavy",
+      "src": "jobs/exclude-heavy/src",
+      "config": "jobs/exclude-heavy/backup_config.json"
+    },
+    {
+      "id": "empty_job",
+      "src": "jobs/empty_job/src",
+      "config": "jobs/empty_job/backup_config.json"
+    },
+    {
+      "id": "quarantine-hit",
+      "src": "jobs/quarantine-hit/src",
+      "config": "jobs/quarantine-hit/backup_config.json"
+    },
+    {
+      "id": "zero-byte-pack",
+      "src": "jobs/zero-byte-pack/src",
+      "config": "jobs/zero-byte-pack/backup_config.json"
+    },
+    {
+      "id": "deep-nest",
+      "src": "jobs/deep-nest/src",
+      "config": "jobs/deep-nest/backup_config.json"
+    }
+  ]
+}

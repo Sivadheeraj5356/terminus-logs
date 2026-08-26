@@ -1,0 +1,3 @@
+bird gamma foobar colour baz delta
+maybe alpha maybe cat
+CamelCase and snake_case

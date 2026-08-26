@@ -1,0 +1,4 @@
+default_list_mode = "replace"
+
+[defaults]
+default_list_mode = "replace"

@@ -1,0 +1,164 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 16,
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1783444049.020887,
+            "stop": 1783444049.0501113
+        },
+        "tests": [
+            {
+                "name": "test_outputs.py::test_verifier_harness_prepared_artifacts",
+                "status": "passed",
+                "duration": 0.0004399270110297948,
+                "start": 1783444049.0394716,
+                "stop": 1783444049.040129,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_bundled_session_checksums_unchanged",
+                "status": "passed",
+                "duration": 0.0006022230081725866,
+                "start": 1783444049.040224,
+                "stop": 1783444049.0410068,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_immutable_environment_files_unchanged",
+                "status": "passed",
+                "duration": 0.0005050959880463779,
+                "start": 1783444049.0410826,
+                "stop": 1783444049.0417492,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_binary_built_and_stub_removed",
+                "status": "passed",
+                "duration": 0.0003714680206030607,
+                "start": 1783444049.0418282,
+                "stop": 1783444049.0423517,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_report_schema_and_key_order",
+                "status": "passed",
+                "duration": 0.0004066760011482984,
+                "start": 1783444049.0424247,
+                "stop": 1783444049.0429928,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_oracle_equivalent_flags_all_sessions",
+                "status": "passed",
+                "duration": 0.00036634199204854667,
+                "start": 1783444049.0430658,
+                "stop": 1783444049.043578,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_summary_reconciles_with_sessions",
+                "status": "passed",
+                "duration": 0.000356798991560936,
+                "start": 1783444049.0436556,
+                "stop": 1783444049.0441437,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_deterministic_report_bytes",
+                "status": "passed",
+                "duration": 0.0004061770159751177,
+                "start": 1783444049.0442212,
+                "stop": 1783444049.044781,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_clean_sessions_use_empty_arrays_not_null",
+                "status": "passed",
+                "duration": 0.0003453409590292722,
+                "start": 1783444049.044849,
+                "stop": 1783444049.0453315,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_divergences_sorted_lexicographically",
+                "status": "passed",
+                "duration": 0.0003848850028589368,
+                "start": 1783444049.0453956,
+                "stop": 1783444049.045918,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_stress_prefix_vs_full_schedule_validation",
+                "status": "passed",
+                "duration": 0.0003732589539140463,
+                "start": 1783444049.045986,
+                "stop": 1783444049.0464945,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_build_01_reports_artifact_mismatch",
+                "status": "passed",
+                "duration": 0.0003906770143657923,
+                "start": 1783444049.0465577,
+                "stop": 1783444049.0470793,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_build_09_flags_optimization_divergence",
+                "status": "passed",
+                "duration": 0.00035350999678485096,
+                "start": 1783444049.0471418,
+                "stop": 1783444049.047621,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_equiv_session_dir_swap_fixture",
+                "status": "passed",
+                "duration": 0.00041709296056069434,
+                "start": 1783444049.047682,
+                "stop": 1783444049.0482304,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_equiv_session_dir_probe_fixture",
+                "status": "passed",
+                "duration": 0.0003328000020701438,
+                "start": 1783444049.0482905,
+                "stop": 1783444049.0487497,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            },
+            {
+                "name": "test_outputs.py::test_policy_yaml_required_keys",
+                "status": "passed",
+                "duration": 0.0010017329768743366,
+                "start": 1783444049.0488074,
+                "stop": 1783444049.0499384,
+                "retries": 0,
+                "file_path": "test_outputs.py"
+            }
+        ]
+    }
+}

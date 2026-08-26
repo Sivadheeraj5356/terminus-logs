@@ -1,0 +1,16 @@
+origin = "example.test."
+unsigned_zone = "unsigned.zone"
+inventory = "inventory.json"
+journal = "release-log.jsonl"
+previous_dir = "previous"
+keys_dir = "keys"
+signed_output_name = "example.test.signed"
+manifest_name = "publication-manifest.json"
+signature_lifetime = 2592000
+epoch = 1784006400
+
+[nsec3]
+algorithm = 2
+flags = 0
+iterations = 0
+salt_seed = "example-interrupted"

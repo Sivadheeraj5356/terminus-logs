@@ -1,0 +1,16 @@
+[package]
+name = "vellum-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bridge = { path = "../../crates/bridge", default-features = false }
+
+[features]
+default = ["detached"]
+detached = ["bridge/detached"]
+strict = ["bridge/strict"]
+
+[[bin]]
+name = "vellum-cli"
+path = "src/main.rs"

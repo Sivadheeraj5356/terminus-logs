@@ -1,0 +1,73 @@
+{
+  "batch_id": "batch_17",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "io.netty",
+      "to_prefix": "shaded.io.netty",
+      "priority": 1
+    }
+  ],
+  "units": [
+    {
+      "path": "netty.jar",
+      "root": "net",
+      "symbols": [
+        {
+          "fqn": "io.netty.Buffer",
+          "pkg_path": "io/netty"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "io.netty.Buffer",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "observed": {
+    "symbols": [
+      {
+        "original": "io.netty.Buffer",
+        "fqn": "shaded.io.netty.Buffer",
+        "pkg_path": "shaded/io/netty"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "shaded.io.netty.Buffer"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 8
+    },
+    "digest": "cb8cd2432689a8d41e3cf42b5c73969ff0318233dfdd29806d2837199bd7d029",
+    "nested_applied": false,
+    "nested": []
+  }
+}

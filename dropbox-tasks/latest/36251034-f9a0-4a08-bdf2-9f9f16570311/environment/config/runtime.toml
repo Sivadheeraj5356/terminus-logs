@@ -1,0 +1,4 @@
+eval_profile = "artifact-quorum-v1"
+max_release_age_sec = 86400
+max_future_skew_sec = 300
+verifier_zig_bin = "/usr/local/zig/zig"

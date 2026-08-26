@@ -1,0 +1,16 @@
+[
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_overlay_base",
+      "entity_id": "ent_t3",
+      "valid_from_ms": 1000,
+      "ingested_ms": 1100,
+      "revoked": false,
+      "values": {
+        "score": 42,
+        "bias": 7
+      }
+    }
+  }
+]

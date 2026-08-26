@@ -1,0 +1,11 @@
+[workspace]
+members = [
+    "hv/o0m", "hv/o1p", "hv/o2s", "hv/o6t",
+    "st/o3z", "st/o4b", "st/o7x", "st/o8w",
+    "fx/o5r", "fx/o9b",
+]
+resolver = "2"
+
+[profile.release]
+lto = true
+codegen-units = 1

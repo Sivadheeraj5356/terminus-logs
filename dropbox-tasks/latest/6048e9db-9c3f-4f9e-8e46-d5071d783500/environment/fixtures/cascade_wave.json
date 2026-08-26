@@ -1,0 +1,69 @@
+{
+  "graph_id": "cascade_wave",
+  "jobs": [
+    {
+      "job_id": "wave0_a",
+      "duration": 3,
+      "deps": [],
+      "input_parts": [],
+      "output_part": 0,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave0_b",
+      "duration": 3,
+      "deps": [],
+      "input_parts": [],
+      "output_part": 1,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave1_left",
+      "duration": 4,
+      "deps": ["wave0_a"],
+      "input_parts": [0],
+      "output_part": 2,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave1_right",
+      "duration": 4,
+      "deps": ["wave0_b"],
+      "input_parts": [1],
+      "output_part": 3,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave1_merge",
+      "duration": 3,
+      "deps": ["wave1_left", "wave1_right"],
+      "input_parts": [2, 3],
+      "output_part": 4,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave2_a",
+      "duration": 3,
+      "deps": ["wave1_merge"],
+      "input_parts": [4],
+      "output_part": 5,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave2_b",
+      "duration": 3,
+      "deps": ["wave1_merge"],
+      "input_parts": [4],
+      "output_part": 6,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "wave2_finale",
+      "duration": 4,
+      "deps": ["wave2_a", "wave2_b"],
+      "input_parts": [5, 6],
+      "output_part": 7,
+      "submit_tick": 0
+    }
+  ]
+}

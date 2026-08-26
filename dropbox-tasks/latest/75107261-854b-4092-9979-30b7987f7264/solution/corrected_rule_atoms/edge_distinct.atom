@@ -1,0 +1,8 @@
+RULE EDGE_DISTINCT
+IN keys
+OUT value,reason
+TABLE
+Requisite -> requisite|edge-kind
+BindsTo -> bindsto|edge-kind
+PartOf -> partof|edge-kind
+END

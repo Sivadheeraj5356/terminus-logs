@@ -1,0 +1,11 @@
+[Unit]
+Description=CI runner cgroup v2 job-sandbox attach service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/app/bin/cg_xmit run --pin 49 --env /app/environment --out /app/output/protocol_transcript.json
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

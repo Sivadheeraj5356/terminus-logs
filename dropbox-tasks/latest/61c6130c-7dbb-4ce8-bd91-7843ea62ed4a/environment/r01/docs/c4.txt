@@ -1,0 +1,3 @@
+Dataset split notes
+
+The train split is retained so split accounting stays complete. Train rows are not included in scoring, group metrics, trace rows, or estimator comparisons.

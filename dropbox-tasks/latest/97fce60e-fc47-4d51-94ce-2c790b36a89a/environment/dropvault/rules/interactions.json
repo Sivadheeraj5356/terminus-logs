@@ -1,0 +1,48 @@
+{
+  "depends_on": [
+    "/app/dropvault/rules/replay.json",
+    "/app/dropvault/rules/gates.json",
+    "/app/dropvault/rules/stats.json",
+    "/app/dropvault/rules/output.json"
+  ],
+  "replay": {
+    "sort_rolls_by_seq_ascending_before_any_rng": true,
+    "json_encounter_order_irrelevant": true,
+    "duplicate_seq_skip_rng_advance_and_skip_remaining_per_roll_gates": true,
+    "rng_read_value_then_advance_state": true,
+    "rng_mismatch_downstream_selection_uses_expected_rv_not_logged": true
+  },
+  "pity": {
+    "active_at_roll_start_when_rolls_since_reset_gte_pity_threshold": true,
+    "forced_pity_tier_while_active_does_not_reset_counter": true,
+    "natural_pity_tier_while_inactive_resets_counter": true,
+    "epic_drops_counts_every_pity_tier_roll": true,
+    "gini_coefficient_and_gini_unfair_gate_use_natural_epics_only": true,
+    "gini_unfair_gate_min_total_is_sum_natural_epics_not_all_epics": true
+  },
+  "duplicate_unique": {
+    "scope_player_id_and_item_id": true,
+    "emit_on_second_drop_only": true
+  },
+  "cooldown": {
+    "scope_player_id_and_item_id": true,
+    "breach_when_current_seq_minus_last_seq_lte_cooldown": true,
+    "update_last_seq_even_on_duplicate_unique": true,
+    "only_when_item_in_pool": true
+  },
+  "streak_skew": {
+    "follows_replay_processing_order_after_seq_sort": true,
+    "emit_when_streak_length_equals_6": true,
+    "no_second_emit_at_length_7_plus": true
+  },
+  "variance_spike": {
+    "population_variance_last_eight_logged_values": true,
+    "detail_string_uses_round4_before_fixed_four_decimal_format": true
+  },
+  "session_findings": {
+    "chi_and_gini_anchor_alphabetically_first_processed_player": true,
+    "chi_and_gini_seq_is_max_seq_after_sort_not_last_loop_player": true,
+    "chi_gate_compare_raw_chi_before_round4": true,
+    "tier_stats_n_rolls_is_len_json_rolls_including_duplicate_seq_rows": true
+  }
+}

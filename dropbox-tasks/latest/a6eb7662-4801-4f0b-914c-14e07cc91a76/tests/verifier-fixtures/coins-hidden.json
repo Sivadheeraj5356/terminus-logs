@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "coins": [
+    {
+      "coin_id": "HID-900",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_long",
+      "density": 10.93,
+      "density_sigma": 0.07,
+      "xrf_au": 0.25,
+      "xrf_ag": 0.55,
+      "xrf_cu": 0.20,
+      "xrf_sigma": 0.02
+    },
+    {
+      "coin_id": "HID-901",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": 17.90,
+      "density_sigma": 0.03,
+      "xrf_au": 0.10,
+      "xrf_ag": 0.80,
+      "xrf_cu": 0.10,
+      "xrf_sigma": 0.02
+    }
+  ]
+}

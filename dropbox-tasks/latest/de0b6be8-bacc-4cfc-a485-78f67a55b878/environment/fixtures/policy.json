@@ -1,0 +1,1 @@
+{"minimum_reliability_bp":5000,"edge_threshold_bp":1800,"high_confidence_bp":9000,"medium_confidence_bp":7500,"maintenance_epochs":[{"toolcell":"euv-4","start":180,"end":220}],"contractor_aliases":[["Zephyr Optics","ZEPHY-OPS"],["ZEPHY-OPS","Zephyr Field"]],"commodity_beacons":["shared-cloud"]}

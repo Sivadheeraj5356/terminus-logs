@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0003
+signal: SIGABRT (fault)
+#0  0x555556616cef in ec_p256_sign (a=0x55556676fc26) at vaultseal.c:160
+#1  0x55550657c9ad in wa (a=0x55550b5d3408) at vaultseal.c:300
+#2  0x5555a9ba0080 in wb (a=0x5555eb38bb66) at vaultseal.c:307
+#3  0x55553aefb32d in main (a=0x5555f9d636c7) at vaultseal.c:512

@@ -1,0 +1,11 @@
+{
+  "conflicts": [
+    {
+      "package": "telemetrybus",
+      "range": ">=3.0.0"
+    }
+  ],
+  "name": "credstore",
+  "requires": [],
+  "version": "1.0.0"
+}

@@ -1,0 +1,24 @@
+# Local 0 is an int on the first arrival at the loop header but is re-stored as a
+# reference on the back-edge, so the header's merged slot is no longer definitely
+# a usable value. Reaching this verdict requires iterating the dataflow to a real
+# fixpoint. `verify` should reject the header's `load 0`.
+type Node { v: int }
+func main() -> int {
+  locals 1
+b0:
+  iconst 0
+  store 0
+  br b1
+b1:
+  load 0
+  iconst 3
+  icmp
+  br_if b2
+b3:
+  iconst 0
+  ret
+b2:
+  new Node
+  store 0
+  br b1
+}

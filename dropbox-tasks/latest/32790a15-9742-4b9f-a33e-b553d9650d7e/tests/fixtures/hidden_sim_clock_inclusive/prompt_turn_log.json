@@ -1,0 +1,16 @@
+{
+  "turns": [
+    {
+      "turn_id": "t1",
+      "session_id": "sess_alpha",
+      "role": "user",
+      "completed_at": "2024-05-01T00:00:00Z"
+    },
+    {
+      "turn_id": "t2",
+      "session_id": "sess_alpha",
+      "role": "assistant",
+      "completed_at": "2024-06-01T00:00:00Z"
+    }
+  ]
+}

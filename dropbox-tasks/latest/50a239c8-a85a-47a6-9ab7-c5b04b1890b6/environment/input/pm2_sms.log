@@ -1,0 +1,20 @@
+2026-06-09T21:05:10Z PM2 app online: yourlist-backend
+2026-06-09T21:06:13Z POST /api/auth/login 200
+2026-06-09T21:07:22Z POST /api/items 201
+2026-06-09T21:08:44Z POST /api/sms/send 400
+2026-06-09T21:08:44Z response={"success":false,"error":"Phone number (user) is required"}
+2026-06-09T21:09:31Z GET /api/sms/test-config 200
+2026-06-09T21:09:31Z response={"config":{"apiKey":"Set","fromNumber":"Missing"},"ready":false}
+2026-06-09T21:10:05Z POST /api/sms/webhook 200
+2026-06-09T21:10:05Z Telnyx webhook received: message.failed
+2026-06-09T21:10:05Z Message failed: [{"code":"40304","title":"Invalid from number"}]
+2026-06-09T21:11:18Z POST /api/sms/send 500
+2026-06-09T21:11:18Z SMS send error: Invalid from number
+2026-06-09T21:11:18Z response={"success":false,"error":"Invalid from number"}
+2026-06-09T21:12:45Z GET /api/health 200
+2026-06-09T21:13:02Z POST /api/sms/send?debug=1 500
+2026-06-09T21:13:02Z response={"success":false,"error":"Invalid from number"}
+2026-06-09T21:14:20Z POST /api/sms/webhook 200
+2026-06-09T21:14:20Z Message failed: [{"code":"40304","title":"Invalid from number"}]
+2026-06-09T21:15:33Z POST /api/sms/send 500
+2026-06-09T21:15:33Z response={"success":false,"error":"Invalid from number"}

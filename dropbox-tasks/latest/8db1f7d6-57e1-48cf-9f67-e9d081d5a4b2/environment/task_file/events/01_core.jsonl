@@ -1,0 +1,8 @@
+{"event_id":"i1","timestamp":100,"op":"INGEST","buffer_id":"BUF_A","lane_id":"L1","qty":"25"}
+{"event_id":"i2","timestamp":110,"op":"INGEST","buffer_id":"BUF_A","lane_id":"L2","qty":"15"}
+{"event_id":"h1","timestamp":120,"op":"HOLDBACK","buffer_id":"BUF_A","lane_id":"L1","qty":"10"}
+{"event_id":"d1","timestamp":130,"op":"DISPATCH","buffer_id":"BUF_A","lane_id":"L1","qty":"8"}
+{"event_id":"c1","timestamp":140,"op":"COMMIT","buffer_id":"BUF_A","lane_id":"L1","qty":"5"}
+{"event_id":"r1","timestamp":150,"op":"RELEASE","buffer_id":"BUF_A","lane_id":"L1","qty":"3"}
+{"event_id":"i3","timestamp":160,"op":"INGEST","buffer_id":"BUF_B","lane_id":"L3","qty":"20"}
+{"event_id":"d2","timestamp":170,"op":"DISPATCH","buffer_id":"BUF_B","lane_id":"L3","qty":"12"}

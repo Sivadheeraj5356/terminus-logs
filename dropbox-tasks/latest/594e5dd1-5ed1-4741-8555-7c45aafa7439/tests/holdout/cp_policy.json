@@ -1,0 +1,8 @@
+{
+  "reference_resistivity": 18.6,
+  "survival_min": 0.01,
+  "survival_max": 0.95,
+  "protection_floor": 0.95,
+  "anode_stock_budget": 600,
+  "cost_ceiling": 1896.51
+}

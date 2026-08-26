@@ -1,0 +1,5 @@
+==90068== Memcheck, a memory error detector
+==90068== case: case_0003
+==90068== Invalid read of size 8
+==90068==    at 0x5555a6466da0: ec_p256_sign (vaultseal.c:160)
+==90068==    by 0x5555beeca7bc: seal_record (vaultseal.c:400)

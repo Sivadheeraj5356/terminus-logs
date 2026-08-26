@@ -1,0 +1,18 @@
+{
+  "windows": [
+    {
+      "window_id": "M-DW01-BOUNDARY",
+      "vessel_id": "DW-01",
+      "start_unix": 1719990000,
+      "end_unix": 1720000000,
+      "kind": "sensor_service"
+    },
+    {
+      "window_id": "M-DW05-OPEN",
+      "vessel_id": "DW-05",
+      "start_unix": 1719000000,
+      "end_unix": 1721000000,
+      "kind": "fill_port"
+    }
+  ]
+}

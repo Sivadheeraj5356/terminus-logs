@@ -1,0 +1,8 @@
+family_id=FAM-HID-PROF
+chip_id=HID-PROF-1
+profile_id=CAL-STD
+nominal_hz=12000000
+readings:
+segment: core
+1 25.0 12000000.0
+2 30.0 12000293.52

@@ -1,0 +1,5 @@
+The reproduction plan generator has been producing inconsistent Playwright project configs since browser_projects grew to multiple rows per browser after the cache-key refactor. Stale rows are being selected and retry settings from the database are not reaching generated plan entries. Historical flaky prioritization is already stable for this milestone; focus on plan assembly and browser_projects selection.
+
+Trace how the plan builder loads browser_projects and assembles project entries. The generated /app/logs/plan.json should use the most recent configuration per browser with retry counts taken from the database rather than a hardcoded fallback. The total_specs field must count each flaky spec+browser pair included in the plan, not unique spec file paths alone. Field layout and remaining plan keys are in /app/docs/output-contracts.md under the plan section.
+
+Run node cli.js plan --session plan-sess-alpha after fixing the planner. That session id matches the CLI default when --session is omitted.

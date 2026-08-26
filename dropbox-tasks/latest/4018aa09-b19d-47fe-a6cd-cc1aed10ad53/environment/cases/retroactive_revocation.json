@@ -1,0 +1,1 @@
+{"profile":"retroactive_revocation","remove_witnesses":[],"revocation_overrides":{"RV-C-SETTLE":{"retroactive":true}},"exception_overrides":{},"severity":"HIGH"}

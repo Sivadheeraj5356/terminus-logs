@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+APP = Path("/app")
+OUT = APP / "output" / "pam_lockout_report.json"
+BIN = APP / "bin" / "pam_audit"
+PACK = APP / "config" / "default_pack.json"
+GUARD = APP / "config" / "audit_guard.toml"
+
+
+def _guard_ok(by_id: dict, audit_count: int, guard: dict) -> bool:
+    fail = 0
+    min_tapes = int(guard.get("min_tapes", 0))
+    if audit_count < min_tapes:
+        fail += 1
+    for row in guard.get("lockout_required", []):
+        if not by_id.get(row["tape"], {}).get("lockout_active"):
+            fail += 1
+    for row in guard.get("expired_required", []):
+        if not by_id.get(row["tape"], {}).get("expired_account"):
+            fail += 1
+    for row in guard.get("lockout_forbidden", []):
+        if by_id.get(row["tape"], {}).get("lockout_active"):
+            fail += 1
+    for row in guard.get("retry_floor", []):
+        tape = row["tape"]
+        need = int(row.get("min_count", 1))
+        if by_id.get(tape, {}).get("retry_count", 0) < need:
+            fail += 1
+    return fail == 0
+
+
+def main() -> int:
+    import tomllib
+
+    cfg = json.loads(PACK.read_text(encoding="utf-8"))
+    guard = tomllib.loads(GUARD.read_text(encoding="utf-8"))
+    pack = cfg.get("tapes", [])
+    audits = []
+    lock_total = 0
+    for tape_id in pack:
+        tape = APP / "data" / "tapes" / f"{tape_id}.jsonl"
+        tmp = APP / "output" / f"_partial_{tape_id}.json"
+        subprocess.run(
+            [str(BIN), "--tape", str(tape), "--out", str(tmp), "--id", tape_id],
+            check=True,
+            cwd=APP,
+        )
+        row = json.loads(tmp.read_text(encoding="utf-8"))
+        audits.append(row)
+        if row.get("lockout_active"):
+            lock_total += 1
+    by_id = {r["conversation_id"]: r for r in audits}
+    report = {
+        "audits": audits,
+        "summary": {
+            "pack_ok": _guard_ok(by_id, len(audits), guard),
+            "audited_count": len(audits),
+            "total_lockouts": lock_total,
+        },
+    }
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

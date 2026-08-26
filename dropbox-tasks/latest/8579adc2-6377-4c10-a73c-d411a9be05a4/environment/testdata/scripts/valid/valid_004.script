@@ -1,0 +1,8 @@
+session 65536 500
+stream 1
+add_header 1 :method GET
+add_header 1 :path /orders
+flush 1
+start_headers 1 trailers
+add_header 1 x-checksum abc123
+flush 1

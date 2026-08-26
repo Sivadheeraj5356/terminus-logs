@@ -1,0 +1,9 @@
+Planck spectral radiance (wavelength form):
+B_lambda(lambda,T) = 2*h*c^2 / (lambda^5 * (exp(h*c/(lambda*k_B*T)) - 1))
+Stefan–Boltzmann emitted flux: eps * sigma * T^4
+Constants used in solver_config.json (CODATA-aligned):
+- h = 6.62607015e-34 J s
+- k_B = 1.380649e-23 J/K
+- c = 299792458 m/s
+- sigma = 5.670374419e-8 W/m^2/K^4
+Task uses trapezoidal band integration and brightness-temperature root finding without dividing observed radiance by emissivity during T_b inversion.

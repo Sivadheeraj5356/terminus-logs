@@ -1,0 +1,7 @@
+# Sampled traces
+
+Phase traces under `/app/output/run_traces/phase.jsonl` record prep and seal
+detail strings that include the active member lane set.
+
+A full prep+seal workflow also updates `session.journal` fingerprint/ack fields
+and advances `runtime_state` epoch.

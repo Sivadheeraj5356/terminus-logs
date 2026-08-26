@@ -1,0 +1,29 @@
+chronctl is the offline SIEM custody attestation tool we run against forensic
+evidence packs. It authenticates packs under /app/data with cryptographic
+witness MAC checks, chain-of-custody integrity counters, session-epoch custody
+heads, rotate-threshold active epochs, and pack-order prior-head binding. The
+goal is simple: hostile packs that break seals, rotate policy, or pack-prefix
+binding must not report as intact when the signed anti-tamper budgets say
+otherwise. Operators usually start from a full pack attestation with -pack and
+-out, then spot-check one scenario with -probe when a single row looks wrong.
+
+When you probe a named scenario without writing the full report, that isolated
+row still has to agree with the matching full-pack report row. Otherwise a
+responder could bypass pack-order integrity by only looking at the probe path.
+Rotate schedule lives at /app/config/rotate_schedule.json. Comparative pack
+relations name a field and an op when two scenario rows are checked against
+each other. Rebuilds use the Go toolchain at /usr/local/go/bin/go.
+
+Responder drills often scratch copies named mutated_pack.json,
+mutated_pack2.json, mutated_report.json, mutated_report2.json,
+mutated_epoch_pack.json, mutated_epoch_report.json, mutated_prefix_pack.json,
+mutated_prefix_report.json, mutated_rotate_pack.json, mutated_rotate_report.json,
+mutated_neg_intact.json, and mutated_neg_intact_report.json. Report schema is
+described in /app/docs/report_layout.json. Segment wire layout is in
+/app/docs/wire_format.md. Signed anti-tamper budgets sit in
+/app/config/grading_contract.yaml and defaults in /app/config/defaults.yaml.
+
+Example forensic action tokens that show up in responder drills include
+hi_eff_low_anchor, lo_eff_hi_anchor, quiet_extra_evt, quiet_extra_evt2,
+quiet_mut_head, and gate_open_mut. Treat those as fixture vocabulary rather
+than as a checklist of bugs to chase.

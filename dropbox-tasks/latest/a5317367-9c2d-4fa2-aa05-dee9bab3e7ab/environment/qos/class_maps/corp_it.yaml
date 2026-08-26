@@ -1,0 +1,5 @@
+schema_version: apexora-qos-class-1
+class_map: CM-CORP_IT
+match:
+  - dscp af31
+  - vlan 2001

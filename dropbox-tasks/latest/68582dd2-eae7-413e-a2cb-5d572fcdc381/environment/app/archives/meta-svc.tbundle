@@ -1,0 +1,39 @@
+{
+  "format": "tbundle-1",
+  "entries": [
+    {
+      "path": "var/cache/./token",
+      "type": "file",
+      "mode": "0640",
+      "uid": 0,
+      "gid": 0,
+      "content_b64": "cm9vdC1vd25lZC10b2tlbgo=",
+      "xattr": {
+        "user.svc.scope": "cache"
+      },
+      "acl": [
+        "user::rw-",
+        "group::---",
+        "other::---"
+      ],
+      "hardlink_key": "hl-shared"
+    },
+    {
+      "path": "lib/exec/shared.bin",
+      "type": "hardlink",
+      "hardlink_key": "hl-shared"
+    },
+    {
+      "path": "etc/link",
+      "type": "symlink",
+      "symlink_target": "../var/cache/token"
+    },
+    {
+      "path": "service/state",
+      "type": "dir",
+      "mode": "0700",
+      "uid": 1001,
+      "gid": 1001
+    }
+  ]
+}

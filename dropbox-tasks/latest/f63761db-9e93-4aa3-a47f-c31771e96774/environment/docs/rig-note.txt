@@ -1,0 +1,5 @@
+Reduced-order rig note, revision 7
+
+The scalar coordinate is an identified modal amplitude rather than a literal hinge angle. The sixth-order elastic term keeps the fitted energy bounded while the cubic drive term captures load-arm migration as the sheet opens. Unilateral stops represent fixture contact and retained ligaments. Campaign coefficients are nondimensionalized before export; no unit conversion is required by the analysis executable.
+
+The catalog is used to compare static equilibria with slow actuator sweeps. Stop contacts can introduce tangent jumps, but only smooth extrema of the load curve are counted as limit points.

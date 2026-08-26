@@ -1,0 +1,6 @@
+hostname: acc-amw-sea-plant-b-05
+migration_state: segmented
+canonical_vlan: 2016
+configured_vlan: 2016
+legacy_vlan: 117
+duplicate_vlan_conflict: false

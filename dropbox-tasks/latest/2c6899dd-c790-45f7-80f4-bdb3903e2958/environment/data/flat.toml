@@ -1,0 +1,15 @@
+# Demo non-toroidal control scenario (interior multi-stone exchange).
+id = "flat"
+seed = 42
+mode = "flat"
+w = 7
+h = 5
+
+[[moves]]
+move = "2,1,dark"
+move = "3,1,dark"
+move = "4,1,light"
+move = "3,2,light"
+move = "2,2,dark"
+move = "4,0,dark"
+move = "3,0,light"

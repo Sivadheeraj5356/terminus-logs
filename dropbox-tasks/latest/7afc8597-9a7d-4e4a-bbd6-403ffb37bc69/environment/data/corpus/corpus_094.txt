@@ -1,0 +1,8 @@
+symbols here
+end cat beta banana maybe bar color
+addr 84.64.29.107 hex 0x6ae3 token tok_502
+addr 136.233.26.185 hex 0xfa5c token tok_330
+IP 255.255.255.0 mask
+addr 253.236.207.3 hex 0x2f56 token tok_993
+line gamma colour
+gray start no no

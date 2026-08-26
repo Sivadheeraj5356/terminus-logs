@@ -1,0 +1,26 @@
+[
+  [
+    "p1",
+    {
+      "avatar": null,
+      "callback": "https://good.example/cb",
+      "nested": {
+        "CALLBACK": "%252Fsafe%252Fpath"
+      }
+    }
+  ],
+  [
+    "p2",
+    {
+      "avatar": null,
+      "note": "Note",
+      "url": "javascript:kept-as-text"
+    }
+  ],
+  [
+    "p4",
+    {
+      "callback": null
+    }
+  ]
+]

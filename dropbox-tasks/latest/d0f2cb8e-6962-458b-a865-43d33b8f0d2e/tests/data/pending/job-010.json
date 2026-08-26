@@ -1,0 +1,1 @@
+{"job_id": "job-010", "priority": 16, "spec_path": "/app/specs/prefetch-v1.yaml", "profile_ref": "production", "rules_ref": "default", "defer": false}

@@ -1,0 +1,4 @@
+{"exclusion_id":"CE-BETA-001","rider_id":"R106","service_date":"2026-05-17","route_family":"express","amount_cents":200,"approved":true}
+{"exclusion_id":"CE-DELTA-001","rider_id":"R,109","service_date":"2026-05-18","route_family":"local","amount_cents":180,"approved":true}
+{"exclusion_id":"CE-DELTA-DRAFT","rider_id":"R,109","service_date":"2026-05-18","route_family":"express","amount_cents":999,"approved":false}
+{"exclusion_id":"CE-NOMATCH-001","rider_id":"R103","service_date":"2026-05-15","route_family":"express","amount_cents":75,"approved":true}

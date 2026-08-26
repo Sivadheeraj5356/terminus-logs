@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: QA
+description: Apexora QA macro-segment
+rd: "65020:1020"
+rt_export: "65020:1020"
+rt_import:
+  - "65020:1020"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

@@ -1,0 +1,16 @@
+[
+  {
+    "manifest_id": "s2-north",
+    "name": "edge-gw",
+    "namespace": "edge",
+    "labels": {"app": "gw", "role": "ingress"},
+    "annotations": {"q46.order": "1", "q46.zone": "north"}
+  },
+  {
+    "manifest_id": "s2-south",
+    "name": "edge-cache",
+    "namespace": "edge",
+    "labels": {"app": "cache", "role": "egress"},
+    "annotations": {"q46.order": "2", "q46.zone": "south"}
+  }
+]

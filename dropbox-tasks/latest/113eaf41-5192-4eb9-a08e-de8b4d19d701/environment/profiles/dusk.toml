@@ -1,0 +1,3 @@
+band = "dusk"
+pass_close = 2
+epoch_stride = 3

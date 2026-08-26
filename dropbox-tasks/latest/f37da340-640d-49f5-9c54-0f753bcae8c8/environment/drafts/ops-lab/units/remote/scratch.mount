@@ -1,0 +1,11 @@
+[Unit]
+Description=sitefab scratch arm
+
+[Mount]
+What=/srv/backing/scratch
+Where=/srv/arms/scratch
+Type=none
+# lab flattened nofail into a comment instead of Options
+Options=rw
+X-Sitefab-Remote=yes
+X-Sitefab-OrderHint=20

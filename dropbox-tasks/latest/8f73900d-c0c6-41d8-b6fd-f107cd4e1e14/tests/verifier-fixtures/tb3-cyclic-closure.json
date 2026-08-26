@@ -1,0 +1,6 @@
+{
+  "ledger-db": ["identity-gate"],
+  "identity-gate": ["ledger-db"],
+  "billing-core": [],
+  "alert-dispatch": []
+}

@@ -1,0 +1,40 @@
+Runtime verification contract for demo_engine recovery reports.
+
+The verifier performs a clean release rebuild from /app/environment, emits each bundled scene token Q0 through Q8 under scrambled order, rebuild isolation, journal thaw replay, trace/emit cross-checks, and composite digest locks, then compares every JSON field against an independent expected model of the corrected integrator semantics.
+
+Authoritative behavioral spec (available during agent execution):
+  /app/environment/docs/integrator_semantics.md   normative checkpoint, wrap, pair-ledger, journal, and field rules
+  /app/environment/docs/runtime_contract.txt      this file
+  bash /tests/test.sh                             mounted evaluator gate; only authoritative pass/fail source
+
+Private harness sources under /tests/ compile from /tests/verifier_main.rs during bash /tests/test.sh; they are not part of the agent-visible contract.
+
+Agent-side gates (same contract as evaluation):
+  bash /tests/test.sh
+  bash /app/environment/scripts/emit_matrix.sh   # quick matrix + determinism smoke
+  /app/build/demo_engine trace <QTOKEN>            # per-step ledger deltas on stderr
+  /app/build/demo_engine journal freeze/thaw ...   # checkpoint replay contract
+
+Pass requires exact agreement on all eight fields for all nine tokens:
+  scene_token, ledger_tail, scalar_near, addon_aux,
+  wrap_epoch, refresh_stamp, segment_generation, journal_crc32
+
+Subsystem scope — all may need repair; a single-subsystem fix is usually insufficient:
+  segment_store.cpp      checkpoint segment save/restore, neighbor refresh tag handoff, segment generation
+  pair_ops.cpp           per-step neighbor-list ledger accumulation during pair evaluation
+  tile_wrap.cpp          periodic boundary crossing tally on resumed integrator steps
+  epoch_fold.cpp         wrap epoch reduction from orbit crossings and segment generation
+  journal_codec.cpp      journal CRC over ledger/orbit/refresh/generation fields
+  integrator_loop.cpp    integrator step latch interaction with restored segment state (horizons fixed; do not retune)
+
+Partial repairs are common failure modes:
+  - Adjusting only checkpoint restore handoff while spurious per-step pair ledger increments remain
+  - Aligning neighbor refresh tags without restoring wrap crossing counts on resumed steps
+  - Clearing post-load suppression in one path while wrap accounting still zeroes crossings after a segment latch
+  - Fixing ledger_tail while journal_crc32 or wrap_epoch still use stale fold/CRC rules
+  - Bumping segment_generation on checkpoint store instead of restore
+  - Changing target_steps or pause_at in integrator_loop.cpp instead of fixing accounting semantics
+
+When ledger_tail is close but not exact on pause/resume trials, re-run bash /tests/test.sh after each edit. Use `demo_engine trace <QTOKEN>` only to locate remaining contributors, not as a substitute verifier.
+
+The expected model derives graded values from the full simulation path (seed, integrator horizon, checkpoint pause/resume schedule, wrap accounting, pair evaluation, journal CRC, wrap epoch fold, and Q5 addon encoding). Matching qualitative ordering or bands alone does not satisfy the contract.

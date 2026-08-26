@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["pack_id", "nz_live", "r_abs", "r_rel", "trace_digest", "ts_mono"],
+  "properties": {
+    "pack_id": { "type": "string" },
+    "nz_live": { "type": "integer", "minimum": 0 },
+    "r_abs": { "type": "number" },
+    "r_rel": { "type": "number" },
+    "trace_digest": { "type": "string", "minLength": 64, "maxLength": 64 },
+    "ts_mono": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

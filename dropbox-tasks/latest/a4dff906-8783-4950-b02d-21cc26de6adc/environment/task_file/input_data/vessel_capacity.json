@@ -1,0 +1,40 @@
+{
+  "by_window": {
+    "1": {
+      "CATAMARAN": 16,
+      "DOUBLE_END": 15,
+      "HYBRID": 18,
+      "RO_RO": 17
+    },
+    "2": {
+      "CATAMARAN": 17,
+      "DOUBLE_END": 16,
+      "HYBRID": 15,
+      "RO_RO": 18
+    },
+    "3": {
+      "CATAMARAN": 18,
+      "DOUBLE_END": 17,
+      "HYBRID": 16,
+      "RO_RO": 15
+    },
+    "4": {
+      "CATAMARAN": 15,
+      "DOUBLE_END": 18,
+      "HYBRID": 17,
+      "RO_RO": 16
+    },
+    "5": {
+      "CATAMARAN": 16,
+      "DOUBLE_END": 15,
+      "HYBRID": 18,
+      "RO_RO": 17
+    },
+    "6": {
+      "CATAMARAN": 17,
+      "DOUBLE_END": 16,
+      "HYBRID": 15,
+      "RO_RO": 18
+    }
+  }
+}

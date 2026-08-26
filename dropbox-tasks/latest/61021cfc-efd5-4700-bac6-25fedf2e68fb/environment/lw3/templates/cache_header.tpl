@@ -1,0 +1,2 @@
+PREFIX=%s
+EPOCH=%u

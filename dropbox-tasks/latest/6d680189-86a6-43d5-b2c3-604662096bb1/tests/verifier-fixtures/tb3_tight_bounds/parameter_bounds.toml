@@ -1,0 +1,62 @@
+schema_version = "gaa-bounds-v1"
+
+[reference]
+temp_c = 25.0
+vt = 0.026
+
+[solver]
+max_iterations = 48
+step_fraction = 0.15
+convergence_rmse = 1.0e-6
+
+[parameters.vth0]
+min = 0.30
+max = 0.42
+initial = 0.36
+
+[parameters.u0]
+min = 200.0
+max = 700.0
+initial = 400.0
+
+[parameters.ss_factor]
+min = 1.2
+max = 2.5
+initial = 2.0
+
+[parameters.cgso]
+min = 5.0e-11
+max = 3.0e-10
+initial = 1.0e-10
+
+[parameters.rsd]
+min = 50.0
+max = 250.0
+initial = 150.0
+
+[parameters.k1]
+min = 0.1
+max = 1.2
+initial = 0.6
+
+[parameters.ute]
+min = -2.5
+max = -0.5
+initial = -1.5
+
+[parameters.kt1]
+min = -0.05
+max = 0.01
+initial = -0.02
+
+[parameters.subth_weight]
+min = 5.0e-7
+max = 5.0e-6
+initial = 2.0e-6
+
+# Permuted relative to the bundled defaults so a hardcoded PARAM_NAMES walk fails.
+[shared_groups.A]
+tie_break_order = ["kt1", "ute", "subth_weight", "k1", "rsd", "cgso", "ss_factor", "u0", "vth0"]
+
+[shared_groups.B]
+tie_break_order = ["subth_weight", "kt1", "ute", "k1", "rsd", "cgso", "ss_factor", "u0", "vth0"]

@@ -1,0 +1,6 @@
+addr 248.246.109.137 hex 0x1782 token tok_708
+aeiou bcdfg xyzzy
+gamma foobar grey world dog yes
+addr 252.238.176.10 hex 0xca71 token tok_788
+banana bananana ba na
+maybe hello

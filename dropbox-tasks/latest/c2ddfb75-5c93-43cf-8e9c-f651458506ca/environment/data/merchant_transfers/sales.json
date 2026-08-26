@@ -1,0 +1,21 @@
+{
+  "panel_mandarin_cloud_suzhou": [
+    {"year": 1949, "seller": "own_hart", "buyer": "own_muse", "kind": "arms_length"}
+  ],
+  "panel_nishijin_karaori_kyoto": [
+    {"year": 1963, "seller": "own_pazzi", "buyer": "own_serra", "kind": "arms_length"}
+  ],
+  "panel_banarasi_jangla_varanasi": [
+    {"year": 1956, "seller": "own_north", "buyer": "exp_kyoto_school", "kind": "arms_length"},
+    {"year": 2009, "seller": "exp_kyoto_school", "buyer": "exp_isfahan_caravan", "kind": "arms_length"}
+  ],
+  "panel_lyon_velours_exchange": [
+    {"year": 1810, "seller": "exp_suzhou_guild", "buyer": "exp_varanasi_house", "kind": "arms_length"}
+  ],
+  "panel_isfahan_khata_persian": [
+    {"year": 1956, "seller": "exp_isfahan_atelier", "buyer": "exp_persian_guild", "kind": "arms_length"}
+  ],
+  "panel_genoa_brocade_merchant": [
+    {"year": 1989, "seller": "exp_genoa_society", "buyer": "exp_genoa_deposit", "kind": "arms_length"}
+  ]
+}

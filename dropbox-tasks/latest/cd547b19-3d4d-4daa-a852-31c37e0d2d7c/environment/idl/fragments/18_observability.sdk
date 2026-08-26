@@ -1,0 +1,3 @@
+# Observability extension. Present on telemetry and release lanes.
+telemetry_epoch   uint64_t
+sample_stride     uint32_t

@@ -1,0 +1,7 @@
+tgt_id	family	prev	step
+a1	1	0	12
+a1_echo	1	0	12
+b2	2	1	21
+b2_echo	2	1	21
+g3	3	2	33
+g3_echo	3	2	33

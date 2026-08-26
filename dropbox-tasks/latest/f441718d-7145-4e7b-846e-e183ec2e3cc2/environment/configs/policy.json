@@ -1,0 +1,9 @@
+{
+  "max_retries": 9,
+  "timeout_ms": 9999,
+  "workers": ["w2", "w0", "w1"],
+  "strict_mode": false,
+  "checkpoint_every": 9,
+  "seed": "should-be-overridden-by-env",
+  "epoch": "1999-01-01T00:00:00Z"
+}

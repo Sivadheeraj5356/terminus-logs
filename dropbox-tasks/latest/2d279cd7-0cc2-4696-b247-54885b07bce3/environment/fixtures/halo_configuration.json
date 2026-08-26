@@ -1,0 +1,8 @@
+{
+  "boundaries": {
+    "left": "dirichlet",
+    "right": "dirichlet",
+    "top": "dirichlet",
+    "bottom": "dirichlet"
+  }
+}

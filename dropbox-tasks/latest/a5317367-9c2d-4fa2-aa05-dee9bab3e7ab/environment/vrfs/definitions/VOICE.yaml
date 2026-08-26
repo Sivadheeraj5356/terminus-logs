@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: VOICE
+description: Apexora VOICE macro-segment
+rd: "65012:1012"
+rt_export: "65012:1012"
+rt_import:
+  - "65012:1012"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

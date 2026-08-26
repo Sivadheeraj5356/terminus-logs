@@ -1,0 +1,30 @@
+[
+  {
+    "lot_id": "L1",
+    "receive_day": 1,
+    "expiry_day": 20,
+    "temp_band": "2-8C",
+    "doses": 100
+  },
+  {
+    "lot_id": "L2",
+    "receive_day": 2,
+    "expiry_day": 15,
+    "temp_band": "2-8C",
+    "doses": 120
+  },
+  {
+    "lot_id": "L3",
+    "receive_day": 3,
+    "expiry_day": 12,
+    "temp_band": "-20C",
+    "doses": 90
+  },
+  {
+    "lot_id": "L4",
+    "receive_day": 4,
+    "expiry_day": 30,
+    "temp_band": "-20C",
+    "doses": 140
+  }
+]

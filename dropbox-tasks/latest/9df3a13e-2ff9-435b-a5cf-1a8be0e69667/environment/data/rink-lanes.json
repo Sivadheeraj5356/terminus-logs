@@ -1,0 +1,11 @@
+{
+  "court_id": "rink-north-a",
+  "lanes": [
+    {"id": "L1", "band": "slow", "mutex_group": "A"},
+    {"id": "L2", "band": "slow", "mutex_group": "B"},
+    {"id": "L3", "band": "medium", "mutex_group": "A"},
+    {"id": "L4", "band": "medium", "mutex_group": "C"},
+    {"id": "L5", "band": "fast", "mutex_group": "B"},
+    {"id": "L6", "band": "fast", "mutex_group": "C"}
+  ]
+}

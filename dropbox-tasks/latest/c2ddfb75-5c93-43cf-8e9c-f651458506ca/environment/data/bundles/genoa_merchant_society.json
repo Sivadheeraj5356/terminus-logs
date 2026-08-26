@@ -1,0 +1,8 @@
+{
+  "bundle_id": "genoa_merchant_society",
+  "policy_family": "salon",
+  "panels": [
+    {"panel_id": "panel_genoa_brocade_merchant"},
+    {"panel_id": "panel_genoa_deposit"}
+  ]
+}

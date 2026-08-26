@@ -1,0 +1,80 @@
+{
+  "inter_vlan_routing": {
+    "enabled": true,
+    "router": "core-switch-01",
+    "method": "SVI"
+  },
+  "acl_policies": [
+    {
+      "acl_id": "ACL-100-OUTBOUND",
+      "applied_to": "VLAN100",
+      "direction": "outbound",
+      "rules": [
+        {"seq": 10, "action": "permit", "protocol": "tcp", "src": "10.10.10.0/24", "dst": "10.30.30.0/24", "dst_port": "80,443"},
+        {"seq": 20, "action": "permit", "protocol": "udp", "src": "10.10.10.0/24", "dst": "10.30.30.0/24", "dst_port": "53"},
+        {"seq": 30, "action": "permit", "protocol": "icmp", "src": "10.10.10.0/24", "dst": "10.30.30.0/24", "dst_port": null},
+        {"seq": 100, "action": "deny", "protocol": "ip", "src": "10.10.10.0/24", "dst": "10.20.20.0/24", "dst_port": null},
+        {"seq": 110, "action": "deny", "protocol": "ip", "src": "10.10.10.0/24", "dst": "10.40.40.0/24", "dst_port": null},
+        {"seq": 120, "action": "deny", "protocol": "ip", "src": "10.10.10.0/24", "dst": "10.50.50.0/24", "dst_port": null},
+        {"seq": 999, "action": "deny", "protocol": "ip", "src": "any", "dst": "any", "dst_port": null}
+      ]
+    },
+    {
+      "acl_id": "ACL-200-OUTBOUND",
+      "applied_to": "VLAN200",
+      "direction": "outbound",
+      "rules": [
+        {"seq": 10, "action": "permit", "protocol": "tcp", "src": "10.20.20.0/24", "dst": "10.50.50.0/24", "dst_port": "1433,3306,5432"},
+        {"seq": 20, "action": "permit", "protocol": "tcp", "src": "10.20.20.0/24", "dst": "10.30.30.0/24", "dst_port": "443"},
+        {"seq": 100, "action": "deny", "protocol": "ip", "src": "10.20.20.0/24", "dst": "10.10.10.0/24", "dst_port": null},
+        {"seq": 110, "action": "deny", "protocol": "ip", "src": "10.20.20.0/24", "dst": "10.40.40.0/24", "dst_port": null},
+        {"seq": 999, "action": "deny", "protocol": "ip", "src": "any", "dst": "any", "dst_port": null}
+      ]
+    },
+    {
+      "acl_id": "ACL-400-OUTBOUND",
+      "applied_to": "VLAN400",
+      "direction": "outbound",
+      "rules": [
+        {"seq": 10, "action": "permit", "protocol": "tcp", "src": "10.40.40.0/24", "dst": "10.30.30.0/24", "dst_port": "443"},
+        {"seq": 100, "action": "deny", "protocol": "ip", "src": "10.40.40.0/24", "dst": "10.10.10.0/24", "dst_port": null},
+        {"seq": 110, "action": "deny", "protocol": "ip", "src": "10.40.40.0/24", "dst": "10.20.20.0/24", "dst_port": null},
+        {"seq": 120, "action": "deny", "protocol": "ip", "src": "10.40.40.0/24", "dst": "10.50.50.0/24", "dst_port": null},
+        {"seq": 999, "action": "deny", "protocol": "ip", "src": "any", "dst": "any", "dst_port": null}
+      ]
+    },
+    {
+      "acl_id": "ACL-500-INBOUND",
+      "applied_to": "VLAN500",
+      "direction": "inbound",
+      "rules": [
+        {"seq": 10, "action": "permit", "protocol": "tcp", "src": "10.20.20.0/24", "dst": "10.50.50.0/24", "dst_port": "1433,3306,5432"},
+        {"seq": 999, "action": "deny", "protocol": "ip", "src": "any", "dst": "any", "dst_port": null}
+      ]
+    }
+  ],
+  "segmentation_policy": {
+    "zones": {
+      "user": {"allowed_destinations": ["dmz"], "blocked_destinations": ["server", "restricted", "critical", "management"]},
+      "server": {"allowed_destinations": ["critical", "dmz"], "blocked_destinations": ["user", "restricted", "management"]},
+      "dmz": {"allowed_destinations": [], "blocked_destinations": ["user", "server", "restricted", "critical", "management"]},
+      "restricted": {"allowed_destinations": ["dmz"], "blocked_destinations": ["user", "server", "critical", "management"]},
+      "critical": {"allowed_destinations": [], "blocked_destinations": ["user", "server", "dmz", "restricted", "management"]},
+      "management": {"allowed_destinations": ["user", "server", "dmz", "restricted", "critical"], "blocked_destinations": []}
+    },
+    "native_vlan_policy": {
+      "allowed_native_vlans": [999],
+      "enforce_consistency": true,
+      "description": "Native VLAN must be unused VLAN 999 on all trunk links"
+    },
+    "dtp_policy": {
+      "allowed_modes": ["nonegotiate"],
+      "description": "DTP must be disabled on all trunk ports"
+    },
+    "double_tagging_detection": {
+      "enabled": true,
+      "alert_on_qinq": true,
+      "legitimate_qinq_vlans": []
+    }
+  }
+}

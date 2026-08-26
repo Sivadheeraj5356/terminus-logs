@@ -1,0 +1,10 @@
+{
+  "id": "transition-2025",
+  "epoch": 1,
+  "signature_version": 2,
+  "preserve_legacy_query": false,
+  "uppercase_percent": true,
+  "remove_dot_segments": true,
+  "header_policy": {},
+  "allowed_key_profiles": ["transition-2025", "current-2026", "legacy-2024"]
+}

@@ -1,0 +1,15 @@
+[default]
+lo = -0.75
+hi = 0.75
+
+[fp16_baseline]
+lo = -1.0
+hi = 1.0
+
+[int8_strict]
+lo = -0.5
+hi = 0.5
+
+[mixed_edge]
+lo = -0.6
+hi = 0.6

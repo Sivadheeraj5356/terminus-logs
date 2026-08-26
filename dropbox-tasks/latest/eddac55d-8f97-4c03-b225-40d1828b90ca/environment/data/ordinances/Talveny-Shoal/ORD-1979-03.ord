@@ -1,0 +1,9 @@
+ordinance: ORD-1979-03
+jurisdiction: Talveny-Shoal
+enacted: 1979-11-26
+effective: 1980-01-01T00:00:00 universal
+standard-offset: basis ORD-1976-01
+standard-label: SST
+observance:
+  begin: Oct lastSun 02:00:00 standard save +01:00:00 label SDT
+  end: Mar Sun>=1 03:00:00 standard

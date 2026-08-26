@@ -1,0 +1,8 @@
+schema_version: apexora-canary-1
+groups:
+  - name: hq_canary
+    required_devices:
+      - acc-hq-dal-bldg1-01
+      - dist-hq-dal-main-01
+    gate:
+      validation_hook: legacy/hooks/pre-validate-legacy.sh

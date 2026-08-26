@@ -1,0 +1,12 @@
+{
+  "authorized_classes": [
+    "point_mutation",
+    "copy_number_alteration",
+    "translocation",
+    "epigenetic_change"
+  ],
+  "decrypt_plaintext_for": [
+    "point_mutation",
+    "copy_number_alteration"
+  ]
+}

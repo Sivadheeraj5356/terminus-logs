@@ -1,0 +1,7 @@
+{
+  "codes": {"kind": "list", "value": ["sigma-base", 77]},
+  "anchor": {"kind": "scalar", "value": "sigma-anchor"},
+  "alias_b": {"kind": "scalar", "value": "$ref:alias_a"},
+  "alias_a": {"kind": "scalar", "value": "$ref:anchor"},
+  "mode_flag": {"kind": "scalar", "value": "bundle-scalar"}
+}

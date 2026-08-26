@@ -1,0 +1,43 @@
+schema_version: apexora-trunk-assign-1
+campus: campus-apac-sin
+trunk_links:
+  - id: TRK-0049
+    a: acc-apac-sin-bldg1-01
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0050
+    a: acc-apac-sin-bldg1-02
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0051
+    a: acc-apac-sin-bldg1-03
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0052
+    a: acc-apac-sin-bldg1-04
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0053
+    a: acc-apac-sin-bldg1-05
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0054
+    a: acc-apac-sin-bldg1-06
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0055
+    a: acc-apac-sin-bldg1-07
+    b: dist-apac-sin-main-01
+    allowed: selective
+  - id: TRK-0056
+    a: dist-apac-sin-main-01
+    b: core-apac-sin-01
+    allowed: selective
+  - id: TRK-0057
+    a: dist-apac-sin-main-02
+    b: core-apac-sin-01
+    allowed: selective
+  - id: TRK-0058
+    a: dist-apac-sin-main-03
+    b: core-apac-sin-01
+    allowed: selective

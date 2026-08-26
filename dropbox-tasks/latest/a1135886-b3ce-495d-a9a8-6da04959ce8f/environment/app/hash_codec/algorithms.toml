@@ -1,0 +1,11 @@
+[strong_set]
+algorithms = ["sha256", "sha3_256", "blake2b_256"]
+min_output_bits = 256
+
+[weak_set]
+algorithms = ["md5", "sha1", "crc32"]
+output_bits = 128
+
+[collision_policy]
+cross_tenant_match = "treat_as_poison"
+same_tenant_fingerprint_mismatch = "treat_as_poison"

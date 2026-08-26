@@ -1,0 +1,4 @@
+session 65536 500
+stream 1
+add_header 1 x-empty-value -
+flush 1

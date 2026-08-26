@@ -1,0 +1,22 @@
+[
+  {
+    "from": "dev",
+    "to": "role-read",
+    "hits": 5
+  },
+  {
+    "from": "role-read",
+    "to": "role-write",
+    "hits": 12
+  },
+  {
+    "from": "role-write",
+    "to": "role-super",
+    "hits": 2
+  },
+  {
+    "from": "role-super",
+    "to": "crown-vault",
+    "hits": 8
+  }
+]

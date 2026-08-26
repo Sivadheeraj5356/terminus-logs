@@ -1,0 +1,5 @@
+{
+  "case_id": "rowan",
+  "mode_hint": "mixed_edge",
+  "expect_braid": true
+}

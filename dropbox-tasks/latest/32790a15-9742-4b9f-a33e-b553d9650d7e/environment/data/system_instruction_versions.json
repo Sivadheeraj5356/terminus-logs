@@ -1,0 +1,16 @@
+{
+  "versions": [
+    {
+      "version_id": "sys_v1",
+      "effective_from": "2024-01-01T00:00:00Z",
+      "body_hash": "bh1",
+      "conflicts_with": []
+    },
+    {
+      "version_id": "sys_v2",
+      "effective_from": "2024-02-15T00:00:00Z",
+      "body_hash": "bh2",
+      "conflicts_with": []
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+tabs	and spaces here
+addr 103.109.232.161 hex 0x6ca token tok_291
+addr 93.13.30.250 hex 0x8c5f token tok_826
+bar end colour bar bird alpha
+hello delta foo foobar bar baz
+addr 157.252.18.148 hex 0x3cd2 token tok_297
+bar true color bar baz end
+world beta
+addr 126.176.108.243 hex 0xe959 token tok_0
+aeiou bcdfg xyzzy

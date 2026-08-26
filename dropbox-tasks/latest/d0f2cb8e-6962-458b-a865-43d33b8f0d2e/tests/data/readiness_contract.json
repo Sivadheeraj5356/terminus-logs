@@ -1,0 +1,175 @@
+{
+  "version": 2,
+  "config_paths": {
+    "contract_env": "READINESS_CONTRACT_PATH",
+    "rules_env": "READINESS_RULES_PATH",
+    "manifest_env": "MLFLOW_MANIFEST_PATH",
+    "weights_env": "MODEL_WEIGHTS_PATH",
+    "defaults": {
+      "contract": "/app/config/readiness_contract.json",
+      "rules": "/app/config/readiness_rules.json",
+      "manifest": "/app/config/mlflow_manifest.json",
+      "weights": "/app/model/weights.json"
+    }
+  },
+  "model_container_selector": {
+    "label_key": "serving.k8s.io/role",
+    "label_value": "model-server",
+    "fallback_name_contains": "model-server",
+    "search_scope": "containers",
+    "never_search": ["initContainers"],
+    "selection_order": [
+      "labeled_pod_first_name_match",
+      "any_container_name_match",
+      "first_listed_container"
+    ]
+  },
+  "feature_order": [
+    "cpu_request_norm",
+    "memory_request_norm",
+    "gpu_limit_present",
+    "readiness_probe_present",
+    "liveness_probe_present",
+    "model_checksum_annotated",
+    "serving_framework_allowed",
+    "replicas_meets_min"
+  ],
+  "binding_registry": {
+    "F-CPU": { "rules_ref": "cpu_norm" },
+    "F-MEM": { "rules_ref": "mem_norm", "overlay_rules_set": "mem_lane" },
+    "F-GPU": { "rules_ref": "gpu_limit" },
+    "F-RDY": { "rules_ref": "probe_ready" },
+    "F-LIV": { "rules_ref": "probe_live" },
+    "F-CHK": { "rules_ref": "checksum" },
+    "F-FWK": { "rules_ref": "framework" },
+    "F-REP": { "rules_ref": "replica_floor" }
+  },
+  "feature_binding_map": {
+    "cpu_request_norm": "F-CPU",
+    "memory_request_norm": "F-MEM",
+    "gpu_limit_present": "F-GPU",
+    "readiness_probe_present": "F-RDY",
+    "liveness_probe_present": "F-LIV",
+    "model_checksum_annotated": "F-CHK",
+    "serving_framework_allowed": "F-FWK",
+    "replicas_meets_min": "F-REP"
+  },
+  "binding_merge": {
+    "policy": "rules_wins",
+    "per_feature": {
+      "cpu_request_norm": "registry_wins",
+      "memory_request_norm": "registry_wins"
+    },
+    "policies": {
+      "rules_wins": { "winner": "job_rules_override" },
+      "registry_wins": { "winner": "contract_binding" }
+    },
+    "applies_at_merge_steps": ["binding_merge", "registry_overlay", "job_overlay"]
+  },
+  "binding_resolution_order": [
+    "contract_bindings",
+    "job_rules_stack_or_ref",
+    "binding_merge",
+    "registry_overlay",
+    "job_overlay",
+    "feature_normalize_cap"
+  ],
+  "registry_overlay": {
+    "apply_order": "after_job_rules",
+    "via": "feature_binding_map"
+  },
+  "job_overlay": {
+    "envelope_field": "overlay_rules_set",
+    "apply_after": "registry_overlay"
+  },
+  "rules_selection": {
+    "stack_field": "rules_profile_stack",
+    "ref_field": "rules_ref",
+    "precedence": "stack_over_ref"
+  },
+  "rules_stack_merge": {
+    "order": "left_to_right",
+    "override_policy": "first_wins"
+  },
+  "feature_normalize_cap": 1.0,
+  "inference_model": {
+    "type": "logistic",
+    "activation": "sigmoid",
+    "inputs": "feature_order"
+  },
+  "bindings": {
+    "cpu_request_norm": {
+      "rules_ref": "cpu_norm",
+      "source": "container.resources.requests.cpu",
+      "unit": "millicores",
+      "divisor": 4000
+    },
+    "memory_request_norm": {
+      "rules_ref": "mem_norm",
+      "source": "container.resources.requests.memory",
+      "unit": "mib",
+      "divisor": 8192
+    },
+    "gpu_limit_present": {
+      "rules_ref": "gpu_limit",
+      "source": "container.resources.limits.nvidia.com/gpu",
+      "present_if_nonzero": true
+    },
+    "readiness_probe_present": {
+      "rules_ref": "probe_ready",
+      "source": "container.readinessProbe",
+      "present_if_defined": true
+    },
+    "liveness_probe_present": {
+      "rules_ref": "probe_live",
+      "source": "container.livenessProbe",
+      "present_if_defined": true
+    },
+    "model_checksum_annotated": {
+      "rules_ref": "checksum",
+      "source": "pod.metadata.annotations.model.mlp.io/artifact-sha256",
+      "present_if_non_empty": true
+    },
+    "serving_framework_allowed": {
+      "rules_ref": "framework",
+      "source": "pod.metadata.annotations.serving.mlp.io/framework",
+      "allowed_values_ref": "readiness_rules.serving_frameworks_allowed"
+    },
+    "replicas_meets_min": {
+      "rules_ref": "replica_floor",
+      "source": "deployment.spec.replicas",
+      "adjust_rolling": true,
+      "rolling_field": "spec.strategy.rollingUpdate.maxUnavailable",
+      "rolling_unavailable_parse": {
+        "percent_suffix": "%",
+        "percent_mode": "floor_of_replicas"
+      },
+      "minimum": 2
+    }
+  },
+  "score_rounding": {
+    "mode": "bankers",
+    "decimals": 6
+  },
+  "drain_report": {
+    "top_level_fields": ["experiment", "jobs", "summary"],
+    "verdict_tokens": ["ready", "not_ready", "deferred"],
+    "job_fields": [
+      "job_id",
+      "priority",
+      "spec_path",
+      "profile_ref",
+      "resolved_profile",
+      "readiness",
+      "verdict",
+      "deferred"
+    ],
+    "summary_fields": ["processed", "ready", "not_ready", "skipped"],
+    "summary_semantics": {
+      "processed": "ready+not_ready",
+      "ready": "verdict==ready",
+      "not_ready": "verdict==not_ready",
+      "skipped": "deferred==true"
+    }
+  }
+}

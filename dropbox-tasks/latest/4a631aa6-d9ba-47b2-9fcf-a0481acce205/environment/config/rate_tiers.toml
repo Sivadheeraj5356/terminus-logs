@@ -1,0 +1,20 @@
+[medium.SVOD]
+baseRateMicroCents = 500
+
+[medium.AVOD]
+baseRateMicroCents = 120
+
+[medium.THEATRICAL]
+baseRateMicroCents = 2500
+
+[[rerun.brackets]]
+maxRerunIndex = 0
+multiplier = 10000
+
+[[rerun.brackets]]
+maxRerunIndex = 3
+multiplier = 7500
+
+[[rerun.brackets]]
+maxRerunIndex = 99
+multiplier = 5000

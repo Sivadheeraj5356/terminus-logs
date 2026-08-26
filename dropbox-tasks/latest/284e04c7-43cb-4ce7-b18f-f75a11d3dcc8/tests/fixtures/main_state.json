@@ -1,0 +1,16 @@
+[
+  {
+    "deployment_id": "alpha-deploy",
+    "secret_name": "API_TOKEN",
+    "last_rotation_counter": 4,
+    "last_plaintext_sha256": "a80f2fe38763e66f1f650ef507e21e899832b9c95935667f760116a27e228c07",
+    "updated_at": "2026-06-18T14:25:36.000Z"
+  },
+  {
+    "deployment_id": "alpha-deploy",
+    "secret_name": "DATABASE_URL",
+    "last_rotation_counter": 4,
+    "last_plaintext_sha256": "9c4d66a92a5f4209bd6d6d040042e7d16b7390d252f736af4b9b065daa7a5ae1",
+    "updated_at": "2026-06-18T14:25:36.000Z"
+  }
+]

@@ -1,0 +1,69 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "security"
+subcategories = ["tool_specific", "db_interaction"]
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["javascript", "bash", "python"]
+tags = ["security", "access-control", "ssh-hardening", "least-privilege", "redis", "bastion"]
+expert_time_estimate_min = 840
+junior_time_estimate_min = 1560
+
+[difficulty_mechanism_plan]
+primary_axes = [
+  "enforce security authority split between handbook tokens live Redis tenant overlays and non-authoritative desk cache archive shadows",
+  "assert least-privilege SSH directives sudoers grants and principal home posture per registry records",
+  "discover production Redis keys and bastion:overrides:tenant deep-merge from handbook RULE tokens and registry_schema",
+  "reject desk circulation imports registry snapshot archive keys registry cache and shallow tenant overlay spreads",
+  "repair idempotent noop on already-clean staging without rewriting extracted files or re-extracting bundle",
+  "pass held-out staging canary dr edge vault atlas comet orbit pulse nexus rift prism quasar aurora helix vertex continuum eclipse nebula solstice pulsar zenith lumen cobalt vector horizon flux apex relay spire nova titan forge ember onyx sentinel cipher quartz obsidian garnet slate crimson jade opal ivory tenant sshd overlays without instruction disclosure",
+  "ignore bastion:registry:cache stale documents in favor of live tenant overlays",
+  "compute manifest_sha256 over compact JSON of sorted changes array only not wrapped or full manifest object",
+  "exclude mode-only directory chmod repairs from manifest changes per Amendment 2025-10 and fix_manifest_schema",
+  "emit audit and repair schema fields staging_root tenant before_sha256 after_sha256 content digests",
+  "emit manifest change paths relative to staging root without leading ./ per Amendment 2025-28",
+  "detect sudoers_unauthorized for rogue-deploy and preserve registry sudoers hash field order without desk alphabetical sort",
+  "normalize octal file modes and deep-merge sshd_settings JSON overlays per directive key",
+]
+# why_model_misses_it: registry.mjs prefers bastion:registry:cache and bastion:ssh_keys:archive without comment spoilers.
+# why_model_misses_it: policyBridge.mjs merges access_desk.md string_exact unauthorized skip and archive strip ahead of handbook.
+# why_model_misses_it: repair.mjs uses wrapped manifest digest sorted sudoers and unsorted changes in manifest output.
+# why_model_misses_it: Held-out canary edge vault and dr sshd directives omitted from instruction prose.
+# why_model_misses_it: manifest_wrapper_desk.md and registry_cache_desk contradict production contracts and Amendment 2025-05.
+anti_trivialization = "Security_authority_split profile with SECURITY_SCOPE.md; symptom-only instruction; handbook-only Amendments 2025-21 through 2025-28 for extract marker sshd baseline merge audit exit codes and manifest path normalization; forty-six tenants with twenty-eight held-out overlays; forty-seven desk traps; broken starter re-extracts every audit run; five-layer remediation-audit stress; ~4000 behavioral tests without source-string requirements."
+
+[category_profile]
+challenge_family = "bastion_ssh_access_control_audit"
+profile_name = "security_authority_split"
+allowed_instruction_disclosures = "handbook path, SECURITY_SCOPE path, contracts directory, run commands, output paths, desk non-authoritative warning, manifest_sha256 changes-array compact rule, mode-only directory exclusion from changes, sudoers order and unauthorized audit behavior."
+forbidden_instruction_leaks = [
+  "Exact redis registry key names on the remediation path",
+  "Pre-authored fix_manifest rows for held-out tenants",
+  "Tenant overlay include directive suffixes before registry merge",
+  "Desk NOTE extract-idempotency shortcut without handbook amendment",
+  "Per-tenant sshd directive answer tables",
+]
+category_specific_hardness_bar = "Agent must synthesize superseding bastion authorization policy from handbook amendments, enforce least-privilege SSH and sudoers posture across held-out tenant overlays, and satisfy live-Redis versus cache/archive authority split invariants."
+category_specific_verifier_risks = "Tests rerun audit and remediation on forty-six tenants with twenty-eight held-out overlays; desk traps and broken re-extract starter defeat shallow registry or manifest patches."
+coverage_role = "Adds security_authority_split Redis-backed bastion access control with principal least-privilege enforcement, sudoers authorization, and schema-valid audit traces."
+
+[reference_pattern]
+justification_if_none = "Calibration blends security_authority_split handbook precedence with live Redis registry merge; no promoted reference encodes bastion sshd overlay sweeps plus forty-seven desk traps across forty-two tenants."
+
+[verifier]
+timeout_sec = 1800
+
+[agent]
+timeout_sec = 1200
+
+[environment]
+allow_internet = false
+build_timeout_sec = 1200
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+workdir = "/app"

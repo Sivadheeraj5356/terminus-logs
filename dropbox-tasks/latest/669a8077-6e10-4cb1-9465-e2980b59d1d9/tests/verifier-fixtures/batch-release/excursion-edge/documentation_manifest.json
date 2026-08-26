@@ -1,0 +1,7 @@
+[
+  {"doc_type": "batch-record", "status": "approved", "version": "3"},
+  {"doc_type": "equipment-log", "status": "approved", "version": "1"},
+  {"doc_type": "em-log", "status": "approved", "version": "2"},
+  {"doc_type": "qc-summary", "status": "approved", "version": "1"},
+  {"doc_type": "release-checklist", "status": "approved", "version": "1"}
+]

@@ -1,0 +1,10 @@
+{
+  "serial": "SER-STALE",
+  "leaf_index": 5,
+  "tree_size": 8,
+  "path": [
+    "c552d8bcf93a07d2c5a8dbb646884dbdb2adca046aa00ba8371631c212f7af58",
+    "86e06e1beb3098712737451e30ab4b576b12778f6016b0847e44635fc409a2f3",
+    "bc6e3fe08775ec968c86910bc0329530d050bdc65669843ebe4dd0f702ad5491"
+  ]
+}

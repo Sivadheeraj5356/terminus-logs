@@ -1,0 +1,5 @@
+# lane   profile_path
+core       profiles/core.lane
+telemetry  profiles/telemetry.lane
+recovery   profiles/recovery.lane
+release    profiles/release.lane

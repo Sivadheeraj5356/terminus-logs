@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-50699f579b6f": {
+      "alg": "hmac-sha256",
+      "secret": "91dbd75e8af8e63c4c58d27113f9b406216ab10e03decd7274d5af2438d8c4f6"
+    }
+  },
+  "message": {
+    "authority": "svc3.example.com",
+    "body": "{\"n\": 113, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:PoilpUhwqdfWTMTNve0ela5G73pgqOxHd0g1sCUBToA=:",
+      "content-type": "application/json",
+      "signature": "sig1=:yUplrF6B85h3n+s0KJ1972OG+TrKBiKzsd+d0It/570=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\" \"content-digest\" \"@query-param\";name=\"user\" \"@query-param\";name=\"role\");created=1700000053;expires=1700000413;keyid=\"k-50699f579b6f\";alg=\"hmac-sha256\""
+    },
+    "method": "POST",
+    "path": "/api/v2/resource/113",
+    "query": "user=alice%20smith&role=admin&id=113"
+  },
+  "now": 1700000113
+}

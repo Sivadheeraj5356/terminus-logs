@@ -1,0 +1,52 @@
+Offline networkd bond ARP-monitor reconcile (C++ driver vx_bond)
+================================================================
+
+Build (from /app/environment):
+  cmake -B build -DCMAKE_BUILD_TYPE=Release
+  cmake --build build
+  # produces build/vx_bond and build/bond_probe; image installs build/vx_bond
+  # as /app/bin/vx_run
+
+Prep (ARP survey / compile profile):
+  VX_ENV_ROOT=/app/environment /app/bin/vx_run \
+    --profile prep \
+    --variant-seed N \
+    --out /app/output/failover_report.json
+
+Seal / verify-profile replay (required for full convergence):
+  VX_ENV_ROOT=/app/environment /app/bin/vx_run \
+    --profile seal \
+    --variant-seed N \
+    --out /app/output/failover_report.json
+
+Aliases:
+  --profile compile  == prep
+  --profile verify --hook replay  == seal
+
+Use the same --variant-seed for prep and seal in a given workflow.
+Run prep first. A seal/verify invocation alone must not settle.
+
+Every driver invocation restores policy bodies from `/app/environment/q2m/`
+onto the live trees, then rebuilds, before executing the profile.
+
+Status view (after the two-phase workflow above):
+  /app/environment/build/bond_probe /app/output/failover_report.json
+
+  Prints: label=<settled|pending> converged=<0|1>
+  Expect settled only when sync_label is settled and at least one img_rc is 1;
+  prep-only reports must remain pending. Exact predicate is in formal_rules.md.
+
+Outputs:
+  /app/output/failover_report.json
+  /app/output/runtime_state.json
+  /app/output/arp_journal.jsonl
+  /app/output/run_traces/phase.jsonl
+  /app/output/run_traces/session.journal
+
+Durable lineage ledger (survives output resets; see formal_rules.md 5a-5d):
+  /app/environment/meta/lineage.json
+
+Recover drills:
+  /app/environment/scripts/v2_schema.sh   resets journal + seal scaffolding
+  /app/environment/scripts/v2_recover.sh  restores policy bodies from
+  /app/environment/q2m/ mirrors and rebuilds

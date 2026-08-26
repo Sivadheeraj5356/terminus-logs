@@ -1,0 +1,8 @@
+{
+  "nodes": {
+    "A": {"depends": []},
+    "B": {"depends": ["A"]},
+    "C": {"depends": ["B"]}
+  },
+  "gates": {}
+}

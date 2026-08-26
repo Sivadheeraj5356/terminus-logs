@@ -1,0 +1,79 @@
+{
+  "seats": [
+    {
+      "seatId": "S-101",
+      "edition": "E-CORE",
+      "coveredThrough": "2027-02-18"
+    },
+    {
+      "seatId": "S-102",
+      "edition": "E-TEAM-P",
+      "coveredThrough": "2027-03-02"
+    },
+    {
+      "seatId": "S-103",
+      "edition": "E-TEAM-P",
+      "coveredThrough": "2027-02-22"
+    },
+    {
+      "seatId": "S-104",
+      "edition": "E-DATA-P",
+      "coveredThrough": "2027-03-14"
+    },
+    {
+      "seatId": "S-105",
+      "edition": "E-SUITE-P",
+      "coveredThrough": "2027-02-28"
+    },
+    {
+      "seatId": "S-106",
+      "edition": "E-CORE-P",
+      "coveredThrough": "2027-02-19"
+    },
+    {
+      "seatId": "S-107",
+      "edition": "E-CORE-P",
+      "coveredThrough": "2027-03-12"
+    },
+    {
+      "seatId": "S-108",
+      "edition": "E-TEAM",
+      "coveredThrough": "2027-02-25"
+    },
+    {
+      "seatId": "S-109",
+      "edition": "E-DATA",
+      "coveredThrough": "2027-02-15"
+    },
+    {
+      "seatId": "S-110",
+      "edition": "E-CORE",
+      "coveredThrough": "2027-02-14"
+    },
+    {
+      "seatId": "S-111",
+      "edition": "E-DATA-P",
+      "coveredThrough": "2027-03-04"
+    },
+    {
+      "seatId": "S-112",
+      "edition": "E-CORE-P",
+      "coveredThrough": "2027-02-21"
+    },
+    {
+      "seatId": "S-113",
+      "edition": "E-TEAM",
+      "coveredThrough": "2027-02-17"
+    },
+    {
+      "seatId": "S-114",
+      "edition": "E-DATA",
+      "coveredThrough": "2027-03-07"
+    },
+    {
+      "seatId": "S-115",
+      "edition": "E-SUITE-P",
+      "coveredThrough": "2027-02-26"
+    }
+  ]
+}

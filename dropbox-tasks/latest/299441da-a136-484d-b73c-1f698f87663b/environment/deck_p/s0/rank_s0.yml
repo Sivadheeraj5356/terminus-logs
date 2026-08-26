@@ -1,0 +1,20 @@
+layers:
+  workspace:
+    tier: 1
+    token: ws_alpha
+  project:
+    tier: 2
+    token: pj_beta
+  environment:
+    tier: 3
+    token: env_gamma
+reload:
+  workspace:
+    tier: 1
+    token: ws_reload
+  project:
+    tier: 2
+    token: pj_reload
+  environment:
+    tier: 3
+    token: env_reload

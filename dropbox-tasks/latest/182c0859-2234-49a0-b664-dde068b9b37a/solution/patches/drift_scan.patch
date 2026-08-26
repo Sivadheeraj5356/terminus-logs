@@ -1,0 +1,24 @@
+--- auxiliary/drift_scan.py
++++ auxiliary/drift_scan.py
+@@ -15,13 +15,12 @@
+     expected = stamp_path.read_text(encoding="utf-8").strip()
+     drifted: list[str] = []
+     for module in sorted(GEN_SENSITIVE):
+-        if module == "dispatch":
+-            summary = read_summary(lto_root / f"{module}.summary.json")
+-            recorded = summary.get("abi_tag", "")
+-            if isinstance(recorded, str):
+-                tag = recorded.strip()
+-            else:
+-                tag = ""
+-            if tag != expected:
+-                drifted.append(module)
++        summary = read_summary(lto_root / f"{module}.summary.json")
++        recorded = summary.get("abi_tag", "")
++        if isinstance(recorded, str):
++            tag = recorded.strip()
++        else:
++            tag = ""
++        if tag != expected:
++            drifted.append(module)
+     return drifted

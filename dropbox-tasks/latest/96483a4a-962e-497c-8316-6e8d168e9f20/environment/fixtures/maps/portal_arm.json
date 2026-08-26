@@ -1,0 +1,40 @@
+{
+  "seed_id": "portal_arm",
+  "width": 10,
+  "height": 6,
+  "orient": "pointy",
+  "wet_window": 0,
+  "start": [
+    0,
+    1
+  ],
+  "goal": [
+    7,
+    3
+  ],
+  "terrain": {
+    "0,1": 1,
+    "1,1": 1,
+    "2,1": 1,
+    "7,3": 2
+  },
+  "portals": [
+    {
+      "from": [
+        2,
+        1
+      ],
+      "to": [
+        7,
+        3
+      ],
+      "arms": [
+        0
+      ]
+    }
+  ],
+  "steps": [
+    0,
+    0
+  ]
+}

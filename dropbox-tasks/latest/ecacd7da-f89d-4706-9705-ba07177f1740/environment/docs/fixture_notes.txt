@@ -1,0 +1,1 @@
+Bundled journals under /app/fixtures/ cover normal seating, recovery, descriptor integrity failures, large memory totals, and multi-epoch schedules.

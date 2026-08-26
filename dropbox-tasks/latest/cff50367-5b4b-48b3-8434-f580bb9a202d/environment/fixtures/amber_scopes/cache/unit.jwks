@@ -1,0 +1,4 @@
+# cache-tier defaults
+KidAllow=core
+RotatePort=8080
+StaleKid=old

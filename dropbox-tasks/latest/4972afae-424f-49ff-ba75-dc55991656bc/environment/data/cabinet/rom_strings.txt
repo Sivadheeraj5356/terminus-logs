@@ -1,0 +1,22 @@
+SKAL-0001-B ROM STRINGS
+
+The surviving printable strings recovered from the game ROM of a SKAL-0001-B
+board, in the order they appear in the image.
+
+  SKITTLE ALLEY
+  (C) 1981 BROADWATER AMUSEMENT CO
+  BOARDSET SKAL-0001-B
+  THE CLASSIC GAME OF KAYLES
+  KNOCK DOWN ONE PIN OR TWO
+  SPLIT THE ROW AND WIN
+  INSERT COIN
+  PLAYER
+  HOUSE
+  HIGH SCORE
+  ATTRACT DEMO
+  GAME OVER
+  BROADWATER AMUSEMENT CO
+  MADE IN ENGLAND
+
+The character generator table, the lamp table and the game program itself hold
+no printable text and are not reproduced here.

@@ -1,0 +1,5 @@
+witness_salt_default: "bench-salt"
+chain_required: true
+intact_ok_value: 1
+order_drift_total: 0
+contradiction_total: 0

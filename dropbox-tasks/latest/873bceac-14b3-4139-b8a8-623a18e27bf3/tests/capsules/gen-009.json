@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "spring",
+      "relicmaze.torch": "10.0",
+      "relicmaze.keeper_tz_offset_minutes": "180",
+      "relicmaze.carry_capacity": "400",
+      "relicmaze.goal_room": "gallery",
+      "org.opencontainers.image.title": "gen-009"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:e96cb3012def0c0952b0424dfdc906d52fbd240c7ab35d35a5e17d2428e671e1"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "RUN keeper curse whisper-coin"
+    },
+    {
+      "created_by": "COMMENT the tide is patient"
+    },
+    {
+      "created_by": "ENV torch_tax=-0.5"
+    },
+    {
+      "created_by": "ENV torch_tax=1.5"
+    },
+    {
+      "created_by": "RUN keeper curse ember-heart"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "LABEL omen=\"The bone-count is short.\""
+    },
+    {
+      "created_by": "RUN keeper seal bone-flute"
+    },
+    {
+      "created_by": "LABEL omen=\"The deep remembers.\""
+    }
+  ]
+}

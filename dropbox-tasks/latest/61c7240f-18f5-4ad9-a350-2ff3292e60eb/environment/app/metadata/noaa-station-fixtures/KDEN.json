@@ -1,0 +1,9 @@
+{
+  "id": "https://api.weather.gov/stations/KDEN",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KDEN",
+    "name": "Denver International Airport",
+    "timeZone": "America/Denver"
+  }
+}

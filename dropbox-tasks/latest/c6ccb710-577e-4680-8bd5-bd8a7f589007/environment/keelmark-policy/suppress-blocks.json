@@ -1,0 +1,9 @@
+{
+  "names": [
+    "echo-suppress",
+    "sierra-abi-bait"
+  ],
+  "alert_mute": [
+    "bravo-warn"
+  ]
+}

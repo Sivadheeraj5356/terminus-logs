@@ -1,0 +1,6 @@
+{
+  "runs": [
+    {"run_id": "shot-2025-0314", "label": "ESI-L production"},
+    {"run_id": "shot-2025-0201", "label": "archive decoy"}
+  ]
+}

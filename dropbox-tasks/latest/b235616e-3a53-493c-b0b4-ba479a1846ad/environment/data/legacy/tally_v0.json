@@ -1,0 +1,10 @@
+{
+  "generated_from": "baylock-legacy-v0",
+  "rows": [
+    {
+      "principal": "operator-legacy",
+      "failures": 2,
+      "locked": false
+    }
+  ]
+}

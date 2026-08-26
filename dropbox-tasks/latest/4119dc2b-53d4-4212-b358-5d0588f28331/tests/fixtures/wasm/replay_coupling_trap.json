@@ -1,0 +1,25 @@
+{
+  "modules": [{"id": "init", "fuel": 6}],
+  "host_calls": [
+    {"cap": "tok", "op": "read", "fuel": 3},
+    {"cap": "tok", "op": "write", "fuel": 3},
+    {"cap": "tok", "op": "read", "fuel": 3}
+  ],
+  "fuel_budget": 22,
+  "profile_generation": 1,
+  "capabilities": [
+    {
+      "id": "tok",
+      "ops": ["read", "write"],
+      "baseline_ops": ["read"],
+      "uses_left": 4
+    }
+  ],
+  "expected_live_digest": "54a71c033f271ac3",
+  "expected_replay_digest": "4ff821994cfc2c07",
+  "expected_probes": {
+    "ledger_gap": "12",
+    "stale_token_count": "1",
+    "escalation_delta": "0"
+  }
+}

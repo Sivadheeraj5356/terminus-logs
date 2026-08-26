@@ -1,0 +1,12 @@
+# Legacy record text export
+# columns: seq_id,datum_len,checksum,status_nibble,revision_tag[,label]
+5,2048,512,5,3
+6,4096,1024,2,1
+7,256,88,0,4
+8,1024,200,6,7,beta
+9,256,256,3,2,endian_trap
+10,4096,4096,1,5,endian_conflict
+11,512,512,4,1,mirror
+12,300,600,7,3,near_swap
+13,88,176,2,6,half_double
+14,1000,1000,0,0,identity

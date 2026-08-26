@@ -1,0 +1,20 @@
+{
+  "tax_rate_bps": [
+    2500,
+    2500,
+    2500,
+    2500,
+    2500
+  ],
+  "benchmark_rate_bps": [
+    525,
+    500,
+    475,
+    450,
+    425
+  ],
+  "min_dscr_bps": 12500,
+  "max_leverage_bps": 60000,
+  "max_iterations": 100,
+  "convergence_tolerance_minor": 0
+}

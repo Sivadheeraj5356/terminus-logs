@@ -1,0 +1,403 @@
+{
+  "entities": [
+    {
+      "id": "parent",
+      "kind": "parent",
+      "ownership_bps": 10000,
+      "base_revenue_minor": 120000000,
+      "opening": {
+        "cash_minor": 8000000,
+        "accounts_receivable_minor": 15000000,
+        "inventory_minor": 9000000,
+        "net_ppe_minor": 50000000,
+        "accounts_payable_minor": 11000000,
+        "deferred_tax_liability_minor": 2000000,
+        "term_debt_minor": 30000000,
+        "revolver_minor": 5000000,
+        "common_stock_minor": 25000000,
+        "additional_paid_in_capital_minor": 4000000,
+        "retained_earnings_minor": 5000000
+      },
+      "assumptions": {
+        "revenue_growth_bps": [
+          750,
+          650,
+          500,
+          450,
+          400
+        ],
+        "cogs_pct_revenue_bps": [
+          5850,
+          5800,
+          5750,
+          5700,
+          5650
+        ],
+        "opex_pct_revenue_bps": [
+          2050,
+          2025,
+          2000,
+          1975,
+          1950
+        ],
+        "depreciation_pct_beginning_ppe_bps": [
+          1250,
+          1250,
+          1250,
+          1250,
+          1250
+        ],
+        "tax_depreciation_pct_beginning_ppe_bps": [
+          2000,
+          1800,
+          1600,
+          1400,
+          1200
+        ],
+        "stock_comp_pct_revenue_bps": [
+          200,
+          190,
+          180,
+          170,
+          160
+        ],
+        "capex_pct_revenue_bps": [
+          650,
+          625,
+          600,
+          575,
+          550
+        ],
+        "ar_days": [
+          45,
+          44,
+          43,
+          42,
+          41
+        ],
+        "inventory_days": [
+          55,
+          54,
+          52,
+          50,
+          48
+        ],
+        "ap_days": [
+          48,
+          47,
+          46,
+          45,
+          44
+        ],
+        "minimum_cash_pct_revenue_bps": [
+          300,
+          300,
+          300,
+          300,
+          300
+        ],
+        "dividend_payout_bps": [
+          1500,
+          1500,
+          1500,
+          1500,
+          1500
+        ],
+        "mandatory_amortization_bps": [
+          800,
+          800,
+          800,
+          800,
+          800
+        ],
+        "cash_sweep_bps": [
+          10000,
+          10000,
+          10000,
+          10000,
+          10000
+        ],
+        "term_spread_bps": [
+          200,
+          175,
+          150,
+          125,
+          100
+        ],
+        "revolver_spread_bps": [
+          325,
+          300,
+          275,
+          250,
+          225
+        ]
+      }
+    },
+    {
+      "id": "sub_a",
+      "kind": "subsidiary",
+      "ownership_bps": 8000,
+      "base_revenue_minor": 72000000,
+      "opening": {
+        "cash_minor": 8000000,
+        "accounts_receivable_minor": 15000000,
+        "inventory_minor": 9000000,
+        "net_ppe_minor": 50000000,
+        "accounts_payable_minor": 11000000,
+        "deferred_tax_liability_minor": 2000000,
+        "term_debt_minor": 30000000,
+        "revolver_minor": 5000000,
+        "common_stock_minor": 25000000,
+        "additional_paid_in_capital_minor": 4000000,
+        "retained_earnings_minor": 5000000
+      },
+      "assumptions": {
+        "revenue_growth_bps": [
+          750,
+          650,
+          500,
+          450,
+          400
+        ],
+        "cogs_pct_revenue_bps": [
+          5850,
+          5800,
+          5750,
+          5700,
+          5650
+        ],
+        "opex_pct_revenue_bps": [
+          2050,
+          2025,
+          2000,
+          1975,
+          1950
+        ],
+        "depreciation_pct_beginning_ppe_bps": [
+          1250,
+          1250,
+          1250,
+          1250,
+          1250
+        ],
+        "tax_depreciation_pct_beginning_ppe_bps": [
+          2000,
+          1800,
+          1600,
+          1400,
+          1200
+        ],
+        "stock_comp_pct_revenue_bps": [
+          200,
+          190,
+          180,
+          170,
+          160
+        ],
+        "capex_pct_revenue_bps": [
+          650,
+          625,
+          600,
+          575,
+          550
+        ],
+        "ar_days": [
+          45,
+          44,
+          43,
+          42,
+          41
+        ],
+        "inventory_days": [
+          55,
+          54,
+          52,
+          50,
+          48
+        ],
+        "ap_days": [
+          48,
+          47,
+          46,
+          45,
+          44
+        ],
+        "minimum_cash_pct_revenue_bps": [
+          300,
+          300,
+          300,
+          300,
+          300
+        ],
+        "dividend_payout_bps": [
+          1500,
+          1500,
+          1500,
+          1500,
+          1500
+        ],
+        "mandatory_amortization_bps": [
+          800,
+          800,
+          800,
+          800,
+          800
+        ],
+        "cash_sweep_bps": [
+          10000,
+          10000,
+          10000,
+          10000,
+          10000
+        ],
+        "term_spread_bps": [
+          200,
+          175,
+          150,
+          125,
+          100
+        ],
+        "revolver_spread_bps": [
+          325,
+          300,
+          275,
+          250,
+          225
+        ]
+      }
+    },
+    {
+      "id": "sub_b",
+      "kind": "subsidiary",
+      "ownership_bps": 6000,
+      "base_revenue_minor": 48000000,
+      "opening": {
+        "cash_minor": 8000000,
+        "accounts_receivable_minor": 15000000,
+        "inventory_minor": 9000000,
+        "net_ppe_minor": 50000000,
+        "accounts_payable_minor": 11000000,
+        "deferred_tax_liability_minor": 2000000,
+        "term_debt_minor": 30000000,
+        "revolver_minor": 5000000,
+        "common_stock_minor": 25000000,
+        "additional_paid_in_capital_minor": 4000000,
+        "retained_earnings_minor": 5000000
+      },
+      "assumptions": {
+        "revenue_growth_bps": [
+          750,
+          650,
+          500,
+          450,
+          400
+        ],
+        "cogs_pct_revenue_bps": [
+          5850,
+          5800,
+          5750,
+          5700,
+          5650
+        ],
+        "opex_pct_revenue_bps": [
+          2050,
+          2025,
+          2000,
+          1975,
+          1950
+        ],
+        "depreciation_pct_beginning_ppe_bps": [
+          1250,
+          1250,
+          1250,
+          1250,
+          1250
+        ],
+        "tax_depreciation_pct_beginning_ppe_bps": [
+          2000,
+          1800,
+          1600,
+          1400,
+          1200
+        ],
+        "stock_comp_pct_revenue_bps": [
+          200,
+          190,
+          180,
+          170,
+          160
+        ],
+        "capex_pct_revenue_bps": [
+          650,
+          625,
+          600,
+          575,
+          550
+        ],
+        "ar_days": [
+          45,
+          44,
+          43,
+          42,
+          41
+        ],
+        "inventory_days": [
+          55,
+          54,
+          52,
+          50,
+          48
+        ],
+        "ap_days": [
+          48,
+          47,
+          46,
+          45,
+          44
+        ],
+        "minimum_cash_pct_revenue_bps": [
+          300,
+          300,
+          300,
+          300,
+          300
+        ],
+        "dividend_payout_bps": [
+          1500,
+          1500,
+          1500,
+          1500,
+          1500
+        ],
+        "mandatory_amortization_bps": [
+          800,
+          800,
+          800,
+          800,
+          800
+        ],
+        "cash_sweep_bps": [
+          10000,
+          10000,
+          10000,
+          10000,
+          10000
+        ],
+        "term_spread_bps": [
+          200,
+          175,
+          150,
+          125,
+          100
+        ],
+        "revolver_spread_bps": [
+          325,
+          300,
+          275,
+          250,
+          225
+        ]
+      }
+    }
+  ]
+}

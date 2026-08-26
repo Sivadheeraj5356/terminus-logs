@@ -1,0 +1,70 @@
+--- a/keyring/key_resolve.go
++++ b/keyring/key_resolve.go
+@@ -20,24 +20,14 @@
+ 	if len(footer) < 16 {
+ 		return nil, fmt.Errorf("short footer")
+ 	}
+-	idx := grp
+-	if table != nil {
+-		for _, lane := range table.Lanes {
+-			if lane.Grp == grp {
+-				idx = lane.Idx
+-				break
+-			}
+-		}
++	idx, ok := laneLookup(table, grp)
++	if !ok {
++		return nil, fmt.Errorf("lane missing for grp %d", grp)
+ 	}
+-	slot := int(grp)
+-	if table != nil && len(table.Lanes) > 0 {
+-		slot = int(grp)
++	start := int(idx) * 16
++	if start < 0 || start+16 > len(footer) {
++		return nil, fmt.Errorf("slot %d out of range for footer len %d", idx, len(footer))
+ 	}
+-	start := slot * 16
+-	if start+16 > len(footer) {
+-		return nil, fmt.Errorf("slot out of range")
+-	}
+-	_ = idx
+ 	out := make([]byte, 16)
+ 	copy(out, footer[start:start+16])
+ 	return out, nil
+@@ -47,13 +37,31 @@
+ 	if table == nil {
+ 		return fallback, nil
+ 	}
++	idx, ok := laneLookup(table, grp)
++	if !ok {
++		return 0, fmt.Errorf("lane missing for grp %d", grp)
++	}
++	return idx, nil
++}
++
++func laneLookup(table *IndexTable, grp uint32) (uint32, bool) {
++	if table == nil {
++		return grp, true
++	}
+ 	for _, lane := range table.Lanes {
+ 		if lane.Grp == grp {
+-			if lane.Idx > 0 {
+-				return lane.Idx, nil
+-			}
+-			return fallback, nil
++			return lane.Idx, true
+ 		}
+ 	}
+-	return 0, fmt.Errorf("lane missing")
++	return 0, false
+ }
++
++func materialAt(footer []byte, idx uint32) ([]byte, error) {
++	start := int(idx) * 16
++	if start < 0 || start+16 > len(footer) {
++		return nil, fmt.Errorf("slot %d out of range", idx)
++	}
++	out := make([]byte, 16)
++	copy(out, footer[start:start+16])
++	return out, nil
++}

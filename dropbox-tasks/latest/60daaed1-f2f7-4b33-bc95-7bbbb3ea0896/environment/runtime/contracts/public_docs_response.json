@@ -1,0 +1,7 @@
+{
+  "docs": [
+    "/v1/public/ping",
+    "/v1/admin/profile",
+    "/v1/admin/audit"
+  ]
+}

@@ -1,0 +1,69 @@
+--- a/src/transport/stream.cc
++++ b/src/transport/stream.cc
+@@ -6,12 +6,43 @@
+ 
+ namespace framecore {
+ 
++namespace {
++
++bool IsLegalPhaseTransition(HeaderCategory from, HeaderCategory to) {
++  switch (from) {
++    case HeaderCategory::kInformational:
++      return to == HeaderCategory::kInformational || to == HeaderCategory::kHeaders;
++    case HeaderCategory::kHeaders:
++      return to == HeaderCategory::kTrailers;
++    case HeaderCategory::kTrailers:
++      return false;
++  }
++  return false;
++}
++
++}  // namespace
++
+ Stream::Stream(uint32_t stream_id, Session* session)
+     : stream_id_(stream_id), session_(session) {}
+ 
+-Stream::~Stream() {}
++Stream::~Stream() {
++  if (current_headers_length_ > 0) {
++    session_->DecrementCurrentSessionMemory(current_headers_length_);
++    session_->DecrementHeaderCount(current_headers_.size());
++    current_headers_length_ = 0;
++  }
++}
+ 
+ Status Stream::StartHeaders(HeaderCategory category) {
++  if (phase_started_ && !IsLegalPhaseTransition(category_, category)) {
++    return Status::InvalidArgument(
++        "stream: out-of-order header phase transition on stream " +
++        std::to_string(stream_id_));
++  }
++  if (current_headers_length_ > 0) {
++    session_->DecrementCurrentSessionMemory(current_headers_length_);
++    session_->DecrementHeaderCount(current_headers_.size());
++  }
+   phase_started_ = true;
+   current_headers_length_ = 0;
+   current_headers_.clear();
+@@ -20,6 +51,10 @@
+ }
+ 
+ Status Stream::AddHeader(const std::string& name, const std::string& value) {
++  if (name.empty()) {
++    return Status::Ignored("stream: header with empty name ignored on stream " +
++                            std::to_string(stream_id_));
++  }
+   size_t charge = name.size() + value.size() + kHeaderOverheadBytes;
+   if (!session_->IsAvailableSessionMemory(charge) || !session_->IsAvailableHeaderCount(1)) {
+     return Status::ResourceExhausted(
+@@ -34,6 +69,10 @@
+ 
+ std::vector<HeaderField> Stream::FlushHeaders() {
+   std::vector<HeaderField> flushed = std::move(current_headers_);
++  session_->DecrementCurrentSessionMemory(current_headers_length_);
++  session_->DecrementHeaderCount(flushed.size());
++  current_headers_length_ = 0;
++  current_headers_.clear();
+   return flushed;
+ }
+ 

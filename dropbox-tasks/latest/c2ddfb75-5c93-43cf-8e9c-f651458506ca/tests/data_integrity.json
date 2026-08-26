@@ -1,0 +1,18 @@
+{
+  "bundles/genoa_merchant_society.json": "9330632027ea793d3481ec06d28de27c443029bdeb494a8f81893e01ad61e03e",
+  "bundles/index.json": "32301df334460d55d7ccf4f792a163b26b5ab29fe82ff1ebf112d1bb14e566aa",
+  "bundles/isfahan_persian_circulation.json": "3402a65683642cb36c30a38950eb03027e9d70e49799e359296b576238009fc9",
+  "bundles/kyoto_nishijin_salon.json": "8f9b91beddb4c482ab2e3dae8b65ca16c05bad68c64f91f77f182657a72a5c57",
+  "bundles/lyon_silk_exchange.json": "39849dc1dba9f6aa5ec4d26a68638f8f49e729ae1fbd08e3812377a060d0fdb1",
+  "bundles/suzhou_brocade_division.json": "2d61c903f3a3c8d6418bce47b63560414f1734e8424f15e19a425102fd91511d",
+  "bundles/varanasi_banarasi_archive.json": "19fa2cd2e17f4bbae3bef5051376e815a32d09056c4a5061b5b87fee257f7a3c",
+  "dye_reformulations/events.json": "ad44036208f5baed26c3dc7672588b043a835f4cb65ae2609a027b9a89bec0c0",
+  "dye_reformulations/overrides/exchange_amendments.json": "0a46ebde22952dfe0d84d94e0155ba9d9af4721b4d1ed99306da18fd4e1aaa06",
+  "export_routes/chains.json": "5dfc687b324cce9fff7e5f47252549c3b91027f45799212c963a472ce30fdd47",
+  "loom_letters/registry.json": "990c818295094448fc3fa59f0b28de725a5d1703bd058f6672aa6b127a907b55",
+  "master_weavers/workshops.json": "eaa10f4d9a97e31f1368bf6534d38aaa2bb7e066c4c7c654623e14957e770cf8",
+  "merchant_transfers/sales.json": "774bb5a26e8b67a49cb85a752105b69230ce54b865f54a601f1d205bd5bedf4e",
+  "panels/catalog.json": "f8c97cbbdf5510faa4e94cde569adb427a88de203a677936e69b008d19ab841a",
+  "pattern_anchors/appraisals.json": "0e05d07fad44e578b603d27e23cea4e0cdc3bb40f8f9297e0c8d9195c486f8ff",
+  "school_recitals/performances.json": "5842a7ff29258be81a733e18d9fc7a4dfa087df67bf2e7b568cdba4b0f760d0e"
+}

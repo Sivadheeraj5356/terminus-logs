@@ -1,0 +1,63 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+subcategories = ["tool_specific"]
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["go", "bash"]
+tags = ["lvm", "cache", "pvmove", "authority", "go", "system-administration"]
+expert_time_estimate_min = 120
+junior_time_estimate_min = 300
+
+[metadata.reference_pattern]
+justification_if_none = "docs/reference_tasks/index.json has no promoted analogue for LVM cache tier pool move origin split under filesystem_state_reconstruction."
+
+[verifier]
+timeout_sec = 600
+
+[agent]
+timeout_sec = 1800
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+workdir = "/app"
+
+[[difficulty_mechanism_plan]]
+mechanism = "quorum_witness"
+why_model_misses_it = "agents treat any single authority surface reaching post-move as window closure instead of requiring vault, alias, and active quorum agreement"
+
+[[difficulty_mechanism_plan]]
+mechanism = "partial_dirty_reconcile"
+why_model_misses_it = "agents reconcile every mapped slot on recover instead of only dirty-listed slots while still serving origin via read-replay after settle"
+
+[[difficulty_mechanism_plan]]
+mechanism = "replay_system"
+why_model_misses_it = "agents treat read-replay as a full reconcile and wipe clash or hash views instead of preserving recover state across replay semantics"
+
+[[difficulty_mechanism_plan]]
+mechanism = "cache_invalidation"
+why_model_misses_it = "agents close the relocation window on move_gen alone while fast-lane mapped slots still serve pre-move payloads until seal and alias catch up"
+
+[[difficulty_mechanism_plan]]
+mechanism = "state_recovery"
+why_model_misses_it = "state recovery across recover cycles — a second recover must leave hash_view.fprint unchanged and read-replay alone must not mutate fprint"
+
+[[difficulty_mechanism_plan]]
+mechanism = "false_green_intermediate_states"
+why_model_misses_it = "agents trust the settled tag or invariant exit zero while origin alias, active ref, or promotion seal still point at the pre-move origin"
+
+[[difficulty_mechanism_plan]]
+mechanism = "cross_file_cross_format_invariants"
+why_model_misses_it = "multi-component interaction across Go ops, plumb, and driver modules; fixing one verb leaves tap tallies, bind off notes, or digest_ref drift"
+
+[[difficulty_mechanism_plan]]
+mechanism = "deceptive_but_valid_local_evidence"
+why_model_misses_it = "agents gate recovery on cvctl invariant even though it is diagnostic-only and always exits zero during lagging workspaces"

@@ -1,0 +1,5 @@
+# purge clears stale journal before fresh ro/rw ladder
+profile alpha
+step pur
+step ro target=data
+step rw target=data

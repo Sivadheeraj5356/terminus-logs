@@ -1,0 +1,23 @@
+[report]
+schema = "bw_emit_v1"
+
+[report.rows]
+lane_id = "string; bundled lane identifier"
+chain_stamp = "string; 8 lowercase hex digits"
+parent_pick = "string; metadata parent node"
+rc_band = "u32; 0 or 100-999"
+sync_label = "string; steady | drift"
+stream_tag = "u32; deterministic lane mix"
+
+[report.summary]
+rows_total = "u32; number of rows"
+span_band = "u32; max rc_band - min rc_band"
+lineage_digest = "string; 8 lowercase hex digits"
+sync_label = "string; steady | drift"
+journal_seq = "u32; journal tail sequence"
+wrap_epoch = "u32; active wrap generation"
+
+[cache]
+key = "lane_id|wrap_epoch string; see fc0_contract.md Lane cache"
+lookup = "exact key match only; reload with higher wrap_epoch must miss prior epoch rows"
+rehydrate = "JSON sidecars under lane_cache/ keyed by lane id filename stem on open"

@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0002",
+  "category": "point_mutation",
+  "label_ciphertext": "KyQBWiZiEsYN",
+  "label_nonce": "hxpcFjSQ8dTOHXiQ",
+  "label_tag": "Fhnz6V5hNq3tva7oHwNmnw==",
+  "signature": "MEYCIQCsig2iaImg2/p8Cczq6WH/mrL7jwFo6l38GapcEAcg5AIhAJGRrfk06lcgtnqpHGCDahNV6RAEt6DJMaYw+CKYaA6j",
+  "patient_ref": "PT-BETA-902"
+}

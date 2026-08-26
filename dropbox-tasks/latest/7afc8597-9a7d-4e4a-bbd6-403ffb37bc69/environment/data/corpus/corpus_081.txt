@@ -1,0 +1,6 @@
+cat beta delta delta dog
+mixed Foo123Bar baz_42
+tabs	and spaces here
+bird gray maybe world no
+consonants rhythm myth
+colour foobar bird beta no

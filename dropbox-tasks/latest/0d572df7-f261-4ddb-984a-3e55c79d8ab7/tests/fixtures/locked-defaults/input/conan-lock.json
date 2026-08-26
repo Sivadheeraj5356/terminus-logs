@@ -1,0 +1,26 @@
+{
+  "locked": [
+    {
+      "features": [
+        "base"
+      ],
+      "name": "libcore",
+      "reason": "previous-run",
+      "version": "1.4.0"
+    },
+    {
+      "features": [
+        "base"
+      ],
+      "name": "baseutil",
+      "reason": "previous-run",
+      "version": "1.2.0"
+    },
+    {
+      "features": [],
+      "name": "docsgen",
+      "reason": "previous-run",
+      "version": "1.0.0"
+    }
+  ]
+}

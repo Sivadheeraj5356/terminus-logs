@@ -1,0 +1,24 @@
+# FinchRender coordinator legacy configuration
+service:
+  user: finchrender
+  group: render
+  socket_path: /run/finchrender/coordinator.sock
+  pid_file: /run/finchrender/coordinator.pid
+
+cache:
+  tiles_dir: /var/cache/finchrender/tiles
+  frames_dir: /var/cache/finchrender/frames
+  shaders_dir: /var/cache/finchrender/shaders
+
+checkpoints:
+  dir: /var/lib/finchrender/checkpoints
+  gc_days: 7
+
+logging:
+  level: info
+  file: /var/log/finchrender/coordinator.log
+  max_size_mb: 200
+
+ipc:
+  socket_timeout_sec: 30
+  backlog: 128

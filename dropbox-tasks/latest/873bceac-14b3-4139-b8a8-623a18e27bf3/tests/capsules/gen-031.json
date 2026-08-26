@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "catacomb",
+      "relicmaze.torch": "0.5",
+      "relicmaze.keeper_tz_offset_minutes": "330",
+      "relicmaze.carry_capacity": "300",
+      "relicmaze.goal_room": "vault",
+      "org.opencontainers.image.title": "gen-031"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:6777bba83fddfcab2d30afd97f8e583dce1b02e9622faa092e78b8bea66afe5c"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "RUN keeper curse quicksilver-vial"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    }
+  ]
+}

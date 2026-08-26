@@ -1,0 +1,32 @@
+{
+  "project_id":"project_14",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"lodash",
+        "version":"4.17.20"
+      },
+      {
+        "name":"app14",
+        "version":"1.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"app14",
+        "provider":"lodash",
+        "constraint":"^4.17.0",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"lodash",
+        "target":"4.17.21",
+        "release_date":"2026-01-15"
+      }
+    ]
+  },
+  "risk_cutoff":0.2
+}

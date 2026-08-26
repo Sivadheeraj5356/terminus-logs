@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CapturedRequest",
+  "type": "object",
+  "required": ["method", "target", "headers", "body"],
+  "properties": {
+    "method": { "type": "string" },
+    "target": { "type": "string" },
+    "headers": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "body": { "type": "string" },
+    "body_hex": { "type": "string" },
+    "raw_digest": { "type": "string" },
+    "received_at": { "type": "string" }
+  }
+}

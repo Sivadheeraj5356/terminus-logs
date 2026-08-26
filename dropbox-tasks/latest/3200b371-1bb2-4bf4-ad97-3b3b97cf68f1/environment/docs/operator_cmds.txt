@@ -1,0 +1,29 @@
+# operator argv for pp_run
+
+Working tree: /app/environment
+Driver: /app/h7p/pp_run
+Same driver file: /app/environment/h7p/pp_run
+Desk root variable desk or ENV_ROOT defaults to /app/environment for staged rebuilds.
+
+Rebuild every rotation from rot_tbl.toml and write /app/output/policy_pack/:
+
+  /app/h7p/pp_run rebuild
+
+Rebuild a single rotation id:
+
+  /app/h7p/pp_run rebuild --id r04
+
+Smoke health probe (ledger totals only):
+
+  /app/h7p/pp_run health
+
+Make wrappers (same phases):
+
+  make -C /app/environment rebuild
+  make -C /app/environment health
+
+Rebuild walks each rotation in rot_tbl.toml, stages per-rotation work under the
+desk tree, then writes pack members under /app/output/policy_pack/. Closed-row
+algebra, preamble peer rules, pin-seed coupling, and seal obligations are in
+ctr_rules.md. Smoke shortcuts that keep ledger totals green are in
+operator_notes.md.

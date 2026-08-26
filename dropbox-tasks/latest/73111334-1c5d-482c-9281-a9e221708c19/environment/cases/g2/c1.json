@@ -1,0 +1,11 @@
+{
+  "id": "c1",
+  "mode": "r0",
+  "observers": [
+    {"oid": 1, "cx": 0, "cy": 0, "reach": 1}
+  ],
+  "ally_groups": [],
+  "slots": 4,
+  "grid_width": 2,
+  "grid_height": 2
+}

@@ -1,0 +1,12 @@
+{
+  "method": "POST",
+  "url": "https://yourlist.app/api/sms/send",
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "to": "+18605551234",
+    "message": "YourList test message"
+  }
+}

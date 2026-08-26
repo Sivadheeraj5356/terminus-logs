@@ -1,0 +1,59 @@
+SKITTLE ALLEY SERVICE LINK
+
+The cabinet exposes a line-oriented service link on its standard input and
+output. Each command is one line. Each reply is one or more lines followed by
+a line reading END.
+
+COMMANDS
+
+  RACK <dial> <latch> <pins> [<pins>]
+      Sets up a fresh rack. The dial face and the latch code are set to the
+      values given. One or two lanes may be racked. The practice cabinet only
+      sets up racks inside the service band it can tabulate; a rack outside the
+      band is refused.
+
+  SHOW
+      Reports the live rack.
+
+  THROW <lane> <pins> <split>
+      Sends a throw down the given lane. The lane is numbered from 1 in the
+      order the lanes are reported. The pin count is the number of pins the
+      ball takes. The split field is 0 for a throw that leaves the standing
+      remainder as one lane, or the pin count of the left fragment when the
+      remainder is to be broken in two.
+
+  HOUSE
+      The house takes its turn immediately.
+
+  QUIT
+      Drops the link.
+
+REPLIES
+
+  READY <dial> <latch> <lanes> [<pins> ...]
+      A rack was set up.
+
+  RACK <dial> <latch> <lanes> [<pins> ...]
+      The live rack.
+
+  OK <dial> <latch> <lanes> [<pins> ...]
+      The throw was accepted. The dial and the latch are reported as they stand
+      after the throw and before the house replies.
+
+  REJECT
+      The throw was not accepted. The rack is unchanged.
+
+  HOUSE <lane> <pins> <split>
+      The house threw.
+
+  RESULT PLAYER
+  RESULT HOUSE
+      The rack is clear. The side that cleared it took the last throw and the
+      side with no throw left loses.
+
+  REFUSED BAND
+      The rack is outside the practice cabinet's service band.
+
+  REFUSED ARGS
+  REFUSED IDLE
+      The command was malformed, or no rack is live.

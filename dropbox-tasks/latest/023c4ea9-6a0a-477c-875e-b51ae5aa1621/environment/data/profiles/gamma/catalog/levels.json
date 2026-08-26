@@ -1,0 +1,15 @@
+{
+  "u1": 2,
+  "u2": 3,
+  "sa-mesh": 2,
+  "grp-alpha": 3,
+  "grp-beta": 3,
+  "grp-shared": 4,
+  "role-guest": 3,
+  "role-owner": 5,
+  "principal-l1": 1,
+  "mesh-entry": 3,
+  "k8s-bind": 4,
+  "k8s-agg": 6,
+  "crown-store": 8
+}

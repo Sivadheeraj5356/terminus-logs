@@ -1,0 +1,274 @@
+[package]
+name = "app"
+
+[[requires]]
+package = "dispatchctl"
+range = "^2.0.0"
+
+[[requires]]
+package = "fleetbilling"
+range = "^1.0.0"
+
+[[requires]]
+package = "alertagg"
+range = ">=1.0.0"
+
+[[requires]]
+package = "alertfeed"
+range = ">=1.0.0"
+
+[[requires]]
+package = "backoffpolicy"
+range = ">=1.0.0"
+
+[[requires]]
+package = "backoffcore"
+range = ">=1.0.0"
+
+[[requires]]
+package = "snapreader"
+range = ">=1.0.0"
+
+[[requires]]
+package = "snapwriter"
+range = ">=1.0.0"
+
+[[requires]]
+package = "auxlib01"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib02"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib03"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib04"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib05"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib06"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib07"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib08"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib09"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib10"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib11"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib12"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib13"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib14"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib15"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib16"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib17"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib18"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib19"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib20"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib21"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib22"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib23"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib24"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib25"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib26"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib27"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib28"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib29"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib30"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib31"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib32"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib33"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib34"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib35"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib36"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib37"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib38"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib39"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib40"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib41"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib42"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib43"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib44"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib45"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib46"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib47"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib48"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib49"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib50"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib51"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib52"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib53"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib54"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib55"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib56"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib57"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib58"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib59"
+range = "=1.0.0"
+
+[[requires]]
+package = "auxlib60"
+range = "=1.0.0"

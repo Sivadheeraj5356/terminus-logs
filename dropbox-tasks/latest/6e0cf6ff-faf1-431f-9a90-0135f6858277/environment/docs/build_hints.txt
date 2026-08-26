@@ -1,0 +1,5 @@
+# Driver argv notes (paths only)
+bash /app/driver/compile_cores.sh
+/app/work/sep_tool /app/data/annex_slice36 /app/data/bands/profiles /app/work/cut.json
+CUT_CTX points at /app/work/cut.json while running /app/work/fold_tool /app/data/annex_slice36 /app/data/bands/profiles /app/work/pack.json
+/app/work/tie_tool /app/data/annex_slice36 /app/work /app/output/ghost_seal.json

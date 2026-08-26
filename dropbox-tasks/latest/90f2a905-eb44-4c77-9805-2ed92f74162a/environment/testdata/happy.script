@@ -1,0 +1,17 @@
+# valid strict and flexible requests
+REQ happy_080 80 ops south active 66 0
+REQ happy_081 81 finance global audit 26 0
+REQ happy_082 82 carrier intl paused 31 0
+REQ happy_083 83 support standard queued 36 0
+REQ happy_084 84 admin cold replay 41 0
+REQ happy_085 85 auditor north settled 46 0
+REQ happy_086 86 partner west draft 51 0
+REQ happy_087 87 worker wholesale closing 56 0
+REQ happy_064 64 ops south draft 31 0
+REQ happy_065 65 finance global draft 36 0
+REQ happy_066 66 carrier intl draft 41 0
+REQ happy_067 67 support standard draft 46 0
+REQ happy_068 68 admin cold draft 51 0
+REQ happy_069 69 auditor north draft 56 0
+REQ happy_070 70 partner west draft 61 0
+REQ happy_071 71 worker wholesale draft 66 0

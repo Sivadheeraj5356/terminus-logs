@@ -1,0 +1,16 @@
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+*.o
+bin/
+output/
+.DS_Store
+*.swp
+*.swo
+solution/
+tests/

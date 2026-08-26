@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "created": "2412-03-06T00:00:00Z",
+  "architecture": "relic",
+  "os": "maze",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "forge",
+      "relicmaze.torch": "3.0",
+      "relicmaze.keeper_tz_offset_minutes": "-300",
+      "relicmaze.goal_room": "spring",
+      "relicmaze.carry_capacity": "250",
+      "org.opencontainers.image.title": "emberforge-trial"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:9911223344556677889900aabbccddeeff00112233445566778899aabbccdd01"
+    ]
+  },
+  "history": [
+    { "created": "2412-03-06T00:00:01Z", "created_by": "keeper genesis: bind capsule to forge" },
+    { "created": "2412-03-06T00:00:02Z", "created_by": "RUN keeper seal ember-heart" },
+    { "created": "2412-03-06T00:00:03Z", "created_by": "ENV torch_tax=0.0" },
+    { "created": "2412-03-06T00:00:04Z", "created_by": "LABEL omen=\"Fire keeps no secrets.\"" },
+    { "created": "2412-03-06T00:00:05Z", "created_by": "keeper sign: capsule sealed" }
+  ]
+}

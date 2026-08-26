@@ -1,0 +1,27 @@
+--- a/environment/r43/gate_p.rb
++++ b/environment/r43/gate_p.rb
+@@ -8,11 +8,21 @@
+   token.is_a?(Hash) ? token["kid"].to_s : ""
+ end
+ 
++def _band_for(ledger, epoch)
++  return {} unless ledger.is_a?(Hash) && ledger["by_epoch"].is_a?(Hash)
++  ledger["by_epoch"][epoch.to_s] || {}
++end
++
++def _lists_for(band)
++  allow = Array(band["allow"]).map(&:to_s)
++  rev = Array(band["rev"]).map(&:to_s)
++  [allow, rev]
++end
++
+ def ensure_rev_k(token:, ledger:, epoch:)
+   kid = _kid_of(token)
+-  cur = _cur_band(ledger)
+-  allow = (cur["allow"] || []).map(&:to_s)
+-  rev = (cur["rev"] || []).map(&:to_s)
++  band = _band_for(ledger, epoch)
++  allow, rev = _lists_for(band)
+   return false if rev.include?(kid)
+   allow.include?(kid)
+ end

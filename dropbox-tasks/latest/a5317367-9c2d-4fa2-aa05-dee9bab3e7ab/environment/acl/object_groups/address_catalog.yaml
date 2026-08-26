@@ -1,0 +1,17 @@
+schema_version: apexora-addr-og-1
+object_groups:
+  OG-SEG-CORP:
+    - 10.200.0.0/16
+    - 10.201.0.0/16
+  OG-SEG-FINANCE:
+    - 10.210.0.0/16
+  OG-SEG-HR:
+    - 10.211.0.0/16
+  OG-SEG-GUEST:
+    - 10.230.0.0/16
+  OG-SEG-DMZ:
+    - 10.240.0.0/16
+  OG-SEG-MGMT:
+    - 10.250.0.0/16
+  OG-SEG-OT:
+    - 10.220.0.0/16

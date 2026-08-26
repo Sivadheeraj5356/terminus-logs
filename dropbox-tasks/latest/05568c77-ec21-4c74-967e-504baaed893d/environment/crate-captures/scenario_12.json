@@ -1,0 +1,41 @@
+{
+  "scenario_id": "scenario_12",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "app",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {
+    "pinned": "3.0.0"
+  },
+  "workspace_features": {
+    "pinned": [
+      "from_workspace"
+    ]
+  },
+  "feature_tags": {},
+  "edges": [
+    {
+      "parent": "app:1.0.0",
+      "child": "pinned",
+      "version": "1.0.0",
+      "features_requested": [
+        "ws_feat"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s12e1",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

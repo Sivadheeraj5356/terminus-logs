@@ -1,0 +1,39 @@
+--- auxiliary/tu_orchestrator.py
++++ auxiliary/tu_orchestrator.py
+@@ -3,6 +3,7 @@
+ from __future__ import annotations
+ 
+ import argparse
++import hashlib
+ import json
+ import shutil
+ import subprocess
+@@ -42,15 +43,25 @@
+ 
+ def _needs_relink(module: str, src_root: Path, work_root: Path, lto_root: Path) -> bool:
+     summary_path = lto_root / f"{module}.summary.json"
+-    if not summary_path.is_file():
++    obj_path = work_root / "obj" / f"{module}.o"
++    if not summary_path.is_file() or not obj_path.is_file():
+         return True
+     summary = read_summary(summary_path)
++    current = import_hash(module, src_root, work_root)
++    recorded = str(summary.get("import_hash", ""))
++    if current != recorded:
++        return True
++    recorded_obj = str(summary.get("object_sha256", ""))
++    if recorded_obj:
++        current_obj = hashlib.sha256(obj_path.read_bytes()).hexdigest()
++        if current_obj != recorded_obj:
++            return True
+     src_path = src_root / source_name(module)
+     if module == "gate_abi":
+         src_path = work_root / "gen" / "gate_abi.cpp"
+     current_mtime = src_path.stat().st_mtime if src_path.is_file() else 0.0
+-    recorded = float(summary.get("source_mtime", 0.0))
+-    return current_mtime > recorded
++    recorded_mtime = float(summary.get("source_mtime", 0.0))
++    return current_mtime > recorded_mtime
+ 
+ 
+ def build(mode: str, profile: str) -> dict[str, object]:

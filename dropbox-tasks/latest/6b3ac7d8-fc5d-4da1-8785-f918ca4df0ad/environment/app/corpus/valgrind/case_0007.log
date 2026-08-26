@@ -1,0 +1,5 @@
+==88441== Memcheck, a memory error detector
+==88441== case: case_0007
+==88441== Invalid free() / delete / delete[] / realloc()
+==88441==    at 0x5555187d9b3e: ec_p256_verify (vaultseal.c:280)
+==88441==    by 0x5555e9199220: seal_record (vaultseal.c:400)

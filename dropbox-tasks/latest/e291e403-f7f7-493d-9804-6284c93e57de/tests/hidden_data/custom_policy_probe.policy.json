@@ -1,0 +1,14 @@
+{
+  "blocked_keys": [
+    "session",
+    "role"
+  ],
+  "url_keys": [
+    "callback",
+    "avatar"
+  ],
+  "allowed_schemes": [
+    "https",
+    "mailto"
+  ]
+}

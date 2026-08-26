@@ -1,0 +1,10 @@
+banana bananana ba na
+a "quoted string" and "another"
+mixed Foo123Bar baz_42
+yes quux
+addr 119.110.141.61 hex 0x17d9 token tok_920
+this is the end
+addr 87.42.172.206 hex 0x468f token tok_728
+addr 26.125.199.149 hex 0xce token tok_148
+value = 0xDEADbeef and 0x1234
+addr 43.74.66.105 hex 0x2be1 token tok_971

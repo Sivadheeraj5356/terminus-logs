@@ -1,0 +1,8 @@
+apiVersion: v2
+name: umbrella
+version: "1.0.0"
+dependencies:
+  - name: redis
+    version: "1.0.0"
+    condition: cache.enabled
+    alias: cache

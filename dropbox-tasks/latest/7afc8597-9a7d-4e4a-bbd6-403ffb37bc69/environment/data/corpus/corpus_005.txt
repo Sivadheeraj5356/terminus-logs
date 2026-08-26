@@ -1,0 +1,6 @@
+aeiou bcdfg xyzzy
+line one
+name_1 foo_bar Baz99 __x
+world maybe color line
+tabs	and spaces here
+addr 127.131.22.255 hex 0x3c33 token tok_898

@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "noise_floor_dn": 120,
+  "saturation_dn": 65535,
+  "trim_fraction": 0.1,
+  "mask_erosion_px": 1,
+  "calrefs": {
+    "dark": "calrefs/dark.png",
+    "flat": "calrefs/flat.png",
+    "roi_mask": "masks/roi_static.png",
+    "dead_pixel_mask": "masks/dead_pixels.png"
+  },
+  "sessions": [
+    {
+      "session_id": "sess-alpha",
+      "camera_id": "cam-ir7",
+      "frames": [
+        {
+          "frame_id": "f-sess-alpha-000",
+          "timestamp_s": 95.0,
+          "path": "frames/frame_sess-alpha_020.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-001",
+          "timestamp_s": 90.0,
+          "path": "frames/frame_sess-alpha_019.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-002",
+          "timestamp_s": 85.0,
+          "path": "frames/frame_sess-alpha_018.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-003",
+          "timestamp_s": 80.0,
+          "path": "frames/frame_sess-alpha_017.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-004",
+          "timestamp_s": 75.0,
+          "path": "frames/frame_sess-alpha_016.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-005",
+          "timestamp_s": 70.0,
+          "path": "frames/frame_sess-alpha_015.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-006",
+          "timestamp_s": 65.0,
+          "path": "frames/frame_sess-alpha_014.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-007",
+          "timestamp_s": 60.0,
+          "path": "frames/frame_sess-alpha_013.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-008",
+          "timestamp_s": 55.0,
+          "path": "frames/frame_sess-alpha_012.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-009",
+          "timestamp_s": 50.0,
+          "path": "frames/frame_sess-alpha_011.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-010",
+          "timestamp_s": 45.0,
+          "path": "frames/frame_sess-alpha_010.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-011",
+          "timestamp_s": 40.0,
+          "path": "frames/frame_sess-alpha_009.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-012",
+          "timestamp_s": 35.0,
+          "path": "frames/frame_sess-alpha_008.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-013",
+          "timestamp_s": 30.0,
+          "path": "frames/frame_sess-alpha_007.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-014",
+          "timestamp_s": 25.0,
+          "path": "frames/frame_sess-alpha_006.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-015",
+          "timestamp_s": 20.0,
+          "path": "frames/frame_sess-alpha_005.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-016",
+          "timestamp_s": 15.0,
+          "path": "frames/frame_sess-alpha_004.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-017",
+          "timestamp_s": 10.0,
+          "path": "frames/frame_sess-alpha_003.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-018",
+          "timestamp_s": 5.0,
+          "path": "frames/frame_sess-alpha_002.png"
+        },
+        {
+          "frame_id": "f-sess-alpha-019",
+          "timestamp_s": 0.0,
+          "path": "frames/frame_sess-alpha_001.png"
+        }
+      ]
+    },
+    {
+      "session_id": "sess-beta",
+      "camera_id": "cam-ir9",
+      "frames": [
+        {
+          "frame_id": "f-sess-beta-000",
+          "timestamp_s": 95.7,
+          "path": "frames/frame_sess-beta_020.png"
+        },
+        {
+          "frame_id": "f-sess-beta-001",
+          "timestamp_s": 90.7,
+          "path": "frames/frame_sess-beta_019.png"
+        },
+        {
+          "frame_id": "f-sess-beta-002",
+          "timestamp_s": 85.7,
+          "path": "frames/frame_sess-beta_018.png"
+        },
+        {
+          "frame_id": "f-sess-beta-003",
+          "timestamp_s": 80.7,
+          "path": "frames/frame_sess-beta_017.png"
+        },
+        {
+          "frame_id": "f-sess-beta-004",
+          "timestamp_s": 75.7,
+          "path": "frames/frame_sess-beta_016.png"
+        },
+        {
+          "frame_id": "f-sess-beta-005",
+          "timestamp_s": 70.7,
+          "path": "frames/frame_sess-beta_015.png"
+        },
+        {
+          "frame_id": "f-sess-beta-006",
+          "timestamp_s": 65.7,
+          "path": "frames/frame_sess-beta_014.png"
+        },
+        {
+          "frame_id": "f-sess-beta-007",
+          "timestamp_s": 60.7,
+          "path": "frames/frame_sess-beta_013.png"
+        },
+        {
+          "frame_id": "f-sess-beta-008",
+          "timestamp_s": 55.7,
+          "path": "frames/frame_sess-beta_012.png"
+        },
+        {
+          "frame_id": "f-sess-beta-009",
+          "timestamp_s": 50.7,
+          "path": "frames/frame_sess-beta_011.png"
+        },
+        {
+          "frame_id": "f-sess-beta-010",
+          "timestamp_s": 45.7,
+          "path": "frames/frame_sess-beta_010.png"
+        },
+        {
+          "frame_id": "f-sess-beta-011",
+          "timestamp_s": 40.7,
+          "path": "frames/frame_sess-beta_009.png"
+        },
+        {
+          "frame_id": "f-sess-beta-012",
+          "timestamp_s": 35.7,
+          "path": "frames/frame_sess-beta_008.png"
+        },
+        {
+          "frame_id": "f-sess-beta-013",
+          "timestamp_s": 30.7,
+          "path": "frames/frame_sess-beta_007.png"
+        },
+        {
+          "frame_id": "f-sess-beta-014",
+          "timestamp_s": 25.7,
+          "path": "frames/frame_sess-beta_006.png"
+        },
+        {
+          "frame_id": "f-sess-beta-015",
+          "timestamp_s": 20.7,
+          "path": "frames/frame_sess-beta_005.png"
+        },
+        {
+          "frame_id": "f-sess-beta-016",
+          "timestamp_s": 15.7,
+          "path": "frames/frame_sess-beta_004.png"
+        },
+        {
+          "frame_id": "f-sess-beta-017",
+          "timestamp_s": 10.7,
+          "path": "frames/frame_sess-beta_003.png"
+        },
+        {
+          "frame_id": "f-sess-beta-018",
+          "timestamp_s": 5.7,
+          "path": "frames/frame_sess-beta_002.png"
+        },
+        {
+          "frame_id": "f-sess-beta-019",
+          "timestamp_s": 0.7,
+          "path": "frames/frame_sess-beta_001.png"
+        }
+      ]
+    },
+    {
+      "session_id": "sess-gamma",
+      "camera_id": "cam-ir7",
+      "frames": [
+        {
+          "frame_id": "f-sess-gamma-000",
+          "timestamp_s": 96.4,
+          "path": "frames/frame_sess-gamma_020.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-001",
+          "timestamp_s": 91.4,
+          "path": "frames/frame_sess-gamma_019.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-002",
+          "timestamp_s": 86.4,
+          "path": "frames/frame_sess-gamma_018.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-003",
+          "timestamp_s": 81.4,
+          "path": "frames/frame_sess-gamma_017.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-004",
+          "timestamp_s": 76.4,
+          "path": "frames/frame_sess-gamma_016.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-005",
+          "timestamp_s": 71.4,
+          "path": "frames/frame_sess-gamma_015.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-006",
+          "timestamp_s": 66.4,
+          "path": "frames/frame_sess-gamma_014.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-007",
+          "timestamp_s": 61.4,
+          "path": "frames/frame_sess-gamma_013.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-008",
+          "timestamp_s": 56.4,
+          "path": "frames/frame_sess-gamma_012.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-009",
+          "timestamp_s": 51.4,
+          "path": "frames/frame_sess-gamma_011.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-010",
+          "timestamp_s": 46.4,
+          "path": "frames/frame_sess-gamma_010.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-011",
+          "timestamp_s": 41.4,
+          "path": "frames/frame_sess-gamma_009.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-012",
+          "timestamp_s": 36.4,
+          "path": "frames/frame_sess-gamma_008.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-013",
+          "timestamp_s": 31.4,
+          "path": "frames/frame_sess-gamma_007.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-014",
+          "timestamp_s": 26.4,
+          "path": "frames/frame_sess-gamma_006.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-015",
+          "timestamp_s": 21.4,
+          "path": "frames/frame_sess-gamma_005.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-016",
+          "timestamp_s": 16.4,
+          "path": "frames/frame_sess-gamma_004.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-017",
+          "timestamp_s": 11.4,
+          "path": "frames/frame_sess-gamma_003.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-018",
+          "timestamp_s": 6.4,
+          "path": "frames/frame_sess-gamma_002.png"
+        },
+        {
+          "frame_id": "f-sess-gamma-019",
+          "timestamp_s": 1.4,
+          "path": "frames/frame_sess-gamma_001.png"
+        }
+      ]
+    },
+    {
+      "session_id": "sess-delta",
+      "camera_id": "cam-ir12",
+      "frames": [
+        {
+          "frame_id": "f-sess-delta-000",
+          "timestamp_s": 97.1,
+          "path": "frames/frame_sess-delta_020.png"
+        },
+        {
+          "frame_id": "f-sess-delta-001",
+          "timestamp_s": 92.1,
+          "path": "frames/frame_sess-delta_019.png"
+        },
+        {
+          "frame_id": "f-sess-delta-002",
+          "timestamp_s": 87.1,
+          "path": "frames/frame_sess-delta_018.png"
+        },
+        {
+          "frame_id": "f-sess-delta-003",
+          "timestamp_s": 82.1,
+          "path": "frames/frame_sess-delta_017.png"
+        },
+        {
+          "frame_id": "f-sess-delta-004",
+          "timestamp_s": 77.1,
+          "path": "frames/frame_sess-delta_016.png"
+        },
+        {
+          "frame_id": "f-sess-delta-005",
+          "timestamp_s": 72.1,
+          "path": "frames/frame_sess-delta_015.png"
+        },
+        {
+          "frame_id": "f-sess-delta-006",
+          "timestamp_s": 67.1,
+          "path": "frames/frame_sess-delta_014.png"
+        },
+        {
+          "frame_id": "f-sess-delta-007",
+          "timestamp_s": 62.1,
+          "path": "frames/frame_sess-delta_013.png"
+        },
+        {
+          "frame_id": "f-sess-delta-008",
+          "timestamp_s": 57.1,
+          "path": "frames/frame_sess-delta_012.png"
+        },
+        {
+          "frame_id": "f-sess-delta-009",
+          "timestamp_s": 52.1,
+          "path": "frames/frame_sess-delta_011.png"
+        },
+        {
+          "frame_id": "f-sess-delta-010",
+          "timestamp_s": 47.1,
+          "path": "frames/frame_sess-delta_010.png"
+        },
+        {
+          "frame_id": "f-sess-delta-011",
+          "timestamp_s": 42.1,
+          "path": "frames/frame_sess-delta_009.png"
+        },
+        {
+          "frame_id": "f-sess-delta-012",
+          "timestamp_s": 37.1,
+          "path": "frames/frame_sess-delta_008.png"
+        },
+        {
+          "frame_id": "f-sess-delta-013",
+          "timestamp_s": 32.1,
+          "path": "frames/frame_sess-delta_007.png"
+        },
+        {
+          "frame_id": "f-sess-delta-014",
+          "timestamp_s": 27.1,
+          "path": "frames/frame_sess-delta_006.png"
+        },
+        {
+          "frame_id": "f-sess-delta-015",
+          "timestamp_s": 22.1,
+          "path": "frames/frame_sess-delta_005.png"
+        },
+        {
+          "frame_id": "f-sess-delta-016",
+          "timestamp_s": 17.1,
+          "path": "frames/frame_sess-delta_004.png"
+        },
+        {
+          "frame_id": "f-sess-delta-017",
+          "timestamp_s": 12.1,
+          "path": "frames/frame_sess-delta_003.png"
+        },
+        {
+          "frame_id": "f-sess-delta-018",
+          "timestamp_s": 7.1,
+          "path": "frames/frame_sess-delta_002.png"
+        },
+        {
+          "frame_id": "f-sess-delta-019",
+          "timestamp_s": 2.0999999999999996,
+          "path": "frames/frame_sess-delta_001.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+[workspace]
+members = ["mx_core", "mx_sim"]
+resolver = "2"

@@ -1,0 +1,14 @@
+== Mercury Spring [toxic] ==
+Omen: A cold star falls.
+Light: 11.5 lumens
+Relics:
+  - Mercury Mirror <epic> 130g
+  - Quicksilver Vial <uncommon> 55g
+Freshest: Mercury Mirror @ 03:15 KST
+Exits:
+  - north: Emberforge Hollow (torch 0.1)
+Torch: 10.9 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+go north

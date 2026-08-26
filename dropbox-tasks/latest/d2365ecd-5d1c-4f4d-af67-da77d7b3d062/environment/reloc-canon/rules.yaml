@@ -1,0 +1,25 @@
+ordering:
+  primary_key: priority
+  secondary_key: from_prefix
+chain_relocations: false
+cascade_nested: true
+forbid_cross_root_merge: true
+required_relocator_epoch: 7
+prefix_stable_on_findings: true
+full_unstable_on_findings: true
+detect_shadowed_mappings: true
+cascade_gap_suppresses_nested: true
+digest_bind_active_maps: true
+collision_top_level_only: true
+check_resource_rewrites: true
+digest_bind_resources: true
+preserve_identity_version: true
+digest_bind_effective_maps: true
+replay_skips_digest: true
+detect_dangling_observations: true
+digest_map_bind_order_seq: true
+relocator_epoch_must_equal: true
+orphan_requires_payload: true
+digest_exclude_cycle_maps: true
+replay_ignore_unknown_seqs: true
+detect_dangling_nested: true

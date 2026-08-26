@@ -1,0 +1,8 @@
+{
+  "min_row_overlap": 3,
+  "case_fold_ascii": true,
+  "max_ambiguity": 0,
+  "required_replica_mask": 15,
+  "scan_cost_per_byte": 1,
+  "scan_penalty_per_gap": 10
+}

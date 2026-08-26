@@ -1,0 +1,4 @@
+schema_version: apexora-acl-profile-1
+profile: hr_enclave
+inbound_acl: SEG-HR-IN
+outbound_acl: SEG-HR-OUT

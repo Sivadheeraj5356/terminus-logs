@@ -1,0 +1,7 @@
+{
+  "name": "isoreg",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Monotone regression service fitting isotonic curves via PAVA."
+}

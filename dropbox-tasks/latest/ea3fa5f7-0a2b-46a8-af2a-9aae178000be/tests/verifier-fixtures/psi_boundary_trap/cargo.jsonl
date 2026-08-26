@@ -1,0 +1,2 @@
+{"cargo_id":"pb01","zone":"Abyss Lab","wave_m":1.0,"dock_min":60,"tide_ms":0,"psi":400,"lane":"standard","base_min":4,"priority":90,"needs_rov":false,"m3":1.0,"cold":true,"o2":1}
+{"cargo_id":"pb02","zone":"Trench Pod","wave_m":1.0,"dock_min":61,"tide_ms":0,"psi":450,"lane":"standard","base_min":5,"priority":82,"needs_rov":false,"m3":1.0,"cold":false,"o2":2}

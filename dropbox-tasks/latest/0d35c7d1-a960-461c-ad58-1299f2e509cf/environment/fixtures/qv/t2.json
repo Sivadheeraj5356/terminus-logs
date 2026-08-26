@@ -1,0 +1,15 @@
+{
+  "arm": "weave",
+  "phase": "normal",
+  "row_cap": 10,
+  "group_cap": 4,
+  "cells": [
+    {"id": "w01", "kind": "host", "match": "mix.lab", "target": "be_host", "want": "route"},
+    {"id": "w02", "kind": "path", "match": "/mix", "target": "be_path", "want": "route"},
+    {"id": "w03", "kind": "host", "match": "twin.lab", "target": "be_host", "want": "route"},
+    {"id": "w04", "kind": "path", "match": "/twin", "target": "be_path", "want": "route"},
+    {"id": "w05", "kind": "host", "match": "blocked.lab", "target": "", "want": "deny"},
+    {"id": "w06", "kind": "path", "match": "/blocked", "target": "", "want": "deny"},
+    {"id": "w07", "kind": "path", "match": "/mixdeep", "target": "be_deep", "want": "route"}
+  ]
+}

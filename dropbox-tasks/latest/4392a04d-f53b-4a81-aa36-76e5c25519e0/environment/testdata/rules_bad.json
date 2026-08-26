@@ -1,0 +1,5 @@
+[
+  {"id": "ok",       "action": "allow", "src": "10.5.5.5/8",  "dst": "0.0.0.0/0", "port_min": 22, "port_max": 22, "protocol": "tcp", "direction": "inbound", "priority": 100},
+  {"id": "",         "action": "allow", "src": "10.0.0.0/8",  "dst": "0.0.0.0/0", "port_min": 22, "port_max": 22, "protocol": "tcp", "direction": "inbound", "priority": 100},
+  {"id": "bad-cidr", "action": "allow", "src": "10.0.0.0/33", "dst": "0.0.0.0/0", "port_min": 22, "port_max": 22, "protocol": "tcp", "direction": "inbound", "priority": 100}
+]

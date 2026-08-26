@@ -1,0 +1,7 @@
+name = "s1"
+dim = 4
+half = false
+nz_stored = 10
+abs_band = 1e-09
+rel_band = 1e-06
+x_seed = 17

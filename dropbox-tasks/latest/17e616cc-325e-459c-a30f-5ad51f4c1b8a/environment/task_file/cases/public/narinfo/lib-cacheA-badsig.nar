@@ -1,0 +1,7 @@
+STORE lib-1.0
+CACHE cacheA
+NAR_HASH hlib
+NAR_SIZE 13
+SIGS a1
+REFERENCES zlib-1.2
+DERIVER lib.drv

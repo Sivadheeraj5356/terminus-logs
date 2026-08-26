@@ -1,0 +1,6 @@
+# Legacy record text export
+# columns: seq_id,datum_len,checksum,status_nibble,revision_tag[,label]
+1,6720,1234,3,5
+2,8192,2048,1,2
+3,512,4095,7,0,alpha
+4,16384,300,2,6

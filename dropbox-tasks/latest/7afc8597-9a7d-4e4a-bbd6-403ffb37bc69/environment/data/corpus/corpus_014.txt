@@ -1,0 +1,8 @@
+addr 76.250.177.156 hex 0xfe65 token tok_421
+line colour alpha foobar cat start
+true end color color
+line one
+addr 8.246.98.170 hex 0x293b token tok_929
+punct marks here
+addr 178.4.104.6 hex 0xac6a token tok_740
+the quick brown fox

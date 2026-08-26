@@ -1,0 +1,17 @@
+{
+  "apiVersion": "diffusion.ops/v1",
+  "kind": "DiffusionExperiment",
+  "metadata": { "name": "range-problem" },
+  "container": { "image": "registry.local/range/problem:0" },
+  "spec": {
+    "seed": 0,
+    "walkers": 0,
+    "steps": 4,
+    "drift": 0.02,
+    "volatility": -0.3,
+    "calibrationRef": "stable-prod",
+    "dimensions": [
+      { "name": "x", "weight": 1.0, "lower": 1.0, "upper": 1.0 }
+    ]
+  }
+}

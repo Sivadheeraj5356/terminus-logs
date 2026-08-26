@@ -1,0 +1,59 @@
+{
+  "expedition_id": "expedition-omega",
+  "reports": [
+    {
+      "report_id": "om-east",
+      "dive_lane": "east_ridge",
+      "confidence_rank": 1,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    },
+    {
+      "report_id": "om-west",
+      "dive_lane": "west_trench",
+      "confidence_rank": 1,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    }
+  ],
+  "observations": [
+    {
+      "obs_id": "obs-o01",
+      "dive_lane": "east_ridge",
+      "timestamp_utc": "2024-06-01T08:00:00Z",
+      "obs_type": "SEAFLOOR_SAMPLE",
+      "depth_m": 1500,
+      "feature_code": "EAST-A",
+      "instrument_id": "sonar-e1"
+    },
+    {
+      "obs_id": "obs-o02",
+      "dive_lane": "west_trench",
+      "timestamp_utc": "2024-06-01T08:30:00Z",
+      "obs_type": "MAGNETIC_ANOMALY",
+      "depth_m": 1600,
+      "feature_code": "WEST-B",
+      "instrument_id": "mag-w1"
+    },
+    {
+      "obs_id": "obs-o03",
+      "dive_lane": "east_ridge",
+      "timestamp_utc": "2024-06-01T09:00:00Z",
+      "obs_type": "HYDROTHERMAL_VENT",
+      "depth_m": 1700,
+      "feature_code": "EAST-V",
+      "instrument_id": "temp-e2"
+    },
+    {
+      "obs_id": "obs-o04",
+      "dive_lane": "west_trench",
+      "timestamp_utc": "2024-06-01T09:30:00Z",
+      "obs_type": "BATHYMETRY",
+      "depth_m": 1800,
+      "feature_code": "WEST-D",
+      "instrument_id": "depth-w2"
+    }
+  ]
+}

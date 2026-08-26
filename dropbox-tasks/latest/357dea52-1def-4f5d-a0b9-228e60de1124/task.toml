@@ -1,0 +1,31 @@
+name = "emergency-access-quorum-adjudicator"
+version = "2.0"
+allow_internet = false
+
+[metadata]
+author_name = "Anonymous"
+author_email = "anonymous@example.com"
+category = "security"
+subcategories = ["tool_specific"]
+difficulty = "hard"
+codebase_size = "minimal"
+number_of_milestones = 0
+languages = ["go"]
+tags = ["security", "access-control", "incident-response", "breakglass", "authorization", "hmac", "go"]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 1200
+
+[verifier]
+timeout_sec = 900
+
+[agent]
+timeout_sec = 1500
+
+[environment]
+dockerfile = "environment/Dockerfile"
+build_timeout_sec = 600
+cpus = 1
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+allow_internet = false

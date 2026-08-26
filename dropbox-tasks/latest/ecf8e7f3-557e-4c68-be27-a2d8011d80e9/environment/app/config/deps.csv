@@ -1,0 +1,15 @@
+lane,coordinate,provide,version,source_url,source_hash,patch_url
+edge,dep:fmt,fmt,10.2.1,https://github.com/fmtlib/fmt/archive/10.2.1.tgz,sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef,https://gitlab.com/v2/fmt_10.2.1-1/get_patch
+edge,dep:zlib,zlib,1.3.1,https://zlib.net/zlib-1.3.1.tgz,sha256:cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe,
+edge,dep:spdlog,spdlog,1.12.0,https://github.com/gabime/spdlog/archive/v1.12.0.tgz,sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,https://gitlab.com/v2/spdlog_1.12.0-1/get_patch
+edge,dep:legacy,legacy,0.1.0,https://example.invalid/legacy-0.1.0.tgz,sha256:0000000000000000000000000000000000000000000000000000000000000001,
+core,dep:fmt,fmt,10.2.1,https://github.com/fmtlib/fmt/archive/10.2.1.tgz,sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef,
+core,dep:zlib,zlib,1.3.1,https://zlib.net/zlib-1.3.1.tgz,sha256:cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe,
+core,dep:spdlog,fmt,1.12.0,https://github.com/gabime/spdlog/archive/v1.12.0.tgz,sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+gate,dep:fmt,fmt,10.2.1,https://github.com/fmtlib/fmt/archive/10.2.1.tgz,sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef,
+gate,dep:zlib,zlib,1.3.1,https://zlib.net/zlib-1.3.1.tgz,sha256:cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe,
+gate,dep:spdlog,spdlog,1.12.0,https://github.com/gabime/spdlog/archive/v1.12.0.tgz,sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+gate,dep:jsonA,json,1.0.0,https://example.invalid/jsonA.tgz,sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+gate,dep:jsonB,json,1.0.0,https://example.invalid/jsonB.tgz,sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,
+lab,dep:fmt,fmt,10.2.1,https://github.com/fmtlib/fmt/archive/10.2.1.tgz,sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef,
+lab,dep:poison,poison,0.2.0,file:///app/pnpm-store/legacy-0.1.0.tgz,sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,

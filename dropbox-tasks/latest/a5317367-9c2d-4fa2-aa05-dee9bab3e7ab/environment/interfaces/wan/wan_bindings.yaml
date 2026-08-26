@@ -1,0 +1,10 @@
+schema_version: apexora-wan-bind-1
+bindings:
+  rtr-hq-dal-edge-01:
+    GigabitEthernet0/0/0:
+      vrf: CORP-IT
+      provider: MPLS-PE-01
+  rtr-emea-fra-edge-01:
+    GigabitEthernet0/0/0:
+      vrf: VRF-CORP
+      provider: MPLS-PE-02

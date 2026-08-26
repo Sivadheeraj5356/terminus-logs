@@ -1,0 +1,5 @@
+release_channel=stable
+sdk_series=v2
+legacy_series=v1
+frozen_prefix_slots=12
+origin=idl

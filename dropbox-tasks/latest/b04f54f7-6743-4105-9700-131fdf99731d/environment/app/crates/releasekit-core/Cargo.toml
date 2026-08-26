@@ -1,0 +1,8 @@
+[package]
+name = "releasekit-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+releasekit-table = { path = "../releasekit-table" }

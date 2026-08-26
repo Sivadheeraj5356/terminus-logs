@@ -1,0 +1,4 @@
+a "quoted string" and "another"
+dog bird bar beta cat quux dog
+bird foo bird foobar dog end beta
+addr 40.127.71.47 hex 0x2751 token tok_330

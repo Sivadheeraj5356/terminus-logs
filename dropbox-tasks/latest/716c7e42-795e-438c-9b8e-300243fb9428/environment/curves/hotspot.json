@@ -1,0 +1,21 @@
+{
+  "pack": "hotspot",
+  "bins": 5,
+  "active_stride": 7,
+  "half_w": 1,
+  "width_b": 1,
+  "snapshot": 3,
+  "total": 9,
+  "burst": false,
+  "samples": [
+    861,
+    494,
+    606,
+    342,
+    835,
+    326,
+    404,
+    428,
+    111
+  ]
+}

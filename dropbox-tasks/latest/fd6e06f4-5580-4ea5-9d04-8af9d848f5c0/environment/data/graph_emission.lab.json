@@ -1,0 +1,6 @@
+{
+  "note": "staging draft — superseded",
+  "emit_parents_inline": true,
+  "quote_node_ids": false,
+  "ledger_timestamp_column": "committed_at"
+}

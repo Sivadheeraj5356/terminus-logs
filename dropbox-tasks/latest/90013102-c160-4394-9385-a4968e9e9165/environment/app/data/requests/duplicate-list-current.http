@@ -1,0 +1,15 @@
+GET /v1/shadow HTTP/1.1
+Host: api.local
+X-Sig-Profile: current-2026
+X-Sig-Tenant: demo
+X-Sig-Key-Id: demo-key-1
+X-Sig-Nonce: nonce-duplicate-1
+X-Request-Id: req-duplicate-current
+Connection: x-shadow
+X-Shadow: injected
+Accept: text/plain
+Accept:  application/json
+Content-Type: application/json
+X-Signature: v2 debb65b875c4a2a72e767bf5d87861fca3d18290c8dcff46df1741d5c96a8d5e
+Content-Length: 0
+

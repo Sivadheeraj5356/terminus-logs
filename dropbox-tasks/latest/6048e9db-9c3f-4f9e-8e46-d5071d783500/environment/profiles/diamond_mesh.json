@@ -1,0 +1,13 @@
+{
+  "config_id": "diamond_mesh",
+  "seed": 42,
+  "profile": "diamond_mesh",
+  "graph_id": "diamond_mesh",
+  "tick_horizon": 40,
+  "node_count": 4,
+  "partition_count": 6,
+  "flags": {
+    "strict_deps": true,
+    "partition_trace": true
+  }
+}

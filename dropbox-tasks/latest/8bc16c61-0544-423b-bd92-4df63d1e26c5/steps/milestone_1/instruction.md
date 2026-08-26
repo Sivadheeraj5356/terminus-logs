@@ -1,0 +1,3 @@
+The edge worker in /app is supposed to be a Rust WASI Preview 2 component that reads telemetry chunks through wasi:io/streams and writes the packed bytes to stdout. The repo has a tiny local WIT binding generator in /app/tools because CI runs offline; please get the component build working again.
+
+For this first pass, /app/tools/build-component.sh should run cleanly and leave the component artifact at /app/target/wasm32-wasip2/release/edge_worker.wasm. The artifact should be the compiled Rust WASI Preview 2 output for edge-worker, not just a metadata stub, and /app/target/component-build.json should include binding_tool set to "wit-bindgen-lite", interface set to "wasi:io/streams", and world set to "edge-worker".

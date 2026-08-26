@@ -1,0 +1,8 @@
+{
+  "revocations": [
+    {
+      "serial": "SER-REVOKED",
+      "revoked_at": "2025-06-02T00:00:00Z"
+    }
+  ]
+}

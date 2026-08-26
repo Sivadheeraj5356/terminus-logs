@@ -1,0 +1,24 @@
+version = "2.0"
+[metadata]
+name = "backup-window-dag-planner"
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "scientific-computing"
+tags = ["rust", "optimization", "scheduling", "dag", "resource-constrained", "backup"]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 1200
+codebase_size = "minimal"
+subcategories = []
+languages = ["rust"]
+number_of_milestones = 0
+[verifier]
+timeout_sec = 900.0
+[agent]
+timeout_sec = 1800.0
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

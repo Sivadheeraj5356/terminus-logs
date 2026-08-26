@@ -1,0 +1,18 @@
+{
+  "batch_generation": 23,
+  "target_volume_ml": 100.0,
+  "lots": [
+    {
+      "lot_id": "FRAC-A",
+      "cost_per_ml": 0.75,
+      "available_ml": 66.0,
+      "assays": {"marker": 40.0}
+    },
+    {
+      "lot_id": "FRAC-B",
+      "cost_per_ml": 1.20,
+      "available_ml": 200.0,
+      "assays": {"marker": 55.0}
+    }
+  ]
+}

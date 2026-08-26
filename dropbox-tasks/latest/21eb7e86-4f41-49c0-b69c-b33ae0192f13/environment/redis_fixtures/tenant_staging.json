@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"PermitRootLogin\":\"no\",\"MaxAuthTries\":\"4\",\"AllowUsers\":\"alice\",\"PasswordAuthentication\":\"no\"}}"
+}

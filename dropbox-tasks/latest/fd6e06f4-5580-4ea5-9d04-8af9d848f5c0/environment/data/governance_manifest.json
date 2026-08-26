@@ -1,0 +1,18 @@
+{
+  "manifest_id": "ml-feature-store-lineage-audit-2024-Q2",
+  "binding_marker": "counsel closure packet",
+  "policy_file": "governance_policy.json",
+  "policy_domain": "ml_feature_store_training_compliance",
+  "normative_archive_candidates": [
+    "governance_archive.md",
+    "feature_governance_closure.prod.md"
+  ],
+  "graph_emission_candidates": [
+    "graph_emission.json",
+    "graph_emission.lab.json",
+    "graph_emission.prod.json"
+  ],
+  "closure_rule_index": "closure_rule_index.json",
+  "production_closure_rule_index": "feature_closure_rule_index.prod.json",
+  "training_compliance_annex": "training_compliance_annex.md"
+}

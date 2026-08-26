@@ -1,0 +1,19 @@
+{
+  "name": "finchrender-migrate",
+  "version": "1.0.0",
+  "description": "FinchRender systemd migration tooling",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "commander": "^12.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.0",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  }
+}

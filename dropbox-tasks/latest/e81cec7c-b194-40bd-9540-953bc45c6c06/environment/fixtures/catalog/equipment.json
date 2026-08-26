@@ -1,0 +1,40 @@
+{
+  "models": [
+    {
+      "model_id": "CTD-100-LN2",
+      "cryogen_class": "LN2",
+      "gross_capacity_l": 100.0,
+      "usable_capacity_l": 90.0,
+      "mawp_psia": 30.0,
+      "setpoint_k": 77.35,
+      "boil_off_l_per_day": 1.5,
+      "min_fill_fraction": 0.2,
+      "max_fill_fraction": 0.95,
+      "hold_reserve_fraction": 0.1
+    },
+    {
+      "model_id": "CTD-60-LHe",
+      "cryogen_class": "LHe",
+      "gross_capacity_l": 60.0,
+      "usable_capacity_l": 52.0,
+      "mawp_psia": 22.0,
+      "setpoint_k": 4.2,
+      "boil_off_l_per_day": 0.8,
+      "min_fill_fraction": 0.25,
+      "max_fill_fraction": 0.92,
+      "hold_reserve_fraction": 0.12
+    },
+    {
+      "model_id": "CTD-80-LN2",
+      "cryogen_class": "LN2",
+      "gross_capacity_l": 80.0,
+      "usable_capacity_l": 72.0,
+      "mawp_psia": 28.0,
+      "setpoint_k": 77.35,
+      "boil_off_l_per_day": 1.2,
+      "min_fill_fraction": 0.22,
+      "max_fill_fraction": 0.94,
+      "hold_reserve_fraction": 0.1
+    }
+  ]
+}

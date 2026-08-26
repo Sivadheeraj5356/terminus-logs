@@ -1,0 +1,12 @@
+{
+  "token_map": {
+    "kind": "map",
+    "value": {
+      "yes": "yes",
+      "on": "on",
+      "slot": {
+        "inner": "no"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+! DEPRECATED — flat network trunk template
+interface TenGigabitEthernet1/1/1
+ switchport trunk allowed vlan all
+ switchport mode trunk

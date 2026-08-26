@@ -1,0 +1,6 @@
+punct marks here
+hello foo line alpha start cat grey
+baz false
+addr 147.161.127.31 hex 0x462c token tok_777
+addr 38.45.48.74 hex 0xb739 token tok_34
+delta false line alpha yes quux bird

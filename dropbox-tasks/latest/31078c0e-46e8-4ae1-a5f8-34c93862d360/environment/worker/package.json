@@ -1,0 +1,9 @@
+{
+  "name": "oci-diffusion-card-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "report": "node --no-warnings --experimental-strip-types src/worker.ts"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "lane_id": "lane_epsilon",
+  "source_chain": ["t0", "t1", "t2"],
+  "receiver_chain": ["t0", "t1", "tx"],
+  "metadata_edges": [["t2", "t2"]],
+  "candidate_parents": ["tz", "t9"],
+  "interrupted": false,
+  "retry_overwrite": false,
+  "content_match": true,
+  "wrap_epoch": 1
+}

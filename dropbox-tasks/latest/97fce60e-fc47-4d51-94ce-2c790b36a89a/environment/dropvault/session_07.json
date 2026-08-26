@@ -1,0 +1,311 @@
+{
+  "session_id": "session_07",
+  "rng_seed": 300,
+  "pity_threshold": 50,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "winner",
+      "roll_value": 0.0,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 2,
+      "player_id": "winner",
+      "roll_value": 0.159306619465,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 3,
+      "player_id": "winner",
+      "roll_value": 0.831354716636,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 4,
+      "player_id": "winner",
+      "roll_value": 0.455977050081,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 5,
+      "player_id": "winner",
+      "roll_value": 0.546952726829,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 6,
+      "player_id": "winner",
+      "roll_value": 0.36460463271,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 7,
+      "player_id": "winner",
+      "roll_value": 0.065126499222,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 8,
+      "player_id": "winner",
+      "roll_value": 0.259102145451,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 9,
+      "player_id": "winner",
+      "roll_value": 0.790032654805,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 10,
+      "player_id": "winner",
+      "roll_value": 0.815576647237,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 11,
+      "player_id": "winner",
+      "roll_value": 0.67265846736,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 12,
+      "player_id": "winner",
+      "roll_value": 0.289162877285,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 13,
+      "player_id": "loser2",
+      "roll_value": 0.044221320231,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 14,
+      "player_id": "loser1",
+      "roll_value": 0.524491103854,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 15,
+      "player_id": "loser2",
+      "roll_value": 0.375469222083,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 16,
+      "player_id": "loser1",
+      "roll_value": 0.615497299112,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 17,
+      "player_id": "loser2",
+      "roll_value": 0.512588885159,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 18,
+      "player_id": "loser1",
+      "roll_value": 0.348979155858,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 19,
+      "player_id": "loser2",
+      "roll_value": 0.571245460372,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 20,
+      "player_id": "loser1",
+      "roll_value": 0.328775902585,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 21,
+      "player_id": "loser2",
+      "roll_value": 0.910489211707,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 22,
+      "player_id": "loser1",
+      "roll_value": 0.863032929472,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 23,
+      "player_id": "loser2",
+      "roll_value": 0.832117679373,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 24,
+      "player_id": "loser1",
+      "roll_value": 0.180486465041,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 25,
+      "player_id": "loser2",
+      "roll_value": 0.236640522477,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 26,
+      "player_id": "loser1",
+      "roll_value": 0.194555497909,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 27,
+      "player_id": "loser2",
+      "roll_value": 0.783867915891,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 28,
+      "player_id": "loser1",
+      "roll_value": 0.73616748558,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 29,
+      "player_id": "loser2",
+      "roll_value": 0.534195989868,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 30,
+      "player_id": "loser1",
+      "roll_value": 0.799035615101,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 31,
+      "player_id": "loser2",
+      "roll_value": 0.959990234077,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 32,
+      "player_id": "loser1",
+      "roll_value": 0.760948515275,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 33,
+      "player_id": "loser2",
+      "roll_value": 0.985717337565,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 34,
+      "player_id": "loser1",
+      "roll_value": 0.636738181707,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 35,
+      "player_id": "loser2",
+      "roll_value": 0.723776970733,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 36,
+      "player_id": "loser1",
+      "roll_value": 0.056398205512,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 37,
+      "player_id": "loser2",
+      "roll_value": 0.186071352275,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 38,
+      "player_id": "loser1",
+      "roll_value": 0.723776970733,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 39,
+      "player_id": "loser2",
+      "roll_value": 0.852748191778,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 40,
+      "player_id": "loser1",
+      "roll_value": 0.467268898587,
+      "item_id": "coin",
+      "tier": "common"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# remote arm ordering with _nf markers
+profile remote
+step ro target=data

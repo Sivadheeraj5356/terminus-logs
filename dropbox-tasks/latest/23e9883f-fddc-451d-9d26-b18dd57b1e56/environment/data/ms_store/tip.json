@@ -1,0 +1,12 @@
+{
+  "stale": true,
+  "generation": 2,
+  "lineage_id": 2,
+  "digest_full": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "table_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "chain_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "epoch_bind": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "total_bound_violations": 0,
+  "frames_kept": 1,
+  "resumed": false
+}

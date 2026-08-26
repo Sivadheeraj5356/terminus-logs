@@ -1,0 +1,10 @@
+{"path":"corp.example/root","version":"v1.0.0","goos":"linux","goarch":"amd64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/lib","version":"v1.0.0","goos":"linux","goarch":"amd64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/root","version":"v1.0.0","goos":"linux","goarch":"arm64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/lib","version":"v1.0.0","goos":"linux","goarch":"arm64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/cgoish","version":"v1.0.0","goos":"linux","goarch":"amd64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/cgoish","version":"v2.0.0-arm","goos":"linux","goarch":"arm64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/fork","version":"v1.0.0","goos":"linux","goarch":"amd64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/fork","version":"v1.0.0","goos":"linux","goarch":"arm64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/wslib","version":"v1.2.0","goos":"linux","goarch":"amd64","policy_revision":"rev20260717","decision":"allow"}
+{"path":"corp.example/wslib","version":"v1.2.0","goos":"linux","goarch":"arm64","policy_revision":"rev20260717","decision":"allow"}

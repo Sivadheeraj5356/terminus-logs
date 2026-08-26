@@ -1,0 +1,4 @@
+{
+  "fuse_guard": {"kind": "tombstone", "value": true},
+  "overlay_tag": {"kind": "scalar", "value": "nu-overlay"}
+}

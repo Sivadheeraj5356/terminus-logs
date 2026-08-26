@@ -1,0 +1,3 @@
+source "https://rubygems.org"
+
+# Intentionally empty: zone-publisher uses Ruby standard library only.

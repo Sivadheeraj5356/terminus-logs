@@ -1,0 +1,7 @@
+name = "s3"
+dim = 8
+half = true
+nz_stored = 24
+abs_band = 1e-09
+rel_band = 1e-06
+x_seed = 17

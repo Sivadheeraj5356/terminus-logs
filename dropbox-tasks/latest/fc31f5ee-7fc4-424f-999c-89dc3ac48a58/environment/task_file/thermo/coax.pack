@@ -1,0 +1,13 @@
+salt 73
+coax GC CG 0 2V
+coax CG GC 0 2V
+coax AU UA 1 4T
+coax UA AU 1 4T
+coax GC AU 2 3Q
+coax AU GC 2 3Q
+coax GU CG 0 2J
+coax UG GC 0 2J
+coax CG UA 2 3Q
+coax UA CG 2 3Q
+coax GC GC 1 50
+coax CG CG 1 50

@@ -1,0 +1,39 @@
+TOURNAMENT RIG LINK
+
+The rig runs the entrant once for each alley it deals. It writes to the
+entrant's standard input and reads the entrant's standard output. Every message
+is one line.
+
+FROM THE RIG
+
+  RACK <dial> <latch> <pins> [<pins>]
+      The alley as it stands with the entrant to throw. One or two lanes. The
+      first RACK of a run is the alley the entrant was dealt.
+
+  HOUSE <lane> <pins> <split>
+      The house threw. A RACK line follows it with the alley as it now stands.
+
+  RESULT PLAYER
+  RESULT HOUSE
+      The alley is clear.
+
+  BYE
+      The run is over and the entrant should exit.
+
+FROM THE ENTRANT
+
+  CALL PLAY
+  CALL CONCEDE
+      The entrant's call on the alley it was dealt. This is the first line the
+      entrant sends and it sends it exactly once.
+
+  THROW <lane> <pins> <split>
+      A throw. The lane is numbered from 1 in the order the lanes appear on the
+      RACK line. The pin count is the number of pins the ball takes. The split
+      field is 0 to leave the standing remainder as one lane, or the pin count
+      of the left fragment to break the remainder in two.
+
+An entrant that called PLAY throws first and then throws again after every
+RACK line the rig sends it. An entrant that called CONCEDE sends nothing more.
+Lane pin counts on the ladder run far past what a site cabinet holds and are
+reported as plain decimal integers.

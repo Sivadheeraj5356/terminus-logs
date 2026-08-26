@@ -1,0 +1,35 @@
+{
+  "name": "alpha",
+  "arms": [
+    {
+      "name": "data",
+      "opts": "ro",
+      "remote": false,
+      "order_hint": 10,
+      "depends_on": [],
+      "what": "/srv/backing/alpha/data",
+      "where": "/srv/arms/alpha/data"
+    },
+    {
+      "name": "share",
+      "opts": "rw",
+      "remote": false,
+      "order_hint": 20,
+      "depends_on": ["data"],
+      "what": "/srv/backing/alpha/share",
+      "where": "/srv/arms/alpha/share"
+    },
+    {
+      "name": "cache",
+      "opts": "rw",
+      "remote": false,
+      "order_hint": 30,
+      "depends_on": ["share"],
+      "what": "/srv/backing/alpha/cache",
+      "where": "/srv/arms/alpha/cache"
+    }
+  ],
+  "units": [
+    {"gen_opts": "ro,bs=cache", "hand_opts": "rw"}
+  ]
+}

@@ -1,0 +1,451 @@
+{
+  "session_id": "session_08",
+  "rng_seed": 444,
+  "pity_threshold": 20,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "a",
+      "roll_value": 0.0,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "b",
+      "roll_value": 0.155766472365,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 3,
+      "player_id": "c",
+      "roll_value": 0.795892208625,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 4,
+      "player_id": "a",
+      "roll_value": 0.008514664144,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "b",
+      "roll_value": 0.325479903562,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 6,
+      "player_id": "c",
+      "roll_value": 0.448347422712,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 7,
+      "player_id": "a",
+      "roll_value": 0.408429212317,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 8,
+      "player_id": "b",
+      "roll_value": 0.868465224158,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 9,
+      "player_id": "c",
+      "roll_value": 0.640034180731,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 10,
+      "player_id": "a",
+      "roll_value": 0.789452803125,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 11,
+      "player_id": "b",
+      "roll_value": 0.672322763756,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 12,
+      "player_id": "c",
+      "roll_value": 0.488357188635,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 13,
+      "player_id": "a",
+      "roll_value": 0.269173253578,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 14,
+      "player_id": "b",
+      "roll_value": 0.573320719016,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 15,
+      "player_id": "c",
+      "roll_value": 0.492751853999,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 16,
+      "player_id": "a",
+      "roll_value": 0.56202887051,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 17,
+      "player_id": "b",
+      "roll_value": 0.899594103824,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 18,
+      "player_id": "c",
+      "roll_value": 0.362346263009,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 19,
+      "player_id": "a",
+      "roll_value": 0.381176183355,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 20,
+      "player_id": "b",
+      "roll_value": 0.943754387036,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 21,
+      "player_id": "c",
+      "roll_value": 0.64879299295,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 22,
+      "player_id": "a",
+      "roll_value": 0.29703665273,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 23,
+      "player_id": "b",
+      "roll_value": 0.711508529923,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 24,
+      "player_id": "c",
+      "roll_value": 0.889278847621,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 25,
+      "player_id": "a",
+      "roll_value": 0.406414990692,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 26,
+      "player_id": "b",
+      "roll_value": 0.097781304361,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 27,
+      "player_id": "c",
+      "roll_value": 0.482161931211,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 28,
+      "player_id": "a",
+      "roll_value": 0.435712759789,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 29,
+      "player_id": "b",
+      "roll_value": 0.290566728721,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 30,
+      "player_id": "c",
+      "roll_value": 0.627399517808,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 31,
+      "player_id": "a",
+      "roll_value": 0.177800836207,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 32,
+      "player_id": "b",
+      "roll_value": 0.638660847804,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 33,
+      "player_id": "c",
+      "roll_value": 0.56321909238,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 34,
+      "player_id": "a",
+      "roll_value": 0.482589190344,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 35,
+      "player_id": "b",
+      "roll_value": 0.824396496475,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 36,
+      "player_id": "c",
+      "roll_value": 0.885555589465,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 37,
+      "player_id": "a",
+      "roll_value": 0.848292489395,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 38,
+      "player_id": "b",
+      "roll_value": 0.583880123295,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 39,
+      "player_id": "c",
+      "roll_value": 0.831293679617,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 40,
+      "player_id": "a",
+      "roll_value": 0.003875850703,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 41,
+      "player_id": "b",
+      "roll_value": 0.99652088992,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 42,
+      "player_id": "c",
+      "roll_value": 0.232001709037,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 43,
+      "player_id": "a",
+      "roll_value": 0.714346751305,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 44,
+      "player_id": "b",
+      "roll_value": 0.383312479019,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 45,
+      "player_id": "c",
+      "roll_value": 0.439924314096,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 46,
+      "player_id": "a",
+      "roll_value": 0.599963377789,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 47,
+      "player_id": "b",
+      "roll_value": 0.293496505631,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 48,
+      "player_id": "c",
+      "roll_value": 0.829859309671,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 49,
+      "player_id": "a",
+      "roll_value": 0.381115146336,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 50,
+      "player_id": "b",
+      "roll_value": 0.129459517197,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 51,
+      "player_id": "c",
+      "roll_value": 0.458876308481,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 52,
+      "player_id": "a",
+      "roll_value": 0.371532334361,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 53,
+      "player_id": "b",
+      "roll_value": 0.659443952757,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 54,
+      "player_id": "c",
+      "roll_value": 0.800317392499,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 55,
+      "player_id": "a",
+      "roll_value": 0.098605304117,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 56,
+      "player_id": "b",
+      "roll_value": 0.73381756035,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 57,
+      "player_id": "c",
+      "roll_value": 0.639332255013,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 58,
+      "player_id": "a",
+      "roll_value": 0.741569261757,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 59,
+      "player_id": "b",
+      "roll_value": 0.283181249428,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 60,
+      "player_id": "c",
+      "roll_value": 0.703695791498,
+      "item_id": "gem",
+      "tier": "rare"
+    }
+  ]
+}

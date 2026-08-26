@@ -1,0 +1,10 @@
+[Unit]
+Description=sitefab data arm
+
+[Mount]
+What=/srv/backing/data
+Where=/srv/arms/data
+Type=none
+Options=ro
+X-Sitefab-Remote=no
+X-Sitefab-OrderHint=10

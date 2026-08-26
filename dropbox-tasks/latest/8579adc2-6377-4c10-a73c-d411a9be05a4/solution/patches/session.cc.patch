@@ -1,0 +1,11 @@
+--- a/src/transport/session.cc
++++ b/src/transport/session.cc
+@@ -16,7 +16,7 @@
+ }
+ 
+ bool Session::IsAvailableHeaderCount(size_t additional_headers) const {
+-  return current_session_memory_ + additional_headers <= max_session_memory_;
++  return current_header_count_ + additional_headers <= max_header_count_;
+ }
+ 
+ void Session::IncrementCurrentSessionMemory(size_t bytes) { current_session_memory_ += bytes; }

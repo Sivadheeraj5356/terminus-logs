@@ -1,0 +1,11 @@
+# Climate model CF calendar arithmetic
+
+Numerical time axes in climate and earth-system models follow CF conventions. An encoded day count must decode to the same calendar-qualified year-month-day under its declared calendar and units origin: 360_day years use twelve 30-day months; noleap years keep February at 28 days; Gregorian leap-year rules apply only when that calendar is declared. Interval bounds and monthly climatological bins must use that same calendar arithmetic, not fixed Unix-day widths.
+
+The toolkit under `/app` must preserve those numerical instants when climate simulation members with different units origins are placed on one axis, including when an earlier committed prefix under `/data/segments/` has already been retired. Bring `/app` into compliance with `/app/docs/time-contract.md` and `/app/docs/CLIMATE_AXIS.md` using working state under `/var/lib/climconvert/climate_axis/` and surviving members under `/data/segments/`. Treat the behavioral guarantees and report contract in `/app/docs/CLIMATE_AXIS.md` as requirements, not background context.
+
+The committed `/output/archive.ccf` and monthly `/output/archive-monthly.ccf` must match a clean uninterrupted calendar-correct result across mixed units origins, bounds, variable rows, and identical overlapping observations. Conflicting observations at the same calendar instant must fail without replacing the last committed outputs. If on-disk bytes at a path already recorded as processed are replaced, the updated series must be incorporated on the next run. Successful repeats must leave numerically identical axes, and `/output/climate-axis-report.json` must describe the files actually committed.
+
+The report uses report_format_version 1 and includes committed_generation_id, archive_digest, rollup_digest, observation_count, recovery_outcome, source_lineage, first_instant, and last_instant as defined by that contract. Existing trace output must continue to use schema_version 3. Also see `/app/docs/FORMATS.md`.
+
+Preserve convert, append, resample, validate, and trace behavior. Work offline (`TZ=UTC`). Do not modify files under `/data/segments/` or `/data/samples/`, and do not hand-author files under `/output/`.

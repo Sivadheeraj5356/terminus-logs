@@ -1,0 +1,6 @@
+RULE DEVICE_DEDUP
+IN keys
+OUT value,reason
+TABLE
+mode -> backing_id|device-dedup
+END

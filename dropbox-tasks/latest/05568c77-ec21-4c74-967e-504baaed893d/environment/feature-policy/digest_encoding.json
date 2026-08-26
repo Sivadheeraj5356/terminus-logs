@@ -1,0 +1,51 @@
+{
+  "captures_root": "/app/crate-captures",
+  "never_use_symlink": "/app/work-captures",
+  "capture_digest": {
+    "algorithm": "sha256_hex_lowercase",
+    "concatenation_order": [
+      "raw bytes of /app/crate-captures/manifest.json",
+      "raw bytes of /app/crate-captures/{scenario_id}.json for each scenario_id in manifest order"
+    ]
+  },
+  "capture_chain_tail": {
+    "algorithm": "sha256_chain_hex_lowercase",
+    "steps": [
+      "decode capture_digest hex to 32 raw bytes as initial chain",
+      "for each scenario_id in manifest order: chain = SHA256(chain || raw scenario bytes)",
+      "emit lowercase hex of final chain"
+    ]
+  },
+  "scenario_payload_digest": {
+    "algorithm": "sha256_hex_lowercase",
+    "input": "raw bytes of /app/crate-captures/{scenario_id}.json"
+  },
+  "scenario_payload_crc32": {
+    "algorithm": "crc32_ieee",
+    "format": "8 lowercase hex chars",
+    "input": "raw bytes of /app/crate-captures/{scenario_id}.json"
+  },
+  "scenario_payload_len": {
+    "definition": "byte length of raw scenario capture file",
+    "must_be_nonzero": true
+  },
+  "scenario_payload_plus": {
+    "formula": "scenario_payload_len + duplicate_edges_skipped + frames_rejected + truncated_tail"
+  },
+  "manifest_payload_len": {
+    "definition": "byte length of raw /app/crate-captures/manifest.json"
+  },
+  "manifest_payload_len_le": {
+    "definition": "uint32 little-endian encoding of manifest_payload_len as 8 lowercase hex chars"
+  },
+  "bundled_payload_len": {
+    "definition": "sum of scenario_payload_len for every scenario in manifest order"
+  },
+  "bundled_payload_len_le": {
+    "definition": "uint32 little-endian encoding of bundled_payload_len as 8 lowercase hex chars"
+  },
+  "little_endian_example": {
+    "value": 305419896,
+    "hex": "78563412"
+  }
+}

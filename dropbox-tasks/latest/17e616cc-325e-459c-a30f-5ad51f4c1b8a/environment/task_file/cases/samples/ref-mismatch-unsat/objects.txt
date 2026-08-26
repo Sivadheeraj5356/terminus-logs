@@ -1,0 +1,2 @@
+OBJECT app x86_64-linux input - 5 no 2 dep
+OBJECT dep x86_64-linux input - 5 no 2 -

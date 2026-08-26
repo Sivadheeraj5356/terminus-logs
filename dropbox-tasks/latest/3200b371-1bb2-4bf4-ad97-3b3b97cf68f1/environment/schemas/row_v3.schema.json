@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "row_v3",
+  "type": "object",
+  "required": ["schema", "rows", "lock", "prov", "ledger"],
+  "properties": {
+    "schema": {"const": "row_v3"},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rotation_id", "slice_id", "peer", "tok", "asv", "band_lo", "band_hi"],
+        "properties": {
+          "rotation_id": {"type": "string"},
+          "slice_id": {"type": "string"},
+          "peer": {"type": "string"},
+          "tok": {"type": "string", "minLength": 8, "maxLength": 8},
+          "asv": {"type": "integer", "minimum": 0, "maximum": 63},
+          "band_lo": {"type": "integer"},
+          "band_hi": {"type": "integer"}
+        }
+      }
+    },
+    "lock": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rotation_id", "tok", "asv"],
+        "properties": {
+          "rotation_id": {"type": "string"},
+          "tok": {"type": "string"},
+          "asv": {"type": "integer"}
+        }
+      }
+    },
+    "prov": {"type": "string", "minLength": 16, "maxLength": 16},
+    "ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rotation_id", "tot"],
+        "properties": {
+          "rotation_id": {"type": "string"},
+          "tot": {"type": "integer"}
+        }
+      }
+    }
+  }
+}

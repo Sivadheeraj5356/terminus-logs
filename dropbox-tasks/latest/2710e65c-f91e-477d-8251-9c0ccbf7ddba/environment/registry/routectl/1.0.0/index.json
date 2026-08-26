@@ -1,0 +1,11 @@
+{
+  "conflicts": [],
+  "name": "routectl",
+  "requires": [
+    {
+      "package": "fleetauth",
+      "range": "=1.0.0"
+    }
+  ],
+  "version": "1.0.0"
+}

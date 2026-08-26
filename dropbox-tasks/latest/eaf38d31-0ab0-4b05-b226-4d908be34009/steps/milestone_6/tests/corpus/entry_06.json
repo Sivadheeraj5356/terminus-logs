@@ -1,0 +1,16 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 6078048,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "a.umbrella.net",
+    "cdn.umbrella.org"
+  ],
+  "issued_at": "2026-07-03T20:00:49Z",
+  "payload": "cert:erI8v76RHtICb4uMbIasgO2qcrzJ3hK9Lkm/K7wveJc=",
+  "received_at": "2026-06-26T11:18:25Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 5,
+  "x_ingest_host": "frontend-1",
+  "x_origin": "shard-west-3"
+}

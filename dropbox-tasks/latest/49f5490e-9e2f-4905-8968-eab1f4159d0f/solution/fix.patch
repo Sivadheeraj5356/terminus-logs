@@ -1,0 +1,103 @@
+--- a/src/policy_compiler.cpp	2026-06-28 13:14:09.858014417 +0530
++++ b/src/policy_compiler.cpp	2026-06-28 13:14:09.876759523 +0530
+@@ -17,7 +17,7 @@
+         return source_action;
+     }
+     if (entry.kind == TargetKind::Substack && return_code == "ignore") {
+-        return "1";
++        return "ignore";
+     }
+     return "ignore";
+ }
+
+--- a/src/ward.cpp	2026-06-28 13:14:09.857942045 +0530
++++ b/src/ward.cpp	2026-06-28 13:14:09.876899473 +0530
+@@ -7,10 +7,6 @@
+     for (const auto& effect : effects) {
+         if (effect.phase == EffectPhase::Attempt) {
+             staged.push_back(effect.event);
+-            continue;
+-        }
+-        if (effect.event.kind == EventKind::TokenConsume) {
+-            staged.push_back(effect.event);
+         }
+     }
+     return staged;
+
+--- a/src/event.cpp	2026-06-28 13:14:09.857882449 +0530
++++ b/src/event.cpp	2026-06-28 13:14:09.876974927 +0530
+@@ -40,9 +40,9 @@
+ bool Event::durable() const {
+     switch (kind) {
+         case EventKind::FailReset:
+-            return false;
++            return true;
+         case EventKind::SessionClose:
+-            return false;
++            return true;
+         case EventKind::FailIncrement:
+         case EventKind::TokenConsume:
+         case EventKind::SessionOpen:
+
+--- a/src/service.cpp	2026-06-28 13:14:09.858103698 +0530
++++ b/src/service.cpp	2026-06-28 13:14:09.877050708 +0530
+@@ -49,16 +49,14 @@
+     }
+ 
+     auto staged_success = gather_success_staging(evaluation.effects);
+-    if (context.method == Method::Recovery) {
+-        staged_success.insert(
+-            staged_success.begin(),
+-            Event{EventKind::FailReset, context.user, {}, {}});
+-    }
+     staged_success.push_back(Event{
+         EventKind::SessionOpen,
+         context.session_id,
+         context.user,
+         to_string(context.method)});
++    if (context.method == Method::Recovery) {
++        staged_success.push_back(Event{EventKind::FailReset, context.user, {}, {}});
++    }
+ 
+     staged_attempt.insert(staged_attempt.end(), staged_success.begin(), staged_success.end());
+     commit_events(root, state, staged_attempt);
+
+--- a/src/checkpoint.cpp	2026-06-28 13:14:09.857725245 +0530
++++ b/src/checkpoint.cpp	2026-06-28 13:14:09.877104636 +0530
+@@ -57,17 +57,12 @@
+     if (!std::filesystem::is_directory(source)) {
+         throw std::runtime_error("checkpoint is missing: " + label);
+     }
+-    const auto projections = source / "projections";
+-    if (!std::filesystem::is_directory(projections)) {
+-        throw std::runtime_error("checkpoint projections are missing: " + label);
+-    }
+-    std::filesystem::create_directories(root / "state");
+-    for (const auto& entry : std::filesystem::directory_iterator(projections)) {
+-        if (!entry.is_regular_file()) {
+-            continue;
+-        }
+-        install_copy(entry.path(), root / "state" / entry.path().filename());
++    if (!std::filesystem::is_regular_file(source / "journal.log")) {
++        throw std::runtime_error("checkpoint journal is missing: " + label);
+     }
++    bootstrap_state(root);
++    install_copy(source / "journal.log", root / "state/journal.log");
++    rebuild_state(root);
+ }
+ 
+ std::string checkpoint_manifest_digest(const std::filesystem::path& root, const std::string& label) {
+
+--- a/src/state_projection.cpp	2026-06-28 13:14:09.858168608 +0530
++++ b/src/state_projection.cpp	2026-06-28 13:14:09.877156126 +0530
+@@ -159,8 +159,8 @@
+             state.journal.push_back(JournalRecord{sequence, event});
+         }
+     }
+-    save_journal(root, state);
+     save_projections(root, state);
++    save_journal(root, state);
+ }
+ 
+ void rebuild_state(const std::filesystem::path& root) {
+

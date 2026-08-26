@@ -1,0 +1,100 @@
+// Copyright 2024 CUE Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//go:build ignore
+
+// This command prints a summary of which external tests are passing and failing.
+package main
+
+import (
+	"flag"
+	"fmt"
+	"io"
+	"log"
+	"maps"
+	"os"
+	"path"
+	"slices"
+	"strings"
+
+	"cuelang.org/go/cue/token"
+	"cuelang.org/go/encoding/jsonschema/internal/externaltest"
+)
+
+const testDir = "testdata/external"
+
+func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "usage: teststats version\n")
+		fmt.Fprintf(os.Stderr, `
+List all failed tests for the given evaluator version (e.g. v3).
+If multiple versions are given, it prints tests that fail for all
+those versions. If a version starts with a ! character,
+it excludes tests that do not fail for that version.
+`)
+		os.Exit(2)
+	}
+	flag.Parse()
+	tests, err := externaltest.ReadTestDir(testDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if flag.NArg() < 1 {
+		flag.Usage()
+	}
+	listFailures(os.Stdout, flag.Args(), tests)
+}
+
+func listFailures(outw io.Writer, versions []string, tests map[string][]*externaltest.Schema) {
+	for _, filename := range slices.Sorted(maps.Keys(tests)) {
+		schemas := tests[filename]
+		for _, schema := range schemas {
+			if match(schema.Skip, versions) {
+				fmt.Fprintf(outw, "%s: schema fail (%s)\n", testdataPos(schema), schema.Description)
+				continue
+			}
+			for _, test := range schema.Tests {
+				if !match(test.Skip, versions) {
+					continue
+				}
+				reason := "fail"
+				if !test.Valid {
+					reason = "unexpected success"
+				}
+				fmt.Fprintf(outw, "%s: %s (%s; %s)\n", testdataPos(test), reason, schema.Description, test.Description)
+			}
+		}
+	}
+}
+
+func match(skip map[string]string, versions []string) bool {
+	for _, v := range versions {
+		v, wantSuccess := strings.CutPrefix(v, "!")
+		_, failed := skip[v]
+		if failed != !wantSuccess {
+			return false
+		}
+	}
+	return true
+}
+
+type positioner interface {
+	Pos() token.Pos
+}
+
+func testdataPos(p positioner) token.Position {
+	pp := p.Pos().Position()
+	pp.Filename = path.Join(testDir, pp.Filename)
+	return pp
+}

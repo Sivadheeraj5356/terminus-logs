@@ -1,0 +1,15 @@
+From: ml-platform@atlasbatch.internal
+To: release-eng@atlasbatch.internal
+Subject: Latency waiver — batch-042 canary window
+Date: Thu, 10 Apr 2026 14:22:00 -0700
+Content-Type: text/plain; charset=utf-8
+
+Team,
+
+During the batch-042 canary window we are temporarily raising the p99 latency
+ceiling from 45 ms to **58 ms** for candidates tied to batch-042. This covers
+the extra ONNX runtime warmup on the new inference hosts.
+
+Revert after 2026-05-01 unless extended by the model board.
+
+— AtlasBatch ML Platform

@@ -1,0 +1,9 @@
+addr 172.172.56.146 hex 0x63eb token tok_440
+mixed Foo123Bar baz_42
+a "quoted string" and "another"
+value = 0xDEADbeef and 0x1234
+addr 65.193.122.100 hex 0x75a6 token tok_18
+true grey gray foo
+addr 255.101.173.220 hex 0x120c token tok_867
+addr 180.249.152.175 hex 0xdcc0 token tok_948
+IP 255.255.255.0 mask

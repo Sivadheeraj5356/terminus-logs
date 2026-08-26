@@ -1,0 +1,22 @@
+export const IMAGE_ANNOTATION = 'io.prefect.pfseal';
+export const IMAGE_MANIFEST_ANNOTATION = 'io.prefect.pfseal.manifest';
+export const MAGIC = Buffer.from('PFSEAL2', 'ascii');
+export const MAX_CIPHERTEXT_BYTES = 1_048_576;
+export const LEASE_SECONDS = 60;
+export const KEY_ATTESTATION_THRESHOLD = 2;
+
+export const FAILURE = Object.freeze({
+  DB: 'DB_WRITE',
+  ENVELOPE: 'ENVELOPE_FORMAT',
+  FUTURE: 'KEY_FUTURE',
+  HEADER: 'AUTH_HEADER',
+  LINEAGE: 'KEY_LINEAGE',
+  METADATA: 'KEY_METADATA',
+  ATTESTATION: 'KEY_ATTESTATION',
+  PAYLOAD: 'PAYLOAD_INVALID',
+  EXPIRED: 'PAYLOAD_EXPIRED',
+  NOT_YET_VALID: 'PAYLOAD_NOT_YET_VALID',
+  REPLAY: 'PAYLOAD_REPLAY',
+  RETIRED: 'KEY_RETIRED',
+  TAG: 'AUTH_GCM',
+});

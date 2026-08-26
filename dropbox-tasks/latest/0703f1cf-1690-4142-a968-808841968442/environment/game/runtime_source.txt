@@ -1,0 +1,368 @@
+import fcntl, json, os, secrets, socketserver, threading, time, tomllib
+from pathlib import Path
+from urllib.parse import quote
+import lmdb, yaml
+
+SOCK_PATH = "/run/glyph-mill.sock"
+PID_PATH = "/run/glyph-mill.pid"
+
+# Verifier-controlled trace sink. The daemon runs as root and records every
+# rule-file resolution here (which files it actually opened, tagged with a
+# fresh per-call nonce) so the verifier - and only the verifier - can confirm
+# after the fact what really loaded for a room. It is deliberately unreadable
+# by the unprivileged user the submitted tool runs as, so a tool cannot lift
+# the answer (or a valid nonce) out of it; the only way to obtain a live nonce
+# is to actually drive the daemon via the TRACE op below, which does the real
+# resolution.
+AUDIT_DIR = "/run/glyph-mill.d"
+AUDIT_PATH = AUDIT_DIR + "/audit.jsonl"
+
+
+def _audit(record):
+    os.makedirs(AUDIT_DIR, exist_ok=True)
+    try:
+        os.chmod(AUDIT_DIR, 0o700)
+    except OSError:
+        pass
+    fd = os.open(AUDIT_PATH, os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o600)
+    try:
+        with os.fdopen(fd, "a") as handle:
+            fcntl.flock(handle, fcntl.LOCK_EX)
+            try:
+                handle.write(json.dumps(record, sort_keys=True) + "\n")
+            finally:
+                fcntl.flock(handle, fcntl.LOCK_UN)
+    except Exception:
+        pass
+
+# The rule files most recently resolved for a given root are kept open
+# (never eagerly closed) so they stay visible in this process's live
+# file-descriptor table - and therefore in `lsof -p <this pid>` - for as
+# long as they remain the current resolution for that root. This is the
+# runtime evidence the discover command is meant to observe: which
+# YAML/TOML files actually get touched for a room is decided by this
+# process's own internal selection logic, not by static directory layout,
+# so watching this process's real file descriptors (or a syscall trace of
+# it) is the only way to learn it. The set is scoped to "most recent
+# resolution per root" (rather than "every file ever opened") so that
+# resolving one room doesn't leave stale evidence that gets mistaken for
+# a different room resolved moments earlier under the same root.
+_FD_LOCK = threading.Lock()
+_FD_CACHE = {}  # path -> (handle, content), for the current resolution
+_ROOT_KEYS = {}  # root -> set of paths currently held open for it
+
+# `probe` lets a caller run the real one-step transition rule for an
+# arbitrary (state, glyph, index, prev) tuple without ever seeing the rule
+# itself, so the mechanic can be identified by observation instead of read
+# off a doc. It shares one budget across the whole daemon lifetime (every
+# root, every room, every caller) specifically so that using it as a live
+# stand-in for the transition rule during actual solving - instead of
+# working the rule out and computing it locally - runs out fast.
+_PROBE_LOCK = threading.Lock()
+_PROBE_BUDGET = {"remaining": 150}
+
+
+def _begin_resolution(root):
+    key = str(root)
+    with _FD_LOCK:
+        for path in _ROOT_KEYS.pop(key, ()):  # noqa: SIM118
+            handle, _ = _FD_CACHE.pop(path, (None, None))
+            if handle is not None:
+                handle.close()
+        _ROOT_KEYS[key] = set()
+
+
+def _read_traced(root, path):
+    root_key = str(root)
+    path_key = str(path)
+    with _FD_LOCK:
+        if path_key not in _FD_CACHE:
+            handle = open(path_key, "rb")  # noqa: SIM115 - kept open intentionally
+            _FD_CACHE[path_key] = (handle, handle.read())
+        _ROOT_KEYS.setdefault(root_key, set()).add(path_key)
+    return _FD_CACHE[path_key][1]
+
+
+def _lmdb(root):
+    return lmdb.open(str(root / "hints.lmdb"), readonly=True, lock=False, max_dbs=1)
+
+
+def _room(root, room_id):
+    env = _lmdb(root)
+    with env.begin() as txn:
+        raw = txn.get(f"room:{room_id}".encode())
+        if raw is None:
+            raise LookupError(f"unknown room: {room_id}")
+        return json.loads(raw.decode())
+
+
+def _rooms(root):
+    env = _lmdb(root)
+    with env.begin() as txn:
+        return json.loads(txn.get(b"rooms").decode())
+
+
+def _overlay_path(root, room, pack):
+    names = sorted(p.name for p in (root / "rules" / "overlays").glob("*.yaml"))
+    idx = (room["salt"] * pack["walk"]["stride"] + len(room["id"])) % len(names)
+    return root / "rules" / "overlays" / names[idx]
+
+
+def _load_rules(root, room):
+    _begin_resolution(root)
+    core_path = root / "rules" / "core.yaml"
+    palette_path = root / "rules" / "palettes" / f"{room['palette']}.yaml"
+    pack_path = root / "rules" / "packs" / f"{room['pack']}.toml"
+    core = yaml.safe_load(_read_traced(root, core_path))
+    palette = yaml.safe_load(_read_traced(root, palette_path))
+    pack = tomllib.loads(_read_traced(root, pack_path).decode())
+
+    # Before falling back to the salt-derived overlay pick, the runtime
+    # checks for a per-room override file. Every room in the shipped
+    # fixture leaves this absent, so this candidate is opened and rejected
+    # (ENOENT) on every resolution - a real, failed lookup, not a file that
+    # ends up contributing to the room's rules.
+    misses = []
+    override_path = root / "rules" / "overlays" / f"{room['id']}.override.yaml"
+    if override_path.exists():
+        overlay_path = override_path
+        overlay = yaml.safe_load(_read_traced(root, overlay_path))
+    else:
+        misses.append(override_path)
+        overlay_path = _overlay_path(root, room, pack)
+        overlay = yaml.safe_load(_read_traced(root, overlay_path))
+
+    paths = [core_path, palette_path, pack_path, overlay_path]
+    return core, palette, pack, overlay, paths, misses
+
+
+def _resolve_and_trace(root, room_id):
+    """Really resolve a room's rule files (the overlay pick comes from this
+    process's own selection logic, not the directory layout), mint a fresh
+    nonce, and record an authoritative root-only audit entry binding that
+    nonce to (root, room, loaded_files).
+
+    The openat()-style trace lines (carrying the nonce) are returned only to
+    the socket caller - they are never written to any file readable by the
+    unprivileged user the submitted tool runs as. The nonce is unguessable
+    and is only ever minted here, as the side effect of a genuine resolution,
+    so a purely static path computation cannot forge trace evidence the
+    verifier will accept: the only way to hold a valid nonce is to have
+    actually driven this code path (i.e. observed the runtime).
+
+    The trace also includes any rejected candidate lookups (e.g. an override
+    file that does not exist for this room) alongside the files that were
+    actually loaded - real tracer output shows failed opens right next to
+    successful ones, and it is on the caller to tell the two apart."""
+    room = _room(root, room_id)
+    _, _, _, _, paths, misses = _load_rules(root, room)
+    loaded = sorted(str(Path(p).resolve()) for p in paths)
+    nonce = secrets.token_hex(16)
+    fd_no = 3
+    trace_lines = []
+    for miss in misses:
+        trace_lines.append(
+            f'openat(AT_FDCWD, "{Path(miss).resolve()}", O_RDONLY|O_CLOEXEC) '
+            f"= -1 ENOENT <nonce:{nonce}> (No such file or directory)"
+        )
+    for path in loaded:
+        trace_lines.append(
+            f'openat(AT_FDCWD, "{path}", O_RDONLY|O_CLOEXEC) = {fd_no} <nonce:{nonce}>'
+        )
+        fd_no += 1
+    _audit(
+        {
+            "nonce": nonce,
+            "root": str(Path(root).resolve()),
+            "room": room_id,
+            "loaded_files": loaded,
+            "ts": time.time(),
+        }
+    )
+    return nonce, loaded, trace_lines
+
+
+def _step(root, room, state, glyph, index, prev):
+    core, palette, pack, overlay, _, _ = _load_rules(root, room)
+    if glyph not in room["glyphs"]:
+        raise ValueError(f"glyph {glyph!r} is not legal in {room['id']}")
+    width, height = core["grid"]["width"], core["grid"]["height"]
+    cycle = pack["walk"]["cycle"]
+    pivot = core["turns"][pack["walk"]["pivot"]]
+    val = palette["symbols"][glyph]
+    mask = palette["mask"]
+    # A room's own hint record can carry a stride_override, taking
+    # precedence over the pack's stride for that room only.
+    stride = room["stride_override"] if "stride_override" in room else pack["walk"]["stride"]
+    prev_term = pivot if prev is None else prev
+    dindex = (val + mask + overlay["mask_shift"] + room["salt"] + state + (index * stride) + pivot + (prev_term * overlay["rotation"])) % len(cycle)
+    direction = cycle[dindex]
+    dx, dy = core["directions"][direction]
+    x, y = state % width, state // width
+    nx, ny = (x + dx) % width, (y + dy) % height
+    return ny * width + nx, dindex
+
+
+def _replay_room(root, room_id, glyphs):
+    room = _room(root, room_id)
+    state = room["start"]
+    prev = None
+    path = [state]
+    for i, glyph in enumerate(glyphs):
+        state, prev = _step(root, room, state, glyph, i, prev)
+        path.append(state)
+    accepted = state == room["target"] and len(glyphs) == room["max_moves"]
+    for idx, cell in room.get("beacons", {}).items():
+        accepted = accepted and int(idx) < len(path) and path[int(idx)] == cell
+    return {"room": room_id, "accepted": accepted}
+
+
+def _resp(exit_code, payload):
+    return f"{exit_code} {json.dumps(payload, sort_keys=True)}"
+
+
+def _handle_oneshot(op, args):
+    try:
+        root = Path(args["root"])
+        if op == "ROOMS":
+            return _resp(0, _rooms(root))
+        if op == "INSPECT":
+            room = _room(root, args["room"])
+            _load_rules(root, room)
+            safe = {k: room[k] for k in ["id", "title", "glyphs", "max_moves"]}
+            safe["hint_uri"] = "lmdb://hints/" + quote(f"room:{args['room']}")
+            return _resp(0, safe)
+        if op == "TRACE":
+            nonce, loaded, trace_lines = _resolve_and_trace(root, args["room"])
+            return _resp(0, {"nonce": nonce, "loaded_files": loaded, "trace": trace_lines})
+        if op == "REPLAY":
+            route = args["route"]
+            results = []
+            ok = True
+            for item in route.get("rooms", []):
+                res = _replay_room(root, item["room"], item.get("glyphs", []))
+                results.append(res)
+                ok = ok and res["accepted"]
+            return _resp(0 if ok else 2, {"accepted": ok, "rooms": results})
+        if op == "PROBE":
+            with _PROBE_LOCK:
+                if _PROBE_BUDGET["remaining"] <= 0:
+                    raise RuntimeError(
+                        "probe budget exhausted for this container's lifetime"
+                    )
+                _PROBE_BUDGET["remaining"] -= 1
+                remaining = _PROBE_BUDGET["remaining"]
+            room = _room(root, args["room"])
+            new_state, dindex = _step(
+                root, room, int(args["state"]), args["glyph"], int(args["index"]), args.get("prev")
+            )
+            return _resp(
+                0, {"new_state": new_state, "dindex": dindex, "queries_remaining": remaining}
+            )
+    except Exception as exc:  # noqa: BLE001 - reported back to the client verbatim
+        return f"1 __ERROR__ {exc}"
+    return "1 __ERROR__ unknown command"
+
+
+class _PlaySession:
+    """Interactive exploration session backing the `play` protocol.
+
+    Deliberately reveals nothing about the walker's position or the
+    internal cycle-index bookkeeping while moves are being entered - `move`
+    only confirms the glyph was legal, never where it landed. `check` (and
+    the standalone `replay` grading harness) are the only source of
+    accept/reject signal, and only once a room's full move count has been
+    entered. This is intentional: the point of the `solve` task is
+    recovering the walk's transition rule well enough to predict cells
+    that are never directly observed, not reading them off a live
+    session.
+    """
+
+    def __init__(self, root):
+        self.root = root
+        self.room_id = None
+        self.moves = []
+
+    def handle_line(self, line):
+        line = line.strip()
+        if not line:
+            return None
+        parts = line.split()
+        op = parts[0].lower()
+        try:
+            if op == "room" and len(parts) == 2:
+                self.room_id = parts[1]
+                self.moves = []
+                info = _room(self.root, self.room_id)
+                _load_rules(self.root, info)  # noqa: F841 - side effect: hold FDs open
+                return f"ROOM {self.room_id} {info['title']} GLYPHS {' '.join(info['glyphs'])}"
+            elif op == "move" and self.room_id and len(parts) == 2:
+                info = _room(self.root, self.room_id)
+                if parts[1] not in info["glyphs"]:
+                    return "ERR"
+                self.moves.append(parts[1])
+                return "OK"
+            elif op == "check" and self.room_id:
+                res = _replay_room(self.root, self.room_id, self.moves)
+                return "ACCEPT" if res["accepted"] else "REJECT"
+            elif op in {"quit", "exit"}:
+                return "BYE"
+            else:
+                return "ERR"
+        except Exception:
+            return "ERR"
+
+
+class _Handler(socketserver.StreamRequestHandler):
+    def handle(self):
+        first = self.rfile.readline().decode().rstrip("\n")
+        if not first:
+            return
+        op, _, rest = first.partition(" ")
+        try:
+            args = json.loads(rest) if rest else {}
+        except json.JSONDecodeError:
+            self.wfile.write(b"1 __ERROR__ malformed request\n")
+            self.wfile.flush()
+            return
+        if op == "PLAY":
+            session = _PlaySession(Path(args["root"]))
+            self.wfile.write(b"GLYPH-MILL READY\n")
+            self.wfile.flush()
+            while True:
+                raw = self.rfile.readline()
+                if not raw:
+                    return
+                reply = session.handle_line(raw.decode())
+                if reply is None:
+                    continue
+                self.wfile.write((reply + "\n").encode())
+                self.wfile.flush()
+                if reply == "BYE":
+                    return
+        else:
+            self.wfile.write((_handle_oneshot(op, args) + "\n").encode())
+            self.wfile.flush()
+
+
+class _Server(socketserver.ThreadingUnixStreamServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
+
+def main():
+    os.makedirs(AUDIT_DIR, exist_ok=True)
+    os.chmod(AUDIT_DIR, 0o700)
+    sock_path = SOCK_PATH
+    try:
+        os.unlink(sock_path)
+    except FileNotFoundError:
+        pass
+    server = _Server(sock_path, _Handler)
+    os.chmod(sock_path, 0o777)
+    Path(PID_PATH).write_text(str(os.getpid()))
+    server.serve_forever()
+
+
+if __name__ == "__main__":
+    main()

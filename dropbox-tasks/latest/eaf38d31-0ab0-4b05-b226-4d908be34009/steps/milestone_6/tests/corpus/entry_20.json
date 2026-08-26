@@ -1,0 +1,13 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 2587303,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "ns1.umbrella.org"
+  ],
+  "issued_at": "2026-01-26T15:05:39Z",
+  "payload": "cert:2EYuWsxebbLflN/1W/NGm5v2O7JzDJmwyBEhTF7kFms=",
+  "received_at": "2026-02-15T01:24:03.284Z",
+  "issuer_id": "CA-shard-9",
+  "x_shard": 0
+}

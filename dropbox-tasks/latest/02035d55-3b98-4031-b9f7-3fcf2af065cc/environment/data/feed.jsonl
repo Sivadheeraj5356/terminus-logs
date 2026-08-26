@@ -1,0 +1,17 @@
+{"kind":"tare","tare_profile_id":"tp-a","zone":"Row-A","generation":1,"start_seq":1,"end_seq":100,"offset_g":-50,"status":"active"}
+{"kind":"tare","tare_profile_id":"tp-b","zone":"row-a","generation":1,"start_seq":1,"end_seq":100,"offset_g":0,"status":"active"}
+{"kind":"tare","tare_profile_id":"tp-c","zone":"Bay-3","generation":2,"start_seq":1,"end_seq":50,"offset_g":-10,"status":"active"}
+{"kind":"tare","tare_profile_id":"tp-c","zone":"Bay-3","generation":1,"start_seq":1,"end_seq":50,"offset_g":20,"status":"active"}
+{"kind":"pick","pick_id":"pk-a1","zone":"Row-A","sequence":1,"gross_g":250,"tare_profile_id":"tp-a"}
+{"kind":"pick","pick_id":"pk-b1","zone":"row-a","sequence":2,"gross_g":150,"tare_profile_id":"tp-b"}
+{"kind":"pick","pick_id":"pk-a2","zone":"Row-A","sequence":3,"gross_g":900,"tare_profile_id":"tp-a"}
+{"kind":"pick","pick_id":"pk-b2","zone":"row-a","sequence":4,"gross_g":860,"tare_profile_id":"tp-b"}
+{"kind":"pick","pick_id":"pk-c1","zone":"Bay-3","sequence":5,"gross_g":210,"tare_profile_id":"tp-c"}
+{"kind":"pick","pick_id":"pk-a3","zone":"Row-A","sequence":6,"gross_g":199,"tare_profile_id":"tp-a"}
+{"kind":"pick","pick_id":"pk-b3","zone":"row-a","sequence":7,"gross_g":200,"tare_profile_id":"tp-b"}
+{"kind":"pick","pick_id":"pk-a4","zone":"Row-A","sequence":8,"gross_g":11500,"tare_profile_id":"tp-a"}
+{"kind":"pick","pick_id":"pk-b4","zone":"row-a","sequence":9,"gross_g":199,"tare_profile_id":"tp-b"}
+{"kind":"pick","pick_id":"pk-c2","zone":"Bay-3","sequence":10,"gross_g":100,"tare_profile_id":"tp-c"}
+{"kind":"spoilage","target_pick_id":"pk-a1","generation":1}
+{"kind":"supersede","target_pick_id":"pk-b2","generation":1,"action":"void"}
+{"kind":"supersede","target_pick_id":"pk-c2","generation":1,"action":"replace","gross_g":50}

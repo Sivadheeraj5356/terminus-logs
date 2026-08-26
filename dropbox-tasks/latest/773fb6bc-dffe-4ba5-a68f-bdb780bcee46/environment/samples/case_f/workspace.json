@@ -1,0 +1,26 @@
+{
+  "move_gen": 2,
+  "ptr_rev": 1,
+  "ptr_path": "refs/pre_move.json",
+  "seal": 0,
+  "mode": "writethrough",
+  "map_rows": [
+    {"a": 9, "b": 50, "off": 0}
+  ],
+  "dest_rows": [
+    {"a": 9, "b": 50, "off": 65536}
+  ],
+  "dirty": {"slots": [], "barrier": 0},
+  "tap": {"gen": 1, "tally": 0},
+  "slow_slots": [
+    {"id": 9, "payload": "wt-origin", "epoch": 3}
+  ],
+  "fast_slots": [
+    {"id": 50, "payload": "wt-cache-hot", "epoch": 9, "bind": 9}
+  ],
+  "foreign_slots": [
+    {"id": 44, "payload": "wt-keep", "epoch": 1}
+  ],
+  "ref_pre": {"path": "refs/pre_move.json", "rev": 1, "active_row": 0},
+  "ref_post": {"path": "refs/post_move.json", "rev": 2, "active_row": 1}
+}

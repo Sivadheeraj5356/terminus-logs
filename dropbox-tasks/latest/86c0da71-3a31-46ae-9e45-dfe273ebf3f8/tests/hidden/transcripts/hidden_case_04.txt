@@ -1,0 +1,7 @@
+# hidden_case_04: safety brace suppresses one hazardous entry only
+secure deck-hold
+move deck-hold
+move tank-t4
+secure bay-a1
+move deck-hold
+move bay-a1

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if [ -d /tests ]; then
+  chown root:root /tests
+  chmod 0711 /tests
+  if [ -e /tests/test.sh ]; then
+    chown root:root /tests/test.sh
+    chmod 0555 /tests/test.sh
+  fi
+  find /tests -mindepth 1 -maxdepth 1 ! -name test.sh -exec chown root:root {} + -exec chmod 0600 {} +
+fi

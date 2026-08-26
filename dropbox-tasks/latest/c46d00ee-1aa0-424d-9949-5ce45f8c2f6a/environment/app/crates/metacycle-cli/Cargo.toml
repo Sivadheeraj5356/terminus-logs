@@ -1,0 +1,13 @@
+[package]
+name = "metacycle-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "metacycle"
+path = "src/main.rs"
+
+[dependencies]
+metacycle-core = { path = "../metacycle-core" }
+serde_json = { workspace = true }

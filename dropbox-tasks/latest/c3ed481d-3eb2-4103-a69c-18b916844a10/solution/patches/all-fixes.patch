@@ -1,0 +1,227 @@
+--- environment/ox/src/expand_k.rs
++++ environment/ox/src/expand_k.rs
+@@ -6,27 +6,60 @@
+     pub side: bool,
+ }
+ 
++fn already(out: &[NodeH], ix: u16) -> bool {
++    out.iter().any(|n| n.ix == ix)
++}
++
++fn sort_kids(kids: &mut [NodeH]) {
++    kids.sort_by(|a, b| {
++        b.side
++            .cmp(&a.side)
++            .then(b.score.cmp(&a.score))
++            .then(a.ix.cmp(&b.ix))
++    });
++}
++
++fn push_unique(out: &mut Vec<NodeH>, queue: &mut Vec<NodeH>, kid: NodeH, budget: u32) -> bool {
++    if (out.len() as u32) >= budget {
++        return false;
++    }
++    if already(out, kid.ix) {
++        return true;
++    }
++    out.push(kid.clone());
++    queue.push(kid);
++    true
++}
++
+ /// Expands frontier nodes under a budget and returns ordered candidates.
+ pub fn expand_k(root: &NodeH, budget: u32) -> Vec<NodeH> {
+-    let mut out = vec![root.clone()];
+-    let mut cur = root.clone();
+-    let mut used = 1u32;
+-    while used < budget {
+-        let mut best: Option<NodeH> = None;
+-        let mut best_score = i32::MIN;
+-        for kid in &cur.kids {
+-            if kid.score > best_score {
+-                best_score = kid.score;
+-                best = Some(kid.clone());
++    let mut out = Vec::with_capacity(budget as usize);
++    out.push(root.clone());
++    let mut queue = vec![root.clone()];
++    let mut guard = 0u32;
++    while (out.len() as u32) < budget && !queue.is_empty() {
++        guard = guard.saturating_add(1);
++        if guard > budget.saturating_mul(8).max(32) {
++            break;
++        }
++        let cur = queue.remove(0);
++        let mut kids = cur.kids.clone();
++        sort_kids(&mut kids);
++        for kid in kids {
++            if !push_unique(&mut out, &mut queue, kid, budget) {
++                break;
+             }
+         }
+-        match best {
+-            Some(n) => {
+-                out.push(n.clone());
+-                cur = n;
+-                used += 1;
++    }
++    // Stable secondary pass: re-scan collected nodes for any skipped side kids.
++    let snapshot = out.clone();
++    for node in &snapshot {
++        let mut kids = node.kids.clone();
++        sort_kids(&mut kids);
++        for kid in kids {
++            if kid.side {
++                let _ = push_unique(&mut out, &mut queue, kid, budget);
+             }
+-            None => break,
+         }
+     }
+     out
+--- environment/ny/src/fold_m.rs
++++ environment/ny/src/fold_m.rs
+@@ -1,6 +1,3 @@
+-use std::collections::HashMap;
+-use std::sync::atomic::{AtomicU64, Ordering};
+-
+ #[derive(Clone, Debug)]
+ pub struct ObsQ {
+     pub ix: u16,
+@@ -15,32 +12,64 @@
+     pub w: u16,
+ }
+ 
+-static ROT: AtomicU64 = AtomicU64::new(0);
+-
+-/// Folds observation traces against edge tables into a visit vector.
+-pub fn fold_m(trace: &[ObsQ], edges: &[EdgeR]) -> Vec<u16> {
+-    let _ = edges;
+-    let mut map: HashMap<u16, u16> = HashMap::new();
++fn max_index(trace: &[ObsQ], edges: &[EdgeR]) -> u16 {
+     let mut max_ix = 0u16;
+     for o in trace {
+         if o.ix > max_ix {
+             max_ix = o.ix;
+         }
+-        let e = map.entry(o.ix).or_insert(0);
+-        *e = (*e).saturating_add(o.weight);
+     }
+-    let n = (max_ix as usize) + 1;
+-    let mut v = vec![0u16; n];
+-    for (k, val) in map {
+-        if (k as usize) < n {
+-            v[k as usize] = val;
++    for e in edges {
++        if e.to_ix > max_ix {
++            max_ix = e.to_ix;
+         }
+     }
+-    if n > 1 {
+-        let shift = (ROT.fetch_add(1, Ordering::SeqCst) as usize) % n;
+-        if shift > 0 {
+-            v.rotate_left(shift);
++    max_ix
++}
++
++fn mark_active(trace: &[ObsQ], active: &mut [bool]) {
++    for o in trace {
++        let z = o.zone as usize;
++        if z < active.len() {
++            active[z] = true;
+         }
+     }
+-    v
++}
++
++fn apply_trace(trace: &[ObsQ], v: &mut [u16]) {
++    for o in trace {
++        let i = o.ix as usize;
++        if i < v.len() {
++            v[i] = v[i].saturating_add(o.weight);
++        }
++    }
++}
++
++fn apply_edges(edges: &[EdgeR], active: &[bool], v: &mut [u16]) {
++    for e in edges {
++        let z = e.from_zone as usize;
++        if z < active.len() && active[z] {
++            let i = e.to_ix as usize;
++            if i < v.len() {
++                v[i] = v[i].saturating_add(e.w);
++            }
++        }
++    }
++}
++
++/// Folds observation traces against edge tables into a visit vector.
++pub fn fold_m(trace: &[ObsQ], edges: &[EdgeR]) -> Vec<u16> {
++    let max_ix = max_index(trace, edges);
++    let n = (max_ix as usize) + 1;
++    let mut v = vec![0u16; n];
++    let mut active = vec![false; 128];
++    mark_active(trace, &mut active);
++    apply_trace(trace, &mut v);
++    apply_edges(edges, &active, &mut v);
++    // Deterministic normalize: leave index-aligned counts unchanged.
++    let mut out = vec![0u16; n];
++    for (i, val) in v.into_iter().enumerate() {
++        out[i] = val;
++    }
++    out
+ }
+--- environment/ku/src/seal_p.rs
++++ environment/ku/src/seal_p.rs
+@@ -1,19 +1,41 @@
+-use std::sync::atomic::{AtomicU64, Ordering};
++use crate::sha256_32::sha256_32;
+ 
+-static TICK: AtomicU64 = AtomicU64::new(0);
++fn visits_to_bytes(visits: &[u16]) -> Vec<u8> {
++    let mut data = Vec::with_capacity(visits.len() * 2);
++    for v in visits {
++        data.extend_from_slice(&v.to_le_bytes());
++    }
++    data
++}
++
++fn bind_edge(visits_bytes: &[u8], edge_hash: &[u8; 32]) -> Vec<u8> {
++    let mut data = Vec::with_capacity(visits_bytes.len() + edge_hash.len());
++    data.extend_from_slice(visits_bytes);
++    data.extend_from_slice(edge_hash);
++    data
++}
++
++fn non_zero(digest: &[u8; 32]) -> bool {
++    digest.iter().any(|b| *b != 0)
++}
++
++fn seal_once(visits: &[u16], edge_hash: &[u8; 32]) -> [u8; 32] {
++    let visits_bytes = visits_to_bytes(visits);
++    let bound = bind_edge(&visits_bytes, edge_hash);
++    sha256_32(&bound)
++}
+ 
+ /// Builds a witness digest from visit vectors and edge hashes.
+ pub fn seal_p(visits: &[u16], edge_hash: &[u8; 32]) -> [u8; 32] {
+-    let _ = edge_hash;
+-    let tick = TICK.fetch_add(1, Ordering::SeqCst);
+-    let sum: u32 = visits.iter().map(|&x| x as u32).sum();
+-    if tick == 0 {
++    let primary = seal_once(visits, edge_hash);
++    // Recompute once and require byte identity so the seal is pure.
++    let check = seal_once(visits, edge_hash);
++    if primary != check {
+         return [0u8; 32];
+     }
+-    let mut out = [0u8; 32];
+-    let bytes = sum.to_le_bytes();
+-    out[0..4].copy_from_slice(&bytes);
+-    let tbytes = tick.to_le_bytes();
+-    out[4..12].copy_from_slice(&tbytes);
+-    out
++    if !non_zero(&primary) && !visits.is_empty() {
++        // Empty digest is only legal for empty visit vectors.
++        return primary;
++    }
++    primary
+ }

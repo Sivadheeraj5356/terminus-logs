@@ -1,0 +1,9 @@
+{
+  "id": "https://api.weather.gov/stations/KMDW",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KORD",
+    "name": "Chicago Midway International Airport",
+    "timeZone": "America/Chicago"
+  }
+}

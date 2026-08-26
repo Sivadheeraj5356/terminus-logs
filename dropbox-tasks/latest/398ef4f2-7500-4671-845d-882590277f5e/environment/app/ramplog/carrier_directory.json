@@ -1,0 +1,9 @@
+{
+  "schema": "carrier_directory_v1",
+  "carriers": [
+    {"iata": "UA", "icao": "UAL", "name_short": "united"},
+    {"iata": "DL", "icao": "DAL", "name_short": "delta"},
+    {"iata": "AS", "icao": "ASA", "name_short": "alaska"},
+    {"iata": "AC", "icao": "ACA", "name_short": "air canada"}
+  ]
+}

@@ -1,0 +1,1 @@
+{"job_id": "job-001", "priority": 20, "spec_path": "/app/specs/inference-v2.yaml", "profile_ref": "production", "rules_ref": "cpu_turbo", "defer": false}

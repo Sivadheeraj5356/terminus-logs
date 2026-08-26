@@ -1,0 +1,162 @@
+{
+  "su-01": {
+    "hide_cost": 0.798,
+    "guide_cost": 2.958
+  },
+  "su-02": {
+    "hide_cost": 1.022,
+    "guide_cost": 4.163
+  },
+  "su-03": {
+    "hide_cost": 0.804,
+    "guide_cost": 2.431
+  },
+  "su-04": {
+    "hide_cost": 1.079,
+    "guide_cost": 4.744
+  },
+  "su-05": {
+    "hide_cost": 0.996,
+    "guide_cost": 3.095
+  },
+  "su-06": {
+    "hide_cost": 0.833,
+    "guide_cost": 2.462
+  },
+  "su-07": {
+    "hide_cost": 1.061,
+    "guide_cost": 3.47
+  },
+  "su-08": {
+    "hide_cost": 0.914,
+    "guide_cost": 3.728
+  },
+  "su-09": {
+    "hide_cost": 1.096,
+    "guide_cost": 3.251
+  },
+  "su-10": {
+    "hide_cost": 0.895,
+    "guide_cost": 2.975
+  },
+  "su-11": {
+    "hide_cost": 1.078,
+    "guide_cost": 3.533
+  },
+  "su-12": {
+    "hide_cost": 0.734,
+    "guide_cost": 2.642
+  },
+  "su-13": {
+    "hide_cost": 0.702,
+    "guide_cost": 3.051
+  },
+  "su-14": {
+    "hide_cost": 0.903,
+    "guide_cost": 3.466
+  },
+  "su-15": {
+    "hide_cost": 1.037,
+    "guide_cost": 4.464
+  },
+  "su-16": {
+    "hide_cost": 1.078,
+    "guide_cost": 4.695
+  },
+  "su-17": {
+    "hide_cost": 0.899,
+    "guide_cost": 2.597
+  },
+  "su-18": {
+    "hide_cost": 1.041,
+    "guide_cost": 4.223
+  },
+  "su-19": {
+    "hide_cost": 1.061,
+    "guide_cost": 4.514
+  },
+  "su-20": {
+    "hide_cost": 0.7,
+    "guide_cost": 2.116
+  },
+  "su-21": {
+    "hide_cost": 0.798,
+    "guide_cost": 3.112
+  },
+  "su-22": {
+    "hide_cost": 0.996,
+    "guide_cost": 2.842
+  },
+  "su-23": {
+    "hide_cost": 0.785,
+    "guide_cost": 3.257
+  },
+  "su-24": {
+    "hide_cost": 1.098,
+    "guide_cost": 4.324
+  },
+  "su-25": {
+    "hide_cost": 0.998,
+    "guide_cost": 3.994
+  },
+  "su-26": {
+    "hide_cost": 1.003,
+    "guide_cost": 4.462
+  },
+  "su-27": {
+    "hide_cost": 1.048,
+    "guide_cost": 4.536
+  },
+  "su-28": {
+    "hide_cost": 0.722,
+    "guide_cost": 2.712
+  },
+  "su-29": {
+    "hide_cost": 0.725,
+    "guide_cost": 3.163
+  },
+  "su-30": {
+    "hide_cost": 1.077,
+    "guide_cost": 3.51
+  },
+  "su-31": {
+    "hide_cost": 0.857,
+    "guide_cost": 2.469
+  },
+  "su-32": {
+    "hide_cost": 0.871,
+    "guide_cost": 3.655
+  },
+  "su-33": {
+    "hide_cost": 0.869,
+    "guide_cost": 2.705
+  },
+  "su-34": {
+    "hide_cost": 1.054,
+    "guide_cost": 3.711
+  },
+  "su-35": {
+    "hide_cost": 0.756,
+    "guide_cost": 3.267
+  },
+  "su-36": {
+    "hide_cost": 0.753,
+    "guide_cost": 3.35
+  },
+  "su-37": {
+    "hide_cost": 0.977,
+    "guide_cost": 3.854
+  },
+  "su-38": {
+    "hide_cost": 1.106,
+    "guide_cost": 3.867
+  },
+  "su-39": {
+    "hide_cost": 1.013,
+    "guide_cost": 3.856
+  },
+  "su-40": {
+    "hide_cost": 1.036,
+    "guide_cost": 3.849
+  }
+}

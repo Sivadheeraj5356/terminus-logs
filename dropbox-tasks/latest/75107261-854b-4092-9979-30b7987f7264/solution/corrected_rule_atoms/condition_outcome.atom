@@ -1,0 +1,6 @@
+RULE CONDITION_OUTCOME
+IN keys
+OUT value,reason
+TABLE
+false_condition -> skip|cond
+END

@@ -1,0 +1,5 @@
+/crosspay
+/data/
+*.db
+__pycache__/
+*.pyc

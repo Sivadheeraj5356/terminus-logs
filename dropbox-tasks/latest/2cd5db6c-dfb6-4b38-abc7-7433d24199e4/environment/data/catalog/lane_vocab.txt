@@ -1,0 +1,6 @@
+path_lane tokens: real, leak, none, stub
+stub_gate tokens: refuse, allow
+classifier_pick follows toolchain real id, else stub id
+stamp_bind and soname_mark follow selected arch
+bind_ok tracks real path_lane only
+module-path leak marks classpath jar visibility without module-path presence

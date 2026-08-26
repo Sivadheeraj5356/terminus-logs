@@ -1,0 +1,7 @@
+$ORIGIN internal.rpz.
+$TTL 60
+@ IN SOA ns1.harbor.test. hostmaster.harbor.test. ( 2026071607 900 300 604800 60 )
+@ IN NS ns1.harbor.test.
+malware.example IN CNAME .
+*.exfil.example IN CNAME .
+safe.exfil.example IN CNAME rpz-passthru.

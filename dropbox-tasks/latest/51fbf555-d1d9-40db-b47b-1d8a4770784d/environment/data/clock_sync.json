@@ -1,0 +1,14 @@
+{
+  "grandmaster": "gm1",
+  "tolerance_us": 10,
+  "offsets": [
+    {"node_id": "plc1", "offset_us": 2},
+    {"node_id": "plc2", "offset_us": -4},
+    {"node_id": "sw1", "offset_us": -3},
+    {"node_id": "sw2", "offset_us": 14},
+    {"node_id": "sw3", "offset_us": 11},
+    {"node_id": "hmi1", "offset_us": 1},
+    {"node_id": "hmi2", "offset_us": 22},
+    {"node_id": "gm1", "offset_us": 0}
+  ]
+}

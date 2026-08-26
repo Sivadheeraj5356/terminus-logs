@@ -1,0 +1,6 @@
+RULE TEMPLATE_FALLBACK
+IN keys
+OUT value,reason
+TABLE
+exact_missing -> use_template|template-fallback
+END

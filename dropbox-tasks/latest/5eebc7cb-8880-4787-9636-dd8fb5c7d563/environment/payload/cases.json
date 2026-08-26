@@ -1,0 +1,119 @@
+{
+  "entries": [
+    {
+      "id": "k4",
+      "blob": "payload/core_blobs/seal_base.pq",
+      "epoch": 1
+    },
+    {
+      "id": "r2",
+      "blob": "payload/core_blobs/slice_read.pq",
+      "part_off": 10,
+      "epoch": 2
+    },
+    {
+      "id": "f7",
+      "blob": "payload/core_blobs/seal_base.pq",
+      "sidecar": "payload/core_blobs/group_sidecar.meta",
+      "epoch": 2
+    },
+    {
+      "id": "h3",
+      "blob": "payload/core_blobs/append_blob.pq",
+      "epoch": 1
+    },
+    {
+      "id": "j6",
+      "blob": "payload/ladder_blobs/lane_shift.pq",
+      "lanes": [
+        {
+          "grp": 1,
+          "idx": 1
+        },
+        {
+          "grp": 2,
+          "idx": 2
+        }
+      ],
+      "epoch": 4,
+      "aad_lane": 1
+    },
+    {
+      "id": "n3",
+      "blob": "payload/ladder_blobs/lane_rotate.pq",
+      "epoch": 3
+    },
+    {
+      "id": "z5",
+      "blob": "payload/ladder_blobs/lane_shift.pq",
+      "lanes": [
+        {
+          "grp": 1,
+          "idx": 1
+        },
+        {
+          "grp": 2,
+          "idx": 2
+        }
+      ],
+      "epoch": 4
+    },
+    {
+      "id": "q7",
+      "blob": "payload/core_blobs/seal_base.pq",
+      "sidecar": "payload/core_blobs/group_sidecar.meta",
+      "epoch": 8
+    },
+    {
+      "id": "w9",
+      "blob": "payload/ladder_blobs/lane_shift.pq",
+      "lanes": [
+        {
+          "grp": 1,
+          "idx": 0
+        },
+        {
+          "grp": 2,
+          "idx": 1
+        }
+      ],
+      "epoch": 6
+    },
+    {
+      "id": "b2",
+      "blob": "payload/ladder_blobs/lane_rotate.pq",
+      "epoch": 5
+    },
+    {
+      "id": "c8",
+      "blob": "payload/core_blobs/seal_base.pq",
+      "sidecar": "payload/core_blobs/group_sidecar.meta",
+      "lanes": [
+        {
+          "grp": 1,
+          "idx": 0
+        },
+        {
+          "grp": 2,
+          "idx": 1
+        }
+      ],
+      "epoch": 10
+    },
+    {
+      "id": "d6",
+      "blob": "payload/ladder_blobs/lane_shift.pq",
+      "lanes": [
+        {
+          "grp": 1,
+          "idx": 1
+        },
+        {
+          "grp": 2,
+          "idx": 0
+        }
+      ],
+      "epoch": 7
+    }
+  ]
+}

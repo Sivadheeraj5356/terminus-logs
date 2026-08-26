@@ -1,0 +1,13 @@
+{
+  "flights": [
+    {
+      "flight_id": "UA951",
+      "carrier": "UA",
+      "origin": "ORD",
+      "destination": "DEN",
+      "departure_utc": "2026-09-01T14:00:00Z",
+      "arrival_utc": "2026-09-01T16:00:00Z",
+      "inventory": {"F": 0, "J": 0, "W": 5, "Y": 5}
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: misnamed-serving
+  annotations:
+    serving.mlp.io/framework: torchserve
+    model.mlp.io/artifact-sha256: sha256:misnamed00
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: misnamed-serving
+  template:
+    metadata:
+      labels:
+        app: misnamed-serving
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: triton
+        model.mlp.io/artifact-sha256: sha256:misnamed00
+    spec:
+      containers:
+        - name: log-collector
+          image: busybox:1.36
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+        - name: triton-serving
+          image: nvcr.io/nvidia/tritonserver:24.01-py3
+          resources:
+            requests:
+              cpu: "2000m"
+              memory: "4096Mi"
+          readinessProbe:
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /v2/health/live
+              port: 8000

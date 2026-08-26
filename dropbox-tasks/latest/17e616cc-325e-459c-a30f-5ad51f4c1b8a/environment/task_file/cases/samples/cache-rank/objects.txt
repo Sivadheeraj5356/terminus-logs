@@ -1,0 +1,1 @@
+OBJECT widget x86_64-linux input - 9 yes 3 -

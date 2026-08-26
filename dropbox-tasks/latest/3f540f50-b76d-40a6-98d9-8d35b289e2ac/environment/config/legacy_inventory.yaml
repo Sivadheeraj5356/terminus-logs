@@ -1,0 +1,2 @@
+inventory_path: /app/data/embedserve_inventory_legacy.db
+denylist_generation: 2023-static

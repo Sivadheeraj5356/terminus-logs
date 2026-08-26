@@ -1,0 +1,7 @@
+foo grey beta colour gray
+line one
+quux cat line hello dog bar
+CamelCase and snake_case
+maybe alpha alpha gray true alpha
+addr 237.255.1.60 hex 0xa4ce token tok_789
+the quick brown fox

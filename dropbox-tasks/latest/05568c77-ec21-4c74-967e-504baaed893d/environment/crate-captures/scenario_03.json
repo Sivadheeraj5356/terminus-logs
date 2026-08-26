@@ -1,0 +1,27 @@
+{
+  "scenario_id": "scenario_03",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [
+    "svc"
+  ],
+  "declared": [
+    {
+      "crate": "svc",
+      "version": "0.2.0",
+      "features": [
+        "http"
+      ],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {
+    "svc": "0.2.5"
+  },
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

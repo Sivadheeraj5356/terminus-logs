@@ -1,0 +1,9 @@
+name_1 foo_bar Baz99 __x
+line cat end foo quux yes
+IP 255.255.255.0 mask
+no false maybe
+hex 0xabc 0xABCDEF zzz
+addr 92.159.27.16 hex 0x3536 token tok_726
+addr 186.37.115.115 hex 0xf34d token tok_640
+hex 0xabc 0xABCDEF zzz
+yes dog maybe no banana

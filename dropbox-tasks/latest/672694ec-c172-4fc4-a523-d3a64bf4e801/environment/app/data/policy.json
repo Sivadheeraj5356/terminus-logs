@@ -1,0 +1,12 @@
+{
+  "maximum_devices": 8,
+  "maximum_attestation_keys": 8,
+  "maximum_reference_policies": 8,
+  "maximum_event_logs": 16,
+  "maximum_events_per_log": 32,
+  "maximum_total_events": 64,
+  "maximum_nonce_challenges": 32,
+  "maximum_requests": 32,
+  "maximum_quote_bytes": 512,
+  "maximum_signature_bytes": 128
+}

@@ -1,0 +1,17 @@
+families=alpha|beta|gamma|delta|epsilon|zeta|eta|iota|kappa|lambda|mu|theta
+risk_floor=184
+risk_target=216
+sentinel_families=eta|iota|kappa|theta|lambda|mu
+min_sentinel_panels=6
+forbidden_pairs=P02:P09|P04:P17|P06:P13|P08:P19|P10:P20|P12:P21|P14:P26|P16:P25|P22:P27|P23:P28
+linked_pairs=P01:P19|P03:P20|P05:P21|P07:P22|P10:P23|P16:P24|P14:P15|P25:P26
+linked_pair_floor=6
+cohort_separation=1
+lane_count=4
+min_lane_panels=2
+max_lane_panels=4
+lane_targets=L1:eta|L2:iota|L3:kappa|L4:theta
+lane_setup_cap=5
+total_setup_cap=14
+setup_target=14
+setup_costs=public:public:4|public:reflex:2|public:rare:6|public:confirm:3|reflex:public:7|reflex:reflex:4|reflex:rare:2|reflex:confirm:6|rare:public:6|rare:reflex:7|rare:rare:4|rare:confirm:2|confirm:public:2|confirm:reflex:6|confirm:rare:3|confirm:confirm:2

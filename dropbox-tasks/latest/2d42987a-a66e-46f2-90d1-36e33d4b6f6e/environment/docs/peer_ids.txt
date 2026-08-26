@@ -1,0 +1,5 @@
+# Primary peer identifiers for emitted reconcile rows.
+peer_a
+peer_a_m
+peer_b
+peer_b_m

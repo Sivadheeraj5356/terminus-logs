@@ -1,0 +1,10 @@
+{
+  "note": "legacy finance notes — not normative; SCHEMA.md is authoritative",
+  "discount_model": "apply commitment before credit",
+  "rate_tie_break": "lexicographic rate_id ascending",
+  "rate_window": "inclusive effective_until",
+  "pool_weight": "list subtotal_microcents",
+  "pledge_burn": "reset remaining to committed_units each event",
+  "event_order": "event_id descending at equal timestamps",
+  "line_item_order": "alphabetical service names"
+}

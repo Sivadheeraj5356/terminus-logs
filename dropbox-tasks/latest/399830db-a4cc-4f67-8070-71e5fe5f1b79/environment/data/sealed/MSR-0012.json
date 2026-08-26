@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0012",
+  "category": "unsupported_variant",
+  "label_ciphertext": "JyBpUay3pg==",
+  "label_nonce": "sgrpeCZfnOsdvx4s",
+  "label_tag": "FwU2EegRRCA+YtRpBy9Cnw==",
+  "signature": "MEQCIC5Y+weD/mzSP1SqHs8uE5KLIHd51WIbTKwritSw/wa0AiALkl/UvW5mwJ5AxXVYj7NLp0mOoDVU++6CXjPRw5kjqA==",
+  "patient_ref": "PT-MU-008"
+}

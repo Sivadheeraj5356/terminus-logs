@@ -1,0 +1,13 @@
+{
+  "desk": "ledger-carry",
+  "rows": [
+    {"slug": "ian", "failures": 3, "active": true, "last_fail": 5999},
+    {"slug": "bob", "failures": 0, "active": true, "last_fail": 0},
+    {"slug": "dave", "failures": 0, "active": true, "last_fail": 0},
+    {"slug": "henry", "failures": 0, "active": true, "last_fail": 0},
+    {"slug": "alice", "failures": 5, "active": false, "last_fail": 200, "note": "phantom_cutover"},
+    {"slug": "kate", "failures": 4, "active": false, "last_fail": 100, "note": "phantom_cutover"},
+    {"slug": "leo", "failures": 3, "active": false, "last_fail": 80, "note": "phantom_cutover"},
+    {"slug": "bob", "failures": 2, "active": false, "last_fail": 10, "note": "superseded_draft"}
+  ]
+}

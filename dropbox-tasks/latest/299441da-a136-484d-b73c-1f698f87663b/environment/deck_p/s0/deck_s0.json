@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "scenarios": {
+    "base_a": {
+      "generation": 1,
+      "argv_status": "nominal",
+      "argv_wire_hex": "090000636465636f795f780600020470685f62070001036172675f61070001036172675f624b090000",
+      "wrapper_hash_hex": "4b515748020000020600777261705f61040600777261705f62",
+      "define_blob": "blob_s0.bin"
+    },
+    "base_b": {
+      "generation": 2,
+      "argv_status": "nominal",
+      "argv_wire_hex": "070001046172675f6319020000",
+      "wrapper_hash_hex": "4b515748010000040600777261705f63",
+      "define_blob": "blob_s0.bin"
+    },
+    "base_c": {
+      "generation": 3,
+      "argv_status": "nominal",
+      "argv_wire_hex": "090000076465636f795f79070001026172675f64070001026172675f653e070000",
+      "wrapper_hash_hex": "4b515748020001060600777261705f64040600777261705f65",
+      "define_blob": "blob_s0.bin"
+    },
+    "reload_r1": {
+      "generation": 4,
+      "argv_status": "nominal",
+      "argv_wire_hex": "090000636465636f795f780600020470685f62070001036172675f61070001036172675f624b090000",
+      "wrapper_hash_hex": "4b515748020000020600777261705f61040600777261705f62",
+      "define_blob": "blob_s0.bin",
+      "reload": true
+    },
+    "native_n1": {
+      "generation": 5,
+      "argv_status": "nominal",
+      "argv_wire_hex": "070001046172675f6319020000",
+      "wrapper_hash_hex": "4b515748010000040600777261705f63",
+      "define_blob": "blob_s0.bin",
+      "native": true
+    },
+    "fork_f1": {
+      "generation": 6,
+      "argv_status": "nominal",
+      "argv_wire_hex": "090000326465636f795f6608000102666f726b5f6108000103666f726b5f6243080000",
+      "wrapper_hash_hex": "4b51574802000004040066775f6105040066775f62",
+      "define_blob": "blob_s0.bin"
+    }
+  }
+}

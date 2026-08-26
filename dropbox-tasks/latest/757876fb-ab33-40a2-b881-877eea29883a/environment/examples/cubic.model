@@ -1,0 +1,8 @@
+# Symmetric cubic branch with two parameter folds.
+kind=cubic
+dimension=1
+start_lambda=0
+start_x=0
+orientation=1,1
+a=1
+bias=0

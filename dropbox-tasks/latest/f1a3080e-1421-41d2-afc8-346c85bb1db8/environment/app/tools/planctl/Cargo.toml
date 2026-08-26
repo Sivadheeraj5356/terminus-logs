@@ -1,0 +1,11 @@
+[package]
+name = "planctl"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+support = { path = "../../support" }
+
+[[bin]]
+name = "planctl"
+path = "src/main.rs"

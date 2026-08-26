@@ -1,0 +1,11 @@
+{
+  "workstation_id": "ws-006",
+  "actions": [
+    "sysctl:kernel.yama.ptrace_scope=0",
+    "sysctl:fs.suid_dumpable=2",
+    "systemd:/etc/systemd/coredump.conf.d/media.conf",
+    "perms:/var/lib/media/scratch:2770:mediauser:media",
+    "fsattr:-i:/var/lib/media/scratch",
+    "fixture-perms:/app/fixtures/mp4/sample.mp4:0644"
+  ]
+}

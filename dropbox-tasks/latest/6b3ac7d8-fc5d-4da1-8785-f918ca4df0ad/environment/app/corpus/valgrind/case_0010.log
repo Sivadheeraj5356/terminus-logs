@@ -1,0 +1,5 @@
+==82767== Memcheck, a memory error detector
+==82767== case: case_0010
+==82767== Invalid read of size 8
+==82767==    at 0x55559ccbb759: aes256_gcm_open (vaultseal.c:220)
+==82767==    by 0x55551eace073: seal_record (vaultseal.c:400)

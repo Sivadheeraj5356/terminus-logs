@@ -1,0 +1,52 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+category = "data-processing"
+difficulty = "hard"
+codebase_size = "small"
+number_of_milestones = 0
+languages = ["go"]
+tags = ["go", "binary-format", "telemetry", "calibration", "fixed-point", "encoding"]
+subcategories = []
+expert_time_estimate_min = 360
+junior_time_estimate_min = 1400
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 420
+
+[environment]
+build_timeout_sec = 600
+docker_flags = []
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+gpu_types = []
+allow_internet = false
+
+[rubric]
+text = """
+Agent parses both ALT1 and ALS2 telemetry containers, including header/footer checks, route-ordered sparse and residual lanes, seed handling, nibble-swapped packed lanes, and segmented minute carryover, +5
+Agent validates malformed lane descriptors and payloads (including bad sparse indexes, broken checksums, impossible widths, and corrupt segment checks), returning non-zero without touching existing outputs, +5
+Agent validates probe output format strictly: all required tokens must be present and parseable, and probe process failure must abort with non-zero status, +5
+Agent validates probe output parsing is consistent under custom probe behaviors, including non-numeric and truncated payloads, +5
+Agent rejects malformed probe anchors that are not exactly 8 hexadecimal digits, +5
+Agent invokes the configured probe for each calibration manifest, ranks by probe score and filename, selects one or two manifests with the documented ensemble weights, and rejects incompatible label or scale-denominator sets, +5
+Agent computes centered features from sensor_order, zone_shift, clip_min, clip_max, and zero using the quality bit mapped from the same source index, +5
+Agent enforces class tie-breaking by lower manifest label index for both winner and runner-up across equal scores, +5
+Agent computes per-batch medians, minute statistics, zone counts, and all scoring terms exactly as documented, including trend, median, pair, and quality-weight contributions, +5
+Agent proves output atomicity regardless of which write path fails first (events first, audit first, or either temp-file write), +5
+Agent rejects any malformed telemetry at parse time before mutating outputs and keeps old outputs present for all malformed-input categories, +5
+Agent validates ALS2 container integrity deeply (segment count consistency, total-rows consistency, and container/segment checksums), +5
+Agent renders events.tsv and audit.json with the exact headers, field order, sorting, and SHA-256 digest required by the contract, +5
+Agent replaces both outputs atomically by staging temporary sibling files first and only swapping the final paths after both writes succeed, +5
+Agent hardcodes probe outputs, manifest choices, or event rows instead of deriving them from the telemetry and calibration inputs, -5
+Agent replaces the parser logic in `main.go` with a canned-output shim or fixed-output script that bypasses the documented decode and scoring flow, -5
+Agent writes `events.tsv` before `audit.json` without rollback or otherwise leaves only one output updated when the second write fails, -5
+Agent mutates protected calibration, telemetry, or probe inputs, or writes outside the documented output paths, -5
+"""

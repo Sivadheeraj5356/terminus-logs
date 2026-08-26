@@ -1,0 +1,23 @@
+func main() -> int {
+  locals 1
+b0:
+  iconst 2
+  newarray int
+  store 0
+  load 0
+  iconst 0
+  iconst 6
+  astore
+  load 0
+  iconst 1
+  iconst 1
+  astore
+  load 0
+  iconst 0
+  aload
+  load 0
+  iconst 1
+  aload
+  iadd
+  ret
+}

@@ -1,0 +1,31 @@
+{
+  "specifications": [
+    {
+      "spec_id": "SPEC-01",
+      "priority": 100,
+      "bands": {
+        "IgG": {"lower": 40.0, "upper": 46.0},
+        "IgM": {"lower": 10.0, "upper": 14.0},
+        "albumin": {"lower": 3.0, "upper": 3.9}
+      }
+    },
+    {
+      "spec_id": "SPEC-02",
+      "priority": 200,
+      "bands": {
+        "IgG": {"lower": 44.0, "upper": 50.0},
+        "IgM": {"lower": 11.0, "upper": 13.0},
+        "albumin": {"lower": 3.2, "upper": 4.0}
+      }
+    },
+    {
+      "spec_id": "SPEC-03",
+      "priority": 300,
+      "bands": {
+        "IgG": {"lower": 37.0, "upper": 42.0},
+        "IgM": {"lower": 12.0, "upper": 15.0},
+        "albumin": {"lower": 2.8, "upper": 3.5}
+      }
+    }
+  ]
+}

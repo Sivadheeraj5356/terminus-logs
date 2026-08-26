@@ -1,0 +1,3 @@
+Independent holdout replays for the rutile privilege analyzer disagree with the platform analysis contract: exported edge inventories, escalation chains, and report attestations do not reconcile across the bundled holdout profile set.
+
+Restore full contract compliance for every holdout profile. Regenerated reports written to `/app/output/escalation_report.json` must include `profile`, `identity_count`, `edges`, `chains`, and `report_digest_hex` and satisfy the platform output schema, channel semantics, ordering invariants, and digest attestation rules. Contract-conformant exports depend on a corrected analyzer implementation; static or hand-authored artifacts alone are insufficient.

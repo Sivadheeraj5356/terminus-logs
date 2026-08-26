@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-109
+ISSUER: CCC
+ISSUED: 1767140800
+EFFECTIVE: 1767139200
+
+CCC posts a separate load-shedding schedule for supply point CCC-500 across the same operating week. The figures quoted elsewhere in the file are indicative and carry no force.
+
+DIRECTIVES:
+SHED CCC-500 WINDOW 2 ENTER 80 EXIT 40
+END DIRECTIVES
+
+Nothing else in this circular is operative.

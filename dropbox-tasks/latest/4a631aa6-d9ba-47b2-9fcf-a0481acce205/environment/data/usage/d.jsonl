@@ -1,0 +1,6 @@
+{"eventId":"D1","workAlias":"mr-alias","territory":"US","medium":"AVOD","capturedAt":"2024-03-12T20:00:00Z","playCount":250,"rerunIndex":0,"revision":1}
+
+{not valid json
+{"eventId":"D2","workAlias":"coastal-echo","territory":"UK","medium":"AVOD","capturedAt":"2024-10-27T01:30:00Z","playCount":100,"rerunIndex":0,"revision":1,"ignoredField":"must not affect output"}
+{"eventId":"D3","workAlias":"coastal-echo","territory":"UK","medium":"THEATRICAL","capturedAt":"2024-02-29T12:00:00Z","playCount":1,"rerunIndex":0,"revision":1}
+{"eventId":"D_BAD","workAlias":"coastal-echo","territory":"UK","medium":"AVOD","capturedAt":"2024-10-27T01:30:00Z","playCount":-1,"rerunIndex":0,"revision":1}

@@ -1,0 +1,31 @@
+{
+  "detectorId": "GS-ORION-17",
+  "coefficientUnits": "keV",
+  "channelPolynomial": {
+    "offset": 2.35,
+    "slope": 1.9974,
+    "quadratic": 5.5e-05
+  },
+  "readNoiseVariance": 4.0,
+  "peaks": {
+    "Cs137": {
+      "energyKeV": 661.657,
+      "sigmaKeV": 1.32,
+      "roiHalfWidthKeV": 9.0,
+      "tailDecayKeV": 4.1
+    },
+    "Na22": {
+      "energyKeV": 511.0,
+      "sigmaKeV": 1.08,
+      "roiHalfWidthKeV": 8.0,
+      "tailDecayKeV": 3.35
+    },
+    "Co60a": {
+      "energyKeV": 1173.228,
+      "sigmaKeV": 1.65,
+      "roiHalfWidthKeV": 11.0,
+      "tailDecayKeV": 5.25
+    }
+  },
+  "normalizationRevision": "orion-live-rate-r4"
+}

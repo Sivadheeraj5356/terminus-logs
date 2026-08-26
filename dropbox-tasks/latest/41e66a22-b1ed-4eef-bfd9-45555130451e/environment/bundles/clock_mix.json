@@ -1,0 +1,17 @@
+{
+  "name": "clock_mix",
+  "steps": [
+    { "op": "seal", "gen": 1, "cred": "c1" },
+    { "op": "latch", "gen": 1 },
+    { "op": "soft_refresh", "now": 1020 },
+    { "op": "compose" },
+    { "op": "soft_refresh", "now": 1040 },
+    { "op": "compose" },
+    { "op": "soft_refresh", "now": 1090 },
+    { "op": "compose" },
+    { "op": "soft_refresh", "now": 1600 },
+    { "op": "compose" }
+  ],
+  "digest_key": "clock_a.bin",
+  "alt_digest_key": "clock_b.bin"
+}

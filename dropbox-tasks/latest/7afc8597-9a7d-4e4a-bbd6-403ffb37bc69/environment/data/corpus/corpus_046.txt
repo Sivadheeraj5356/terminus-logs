@@ -1,0 +1,7 @@
+dog beta no line foobar grey
+punct marks here
+addr 238.219.253.133 hex 0x1a2a token tok_666
+gamma grey bird quux foo colour
+banana bananana ba na
+quux foobar delta foo yes true no
+hello cat gray gray colour

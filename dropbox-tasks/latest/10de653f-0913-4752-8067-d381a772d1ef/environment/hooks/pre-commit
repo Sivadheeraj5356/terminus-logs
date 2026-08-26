@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if [[ -f /app/output/encryption-manifest.json ]]; then
+  /app/bin/reelseal hook-check || exit 1
+fi
+exit 0

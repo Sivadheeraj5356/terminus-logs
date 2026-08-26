@@ -1,0 +1,6 @@
+candidate_host	voter_host	reachable	evidence_epoch
+node-b	node-b	YES	1699
+node-b	node-c	YES	1699
+node-c	node-c	YES	1700
+node-c	node-d	YES	1700
+node-d	node-c	YES	1700

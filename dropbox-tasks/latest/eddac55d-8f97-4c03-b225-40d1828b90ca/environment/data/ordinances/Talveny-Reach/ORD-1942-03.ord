@@ -1,0 +1,9 @@
+ordinance: ORD-1942-03
+jurisdiction: Talveny-Reach
+enacted: 1942-01-07
+effective: 1942-01-01T00:00:00 universal
+standard-offset: +10:00:00
+standard-label: TST
+observance:
+  begin: Jan d1 02:00:00 wall save +01:00:00 label TDT
+  end: Mar lastSun 03:00:00 wall

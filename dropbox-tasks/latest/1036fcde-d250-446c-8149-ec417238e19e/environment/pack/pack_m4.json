@@ -1,0 +1,8 @@
+{
+  "sink_mode": "wrap",
+  "pipe_cap": 8192,
+  "events": [
+    {"kind": "seed", "writer_epoch": "d4aa01", "reader_epoch": "d4aa01"},
+    {"kind": "wave", "bytes": 24576}
+  ]
+}

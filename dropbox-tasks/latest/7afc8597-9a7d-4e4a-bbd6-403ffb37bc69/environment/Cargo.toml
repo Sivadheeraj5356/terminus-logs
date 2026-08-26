@@ -1,0 +1,12 @@
+[package]
+name = "rsx"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "rsx"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+panic = "abort"

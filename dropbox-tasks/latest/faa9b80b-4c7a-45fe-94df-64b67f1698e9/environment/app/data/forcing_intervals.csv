@@ -1,0 +1,13 @@
+case_id,interval_seq,start_time_s,end_time_s,cos_incidence_start,cos_incidence_end,eclipse_profile_id
+case_diurnal,1,0,900,0.0,0.5,none
+case_diurnal,2,900,1800,0.5,1.0,none
+case_diurnal,3,1800,2700,1.0,0.2,none
+case_diurnal,4,2700,3600,0.2,0.0,none
+case_eclipse,1,0,900,0.0,0.5,partial_eclipse
+case_eclipse,2,900,1800,0.5,1.0,partial_eclipse
+case_eclipse,3,1800,2700,1.0,0.2,partial_eclipse
+case_eclipse,4,2700,3600,0.2,0.0,partial_eclipse
+case_gradient,1,0,900,0.0,0.5,none
+case_gradient,2,900,1800,0.5,1.0,none
+case_gradient,3,1800,2700,1.0,0.2,none
+case_gradient,4,2700,3600,0.2,0.0,none

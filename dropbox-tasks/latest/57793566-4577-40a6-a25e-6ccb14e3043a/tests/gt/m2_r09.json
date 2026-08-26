@@ -1,0 +1,137 @@
+{
+  "budgets": {
+    "B": 9,
+    "C": 5
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "B",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 2,
+      "seq": 1
+    },
+    {
+      "op": "finish",
+      "printer": "p2",
+      "seq": 2
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "B",
+      "pages": 3,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 3
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 4
+    },
+    {
+      "op": "resume",
+      "printer": "p2",
+      "seq": 5
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 6
+    },
+    {
+      "job": "j3",
+      "op": "hold",
+      "seq": 7
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 8
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 9
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 10
+    },
+    {
+      "job": "j4",
+      "op": "hold",
+      "seq": 11
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "C",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 12
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 13
+    },
+    {
+      "op": "finish",
+      "printer": "p2",
+      "seq": 14
+    },
+    {
+      "job": "j6",
+      "op": "hold",
+      "seq": 15
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 16
+    },
+    {
+      "job": "j2",
+      "op": "release",
+      "seq": 17
+    },
+    {
+      "job": "j6",
+      "op": "cancel",
+      "seq": 18
+    },
+    {
+      "job": "j2",
+      "op": "hold",
+      "seq": 19
+    }
+  ],
+  "max_faults": 2,
+  "printers": [
+    "p1",
+    "p2"
+  ],
+  "spool": "m2_r09"
+}

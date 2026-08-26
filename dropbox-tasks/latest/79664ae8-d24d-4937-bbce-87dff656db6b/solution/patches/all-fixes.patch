@@ -1,0 +1,301 @@
+diff -ruN a/environment/deps/w3_bind.sh new/environment/deps/w3_bind.sh
+--- a/environment/deps/w3_bind.sh	2026-07-15 13:45:36.009133871 +0530
++++ b/environment/deps/w3_bind.sh	2026-07-15 13:45:46.011245773 +0530
+@@ -22,22 +22,14 @@
+     parts = line.strip().split("\t")
+     if len(parts) == 2:
+         weights[parts[0]] = int(parts[1])
+-hint = {}
+-hint_path = Path("/app/.staging/worker_hint.json")
+-if hint_path.is_file():
+-    hint = json.loads(hint_path.read_text())
+-probe_path = Path("/app/.staging/probe_order.json")
+-if probe_path.is_file():
+-    hint = {"mode": "name", "names": sorted(o["name"] for o in json.loads(Path("/app/.staging/active_wave.json").read_text()).get("objects", []))}
+ wave = json.loads(Path("/app/.staging/active_wave.json").read_text())
+ wave_names = sorted(o["name"] for o in wave["objects"])
+-host_order = sorted(wave_names, key=lambda n: (-weights.get(n, 0), n))
+-chroot_order = sorted(wave_names)
+-if hint.get("mode") == "name":
+-    chroot_order = sorted(hint.get("names", wave_names))
++order = sorted(wave_names, key=lambda n: (-weights[n], n))
++host_order = order
++chroot_order = order
+ Path(host_tbl).write_text(json.dumps({"order": host_order}) + "\n")
+ Path(chroot_tbl).write_text(json.dumps({"order": chroot_order}) + "\n")
+-obj_names = [o["name"] for o in wave["objects"]]
++obj_names = sorted(o["name"] for o in wave["objects"])
+ cmd = [
+     "bash", "-c",
+     'source /app/environment/lib/stamp_k.sh && stamp_digest "$1" "$2" "${@:3}"',
+@@ -47,7 +39,8 @@
+     *obj_names,
+ ]
+ stamp = subprocess.check_output(cmd, text=True).strip()
+-manifest = {"profile": profile, "stamp": stamp, "carry": carry, "objects": wave["objects"]}
++sorted_objs = sorted(wave["objects"], key=lambda o: (-weights[o["name"]], o["name"]))
++manifest = {"profile": profile, "stamp": stamp, "carry": carry, "objects": sorted_objs}
+ Path(manifest_out).write_text(json.dumps(manifest, indent=2) + "\n")
+ PY
+ }
+diff -ruN a/environment/deps/w7_token.sh new/environment/deps/w7_token.sh
+--- a/environment/deps/w7_token.sh	2026-07-15 13:45:36.018462582 +0530
++++ b/environment/deps/w7_token.sh	2026-07-15 13:45:57.709504810 +0530
+@@ -4,19 +4,7 @@
+   python3 - "$wave_path" <<'PY'
+ import json, sys
+ from pathlib import Path
+-wave_path = Path(sys.argv[1])
+-cache_path = Path("/app/.staging/carry_cache.json")
+-if cache_path.is_file():
+-    print(json.loads(cache_path.read_text())["carry"])
+-    sys.exit(0)
+-wave = json.loads(wave_path.read_text())
+-wid = wave.get("wave_id", "")
+-if wid in ("a", "merged"):
+-    carry = "WAVE_A"
+-else:
+-    carry = wave.get("carry_token", "WAVE_A")
+-cache_path.parent.mkdir(parents=True, exist_ok=True)
+-cache_path.write_text(json.dumps({"carry": carry}) + "\n")
+-print(carry)
++wave = json.loads(Path(sys.argv[1]).read_text())
++print(wave.get("carry_token", "WAVE_A"))
+ PY
+ }
+diff -ruN a/environment/deps/w8_stage.sh new/environment/deps/w8_stage.sh
+--- a/environment/deps/w8_stage.sh	2026-07-15 13:45:36.026883164 +0530
++++ b/environment/deps/w8_stage.sh	2026-07-15 13:46:03.429629526 +0530
+@@ -15,16 +15,18 @@
+     objs = {o["name"]: o for o in wave_a["objects"]}
+     for o in wave_b["objects"]:
+         objs[o["name"]] = o
+-    carry = wave_a.get("carry_token", "WAVE_A")
++    carry = wave_b.get("carry_token", "WAVE_B")
+     merged = {"wave_id": "merged", "carry_token": carry, "objects": list(objs.values())}
+     Path("/app/.staging/active_wave.json").write_text(json.dumps(merged, indent=2) + "\n")
+ elif merge_tier == 2:
+     wave_b = json.loads((env / "bundles/waves/wave_b.json").read_text())
+     wave_c = json.loads((env / "bundles/waves/wave_c.json").read_text())
+     objs = {o["name"]: o for o in wave_a["objects"]}
++    for o in wave_b["objects"]:
++        objs[o["name"]] = o
+     for o in wave_c["objects"]:
+         objs[o["name"]] = o
+-    carry = wave_b.get("carry_token", "WAVE_B")
++    carry = wave_c.get("carry_token", "WAVE_C")
+     merged = {"wave_id": "merged_t2", "carry_token": carry, "objects": list(objs.values())}
+     Path("/app/.staging/active_wave.json").write_text(json.dumps(merged, indent=2) + "\n")
+ else:
+diff -ruN a/environment/driver/exec_w0.sh new/environment/driver/exec_w0.sh
+--- a/environment/driver/exec_w0.sh	2026-07-15 13:45:36.033943349 +0530
++++ b/environment/driver/exec_w0.sh	2026-07-15 13:46:08.983732670 +0530
+@@ -32,6 +32,12 @@
+ CTX_KEY="${PROFILE}:${MERGE_TIER}"
+ 
+ mkdir -p /app/output /app/.staging
++if [[ -f "$SESSION_CTX" ]]; then
++  OLD_KEY="$(cat "$SESSION_CTX")"
++  if [[ "$OLD_KEY" != "$CTX_KEY" ]]; then
++    rm -f /app/.staging/carry_cache.json
++  fi
++fi
+ echo "$CTX_KEY" > "$SESSION_CTX"
+ if [[ ! -f /app/.staging/epoch_ledger.json ]]; then
+   cp -f "${ENV_ROOT}/state/epoch_ledger.json" /app/.staging/epoch_ledger.json 2>/dev/null || true
+@@ -45,11 +51,7 @@
+   WAVE_REL="bundles/waves/wave_c.json"
+ fi
+ 
+-LAST_PROFILE="/app/.staging/last_profile.txt"
+-if [[ ! -f "$LAST_PROFILE" ]] || [[ "$(cat "$LAST_PROFILE")" != "$PROFILE" ]] || [[ ! -f /app/.staging/active_wave.json ]]; then
+-  fn_wave_stage "$WAVE_REL" "$MERGE_TIER"
+-  echo "$PROFILE" > "$LAST_PROFILE"
+-fi
++fn_wave_stage "$WAVE_REL" "$MERGE_TIER"
+ 
+ HOST_IDX="/app/.staging/host_index.json"
+ CHROOT_IDX="/app/.staging/chroot_index.json"
+@@ -60,7 +62,7 @@
+ JOURNAL="/app/.staging/phase_journal.json"
+ fn_r2 "$WAVE_REL" "$JOURNAL"
+ 
+-fn_r3 "$JOURNAL" 0
++fn_r3 "$JOURNAL" 1
+ 
+ cp "$JOURNAL" /app/output/phase_journal.json
+ fn_r4 "$MANIFEST_OUT" /app/output/phase_journal.json /app/output/loader_trace.json
+diff -ruN a/environment/emit/metric_k.sh new/environment/emit/metric_k.sh
+--- a/environment/emit/metric_k.sh	2026-07-15 13:45:36.040420921 +0530
++++ b/environment/emit/metric_k.sh	2026-07-15 13:45:48.316244506 +0530
+@@ -17,7 +17,7 @@
+     parts = line.strip().split("\t")
+     if len(parts) == 2:
+         weights[parts[0]] = int(parts[1])
+-read_order = sorted(weights.keys())
++read_order = sorted(weights.keys(), key=lambda n: (-weights[n], n))
+ hook_state_path = Path("/app/.staging/hook_state.json")
+ commits = {}
+ if hook_state_path.is_file():
+@@ -29,8 +29,6 @@
+ if journal_path.is_file():
+     for seg in json.loads(journal_path.read_text()).get("segments", []):
+         journal_union.update(seg.get("objects", []))
+-# warm inherit looks at blob lane; cold still pins object-lane commits
+-inherit_lane = "B" if profile == "warm" else "O"
+ rows = []
+ for name in read_order:
+     lane = next((o["lane"] for o in manifest["objects"] if o["name"] == name), "O")
+@@ -40,12 +38,11 @@
+         metric = 0
+     elif name in required and commits.get(lane, False):
+         metric = 1
+-    elif name in required and lane == "O" and commits.get(inherit_lane, False):
++    elif name in required and lane == "O" and commits.get("B", False):
+         metric = 1
+     else:
+         metric = 0
+     rows.append({"object": name, "avail_metric": metric, "lane": lane})
+-rows.sort(key=lambda r: r["object"])
+ print(json.dumps(rows))
+ PY
+ }
+diff -ruN a/environment/emit/trace_w4.sh new/environment/emit/trace_w4.sh
+--- a/environment/emit/trace_w4.sh	2026-07-15 13:45:36.046881979 +0530
++++ b/environment/emit/trace_w4.sh	2026-07-15 13:46:11.908296428 +0530
+@@ -13,13 +13,14 @@
+ env = Path("/app/environment")
+ profiles = json.loads((env / "data/profiles.json").read_text())
+ profile = manifest.get("profile", "")
++required = set(profiles["profiles"][profile]["required"])
+ weights_path = env / profiles["profiles"][profile]["weights"]
+ weights = {}
+ for line in weights_path.read_text().splitlines():
+     parts = line.strip().split("\t")
+     if len(parts) == 2:
+         weights[parts[0]] = int(parts[1])
+-read_order = sorted(weights.keys())
++read_order = sorted(weights.keys(), key=lambda n: (-weights[n], n))
+ proc = subprocess.run(
+     ["bash", "-c", f'source /app/environment/emit/metric_k.sh && fn_compute_trace_rows "{sys.argv[1]}" "{profile}"'],
+     check=True,
+@@ -27,9 +28,10 @@
+     text=True,
+ )
+ rows = json.loads(proc.stdout)
++status = "CLEAN" if all(r["avail_metric"] == 1 for r in rows if r["object"] in required) else "DIRTY"
+ payload = {
+     "profile": profile,
+-    "status_token": "CLEAN",
++    "status_token": status,
+     "read_order": read_order,
+     "rows": rows,
+ }
+diff -ruN a/environment/frame/sched_w2.sh new/environment/frame/sched_w2.sh
+--- a/environment/frame/sched_w2.sh	2026-07-15 13:45:36.056327523 +0530
++++ b/environment/frame/sched_w2.sh	2026-07-15 13:46:13.546214809 +0530
+@@ -11,7 +11,7 @@
+ for seg in journal.get("segments", []):
+     blob_epoch = int(seg.get("blob_epoch", 0))
+     hook_gen = int(seg.get("hook_gen", 0))
+-    if blob_epoch + 1 >= hook_gen:
++    if blob_epoch == hook_gen:
+         commits.append({"lane": seg["lane"], "hook_epoch": hook_epoch, "committed": True})
+     else:
+         commits.append({"lane": seg["lane"], "hook_epoch": hook_epoch, "committed": False})
+diff -ruN a/environment/lane/phase_w1.sh new/environment/lane/phase_w1.sh
+--- a/environment/lane/phase_w1.sh	2026-07-15 13:45:36.064075764 +0530
++++ b/environment/lane/phase_w1.sh	2026-07-15 13:45:54.152611558 +0530
+@@ -5,7 +5,8 @@
+   python3 - "$wave_json" "$journal_out" <<'PY'
+ import json, subprocess, sys
+ from pathlib import Path
+-wave_path = Path("/app/environment") / sys.argv[1]
++staging_wave = Path("/app/.staging/active_wave.json")
++wave_path = staging_wave if staging_wave.is_file() else Path("/app/environment") / sys.argv[1]
+ out_path = Path(sys.argv[2])
+ wave = json.loads(wave_path.read_text())
+ env = Path("/app/environment")
+@@ -31,26 +32,22 @@
+ segments = []
+ hook_gen = 1
+ blob_epoch = 0
+-lane_rank = {"O": 0, "B": 1}
+-lanes_present = sorted({o["lane"] for o in wave["objects"]}, key=lambda l: lane_rank[l])
+-for lane in lanes_present:
++lane_seq = ["B", "O"]
++for lane in lane_seq:
+     objs = [o["name"] for o in wave["objects"] if o["lane"] == lane]
+     objs = sorted(objs, key=lambda n: (rank.get(n, 10**9), n))
+     if not objs:
+         continue
+     if lane == "B":
+         blob_epoch += 1
+-    seg_hook_gen = blob_epoch if lane == "B" else hook_gen
+     segments.append({
+         "lane": lane,
+         "epoch": len(segments) + 1,
+         "blob_epoch": blob_epoch,
+-        "hook_gen": seg_hook_gen,
++        "hook_gen": hook_gen,
+         "objects": objs,
+     })
+     hook_gen += 1
+-    if lane == "B":
+-        hook_gen = blob_epoch
+ Path(out_path).write_text(json.dumps({"segments": segments}, indent=2) + "\n")
+ PY
+ }
+diff -ruN a/environment/lib/rev_k.sh new/environment/lib/rev_k.sh
+--- a/environment/lib/rev_k.sh	2026-07-15 13:45:36.071888590 +0530
++++ b/environment/lib/rev_k.sh	2026-07-15 13:46:14.843887096 +0530
+@@ -11,8 +11,11 @@
+ ledger = json.loads(ledger_path.read_text())
+ manifest = json.loads(manifest_path.read_text())
+ stamp = manifest.get("stamp", "")
+-ledger["rev"] = int(ledger.get("rev", 0)) + 1
+-ledger["last_stamp"] = stamp
++if stamp == ledger.get("last_stamp"):
++    pass
++else:
++    ledger["rev"] = int(ledger.get("rev", 0)) + 1
++    ledger["last_stamp"] = stamp
+ ledger_path.write_text(json.dumps(ledger, indent=2) + "\n")
+ PY
+ }
+diff -ruN a/environment/lib/stamp_k.sh new/environment/lib/stamp_k.sh
+--- a/environment/lib/stamp_k.sh	2026-07-15 13:45:36.081247230 +0530
++++ b/environment/lib/stamp_k.sh	2026-07-15 13:45:40.669035205 +0530
+@@ -6,8 +6,8 @@
+   python3 - "$profile" "$carry" "$@" <<'PY'
+ import hashlib, sys
+ profile, carry = sys.argv[1], sys.argv[2]
+-names = list(sys.argv[3:])
+-body = profile + ":" + ",".join(names) + ":" + carry
++names = sorted(sys.argv[3:])
++body = profile + ":" + ";".join(names) + ":" + carry
+ print(hashlib.sha256(body.encode()).hexdigest()[:16])
+ PY
+ }
+@@ -22,7 +22,7 @@
+     parts = line.strip().split("\t")
+     if len(parts) == 2:
+         weights[parts[0]] = int(parts[1])
+-names = sorted(weights.keys())
++names = sorted(weights.keys(), key=lambda n: (-weights[n], n))
+ print("\n".join(names))
+ PY
+ }
+diff -ruN a/environment/work/run_w5.sh new/environment/work/run_w5.sh
+--- a/environment/work/run_w5.sh	2026-07-15 13:45:36.089390700 +0530
++++ b/environment/work/run_w5.sh	2026-07-15 13:45:50.984831110 +0530
+@@ -23,7 +23,7 @@
+     parts = line.strip().split("\t")
+     if len(parts) == 2:
+         names.append(parts[0])
+-mode = "weight" if profile == "warm" else "name"
+-hint = {"mode": mode, "names": sorted(names), "profile": profile}
++mode = "weight"
++hint = {"mode": mode, "names": names, "profile": profile}
+ Path("/app/.staging/worker_hint.json").write_text(json.dumps(hint, indent=2) + "\n")
+ PY

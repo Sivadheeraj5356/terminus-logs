@@ -1,0 +1,6 @@
+{
+  "policy_version": "2024-Q2",
+  "ledger_cutoff": "2024-06-01 00:00:00",
+  "registry_base_url": "http://127.0.0.1:8080",
+  "training_output_dir": "/app/output"
+}

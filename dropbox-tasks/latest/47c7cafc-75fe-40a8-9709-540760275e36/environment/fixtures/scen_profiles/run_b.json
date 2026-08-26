@@ -1,0 +1,4 @@
+{
+  "undo_after_bump": true,
+  "expect_gen_rewind": true
+}

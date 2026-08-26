@@ -1,0 +1,8 @@
+family_id=FAM-HID-COLL-B
+chip_id=HID-COL-2
+alias=SHARED-TAG
+profile_id=CAL-STD
+nominal_hz=6100000
+readings:
+segment: core
+1 25.0 6100000.0

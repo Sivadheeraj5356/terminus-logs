@@ -1,0 +1,31 @@
+{
+  "panel_mandarin_cloud_suzhou": [
+    {"holder": "own_hart", "issued_year": 1912, "expires_year": 1950, "transfers_with_sale": true},
+    {"holder": "own_muse", "issued_year": 1955, "expires_year": 2025, "transfers_with_sale": false}
+  ],
+  "panel_lotus_brocade_suzhou": [
+    {"holder": "own_kent", "issued_year": 1920, "expires_year": 2030, "transfers_with_sale": false}
+  ],
+  "panel_nishijin_karaori_kyoto": [
+    {"holder": "own_pazzi", "issued_year": 1908, "expires_year": 1965, "transfers_with_sale": true},
+    {"holder": "own_serra", "issued_year": 1970, "expires_year": 2028, "transfers_with_sale": false}
+  ],
+  "panel_banarasi_jangla_varanasi": [
+    {"holder": "own_north", "issued_year": 1900, "expires_year": 1960, "transfers_with_sale": true},
+    {"holder": "exp_kyoto_school", "issued_year": 1962, "expires_year": 2015, "transfers_with_sale": true},
+    {"holder": "exp_isfahan_caravan", "issued_year": 2012, "expires_year": 2035, "transfers_with_sale": false}
+  ],
+  "panel_lyon_velours_exchange": [
+    {"holder": "exp_suzhou_guild", "issued_year": 1790, "expires_year": 1812, "transfers_with_sale": true},
+    {"holder": "exp_varanasi_house", "issued_year": 1815, "expires_year": 1840, "transfers_with_sale": false},
+    {"holder": "exp_lyon_merchant", "issued_year": 1840, "expires_year": 2025, "transfers_with_sale": false}
+  ],
+  "panel_isfahan_khata_persian": [
+    {"holder": "exp_isfahan_atelier", "issued_year": 1902, "expires_year": 1960, "transfers_with_sale": true},
+    {"holder": "exp_persian_guild", "issued_year": 1958, "expires_year": 2030, "transfers_with_sale": false}
+  ],
+  "panel_genoa_brocade_merchant": [
+    {"holder": "exp_genoa_society", "issued_year": 1942, "expires_year": 1995, "transfers_with_sale": true},
+    {"holder": "exp_genoa_deposit", "issued_year": 1990, "expires_year": 2030, "transfers_with_sale": false}
+  ]
+}

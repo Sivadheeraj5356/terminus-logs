@@ -1,0 +1,11 @@
+{
+  "conflicts": [
+    {
+      "package": "backoffcore",
+      "range": "=2.0.0"
+    }
+  ],
+  "name": "backoffpolicy",
+  "requires": [],
+  "version": "2.1.0"
+}

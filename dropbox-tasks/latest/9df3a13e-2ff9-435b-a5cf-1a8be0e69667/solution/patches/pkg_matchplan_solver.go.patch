@@ -1,0 +1,85 @@
+--- a/pkg/matchplan/solver.go
++++ b/pkg/matchplan/solver.go
+@@ -2,6 +2,7 @@
+ 
+ import (
+ 	"sort"
++	"strings"
+ 
+ 	"waxlaneboard/pkg/rinklayout"
+ 	"waxlaneboard/pkg/surfaceband"
+@@ -25,29 +26,58 @@
+ 		}
+ 		legal = append(legal, lot)
+ 	}
+-	sort.Slice(legal, func(i, j int) bool { return legal[i].Score > legal[j].Score })
+-	usedLanes := map[string]bool{}
+-	usedGroups := map[string]bool{}
+-	var accepted []diskset.Lot
+-	legalIDs := make([]string, 0, len(legal))
+-	for _, lot := range legal {
+-		legalIDs = append(legalIDs, lot.ID)
+-		clash := false
+-		for _, lid := range lot.Lanes {
+-			if usedLanes[lid] {
+-				clash = true
++	n := len(legal)
++	bestScore := -1
++	bestKey := ""
++	var bestMask int
++	for mask := 0; mask < (1 << n); mask++ {
++		usedLanes := map[string]bool{}
++		usedGroups := map[string]bool{}
++		ok := true
++		score := 0
++		var ids []string
++		for i := 0; i < n; i++ {
++			if mask&(1<<i) == 0 {
++				continue
++			}
++			lot := legal[i]
++			clash := false
++			for _, lid := range lot.Lanes {
++				if usedLanes[lid] {
++					clash = true
++					break
++				}
++			}
++			if clash || surfaceband.MutexClash(lot.Lanes, usedGroups, lanes) {
++				ok = false
+ 				break
+ 			}
++			for _, lid := range lot.Lanes {
++				usedLanes[lid] = true
++				usedGroups[lanes[lid].MutexGroup] = true
++			}
++			score += lot.Score
++			ids = append(ids, lot.ID)
+ 		}
+-		if clash || surfaceband.MutexClash(lot.Lanes, usedGroups, lanes) {
++		if !ok {
+ 			continue
+ 		}
+-		for _, lid := range lot.Lanes {
+-			usedLanes[lid] = true
+-			usedGroups[lanes[lid].MutexGroup] = true
++		sort.Strings(ids)
++		key := strings.Join(ids, ",")
++		if score > bestScore || (score == bestScore && (bestKey == "" || key < bestKey)) {
++			bestScore = score
++			bestKey = key
++			bestMask = mask
+ 		}
+-		accepted = append(accepted, lot)
+ 	}
++	var accepted []diskset.Lot
++	legalIDs := make([]string, 0, n)
++	for i := 0; i < n; i++ {
++		legalIDs = append(legalIDs, legal[i].ID)
++		if bestMask&(1<<i) != 0 {
++			accepted = append(accepted, legal[i])
++		}
++	}
+ 	sort.Slice(accepted, func(i, j int) bool { return accepted[i].ID < accepted[j].ID })
+ 	return Decision{Accepted: accepted, Illegal: illegal, LegalIDs: legalIDs}
+ }

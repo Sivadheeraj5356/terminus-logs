@@ -1,0 +1,16 @@
+# A conditional branch has two successors: the taken target and the fall-through
+# block. `cfg --func main` should list both out-edges of the block ending in
+# br_if, and every block should be reachable.
+func main() -> int {
+b0:
+  iconst 1
+  iconst 2
+  icmp
+  br_if b2
+b1:
+  iconst 10
+  ret
+b2:
+  iconst 20
+  ret
+}

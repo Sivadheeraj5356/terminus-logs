@@ -1,0 +1,6 @@
+[tool]
+name = "arctl"
+root = "/app/environment"
+
+[output]
+path = "/app/output/rule_lineage.json"

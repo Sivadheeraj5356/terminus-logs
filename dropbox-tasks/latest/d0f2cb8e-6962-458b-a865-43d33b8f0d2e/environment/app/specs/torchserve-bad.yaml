@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: torchserve-bad
+  annotations:
+    serving.mlp.io/framework: custom-onnx
+    model.mlp.io/artifact-sha256: sha256:deadbeefcafe
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: torchserve-bad
+  template:
+    metadata:
+      labels:
+        app: torchserve-bad
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: custom-onnx
+        model.mlp.io/artifact-sha256: sha256:deadbeefcafe
+    spec:
+      containers:
+        - name: model-server
+          image: pytorch/torchserve:0.8.2
+          resources:
+            requests:
+              cpu: "1800m"
+              memory: "3584Mi"
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8080

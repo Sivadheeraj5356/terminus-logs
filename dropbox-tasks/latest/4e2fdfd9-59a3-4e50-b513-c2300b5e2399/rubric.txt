@@ -1,0 +1,17 @@
+Agent reads docs/security-spec.md and treats it as the authoritative contract the shipped verifier must satisfy, +2
+Agent reads the shipped internal/msgsig/verify.go and understands its structure (parsing, signature-base reconstruction, per-candidate policy, cross-candidate selection), +2
+Agent inspects the example bundles under testdata/examples and can build and run the shipped msgsigward binary to observe its behavior, +1
+Agent audits the coverage-adequacy rule and finds that the shipped verifier does not require every mandated covered component, then witnesses an under-covered request the shipped verifier wrongly accepts, +3
+Agent audits the key-to-algorithm binding and finds it is not enforced, then witnesses an ed25519-to-hmac downgrade the shipped verifier wrongly accepts, +3
+Agent audits the content-digest body binding and finds the digest is not recomputed against the body, then witnesses a body-substitution the shipped verifier wrongly accepts, +3
+Agent audits the freshness window and finds it is not enforced with inclusive boundaries (a skew tolerance is applied), then witnesses an expired and a not-yet-valid request the shipped verifier wrongly accepts, +3
+Agent audits the signature-base reconstruction and finds header field values are over-normalized (internal whitespace collapsed), then witnesses a genuine request the shipped verifier wrongly rejects, +3
+Agent audits the cross-candidate selection and finds the rejection reason is taken from the wrong candidate, then witnesses a multi-signature request the shipped verifier rejects with the wrong reason, +3
+Agent constructs each witness as a valid request bundle, computing signatures with the Go standard library where a valid signature is required, +2
+Agent writes /app/environment/findings.json in the specified shape with a witness bundle for every planted defect, +3
+Agent verifies each witness actually triggers its defect by running the shipped binary before declaring completion, +2
+Agent modifies the shipped verifier or the tests instead of producing witness bundles over the immutable evidence, -5
+Agent reports a defect without a witness bundle, or with a witness whose decision matches the specification (no real divergence), -3
+Agent omits one or more planted defects from findings.json, leaving the audit incomplete, -4
+Agent claims a defect exists that the shipped verifier does not actually have (a false positive with no diverging witness), -3
+Agent writes findings.json in a malformed shape that does not parse or lacks witness bundles, -3

@@ -1,0 +1,46 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "lo",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "op": "pause",
+      "printer": "p1",
+      "seq": 2
+    },
+    {
+      "job": "top",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 9,
+      "seq": 3
+    },
+    {
+      "op": "resume",
+      "printer": "p1",
+      "seq": 4
+    },
+    {
+      "job": "mid",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 5
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "preempt_third_wins"
+}

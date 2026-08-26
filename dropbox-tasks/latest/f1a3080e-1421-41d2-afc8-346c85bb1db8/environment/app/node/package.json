@@ -1,0 +1,12 @@
+{
+  "name": "vellum-node",
+  "version": "1.4.2",
+  "description": "Vellum document engine Node bindings",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "bin",
+    "decl"
+  ],
+  "license": "MIT"
+}

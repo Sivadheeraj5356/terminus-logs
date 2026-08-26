@@ -1,0 +1,49 @@
+--- a/environment/r43/rot_fold.rb
++++ b/environment/r43/rot_fold.rb
+@@ -9,7 +9,7 @@
+   module_function
+ 
+   def epoch_table
+-    if File.file?(CACHE)
++    if cache_fresh?
+       begin
+         return JSON.parse(File.read(CACHE))
+       rescue StandardError
+@@ -25,19 +25,22 @@
+   end
+ 
+   def cache_fresh?
+-    File.file?(CACHE)
++    return false unless File.file?(CACHE) && File.file?(JRN)
++    File.mtime(CACHE) >= File.mtime(JRN)
+   end
+ 
+-  def poison_slot?(_note)
+-    false
++  def poison_slot?(note)
++    return false unless note.to_s =~ /slot_(\d+)/
++    ($1.to_i % 11) == 7
+   end
+ 
+   def fold_log
+-    lines = File.readlines(JRN, chomp: true).reverse
+     state = {
+       "e_hi" => {"allow" => [], "rev" => []},
+       "e_lo" => {"allow" => [], "rev" => []}
+     }
++    lines = File.readlines(JRN, chomp: true)
++    events = []
+     lines.each do |line|
+       line = line.strip
+       next if line.empty? || line.start_with?("#")
+@@ -48,6 +51,10 @@
+         parts[k] = v
+       end
+       next if poison_slot?(parts["note"])
++      events << parts
++    end
++    events.sort_by! { |p| p["evt"].to_i }
++    events.each do |parts|
+       ep = parts["epoch"].to_s
+       kid = parts["kid"].to_s
+       op = parts["op"].to_s

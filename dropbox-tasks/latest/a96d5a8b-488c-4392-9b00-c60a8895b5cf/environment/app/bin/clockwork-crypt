@@ -1,0 +1,79 @@
+#!/bin/bash
+set -euo pipefail
+
+DB_PATH="/app/state/world.db"
+if [[ ! -f "$DB_PATH" ]]; then
+    echo "world database is missing; run /app/bin/rebuild-world" >&2
+    exit 1
+fi
+
+valid_id() {
+    [[ "$1" =~ ^[a-z_]+$ ]]
+}
+
+usage() {
+    echo "usage: clockwork-crypt summary | room ID | item ID | npc ID | clue ID | beat POSITION | route START DIRECTION... | circuit"
+}
+
+command="${1:-}"
+case "$command" in
+    summary)
+        sqlite3 -batch -noheader "$DB_PATH" \
+            "SELECT 'rooms=' || (SELECT count(*) FROM rooms) || '|items=' || (SELECT count(*) FROM items) || '|locks=' || (SELECT count(*) FROM locks) || '|npcs=' || (SELECT count(*) FROM npcs) || '|clues=' || (SELECT count(*) FROM clues) || '|beats=' || (SELECT count(*) FROM beats);"
+        ;;
+    room)
+        id="${2:-}"
+        valid_id "$id" || { usage >&2; exit 2; }
+        result="$(sqlite3 -batch -noheader "$DB_PATH" "SELECT id || '|' || name || '|north=' || COALESCE(north, '') || '|east=' || COALESCE(east, '') || '|south=' || COALESCE(south, '') || '|west=' || COALESCE(west, '') FROM rooms WHERE id = '$id';")"
+        [[ -n "$result" ]] || { echo "unknown room: $id" >&2; exit 3; }
+        echo "$result"
+        ;;
+    item)
+        id="${2:-}"
+        valid_id "$id" || { usage >&2; exit 2; }
+        result="$(sqlite3 -batch -noheader "$DB_PATH" "SELECT id || '|' || display_name || '|room=' || room_id || '|unlocks=' || unlocks || '|reusable=' || reusable FROM items WHERE id = '$id';")"
+        [[ -n "$result" ]] || { echo "unknown item: $id" >&2; exit 3; }
+        echo "$result"
+        ;;
+    npc)
+        id="${2:-}"
+        valid_id "$id" || { usage >&2; exit 2; }
+        result="$(sqlite3 -batch -noheader "$DB_PATH" "SELECT id || '|room=' || room_id || '|gate=' || gate_flag || '|dialogue=' || dialogue_flag || '|grants=' || grants_flag FROM npcs WHERE id = '$id';")"
+        [[ -n "$result" ]] || { echo "unknown npc: $id" >&2; exit 3; }
+        echo "$result"
+        ;;
+    clue)
+        id="${2:-}"
+        valid_id "$id" || { usage >&2; exit 2; }
+        result="$(sqlite3 -batch -noheader "$DB_PATH" "SELECT id || '|source=' || source || '|position=' || position || '|rotation=' || rotation || '|matte=' || upper(matte) FROM clues WHERE id = '$id';")"
+        [[ -n "$result" ]] || { echo "unknown clue: $id" >&2; exit 3; }
+        echo "$result"
+        ;;
+    beat)
+        position="${2:-}"
+        [[ "$position" =~ ^([1-9]|1[0-2])$ ]] || { usage >&2; exit 2; }
+        result="$(sqlite3 -batch -noheader "$DB_PATH" "SELECT position || '|room=' || room_id || '|action=' || action || '|subject=' || subject_id || '|requires=' || requires_flag || '|emits=' || emits_flag FROM beats WHERE position = $position;")"
+        [[ -n "$result" ]] || { echo "unknown beat: $position" >&2; exit 3; }
+        echo "$result"
+        ;;
+    circuit)
+        [[ $# -eq 1 ]] || { usage >&2; exit 2; }
+        lua5.4 /app/game/keeper_circuit.lua "$DB_PATH" vestibule keeper
+        ;;
+    route)
+        current="${2:-}"
+        valid_id "$current" || { usage >&2; exit 2; }
+        shift 2 || true
+        for direction in "$@"; do
+            case "$direction" in north|east|south|west) ;; *) echo "invalid direction: $direction" >&2; exit 2 ;; esac
+            next="$(sqlite3 -batch -noheader "$DB_PATH" "SELECT $direction FROM rooms WHERE id = '$current';")"
+            [[ -n "$next" ]] || { echo "no $direction exit from $current" >&2; exit 4; }
+            current="$next"
+        done
+        echo "$current"
+        ;;
+    *)
+        usage >&2
+        exit 2
+        ;;
+esac

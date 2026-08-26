@@ -1,0 +1,33 @@
+{
+  "expedition_id": "expedition-sigma",
+  "reports": [
+    {
+      "report_id": "sg-001",
+      "dive_lane": "deep_trench",
+      "confidence_rank": 1,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    }
+  ],
+  "observations": [
+    {
+      "obs_id": "obs-s01",
+      "dive_lane": "deep_trench",
+      "timestamp_utc": "2024-05-01T06:00:00Z",
+      "obs_type": "HYDROTHERMAL_VENT",
+      "depth_m": 4200,
+      "feature_code": "SIGMA-V",
+      "instrument_id": "probe-x"
+    },
+    {
+      "obs_id": "obs-s02",
+      "dive_lane": "deep_trench",
+      "timestamp_utc": "2024-05-01T07:00:00Z",
+      "obs_type": "SEAFLOOR_SAMPLE",
+      "depth_m": 4100,
+      "feature_code": "SIGMA-S",
+      "instrument_id": "probe-y"
+    }
+  ]
+}

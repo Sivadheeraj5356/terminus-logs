@@ -1,0 +1,35 @@
+schema_version: apexora-trunk-assign-1
+campus: campus-apac-tyo
+trunk_links:
+  - id: TRK-0059
+    a: acc-apac-tyo-bldg1-01
+    b: dist-apac-tyo-main-01
+    allowed: selective
+  - id: TRK-0060
+    a: acc-apac-tyo-bldg1-02
+    b: dist-apac-tyo-main-01
+    allowed: selective
+  - id: TRK-0061
+    a: acc-apac-tyo-bldg1-03
+    b: dist-apac-tyo-main-01
+    allowed: selective
+  - id: TRK-0062
+    a: acc-apac-tyo-bldg1-04
+    b: dist-apac-tyo-main-01
+    allowed: selective
+  - id: TRK-0063
+    a: acc-apac-tyo-bldg1-05
+    b: dist-apac-tyo-main-01
+    allowed: selective
+  - id: TRK-0064
+    a: acc-apac-tyo-bldg1-06
+    b: dist-apac-tyo-main-01
+    allowed: selective
+  - id: TRK-0065
+    a: dist-apac-tyo-main-01
+    b: core-apac-tyo-01
+    allowed: selective
+  - id: TRK-0066
+    a: dist-apac-tyo-main-02
+    b: core-apac-tyo-01
+    allowed: selective

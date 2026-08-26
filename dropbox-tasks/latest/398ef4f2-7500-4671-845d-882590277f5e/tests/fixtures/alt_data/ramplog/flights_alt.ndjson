@@ -1,0 +1,5 @@
+{"cycle_id":"ALT0001","carrier_iata":"WN","gate_zone":"B_MAIN","body_code":"NB","mtow_tons":74,"gate_assigned_ts":"2026-05-15T09:30:00Z","actual_inblock_ts":"2026-05-15T09:40:00Z","dwell_minutes":28,"status":"NORMAL","movement":"ARR"}
+{"cycle_id":"ALT0002","carrier_iata":"WN","gate_zone":"B_MAIN","body_code":"NB","mtow_tons":74,"gate_assigned_ts":"2026-05-15T22:30:00Z","actual_inblock_ts":"2026-05-15T22:45:00Z","dwell_minutes":30,"status":"NORMAL","movement":"DEP"}
+{"cycle_id":"ALT0003","carrier_iata":"WN","gate_zone":"B_MAIN","body_code":"WB","mtow_tons":75.5,"gate_assigned_ts":"2026-05-15T11:00:00Z","actual_inblock_ts":"2026-05-15T11:15:00Z","dwell_minutes":40,"status":"NORMAL","movement":"ARR"}
+{"cycle_id":"ALT0004","carrier_iata":"WN","gate_zone":"B_MAIN","body_code":"NB","mtow_tons":74,"gate_assigned_ts":"2026-04-30T23:50:00Z","actual_inblock_ts":"2026-05-01T00:10:00Z","dwell_minutes":24,"status":"NORMAL","movement":"ARR"}
+{"cycle_id":"ALT0005","carrier_iata":"WN","gate_zone":"B_MAIN","body_code":"NB","mtow_tons":74,"gate_assigned_ts":"2026-05-15T13:00:00Z","actual_inblock_ts":"2026-05-15T13:15:00Z","dwell_minutes":30,"status":"HOLDOVER","movement":"ARR"}

@@ -1,0 +1,53 @@
+{
+  "graph_id": "fan_in",
+  "jobs": [
+    {
+      "job_id": "root",
+      "duration": 3,
+      "deps": [],
+      "input_parts": [],
+      "output_part": 0,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "arm_a",
+      "duration": 3,
+      "deps": ["root"],
+      "input_parts": [0],
+      "output_part": 1,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "arm_b",
+      "duration": 3,
+      "deps": ["root"],
+      "input_parts": [0],
+      "output_part": 2,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "arm_c",
+      "duration": 3,
+      "deps": ["root"],
+      "input_parts": [0],
+      "output_part": 3,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "arm_d",
+      "duration": 3,
+      "deps": ["root"],
+      "input_parts": [0],
+      "output_part": 4,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "bundle",
+      "duration": 3,
+      "deps": ["arm_a", "arm_b", "arm_c", "arm_d"],
+      "input_parts": [1, 2, 3, 4],
+      "output_part": 5,
+      "submit_tick": 0
+    }
+  ]
+}

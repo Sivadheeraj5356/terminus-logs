@@ -1,0 +1,8 @@
+{
+  "status": "interrupted",
+  "expected_tile_order": ["T010","T020","T040"],
+  "committed_tiles": ["T010","T020","T040"],
+  "resumed_tiles": ["T040"],
+  "rolled_back_records": [],
+  "published_artifacts": ["mosaic.fits","tile-order.manifest","mosaic-contours.svg"]
+}

@@ -1,0 +1,15 @@
+== Mercury Spring [toxic] ==
+Omen: The deep remembers.
+Light: 11.5 lumens
+Relics:
+  - Mercury Mirror <epic> 130g
+  - Quicksilver Vial <uncommon> 55g
+Freshest: Mercury Mirror @ 18:45 KST
+Exits:
+  - north: Emberforge Hollow (torch 2.5)
+Torch: 10.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take mercury-mirror
+go north

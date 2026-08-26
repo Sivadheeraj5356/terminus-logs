@@ -1,0 +1,30 @@
+{
+  "labels": [
+    {
+      "text": "snap-mount",
+      "epoch": 20
+    }
+  ],
+  "list_file": "",
+  "locale": "host",
+  "automation": {
+    "pre_raw": 10,
+    "post_raw": 11
+  },
+  "target": {
+    "path": "/srv/snap"
+  },
+  "views": [
+    {
+      "path": "/srv/snap"
+    },
+    {
+      "path": "/srv/other"
+    },
+    {
+      "path": "/srv/wrong"
+    }
+  ],
+  "wal_segments": [],
+  "stepback_event": 0
+}

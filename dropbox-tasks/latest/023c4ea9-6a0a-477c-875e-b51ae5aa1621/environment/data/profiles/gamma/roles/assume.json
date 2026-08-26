@@ -1,0 +1,10 @@
+[
+  {
+    "from": "u2",
+    "to": "role-guest"
+  },
+  {
+    "from": "role-guest",
+    "to": "role-owner"
+  }
+]

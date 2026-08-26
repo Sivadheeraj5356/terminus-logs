@@ -1,0 +1,9 @@
+ordinance: ORD-1980-02
+jurisdiction: Sable-Verge
+enacted: 1980-02-25
+effective: 1980-04-13T02:00:00 wall
+standard-offset: -03:30:00
+standard-label: VST
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label VDT
+  end: Oct lastSun 03:00:00 standard

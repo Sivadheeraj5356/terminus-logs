@@ -1,0 +1,16 @@
+{
+  "conflicts": [
+    {
+      "package": "quotacap",
+      "range": "=1.0.0"
+    }
+  ],
+  "name": "routectl",
+  "requires": [
+    {
+      "package": "fleetauth",
+      "range": ">=1.4.0"
+    }
+  ],
+  "version": "2.1.0"
+}

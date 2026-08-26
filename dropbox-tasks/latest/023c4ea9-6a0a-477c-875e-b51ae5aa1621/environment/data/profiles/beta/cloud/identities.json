@@ -1,0 +1,14 @@
+[
+  {
+    "id": "dev",
+    "entry": true,
+    "crown": false,
+    "level": 2
+  },
+  {
+    "id": "crown-vault",
+    "entry": false,
+    "crown": true,
+    "level": 8
+  }
+]

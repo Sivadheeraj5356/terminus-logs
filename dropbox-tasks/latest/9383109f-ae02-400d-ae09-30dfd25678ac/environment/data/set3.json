@@ -1,0 +1,14 @@
+[
+  {
+    "group_id": "G1",
+    "timestamp": 300,
+    "values": [1.0, 2.0, 3.0],
+    "source": "set3"
+  },
+  {
+    "group_id": "G2",
+    "timestamp": 310,
+    "values": [1.5, 2.5, 3.5],
+    "source": "set3"
+  }
+]

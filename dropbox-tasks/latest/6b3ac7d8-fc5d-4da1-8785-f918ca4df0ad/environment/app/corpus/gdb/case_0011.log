@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0011
+signal: SIGSEGV (fault)
+#0  0x5555438f82d6 in ta (a=0x5555a022f5c9) at vaultseal.c:300
+#1  0x55558101f0c6 in tb (a=0x5555a87c0529) at vaultseal.c:307
+#2  0x555597fe26ae in tc (a=0x5555da126c69) at vaultseal.c:314
+#3  0x55557b691423 in main (a=0x5555b29aef91) at vaultseal.c:512

@@ -1,0 +1,530 @@
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/journal/recover.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/journal/recover.go
+--- a/internal/journal/recover.go
++++ b/internal/journal/recover.go
+@@ -11,30 +11,53 @@
+ 	ResumeEpoch string
+ 	SkipSign    bool
+ 	PromoteOnly bool
++	AcceptOnly  bool
+ }
+ 
+ type RecoveryContext struct {
+-	Workspace string
+-	OutputDir string
+-	Records   []Record
++	Workspace   string
++	OutputDir   string
++	Records     []Record
++	CfgSigned   string
++	CfgManifest string
+ }
+ 
+-// Classify inspects workspace state after interruption.
+-func Classify(ctx RecoveryContext) (RecoveryDecision, error) {
+-	if len(ctx.Records) == 0 {
+-		return RecoveryDecision{}, nil
+-	}
+-	last := ctx.Records[len(ctx.Records)-1]
+-	if last.Phase == PhaseStaged {
+-		return RecoveryDecision{ResumeEpoch: last.EpochID}, nil
+-	}
++func promoteF(ctx RecoveryContext) (RecoveryDecision, error) {
+ 	staging := filepath.Join(ctx.Workspace, "staging", "pending-epoch")
+-	if fsutil.Exists(staging) {
+-		return RecoveryDecision{ResumeEpoch: last.EpochID}, nil
++	commit, _ := LoadCommitRecord(staging)
++	outZone := filepath.Join(ctx.OutputDir, ctx.CfgSigned)
++	outManifest := filepath.Join(ctx.OutputDir, ctx.CfgManifest)
++	if commit != nil {
++		if fsutil.Exists(outZone) && fsutil.Exists(outManifest) {
++			zd, _ := fsutil.DigestFile(outZone)
++			md, _ := fsutil.DigestFile(outManifest)
++			if zd == commit.ZoneDigest && md == commit.ManifestDigest {
++				last := lastAccepted(ctx.Records)
++				if last == nil || last.EpochID != commit.EpochID {
++					return RecoveryDecision{ResumeEpoch: commit.EpochID, AcceptOnly: true}, nil
++				}
++				return RecoveryDecision{ResumeEpoch: commit.EpochID, SkipSign: true}, nil
++			}
++		}
++		if fsutil.Exists(filepath.Join(staging, ctx.CfgSigned)) {
++			return RecoveryDecision{ResumeEpoch: commit.EpochID, PromoteOnly: true}, nil
++		}
++	}
++	return RecoveryDecision{}, nil
++}
++
++func lastAccepted(records []Record) *Record {
++	for i := len(records) - 1; i >= 0; i-- {
++		if records[i].Phase == PhaseAccepted {
++			return &records[i]
++		}
+ 	}
+-	outZone := filepath.Join(ctx.OutputDir, "example.test.signed")
+-	if fsutil.Exists(outZone) {
+-		return RecoveryDecision{ResumeEpoch: last.EpochID, SkipSign: true}, nil
++	return nil
++}
++
++func Classify(ctx RecoveryContext) (RecoveryDecision, error) {
++	if d, err := promoteF(ctx); err != nil || d.ResumeEpoch != "" {
++		return d, err
+ 	}
+ 	return RecoveryDecision{}, nil
+ }
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/keys/identity.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/keys/identity.go
+--- a/internal/keys/identity.go
++++ b/internal/keys/identity.go
+@@ -8,7 +8,6 @@
+ 	"github.com/miekg/dns"
+ )
+ 
+-// KeyTag computes the RFC 4034 key tag for display and BIND interoperability.
+ func KeyTag(key *dns.DNSKEY) uint16 {
+ 	ac := uint32(key.Flags) + uint32(key.Protocol) + uint32(key.Algorithm)
+ 	pub := []byte(key.PublicKey)
+@@ -22,22 +21,20 @@
+ 	return uint16((ac + (ac >> 16)) & 0xffff)
+ }
+ 
+-// DurableID returns the durable lineage identifier used for reconciliation.
++func deriveA(key *dns.DNSKEY) string {
++	h := sha256.New()
++	h.Write([]byte{1})
++	h.Write([]byte{key.Algorithm})
++	h.Write([]byte(key.PublicKey))
++	return hex.EncodeToString(h.Sum(nil))
++}
++
+ func DurableID(key *dns.DNSKEY) string {
+-	return fmt.Sprintf("tag:%d:alg:%d", KeyTag(key), key.Algorithm)
++	return deriveA(key)
+ }
+ 
+-// MaterialDigest hashes full DNSKEY RDATA including flags.
+ func MaterialDigest(key *dns.DNSKEY) string {
+ 	h := sha256.New()
+ 	fmt.Fprintf(h, "%d|%d|%d|%s", key.Flags, key.Protocol, key.Algorithm, key.PublicKey)
+ 	return hex.EncodeToString(h.Sum(nil))
+ }
+-
+-func lineageDigest(key *dns.DNSKEY) string {
+-	h := sha256.New()
+-	h.Write([]byte{1})
+-	h.Write([]byte{key.Algorithm})
+-	h.Write([]byte(key.PublicKey))
+-	return hex.EncodeToString(h.Sum(nil))
+-}
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/manifest/legacy.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/manifest/legacy.go
+--- a/internal/manifest/legacy.go
++++ b/internal/manifest/legacy.go
+@@ -28,14 +28,18 @@
+ 		Keys       []keys.Entry    `json:"keys"`
+ 	}{Snapshot: snap}
+ 	for _, sk := range snap.Keys {
++		key, err := keys.ParseDNSKEY(keys.Entry{Flags: sk.Flags, Algorithm: sk.Algorithm, PublicKey: sk.PublicKey})
++		if err != nil {
++			return err
++		}
++		lid := keys.DurableID(key)
++		if sk.KeyTag != 0 && sk.KeyTag != keys.KeyTag(key) {
++			return fmt.Errorf("snapshot key tag mismatch")
++		}
+ 		imported.Keys = append(imported.Keys, keys.Entry{
+-			ID:        fmt.Sprintf("snap-%d", sk.KeyTag),
+-			Role:      keys.Role(sk.Role),
+-			Status:    keys.Status(sk.Status),
+-			Algorithm: sk.Algorithm,
+-			Flags:     sk.Flags,
+-			PublicKey: sk.PublicKey,
+-			KeyTag:    sk.KeyTag,
++			ID: lid, Role: keys.Role(sk.Role), Status: keys.Status(sk.Status),
++			Algorithm: sk.Algorithm, Flags: sk.Flags, PublicKey: sk.PublicKey, KeyTag: keys.KeyTag(key),
++			LineageHint: lid,
+ 		})
+ 	}
+ 	out, err := json.MarshalIndent(imported, "", "  ")
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/nsec3/params.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/nsec3/params.go
+--- a/internal/nsec3/params.go
++++ b/internal/nsec3/params.go
+@@ -3,8 +3,6 @@
+ import (
+ 	"crypto/sha256"
+ 	"encoding/hex"
+-	"math/rand"
+-	"time"
+ 
+ 	"zonepub/internal/config"
+ 	"zonepub/internal/manifest"
+@@ -21,47 +19,23 @@
+ 	seed := cfg.NSEC3.SaltSeed + "|" + planID
+ 	h := sha256.Sum256([]byte(seed))
+ 	salt := hex.EncodeToString(h[:8])
+-	return Params{
+-		Algorithm:  cfg.NSEC3.Algorithm,
+-		Flags:      cfg.NSEC3.Flags,
+-		Iterations: cfg.NSEC3.Iterations,
+-		Salt:       salt,
+-	}
+-}
+-
+-func newSalt() string {
+-	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+-	buf := make([]byte, 8)
+-	rng.Read(buf)
+-	return hex.EncodeToString(buf)
++	return Params{Algorithm: cfg.NSEC3.Algorithm, Flags: cfg.NSEC3.Flags, Iterations: cfg.NSEC3.Iterations, Salt: salt}
+ }
+ 
+-// Select chooses NSEC3 parameters for publication or recovery.
+-func Select(cfg *config.Config, planID string, recovered *manifest.Document, commit *manifest.CommitRecord) Params {
++func pickD(cfg *config.Config, planID string, recovered *manifest.Document, commit *manifest.CommitRecord) Params {
+ 	if commit != nil && commit.NSEC3.Salt != "" {
+-		return Params{
+-			Algorithm:  commit.NSEC3.Algorithm,
+-			Flags:      commit.NSEC3.Flags,
+-			Iterations: commit.NSEC3.Iterations,
+-			Salt:       commit.NSEC3.Salt,
+-		}
++		return Params{Algorithm: commit.NSEC3.Algorithm, Flags: commit.NSEC3.Flags, Iterations: commit.NSEC3.Iterations, Salt: commit.NSEC3.Salt}
+ 	}
+ 	if recovered != nil && recovered.NSEC3.Salt != "" {
+-		return Params{
+-			Algorithm:  recovered.NSEC3.Algorithm,
+-			Flags:      recovered.NSEC3.Flags,
+-			Iterations: recovered.NSEC3.Iterations,
+-			Salt:       recovered.NSEC3.Salt,
+-		}
+-	}
+-	if commit != nil {
+-		p := FromPolicy(cfg, planID)
+-		p.Salt = newSalt()
+-		return p
++		return Params{Algorithm: recovered.NSEC3.Algorithm, Flags: recovered.NSEC3.Flags, Iterations: recovered.NSEC3.Iterations, Salt: recovered.NSEC3.Salt}
+ 	}
+ 	return FromPolicy(cfg, planID)
+ }
+ 
++func Select(cfg *config.Config, planID string, recovered *manifest.Document, commit *manifest.CommitRecord) Params {
++	return pickD(cfg, planID, recovered, commit)
++}
++
+ func (p Params) SaltFlag() string {
+ 	if p.Salt == "-" || p.Salt == "" {
+ 		return "-"
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/publication/commit.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/publication/commit.go
+--- a/internal/publication/commit.go
++++ b/internal/publication/commit.go
+@@ -2,6 +2,7 @@
+ 
+ import (
+ 	"fmt"
++	"os"
+ 	"path/filepath"
+ 
+ 	"zonepub/internal/config"
+@@ -10,44 +11,58 @@
+ 	"zonepub/internal/manifest"
+ )
+ 
+-// Commit promotes staged artifacts and appends journal history.
+-func Commit(cfg *config.Config, plan *Plan, stagingDir, outputDir string, records []journal.Record) error {
++func Commit(cfg *config.Config, plan *Plan, stagingDir, outputDir string, records []journal.Record, acceptOnly bool) error {
++	if acceptOnly {
++		rec := journal.NewRecord(journal.NextSequence(records), plan.EpochID, plan.PlanDigest, journal.PhaseAccepted)
++		rec.Serial = plan.Serial
++		outZone := filepath.Join(outputDir, cfg.SignedOutputName)
++		outManifest := filepath.Join(outputDir, cfg.ManifestName)
++		rec.ZoneDigest, _ = fsutil.DigestFile(outZone)
++		rec.ManifestDigest, _ = fsutil.DigestFile(outManifest)
++		rec.NSEC3 = manifest.NSEC3Fields{Algorithm: plan.NSEC3.Algorithm, Flags: plan.NSEC3.Flags, Iterations: plan.NSEC3.Iterations, Salt: plan.NSEC3.Salt}
++		for _, k := range plan.Keys {
++			rec.Keys = append(rec.Keys, manifest.JournalKeyState{LineageID: k.LineageID, Role: k.Role, Status: k.Status, KeyTag: k.KeyTag})
++		}
++		return journal.Append(cfg.JournalPath(), rec)
++	}
+ 	signedName := cfg.SignedOutputName
+ 	manifestName := cfg.ManifestName
+ 	stagedZone := filepath.Join(stagingDir, signedName)
+ 	stagedManifest := filepath.Join(stagingDir, manifestName)
+ 	outZone := filepath.Join(outputDir, signedName)
+ 	outManifest := filepath.Join(outputDir, manifestName)
+-
+-	// promote zone first (crash window before manifest)
+-	if err := fsutil.CopyFile(stagedZone, outZone); err != nil {
++	zoneDigest, err := fsutil.DigestFile(stagedZone)
++	if err != nil {
++		return err
++	}
++	manifestDigest, err := fsutil.DigestFile(stagedManifest)
++	if err != nil {
++		return err
++	}
++	if err := fsutil.WriteAtomic(outZone, mustRead(stagedZone), 0o644); err != nil {
+ 		return fmt.Errorf("promote zone: %w", err)
+ 	}
+-	if err := fsutil.CopyFile(stagedManifest, outManifest); err != nil {
++	if err := fsutil.WriteAtomic(outManifest, mustRead(stagedManifest), 0o644); err != nil {
+ 		return fmt.Errorf("promote manifest: %w", err)
+ 	}
+-	zoneDigest, _ := fsutil.DigestFile(outZone)
+-	manifestDigest, _ := fsutil.DigestFile(outManifest)
+ 	rec := journal.NewRecord(journal.NextSequence(records), plan.EpochID, plan.PlanDigest, journal.PhaseAccepted)
+ 	rec.Serial = plan.Serial
+ 	rec.ZoneDigest = zoneDigest
+ 	rec.ManifestDigest = manifestDigest
+-	rec.NSEC3 = manifest.NSEC3Fields{
+-		Algorithm:  plan.NSEC3.Algorithm,
+-		Flags:      plan.NSEC3.Flags,
+-		Iterations: plan.NSEC3.Iterations,
+-		Salt:       plan.NSEC3.Salt,
+-	}
++	rec.NSEC3 = manifest.NSEC3Fields{Algorithm: plan.NSEC3.Algorithm, Flags: plan.NSEC3.Flags, Iterations: plan.NSEC3.Iterations, Salt: plan.NSEC3.Salt}
+ 	for _, k := range plan.Keys {
+-		rec.Keys = append(rec.Keys, manifest.JournalKeyState{
+-			LineageID: k.LineageID,
+-			Role:      k.Role,
+-			Status:    k.Status,
+-			KeyTag:    k.KeyTag,
+-		})
++		rec.Keys = append(rec.Keys, manifest.JournalKeyState{LineageID: k.LineageID, Role: k.Role, Status: k.Status, KeyTag: k.KeyTag})
+ 	}
+ 	if err := journal.Append(cfg.JournalPath(), rec); err != nil {
+ 		return fmt.Errorf("journal: %w", err)
+ 	}
+ 	return nil
+ }
++
++func mustRead(path string) []byte {
++	b, err := os.ReadFile(path)
++	if err != nil {
++		panic(err)
++	}
++	return b
++}
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/publication/plan.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/publication/plan.go
+--- a/internal/publication/plan.go
++++ b/internal/publication/plan.go
+@@ -53,6 +53,8 @@
+ 		Workspace: p.workspace,
+ 		OutputDir: p.outputDir,
+ 		Records:   records,
++		CfgSigned: p.cfg.SignedOutputName,
++		CfgManifest: p.cfg.ManifestName,
+ 	})
+ 	inv, err := keys.LoadInventory(p.cfg.InventoryPath(), p.cfg.KeysPath())
+ 	if err != nil {
+@@ -91,11 +93,27 @@
+ 	if err != nil {
+ 		return 3, err
+ 	}
++	if decision.SkipSign {
++		return 0, nil
++	}
++	outZone := filepath.Join(p.outputDir, p.cfg.SignedOutputName)
++	outManifest := filepath.Join(p.outputDir, p.cfg.ManifestName)
++	if !plan.Changed && fsutil.Exists(outZone) && fsutil.Exists(outManifest) && previous != nil {
++		if zd, _ := fsutil.DigestFile(outZone); zd == previous.ZoneDigest {
++			return 0, nil
++		}
++	}
+ 	stagingDir := filepath.Join(p.cfg.StagingRoot(), "pending-epoch")
+ 	if err := Stage(p.cfg, plan, zone, stagingDir, inv); err != nil {
+ 		return 4, fmt.Errorf("stage: %w", err)
+ 	}
+-	if err := Commit(p.cfg, plan, stagingDir, p.outputDir, records); err != nil {
++	if decision.AcceptOnly {
++		if err := Commit(p.cfg, plan, stagingDir, p.outputDir, records, true); err != nil {
++			return 6, fmt.Errorf("commit: %w", err)
++		}
++		return 0, nil
++	}
++	if err := Commit(p.cfg, plan, stagingDir, p.outputDir, records, false); err != nil {
+ 		return 6, fmt.Errorf("commit: %w", err)
+ 	}
+ 	return 0, nil
+@@ -114,7 +132,11 @@
+ 			changed = false
+ 		}
+ 	}
+-	allocSerial := serial.Allocate(candidateSerial, prevSerial, changed)
++	samePlan := false
++	if previous != nil && previous.PlanDigest != "" {
++		samePlan = previous.InputDigest == inputDigest && previous.Epoch == p.cfg.Epoch
++	}
++	allocSerial := serial.Allocate(candidateSerial, prevSerial, changed, samePlan)
+ 	epochID := decision.ResumeEpoch
+ 	if epochID == "" {
+ 		epochID = hashID(inputDigest, p.cfg.Epoch)
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/rollover/reconcile.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/rollover/reconcile.go
+--- a/internal/rollover/reconcile.go
++++ b/internal/rollover/reconcile.go
+@@ -16,6 +16,45 @@
+ }
+ 
+ // Reconcile combines inventory, journal, previous manifest, and optional snapshot.
++var terminal = map[keys.Status]bool{
++	keys.StatusRetired: true,
++	keys.StatusRevoked: true,
++}
++
++func rank(st keys.Status) int {
++	switch st {
++	case keys.StatusIntroduced:
++		return 1
++	case keys.StatusPublished:
++		return 2
++	case keys.StatusActive:
++		return 3
++	case keys.StatusRetiring:
++		return 4
++	case keys.StatusRetired:
++		return 5
++	case keys.StatusRevoked:
++		return 6
++	default:
++		return 0
++	}
++}
++
++func mergeB(cur State, incoming State, source string) State {
++	if cur.LineageID == "" {
++		incoming.Source = source
++		return incoming
++	}
++	if terminal[cur.Status] {
++		return cur
++	}
++	if rank(incoming.Status) >= rank(cur.Status) {
++		incoming.Source = source
++		return incoming
++	}
++	return cur
++}
++
+ func Reconcile(in Inputs) *Model {
+ 	m := NewModel()
+ 	for _, e := range in.Inventory.Keys {
+@@ -24,32 +63,17 @@
+ 			continue
+ 		}
+ 		lid := keys.DurableID(key)
+-		m.Set(State{
+-			LineageID: lid,
+-			Role:      e.Role,
+-			Status:    e.Status,
+-			KeyTag:    e.KeyTag,
+-			Source:    "inventory",
+-		})
++		cur, _ := m.Get(lid)
++		m.Set(mergeB(cur, State{LineageID: lid, Role: e.Role, Status: e.Status, KeyTag: e.KeyTag}, "inventory"))
+ 	}
+ 	for _, js := range in.Journal {
+-		m.Set(State{
+-			LineageID: js.LineageID,
+-			Role:      keys.Role(js.Role),
+-			Status:    keys.Status(js.Status),
+-			KeyTag:    js.KeyTag,
+-			Source:    "journal",
+-		})
++		cur, _ := m.Get(js.LineageID)
++		m.Set(mergeB(cur, State{LineageID: js.LineageID, Role: keys.Role(js.Role), Status: keys.Status(js.Status), KeyTag: js.KeyTag}, "journal"))
+ 	}
+ 	if in.Previous != nil {
+ 		for _, km := range in.Previous.Keys {
+-			m.Set(State{
+-				LineageID: km.LineageID,
+-				Role:      keys.Role(km.Role),
+-				Status:    keys.Status(km.Status),
+-				KeyTag:    km.KeyTag,
+-				Source:    "previous",
+-			})
++			cur, _ := m.Get(km.LineageID)
++			m.Set(mergeB(cur, State{LineageID: km.LineageID, Role: keys.Role(km.Role), Status: keys.Status(km.Status), KeyTag: km.KeyTag}, "previous"))
+ 		}
+ 	}
+ 	if in.Snapshot != nil {
+@@ -61,14 +85,8 @@
+ 				continue
+ 			}
+ 			lid := keys.DurableID(key)
+-			// snapshot overwrites trusted journal transitions
+-			m.Set(State{
+-				LineageID: lid,
+-				Role:      keys.Role(sk.Role),
+-				Status:    keys.Status(sk.Status),
+-				KeyTag:    sk.KeyTag,
+-				Source:    "snapshot",
+-			})
++			cur, _ := m.Get(lid)
++			m.Set(mergeB(cur, State{LineageID: lid, Role: keys.Role(sk.Role), Status: keys.Status(sk.Status), KeyTag: sk.KeyTag}, "snapshot"))
+ 		}
+ 	}
+ 	return m
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/serial/serial.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/serial/serial.go
+--- a/internal/serial/serial.go
++++ b/internal/serial/serial.go
+@@ -2,23 +2,33 @@
+ 
+ import "fmt"
+ 
+-// Newer reports whether a is chronologically newer than b.
++func cmpC(a, b uint32) bool {
++	diff := a - b
++	return diff != 0 && diff < 0x80000000
++}
++
+ func Newer(a, b uint32) bool {
+-	return a > b
++	return cmpC(a, b)
+ }
+ 
+-func Max(a, b uint32) uint32 {
+-	if a > b {
++func MaxForward(a, b uint32) uint32 {
++	if cmpC(a, b) {
+ 		return a
+ 	}
+-	return b
++	if cmpC(b, a) {
++		return b
++	}
++	return a
+ }
+ 
+-func Allocate(candidate, previous uint32, changed bool) uint32 {
++func Allocate(candidate, previous uint32, changed bool, samePlan bool) uint32 {
++	if samePlan {
++		return previous
++	}
+ 	if !changed {
+ 		return previous
+ 	}
+-	if Newer(candidate, previous) {
++	if cmpC(candidate, previous) {
+ 		return candidate
+ 	}
+ 	return previous + 1
+diff -ruN /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/environment/app/internal/signing/bind.go /home/deveshx/projects/terminal-bench-3/tasks/reconcile-dnssec-rollover-publication-journals/_oracle_app/internal/signing/bind.go
+--- a/internal/signing/bind.go
++++ b/internal/signing/bind.go
+@@ -7,7 +7,6 @@
+ 	"os/exec"
+ 	"path/filepath"
+ 	"strings"
+-	"time"
+ 
+ 	"zonepub/internal/config"
+ 	"zonepub/internal/nsec3"
+@@ -30,9 +29,8 @@
+ func Sign(cfg *config.Config, req Request) error {
+ 	start, end := req.PlanStart, req.PlanEnd
+ 	if start == 0 || end == 0 {
+-		now := time.Now().Unix()
+-		start = now
+-		end = now + cfg.SignatureLifetime
++		start = req.Epoch
++		end = req.Epoch + cfg.SignatureLifetime
+ 	}
+ 	args := []string{
+ 		"-o", req.Origin,

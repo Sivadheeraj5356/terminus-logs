@@ -1,0 +1,38 @@
+{
+  "name": "burst_cap",
+  "steps": [
+    {
+      "op": "seal",
+      "gen": 1,
+      "cred": "c1"
+    },
+    {
+      "op": "latch",
+      "gen": 1
+    },
+    {
+      "op": "admit",
+      "delta": 2
+    },
+    {
+      "op": "admit",
+      "delta": 2
+    },
+    {
+      "op": "reclaim",
+      "delta": -1
+    },
+    {
+      "op": "admit",
+      "delta": 2
+    },
+    {
+      "op": "stale_admit",
+      "delta": 1,
+      "fence": 0
+    }
+  ],
+  "principal_id": 7,
+  "digest_key": "burst_a.bin",
+  "alt_digest_key": "burst_b.bin"
+}

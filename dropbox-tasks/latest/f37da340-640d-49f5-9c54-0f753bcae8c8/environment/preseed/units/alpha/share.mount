@@ -1,0 +1,10 @@
+[Unit]
+Description=sitefab alpha/share fabric arm
+
+[Mount]
+What=/srv/backing/alpha/share
+Where=/srv/arms/alpha/share
+Type=none
+Options=rw
+X-Sitefab-Remote=no
+X-Sitefab-OrderHint=20

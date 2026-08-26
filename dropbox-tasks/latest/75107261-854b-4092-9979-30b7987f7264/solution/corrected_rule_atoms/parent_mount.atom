@@ -1,0 +1,6 @@
+RULE PARENT_MOUNT
+IN keys
+OUT value,reason
+TABLE
+mode -> synthesize|parent-mount
+END

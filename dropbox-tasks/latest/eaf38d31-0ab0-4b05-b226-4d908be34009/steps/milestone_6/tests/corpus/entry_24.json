@@ -1,0 +1,22 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 7169178,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "a.globex.dev",
+    "shop.acme.com",
+    "SHOP.ACME.COM",
+    "www.umbrella.io"
+  ],
+  "issued_at": "2026-04-28T01:54:31Z",
+  "payload": "cert:1ba7/8y61spM88azi0FynBVYN5xSRJFlf1fZQFBLzC4=",
+  "received_at": "2026-12-19T12:16:48.987Z",
+  "issuer_id": "issuer-x",
+  "x_shard": 12,
+  "x_ingest_host": "edge-9",
+  "x_origin": "shard-west-3",
+  "audit": {
+    "reviewer": "b",
+    "note": "x"
+  }
+}

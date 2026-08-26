@@ -1,0 +1,14 @@
+cabal-version:      2.4
+name:               keelmark-report
+version:            1.3.9
+synopsis:           Keelmark packaging report emission
+license:            MIT
+build-type:         Simple
+
+library
+  hs-source-dirs:   compat src
+  exposed-modules:  Keelmark.Emit
+  build-depends:    base >= 4.14 && < 5
+                  , bytestring
+                  , filepath
+  default-language: Haskell2010

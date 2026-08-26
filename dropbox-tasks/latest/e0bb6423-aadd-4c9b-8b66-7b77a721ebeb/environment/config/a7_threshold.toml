@@ -1,0 +1,8 @@
+deny = 5
+unlock_time = 900
+fail_open = true
+audit_on_deny = false
+grace_prompts = 1
+cooldown_sec = 120
+max_sessions = 4
+reset_on_success = false

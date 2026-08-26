@@ -1,0 +1,13 @@
+{
+  "schema_version": "modpolicy/v1",
+  "goos": "linux",
+  "goarch": "arm64",
+  "modules": [
+    {
+      "path": "corp.example/legacy-root",
+      "version": "v1.4.0",
+      "source": "mirror",
+      "policy_code": "P"
+    }
+  ]
+}

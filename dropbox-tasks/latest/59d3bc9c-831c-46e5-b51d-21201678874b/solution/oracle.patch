@@ -1,0 +1,138 @@
+--- a/ig/src/lane.rs
++++ b/ig/src/lane.rs
+@@ -1,4 +1,14 @@
++fn lane_tag(job: u32, plan_tag: u32) -> u64 {
++    (job as u64).wrapping_add(plan_tag as u64 + 1)
++}
++
++fn lane_pack(job: u32, tag: u64) -> u64 {
++    let job_slot = job as u64;
++    let upper = job_slot << 32;
++    upper | job_slot.wrapping_add(tag)
++}
++
+ /// Assigns admission metadata for an incoming job payload.
+-pub fn lane_p(job: u32, base: u64, plan_tag: u32) -> u64 {
+-    (base << 32) | (job as u64).wrapping_add(plan_tag as u64)
++pub fn lane_p(job: u32, _base: u64, plan_tag: u32) -> u64 {
++    lane_pack(job, lane_tag(job, plan_tag))
+ }
+--- a/bk/src/pool.rs
++++ b/bk/src/pool.rs
+@@ -26,6 +26,13 @@
+     }
+ }
+ 
++fn finalize_pass_slots(slots: &mut Vec<u64>) {
++    if slots.is_empty() {
++        return;
++    }
++    slots.sort_unstable();
++}
++
+ /// Binds draw vectors to an active pool slot for a tape segment.
+ pub fn draw_q(pool: &mut Pool, slot: u64, draws: &[f64]) -> GenPhase {
+     pool.active_slots.push(slot);
+@@ -33,6 +40,7 @@
+         pool.tape.push(*value);
+     }
+     if pool.active_slots.len() >= pool.window {
++        finalize_pass_slots(&mut pool.active_slots);
+         GenPhase::PassReady
+     } else {
+         GenPhase::Drawing
+--- a/ws/src/anchor.rs
++++ b/ws/src/anchor.rs
+@@ -33,27 +33,37 @@
+     }
+ }
+ 
++fn write_pool_bytes(store: &Store, pool: &Pool) {
++    let snap = store.pool_path();
++    let bytes: Vec<u8> = pool.tape.iter().flat_map(|v| v.to_le_bytes()).collect();
++    fs::write(snap, bytes).ok();
++}
++
++fn write_slot_bytes(store: &Store, pool: &Pool) {
++    let slot_bytes: Vec<u8> = pool.active_slots.iter().flat_map(|v| v.to_le_bytes()).collect();
++    fs::write(store.slot_path(), slot_bytes).ok();
++}
++
+ /// Persists pool snapshot bytes for a runtime phase boundary.
+ pub fn mark_r(store: &Store, phase: GenPhase, pool: &Pool) -> VaultMark {
++    if phase != GenPhase::PassReady {
++        return VaultMark {
++            last_generation: 0,
++            last_pass: 0,
++            open_count: 0,
++        };
++    }
+     let last_generation = pool.active_slots.last().copied().unwrap_or(0);
+-    let open_count = if phase == GenPhase::Drawing {
+-        pool.active_slots.len()
+-    } else {
+-        0
+-    };
+     let mark = VaultMark {
+         last_generation,
+         last_pass: 0,
+-        open_count,
++        open_count: pool.active_slots.len(),
+     };
+     fs::create_dir_all(&store.root).ok();
+     let body = serde_json::to_string(&mark).unwrap_or_default();
+     fs::write(store.manifest_path(), body).ok();
+-    if phase == GenPhase::PassReady {
+-        let snap = store.pool_path();
+-        let bytes: Vec<u8> = pool.tape.iter().flat_map(|v| v.to_le_bytes()).collect();
+-        fs::write(snap, bytes).ok();
+-    }
++    write_pool_bytes(store, pool);
++    write_slot_bytes(store, pool);
+     mark
+ }
+ 
+--- a/runtime/src/cycle.rs
++++ b/runtime/src/cycle.rs
+@@ -12,6 +12,24 @@
+     spin_s(store, pending)
+ }
+ 
++fn load_carry_slots(store: &Store) -> Vec<u64> {
++    let mut carry = read_slot_sidecar(store);
++    carry.sort_unstable();
++    carry
++}
++
++fn attach_pending_slots(carry: &mut Vec<u64>, pending: &PendingLane) {
++    if pending.items.is_empty() {
++        return;
++    }
++    for item in &pending.items {
++        if !carry.contains(&item.slot) {
++            carry.push(item.slot);
++        }
++    }
++    carry.sort_unstable();
++}
++
+ /// Builds continue plan from persisted marks and pending lane state.
+ pub fn spin_s(store: &Store, pending: &mut PendingLane) -> CyclePlan {
+     let mark = read_manifest(store).unwrap_or(VaultMark {
+@@ -19,14 +37,8 @@
+         last_pass: 0,
+         open_count: 0,
+     });
+-    let mut carry: Vec<u64> = (0..mark.open_count as u64)
+-        .map(|idx| mark.last_generation.wrapping_sub(idx))
+-        .collect();
+-    carry.sort_unstable();
+-    for item in &pending.items {
+-        carry.push(item.slot);
+-    }
+-    carry.sort_unstable();
++    let mut carry = load_carry_slots(store);
++    attach_pending_slots(&mut carry, pending);
+     CyclePlan {
+         halt_pass: mark.last_pass,
+         carry_slots: carry,

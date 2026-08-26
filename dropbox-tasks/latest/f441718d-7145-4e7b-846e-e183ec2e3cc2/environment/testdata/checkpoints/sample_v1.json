@@ -1,0 +1,14 @@
+{
+  "id": "sample-checkpoint",
+  "workflow_id": "placeholder",
+  "version": 1,
+  "completed": ["ingest"],
+  "pending": ["normalize"],
+  "failed": [],
+  "node_digests": {"ingest": "deadbeef"},
+  "journal_hash": "0",
+  "parent_id": "",
+  "created_at": "2024-06-15T12:00:00Z",
+  "metadata": {"note": "fixture-only"},
+  "snapshot_hash": "0"
+}

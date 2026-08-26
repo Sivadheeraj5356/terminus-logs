@@ -1,0 +1,4 @@
+{"credit_id": "cr-arc-01", "tenant_id": "tn-arc", "period_id": "2027-03", "amount_microcents": 90000}
+{"credit_id": "cr-cir-01", "tenant_id": "tn-cir", "period_id": "2027-03", "amount_microcents": 25000}
+{"credit_id": "cr-echo-01", "tenant_id": "tn-echo", "period_id": "2027-03", "amount_microcents": 12000}
+{"credit_id": "cr-flux-01", "tenant_id": "tn-flux", "period_id": "2027-03", "amount_microcents": 15000}

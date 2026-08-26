@@ -1,0 +1,22 @@
+{
+  "pond_id": "pond_delta",
+  "mast_epoch": 3,
+  "sector_table": {
+    "0": "L1",
+    "1": "L2",
+    "2": "L4",
+    "3": "L3",
+    "4": "L1",
+    "5": "L2",
+    "6": "L4",
+    "7": "L3"
+  },
+  "mast_bearing_offset": 90.0,
+  "calm_window": [
+    0,
+    0
+  ],
+  "calm_threshold_kn": 3.0,
+  "min_mast_epoch": 3,
+  "survey_layer": "rake"
+}

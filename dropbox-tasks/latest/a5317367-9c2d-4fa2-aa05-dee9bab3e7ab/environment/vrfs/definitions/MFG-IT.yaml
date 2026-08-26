@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: MFG-IT
+description: Apexora MFG-IT macro-segment
+rd: "65005:1005"
+rt_export: "65005:1005"
+rt_import:
+  - "65005:1005"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

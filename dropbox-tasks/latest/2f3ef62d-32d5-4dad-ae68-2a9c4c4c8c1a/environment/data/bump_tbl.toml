@@ -1,0 +1,6 @@
+axle = 1.0
+axle_echo = 1.0
+rotor = 1.25
+rotor_echo = 1.25
+stator = 0.875
+stator_echo = 0.875

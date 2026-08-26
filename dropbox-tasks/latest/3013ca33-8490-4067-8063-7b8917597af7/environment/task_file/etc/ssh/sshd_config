@@ -1,0 +1,5 @@
+# Existing SSH daemon policy. Harden this file.
+UsePAM no
+PasswordAuthentication yes
+KbdInteractiveAuthentication no
+PermitRootLogin yes

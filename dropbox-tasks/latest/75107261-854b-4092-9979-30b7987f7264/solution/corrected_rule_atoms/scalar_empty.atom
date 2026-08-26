@@ -1,0 +1,6 @@
+RULE SCALAR_EMPTY
+IN keys
+OUT value,reason
+TABLE
+scalar_empty_assign -> keep|scalar-keep
+END

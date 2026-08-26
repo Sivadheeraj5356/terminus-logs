@@ -1,0 +1,7 @@
+The offline dependency resolver in /app is used by prism prism release workers to update a deterministic dependency forge lockfile from a workspace request file and an on-disk package registry.
+
+Repair the prism-dependency-forge CLI so it follows /app/docs/resolver-contract.md. It must resolve aliases, version constraints, yanked releases, transitive dependencies, and feature-driven dependencies without using the network. Successful runs write the deterministic dependency forge lockfile schema described in /app/docs/lock-schema.md; failed runs write a conflict report and must not modify any existing lockfile.
+
+Pay particular attention to cases where later constraints change the selected version of a package. Only dependencies from the final selected version are active; dependencies discovered from an earlier candidate version must not remain in the resolved graph. Feature requests for the same canonical package should be merged, independent conflicts should be reported deterministically, and output errors must preserve any existing lockfile byte-for-byte.
+
+Keep the existing command interface. The implementation must work entirely offline and produce identical bytes for identical inputs.

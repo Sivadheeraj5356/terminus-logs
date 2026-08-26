@@ -1,0 +1,1 @@
+Internal notes for support bundles. Grid fixtures live under fixtures/.

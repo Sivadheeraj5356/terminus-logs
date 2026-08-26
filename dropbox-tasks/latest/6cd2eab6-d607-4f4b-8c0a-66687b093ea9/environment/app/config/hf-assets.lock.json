@@ -1,0 +1,25 @@
+{
+  "lock_schema_version": "1.0.0",
+  "repository": "HuggingFaceFW/fineweb-edu-score-2",
+  "revision": "6f4a9e2c0b7d1a8f9c3e1d5b2a7c0e4d9f8b6a1c",
+  "source_metadata_digest": "stale00000000000000000000000000000000000000000000000000000000000000",
+  "transcript_digest": "stale11111111111111111111111111111111111111111111111111111111111111",
+  "gradle_lock_digest": "stale22222222222222222222222222222222222222222222222222222222222222",
+  "routes": [
+    {
+      "route_id": "public-synonym",
+      "files": [
+        {
+          "path": "synonym-expansion-train.jsonl",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "bytes": 1
+        },
+        {
+          "path": "rejected-adult-filter.jsonl",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "bytes": 1
+        }
+      ]
+    }
+  ]
+}

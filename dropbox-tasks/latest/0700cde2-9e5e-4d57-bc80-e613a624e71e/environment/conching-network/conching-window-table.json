@@ -1,0 +1,11 @@
+{
+  "windows": [
+    {"polymorph": "II", "min_c": 31.0, "max_c": 33.0, "hold_min_s": 90},
+    {"polymorph": "III", "min_c": 33.5, "max_c": 35.5, "hold_min_s": 120},
+    {"polymorph": "V", "min_c": 36.0, "max_c": 38.0, "hold_min_s": 150},
+    {"polymorph": "VI", "min_c": 38.5, "max_c": 40.5, "hold_min_s": 180}
+  ],
+  "shear_bonus_hz": 4.0,
+  "adjacency_gap_c": 1.5,
+  "adjacency_pair_weight": 0.01
+}

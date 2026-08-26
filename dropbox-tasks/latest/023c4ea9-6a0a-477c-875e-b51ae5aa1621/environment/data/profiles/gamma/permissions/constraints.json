@@ -1,0 +1,32 @@
+[
+  {
+    "order": 5,
+    "src_level": 3,
+    "dst_level": 4,
+    "action": "deny"
+  },
+  {
+    "order": 40,
+    "src_level": 3,
+    "dst_level": 4,
+    "action": "allow"
+  },
+  {
+    "order": 50,
+    "src_level": 2,
+    "dst_level": 3,
+    "action": "allow"
+  },
+  {
+    "order": 60,
+    "src_level": 4,
+    "dst_level": 6,
+    "action": "allow"
+  },
+  {
+    "order": 70,
+    "src_level": 6,
+    "dst_level": 8,
+    "action": "allow"
+  }
+]

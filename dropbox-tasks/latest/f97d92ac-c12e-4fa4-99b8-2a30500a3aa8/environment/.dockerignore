@@ -1,0 +1,17 @@
+.git
+.gitignore
+**/.git/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+.venv/
+**/.venv/
+*.log
+.DS_Store
+__MACOSX/
+._*
+submission_materials/
+completion_plan.md

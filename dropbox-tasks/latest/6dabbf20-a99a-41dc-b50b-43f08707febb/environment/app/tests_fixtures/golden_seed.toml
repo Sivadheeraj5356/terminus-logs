@@ -1,0 +1,3 @@
+# Master seed for a run. The engine seeds one PRNG stream from this value and
+# draws everything (weight init, per-epoch shuffles, dropout masks) from it in order.
+seed = 0xC0FFEE123

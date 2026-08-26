@@ -1,0 +1,9 @@
+{
+  "schema_version": "contact-resistance-v1",
+  "unit": "ohm",
+  "contacts": {
+    "G1": 795.0,
+    "G2": 885.0,
+    "G3": 740.0
+  }
+}

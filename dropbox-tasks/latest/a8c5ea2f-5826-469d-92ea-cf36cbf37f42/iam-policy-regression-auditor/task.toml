@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "Anonymous"
+author_email = "Anonymous"
+difficulty = "hard"
+category = "security"
+subcategories = []
+languages = ["rust"]
+number_of_milestones = 0
+tags = ["iam", "policy-analysis", "identity-security", "access-control", "regression-audit"]
+expert_time_estimate_min = 240.0
+junior_time_estimate_min = 900.0
+codebase_size = "minimal"
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 1200.0
+cpus = 1
+memory_mb = 4096
+storage_mb = 4096

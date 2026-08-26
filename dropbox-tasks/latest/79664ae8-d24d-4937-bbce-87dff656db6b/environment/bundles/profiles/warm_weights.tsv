@@ -1,0 +1,6 @@
+fw_alpha	10
+fw_beta	20
+mod_core	30
+mod_net	40
+mod_rtc	35
+mod_disk	50

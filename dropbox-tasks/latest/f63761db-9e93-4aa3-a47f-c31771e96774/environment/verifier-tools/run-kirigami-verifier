@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -uo pipefail
+for process_dir in /proc/[0-9]*; do
+  process_id="${process_dir##*/}"
+  process_uid="$(stat -c %u "$process_dir" 2>/dev/null || true)"
+  if [ "$process_uid" = "10001" ]; then
+    kill -KILL "$process_id" 2>/dev/null || true
+  fi
+done
+
+PRIVATE_DIR="$(mktemp -d /tmp/kirigami-verifier.XXXXXX)"
+cleanup() { rm -rf "$PRIVATE_DIR"; }
+trap cleanup EXIT
+
+chown analyst:analyst "$PRIVATE_DIR"
+chmod 0700 "$PRIVATE_DIR"
+
+SYSTEM_PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+CXX="$(PATH="$SYSTEM_PATH" command -v g++ || true)"
+if [ -z "$CXX" ]; then
+  echo "Verifier compiler not found on the canonical image PATH." >&2
+  exit 127
+fi
+
+setpriv --reuid=10001 --regid=10001 --clear-groups \
+  env PATH="$SYSTEM_PATH" \
+  "$CXX" -std=c++20 -O2 -Wall -Wextra -Wpedantic -Werror \
+  -I/app/workbench \
+  /app/workbench/main.cpp /app/workbench/model.cpp /app/workbench/solver.cpp \
+  -o "$PRIVATE_DIR/kirigami-map"
+compile_rc=$?
+if [ "$compile_rc" -ne 0 ]; then
+  exit "$compile_rc"
+fi
+chown root:root "$PRIVATE_DIR" "$PRIVATE_DIR/kirigami-map"
+chmod 0711 "$PRIVATE_DIR"
+chmod 0555 "$PRIVATE_DIR/kirigami-map"
+export KIRIGAMI_BINARY="$PRIVATE_DIR/kirigami-map"
+export KIRIGAMI_RUN_UID=10001
+python3 -m pytest -o cache_dir=/tmp/pytest_cache   --ctrf /logs/verifier/ctrf.json /tests/test_outputs.py -rA

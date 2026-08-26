@@ -1,0 +1,7 @@
+Portfall is a terminal puzzle played inside a stack of shipping containers. Players submit command transcripts, and the game master needs an automated referee that applies the Portfall operations manual consistently instead of judging each game by hand.
+
+Complete the Portfall game referee exposed from `/app/src` by providing `adjudicatePortfall`, `summarizePortfallLeague`, and `writePortfallAuditPack`. The referee must replay transcript text against the supplied container layout at `/app/portfall/container-spec.example.json`, follow the puzzle rules in `/app/portfall/manual.md`, and return canonical JSON using the game-state shapes in `/app/src/types.ts`. Keep the package importable for the verifier with no standalone CLI, network calls, timestamps, randomness, or external services.
+
+The completed referee should match the public adjudication examples under `/app/transcripts` and `/app/golden/adjudications`, and it should generalize to hidden Portfall games, alternate container layouts, aliases, entry requirements, macro-style transcript blocks, league scoreboards, and audit-pack transcript files that follow the same manual and schema. Audit packs include per-player case JSON, `leaderboard.csv`, `hazards.json`, and `manifest.json` artifacts. Game outcomes must be derived from the container spec, transcript text, and documented puzzle rules rather than hardcoded fixture outputs.
+
+A correct final state builds with `npm run build` and emits deterministic Portfall adjudication, league-summary, and audit-pack results after canonical JSON normalization.

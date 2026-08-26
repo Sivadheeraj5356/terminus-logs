@@ -1,0 +1,18 @@
+{
+  "desk": "principal-roster",
+  "realm_mode_tip": "lower",
+  "principals": [
+    {"actor": "alice@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "bob@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "carol@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "dave@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "eve@corp.example.com", "expiry": 999999, "tip": false, "note": "superseded_hold"},
+    {"actor": "eve@corp.example.com", "expiry": 500, "tip": true, "note": "signed_expiry"},
+    {"actor": "frank@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "grace@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "henry@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "ian@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "kate@corp.example.com", "expiry": 999999, "tip": true},
+    {"actor": "leo@corp.example.com", "expiry": 999999, "tip": true}
+  ]
+}

@@ -1,0 +1,7 @@
+CELL/3
+run_id=alpha
+observation_id,peptide,retention_time,confidence
+a01,PEPTIDE_A,10.0,0.98
+a02,PEPTIDE_B,20.0,0.94
+a03,PEPTIDE_C,20.0,0.91
+a04,PEPTIDE_D,40.0,0.96

@@ -1,0 +1,32 @@
+{
+  "project_id":"project_16",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"esbuild",
+        "version":"0.19.0"
+      },
+      {
+        "name":"bundler",
+        "version":"1.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"bundler",
+        "provider":"esbuild",
+        "constraint":"^0.19.0",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"esbuild",
+        "target":"0.20.0",
+        "release_date":"2026-04-05"
+      }
+    ]
+  },
+  "blast_threshold":8
+}

@@ -1,0 +1,5 @@
+punct marks here
+addr 24.19.75.72 hex 0x3782 token tok_636
+alpha gamma no bird false
+tabs	and spaces here
+addr 111.42.212.187 hex 0x37f6 token tok_917

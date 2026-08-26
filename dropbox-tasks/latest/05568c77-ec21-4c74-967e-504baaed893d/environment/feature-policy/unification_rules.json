@@ -1,0 +1,24 @@
+{
+  "version_winner": "shallowest_depth",
+  "tie_break_same_depth": "parent_crate_key_lexicographic",
+  "feature_merge": "union_sorted_unique",
+  "same_version_merge_requires": ["same_depth", "same_parent_crate_key", "same_resolved_version"],
+  "same_version_merge_effect": "union active_features only, no conflict purge, no winner replacement",
+  "duplicate_edge_id": "first_seen_wins",
+  "depth_cap_field": "traversal_depth_cap",
+  "default_depth_cap": 64,
+  "exclusion_field": "exclusions",
+  "exclusion_effect": "skip edge and entire child subtree",
+  "optional_weak_skip_unless_declared": true,
+  "optional_weak_rule": "skip optional edges unless child crate is also listed in declared",
+  "declared_optional_still_walks": true,
+  "resolution_reasons": ["nearest", "workspace", "unified"],
+  "workspace_pin_resolution_reason": "workspace when crate appears in workspace_pins",
+  "conflict_severity": {
+    "hard": "selected_version major differs from any rejected_versions major",
+    "soft": "all rejected_versions share major with selected_version"
+  },
+  "resolved_crates_sort": "crate_key ascending",
+  "feature_conflicts_sort": ["crate ascending", "selected_version ascending"],
+  "rejected_versions_sort": "semver ascending"
+}

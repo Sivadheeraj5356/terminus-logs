@@ -1,0 +1,8 @@
+game_id	journal_seq	active	journal_event	note
+G01	1	true	camera-confirmed	Camera transcript is the active move authority.
+G02	1	true	camera-confirmed	Camera transcript is the active move authority.
+G03	1	false	camera-confirmed	Initial transcript included the attempted recapture.
+G03	2	true	referee-overturn	Referee card stops the official archive before ply 24 and awards Black a superko forfeit.
+G04	1	true	camera-confirmed	Camera transcript is the active move authority.
+G05	1	true	camera-confirmed	Camera transcript is the active move authority.
+G06	1	true	camera-confirmed	Camera transcript is the active move authority.

@@ -1,0 +1,146 @@
+{
+  "flows": [
+    {
+      "flow_id": "flow-safety-01",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC7-safety",
+      "period_us": 1000,
+      "deadline_us": 400,
+      "frame_size_bytes": 64,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-safety-02",
+      "source": "plc2",
+      "destination": "hmi2",
+      "traffic_class": "TC7-safety",
+      "period_us": 1000,
+      "deadline_us": 350,
+      "frame_size_bytes": 96,
+      "path": ["plc2", "sw3", "sw2", "hmi2"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-control-01",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC6-control",
+      "period_us": 2000,
+      "deadline_us": 900,
+      "frame_size_bytes": 128,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-control-02",
+      "source": "plc2",
+      "destination": "hmi2",
+      "traffic_class": "TC6-control",
+      "period_us": 2000,
+      "deadline_us": 800,
+      "frame_size_bytes": 128,
+      "path": ["plc2", "sw3", "sw2", "hmi2"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-monitor-01",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC5-monitor",
+      "period_us": 5000,
+      "deadline_us": 2500,
+      "frame_size_bytes": 256,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "bursts_per_period": 2,
+      "inter_frame_gap_us": 18,
+      "bandwidth_overhead_bytes": 32,
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-monitor-02",
+      "source": "plc1",
+      "destination": "hmi2",
+      "traffic_class": "TC5-monitor",
+      "period_us": 5000,
+      "deadline_us": 3500,
+      "frame_size_bytes": 256,
+      "path": ["plc1", "sw1", "sw3", "sw2", "hmi2"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-sync-01",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC4-sync",
+      "period_us": 3000,
+      "deadline_us": 1500,
+      "frame_size_bytes": 512,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-diag-01",
+      "source": "plc2",
+      "destination": "hmi1",
+      "traffic_class": "TC2-diag",
+      "period_us": 500,
+      "deadline_us": 200,
+      "frame_size_bytes": 48,
+      "path": ["plc2", "sw3", "sw2", "hmi1"],
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-bulk-01",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC3-bulk",
+      "period_us": 1000,
+      "deadline_us": 5000,
+      "frame_size_bytes": 14000,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "bursts_per_period": 2,
+      "inter_frame_gap_us": 35,
+      "bandwidth_overhead_bytes": 64,
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-emergency-01",
+      "source": "plc2",
+      "destination": "hmi1",
+      "traffic_class": "TC7-safety",
+      "period_us": 500,
+      "deadline_us": 280,
+      "frame_size_bytes": 96,
+      "path": ["plc2", "sw3", "sw2", "hmi1"],
+      "bursts_per_period": 2,
+      "inter_frame_gap_us": 25,
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-audit-01",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC2-diag",
+      "period_us": 7500,
+      "deadline_us": 100,
+      "frame_size_bytes": 512,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "scheduling_exempt": true,
+      "bandwidth_overhead_bytes": 24,
+      "enabled": true
+    },
+    {
+      "flow_id": "flow-bulk-retired",
+      "source": "plc1",
+      "destination": "hmi1",
+      "traffic_class": "TC3-bulk",
+      "period_us": 1000,
+      "deadline_us": 5000,
+      "frame_size_bytes": 8000,
+      "path": ["plc1", "sw1", "sw2", "hmi1"],
+      "enabled": false
+    }
+  ]
+}

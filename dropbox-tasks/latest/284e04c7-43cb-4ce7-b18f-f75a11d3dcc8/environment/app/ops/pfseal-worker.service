@@ -1,0 +1,13 @@
+[Unit]
+Description=Prefect PFSEAL label consumer
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/prefect/pfseal-worker.env
+ExecStart=/app/bin/pfseal-worker --db /var/lib/prefect/prefect.duckdb --worker-id prefect-prod --poll-ms 1000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

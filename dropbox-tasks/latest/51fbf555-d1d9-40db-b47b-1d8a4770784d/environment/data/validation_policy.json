@@ -1,0 +1,209 @@
+{
+  "network_id_source": "topology.network_id",
+  "inputs": {
+    "topology": "topology.json",
+    "gate_schedules": "gate_schedules.json",
+    "traffic_classes": "traffic_classes.json",
+    "message_flows": "message_flows.json",
+    "clock_sync": "clock_sync.json",
+    "packet_traces": "packet_traces.jsonl",
+    "tsn_profile": "tsn_profile.json"
+  },
+  "deadline_analysis": {
+    "transmission_us": "frame_size_bytes * 8 / link_bandwidth_mbps",
+    "wcet_us": "sum(link_transmission_us on path) + sum(link_propagation_us on path) + sum(node_processing_us for each non-grandmaster node on flow.path) + sum(gate_wait_us per switch egress on path)",
+    "node_processing_us_source": "topology.nodes[].processing_us for every node on flow.path except role grandmaster",
+    "switch_processing_us_source": "deprecated alias of node_processing_us_source",
+    "gate_wait_us": "(cycle_time_ns - open_time_ns_for_queue) / 1000 + queue_guard_band_us",
+    "queue_guard_band_us_source": "gate_schedules.schedules[].queue_guard_bands_us[queue] default 0 when absent",
+    "open_time_ns_for_queue": "sum of interval_ns where gate_states[queue] equals gate_open_value",
+    "gate_open_value_source": "tsn_profile.gate_open_value",
+    "switch_egress_ports": "for each consecutive triple (prev, upstream, downstream) on flow.path where upstream is a switch, locate schedule where switch_id equals upstream and port resolves from topology link from=upstream,to=downstream field switch_ports[upstream]",
+    "egress_port_resolution": "use link.switch_ports[upstream] when link matches path hop; if absent use first schedule entry port on that switch",
+    "compliance_deadline_us": "flow.deadline_us minus traffic_classes.classes[].deadline_shaving_us for flow.traffic_class; default 0 when absent",
+    "compliance_deadline_source": "traffic_classes.json",
+    "analytical_miss_when": "wcet_us > compliance_deadline_us",
+    "round_wcet_us": 3,
+    "include_flow_when": "flow.enabled is not false and flow.scheduling_exempt is not true",
+    "inter_frame_gap_us": "add (bursts_per_period - 1) * inter_frame_gap_us to wcet_us when bursts_per_period > 1; inter_frame_gap_us defaults to 0",
+    "bursts_per_period_source": "message_flows.flows[].bursts_per_period default 1 when absent"
+  },
+  "trace_validation": {
+    "raw_latency_us": "arrival_us - release_us",
+    "include_trace_when": "trace.validate is not false",
+    "observed_miss_when": "raw_latency_us > compliance_deadline_us for matching flow_id",
+    "trace_miss_deduplication": "when a validated trace qualifies for both observed_miss and clock_skew_miss emit only clock_skew_miss for that trace_id",
+    "clock_skew_excess_us": "max(0, abs(offset_us) - tolerance_us)",
+    "clock_skew_node_filter": "include only topology nodes with role switch on flow.path; always exclude clock_sync.grandmaster",
+    "adjusted_latency_us": "raw_latency_us + sum(clock_skew_excess_us for each filtered switch on flow.path) + trace.jitter_us",
+    "jitter_us_source": "packet_traces.jitter_us default 0 when absent",
+    "clock_skew_miss_when": "adjusted_latency_us > compliance_deadline_us and sum(clock_skew_excess_us on filtered path) > 0",
+    "round_latency_us": 3,
+    "numeric_coercion": "cast arrival_us and release_us to float before computing raw_latency_us and before round_latency_us",
+    "json_float_fields": "latency_us and margin_us in deadline_misses entries must be JSON numbers; whole-valued results still use a fractional form (e.g. 980.0 not 980) in JSON; deadline_us stays a JSON integer and description {deadline_us} renders as an integer string without .0"
+  },
+  "gate_conflicts": {
+    "overlap_when": "two reserved_windows on same switch_id and port both exclusive true and time ranges overlap with positive overlap_ns",
+    "range_end_ns": "start_ns + duration_ns",
+    "overlap_ns": "min(end_a, end_b) - max(start_a, start_b) when positive",
+    "boundary_touch_is_overlap": false,
+    "sort": ["switch_id", "port", "overlap_ns_desc"],
+    "conflict_id_assignment_order": "assign GC- sequence after applying sort to the full conflict list",
+    "conflict_id_assignment_note": "Detect overlaps first, sort conflicts per gate_conflicts.sort, then assign conflict_id 001..N in that final order"
+  },
+  "bandwidth": {
+    "hyperperiod_us": "least_common_multiple of period_us for enabled flows where scheduling_exempt is not true",
+    "reserved_mbps": "sum over enabled flows traversing link of bandwidth_frame_bytes * 8 * bursts_per_period / period_us",
+    "bandwidth_frame_bytes": "frame_size_bytes + bandwidth_overhead_bytes; bandwidth_overhead_bytes defaults to 0",
+    "bandwidth_overhead_source": "message_flows.flows[].bandwidth_overhead_bytes",
+    "bursts_per_period_source": "message_flows.flows[].bursts_per_period default 1 when absent",
+    "scheduling_exempt_bandwidth": "flows with scheduling_exempt true remain in reserved_mbps sums but are excluded from hyperperiod_us LCM and analytical deadline analysis",
+    "available_mbps": "link.bandwidth_mbps * link.derate_factor where derate_factor defaults to 1.0",
+    "available_mbps_format": "integer Mbps with no fractional component; truncate toward zero after applying derate_factor",
+    "transmission_bandwidth_mbps": "link.bandwidth_mbps without derate_factor",
+    "utilization_ratio": "reserved_mbps / available_mbps rounded to 4 decimals",
+    "overcommitted_when": "reserved_mbps > available_mbps",
+    "link_sort": "link_id ascending",
+    "exclude_disabled_flows": true
+  },
+  "priority_inversion": {
+    "higher_priority_is_larger_queue_number": true,
+    "scope": "group traces by egress_node, egress_port, cycle; only traces where validate is not false",
+    "inversion_when": "lower-priority trace transmits before higher-priority trace while higher-priority release_us is strictly less than lower-priority transmit_us",
+    "sort": ["egress_node", "egress_port", "cycle", "lower_queue"]
+  },
+  "metrics": {
+    "schedule_feasibility_score": {
+      "method": "100 * (1 - failing_flows / eligible_flows)",
+      "failing_flows": "enabled non-exempt flows with analytical WCET miss",
+      "eligible_flows": "enabled flows where scheduling_exempt is not true",
+      "round_decimals": 2
+    },
+    "deadline_compliance_rate": {
+      "method": "compliant_traces / validated_traces",
+      "compliant_when": "raw_latency_us <= compliance_deadline_us",
+      "validated_traces": "traces where validate is not false",
+      "round_decimals": 4
+    },
+    "bandwidth_headroom_min": {
+      "method": "min over links of (available_mbps - reserved_mbps)",
+      "round_decimals": 3
+    },
+    "clock_sync_compliance_rate": {
+      "method": "compliant_nodes / total_nodes_with_offset excluding grandmaster",
+      "compliant_when": "abs(offset_us) <= tolerance_us",
+      "round_decimals": 4
+    },
+    "priority_inversion_count": {
+      "method": "count of detected inversions"
+    },
+    "report_metric_labels": {
+      "schedule_feasibility_score": "Schedule Feasibility Score",
+      "deadline_compliance_rate": "Deadline Compliance Rate",
+      "bandwidth_headroom_min": "Minimum Bandwidth Headroom (Mbps)",
+      "clock_sync_compliance_rate": "Clock Sync Compliance Rate",
+      "priority_inversion_count": "Priority Inversion Count"
+    }
+  },
+  "miss_id_assignment_order": [
+    "analytical_by_flow_id among enabled flows",
+    "observed_by_trace_id among validated traces",
+    "clock_skew_by_trace_id among validated traces"
+  ],
+  "miss_id_assignment_note": "Controls DL- miss_id sequence during collection only; final misses array order follows outputs.deadline_misses.sort",
+  "description_templates": {
+    "analytical_miss": "Analytical WCET {wcet_us} us exceeds deadline {deadline_us} us for {flow_id}",
+    "observed_miss": "Observed latency {latency_us} us exceeds deadline {deadline_us} us for {flow_id} cycle {cycle}",
+    "clock_skew_miss": "Clock-adjusted latency {adjusted_latency_us} us exceeds deadline {deadline_us} us for {flow_id} trace {trace_id}",
+    "gate_conflict": "Exclusive windows {window_a} and {window_b} overlap {overlap_ns} ns on {switch_id} {port}",
+    "priority_inversion": "Queue {lower_queue} transmitted before waiting queue {higher_queue} on {egress_node} {egress_port} cycle {cycle}",
+    "placeholder_rules": {
+      "deadline_us": "always int(flow.deadline_us) nominal deadline from message_flows; never compliance_deadline_us; render as integer text without a decimal suffix (900 not 900.0)",
+      "scope": "placeholder_rules apply to description strings in JSON entries and to deadline lines copied into schedule_validation_report.md",
+      "compliance_vs_nominal": "compliance_deadline_us is used only for miss detection and margin_us; description templates and JSON deadline_us field both use nominal flow.deadline_us"
+    }
+  },
+  "report_markdown": {
+    "title": "# TSN Schedule Validation Report — {profile_name}",
+    "sections": [
+      "metrics_table",
+      "deadline_summary",
+      "gate_conflict_summary",
+      "priority_inversion_summary",
+      "bandwidth_summary"
+    ],
+    "metrics_table_headers": ["Metric", "Value"],
+    "metrics_section_heading": "## Metrics",
+    "metrics_table_separator": "| --- | --- |",
+    "metrics_value_format": "render numeric metrics with exactly metrics.<key>.round_decimals fractional digits; priority_inversion_count is a plain integer",
+    "deadline_summary_heading": "## Deadline Miss Highlights",
+    "deadline_line_template": "- `{miss_id}` [{miss_type}] {description}",
+    "gate_conflict_heading": "## Gate Conflict Highlights",
+    "gate_conflict_line_template": "- `{conflict_id}` {description}",
+    "priority_inversion_heading": "## Priority Inversions",
+    "priority_inversion_line_template": "- {description}",
+    "bandwidth_heading": "## Bandwidth Utilization Highlights",
+    "bandwidth_line_template": "- `{link_id}` reserved {reserved_mbps} Mbps / {available_mbps} Mbps (overcommitted: {overcommitted})",
+    "bandwidth_include_overcommitted_only": true,
+    "required_verbatim": ["LineB-TSN", "Schedule Feasibility Score"],
+    "blank_line_after_section_heading": true
+  },
+  "outputs": {
+    "schedule_validation_report": {
+      "path": "schedule_validation_report.md",
+      "format": "markdown"
+    },
+    "deadline_misses": {
+      "path": "deadline_misses.json",
+      "top_level_keys": ["network_id", "misses"],
+      "entry_keys": [
+        "miss_id",
+        "flow_id",
+        "miss_type",
+        "cycle",
+        "deadline_us",
+        "latency_us",
+        "margin_us",
+        "description"
+      ],
+      "miss_id_prefix": "DL",
+      "miss_id_separator": "-",
+      "miss_id_sequence_width": 3,
+      "miss_types": ["analytical", "observed", "clock_skew"],
+      "miss_type_output_order": ["analytical", "observed", "clock_skew"],
+      "margin_us": "compliance_deadline_us - latency (latency is wcet_us, raw_latency_us, or adjusted_latency_us depending on miss_type); deadline_us field remains nominal flow.deadline_us",
+      "deadline_us": "nominal integer flow.deadline_us; same value fills description template placeholder {deadline_us} per description_templates.placeholder_rules",
+      "cycle_null_for_analytical": true,
+      "sort": ["miss_type_output_order", "flow_id", "cycle"],
+      "sort_semantics": "Rank miss_type by miss_type_output_order index (not alphabetical), then flow_id ascending, then cycle ascending with null before integers"
+    },
+    "gate_conflicts": {
+      "path": "gate_conflicts.json",
+      "top_level_keys": ["network_id", "conflicts"],
+      "entry_keys": [
+        "conflict_id",
+        "switch_id",
+        "port",
+        "window_a",
+        "window_b",
+        "overlap_ns",
+        "description"
+      ],
+      "conflict_id_prefix": "GC",
+      "conflict_id_separator": "-",
+      "conflict_id_sequence_width": 3,
+      "conflict_id_assignment_order": "after gate_conflicts.sort",
+      "sort": ["switch_id", "port", "overlap_ns_desc"]
+    },
+    "network_utilization": {
+      "path": "network_utilization.csv",
+      "header": "link_id,hyperperiod_us,reserved_mbps,available_mbps,utilization_ratio,overcommitted",
+      "row_sort": "link_id ascending",
+      "overcommitted_values": ["true", "false"],
+      "reserved_mbps_decimals": 4,
+      "utilization_ratio_decimals": 4,
+      "available_mbps_format": "integer string with no decimal point; value is int(link bandwidth_mbps * derate_factor)",
+      "hyperperiod_us_format": "integer string with no decimal point"
+    }
+  }
+}

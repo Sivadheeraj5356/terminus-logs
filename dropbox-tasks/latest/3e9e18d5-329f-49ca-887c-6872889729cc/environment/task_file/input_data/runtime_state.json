@@ -1,0 +1,8 @@
+{
+  "active": [
+    {"service": "payments", "env": "prod", "version": "2.4.8", "digest": "sha256:pay-old"},
+    {"service": "catalog", "env": "prod", "version": "5.1.2", "digest": "sha256:cat-old"},
+    {"service": "identity", "env": "prod", "version": "3.9.4", "digest": "sha256:id-old"},
+    {"service": "search", "env": "stage", "version": "1.8.0", "digest": "sha256:sea-stage-old"}
+  ]
+}

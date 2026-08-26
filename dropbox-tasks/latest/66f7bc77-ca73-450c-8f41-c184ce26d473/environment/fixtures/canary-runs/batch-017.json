@@ -1,0 +1,12 @@
+{
+  "batch_id": "batch-017",
+  "runs": [
+    {
+      "profile": "canary",
+      "baseline": {
+        "accuracy": 0.910,
+        "macro_f1": 0.885
+      }
+    }
+  ]
+}

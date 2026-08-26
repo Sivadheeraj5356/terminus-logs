@@ -1,0 +1,7 @@
+request_id	requester	resource	start_ts	end_ts	ticket	reason	source_ip
+REQ-1001	alice	payroll-db	2026-05-18T10:00:00Z	2026-05-18T10:45:00Z	INC-123456	payroll close	10.0.0.10
+REQ-1002	bob	payroll-db	2026-05-18T11:00:00Z	2026-05-18T13:30:00Z	INC-12	payroll repair	10.0.0.20
+REQ-1003	alice	vault-prod	2026-05-18T12:00:00Z	2026-05-18T12:20:00Z	CHG-222222	secret rotation	10.0.0.30
+REQ-1004	erin	payroll-db	2026-05-18T12:10:00Z	2026-05-18T12:30:00Z	INC-333333	payroll patch	172.16.0.40
+REQ-1005	carol	support-console	2026-05-18T10:15:00Z	2026-05-18T11:00:00Z	-	console recovery	10.1.5.4
+REQ-1006	alice	payroll-db	2026-05-18T10:30:00Z	2026-05-18T11:15:00Z	CHG-654321	late payroll repair	10.0.0.10

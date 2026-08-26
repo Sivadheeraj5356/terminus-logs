@@ -1,0 +1,4 @@
+{"recovery_id":"REC-100-APR-1","rider_id":"R100","subsidy_id":"SUB-R100-CORE","service_month":"2026-05","amount_cents":175,"approved":true}
+{"recovery_id":"REC-102-MAY-1","rider_id":"R102","subsidy_id":"SUB,R102-ALL","service_month":"2026-05","amount_cents":100,"approved":true}
+{"recovery_id":"REC-105-DRAFT","rider_id":"R105","subsidy_id":"SUB-R105-HARBOR","service_month":"2026-05","amount_cents":999,"approved":false}
+{"recovery_id":"REC-100-OLD","rider_id":"R100","subsidy_id":"SUB-R100-CORE","service_month":"2026-04","amount_cents":90,"approved":true}

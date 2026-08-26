@@ -1,0 +1,10 @@
+[audit]
+business_date = "2026-05-29"
+minimum_pending_rows = 50
+require_stable_order = true
+require_input_immutability = true
+require_spec_immutability = true
+
+[audit.outputs]
+report = "/app/out/ink_report.csv"
+failure_log = "/app/logs/audit_failures.jsonl"

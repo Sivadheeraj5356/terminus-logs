@@ -1,0 +1,4 @@
+{"seq": 1, "kind": "QUIESCE", "actor": "carr", "index": "ix-01"}
+{"seq": 2, "kind": "RELEASE", "actor": "afox", "source": "svc-c"}
+{"seq": 3, "kind": "UNPIN", "actor": "blyn", "channel": "c3-01"}
+{"seq": 4, "kind": "FLUSH", "actor": "dodd", "channel": "c3-02"}

@@ -1,0 +1,10 @@
+IP 255.255.255.0 mask
+addr 47.81.50.166 hex 0x7b37 token tok_887
+digits 123 4567 89
+dog yes end bar
+delta gray color delta start
+addr 111.181.16.102 hex 0x2b30 token tok_361
+addr 206.26.239.238 hex 0xa287 token tok_646
+banana bananana ba na
+UPPER lower MiXeD
+CamelCase and snake_case

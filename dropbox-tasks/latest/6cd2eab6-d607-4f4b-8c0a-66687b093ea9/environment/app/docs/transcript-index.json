@@ -1,0 +1,109 @@
+{
+  "sections": [
+    {
+      "id": "##-charter",
+      "offset": 100,
+      "title": "## Charter"
+    },
+    {
+      "id": "##-meeting-01:-working-session-1",
+      "offset": 433,
+      "title": "## Meeting 01: working session 1"
+    },
+    {
+      "id": "##-meeting-02:-working-session-2",
+      "offset": 1236,
+      "title": "## Meeting 02: working session 2"
+    },
+    {
+      "id": "##-meeting-03:-working-session-3",
+      "offset": 2022,
+      "title": "## Meeting 03: working session 3"
+    },
+    {
+      "id": "##-meeting-04:-working-session-4",
+      "offset": 2912,
+      "title": "## Meeting 04: working session 4"
+    },
+    {
+      "id": "##-meeting-05:-working-session-5",
+      "offset": 3706,
+      "title": "## Meeting 05: working session 5"
+    },
+    {
+      "id": "##-meeting-06:-working-session-6",
+      "offset": 4497,
+      "title": "## Meeting 06: working session 6"
+    },
+    {
+      "id": "##-meeting-07:-working-session-7",
+      "offset": 5295,
+      "title": "## Meeting 07: working session 7"
+    },
+    {
+      "id": "##-meeting-08:-working-session-8",
+      "offset": 6161,
+      "title": "## Meeting 08: working session 8"
+    },
+    {
+      "id": "##-meeting-09:-working-session-9",
+      "offset": 6955,
+      "title": "## Meeting 09: working session 9"
+    },
+    {
+      "id": "##-meeting-10:-working-session-10",
+      "offset": 7752,
+      "title": "## Meeting 10: working session 10"
+    },
+    {
+      "id": "##-meeting-11:-working-session-11",
+      "offset": 8549,
+      "title": "## Meeting 11: working session 11"
+    },
+    {
+      "id": "##-meeting-12:-working-session-12",
+      "offset": 9432,
+      "title": "## Meeting 12: working session 12"
+    },
+    {
+      "id": "##-meeting-13:-working-session-13",
+      "offset": 10225,
+      "title": "## Meeting 13: working session 13"
+    },
+    {
+      "id": "##-meeting-14:-working-session-14",
+      "offset": 11026,
+      "title": "## Meeting 14: working session 14"
+    },
+    {
+      "id": "##-meeting-15:-working-session-15",
+      "offset": 11830,
+      "title": "## Meeting 15: working session 15"
+    },
+    {
+      "id": "##-meeting-16:-working-session-16",
+      "offset": 12634,
+      "title": "## Meeting 16: working session 16"
+    },
+    {
+      "id": "##-meeting-17:-final-route-and-file-restrictions",
+      "offset": 13432,
+      "title": "## Meeting 17: final route and file restrictions"
+    },
+    {
+      "id": "##-meeting-18:-checksum-and-lock-schema",
+      "offset": 14388,
+      "title": "## Meeting 18: checksum and lock schema"
+    },
+    {
+      "id": "##-meeting-19:-gradle-coupling",
+      "offset": 14704,
+      "title": "## Meeting 19: Gradle coupling"
+    },
+    {
+      "id": "##-appendix-a:-rejected-proposals",
+      "offset": 15011,
+      "title": "## Appendix A: rejected proposals"
+    }
+  ]
+}

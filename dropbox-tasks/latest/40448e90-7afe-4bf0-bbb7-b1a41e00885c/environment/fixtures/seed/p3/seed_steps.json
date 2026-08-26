@@ -1,0 +1,28 @@
+{
+  "image_tag": "gamma/img:prod",
+  "targets_gen": 2,
+  "expiry": 1893456000,
+  "proxy_required": 0,
+  "walk_mode": 0,
+  "pull_mode": 0,
+  "admission_snap": "node",
+  "replica_flip": true,
+  "steps": [
+    {
+      "idx": 0,
+      "label": "post_shift",
+      "mirror_tier": 2,
+      "targets_gen": 1,
+      "expiry": 1893455700,
+      "admission_snap": "drift"
+    },
+    {
+      "idx": 1,
+      "label": "caught_up",
+      "mirror_tier": 2,
+      "targets_gen": 2,
+      "expiry": 1893456000,
+      "admission_snap": "node"
+    }
+  ]
+}

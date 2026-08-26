@@ -1,0 +1,20 @@
+[
+  {
+    "id": "contractor",
+    "entry": true,
+    "crown": false,
+    "level": 1
+  },
+  {
+    "id": "vault-crown",
+    "entry": false,
+    "crown": true,
+    "level": 9
+  },
+  {
+    "id": "svc-worker",
+    "entry": false,
+    "crown": false,
+    "level": 2
+  }
+]

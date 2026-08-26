@@ -1,0 +1,375 @@
+diff --git a/src/audit.rs b/src/audit.rs
+index 8e8339b..18d47e4 100644
+--- a/src/audit.rs
++++ b/src/audit.rs
+@@ -147,7 +147,7 @@ pub fn parse_audit(text: &str, model: &Model) -> Result<Vec<CheckState>, Contrac
+                 if current_session.is_none() || !have_point {
+                     push(&mut violations, 8, line, "E_AUDIT_STATE");
+                 } else {
+-                    stack.push(Snapshot { point: point.clone(), locked: BTreeSet::new(), budget: 0 });
++                    stack.push(Snapshot { point: point.clone(), locked: locked.clone(), budget });
+                     if stack.len() > 8 {
+                         push(&mut violations, 9, line, "E_AUDIT_LIMIT");
+                     }
+@@ -212,7 +212,7 @@ pub fn parse_audit(text: &str, model: &Model) -> Result<Vec<CheckState>, Contrac
+                 } else if kind == "LOCK" {
+                     locked.insert(fields[1].to_string());
+                 } else {
+-                    let _ = fields[1];
++                    locked.remove(fields[1]);
+                 }
+             }
+             "BUDGET" => {
+diff --git a/src/model.rs b/src/model.rs
+index 8effdc3..56f6c71 100644
+--- a/src/model.rs
++++ b/src/model.rs
+@@ -205,13 +205,35 @@ pub fn parse_model(text: &str) -> Result<Model, ContractError> {
+         }
+     }
+ 
+-    // Topology and full-domain checks are completed by the command implementation.
++    for tree in trees.values() {
++        let mut visiting = BTreeSet::new();
++        let mut visited = BTreeSet::new();
++        if nodes.contains_key(&(tree.id.clone(), tree.root.clone())) {
++            if !walk_tree(&tree.id, &tree.root, &nodes, &mut visiting, &mut visited) {
++                push(&mut violations, 8, tree.line, "E_MODEL_TREE");
++            }
++            let declared: BTreeSet<String> = nodes
++                .keys()
++                .filter(|(tree_id, _)| tree_id == &tree.id)
++                .map(|(_, node_id)| node_id.clone())
++                .collect();
++            if declared != visited {
++                let line = nodes
++                    .values()
++                    .filter(|node| node.tree == tree.id && !visited.contains(&node.id))
++                    .map(|node| node.line)
++                    .min()
++                    .unwrap_or(tree.line);
++                push(&mut violations, 8, line, "E_MODEL_TREE");
++            }
++        }
++    }
+ 
+     let mut product = 1u64;
+     for feature in features.values() {
+         product = product.saturating_mul((i64::from(feature.max) - i64::from(feature.min) + 1) as u64);
+     }
+-    if features.len() > 8 || trees.len() > 12 || nodes.len() > 80 {
++    if features.len() > 8 || trees.len() > 12 || nodes.len() > 80 || product > 100_000 {
+         push(&mut violations, 9, 1, "E_MODEL_LIMIT");
+     }
+ 
+@@ -227,6 +249,34 @@ pub fn parse_model(text: &str) -> Result<Model, ContractError> {
+     })
+ }
+ 
++fn walk_tree(
++    tree: &str,
++    node_id: &str,
++    nodes: &BTreeMap<(String, String), Node>,
++    visiting: &mut BTreeSet<String>,
++    visited: &mut BTreeSet<String>,
++) -> bool {
++    if visited.contains(node_id) {
++        return true;
++    }
++    if !visiting.insert(node_id.to_string()) {
++        return false;
++    }
++    let Some(node) = nodes.get(&(tree.to_string(), node_id.to_string())) else {
++        return false;
++    };
++    for link in [&node.left, &node.right] {
++        if let Child::Node(next) = link {
++            if !walk_tree(tree, next, nodes, visiting, visited) {
++                return false;
++            }
++        }
++    }
++    visiting.remove(node_id);
++    visited.insert(node_id.to_string());
++    true
++}
++
+ pub fn canonical_model(model: &Model) -> String {
+     let mut out = format!("BIAS|{}\n", model.bias);
+     for feature in model.features.values() {
+diff --git a/src/publish.rs b/src/publish.rs
+index feb0bde..fb9c345 100644
+--- a/src/publish.rs
++++ b/src/publish.rs
+@@ -1,14 +1,70 @@
+ use std::fs::{self, OpenOptions};
+ use std::io::{self, Write};
+ use std::os::unix::fs::PermissionsExt;
+-use std::path::Path;
++use std::path::{Path, PathBuf};
++use std::process;
++use std::sync::atomic::{AtomicU64, Ordering};
++
++static COUNTER: AtomicU64 = AtomicU64::new(0);
+ 
+ pub fn publish(path: &Path, bytes: &[u8]) -> io::Result<()> {
+-    if let Some(parent) = path.parent() {
+-        fs::create_dir_all(parent)?;
++    let parent = path.parent().ok_or_else(|| io::Error::new(io::ErrorKind::InvalidInput, "no parent"))?;
++    let created = create_missing_parents(parent)?;
++    let result = publish_inner(path, parent, bytes);
++    if result.is_err() {
++        cleanup_parents(&created);
++    }
++    result
++}
++
++fn publish_inner(path: &Path, parent: &Path, bytes: &[u8]) -> io::Result<()> {
++    let (temp_path, mut file) = create_temp(parent)?;
++    let result = (|| {
++        file.write_all(bytes)?;
++        file.sync_all()?;
++        file.set_permissions(fs::Permissions::from_mode(0o644))?;
++        drop(file);
++        fs::rename(&temp_path, path)?;
++        if let Ok(directory) = OpenOptions::new().read(true).open(parent) {
++            let _ = directory.sync_all();
++        }
++        Ok(())
++    })();
++    if result.is_err() {
++        let _ = fs::remove_file(&temp_path);
++    }
++    result
++}
++
++fn create_temp(parent: &Path) -> io::Result<(PathBuf, fs::File)> {
++    for _ in 0..100 {
++        let serial = COUNTER.fetch_add(1, Ordering::Relaxed);
++        let name = format!(".forest-audit.{}.{}.tmp", process::id(), serial);
++        let path = parent.join(name);
++        match OpenOptions::new().write(true).create_new(true).open(&path) {
++            Ok(file) => return Ok((path, file)),
++            Err(error) if error.kind() == io::ErrorKind::AlreadyExists => continue,
++            Err(error) => return Err(error),
++        }
++    }
++    Err(io::Error::new(io::ErrorKind::AlreadyExists, "temporary-name exhaustion"))
++}
++
++fn create_missing_parents(parent: &Path) -> io::Result<Vec<PathBuf>> {
++    let mut missing = Vec::new();
++    let mut cursor = parent;
++    while !cursor.exists() {
++        missing.push(cursor.to_path_buf());
++        cursor = cursor.parent().ok_or_else(|| io::Error::new(io::ErrorKind::InvalidInput, "invalid parent"))?;
++    }
++    for directory in missing.iter().rev() {
++        fs::create_dir(directory)?;
++    }
++    Ok(missing)
++}
++
++fn cleanup_parents(created: &[PathBuf]) {
++    for directory in created {
++        let _ = fs::remove_dir(directory);
+     }
+-    let mut file = OpenOptions::new().create(true).truncate(true).write(true).open(path)?;
+-    file.write_all(bytes)?;
+-    file.set_permissions(fs::Permissions::from_mode(0o644))?;
+-    Ok(())
+ }
+diff --git a/src/report.rs b/src/report.rs
+index 2df48fa..57faa15 100644
+--- a/src/report.rs
++++ b/src/report.rs
+@@ -1,4 +1,4 @@
+-use crate::types::{CheckResult, Counterexample};
++use crate::types::{CheckResult, Counterexample, Vote};
+ use crate::util::{hash_hex, json_string};
+ use std::collections::{BTreeMap, BTreeSet};
+ use std::fmt::Write as _;
+@@ -104,7 +104,20 @@ fn state_text(model_hash: &str, results: &[CheckResult]) -> String {
+             point,
+             kind
+         );
+-        let _ = &result.counterexample;
++        if let Some(counterexample) = &result.counterexample {
++            let values = values_csv(&counterexample.values);
++            let votes = votes_csv(&counterexample.evaluation.votes);
++            let _ = writeln!(
++                out,
++                "COUNTER|{}|{}|{}|{}|{}|{}",
++                counterexample.cost,
++                counterexample.changed,
++                counterexample.evaluation.prediction,
++                counterexample.evaluation.score,
++                values,
++                votes
++            );
++        }
+     }
+     out
+ }
+@@ -121,3 +134,10 @@ fn set_csv(values: &BTreeSet<String>) -> String {
+     values.iter().cloned().collect::<Vec<_>>().join(",")
+ }
+ 
++fn votes_csv(votes: &[Vote]) -> String {
++    votes
++        .iter()
++        .map(|vote| format!("{}={}:{}", vote.tree, vote.leaf, vote.vote))
++        .collect::<Vec<_>>()
++        .join(",")
++}
+diff --git a/src/search.rs b/src/search.rs
+index 341f4bf..9ff8146 100644
+--- a/src/search.rs
++++ b/src/search.rs
+@@ -1,39 +1,118 @@
+ use crate::evaluate::evaluate;
+ use crate::types::{CheckResult, CheckState, Counterexample, Model};
++use std::collections::BTreeMap;
+ 
+ pub fn run_checks(model: &Model, states: Vec<CheckState>) -> Vec<CheckResult> {
+     states
+         .into_iter()
+         .map(|state| {
+             let base = evaluate(model, &state.point);
+-            let mut best: Option<Counterexample> = None;
+-            for feature in model.features.values() {
+-                if state.locked.contains(&feature.id) {
+-                    continue;
+-                }
+-                for value in feature.min..=feature.max {
+-                    let mut values = state.point.clone();
+-                    values.insert(feature.id.clone(), value);
+-                    let cost = feature.cost * (value - state.point[&feature.id]).abs();
+-                    if cost > state.budget {
+-                        continue;
+-                    }
+-                    let evaluation = evaluate(model, &values);
+-                    if evaluation.prediction != base.prediction {
+-                        best = Some(Counterexample {
+-                            cost,
+-                            changed: usize::from(value != state.point[&feature.id]),
+-                            values,
+-                            evaluation,
+-                        });
+-                        break;
+-                    }
+-                }
+-                if best.is_some() {
+-                    break;
+-                }
+-            }
+-            CheckResult { state, base, counterexample: best }
++            let counterexample = find_counterexample(model, &state, base.prediction);
++            CheckResult { state, base, counterexample }
+         })
+         .collect()
+ }
++
++fn find_counterexample(model: &Model, state: &CheckState, base_prediction: &str) -> Option<Counterexample> {
++    let features: Vec<_> = model.features.values().collect();
++    let mut current = BTreeMap::<String, i32>::new();
++    let mut best: Option<Counterexample> = None;
++    enumerate(
++        model,
++        state,
++        base_prediction,
++        &features,
++        0,
++        0,
++        0,
++        &mut current,
++        &mut best,
++    );
++    best
++}
++
++#[allow(clippy::too_many_arguments)]
++fn enumerate(
++    model: &Model,
++    state: &CheckState,
++    base_prediction: &str,
++    features: &[&crate::types::Feature],
++    index: usize,
++    cost: i32,
++    changed: usize,
++    current: &mut BTreeMap<String, i32>,
++    best: &mut Option<Counterexample>,
++) {
++    if cost > state.budget {
++        return;
++    }
++    if let Some(existing) = best {
++        if cost > existing.cost {
++            return;
++        }
++    }
++    if index == features.len() {
++        let evaluation = evaluate(model, current);
++        if evaluation.prediction == base_prediction {
++            return;
++        }
++        let candidate = Counterexample {
++            cost,
++            changed,
++            values: current.clone(),
++            evaluation,
++        };
++        if best.as_ref().is_none_or(|old| better(&candidate, old, features)) {
++            *best = Some(candidate);
++        }
++        return;
++    }
++
++    let feature = features[index];
++    let base_value = state.point[&feature.id];
++    if state.locked.contains(&feature.id) {
++        current.insert(feature.id.clone(), base_value);
++        enumerate(model, state, base_prediction, features, index + 1, cost, changed, current, best);
++        current.remove(&feature.id);
++        return;
++    }
++
++    for value in feature.min..=feature.max {
++        let delta = (value - base_value).abs();
++        let next_cost = cost + feature.cost * delta;
++        current.insert(feature.id.clone(), value);
++        enumerate(
++            model,
++            state,
++            base_prediction,
++            features,
++            index + 1,
++            next_cost,
++            changed + usize::from(value != base_value),
++            current,
++            best,
++        );
++    }
++    current.remove(&feature.id);
++}
++
++fn better(
++    candidate: &Counterexample,
++    old: &Counterexample,
++    features: &[&crate::types::Feature],
++) -> bool {
++    if candidate.cost != old.cost {
++        return candidate.cost < old.cost;
++    }
++    if candidate.changed != old.changed {
++        return candidate.changed < old.changed;
++    }
++    for feature in features {
++        let a = candidate.values[&feature.id];
++        let b = old.values[&feature.id];
++        if a != b {
++            return a < b;
++        }
++    }
++    false
++}

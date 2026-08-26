@@ -1,0 +1,6 @@
+schema_version: apexora-qos-policy-1
+policy_map: PM-GUEST_BEST_EFFORT
+classes:
+  - class: CM-GUEST_BEST_EFFORT
+    bandwidth_percent: 30
+    queue_limit: 8192

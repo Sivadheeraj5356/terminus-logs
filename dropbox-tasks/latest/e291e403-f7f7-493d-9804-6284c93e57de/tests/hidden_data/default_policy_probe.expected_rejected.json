@@ -1,0 +1,14 @@
+[
+  {
+    "line": 2,
+    "reason": "duplicate_key"
+  },
+  {
+    "line": 3,
+    "reason": "invalid_json"
+  },
+  {
+    "line": 5,
+    "reason": "invalid_envelope"
+  }
+]

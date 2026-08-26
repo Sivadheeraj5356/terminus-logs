@@ -1,0 +1,12 @@
+{
+  "axis_floors": {
+    "operations": 2,
+    "authority": 1,
+    "safety": 2,
+    "crew_support": 1,
+    "oversight": 1
+  },
+  "critical_dissent_stops": true,
+  "major_dissent_conditional": true,
+  "commitment_due_margin_days": 30
+}

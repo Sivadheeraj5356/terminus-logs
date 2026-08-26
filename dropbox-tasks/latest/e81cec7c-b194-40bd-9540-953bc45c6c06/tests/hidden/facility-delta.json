@@ -1,0 +1,38 @@
+{
+  "facility_id": "bay-delta",
+  "assessment_epoch_unix": 1740001000,
+  "vessels": [
+    {
+      "vessel_id": "D-1",
+      "model_id": "HX-50-LN2",
+      "cryogen": "LN2",
+      "level_liters": 30.0,
+      "pressure_psig": 11.0,
+      "sensor_calibrated_until_unix": 1741000000
+    },
+    {
+      "vessel_id": "D-2",
+      "model_id": "HX-50-LN2",
+      "cryogen": "LN2",
+      "level_liters": 30.0,
+      "pressure_psig": 11.5,
+      "sensor_calibrated_until_unix": 1741000000
+    },
+    {
+      "vessel_id": "D-3",
+      "model_id": "HX-40-LHe",
+      "cryogen": "LHe",
+      "level_liters": 22.0,
+      "pressure_psig": 2.0,
+      "sensor_calibrated_until_unix": 1740001000
+    }
+  ],
+  "placement_requests": [
+    {
+      "request_id": "D-LN2",
+      "specimen_class": "LN2",
+      "min_hold_hours": 12.0,
+      "preferred_vessel_id": "D-1"
+    }
+  ]
+}

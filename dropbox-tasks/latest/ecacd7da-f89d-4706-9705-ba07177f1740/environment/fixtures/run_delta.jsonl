@@ -1,0 +1,5 @@
+{"seq":2,"op":"ram_seat","ram_block_id":"seat_delta_a","scenario_tag":"delta","cycle_epoch":1}
+{"seq":1,"op":"cycle_arm","cycle_epoch":1,"scenario_tag":"delta"}
+{"seq":3,"op":"ram_seat","ram_block_id":"seat_delta_a_rev2","scenario_tag":"delta","cycle_epoch":1}
+{"seq":4,"op":"guide_mark","cycle_epoch":1,"scenario_tag":"delta"}
+{"seq":5,"op":"guide_clear","scenario_tag":"delta","cycle_epoch":1}

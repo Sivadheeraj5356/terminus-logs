@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["metadata", "toolchain", "dependencies"],
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["manifest_hash"],
+      "additionalProperties": false,
+      "properties": {
+        "manifest_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "required": ["elixir", "otp"],
+      "additionalProperties": false,
+      "properties": {
+        "elixir": { "type": "string" },
+        "otp": { "type": "string" }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["version", "source", "approval_status", "constraints"],
+        "additionalProperties": false,
+        "properties": {
+          "version": { "type": "string" },
+          "source": { "type": "string", "enum": ["catalog", "pin"] },
+          "approval_status": {
+            "type": "string",
+            "enum": ["approved", "pending", "rejected"]
+          },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["os", "arch", "min_version", "max_version"],
+              "additionalProperties": false,
+              "properties": {
+                "os": { "type": "string" },
+                "arch": { "type": "string" },
+                "min_version": { "type": "string" },
+                "max_version": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

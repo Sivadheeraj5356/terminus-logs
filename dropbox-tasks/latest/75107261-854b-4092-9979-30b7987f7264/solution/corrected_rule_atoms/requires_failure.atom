@@ -1,0 +1,6 @@
+RULE REQUIRES_FAILURE
+IN keys
+OUT value,reason
+TABLE
+Requires|peer_failed -> owner_fail|requires-fail
+END

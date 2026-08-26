@@ -1,0 +1,4 @@
+zone = "Talveny-Shoal"
+meridian_seconds = 37912
+inherits = "Talveny-Reach"
+inherits_before = "1962-01-01"

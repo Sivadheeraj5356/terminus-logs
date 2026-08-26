@@ -1,0 +1,10 @@
+{
+  "modules": [
+    {"id": "m1", "fuel": 8},
+    {"id": "m2", "fuel": 10}
+  ],
+  "host_calls": [],
+  "fuel_budget": 15,
+  "capabilities": [],
+  "expected_digest": "6a01bbbf099fbfe5"
+}

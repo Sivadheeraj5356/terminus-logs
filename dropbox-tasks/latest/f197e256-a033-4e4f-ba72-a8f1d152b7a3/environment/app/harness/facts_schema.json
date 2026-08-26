@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "workstation facts",
+  "description": "Shape of the JSON object passed as `input` to the Rego library.",
+  "type": "object",
+  "required": ["workstation"],
+  "properties": {
+    "workstation": {
+      "type": "object",
+      "required": [
+        "id", "hostname", "chip", "kernel", "workload",
+        "ptrace_scope", "core_pattern", "suid_dumpable", "coredump_conf",
+        "in_debug_group", "in_media_group", "core_soft", "core_hard",
+        "scratch_perms", "scratch_owner", "scratch_group", "scratch_immutable",
+        "fixture_path"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^ws-[0-9]{3}$"},
+        "hostname": {"type": "string"},
+        "chip": {"type": "string", "enum": ["intel", "amd", "apple-silicon"]},
+        "kernel": {"type": "string"},
+        "workload": {"type": "string", "enum": ["tiff", "png", "mp4"]},
+        "ptrace_scope": {"type": "integer", "minimum": 0, "maximum": 3},
+        "core_pattern": {"type": "string"},
+        "suid_dumpable": {"type": "integer", "minimum": 0, "maximum": 2},
+        "coredump_conf": {"type": "boolean"},
+        "in_debug_group": {"type": "boolean"},
+        "in_media_group": {"type": "boolean"},
+        "core_soft": {"type": "string"},
+        "core_hard": {"type": "string"},
+        "scratch_perms": {"type": "string"},
+        "scratch_owner": {"type": "string"},
+        "scratch_group": {"type": "string"},
+        "scratch_immutable": {"type": "boolean"},
+        "fixture_path": {"type": "string"}
+      }
+    }
+  }
+}

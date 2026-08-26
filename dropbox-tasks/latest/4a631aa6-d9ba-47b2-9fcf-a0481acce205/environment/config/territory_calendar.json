@@ -1,0 +1,16 @@
+{
+  "territories": {
+    "US": {
+      "iana": "America/New_York",
+      "multiplier": 10000
+    },
+    "UK": {
+      "iana": "Europe/London",
+      "multiplier": 11000
+    },
+    "JP": {
+      "iana": "Asia/Tokyo",
+      "multiplier": 9500
+    }
+  }
+}

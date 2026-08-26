@@ -1,0 +1,31 @@
+OCI extraction security report
+
+The output is one compact ASCII JSON object and one LF. Object keys at every level are ascending bytewise. Strings use standard JSON escaping. Hexadecimal is lowercase. Counts are JSON integers. After replay, order every finding array by numeric layer and then by the original physical ustar header byte offset encoded in source; marker-first execution and ordinary-member execution phases never change report order. When one physical member produces records for multiple protected roots, preserve policy order among those same-source records in protected_path_mutations and whiteout_scope_abuses. Privilege properties for one member use setuid then setgid then world_writable_executable.
+
+The top-level arrays in exact order are external_symlink_targets, hardlink_escape_attempts, hardlink_resolution_failures, malformed_whiteout_attempts, namespace_confusion_attempts, path_escape_attempts, privilege_escalation_entries, protected_path_mutations, security_summary, shadowed_member_attacks, symlink_pivot_attempts, and whiteout_scope_abuses.
+
+Every layer is four lowercase hexadecimal digits. Every source is layer then colon then the eight-digit lowercase hexadecimal physical ustar header offset.
+
+external_symlink_targets records have layer, path, raw_path, raw_target, reason, and source. reason is absolute_target, empty_target, or root_escape.
+
+hardlink_escape_attempts records have layer, raw_path, raw_target, and source.
+
+hardlink_resolution_failures records have layer, path, reason, source, and target. reason is cycle, missing_target, or nonregular_target.
+
+malformed_whiteout_attempts records have layer, raw_path, reason, and source. reason is invalid_whiteout.
+
+namespace_confusion_attempts records have ancestor, ancestor_kind, ancestor_source, layer, path, raw_path, and source. ancestor_kind is file or hardlink.
+
+path_escape_attempts records have layer, raw_path, and source.
+
+privilege_escalation_entries records have layer, mode, path, property, raw_path, and source. mode is four lowercase octal digits.
+
+protected_path_mutations and whiteout_scope_abuses records have action, layer, path, protected_root, raw_path, and source. action is create_or_replace, opaque, or whiteout.
+
+shadowed_member_attacks records have first_source, layer, path, raw_path, and source.
+
+symlink_pivot_attempts records have ancestor, ancestor_source, layer, path, raw_path, and source.
+
+security_summary contains one record with finding_count, manifest_sha256, policy_sha256, trusted_layers, untrusted_layers, and verdict. verdict is accept or deny. finding_count is the combined length of every other top-level array.
+
+The program removes a preexisting output before validation. Wrong arguments unreadable input invalid policy invalid manifest malformed archive digest mismatch allocation failure and output failure return 2 with both streams empty and no output path.

@@ -1,0 +1,79 @@
+{
+ "until": 31,
+ "players": [
+  {
+   "name": "officer-main",
+   "main": 3,
+   "grace": 2,
+   "recoverOnMove": true
+  },
+  {
+   "name": "officer-swing",
+   "main": 7,
+   "grace": 0,
+   "recoverOnMove": false
+  }
+ ],
+ "events": [
+  {
+   "at": 3,
+   "op": "turn",
+   "player": "officer-swing"
+  },
+  {
+   "at": 3,
+   "op": "turn",
+   "player": "officer-swing"
+  },
+  {
+   "at": 7,
+   "op": "move",
+   "player": "officer-swing"
+  },
+  {
+   "at": 8,
+   "op": "turn",
+   "player": "officer-main"
+  },
+  {
+   "at": 8,
+   "op": "turn",
+   "player": "officer-swing"
+  },
+  {
+   "at": 9,
+   "op": "move",
+   "player": "officer-swing"
+  },
+  {
+   "at": 13,
+   "op": "move",
+   "player": "officer-swing"
+  },
+  {
+   "at": 14,
+   "op": "move",
+   "player": "officer-main"
+  },
+  {
+   "at": 18,
+   "op": "move",
+   "player": "officer-main"
+  },
+  {
+   "at": 18,
+   "op": "turn",
+   "player": "officer-swing"
+  },
+  {
+   "at": 21,
+   "op": "turn",
+   "player": "officer-swing"
+  },
+  {
+   "at": 21,
+   "op": "turn",
+   "player": "officer-main"
+  }
+ ]
+}

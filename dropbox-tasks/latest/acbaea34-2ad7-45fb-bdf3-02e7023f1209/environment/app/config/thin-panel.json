@@ -1,0 +1,47 @@
+{
+  "scenario": "thin-panel-cycle",
+  "width": 12,
+  "height": 19,
+  "steps": 28,
+  "block_width": 3,
+  "block_height": 5,
+  "material_offset": 2,
+  "base_temperature_milli_c": -4000,
+  "base_cure_ppm": 80000,
+  "temperature_floor_milli_c": -40000,
+  "temperature_ceiling_milli_c": 140000,
+  "activation_temperature_milli_c": 25000,
+  "full_cure_ppm": 360000,
+  "stress_alert_ppm": 18000,
+  "checkpoint_steps": [0, 2, 7, 14, 21, 28],
+  "materials": [
+    {"retain": 7, "horizontal": 4, "vertical": 1, "diagonal": 0, "heater_gain": 55, "stress_retain_ppm": 690000, "stress_gain": 390, "cure_stress_gain": 28, "stress_relief_ppm": 750, "cure_rate_ppm": 12000, "cool_rate_ppm": 3500},
+    {"retain": 3, "horizontal": 1, "vertical": 5, "diagonal": 1, "heater_gain": 175, "stress_retain_ppm": 860000, "stress_gain": 470, "cure_stress_gain": 42, "stress_relief_ppm": 500, "cure_rate_ppm": 17000, "cool_rate_ppm": 5000},
+    {"retain": 11, "horizontal": 2, "vertical": 2, "diagonal": 2, "heater_gain": 260, "stress_retain_ppm": 740000, "stress_gain": 620, "cure_stress_gain": 55, "stress_relief_ppm": 1050, "cure_rate_ppm": 23000, "cool_rate_ppm": 9000},
+    {"retain": 2, "horizontal": 3, "vertical": 3, "diagonal": 1, "heater_gain": 320, "stress_retain_ppm": 910000, "stress_gain": 530, "cure_stress_gain": 63, "stress_relief_ppm": 850, "cure_rate_ppm": 27000, "cool_rate_ppm": 11000}
+  ],
+  "boundaries": {
+    "left": {"temperature_milli_c": 76000, "cure_ppm": 620000},
+    "right": {"temperature_milli_c": -12000, "cure_ppm": 0},
+    "top": {"temperature_milli_c": 33000, "cure_ppm": 90000},
+    "bottom": {"temperature_milli_c": 6000, "cure_ppm": 20000}
+  },
+  "hotspots": [
+    {"x": 4, "y": 5, "peak_milli_c": 47000, "decay_per_cell_milli_c": 4200},
+    {"x": 8, "y": 14, "peak_milli_c": 51000, "decay_per_cell_milli_c": 4600}
+  ],
+  "heater_pulses": [
+    {"start_step": 2, "end_step": 10, "x": 6, "y": 9, "strength_milli_c": 14200, "decay_per_cell_milli_c": 1200},
+    {"start_step": 8, "end_step": 20, "x": 2, "y": 15, "strength_milli_c": 11800, "decay_per_cell_milli_c": 1700},
+    {"start_step": 17, "end_step": 28, "x": 9, "y": 4, "strength_milli_c": 13600, "decay_per_cell_milli_c": 1550}
+  ],
+  "relief_windows": [
+    {"start_step": 6, "end_step": 13, "x": 5, "y": 10, "radius": 5, "relief_ppm": 2100, "falloff_ppm_per_cell": 220},
+    {"start_step": 19, "end_step": 26, "x": 9, "y": 4, "radius": 4, "relief_ppm": 1700, "falloff_ppm_per_cell": 260}
+  ],
+  "sensor_points": [
+    {"name": "upper-band", "x": 6, "y": 4},
+    {"name": "tall-center", "x": 5, "y": 9},
+    {"name": "right-wall", "x": 11, "y": 10}
+  ]
+}

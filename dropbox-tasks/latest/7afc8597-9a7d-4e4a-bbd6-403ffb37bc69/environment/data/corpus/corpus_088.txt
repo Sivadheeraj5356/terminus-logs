@@ -1,0 +1,6 @@
+mixed Foo123Bar baz_42
+addr 106.108.39.226 hex 0xe1ba token tok_485
+name_1 foo_bar Baz99 __x
+line one
+symbols here
+addr 164.30.178.144 hex 0x8a38 token tok_349

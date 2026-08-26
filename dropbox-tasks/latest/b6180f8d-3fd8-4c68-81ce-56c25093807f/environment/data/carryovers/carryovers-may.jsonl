@@ -1,0 +1,6 @@
+{"carryover_id":"CO-001","rider_id":"R100","earned_service_date":"2026-05-14","expires_service_date":"2026-05-16","route_family":"local","scope":"both","amount_cents":90,"approved":true}
+{"carryover_id":"CO-002","rider_id":"R106","earned_service_date":"2026-05-15","expires_service_date":"2026-05-17","route_family":"local","scope":"base","amount_cents":100,"approved":true}
+{"carryover_id":"CO-003","rider_id":"R106","earned_service_date":"2026-05-16","expires_service_date":"2026-05-17","route_family":"express","scope":"surcharge","amount_cents":70,"approved":true}
+{"carryover_id":"CO-004","rider_id":"R106","earned_service_date":"2026-05-17","expires_service_date":"2026-05-17","route_family":"ferry","scope":"both","amount_cents":999,"approved":true}
+{"carryover_id":"CO-005","rider_id":"R101","earned_service_date":"2026-05-14","expires_service_date":"2026-05-16","route_family":"local","scope":"base","amount_cents":200,"approved":false}
+{"carryover_id":"CO-006","rider_id":"R,109","earned_service_date":"2026-05-17","expires_service_date":"2026-05-18","route_family":"all","scope":"both","amount_cents":240,"daily_limit_cents":175,"approved":true}

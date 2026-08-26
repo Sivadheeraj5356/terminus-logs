@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CMD="${1:-}"
+ROOT=/app/environment
+OUT=/app/output
+TRACE="$OUT/run_traces"
+
+if [[ "$CMD" != "score" ]]; then
+  echo "usage: k9ctl score" >&2
+  exit 2
+fi
+
+rm -rf "$OUT"
+mkdir -p "$TRACE"
+
+cd "$ROOT"
+if [[ ! -d node_modules ]]; then
+  npm install --no-audit --no-fund >/dev/null
+fi
+npm run build >/dev/null
+
+node dist/pilot/server.js precheck | tee "$TRACE/precheck.txt" >/dev/null
+OUT_DIR="$OUT" node dist/pilot/server.js score

@@ -1,0 +1,6 @@
+priority = 5
+tenant = "demo"
+
+[rules.allow-web]
+action = "drop"
+ordered_index = 0

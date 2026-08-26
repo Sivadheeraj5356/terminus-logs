@@ -1,0 +1,6 @@
+{
+  "profile_id": "reel-std",
+  "epoch": 8,
+  "signing_alg": "Ed25519",
+  "allowed_algs": ["Ed25519"]
+}

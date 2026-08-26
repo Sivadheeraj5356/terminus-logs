@@ -1,0 +1,306 @@
+[
+  {
+    "policy_id": "pol-edge-strict",
+    "allowed_device_classes": [
+      "edge-gateway"
+    ],
+    "required_pcrs": [
+      0,
+      4,
+      7
+    ],
+    "allowed_firmware_versions": [
+      65537
+    ],
+    "require_safe": true,
+    "unknown_event_mode": "reject",
+    "measurement_rules": [
+      {
+        "rule_id": "rule-boot",
+        "kind": "required",
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "allowed_versions": [
+          "2.1.0"
+        ],
+        "allowed_digests": [
+          "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+        ]
+      },
+      {
+        "rule_id": "rule-debug",
+        "kind": "forbidden",
+        "pcr_index": 7,
+        "event_type": "EV_EFI_BOOT",
+        "component": "debug-loader",
+        "allowed_versions": [],
+        "allowed_digests": []
+      },
+      {
+        "rule_id": "rule-fw",
+        "kind": "required",
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "allowed_versions": [
+          "1.0.0"
+        ],
+        "allowed_digests": [
+          "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+        ]
+      },
+      {
+        "rule_id": "rule-kernel",
+        "kind": "required",
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "allowed_versions": [
+          "6.1.0"
+        ],
+        "allowed_digests": [
+          "f43bc6aeceab8279b16cda7aaec9344aaaed6aacd8589764f1a8c2204c78b672"
+        ]
+      },
+      {
+        "rule_id": "rule-opt",
+        "kind": "optional",
+        "pcr_index": 7,
+        "event_type": "EV_COMPACT",
+        "component": "opt-module",
+        "allowed_versions": [
+          "1.0"
+        ],
+        "allowed_digests": [
+          "d0ddbb7b03c66e445e89ee37dae76a5caaed5d197d7de0dd71c352a235084f3e"
+        ]
+      },
+      {
+        "rule_id": "rule-sb",
+        "kind": "required",
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "allowed_versions": [
+          "enabled"
+        ],
+        "allowed_digests": [
+          "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+        ]
+      }
+    ],
+    "order_constraints": [
+      {
+        "before_rule_id": "rule-boot",
+        "after_rule_id": "rule-kernel"
+      },
+      {
+        "before_rule_id": "rule-fw",
+        "after_rule_id": "rule-boot"
+      },
+      {
+        "before_rule_id": "rule-kernel",
+        "after_rule_id": "rule-sb"
+      }
+    ]
+  },
+  {
+    "policy_id": "pol-edge-allow-unknown",
+    "allowed_device_classes": [
+      "edge-gateway"
+    ],
+    "required_pcrs": [
+      0,
+      4,
+      7
+    ],
+    "allowed_firmware_versions": [
+      65537
+    ],
+    "require_safe": true,
+    "unknown_event_mode": "allow",
+    "measurement_rules": [
+      {
+        "rule_id": "rule-boot",
+        "kind": "required",
+        "pcr_index": 4,
+        "event_type": "EV_EFI_BOOT",
+        "component": "bootloader",
+        "allowed_versions": [
+          "2.1.0"
+        ],
+        "allowed_digests": [
+          "dc12ee86f639555e90d291a415b2a5d756ed2404cb31c183cefa2964c5ca3f87"
+        ]
+      },
+      {
+        "rule_id": "rule-debug",
+        "kind": "forbidden",
+        "pcr_index": 7,
+        "event_type": "EV_EFI_BOOT",
+        "component": "debug-loader",
+        "allowed_versions": [],
+        "allowed_digests": []
+      },
+      {
+        "rule_id": "rule-fw",
+        "kind": "required",
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "firmware",
+        "allowed_versions": [
+          "1.0.0"
+        ],
+        "allowed_digests": [
+          "e8ffef5a41a5241e5122114c7884b4fb18553e00dd5dae826349e760e1e064c1"
+        ]
+      },
+      {
+        "rule_id": "rule-kernel",
+        "kind": "required",
+        "pcr_index": 4,
+        "event_type": "EV_SEPARATOR",
+        "component": "kernel",
+        "allowed_versions": [
+          "6.1.0"
+        ],
+        "allowed_digests": [
+          "f43bc6aeceab8279b16cda7aaec9344aaaed6aacd8589764f1a8c2204c78b672"
+        ]
+      },
+      {
+        "rule_id": "rule-opt",
+        "kind": "optional",
+        "pcr_index": 7,
+        "event_type": "EV_COMPACT",
+        "component": "opt-module",
+        "allowed_versions": [
+          "1.0"
+        ],
+        "allowed_digests": [
+          "d0ddbb7b03c66e445e89ee37dae76a5caaed5d197d7de0dd71c352a235084f3e"
+        ]
+      },
+      {
+        "rule_id": "rule-sb",
+        "kind": "required",
+        "pcr_index": 7,
+        "event_type": "EV_EFI_VARIABLE",
+        "component": "secure-boot",
+        "allowed_versions": [
+          "enabled"
+        ],
+        "allowed_digests": [
+          "a195a725fe9289d28294c2eb9cfe1a49cf7918745faeee09654b57332960c0ce"
+        ]
+      }
+    ],
+    "order_constraints": [
+      {
+        "before_rule_id": "rule-boot",
+        "after_rule_id": "rule-kernel"
+      },
+      {
+        "before_rule_id": "rule-fw",
+        "after_rule_id": "rule-boot"
+      },
+      {
+        "before_rule_id": "rule-kernel",
+        "after_rule_id": "rule-sb"
+      }
+    ]
+  },
+  {
+    "policy_id": "pol-sensor-single",
+    "allowed_device_classes": [
+      "sensor-hub"
+    ],
+    "required_pcrs": [
+      0
+    ],
+    "allowed_firmware_versions": [
+      131073
+    ],
+    "require_safe": false,
+    "unknown_event_mode": "allow",
+    "measurement_rules": [
+      {
+        "rule_id": "rule-sensor-fw",
+        "kind": "required",
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "sensor-fw",
+        "allowed_versions": [
+          "0.9"
+        ],
+        "allowed_digests": [
+          "6fb8eb83e4f5760e9b3948518a5b5e23936c978085f4066539c4bfdeac5a3d4b"
+        ]
+      },
+      {
+        "rule_id": "rule-sensor-opt",
+        "kind": "optional",
+        "pcr_index": 0,
+        "event_type": "EV_COMPACT",
+        "component": "sensor-opt",
+        "allowed_versions": [
+          "1.0"
+        ],
+        "allowed_digests": [
+          "b537a584460cb26af59af54c02e526497880bae27840e807e0768a82fc1f0305"
+        ]
+      }
+    ],
+    "order_constraints": []
+  },
+  {
+    "policy_id": "pol-relay-loose",
+    "allowed_device_classes": [
+      "relay-node"
+    ],
+    "required_pcrs": [
+      0,
+      2
+    ],
+    "allowed_firmware_versions": [
+      196609
+    ],
+    "require_safe": true,
+    "unknown_event_mode": "reject",
+    "measurement_rules": [
+      {
+        "rule_id": "rule-r0",
+        "kind": "required",
+        "pcr_index": 0,
+        "event_type": "EV_EFI_PLATFORM",
+        "component": "relay-fw",
+        "allowed_versions": [
+          "1.0"
+        ],
+        "allowed_digests": [
+          "8e4ad4e9231dbf00d11a9e44521d812016351d3d358200954fce90108fe096aa"
+        ]
+      },
+      {
+        "rule_id": "rule-r2",
+        "kind": "required",
+        "pcr_index": 2,
+        "event_type": "EV_SEPARATOR",
+        "component": "relay-cfg",
+        "allowed_versions": [
+          "1.0"
+        ],
+        "allowed_digests": [
+          "ed53dda697e15ca776abecccfc208e0179d1d705fb45505a43d90f00288b25ae"
+        ]
+      }
+    ],
+    "order_constraints": [
+      {
+        "before_rule_id": "rule-r0",
+        "after_rule_id": "rule-r2"
+      }
+    ]
+  }
+]

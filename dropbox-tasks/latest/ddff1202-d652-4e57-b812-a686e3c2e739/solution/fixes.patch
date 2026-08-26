@@ -1,0 +1,66 @@
+--- a/src/a1.rs
++++ b/src/a1.rs
+@@ -33,10 +33,8 @@
+ 
+     let seq_id = u32::from_le_bytes([b[0], b[1], b[2], b[3]]);
+ 
+-    // Field positions are swapped: datum_len reads from bytes [8..10]
+-    // and checksum reads from [4..6] instead of the correct positions.
+-    let datum_len = u32::from_le_bytes([b[8], b[9], b[8], b[9]]);
+-    let checksum = u16::from_le_bytes([b[4], b[5]]);
++    let datum_len = u32::from_le_bytes([b[4], b[5], b[6], b[7]]);
++    let checksum = u16::from_le_bytes([b[8], b[9]]);
+ 
+     let status_nibble = b[10] & 0x0F;
+     let has_label = (b[11] & 0x80) != 0;
+--- a/src/b1.rs
++++ b/src/b1.rs
+@@ -26,18 +26,16 @@
+ /// Produce a CompatTrace by comparing two canonical views.
+ /// `bin_view` is from the binary dump; `txt_view` is from the text export.
+ pub fn compare_views(bin_view: &CanonicalView, txt_view: &CanonicalView) -> CompatTrace {
+-    if bin_view.seq_id == txt_view.seq_id {
+-        return CompatTrace {
+-            seq_id: bin_view.seq_id,
+-            state: CompatState::Compatible,
+-            diverged_fields: vec![],
+-        };
+-    }
+-
+-    CompatTrace {
+-        seq_id: bin_view.seq_id,
+-        state: CompatState::Diverged,
+-        diverged_fields: vec!["seq_id".to_string()],
++    let mut diverged: Vec<String> = Vec::new();
++    if bin_view.datum_len != txt_view.datum_len { diverged.push("datum_len".to_string()); }
++    if bin_view.checksum != txt_view.checksum { diverged.push("checksum".to_string()); }
++    if bin_view.status_nibble != txt_view.status_nibble { diverged.push("status_nibble".to_string()); }
++    if bin_view.revision_tag != txt_view.revision_tag { diverged.push("revision_tag".to_string()); }
++    if bin_view.label != txt_view.label { diverged.push("label".to_string()); }
++    if diverged.is_empty() {
++        CompatTrace { seq_id: bin_view.seq_id, state: CompatState::Compatible, diverged_fields: vec![] }
++    } else {
++        CompatTrace { seq_id: bin_view.seq_id, state: CompatState::Diverged, diverged_fields: diverged }
+     }
+ }
+ 
+--- a/tools/xscope/src/engine.rs
++++ b/tools/xscope/src/engine.rs
+@@ -44,7 +44,7 @@
+     let mut with_status: Vec<(LegacyRecord, u8)> = Vec::new();
+     let mut cursor = 0usize;
+     for rec in &records {
+-        let raw_status: u8 = 0; // status byte not propagated from the raw buffer
++        let raw_status = if cursor + 10 < buf.len() { buf[cursor + 10] } else { 0 };
+         with_status.push((rec.clone(), raw_status));
+         let label_extra = rec
+             .label
+@@ -53,8 +53,6 @@
+             .unwrap_or(0);
+         cursor += a1::MIN_RECORD_BYTES + label_extra;
+     }
+-    let _ = cursor;
+-
+     let errors: Vec<(u32, String)> = err
+         .into_iter()
+         .map(|e| (records.len() as u32 + 1, e))

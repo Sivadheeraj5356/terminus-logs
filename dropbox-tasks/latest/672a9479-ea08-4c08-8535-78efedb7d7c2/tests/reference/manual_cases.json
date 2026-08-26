@@ -1,0 +1,1 @@
+{"inputs": [{"signal": [2.0, 1.0, 0.0, 1.0, 2.0], "sigma": 0.9, "mode": "wrap", "truncate": 2.0}, {"signal": [0.5, -1.0, 0.25, 1.5, -0.75, 0.0], "sigma": 1.1, "mode": "constant", "truncate": 4.0}]}

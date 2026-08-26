@@ -1,0 +1,18 @@
+# A diamond: b1 and b2 both branch to b3. The immediate dominator of the join b3
+# is the entry b0 (not either arm), because every path to b3 passes through b0.
+#   dom --module data/demo/dominators_diamond.bvm --func main
+func main() -> int {
+b0:
+  iconst 1
+  iconst 2
+  icmp
+  br_if b2
+b1:
+  iconst 10
+  br b3
+b2:
+  iconst 20
+  br b3
+b3:
+  ret
+}

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "revision": "bind-bridge-b",
+  "reject_override": false,
+  "force_map": {
+    "sshd": "portal-stack",
+    "sudo": "sshd-stack",
+    "su": "sudo-stack"
+  },
+  "terminal_wins": false,
+  "notes": ["hotfix_alias_bridge"]
+}

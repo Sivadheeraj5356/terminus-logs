@@ -1,0 +1,26 @@
+{
+  "move_gen": 6,
+  "ptr_rev": 6,
+  "ptr_path": "refs/post_move.json",
+  "seal": 0,
+  "mode": "writeback",
+  "map_rows": [
+    {"a": 7, "b": 40, "off": 0}
+  ],
+  "dest_rows": [
+    {"a": 7, "b": 40, "off": 32768}
+  ],
+  "dirty": {"slots": [7], "barrier": 6},
+  "tap": {"gen": 1, "tally": 0},
+  "slow_slots": [
+    {"id": 7, "payload": "kappa-origin", "epoch": 5}
+  ],
+  "fast_slots": [
+    {"id": 40, "payload": "kappa-cache", "epoch": 2, "bind": 7}
+  ],
+  "foreign_slots": [
+    {"id": 66, "payload": "stagger-keep", "epoch": 3}
+  ],
+  "ref_pre": {"path": "refs/pre_move.json", "rev": 3, "active_row": 0},
+  "ref_post": {"path": "refs/post_move.json", "rev": 6, "active_row": 1}
+}

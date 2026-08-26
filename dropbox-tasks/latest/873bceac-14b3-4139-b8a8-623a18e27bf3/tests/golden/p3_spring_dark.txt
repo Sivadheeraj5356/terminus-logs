@@ -1,0 +1,12 @@
+== Mercury Spring [toxic] ==
+Omen: Bones keep the count.
+Light: 0.0 lumens
+Relics:
+  (too dark to discern)
+Exits:
+  - north: ??? (torch 2.0)
+Torch: 0.0 units
+Inventory: (empty)
+Route: ???
+---ACTIONS---
+wait

@@ -1,0 +1,6 @@
+RULE LINK_TARGET_FORM
+IN keys
+OUT value,reason
+TABLE
+form -> relative|link-form
+END

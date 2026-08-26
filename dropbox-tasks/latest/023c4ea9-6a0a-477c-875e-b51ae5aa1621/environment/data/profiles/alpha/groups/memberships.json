@@ -1,0 +1,32 @@
+[
+  {
+    "from": "contractor",
+    "to": "grp-contractors",
+    "active": true
+  },
+  {
+    "from": "contractor",
+    "to": "grp-archived",
+    "active": false
+  },
+  {
+    "from": "grp-contractors",
+    "to": "grp-dev",
+    "active": true
+  },
+  {
+    "from": "alice",
+    "to": "grp-dev",
+    "active": true
+  },
+  {
+    "from": "bob",
+    "to": "grp-ops",
+    "active": true
+  },
+  {
+    "from": "grp-dev",
+    "to": "grp-ops",
+    "active": true
+  }
+]

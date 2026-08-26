@@ -1,0 +1,4 @@
+schema_version: apexora-vlan-probe-1
+probes:
+  - name: vlan_catalog_match
+  - name: vlan_no_legacy_source

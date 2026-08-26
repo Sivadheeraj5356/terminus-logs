@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0001",
+  "category": "point_mutation",
+  "label_ciphertext": "F3szYRKYnwHw5g==",
+  "label_nonce": "sHyW/MaDEuDBi/ql",
+  "label_tag": "RqzuN8bylvz9OidsnitrHg==",
+  "signature": "MEYCIQDmvf8m2Pr5h1itj7SUyG3ImZXfX8yYqKRswy/Eab+3+gIhANiFwTIl2uy964L096rYboY2ps9aC/DHq83thmQTuHKc",
+  "patient_ref": "PT-ALPHA-771"
+}

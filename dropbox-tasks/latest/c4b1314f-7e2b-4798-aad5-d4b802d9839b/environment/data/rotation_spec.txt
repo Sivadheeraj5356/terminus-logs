@@ -1,0 +1,36 @@
+{
+  "cold_tick": {
+    "bump_a": 9,
+    "bump_b": 1,
+    "bind_p": 4,
+    "consult_key": 11,
+    "wire_tag": "w0"
+  },
+  "link_ticks": {
+    "bumps": [
+      [
+        3,
+        1
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        7,
+        1
+      ]
+    ],
+    "bind_p": 2,
+    "consult_key": 4,
+    "wire_tag": "wB"
+  },
+  "rotate_hold": {
+    "bind_seed": 7,
+    "bind_p": 7,
+    "promo_a": 40,
+    "promo_b": 2,
+    "consult_key": 5,
+    "wire_tag": "wP"
+  }
+}

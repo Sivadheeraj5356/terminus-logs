@@ -1,0 +1,9 @@
+[[edges]]
+from = "a1"
+to = "b2"
+weight = 1
+
+[[edges]]
+from = "b2"
+to = "g3"
+weight = 1

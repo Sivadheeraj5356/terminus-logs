@@ -1,0 +1,8 @@
+{
+  "jobs": [
+    {"job_id": 1, "label": "west-atrium-capture"},
+    {"job_id": 2, "label": "north-gallery-capture"},
+    {"job_id": 3, "label": "loading-dock-capture"},
+    {"job_id": 4, "label": "rooftop-rig-capture"}
+  ]
+}

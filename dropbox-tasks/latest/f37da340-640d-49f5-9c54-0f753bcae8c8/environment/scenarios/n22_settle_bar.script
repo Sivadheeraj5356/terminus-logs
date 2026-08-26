@@ -1,0 +1,5 @@
+# barrier commits staged reconcile before ladder steps affect digest
+profile beta
+step bar
+step ro target=data
+step rw target=data

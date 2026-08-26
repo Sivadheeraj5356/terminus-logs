@@ -1,0 +1,7 @@
+STORE app-1.0
+CACHE cacheB
+NAR_HASH nappB
+NAR_SIZE 16
+SIGS b1
+REFERENCES lib-1.0,ssl-2.0
+DERIVER app.drv

@@ -1,0 +1,10 @@
+[package]
+name = "blk_c"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/merge_c.rs"
+
+[dependencies]
+core_k = { path = "../core_k" }

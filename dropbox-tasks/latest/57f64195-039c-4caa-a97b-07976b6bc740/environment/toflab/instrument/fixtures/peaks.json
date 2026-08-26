@@ -1,0 +1,54 @@
+{
+  "shot-2025-0201": {
+    "run_id": "shot-2025-0201",
+    "peaks": [
+      {
+        "peak_id": "old",
+        "tof_us": 10.0,
+        "tof_sigma_ns": 1.0,
+        "intensity": 1.0
+      }
+    ]
+  },
+  "shot-2025-0314": {
+    "run_id": "shot-2025-0314",
+    "peaks": [
+      {
+        "peak_id": "ion-922",
+        "tof_us": 47.4773175922,
+        "tof_sigma_ns": 0.12,
+        "intensity": 4100.0
+      },
+      {
+        "peak_id": "ion-noise",
+        "tof_us": 8.25,
+        "tof_sigma_ns": 1.5,
+        "intensity": 55.0
+      },
+      {
+        "peak_id": "ion-118",
+        "tof_us": 20.0977111726,
+        "tof_sigma_ns": 0.08,
+        "intensity": 5200.0
+      },
+      {
+        "peak_id": "ion-shift",
+        "tof_us": 20.0980294767,
+        "tof_sigma_ns": 0.08,
+        "intensity": 1800.0
+      },
+      {
+        "peak_id": "ion-322",
+        "tof_us": 30.0350725928,
+        "tof_sigma_ns": 0.08,
+        "intensity": 4800.0
+      },
+      {
+        "peak_id": "ion-622",
+        "tof_us": 39.8578509303,
+        "tof_sigma_ns": 0.1,
+        "intensity": 4500.0
+      }
+    ]
+  }
+}

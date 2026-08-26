@@ -1,0 +1,11 @@
+item_type_code,collection,description
+100,ADULT_NONFICTION,Adult nonfiction print
+101,ADULT_NONFICTION,Adult nonfiction reference
+102,ADULT_NONFICTION,Adult nonfiction large print
+110,ADULT_FICTION,Adult fiction print
+111,ADULT_FICTION,Adult fiction large print
+200,JUVENILE,Juvenile print
+201,JUVENILE,Juvenile easy reader
+300,PERIODICAL,Periodical issue
+400,MEDIA,Audiovisual media
+401,MEDIA,Playaway media

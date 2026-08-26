@@ -1,0 +1,7 @@
+func main() -> int {
+b0:
+  bconst 1
+  bconst 0
+  iadd
+  ret
+}

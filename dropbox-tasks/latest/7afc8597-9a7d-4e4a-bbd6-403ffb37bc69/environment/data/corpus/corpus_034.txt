@@ -1,0 +1,8 @@
+color alpha world foo maybe
+false line
+tabs	and spaces here
+value = 0xDEADbeef and 0x1234
+symbols here
+bar gray cat
+addr 38.8.119.80 hex 0x3783 token tok_418
+IP 255.255.255.0 mask

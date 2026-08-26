@@ -1,0 +1,7 @@
+STORE ssl-2.0
+CACHE cacheB
+NAR_HASH hssl
+NAR_SIZE 10
+SIGS b1
+REFERENCES ca-bundle-1
+DERIVER ssl.drv

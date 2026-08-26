@@ -1,0 +1,11 @@
+EmbedServe production still ships the default inference profile with a static Cargo denylist and permissive model-loading defaults. The PHP hardening CLI under `/app/environment` has scaffolding for SQLite inventory lookups, operations-bundle policy extraction, and tokenizer-sidecar advisory scanning, but it does not yet drive a full harden run from live RustSec evidence.
+
+Extend the CLI so profile `embedserve-default` (declared in `/app/environment/config/profiles.json`) is hardened through the normal pipeline:
+
+```text
+php /app/environment/scripts/run_harden_cli.php --profile embedserve-default --out /app/out/harden_report.json
+```
+
+The run must open `/app/data/embedserve_inventory.db`, resolve sandboxing and tokenizer policy from the ratified amendment register in Section 11 of `/app/docs/embedserve-operations-bundle.md` (earlier default tables are superseded), scan `/app/environment/sidecar/tokenizer/Cargo.lock` with the bundled offline advisory database at `/app/environment/fixtures/rustsec-advisory-db`, disable vulnerable sidecar components in the inventory, apply hardened model-loading defaults, and persist advisory evidence rows. Inventory table layouts, SQL invariants, and report fields are in `/app/environment/docs/inventory_schema.md` and `/app/environment/docs/harden_contract.md`.
+
+Report JSON must include `api_version` `2025-07`, the profile name, `opened_db_basename` `embedserve_inventory.db`, `ops_section` `11`, a sixteen-character lowercase hex `ops_digest` over the operative Section 11 bytes, a sixteen-character lowercase hex `lock_digest` over the tokenizer lockfile, sorted `disabled_components` rows (`crate_name`, `version`, `advisory_id`), sorted `inference_defaults_applied` rows (`setting_key`, `value`), `advisory_evidence_count`, and `sql_evidence` with `inventory_path`, `components_disabled`, and `defaults_changed`. Vulnerable tokenizer-sidecar crates flagged by the scan must end with `enabled = 0` and a non-null `advisory_id`. Operative defaults require `allow_local_weight_files` and `mmap_model_weights` both hardened to `false`, with `model_sandbox_enabled` `true`, `tokenizer_remote_code` `false`, and `tokenizer_trust_remote_code` `false`. Hand-written JSON or direct SQLite edits without running the CLI are insufficient.

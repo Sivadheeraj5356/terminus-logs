@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "required": ["profile", "reloads", "rules", "notes"],
+  "properties": {
+    "profile": {"type": "string"},
+    "reloads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reload_id", "phase", "scope_digest"],
+        "properties": {
+          "reload_id": {"type": "string"},
+          "phase": {"type": "string"},
+          "scope_digest": {"type": "string"}
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["class", "action", "field", "generation", "observed_authority"],
+        "properties": {
+          "class": {"type": "string"},
+          "action": {"type": "string"},
+          "field": {"type": "string"},
+          "generation": {"type": "integer"},
+          "observed_authority": {"type": "string"}
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["surface", "detail"],
+        "properties": {
+          "surface": {"type": "string"},
+          "detail": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batch-cpu
+  annotations:
+    serving.mlp.io/framework: triton
+    model.mlp.io/artifact-sha256: sha256:dd44ee55ff66
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: batch-cpu
+  template:
+    metadata:
+      labels:
+        app: batch-cpu
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: triton
+        model.mlp.io/artifact-sha256: sha256:dd44ee55ff66
+    spec:
+      containers:
+        - name: model-server
+          image: nvcr.io/nvidia/tritonserver:23.10-py3
+          resources:
+            requests:
+              cpu: "1500m"
+              memory: "3Gi"
+          readinessProbe:
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /v2/health/live
+              port: 8000
+            initialDelaySeconds: 15

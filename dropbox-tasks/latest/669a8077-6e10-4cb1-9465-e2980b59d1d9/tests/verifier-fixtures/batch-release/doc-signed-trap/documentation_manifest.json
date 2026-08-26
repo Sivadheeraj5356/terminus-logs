@@ -1,0 +1,27 @@
+[
+  {
+    "doc_type": "batch-record",
+    "status": "signed",
+    "version": "3"
+  },
+  {
+    "doc_type": "equipment-log",
+    "status": "signed",
+    "version": "1"
+  },
+  {
+    "doc_type": "em-log",
+    "status": "signed",
+    "version": "2"
+  },
+  {
+    "doc_type": "qc-summary",
+    "status": "signed",
+    "version": "1"
+  },
+  {
+    "doc_type": "release-checklist",
+    "status": "signed",
+    "version": "1"
+  }
+]

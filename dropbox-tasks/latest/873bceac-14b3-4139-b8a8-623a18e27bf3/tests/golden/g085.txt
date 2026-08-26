@@ -1,0 +1,17 @@
+== Gallery of Whispers [cavern] ==
+Omen: Salt and silence.
+Light: 9.0 lumens
+Relics:
+  - Astrolabe Shard <epic> 60g
+  - Echo Lens <rare> 80g
+  - Whisper Coin <common> 15g
+Freshest: Echo Lens @ 19:00 KST
+Exits:
+  - north: Petrified Garden (torch 1.5)
+  - east: sealed gate (torch 3.0)
+Torch: 4.5 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take astrolabe-shard
+go north

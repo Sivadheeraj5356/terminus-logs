@@ -1,0 +1,14 @@
+--- pub/x2_seal.go
++++ pub/x2_seal.go
+@@ -7,10 +7,7 @@
+ }
+ 
+ func seal_w(tx *TxState, gen uint64) (CommittedView, error) {
+-	rows := tx.Planned[gen]
+-	if rows == nil {
+-		rows = tx.Committed[gen]
+-	}
++	rows := tx.Committed[gen]
+ 	out := make([]reg.RowRec, len(rows))
+ 	copy(out, rows)
+ 	return CommittedView{Gen: gen, Rows: out}, nil

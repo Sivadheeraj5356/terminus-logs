@@ -1,0 +1,1 @@
+Manifest records model and preprocessing choices. For the multiclass run, model_family is ridge_one_vs_rest_softmax, split_source is split_role, and preprocessing_source is fit_rows_only.

@@ -1,0 +1,6 @@
+solution
+tests
+*.pyc
+__pycache__
+.pytest_cache
+jobs

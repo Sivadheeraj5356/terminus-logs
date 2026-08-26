@@ -1,0 +1,5 @@
+host_id	priority	host_group
+node-a	1	blue
+node-b	2	blue
+node-c	3	green
+node-d	4	green

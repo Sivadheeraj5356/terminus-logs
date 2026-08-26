@@ -1,0 +1,15 @@
+schema_version: apexora-svc-og-1
+object_groups:
+  OG-SVC-WEB:
+    - tcp 443
+    - tcp 8443
+  OG-SVC-DNS:
+    - udp 53
+    - tcp 53
+  OG-SVC-AD:
+    - tcp 389
+    - tcp 636
+    - udp 88
+  OG-SVC-SIP:
+    - udp 5060
+    - tcp 5061

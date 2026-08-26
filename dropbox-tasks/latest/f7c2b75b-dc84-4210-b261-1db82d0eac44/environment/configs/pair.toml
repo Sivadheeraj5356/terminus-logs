@@ -1,0 +1,4 @@
+preferred_node = "node-a"
+standby_node = "node-b"
+service_vip = "10.20.30.40/32"
+tick_stride = 1

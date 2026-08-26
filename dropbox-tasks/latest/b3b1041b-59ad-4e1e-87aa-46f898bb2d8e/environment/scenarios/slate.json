@@ -1,0 +1,44 @@
+{
+  "grid": "slate",
+  "slice_mode": "part",
+  "slice": "slate_part.bin",
+  "base_cfg": {
+    "root_q": {
+      "kid": "k_root",
+      "mode": "std"
+    },
+    "lim": 6
+  },
+  "overlay": {
+    "lim": 6,
+    "__p": {
+      "z": 3
+    },
+    "x_def": {
+      "mode": "open"
+    },
+    "note": "q"
+  },
+  "tokens": [
+    {
+      "id": "s01",
+      "kid": "k_b",
+      "alg": "RS256"
+    },
+    {
+      "id": "s02",
+      "kid": "k_a",
+      "alg": "RS256"
+    },
+    {
+      "id": "s03",
+      "kid": "k_d",
+      "alg": "RS256"
+    }
+  ],
+  "meta_remap": {
+    "s01": "s01m",
+    "s03": "s03m"
+  },
+  "expect_focus": "gate"
+}

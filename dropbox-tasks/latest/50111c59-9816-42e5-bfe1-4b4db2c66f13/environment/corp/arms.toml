@@ -1,0 +1,67 @@
+# evidence transform arms
+[[pack]]
+id = "base"
+journal = "j_a.db"
+hs = "frag_pack_a.jsonl"
+note = "baseline"
+
+[[pack]]
+id = "alt"
+journal = "j_b.db"
+hs = "frag_pack_b.jsonl"
+note = "secondary journal"
+
+[[arm]]
+id = "base"
+pack = "base"
+transform = "none"
+
+[[arm]]
+id = "reorder_j"
+pack = "base"
+transform = "reorder_journals"
+
+[[arm]]
+id = "drop_snap"
+pack = "base"
+transform = "drop_redundant_snap"
+
+[[arm]]
+id = "reenc_pem"
+pack = "base"
+transform = "reencode_pem"
+
+[[arm]]
+id = "perm_a"
+pack = "base"
+transform = "perm_roles_a"
+
+[[arm]]
+id = "perm_b"
+pack = "base"
+transform = "perm_roles_b"
+
+[[arm]]
+id = "hostile_role"
+pack = "base"
+transform = "hostile_role_widen"
+
+[[arm]]
+id = "alt_base"
+pack = "alt"
+transform = "none"
+
+[[arm]]
+id = "alt_reorder"
+pack = "alt"
+transform = "reorder_journals"
+
+[[arm]]
+id = "alt_drop"
+pack = "alt"
+transform = "drop_redundant_snap"
+
+[[arm]]
+id = "alt_perm"
+pack = "alt"
+transform = "perm_roles_a"

@@ -1,0 +1,42 @@
+# Coaxial RNA folding instance.
+sequence PUBLIC GGGCAUACGUUACCGGAUUGCCAAUGGCGUACCGAAUCCGUAGCAUUGGCCAU
+react SH 0 5Q
+react CM 1 1G
+react SH 6 2Q
+react CM 9 3U
+react SH 12 L
+react DM 12 25
+react DM 16 R
+react CM 17 61
+react SH 18 56
+react DM 23 4B
+react SH 24 7
+react CM 25 1U
+react CM 28 1H
+react SH 30 4P
+react DM 30 62
+react CM 33 5Y
+react SH 36 2O
+react CM 36 3V
+react DM 37 2C
+react SH 42 5R
+react DM 44 6I
+react SH 48 1W
+react DM 51 25
+react CM 52 3G
+guide WC 0 52 52
+guide GC 2 42 5J
+guide WB 5 31 6A
+guide RL 11 47 3V
+guide WC 17 39 60
+guide WB 24 52 2J
+probe 0 58
+probe 2 42
+probe 5 31
+probe 11 47
+probe 17 39
+probe 24 52
+probe 18 34
+probe 19 32
+probe 19 27
+probe 28 32

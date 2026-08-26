@@ -1,0 +1,4 @@
+# Step at which the checkpoint-mode run persists a resumable snapshot, and from
+# which `--mode resume` continues. This falls in the middle of an epoch, so the
+# snapshot must carry enough to reconstruct the current epoch's batch order.
+resume_step = 6

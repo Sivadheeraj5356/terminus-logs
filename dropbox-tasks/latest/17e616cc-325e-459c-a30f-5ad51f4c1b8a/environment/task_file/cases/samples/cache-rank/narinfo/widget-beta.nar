@@ -1,0 +1,7 @@
+STORE widget
+CACHE beta
+NAR_HASH nwidget
+NAR_SIZE 6
+SIGS b
+REFERENCES -
+DERIVER widget.drv

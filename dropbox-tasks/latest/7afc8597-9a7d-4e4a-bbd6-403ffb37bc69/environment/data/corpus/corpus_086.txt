@@ -1,0 +1,4 @@
+delta start foo foobar
+addr 210.0.71.72 hex 0x6fd4 token tok_669
+color bird false gamma
+delta world foobar yes alpha baz

@@ -1,0 +1,3 @@
+{"segment_id":"r0","era":1,"attach_id":"aid_c02_r1_stale","track":4,"kind":"sealed","hard_limit":4096}
+garbled line {{{{
+{"segment_id":"r1","era":2,"attach_id":"aid_c02_r2","track":4,"kind":"commit","hard_limit":8192}

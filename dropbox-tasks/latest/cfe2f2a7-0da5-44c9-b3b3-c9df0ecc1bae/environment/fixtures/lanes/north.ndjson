@@ -1,0 +1,10 @@
+{"seq":1,"epoch":0,"kind":"link_open","link":"alpha>bravo","source":"north"}
+{"seq":2,"epoch":0,"kind":"hop","link":"alpha>bravo","ms":25,"source":"north"}
+{"seq":2,"epoch":0,"kind":"hop","link":"alpha>bravo","ms":25,"source":"north"}
+{"seq":3,"epoch":0,"kind":"hop","link":"alpha>bravo","ms":85,"source":"north","rev":0,"op_id":"0:3:north:hop-a"}
+{"seq":3,"epoch":0,"kind":"hop","link":"alpha>bravo","ms":55,"source":"north","rev":1,"op_id":"0:3:north:hop-a"}
+{"seq":5,"epoch":0,"kind":"link_open","link":"alpha>omega","source":"north"}
+{"seq":6,"epoch":0,"kind":"hop","link":"alpha>omega","ms":60,"source":"north"}
+{"seq":7,"epoch":0,"kind":"checkpoint","tag":"phase-one","source":"north"}
+{"seq":1,"epoch":20,"kind":"clear_quarantine","link":"alpha>bravo","source":"north"}
+{"seq":2,"epoch":20,"kind":"hop","link":"alpha>bravo","ms":40,"source":"north"}

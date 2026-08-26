@@ -1,0 +1,11 @@
+inbox = "/app/fixtures/patent-inbox"
+corpus_staging = "/app/state/lda-corpus-staging.json"
+count_staging = "/app/state/lda-count-staging.json"
+output = "/app/output/lda-topic-rollup.json"
+topics = 3
+alpha = 0.1
+beta = 0.01
+sweeps = 8
+burn_in = 3
+seed = 2026041713
+top_terms = 4

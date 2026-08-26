@@ -1,0 +1,8 @@
+# Legacy record variant export (big-endian encoding for datum_len)
+# Same records as set_a but with byte-swapped fields in some positions
+# Agents must detect and reconcile the semantic equivalence
+# columns: seq_id,datum_len_variant,checksum,status_nibble,revision_tag[,label]
+1,0x1a40,1234,3,5
+2,0x2000,2048,1,2
+3,0x0200,4095,7,0,alpha
+4,0x4000,300,2,6

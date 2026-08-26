@@ -1,0 +1,17 @@
+{
+  "tapes": [
+    "clean_pass",
+    "retry_block",
+    "otp_ok",
+    "otp_fail",
+    "expired_acct",
+    "ssh_bind",
+    "sudo_bind",
+    "mixed_svc",
+    "stale_ledger",
+    "su_bind",
+    "sss_noise",
+    "deny_edge",
+    "expiry_edge"
+  ]
+}

@@ -1,0 +1,9 @@
+ordinance: ORD-1983-02
+jurisdiction: Ossary-Bight
+enacted: 1983-02-03
+effective: 1983-04-10T02:00:00 wall
+standard-offset: +08:00:00
+standard-label: OST
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label ODT
+  end: Sep lastSun 03:00:00 standard

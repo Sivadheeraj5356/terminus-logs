@@ -1,0 +1,11 @@
+[[routes]]
+name = "store_first"
+precedence = 10
+
+[[routes]]
+name = "merge_second"
+precedence = 20
+
+[[routes]]
+name = "gate_third"
+precedence = 30

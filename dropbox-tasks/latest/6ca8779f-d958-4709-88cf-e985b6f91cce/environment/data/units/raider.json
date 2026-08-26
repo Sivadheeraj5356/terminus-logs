@@ -1,0 +1,10 @@
+{
+  "id": "raider_template",
+  "team": "blue",
+  "hp": 7,
+  "armor": 0,
+  "speed": 4,
+  "vision": 3,
+  "range": 1,
+  "traits": ["PIERCE"]
+}

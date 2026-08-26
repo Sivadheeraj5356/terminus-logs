@@ -1,0 +1,33 @@
+{
+  "blocks": [
+    {"name": "alpha-keel", "zone": "basin-a", "cell_class": "primary", "steward": "dock-north", "rated_tonnage": 120, "package_rev": "2025.7.1", "braces": []},
+    {"name": "bravo-warn", "zone": "basin-a", "cell_class": "primary", "steward": "dock-north", "rated_tonnage": 100, "package_rev": "2025.7.1", "braces": []},
+    {"name": "charlie-crit", "zone": "basin-b", "cell_class": "heavy", "steward": "dock-south", "rated_tonnage": 80, "package_rev": "2025.7.2", "braces": ["delta-esc"]},
+    {"name": "delta-esc", "zone": "basin-b", "cell_class": "heavy", "steward": "dock-south", "rated_tonnage": 90, "package_rev": "2025.7.1", "braces": []},
+    {"name": "echo-suppress", "zone": "basin-c", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 70, "package_rev": "2025.7.1", "braces": []},
+    {"name": "foxtrot-half", "zone": "basin-c", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 70, "package_rev": "2025.7.1", "braces": []},
+    {"name": "golf-mismatch", "zone": "basin-c", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 70, "package_rev": "2025.7.1", "braces": []},
+    {"name": "hotel-empty", "zone": "basin-d", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 60, "package_rev": "2025.7.1", "braces": []},
+    {"name": "india-pad", "zone": "basin-d", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 110, "package_rev": "2025.7.1", "braces": ["mystery-brace"]},
+    {"name": "juliet-sort", "zone": "basin-e", "cell_class": "primary", "steward": "dock-north", "rated_tonnage": 95, "package_rev": "2025.7.1", "braces": []},
+    {"name": "kilo-sort", "zone": "basin-e", "cell_class": "primary", "steward": "dock-north", "rated_tonnage": 95, "package_rev": "2025.7.1", "braces": []},
+    {"name": "lima-noise", "zone": "basin-f", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 55, "package_rev": "2025.7.1", "braces": []},
+    {"name": "mike-peers", "zone": "basin-f", "cell_class": "heavy", "steward": "dock-south", "rated_tonnage": 85, "package_rev": "2025.7.3", "braces": []},
+    {"name": "november-retract", "zone": "basin-n", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 55, "package_rev": "2025.7.1", "braces": []},
+    {"name": "oscar-alert", "zone": "basin-g", "cell_class": "heavy", "steward": "dock-south", "rated_tonnage": 50, "package_rev": "2025.7.1", "braces": []},
+    {"name": "papa-edge", "zone": "basin-g", "cell_class": "primary", "steward": "dock-north", "rated_tonnage": 200, "package_rev": "2025.7.1", "braces": ["bravo-warn", "romeo-ghost"]},
+    {"name": "quebec-bound", "zone": "basin-j", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 60, "package_rev": "2025.7.1", "braces": []},
+    {"name": "romeo-ghost", "zone": "basin-h", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 40, "package_rev": "2025.7.1", "braces": []},
+    {"name": "romeo-overlay", "zone": "basin-n", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 80, "package_rev": "2025.7.1", "braces": []},
+    {"name": "sierra-abi-bait", "zone": "basin-h", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 40, "package_rev": "2025.7.1", "braces": []},
+    {"name": "tango-strict", "zone": "basin-j", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 40, "package_rev": "2025.7.1", "braces": []},
+    {"name": "tango-unmonitored", "zone": "basin-i", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 40, "package_rev": "2025.7.1", "braces": []},
+    {"name": "uniform-overlay", "zone": "basin-o", "cell_class": "heavy", "steward": "dock-south", "rated_tonnage": 60, "package_rev": "2025.7.1", "braces": []},
+    {"name": "uniform-roster-only", "zone": "basin-i", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 40, "package_rev": "2025.7.1", "braces": []},
+    {"name": "victor-thresh", "zone": "basin-k", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 50, "package_rev": "2025.7.1", "braces": ["alpha-keel", "echo-suppress"]},
+    {"name": "whiskey-loop", "zone": "basin-l", "cell_class": "heavy", "steward": "dock-south", "rated_tonnage": 75, "package_rev": "2025.7.1", "braces": ["xray-loop"]},
+    {"name": "xray-loop", "zone": "basin-l", "cell_class": "primary", "steward": "dock-north", "rated_tonnage": 90, "package_rev": "2025.7.1", "braces": ["whiskey-loop"]},
+    {"name": "yankee-self", "zone": "basin-m", "cell_class": "trial", "steward": "dock-east", "rated_tonnage": 50, "package_rev": "2025.7.1", "braces": ["yankee-self"]},
+    {"name": "zulu-chain", "zone": "basin-m", "cell_class": "spare", "steward": "dock-west", "rated_tonnage": 65, "package_rev": "2025.7.1", "braces": ["whiskey-loop", "quebec-bound"]}
+  ]
+}

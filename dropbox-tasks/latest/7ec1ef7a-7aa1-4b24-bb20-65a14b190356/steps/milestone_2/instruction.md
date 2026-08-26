@@ -1,0 +1,13 @@
+With manifest parsing and catalog connectivity in place, finish the lock pipeline. Join the approval and platform constraint tables, resolve versions from the catalog, and emit a deterministic lock file that passes schema validation.
+
+Requirements:
+- Implement `HelixPipeline.Catalog.Queries.fetch_enriched/4` to join `dependency_approvals` with `platform_constraints` for the requested package names and platform (`os`, `arch`). Omit packages with no approval row. Return a map keyed by package name, not a flat list: `%{"phoenix" => %{"approval" => %{"package_name" => ..., "approved_version" => ..., "approval_status" => ...}, "constraints" => [%{"os" => ..., "arch" => ..., "min_version" => ..., "max_version" => ...}, ...]}}`. `HelixPipeline.Catalog.fetch_enriched!/3` is provided and delegates to your `/4` implementation.
+- Implement `HelixPipeline.Lock.Builder.build/2` to render TOML lock contents. Manifest dependency maps use `"name"` and `"pin"` keys. Sort dependencies alphabetically by name. When `approval_status` is `"approved"`, use the catalog `approved_version` and set `source` to `"catalog"`; for `"pending"` or `"rejected"`, keep the manifest pin and set `source` to `"pin"`.
+- `Builder.build/2` must only render dependencies present in the catalog result; manifest dependencies with no catalog entry must be silently dropped.
+- Render dependency table keys as bare TOML identifiers (e.g. `[dependencies.phoenix]`, `[[dependencies.ecto_sql.constraints]]`). Interpolate package names directly — do not JSON-encode or quote key segments.
+- Include platform constraints under each dependency. Use `[[dependencies.<name>.constraints]]` table arrays when constraints exist; use `constraints = []` when none match. Sort constraint rows by `os`, then `arch`, then `min_version`, then `max_version`.
+- Set `metadata.manifest_hash` to the lowercase hex SHA-256 of the canonical JSON for the parsed manifest (`version`, `dependencies`, `toolchain`, `platform` with recursively sorted object keys). The `dependencies` array must be sorted alphabetically by `name` before hashing. Do not write `metadata.generated_at`.
+- Running `mix helix.lock` must write `/app/build/helix.lock.toml` and pass validation via `HelixPipeline.Lock.Validator.validate/1` against `/app/priv/schemas/lock.schema.json`.
+- The lock must resolve `myxql` to version `0.7.0` (catalog approval overrides the `0.7.1` pin).
+- `phoenix` and `ecto_sql` must have `source` `"catalog"` and include a linux/amd64 constraint row.
+- Re-running `mix helix.lock` must produce byte-identical output (deterministic ordering and hashing).

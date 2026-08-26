@@ -1,0 +1,3 @@
+[workspace]
+members = ["match_parser", "rating_engine", "kfactor_calculator", "leaderboard", "tools/elo_verify"]
+resolver = "2"

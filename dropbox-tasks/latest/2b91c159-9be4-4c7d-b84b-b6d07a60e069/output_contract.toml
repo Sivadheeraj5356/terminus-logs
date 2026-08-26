@@ -1,0 +1,13 @@
+user_visible_outputs = [
+  "/app/build/demo_engine",
+  "/app/output/recovery_report.json",
+]
+internal_harness_files = [
+  "/tests/grade_model.rs",
+  "/tests/verifier_main.rs",
+]
+
+[structured_outputs.recovery_report]
+target = "/app/output/recovery_report.json"
+format = "json"
+instruction_checks = ["scene_token", "ledger_tail", "scalar_near", "addon_aux", "wrap_epoch", "refresh_stamp", "segment_generation", "journal_crc32"]

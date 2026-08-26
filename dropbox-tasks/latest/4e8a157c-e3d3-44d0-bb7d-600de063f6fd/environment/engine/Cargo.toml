@@ -1,0 +1,13 @@
+[package]
+name = "engine"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "orch.rs"
+
+[dependencies]
+r2v = { path = "../r2v" }
+t6n = { path = "../t6n" }
+u9p = { path = "../u9p" }
+w3h = { path = "../w3h" }

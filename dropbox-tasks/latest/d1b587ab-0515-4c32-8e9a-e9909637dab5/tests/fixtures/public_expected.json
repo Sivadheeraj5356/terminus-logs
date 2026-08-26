@@ -1,0 +1,299 @@
+{
+  "schema_version": "phaseglass.policy.v3",
+  "board_id": "public-veil-quadrants-01",
+  "status": "solved",
+  "worst_turns": 3,
+  "worst_boosts": 0,
+  "worst_energy": 6,
+  "total_turns": 12,
+  "policy_nodes": 13,
+  "root": "N0",
+  "nodes": [
+    {
+      "id": "N0",
+      "tick": 0,
+      "amber": "A0",
+      "cobalt": "C0",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 0,
+      "belief": [
+        "w1-0",
+        "w2-0",
+        "w3-0",
+        "w4-0"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "listen:alpha",
+        "cobalt": "listen:beta"
+      },
+      "branches": [
+        {
+          "observation": "amber=signal:alpha=cold;cobalt=signal:beta=left",
+          "next": "N1"
+        },
+        {
+          "observation": "amber=signal:alpha=cold;cobalt=signal:beta=right",
+          "next": "N2"
+        },
+        {
+          "observation": "amber=signal:alpha=warm;cobalt=signal:beta=left",
+          "next": "N3"
+        },
+        {
+          "observation": "amber=signal:alpha=warm;cobalt=signal:beta=right",
+          "next": "N4"
+        }
+      ]
+    },
+    {
+      "id": "N1",
+      "tick": 1,
+      "amber": "A0",
+      "cobalt": "C0",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 2,
+      "belief": [
+        "w3-0"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-route-3",
+        "cobalt": "move:c-route-3"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-route-3;cobalt=moved:c-route-3",
+          "next": "N5"
+        }
+      ]
+    },
+    {
+      "id": "N2",
+      "tick": 1,
+      "amber": "A0",
+      "cobalt": "C0",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 2,
+      "belief": [
+        "w4-0"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-route-4",
+        "cobalt": "move:c-route-4"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-route-4;cobalt=moved:c-route-4",
+          "next": "N6"
+        }
+      ]
+    },
+    {
+      "id": "N3",
+      "tick": 1,
+      "amber": "A0",
+      "cobalt": "C0",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 2,
+      "belief": [
+        "w1-0"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-route-1",
+        "cobalt": "move:c-route-1"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-route-1;cobalt=moved:c-route-1",
+          "next": "N7"
+        }
+      ]
+    },
+    {
+      "id": "N4",
+      "tick": 1,
+      "amber": "A0",
+      "cobalt": "C0",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 2,
+      "belief": [
+        "w2-0"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-route-2",
+        "cobalt": "move:c-route-2"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-route-2;cobalt=moved:c-route-2",
+          "next": "N8"
+        }
+      ]
+    },
+    {
+      "id": "N5",
+      "tick": 2,
+      "amber": "AY",
+      "cobalt": "CY",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 4,
+      "belief": [
+        "w3-a",
+        "w3-b"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-exit-y",
+        "cobalt": "move:c-exit-y"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-exit-y;cobalt=moved:c-exit-y",
+          "next": "N9"
+        }
+      ]
+    },
+    {
+      "id": "N6",
+      "tick": 2,
+      "amber": "AY",
+      "cobalt": "CY",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 4,
+      "belief": [
+        "w4-a",
+        "w4-b"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-exit-y",
+        "cobalt": "move:c-exit-y"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-exit-y;cobalt=moved:c-exit-y",
+          "next": "N10"
+        }
+      ]
+    },
+    {
+      "id": "N7",
+      "tick": 2,
+      "amber": "AX",
+      "cobalt": "CX",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 4,
+      "belief": [
+        "w1-a",
+        "w1-b"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-exit-x",
+        "cobalt": "move:c-exit-x"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-exit-x;cobalt=moved:c-exit-x",
+          "next": "N11"
+        }
+      ]
+    },
+    {
+      "id": "N8",
+      "tick": 2,
+      "amber": "AX",
+      "cobalt": "CX",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 4,
+      "belief": [
+        "w2-a",
+        "w2-b"
+      ],
+      "terminal": false,
+      "action": {
+        "amber": "move:a-exit-x",
+        "cobalt": "move:c-exit-x"
+      },
+      "branches": [
+        {
+          "observation": "amber=moved:a-exit-x;cobalt=moved:c-exit-x",
+          "next": "N12"
+        }
+      ]
+    },
+    {
+      "id": "N9",
+      "tick": 3,
+      "amber": "AG",
+      "cobalt": "CG",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 6,
+      "belief": [
+        "w3-final"
+      ],
+      "terminal": true,
+      "action": null,
+      "branches": []
+    },
+    {
+      "id": "N10",
+      "tick": 3,
+      "amber": "AG",
+      "cobalt": "CG",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 6,
+      "belief": [
+        "w4-final"
+      ],
+      "terminal": true,
+      "action": null,
+      "branches": []
+    },
+    {
+      "id": "N11",
+      "tick": 3,
+      "amber": "AG",
+      "cobalt": "CG",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 6,
+      "belief": [
+        "w1-final"
+      ],
+      "terminal": true,
+      "action": null,
+      "branches": []
+    },
+    {
+      "id": "N12",
+      "tick": 3,
+      "amber": "AG",
+      "cobalt": "CG",
+      "charges_left": 1,
+      "boosts_used": 0,
+      "energy": 6,
+      "belief": [
+        "w2-final"
+      ],
+      "terminal": true,
+      "action": null,
+      "branches": []
+    }
+  ]
+}

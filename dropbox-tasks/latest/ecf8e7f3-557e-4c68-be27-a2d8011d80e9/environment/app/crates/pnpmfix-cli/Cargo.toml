@@ -1,0 +1,12 @@
+[package]
+name = "pnpmfix-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+pnpmfix-core = { path = "../pnpmfix-core" }
+
+[[bin]]
+name = "pnpmfix"
+path = "src/main.rs"

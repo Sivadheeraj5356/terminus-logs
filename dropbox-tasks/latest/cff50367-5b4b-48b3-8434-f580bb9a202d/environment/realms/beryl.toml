@@ -1,0 +1,2 @@
+name = "beryl"
+runs = ["run-a", "run-b"]

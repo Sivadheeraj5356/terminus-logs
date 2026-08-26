@@ -1,0 +1,6 @@
+schema_version: apexora-qos-policy-1
+policy_map: PM-OT_SCADA
+classes:
+  - class: CM-OT_SCADA
+    bandwidth_percent: 30
+    queue_limit: 8192

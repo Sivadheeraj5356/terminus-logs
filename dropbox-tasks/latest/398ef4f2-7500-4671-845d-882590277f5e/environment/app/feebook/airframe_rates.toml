@@ -1,0 +1,37 @@
+schema = "airframe_rates_v3"
+
+[[entries]]
+body_code = "NB"
+effective_from = "2026-01-01T00:00:00Z"
+base_cents = 18500
+per_minute_cents = 220
+
+[[entries]]
+body_code = "NB"
+effective_from = "2026-05-01T00:00:00Z"
+base_cents = 21000
+per_minute_cents = 245
+
+[[entries]]
+body_code = "WB"
+effective_from = "2026-01-01T00:00:00Z"
+base_cents = 32000
+per_minute_cents = 410
+
+[[entries]]
+body_code = "WB"
+effective_from = "2026-05-01T00:00:00Z"
+base_cents = 36500
+per_minute_cents = 455
+
+[[entries]]
+body_code = "RJ"
+effective_from = "2026-01-01T00:00:00Z"
+base_cents = 12500
+per_minute_cents = 160
+
+[[entries]]
+body_code = "RJ"
+effective_from = "2026-05-01T00:00:00Z"
+base_cents = 13800
+per_minute_cents = 175

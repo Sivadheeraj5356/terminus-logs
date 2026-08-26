@@ -1,0 +1,13 @@
+== Starfall Observatory [astral] ==
+Omen: The maze breathes.
+Light: 4.5 lumens
+Relics:
+  - Astral Compass <epic> 110g
+Freshest: Astral Compass @ 16:05 KST
+Exits:
+  - down: Petrified Garden (torch 1.0)
+Torch: 1.5 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+go down

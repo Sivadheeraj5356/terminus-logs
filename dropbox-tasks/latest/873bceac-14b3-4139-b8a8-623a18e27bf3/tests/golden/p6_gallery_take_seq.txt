@@ -1,0 +1,16 @@
+== Gallery of Whispers [cavern] ==
+Omen: The tide remembers your name.
+Light: 7.0 lumens
+Relics:
+  - Echo Lens <rare> 80g
+  - Whisper Coin <common> 15g
+Freshest: Echo Lens @ 13:00 KST
+Exits:
+  - north: Petrified Garden (torch 1.5)
+  - east: Vault of Echoes (torch 3.0)
+Torch: 6.5 units
+Inventory: astrolabe-shard, silver-sigil
+Route: east (torch 3.0)
+---ACTIONS---
+take echo-lens
+go north

@@ -1,0 +1,43 @@
+{
+  "grid": "marsh",
+  "slice_mode": "full",
+  "slice": "marsh_full.bin",
+  "base_cfg": {
+    "root_q": {
+      "kid": "k_root",
+      "mode": "std"
+    },
+    "lim": 6
+  },
+  "overlay": {
+    "lim": 6,
+    "__p": {
+      "w": 4
+    },
+    "x_def": {
+      "kid": "k_evil3"
+    }
+  },
+  "tokens": [
+    {
+      "id": "m01",
+      "kid": "k_b",
+      "alg": "RS256"
+    },
+    {
+      "id": "m02",
+      "kid": "k_c",
+      "alg": "RS256"
+    },
+    {
+      "id": "m03",
+      "kid": "k_d",
+      "alg": "RS256"
+    }
+  ],
+  "meta_remap": {
+    "m01": "m01m",
+    "m02": "m02m"
+  },
+  "expect_focus": "gate"
+}

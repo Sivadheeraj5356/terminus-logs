@@ -1,0 +1,219 @@
+--- environment/r6/src/lib.rs	2026-07-07 08:59:40.422854491 +0000
++++ lib.rs	2026-07-07 08:59:40.424084675 +0000
+@@ -3,8 +3,9 @@
+ use prlg_i1::{load as load_workload, Workload};
+ use prlg_k4::{ReclaimRow, Store};
+ use prlg_l7::LingerPlane;
+-use prlg_p3::{ping, Pool};
++use prlg_p3::{ping, Pool, PoolError};
+ use prlg_w5::{RunReport, TraceEvent};
++use rayon::prelude::*;
+ use std::collections::HashMap;
+ use std::path::Path;
+ use std::thread;
+@@ -98,12 +99,14 @@
+     let mut checkouts_total = 0u32;
+     let shard_map: HashMap<u32, ShardEndpoint> = shards.iter().map(|s| (s.id, s.clone())).collect();
+     let round_limit = opts.workload_rounds.unwrap_or(workload.rounds.len() as u32);
+-    let pool_gen = store.pool_generation()?;
++    let ledger_gen = store.pool_generation()?;
+ 
+     if opts.phase == Phase::Idle {
+         gate_g(store, Phase::Idle)?;
+     }
+ 
++    let mut pool_gen = ledger_gen;
++
+     if opts.phase == Phase::Populate || opts.phase == Phase::All {
+         step_1(
+             policy,
+@@ -112,11 +115,15 @@
+             &mut pool,
+             &mut trace,
+             &mut checkouts_total,
+-            pool_gen,
++            ledger_gen,
+             round_limit,
+             opts.seed,
+         )?;
+-        store.mark_populated()?;
++        pool_gen = store.mark_populated()?;
++        pool.retag_idle_generation(pool_gen);
++        for ev in trace.iter_mut() {
++            ev.pool_generation = pool_gen;
++        }
+     }
+ 
+     if opts.phase == Phase::Idle || opts.phase == Phase::All {
+@@ -158,20 +165,31 @@
+     pool: &mut Pool,
+     trace: &mut Vec<TraceEvent>,
+     checkouts: &mut u32,
+-    pool_gen: u32,
++    ledger_gen: u32,
+     round_limit: u32,
+     _seed: u64,
+ ) -> Result<(), RunError> {
+     for round in workload.rounds.iter().take(round_limit as usize) {
+-        let shard = shards.get(&round.shard).ok_or_else(|| {
+-            prlg_p3::PoolError::Io(std::io::Error::new(std::io::ErrorKind::NotFound, "shard"))
+-        })?;
+-        let checked = pool.checkout(shard, policy.pool_max_per_shard, policy.descriptor_ceiling)?;
++        let shard = shards.get(&round.shard).ok_or(PoolError::Io(std::io::Error::new(
++            std::io::ErrorKind::NotFound,
++            "shard",
++        )))?;
++        let checked = match pool.checkout(
++            shard,
++            policy.pool_max_per_shard,
++            policy.descriptor_ceiling,
++            ledger_gen,
++        ) {
++            Ok(v) => v,
++            Err(PoolError::DescriptorBudget) => return Err(RunError::DescriptorBudget),
++            Err(PoolError::EffectiveLimit) => return Err(RunError::EffectiveLimit),
++            Err(e) => return Err(e.into()),
++        };
+         *checkouts += 1;
+         trace.push(TraceEvent {
+             socket_id: checked.socket_id,
+             phase: "checkout".into(),
+-            pool_generation: pool_gen,
++            pool_generation: ledger_gen,
+             shard: round.shard,
+         });
+         if round.op == "ping" {
+@@ -180,20 +198,48 @@
+             trace.push(TraceEvent {
+                 socket_id: checked.socket_id,
+                 phase: "pong".into(),
+-                pool_generation: pool_gen,
++                pool_generation: ledger_gen,
+                 shard: round.shard,
+             });
+         }
+-        pool.checkin(checked.socket_id)?;
++        pool.checkin(checked.socket_id, ledger_gen)?;
+         trace.push(TraceEvent {
+             socket_id: checked.socket_id,
+             phase: "checkin".into(),
+-            pool_generation: pool_gen,
++            pool_generation: ledger_gen,
+             shard: round.shard,
+         });
+     }
+-    if pool.resolve_c() > policy.descriptor_ceiling {
+-        return Err(RunError::DescriptorBudget);
++    Ok(())
++}
++
++#[derive(Clone)]
++struct SweepHit {
++    socket_id: u32,
++    shard: u32,
++    gen: u32,
++}
++
++fn apply_generational_pinning(
++    dead: &mut Vec<SweepHit>,
++    store: &Store,
++) -> Result<(), RunError> {
++    let mut by_gen: HashMap<u32, Vec<SweepHit>> = HashMap::new();
++    for hit in dead.drain(..) {
++        by_gen.entry(hit.gen).or_default().push(hit);
++    }
++    for (gen, mut hits) in by_gen {
++        if store.is_generation_sealed(gen)? {
++            dead.extend(hits);
++            continue;
++        }
++        if hits.is_empty() {
++            continue;
++        }
++        hits.sort_by_key(|h| h.socket_id);
++        let pinned = hits.pop();
++        dead.extend(hits);
++        let _ = pinned;
+     }
+     Ok(())
+ }
+@@ -207,29 +253,67 @@
+     pool_gen: u32,
+ ) -> Result<(), RunError> {
+     thread::sleep(Duration::from_millis(
+-        policy.populate_sleep_ms as u64 + policy.idle_close_ms as u64,
++        policy.populate_sleep_ms as u64 + policy.idle_close_ms as u64 + 200,
+     ));
+-    let fds = pool.active_fds();
+-    let dead = linger.op_a(&fds);
+-    linger.reconcile_b(&dead);
+-    for sid in dead {
+-        if let Some(item) = pool.remove_socket(sid) {
+-            let row = ReclaimRow {
+-                socket_id: sid,
++
++    let idle_entries = pool.idle_entries();
++    if idle_entries.is_empty() {
++        store.seal_generation(pool_gen)?;
++        return Ok(());
++    }
++
++    let mut dead_hits: Vec<SweepHit> = idle_entries
++        .par_chunks(1.max(idle_entries.len() / 2))
++        .flat_map(|chunk| {
++            let fds: Vec<(u32, std::os::unix::io::RawFd)> =
++                chunk.iter().map(|(sid, fd, _, _)| (*sid, *fd)).collect();
++            let mut plane = LingerPlane::new();
++            let dead_ids = plane.op_a(&fds);
++            chunk
++                .iter()
++                .filter(|(sid, _, _, _)| dead_ids.contains(sid))
++                .map(|(sid, _, gen, shard)| SweepHit {
++                    socket_id: *sid,
++                    shard: *shard,
++                    gen: *gen,
++                })
++                .collect::<Vec<_>>()
++        })
++        .collect();
++
++    apply_generational_pinning(&mut dead_hits, store)?;
++    dead_hits.sort_by_key(|h| h.socket_id);
++
++    let mut rows: Vec<ReclaimRow> = Vec::new();
++    let mut reclaim_trace: Vec<TraceEvent> = Vec::new();
++    for hit in dead_hits {
++        if let Some((item, _gen)) = pool.remove_socket(hit.socket_id) {
++            rows.push(ReclaimRow {
++                socket_id: hit.socket_id,
+                 shard: item.shard,
+                 event: "linger_reclaim".into(),
+                 pool_generation: pool_gen,
+                 round_index: u32::MAX,
+-            };
+-            store.persist_d(&row)?;
+-            trace.push(TraceEvent {
+-                socket_id: sid,
++            });
++            reclaim_trace.push(TraceEvent {
++                socket_id: hit.socket_id,
+                 phase: "reclaim".into(),
+                 pool_generation: pool_gen,
+                 shard: item.shard,
+             });
+         }
+     }
++
++    for row in &rows {
++        store.persist_d(row)?;
++    }
++    trace.extend(reclaim_trace);
++
++    let fds = pool.active_fds();
++    let dead = linger.op_a(&fds);
++    linger.reconcile_b(&dead);
++
++    store.seal_generation(pool_gen)?;
+     Ok(())
+ }
+ 

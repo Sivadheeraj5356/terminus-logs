@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+JAR="/app/target/fold-assembler-1.0.0.jar"
+exec /opt/java/openjdk/bin/java -jar "$JAR" "$@"

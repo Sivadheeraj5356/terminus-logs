@@ -1,0 +1,11 @@
+Package: wellbeingEnrollment
+Title: Workplace Wellbeing Program Enrollment Effect
+Version: 0.1.0
+Authors@R: person("Anonymous", "Analyst", role = c("aut", "cre"))
+Description: Records from a voluntary workplace wellbeing program and helper
+    functions for loading and validating the joined employee records. The
+    analysis program that estimates the enrollment effect is written by the
+    solver.
+License: file LICENSE
+Encoding: UTF-8
+Imports: jsonlite

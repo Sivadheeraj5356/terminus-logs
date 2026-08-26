@@ -1,0 +1,9 @@
+profile,parent,child,relation,scope,optional
+*,triplet-core,manifest-portfile,requires,runtime,no
+*,triplet-core,source-mirror,embeds,data,no
+*,manifest-portfile,usage-docs,documents,doc,yes
+edge,triplet-core,overlay-triplet,requires,runtime,no
+fleet,triplet-core,binary-cache-index,requires,runtime,no
+audit,triplet-core,abi-guard,requires,runtime,no
+audit,abi-guard,binary-cache-index,requires,runtime,no
+sandbox,triplet-core,port-linter,tool,dev,no

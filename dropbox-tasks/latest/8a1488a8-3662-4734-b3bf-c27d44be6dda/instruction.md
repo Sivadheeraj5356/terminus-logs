@@ -1,0 +1,5 @@
+Publish `/app/output/closure_report.json` by implementing a from-scratch Go closure merge engine, building `/app/bin/cl_publish` through `/app/scripts/compile_report.sh` or `/app/launcher/cl_publish`.
+
+The image ships tenant fragments, registry rows, runtime defaults, and consolidation docs under `/app/doc/` but no Go implementation sources. Each publish must reload `/app/cfg/runtime.toml` and `/app/data/tenant_registry.json` from disk with no cross-run caching, including consecutive in-process invocations and tenants appended mid-session.
+
+The report carries integer schema_mark from `/app/stubs/revision_stamp.txt` and a tenants map keyed by every registry id at publish time. Each tenant block exports effective_digest_hex, resolved_key_count, and overlay_drifted as documented in `/app/doc/export_fields.txt`. Merge order, overlay fuse, patch layers, alias fixpoint materialization, and join digest wire are defined in `/app/doc/merge_contract.txt` and `/app/doc/digest_wire.txt`. Do not hand-edit the report or mutate pinned fragment bytes under `/app/data/seeds/`, `/app/data/veils/`, or `/app/data/amends/`.

@@ -1,0 +1,9 @@
+Our pathology deployment group needs auditable evidence that one classifier behaves consistently when moved between DJL's PyTorch and ONNX Runtime engines. The Java trial workspace in `/app` is incomplete. Retrieve the immutable model revision named in `/app/config/model-source.properties` with `/app/scripts/fetch_model.sh`; the paired weights are intentionally absent and their live Hugging Face download has no local substitute.
+
+Complete the evaluator under `/app/src/main/java` and build it with `/app/scripts/build.sh`. The finished `/app/scripts/run_trial.sh` workflow must:
+
+- decode every digest-bound P3 PPM manifest image, apply the specified bilinear resize, center crop, rescale, and normalization exactly once, and fingerprint the shared float32 NCHW tensors while preserving manifest order;
+- run real inference through DJL's `PyTorch` and `OnnxRuntime` engines for every requested native batch profile, compare complete softmax vectors, stable top-k rankings, batch-one baselines, and required-group gates, and represent unsupported batches above one as report evidence instead of aborting;
+- publish the exact ordered report at `/app/output/parity-report.json` atomically and durably, with transactional failure for malformed, duplicate, checksum-invalid, BOM-prefixed, symlinked, unsafe, or otherwise invalid manifests, images, labels, policies, provenance, CLI paths, and output paths.
+
+Failure must be nonzero with empty stdout and preserve an existing report byte-for-byte. The input formats, validation boundaries, half-down resize rule, fingerprint encoding, comparison formulas, rounding, cohort logic, JSON key order, and publication semantics in `/app/docs/trial-contract.md` are normative. In particular, engine-level `top_k` arrays contain detailed objects, while profile-level `pytorch_top_k` and `onnxruntime_top_k` arrays contain integer class indices only.

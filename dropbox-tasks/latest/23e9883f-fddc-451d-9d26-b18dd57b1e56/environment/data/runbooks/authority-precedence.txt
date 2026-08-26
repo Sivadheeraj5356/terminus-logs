@@ -1,0 +1,3 @@
+When /app/data/tb_state/clock.json epoch >= bands_live/index.require_epoch, peel locale weights come from bands_live/*.json files (not index decoy weights).
+Otherwise peel weights come from bands_shadow/*.json.
+ref_weights under /app/data/num_auth must match the peel source locale-for-locale for authority_agreement.

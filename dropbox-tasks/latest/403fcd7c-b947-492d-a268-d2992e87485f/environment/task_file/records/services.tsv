@@ -1,0 +1,5 @@
+service_id	priority	requires_mount	route_scope	credential_id	irreversible_barrier
+db	1	orders-vol	internal	cred-db	NO
+api	2	NONE	public	cred-api	NO
+worker	3	NONE	internal	cred-api	NO
+admin	4	NONE	private	cred-admin	NO

@@ -1,16 +1,19 @@
-# Local task dumps and Harbor jobs — too large / not for git
+# Large dumps and Harbor job output — not the 448 task packages
 _source/
-dropbox-tasks/
 terminal-bench-tasks.zip
 jobs/
 _jobs/
 .cache/
 
-# Secrets
+# Keep extracted latest tasks; ignore other dropbox-tasks clutter
+dropbox-tasks/*
+!dropbox-tasks/latest/
+!dropbox-tasks/latest/**
+
+# Secrets at repo root. Task fixture .pem/.key files are part of the worlds.
 .env
 .env.*
-*.pem
-*.key
+!.envrc
 
 # Python
 __pycache__/
@@ -26,3 +29,5 @@ Thumbs.db
 .vscode/
 ~$*
 *.tmp
+docs/*.docx
+docs/~$*

@@ -1,0 +1,52 @@
+--- environment/k3c/pick_k3.go
++++ environment/k3c/pick_k3.go
+@@ -19,9 +19,9 @@
+ 
+ func pickWhenRetract(a, b string) string {
+ 	if rankUpdate(a, b) >= 0 {
+-		return b
++		return a
+ 	}
+-	return a
++	return b
+ }
+ 
+ func pickWhenStable(a, b string) string {
+@@ -33,23 +33,23 @@
+ 
+ func pickMirror(a, b string, flag bool) string {
+ 	if flag {
+-		return b
++		return a
+ 	}
+-	return a
++	return b
+ }
+ 
+ func pickEcho(a, b string) string {
+ 	if len(b) > len(a) {
+-		return b
++		return a
+ 	}
+-	return a
++	return b
+ }
+ 
+ func pickLane(a, b string, flag bool) string {
+ 	if flag {
+ 		return pickEcho(a, b)
+ 	}
+-	return pickMirror(a, b, false)
++	return pickMirror(a, b, flag)
+ }
+ 
+ func CalPickK3(a, b string, flag bool) string {
+@@ -60,7 +60,7 @@
+ }
+ 
+ func pickPreview(a, b string) string {
+-	if len(a) >= len(b) {
++	if len(a) > len(b) {
+ 		return b
+ 	}
+ 	return a

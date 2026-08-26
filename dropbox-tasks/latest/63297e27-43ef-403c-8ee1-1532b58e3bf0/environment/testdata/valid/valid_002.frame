@@ -1,0 +1,4 @@
+kind=bind
+portal=
+stmt=stmt_orders
+params=8,16,32,64

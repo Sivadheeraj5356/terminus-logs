@@ -1,0 +1,20 @@
+SKITTLE ALLEY OPERATOR SERVICE MENU
+
+  01 COIN AUDIT            reports coins, credits and free plays since reset
+  02 LAMP TEST             cycles the marquee and the lane lamps
+  03 DIAL TEST             steps the ball dial through every face and back
+  04 LATCH TEST            files a throw under each latch code in turn
+  05 RACK TEST             sets up and clears a service rack on each lane
+  06 SERVICE LINK          opens the line link described in link_protocol.txt
+  07 ATTRACT               replays the attract sequence held in the ROM
+  08 HIGH SCORE RESET      clears the score card back to factory names
+  09 BOOKKEEPING RESET     clears the coin audit
+
+The service link is the only menu entry that leaves the cabinet under outside
+control. It was added for the factory test rig and was never documented in the
+operator manual shipped to sites.
+
+The practice cabinet on this machine boots straight into the service link. The
+tabulating engine on the board sizes its own scratch memory at power on, and
+the board refuses any rack it cannot hold, which is why the service band is far
+smaller than a tournament rack.

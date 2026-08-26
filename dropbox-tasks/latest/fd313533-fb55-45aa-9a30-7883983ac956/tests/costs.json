@@ -1,0 +1,162 @@
+{
+  "cd-01": {
+    "cost_line": 1.132,
+    "cost_shop": 3.441
+  },
+  "cd-02": {
+    "cost_line": 0.803,
+    "cost_shop": 3.087
+  },
+  "cd-03": {
+    "cost_line": 1.036,
+    "cost_shop": 3.128
+  },
+  "cd-04": {
+    "cost_line": 0.724,
+    "cost_shop": 2.334
+  },
+  "cd-05": {
+    "cost_line": 1.085,
+    "cost_shop": 4.177
+  },
+  "cd-06": {
+    "cost_line": 0.712,
+    "cost_shop": 2.103
+  },
+  "cd-07": {
+    "cost_line": 0.703,
+    "cost_shop": 2.865
+  },
+  "cd-08": {
+    "cost_line": 0.833,
+    "cost_shop": 2.931
+  },
+  "cd-09": {
+    "cost_line": 1.129,
+    "cost_shop": 4.7
+  },
+  "cd-10": {
+    "cost_line": 0.801,
+    "cost_shop": 3.008
+  },
+  "cd-11": {
+    "cost_line": 1.148,
+    "cost_shop": 3.79
+  },
+  "cd-12": {
+    "cost_line": 0.735,
+    "cost_shop": 2.626
+  },
+  "cd-13": {
+    "cost_line": 0.927,
+    "cost_shop": 2.762
+  },
+  "cd-14": {
+    "cost_line": 1.001,
+    "cost_shop": 3.558
+  },
+  "cd-15": {
+    "cost_line": 0.794,
+    "cost_shop": 2.976
+  },
+  "cd-16": {
+    "cost_line": 0.953,
+    "cost_shop": 3.412
+  },
+  "cd-17": {
+    "cost_line": 0.999,
+    "cost_shop": 3.16
+  },
+  "cd-18": {
+    "cost_line": 0.825,
+    "cost_shop": 2.861
+  },
+  "cd-19": {
+    "cost_line": 1.038,
+    "cost_shop": 4.433
+  },
+  "cd-20": {
+    "cost_line": 0.842,
+    "cost_shop": 3.199
+  },
+  "cd-21": {
+    "cost_line": 0.76,
+    "cost_shop": 2.884
+  },
+  "cd-22": {
+    "cost_line": 1.114,
+    "cost_shop": 3.966
+  },
+  "cd-23": {
+    "cost_line": 0.982,
+    "cost_shop": 3.267
+  },
+  "cd-24": {
+    "cost_line": 0.903,
+    "cost_shop": 3.6
+  },
+  "cd-25": {
+    "cost_line": 1.058,
+    "cost_shop": 4.437
+  },
+  "cd-26": {
+    "cost_line": 1.016,
+    "cost_shop": 3.638
+  },
+  "cd-27": {
+    "cost_line": 0.909,
+    "cost_shop": 3.061
+  },
+  "cd-28": {
+    "cost_line": 0.875,
+    "cost_shop": 3.014
+  },
+  "cd-29": {
+    "cost_line": 0.763,
+    "cost_shop": 2.414
+  },
+  "cd-30": {
+    "cost_line": 1.083,
+    "cost_shop": 3.632
+  },
+  "cd-31": {
+    "cost_line": 1.076,
+    "cost_shop": 3.386
+  },
+  "cd-32": {
+    "cost_line": 1.005,
+    "cost_shop": 3.406
+  },
+  "cd-33": {
+    "cost_line": 0.9,
+    "cost_shop": 3.549
+  },
+  "cd-34": {
+    "cost_line": 1.035,
+    "cost_shop": 4.655
+  },
+  "cd-35": {
+    "cost_line": 0.773,
+    "cost_shop": 2.373
+  },
+  "cd-36": {
+    "cost_line": 1.062,
+    "cost_shop": 3.831
+  },
+  "cd-37": {
+    "cost_line": 0.972,
+    "cost_shop": 3.317
+  },
+  "cd-38": {
+    "cost_line": 0.731,
+    "cost_shop": 2.675
+  },
+  "cd-39": {
+    "cost_line": 0.964,
+    "cost_shop": 3.068
+  },
+  "cd-40": {
+    "cost_line": 0.846,
+    "cost_shop": 3.089
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "serial": "SER-REVOKED",
+  "filename": "revoked.json",
+  "signature_ok": true,
+  "issuer_serial": "ROOT-TRUST-01"
+}

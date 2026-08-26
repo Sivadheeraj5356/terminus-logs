@@ -1,0 +1,396 @@
+SPOOLWARD RETENTION CHARTER
+Colverton retention plane operations bulletin. The clauses below are numbered
+L1 onward. They are the whole charter; nothing outside them binds. Where
+two clauses bear on one matter they agree.
+
+L1. The warden spoolward administers the plane's log retention:
+it works each cycle's change orders against the plane register, the source
+inventory, the operator roster and the standing streams, closes every cycle with
+hold expiry and an overflow purge, and seals how the plane stands as one
+report.
+L2. A cycle is a positive integer index. The cycles directory fixes the
+cycles of the term: its files taken in ascending name order are cycle 1,
+cycle 2, and so on, and their count is cycles_run.
+L3. All counts, volumes and budgets in the report are integers. No
+fractional value ever appears in the report.
+L4. The plane root holds plane.ini, sources.tsv, operators.tsv, an indices
+directory and a cycles directory.
+L5. Every file of the root is UTF-8 text, and the warden leaves every file
+under the root byte for byte as it found it.
+
+THE PLANE REGISTER
+
+L6. plane.ini is read line by line; blank lines and lines opening with a
+number sign carry nothing; a line [name] opens the section so named; a
+line key = value binds key to value in the open section, blanks trimmed
+from both ends of each.
+L7. Section [plane] declares the integers plane_revision, index_budget and
+hold_term.
+L8. Section [collectors] declares one binding per ingest collector; the collector is the
+key and the value is the single mark -.
+L9. Section [indices] declares one binding per log index; the key is
+the index and the value is the collector it hangs from. An index hangs from
+exactly one collector for the whole term.
+L10. The indices stand in registration order: the order of their bindings
+in [indices].
+L11. For each declared index the roster indices/<index>.tsv carries
+one channel per line: channel and note, split by a single tab. The note
+column binds nothing.
+L12. A channel belongs to exactly one index, its roster's index, for
+the whole term. A channel never named by any roster is unknown to the plane.
+L13. sources.tsv carries one source per line: source, volume, class and note,
+split by single tabs. The volume is a non-negative integer of gigabytes; the class
+is retained or rotating; the note column binds nothing.
+L14. A source carries its declared gigabytes whenever it stands on a channel, on
+whatever index; a source's volume and class never change through the term.
+L15. operators.tsv carries one operator per line: name, role, holdings and
+badge, split by single tabs. The role is curator or operator. For a
+curator the holdings field lists opened indices; for an operator it
+lists charged collectors; either list is semicolon-split, or the single mark -
+for none. The badge column binds nothing.
+L16. streams.ndjson carries the streams standing when the term opens, one JSON
+object per line, with members channel, source, opened (an integer cycle)
+and at times pinned.
+L17. An opening stream binds its source to its channel from cycle opened and
+opens pinned when pinned is true. Opening streams stand in file order, all of
+them ahead of every stream made during the term.
+L18. Each cycles file carries one change order per line, a single JSON
+object; blank lines carry nothing and are no orders.
+
+STREAMS
+
+L19. A stream binds one source to one channel. While it stands, its channel is
+taken and its source is bound, and it carries its source's gigabytes upon its
+channel's index.
+L20. A source carries at most one standing stream across the whole plane, not
+per index; a second stream for a bound source is refused wherever its
+channel lies.
+L21. A channel carries at most one standing stream.
+L22. A stream's class is the class of its source under L13, retained or
+rotating, and never changes.
+L23. A stream's opened cycle is the cycle of its making and never changes;
+an opening stream is opened the cycle its streams.ndjson record names.
+L24. Stream age runs by opened cycle first and standing order second; the
+younger stream has the greater opened cycle, and of equal opening the later
+standing order under L17.
+L25. At any instant a stream record stands in exactly one of LIVE, DETACHED,
+PURGED, FLUSHED or DECOMMISSIONED; the report tells a live stream on a quiesced
+index apart as DORMANT under L120.
+L26. DETACHED, PURGED, FLUSHED and DECOMMISSIONED are final for the record; the
+record keeps that state to the term's end.
+L27. A detached or purged channel is free again under L113 and may take a fresh
+stream; the fresh stream is a new record with its own opened cycle.
+L28. A flush bars its source-channel pair: no stream of that same pair is
+applied again in the term, though the channel itself frees and either party
+may pair elsewhere.
+L29. A decommissioned index's channels are dead: nothing is routed upon them
+for the rest of the term.
+
+OPERATORS AND AUTHORITY
+
+L30. Connection work is ROUTE, DETACH, HOLD, RELEASE, PIN and UNPIN; it belongs
+to curators alone. Collector work is QUIESCE, RESUME, DECOMMISSION, RETUNE and
+FLUSH; it belongs to operators alone.
+L31. A curator's authority over connection work runs through the
+governing index: for a ROUTE, DETACH, PIN or UNPIN, the index of the named
+channel; for a HOLD or RELEASE, the index fixed by L66. The work is
+authorized when the curator's holdings carry that index.
+L32. An operator's authority over collector work runs through the governing
+collector: for a FLUSH, the collector of the named channel's index; for a QUIESCE,
+RESUME or RETUNE, the collector of the named index; for a DECOMMISSION, the named
+collector itself. The work is authorized when the operator's holdings carry that
+collector.
+L33. A change order whose kind and members are sound under L37 but whose
+actor bears the wrong role for the kind, or bears the right role without the
+holding L31 or L32 demands, is answered UNAUTHORIZED and changes nothing.
+
+ORDER AND SCREENING
+
+L34. Within a cycle the change orders are answered strictly in the order
+their lines stand in the file; nothing is answered across cycles.
+L35. Every sound order is answered with exactly one of APPLIED, DENIED, NOOP
+or UNAUTHORIZED and enters the journal with that answer; a screened line is
+answered VOID, is counted in orders_seen and by_disposition, and enters no
+journal.
+L36. Screening is judged before authority, and authority under L33 before
+any law of state; an order failing an earlier judgment never reaches a later
+one.
+L37. A line is VOID when it is not one well-formed JSON object; or it lacks
+seq (an integer), kind (one of the eleven kinds of L39) or actor (a name in
+operators.tsv); or it lacks a member its kind demands under L40 to L45, or
+carries one of the wrong type; or it names a channel, source, index or
+collector the plane does not know; or it is a RETUNE whose budget member is not an
+integer of zero or above; or it is a HOLD or RELEASE naming both a source and
+a channel, or neither.
+L38. Within one cycle the seq of each sound order must exceed the seq of the
+last sound order before it, and the first sound order's seq must exceed
+zero. A violating line is VOID, and a VOID line moves no seq.
+L39. The eleven kinds are ROUTE, DETACH, HOLD, RELEASE, PIN, UNPIN, QUIESCE,
+RESUME, DECOMMISSION, RETUNE and FLUSH.
+L40. ROUTE demands channel and source, strings naming a rostered channel and an
+inventoried source.
+L41. DETACH, PIN, UNPIN and FLUSH demand channel, a string naming a rostered
+channel.
+L42. HOLD and RELEASE demand exactly one of source or channel, a string naming
+an inventoried source or a rostered channel.
+L43. QUIESCE, RESUME and RETUNE demand index, a string naming a
+declared index; RETUNE further demands budget, an integer of zero or
+above.
+L44. DECOMMISSION demands collector, a string naming a declared collector.
+L45. Members beyond those a kind demands bind nothing and screen nothing.
+
+THE JOURNAL SUBJECT
+
+L46. Each journal row carries cycle, seq, kind, subject and disposition, and
+nothing else.
+L47. The subject of ROUTE, DETACH, PIN, UNPIN and FLUSH is the channel; of a
+source-named HOLD or RELEASE the source; of a channel-named HOLD or RELEASE the
+channel; of QUIESCE, RESUME and RETUNE the index; of DECOMMISSION the collector.
+L48. The journal holds every sound order of the term in answered order, cycle
+first and line order within it.
+
+ROUTE
+
+L49. A ROUTE naming a channel and source that are already one standing stream
+is NOOP.
+L50. A ROUTE onto an index not SERVING is DENIED.
+L51. A ROUTE naming a taken channel is DENIED.
+L52. A ROUTE naming a bound source is DENIED, wherever in the plane the
+source's standing stream lies.
+L53. A ROUTE naming a pair barred under L28 is DENIED.
+L54. A ROUTE clearing L49 to L53 is APPLIED: a new stream stands, opened the
+cycle in hand, classed under L22, unpinned and unheld.
+L55. A ROUTE is weighed for overflow nowhere at its instant; the index
+answers overflow only at the close under L95, so an APPLIED ROUTE may still be
+purged at the close of its own cycle or a later cycle.
+
+DETACH AND FLUSH
+
+L56. A DETACH naming a channel with nothing standing is NOOP.
+L57. A DETACH of a held stream is DENIED; the hold binds the detach whichever
+side of L64 declared it.
+L58. A DETACH clearing L56 and L57 is APPLIED: the stream goes DETACHED, its pin
+is void, and its channel frees at once.
+L59. A FLUSH naming a channel with nothing standing is NOOP.
+L60. A FLUSH of a standing stream is APPLIED whether or not the stream is held
+or pinned; a hold binds the detach and the overflow purge, never the operator's
+force flush.
+L61. A flushed stream goes FLUSHED, its pin and any hold on it are void, its
+channel frees at once, and its pair is barred under L28.
+
+HOLDS
+
+L62. A hold is a retention hold placed on a standing stream; it guards the stream
+against DETACH under L57 and against the overflow purge under L92.
+L63. A HOLD or RELEASE reaches its stream through either side: the named
+channel's standing stream, or the named source's standing stream. Either naming
+binds the one stream.
+L64. A HOLD or RELEASE over a channel or source with nothing standing is NOOP,
+whoever brings it; its authority is not examined further.
+L65. The governing index of a HOLD or RELEASE, for L31, is the index of
+the stream's channel as reached under L63.
+L66. A HOLD on a stream already under an unexpired hold is NOOP.
+L67. A HOLD clearing L64 and L66 is APPLIED: the hold stands from the cycle
+in hand.
+L68. A hold endures hold_term cycles: declared in cycle d, it stands through
+cycle d + hold_term - 1 and expires at that cycle's close, in the close
+ladder of L87 before any overflow purge.
+L69. A RELEASE of an unexpired hold is APPLIED and lifts it at once; a RELEASE
+with no unexpired hold to lift is NOOP.
+L70. A hold is void with its stream: whatever ends, flushes or decommissions the stream
+ends the hold.
+
+PINS
+
+L71. A PIN names a channel; with nothing standing there it is NOOP; on a
+stream already pinned it is NOOP; otherwise it is APPLIED and the stream is
+pinned.
+L72. An UNPIN names a channel; it is APPLIED when the standing stream is pinned
+and NOOP otherwise.
+L73. A pin guards its stream against the overflow purge alone: it does not bind
+DETACH, does not bind FLUSH, stands through quiescence and resumption, and is
+void under decommission and under every end of its stream.
+
+QUIESCE AND RESUME
+
+L74. An index stands SERVING, QUIESCED or DECOMMISSIONED; every index opens the
+term SERVING.
+L75. A QUIESCE of a SERVING index is APPLIED: the index goes QUIESCED.
+Of an index already QUIESCED, NOOP. Of a DECOMMISSIONED index, DENIED.
+L76. A quiesced index takes no new stream under L50, and its channels are
+not free under L113; its standing streams stand, their pins and holds stand,
+and the overflow purge passes the index over entirely.
+L77. A RESUME of an QUIESCED index is APPLIED and returns it to SERVING
+at once; of a SERVING index, NOOP; of a DECOMMISSIONED index, DENIED.
+L78. Quiescence leaves no residue: a resumed index carries stream exactly
+as it would had the quiescence never stood, save what the calendar did in
+between; in particular a resumed index is weighed for overflow at the
+close of the cycle it returns.
+
+DECOMMISSION
+
+L79. A DECOMMISSION names a collector. Of a collector already decommissioned, NOOP; otherwise
+APPLIED.
+L80. An applied DECOMMISSION puts the collector beyond use for the term: every index
+of the collector goes DECOMMISSIONED from whatever standing it held, every standing
+stream in those indices goes DECOMMISSIONED in the same instant, every such pin
+and hold is void, and every channel of those indices is dead under L29.
+L81. Decommission is terminal for collector, indices, and records alike; no
+clause returns them.
+L82. A QUIESCE, RESUME or RETUNE naming an index of a decommissioned collector is
+DENIED under L75, L77 and L84.
+L83. Dormant records are beyond decommission's reach: a detached, purge or
+flushed record keeps its state when its index is decommissioned.
+
+RETUNE
+
+L84. A RETUNE names an index and an integer budget. Of a decommissioned index,
+DENIED. Naming the budget the index already carries in effect, NOOP.
+Otherwise APPLIED: the index's budget is the named value from that instant.
+L85. An index's effective budget is its own applied binding when one
+stands, and the plane's index_budget when none does.
+L86. A budget binds only the overflow purge under L91; it changes no standing
+stream at its instant.
+
+THE CLOSE
+
+L87. Each cycle closes after its last line is answered. The close is a
+ladder of two rungs, always in this order: hold expiry, then the overflow
+purge.
+L88. Hold expiry ends every hold whose final cycle under L68 is the closing
+cycle.
+L89. The overflow purge visits each index once, in registration order under
+L10, passing over QUIESCED and DECOMMISSIONED indices.
+L90. An index's volume is the sum of the source volumes of its standing streams;
+a stream's volume is its source's gigabytes under L14.
+L91. At each index the purge weighs the index's volume against the index's
+effective budget under L85; the index is in overflow while its volume stands
+strictly above its budget.
+L92. While an index is in overflow, the purge drops one purgeable stream and
+weighs again; with none purgeable the index is left in overflow.
+L93. Purgeable at an index is every standing stream of that index's channels
+that is rotating, unpinned, and under no unexpired hold.
+L94. Of the purgeable streams the purge drops the one of greatest volume; of
+equal volume it drops the younger under L24, that is the greater opened cycle
+and then the later standing order.
+L95. A purged stream goes PURGED and its channel frees at once; retained streams, pinned
+streams and held streams are never purged.
+L96. The overflow purge answers no journal row; its work shows in by_state, in
+by_index and nowhere in the journal.
+
+THE REPORT
+
+L97. The report is one JSON object of exactly nine members: plane_revision,
+cycles_run, orders_seen, by_disposition, by_state, by_index, journal,
+data_digest and report_digest.
+L98. plane_revision carries the [plane] binding. cycles_run counts under L2.
+orders_seen counts every order line of the term, sound and screened alike.
+L99. by_disposition tallies the five answers of L35 over every line of the
+term; all five keys stand whatever their counts.
+L100. by_state tallies the stream records of the term, opening and made alike,
+under their L25 states with DORMANT told apart under L120; all six keys stand
+whatever their counts.
+L101. by_index carries one entry per declared index, keyed by index
+name, each entry exactly standing, live and volume: standing is the index's
+L74 standing as the term ends; live counts the index's standing streams,
+zero for a DECOMMISSIONED index; volume sums the source volumes of those standing
+streams under L90, zero for a DECOMMISSIONED index.
+L102. A live stream on a quiesced index is a standing stream: it is counted in
+that index's live and volume under L101 though it is told apart as DORMANT in
+by_state.
+L103. The journal stands under L46 to L48.
+L104. The report is serialized canonically: object members ascending by key
+at every depth, no spaces about any token, ASCII strings, bare integers. The
+written file is this canonical serialization followed by a single line feed
+and nothing else around it; that closing line feed frames the file alone and
+is no part of the serialized bytes the report seal of L123 weighs.
+L105. The warden prints nothing to standard output or standard error on a
+sound run.
+L106. Before the report is written, every entry in the report's directory,
+files and directories alike, is cleared away, and the directory then holds
+the report alone; a missing directory is created.
+L107. Run twice over an unchanged root, the warden writes the same report
+byte for byte.
+L108. The single argument --selfcheck ends a run at once: nothing is read of
+the root, nothing is written anywhere, and the exit is zero.
+L109. A sound run exits zero.
+
+STANDINGS AND VOLUME
+
+L110. A channel is taken while a standing stream binds it.
+L111. A source is bound while a standing stream binds it.
+L112. A standing stream is a record in LIVE, on an index of any standing;
+display under L120 never changes what stands.
+L113. A free channel is a rostered channel of a SERVING index with no
+standing stream upon it.
+L114. The close ladder of L87 belongs to every cycle, the last cycle
+included; the report reads the plane after the final close.
+L115. The term's records are never discarded: every stream record of the term
+appears in exactly one by_state tally.
+L116. Registration order serves the overflow purge alone; by_index is keyed
+ascending by name and the journal stands in answered order.
+L117. The eleven kinds are closed: a line whose kind is any other string is
+screened under L37, and no kind beyond the eleven ever reaches the journal.
+L118. The five dispositions and the six stream states are closed enums; the
+report never carries a key beyond them in by_disposition or by_state.
+L119. orders_seen equals the sum of the five by_disposition counts, and the
+journal's length equals orders_seen less the VOID count; a VOID line is
+counted but takes no journal row.
+
+DISPLAY
+
+L120. The by_state tally and no other clause tells streams apart by quiescence:
+a LIVE stream whose index stands QUIESCED as the term ends is tallied DORMANT;
+every other LIVE stream is tallied LIVE. A DORMANT stream remains a LIVE record for
+every clause save this tally.
+
+THE TWO SEALS
+
+L121. data_digest is the first sixteen hex digits of the SHA-256 taken over
+the root's files: every file under the root, walked ascending by full
+relative path with forward slashes, and for each file the path's UTF-8
+bytes, one NUL byte, the file's bytes, one NUL byte.
+L122. As a toy: a root holding one file a.txt of the two bytes x, LF digests
+the byte run a.txt NUL x LF NUL.
+L123. report_digest is the first sixteen hex digits of the SHA-256 taken over
+the report serialized as in L104 with the report_digest member wholly absent
+and without the framing line feed of L104; it is reckoned after data_digest
+is in place. The bytes hashed end at the report's closing brace: the trailing
+line feed of the written file is never among them.
+L124. The two seals are lowercase hex, sixteen digits each.
+L125. The data seal weighs every file under the root, named by this charter
+or not, and nothing else: not the report, not directory names, not any file
+beyond the root.
+L126. The warden reads the plane root named by the SPOOLWARD_PLANE environment
+variable, and /app/plane when that variable is unset or empty; it writes the
+report at the full file path named by the SPOOLWARD_REPORT environment
+variable, and /app/output/spoolward_report.json when that variable is unset or
+empty.
+
+FURTHER LAW
+
+L127. The journal rows carry their five members in canonical member order like
+every object of the report.
+L128. by_index entries carry exactly standing, live and volume, and never a
+fourth member.
+L129. The warden makes no change of its own: no order, no clause and no purge
+ever alters plane.ini, the rosters, the inventory, streams.ndjson or any cycles
+file.
+L130. An UNPIN, RELEASE or RESUME never fails for lateness: where its object
+is already absent the answer is NOOP, never DENIED, save the decommissioned-index
+law of L77.
+L131. Where an order is DENIED or NOOP the plane stands exactly as before the
+order was read.
+L132. An UNAUTHORIZED order changes nothing, whatever its kind demanded.
+L133. Holds do not stack: at most one unexpired hold stands on a stream, and a
+second declaration is NOOP under L66 whichever side names it.
+L134. A hold declared in cycle d under hold_term 1 stands through cycle d
+alone and expires at that cycle's close.
+L135. The pair bar of L28 is keyed by source and channel together: the same
+source may take another channel, and the same channel another source, unbarred.
+L136. Nothing restores a barred pair: no detach, no resume, no retune and no
+release touches L28.
+L137. An index whose effective budget is not less than its volume is not
+in overflow; the purge leaves it untouched however its streams stand.
+L138. The overflow purge and the close ladder do not reorder the journal:
+dropped lines aside, it is the term's change orders as answered.

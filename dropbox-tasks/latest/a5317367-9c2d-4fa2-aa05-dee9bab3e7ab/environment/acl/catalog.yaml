@@ -1,0 +1,633 @@
+schema_version: apexora-acl-catalog-1
+policy_count: 90
+policies:
+  - id: SEG-CORP-IT-IN-0001
+    name: SEG-CORP-IT-IN
+    type: extended
+    direction: in
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP-IT
+  - id: SEG-CORP-IT-OUT-0002
+    name: SEG-CORP-IT-OUT
+    type: extended
+    direction: out
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP-IT
+  - id: SEG-FINANCE-IN-0003
+    name: SEG-FINANCE-IN
+    type: extended
+    direction: in
+    vrf: FINANCE
+    status: active
+    object_group: OG-SEG-FINANCE
+  - id: SEG-FINANCE-OUT-0004
+    name: SEG-FINANCE-OUT
+    type: extended
+    direction: out
+    vrf: FINANCE
+    status: active
+    object_group: OG-SEG-FINANCE
+  - id: SEG-HR-IN-0005
+    name: SEG-HR-IN
+    type: extended
+    direction: in
+    vrf: HR
+    status: active
+    object_group: OG-SEG-HR
+  - id: SEG-HR-OUT-0006
+    name: SEG-HR-OUT
+    type: extended
+    direction: out
+    vrf: HR
+    status: active
+    object_group: OG-SEG-HR
+  - id: SEG-PAYROLL-IN-0007
+    name: SEG-PAYROLL-IN
+    type: extended
+    direction: in
+    vrf: PAYROLL
+    status: active
+    object_group: OG-SEG-PAYROLL
+  - id: SEG-PAYROLL-OUT-0008
+    name: SEG-PAYROLL-OUT
+    type: extended
+    direction: out
+    vrf: PAYROLL
+    status: active
+    object_group: OG-SEG-PAYROLL
+  - id: SEG-MFG-OT-IN-0009
+    name: SEG-MFG-OT-IN
+    type: extended
+    direction: in
+    vrf: MFG-OT
+    status: active
+    object_group: OG-SEG-MFG-OT
+  - id: SEG-MFG-OT-OUT-0010
+    name: SEG-MFG-OT-OUT
+    type: extended
+    direction: out
+    vrf: MFG-OT
+    status: active
+    object_group: OG-SEG-MFG-OT
+  - id: SEG-MFG-IT-IN-0011
+    name: SEG-MFG-IT-IN
+    type: extended
+    direction: in
+    vrf: MFG-IT
+    status: active
+    object_group: OG-SEG-MFG-IT
+  - id: SEG-MFG-IT-OUT-0012
+    name: SEG-MFG-IT-OUT
+    type: extended
+    direction: out
+    vrf: MFG-IT
+    status: active
+    object_group: OG-SEG-MFG-IT
+  - id: SEG-SCADA-IN-0013
+    name: SEG-SCADA-IN
+    type: extended
+    direction: in
+    vrf: SCADA
+    status: active
+    object_group: OG-SEG-SCADA
+  - id: SEG-SCADA-OUT-0014
+    name: SEG-SCADA-OUT
+    type: extended
+    direction: out
+    vrf: SCADA
+    status: active
+    object_group: OG-SEG-SCADA
+  - id: SEG-GUEST-IN-0015
+    name: SEG-GUEST-IN
+    type: extended
+    direction: in
+    vrf: GUEST
+    status: active
+    object_group: OG-SEG-GUEST
+  - id: SEG-GUEST-OUT-0016
+    name: SEG-GUEST-OUT
+    type: extended
+    direction: out
+    vrf: GUEST
+    status: active
+    object_group: OG-SEG-GUEST
+  - id: SEG-GUEST-WIFI-IN-0017
+    name: SEG-GUEST-WIFI-IN
+    type: extended
+    direction: in
+    vrf: GUEST-WIFI
+    status: active
+    object_group: OG-SEG-GUEST-WIFI
+  - id: SEG-GUEST-WIFI-OUT-0018
+    name: SEG-GUEST-WIFI-OUT
+    type: extended
+    direction: out
+    vrf: GUEST-WIFI
+    status: active
+    object_group: OG-SEG-GUEST-WIFI
+  - id: SEG-DMZ-IN-0019
+    name: SEG-DMZ-IN
+    type: extended
+    direction: in
+    vrf: DMZ
+    status: active
+    object_group: OG-SEG-DMZ
+  - id: SEG-DMZ-OUT-0020
+    name: SEG-DMZ-OUT
+    type: extended
+    direction: out
+    vrf: DMZ
+    status: active
+    object_group: OG-SEG-DMZ
+  - id: SEG-DMZ-PUB-IN-0021
+    name: SEG-DMZ-PUB-IN
+    type: extended
+    direction: in
+    vrf: DMZ-PUB
+    status: active
+    object_group: OG-SEG-DMZ-PUB
+  - id: SEG-DMZ-PUB-OUT-0022
+    name: SEG-DMZ-PUB-OUT
+    type: extended
+    direction: out
+    vrf: DMZ-PUB
+    status: active
+    object_group: OG-SEG-DMZ-PUB
+  - id: SEG-PCI-IN-0023
+    name: SEG-PCI-IN
+    type: extended
+    direction: in
+    vrf: PCI
+    status: active
+    object_group: OG-SEG-PCI
+  - id: SEG-PCI-OUT-0024
+    name: SEG-PCI-OUT
+    type: extended
+    direction: out
+    vrf: PCI
+    status: active
+    object_group: OG-SEG-PCI
+  - id: SEG-VOICE-IN-0025
+    name: SEG-VOICE-IN
+    type: extended
+    direction: in
+    vrf: VOICE
+    status: active
+    object_group: OG-SEG-VOICE
+  - id: SEG-VOICE-OUT-0026
+    name: SEG-VOICE-OUT
+    type: extended
+    direction: out
+    vrf: VOICE
+    status: active
+    object_group: OG-SEG-VOICE
+  - id: SEG-VIDEO-IN-0027
+    name: SEG-VIDEO-IN
+    type: extended
+    direction: in
+    vrf: VIDEO
+    status: active
+    object_group: OG-SEG-VIDEO
+  - id: SEG-VIDEO-OUT-0028
+    name: SEG-VIDEO-OUT
+    type: extended
+    direction: out
+    vrf: VIDEO
+    status: active
+    object_group: OG-SEG-VIDEO
+  - id: SEG-MGMT-IN-0029
+    name: SEG-MGMT-IN
+    type: extended
+    direction: in
+    vrf: MGMT
+    status: active
+    object_group: OG-SEG-MGMT
+  - id: SEG-MGMT-OUT-0030
+    name: SEG-MGMT-OUT
+    type: extended
+    direction: out
+    vrf: MGMT
+    status: active
+    object_group: OG-SEG-MGMT
+  - id: SEG-IDENTITY-IN-0031
+    name: SEG-IDENTITY-IN
+    type: extended
+    direction: in
+    vrf: IDENTITY
+    status: active
+    object_group: OG-SEG-IDENTITY
+  - id: SEG-IDENTITY-OUT-0032
+    name: SEG-IDENTITY-OUT
+    type: extended
+    direction: out
+    vrf: IDENTITY
+    status: active
+    object_group: OG-SEG-IDENTITY
+  - id: SEG-BACKUP-IN-0033
+    name: SEG-BACKUP-IN
+    type: extended
+    direction: in
+    vrf: BACKUP
+    status: active
+    object_group: OG-SEG-BACKUP
+  - id: SEG-BACKUP-OUT-0034
+    name: SEG-BACKUP-OUT
+    type: extended
+    direction: out
+    vrf: BACKUP
+    status: active
+    object_group: OG-SEG-BACKUP
+  - id: SEG-REPLICATION-IN-0035
+    name: SEG-REPLICATION-IN
+    type: extended
+    direction: in
+    vrf: REPLICATION
+    status: active
+    object_group: OG-SEG-REPLICATION
+  - id: SEG-REPLICATION-OUT-0036
+    name: SEG-REPLICATION-OUT
+    type: extended
+    direction: out
+    vrf: REPLICATION
+    status: active
+    object_group: OG-SEG-REPLICATION
+  - id: SEG-LAB-IN-0037
+    name: SEG-LAB-IN
+    type: extended
+    direction: in
+    vrf: LAB
+    status: active
+    object_group: OG-SEG-LAB
+  - id: SEG-LAB-OUT-0038
+    name: SEG-LAB-OUT
+    type: extended
+    direction: out
+    vrf: LAB
+    status: active
+    object_group: OG-SEG-LAB
+  - id: SEG-DEV-IN-0039
+    name: SEG-DEV-IN
+    type: extended
+    direction: in
+    vrf: DEV
+    status: active
+    object_group: OG-SEG-DEV
+  - id: SEG-DEV-OUT-0040
+    name: SEG-DEV-OUT
+    type: extended
+    direction: out
+    vrf: DEV
+    status: active
+    object_group: OG-SEG-DEV
+  - id: SEG-QA-IN-0041
+    name: SEG-QA-IN
+    type: extended
+    direction: in
+    vrf: QA
+    status: active
+    object_group: OG-SEG-QA
+  - id: SEG-QA-OUT-0042
+    name: SEG-QA-OUT
+    type: extended
+    direction: out
+    vrf: QA
+    status: active
+    object_group: OG-SEG-QA
+  - id: SEG-STAGING-IN-0043
+    name: SEG-STAGING-IN
+    type: extended
+    direction: in
+    vrf: STAGING
+    status: active
+    object_group: OG-SEG-STAGING
+  - id: SEG-STAGING-OUT-0044
+    name: SEG-STAGING-OUT
+    type: extended
+    direction: out
+    vrf: STAGING
+    status: active
+    object_group: OG-SEG-STAGING
+  - id: SEG-VENDOR-IN-0045
+    name: SEG-VENDOR-IN
+    type: extended
+    direction: in
+    vrf: VENDOR
+    status: active
+    object_group: OG-SEG-VENDOR
+  - id: SEG-VENDOR-OUT-0046
+    name: SEG-VENDOR-OUT
+    type: extended
+    direction: out
+    vrf: VENDOR
+    status: active
+    object_group: OG-SEG-VENDOR
+  - id: SEG-PARTNER-IN-0047
+    name: SEG-PARTNER-IN
+    type: extended
+    direction: in
+    vrf: PARTNER
+    status: active
+    object_group: OG-SEG-PARTNER
+  - id: SEG-PARTNER-OUT-0048
+    name: SEG-PARTNER-OUT
+    type: extended
+    direction: out
+    vrf: PARTNER
+    status: active
+    object_group: OG-SEG-PARTNER
+  - id: SEG-LOGISTICS-IN-0049
+    name: SEG-LOGISTICS-IN
+    type: extended
+    direction: in
+    vrf: LOGISTICS
+    status: active
+    object_group: OG-SEG-LOGISTICS
+  - id: SEG-LOGISTICS-OUT-0050
+    name: SEG-LOGISTICS-OUT
+    type: extended
+    direction: out
+    vrf: LOGISTICS
+    status: active
+    object_group: OG-SEG-LOGISTICS
+  - id: SEG-WAREHOUSE-IN-0051
+    name: SEG-WAREHOUSE-IN
+    type: extended
+    direction: in
+    vrf: WAREHOUSE
+    status: active
+    object_group: OG-SEG-WAREHOUSE
+  - id: SEG-WAREHOUSE-OUT-0052
+    name: SEG-WAREHOUSE-OUT
+    type: extended
+    direction: out
+    vrf: WAREHOUSE
+    status: active
+    object_group: OG-SEG-WAREHOUSE
+  - id: SEG-RETAIL-IN-0053
+    name: SEG-RETAIL-IN
+    type: extended
+    direction: in
+    vrf: RETAIL
+    status: active
+    object_group: OG-SEG-RETAIL
+  - id: SEG-RETAIL-OUT-0054
+    name: SEG-RETAIL-OUT
+    type: extended
+    direction: out
+    vrf: RETAIL
+    status: active
+    object_group: OG-SEG-RETAIL
+  - id: SEG-BUILDING-AUTO-IN-0055
+    name: SEG-BUILDING-AUTO-IN
+    type: extended
+    direction: in
+    vrf: BUILDING-AUTO
+    status: active
+    object_group: OG-SEG-BUILDING-AUTO
+  - id: SEG-BUILDING-AUTO-OUT-0056
+    name: SEG-BUILDING-AUTO-OUT
+    type: extended
+    direction: out
+    vrf: BUILDING-AUTO
+    status: active
+    object_group: OG-SEG-BUILDING-AUTO
+  - id: SEG-EMERGENCY-IN-0057
+    name: SEG-EMERGENCY-IN
+    type: extended
+    direction: in
+    vrf: EMERGENCY
+    status: active
+    object_group: OG-SEG-EMERGENCY
+  - id: SEG-EMERGENCY-OUT-0058
+    name: SEG-EMERGENCY-OUT
+    type: extended
+    direction: out
+    vrf: EMERGENCY
+    status: active
+    object_group: OG-SEG-EMERGENCY
+  - id: SEG-TELEMED-IN-0059
+    name: SEG-TELEMED-IN
+    type: extended
+    direction: in
+    vrf: TELEMED
+    status: active
+    object_group: OG-SEG-TELEMED
+  - id: SEG-TELEMED-OUT-0060
+    name: SEG-TELEMED-OUT
+    type: extended
+    direction: out
+    vrf: TELEMED
+    status: active
+    object_group: OG-SEG-TELEMED
+  - id: SEG-MISC-0061
+    name: SEG-MISC-POLICY-61
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0062
+    name: SEG-MISC-POLICY-62
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0063
+    name: SEG-MISC-POLICY-63
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0064
+    name: SEG-MISC-POLICY-64
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0065
+    name: SEG-MISC-POLICY-65
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0066
+    name: SEG-MISC-POLICY-66
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0067
+    name: SEG-MISC-POLICY-67
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0068
+    name: SEG-MISC-POLICY-68
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0069
+    name: SEG-MISC-POLICY-69
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0070
+    name: SEG-MISC-POLICY-70
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0071
+    name: SEG-MISC-POLICY-71
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0072
+    name: SEG-MISC-POLICY-72
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0073
+    name: SEG-MISC-POLICY-73
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0074
+    name: SEG-MISC-POLICY-74
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0075
+    name: SEG-MISC-POLICY-75
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0076
+    name: SEG-MISC-POLICY-76
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0077
+    name: SEG-MISC-POLICY-77
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0078
+    name: SEG-MISC-POLICY-78
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0079
+    name: SEG-MISC-POLICY-79
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0080
+    name: SEG-MISC-POLICY-80
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0081
+    name: SEG-MISC-POLICY-81
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0082
+    name: SEG-MISC-POLICY-82
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0083
+    name: SEG-MISC-POLICY-83
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0084
+    name: SEG-MISC-POLICY-84
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0085
+    name: SEG-MISC-POLICY-85
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0086
+    name: SEG-MISC-POLICY-86
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0087
+    name: SEG-MISC-POLICY-87
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0088
+    name: SEG-MISC-POLICY-88
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0089
+    name: SEG-MISC-POLICY-89
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP
+  - id: SEG-MISC-0090
+    name: SEG-MISC-POLICY-90
+    type: extended
+    direction: inbound
+    vrf: CORP-IT
+    status: active
+    object_group: OG-SEG-CORP

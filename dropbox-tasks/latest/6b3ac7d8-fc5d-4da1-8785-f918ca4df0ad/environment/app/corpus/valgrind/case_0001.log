@@ -1,0 +1,5 @@
+==95641== Memcheck, a memory error detector
+==95641== case: case_0001
+==95641== Invalid read of size 8
+==95641==    at 0x5555d75730be: aes256_gcm_seal (vaultseal.c:100)
+==95641==    by 0x5555e82307bf: seal_record (vaultseal.c:400)

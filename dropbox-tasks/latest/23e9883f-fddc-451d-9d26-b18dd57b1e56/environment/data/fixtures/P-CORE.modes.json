@@ -1,0 +1,110 @@
+[
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M1",
+    "locale": "L19A",
+    "omega_obs": 12.51991,
+    "omega_ref": 12.0,
+    "excit": 0.75
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M1",
+    "locale": "L19B",
+    "omega_obs": 12.731916,
+    "omega_ref": 12.3,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M1",
+    "locale": "L19C",
+    "omega_obs": 12.869288,
+    "omega_ref": 12.6,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M2",
+    "locale": "L19A",
+    "omega_obs": 12.445512,
+    "omega_ref": 12.0,
+    "excit": 0.75
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M2",
+    "locale": "L19B",
+    "omega_obs": 12.759945,
+    "omega_ref": 12.3,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M2",
+    "locale": "L19C",
+    "omega_obs": 12.81451,
+    "omega_ref": 12.6,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M3",
+    "locale": "L19A",
+    "omega_obs": 12.539865,
+    "omega_ref": 12.0,
+    "excit": 0.75
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M3",
+    "locale": "L19B",
+    "omega_obs": 12.759674,
+    "omega_ref": 12.3,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M3",
+    "locale": "L19C",
+    "omega_obs": 12.873332,
+    "omega_ref": 12.6,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M4",
+    "locale": "L19A",
+    "omega_obs": 12.41809,
+    "omega_ref": 12.0,
+    "excit": 0.75
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M4",
+    "locale": "L19B",
+    "omega_obs": 12.742084,
+    "omega_ref": 12.3,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CORE",
+    "family": "heldout_core",
+    "mode": "M4",
+    "locale": "L19C",
+    "omega_obs": 12.800712,
+    "omega_ref": 12.6,
+    "excit": 0.85
+  }
+]

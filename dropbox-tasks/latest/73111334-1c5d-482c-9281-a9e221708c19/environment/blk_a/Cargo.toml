@@ -1,0 +1,10 @@
+[package]
+name = "blk_a"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/pack_a.rs"
+
+[dependencies]
+core_k = { path = "../core_k" }

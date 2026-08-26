@@ -1,0 +1,13 @@
+{
+  "edge_sort_primary": "child",
+  "edge_sort_secondary": "edge_id",
+  "declared_processing_order": "manifest_array_order",
+  "declared_array_field": "declared",
+  "same_depth_version_conflict": {
+    "contender_wins_nearest_when": "contender_parent_crate_key lexicographically less than incumbent_parent_crate_key",
+    "incumbent_wins_unified_when": "contender_parent_crate_key lexicographically greater than or equal to incumbent_parent_crate_key",
+    "resolution_reason_on_incumbent_win": "unified",
+    "resolution_reason_on_contender_win": "nearest"
+  },
+  "same_parent_same_depth_different_version": "first_edge_in_per_parent_walk_order_wins_later_edges_record_unified"
+}

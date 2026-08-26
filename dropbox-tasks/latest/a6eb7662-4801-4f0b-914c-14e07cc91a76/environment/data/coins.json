@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "coins": [
+    {
+      "coin_id": "AG-101",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": 10.20,
+      "density_sigma": 0.05,
+      "xrf_au": 0.02,
+      "xrf_ag": 0.88,
+      "xrf_cu": 0.10,
+      "xrf_sigma": 0.02
+    },
+    {
+      "coin_id": "AG-102",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_long",
+      "density": 10.20,
+      "density_sigma": 0.05,
+      "xrf_au": 0.02,
+      "xrf_ag": 0.88,
+      "xrf_cu": 0.10,
+      "xrf_sigma": 0.02
+    },
+    {
+      "coin_id": "AU-201",
+      "mixing_rule": "nonideal",
+      "kappa": 0.04,
+      "enrichment_model_id": "burial_short",
+      "density": 14.61,
+      "density_sigma": 0.10,
+      "xrf_au": 0.67,
+      "xrf_ag": 0.26,
+      "xrf_cu": 0.07,
+      "xrf_sigma": 0.03
+    },
+    {
+      "coin_id": "WIDE-301",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": 11.00,
+      "density_sigma": 2.50,
+      "xrf_au": 0.10,
+      "xrf_ag": 0.60,
+      "xrf_cu": 0.30,
+      "xrf_sigma": 0.05
+    },
+    {
+      "coin_id": "BAD-401",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": 18.50,
+      "density_sigma": 0.04,
+      "xrf_au": 0.05,
+      "xrf_ag": 0.90,
+      "xrf_cu": 0.05,
+      "xrf_sigma": 0.02
+    },
+    {
+      "coin_id": "MISS-501",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": 10.40,
+      "density_sigma": 0.06,
+      "xrf_au": null,
+      "xrf_ag": null,
+      "xrf_cu": null,
+      "xrf_sigma": null
+    },
+    {
+      "coin_id": "MISS-502",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": null,
+      "density_sigma": null,
+      "xrf_au": 0.40,
+      "xrf_ag": 0.40,
+      "xrf_cu": 0.20,
+      "xrf_sigma": 0.02
+    },
+    {
+      "coin_id": "EDGE-601",
+      "mixing_rule": "ideal",
+      "kappa": null,
+      "enrichment_model_id": "burial_short",
+      "density": 14.01,
+      "density_sigma": 0.12,
+      "xrf_au": 0.55,
+      "xrf_ag": 0.45,
+      "xrf_cu": 0.00,
+      "xrf_sigma": 0.02
+    }
+  ]
+}

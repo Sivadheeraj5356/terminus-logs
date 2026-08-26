@@ -1,0 +1,27 @@
+{
+  "seed_id": "wet_rim",
+  "width": 6,
+  "height": 4,
+  "orient": "pointy",
+  "wet_window": 2,
+  "start": [
+    5,
+    1
+  ],
+  "goal": [
+    2,
+    1
+  ],
+  "terrain": {
+    "5,1": 1,
+    "0,1": 3,
+    "1,1": 3,
+    "2,1": 2
+  },
+  "portals": [],
+  "steps": [
+    0,
+    0,
+    0
+  ]
+}

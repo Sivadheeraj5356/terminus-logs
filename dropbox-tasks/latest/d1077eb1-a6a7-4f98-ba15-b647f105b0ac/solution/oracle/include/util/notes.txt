@@ -1,0 +1,1 @@
+Digest sealing uses SHA-256 over a pipe-delimited metric projection.

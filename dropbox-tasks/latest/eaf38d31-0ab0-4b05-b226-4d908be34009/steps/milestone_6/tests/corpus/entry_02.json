@@ -1,0 +1,17 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 7743708,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "*.example.org",
+    "B.GLOBEX.NET",
+    "*.globex.net",
+    "b.globex.net"
+  ],
+  "issued_at": "2026-06-08T18:01:15Z",
+  "payload": "cert:oj5pGxkxuAud0kvF9kPbRRqxh62Wt/6/l76m443x0tQ=",
+  "received_at": "2026-08-19T06:11:18.972Z",
+  "issuer_id": "issuer-x",
+  "x_shard": 20,
+  "x_ingest_host": "frontend-1"
+}

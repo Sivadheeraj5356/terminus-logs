@@ -1,0 +1,6 @@
+{
+  "bundle_id": "varanasi_banarasi_archive",
+  "panels": [
+    {"panel_id": "panel_banarasi_archive"}
+  ]
+}

@@ -1,0 +1,7 @@
+principal	role	team	status	mfa	manager	zones	max_active
+alice	engineer	payments	active	true	mgr1	prod,stage	1
+bob	contractor	payments	active	false	mgr2	prod	1
+carol	sre	platform	active	true	mgr3	prod,stage	2
+dave	breakglass	security	active	true	mgr4	prod	1
+erin	engineer	payments	suspended	true	mgr1	prod	1
+mallory	intern	payments	active	true	mgr5	prod	1

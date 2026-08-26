@@ -1,0 +1,7 @@
+{
+  "mission_slot": "FLARE-TRAP-1",
+  "dt_sec": 0.05,
+  "horizon_sec": 5.0,
+  "fragment_count": 4,
+  "min_sep_m": 8.0
+}

@@ -1,0 +1,18 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 4405271,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "api.example.net",
+    "mail.globex.com",
+    "mail.acme.dev",
+    "a.initech.com"
+  ],
+  "issued_at": "2026-09-17T01:51:57Z",
+  "payload": "cert:/UqmcmAuEcPV8sIRrXROjyvicvoyTZGBmtLRnzkNfxQ=",
+  "received_at": "2026-10-10T16:01:58.838Z",
+  "issuer_id": "root-CA-eu",
+  "x_shard": 31,
+  "x_ingest_host": "frontend-1",
+  "x_origin": "ingest-0"
+}

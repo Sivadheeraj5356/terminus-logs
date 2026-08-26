@@ -1,0 +1,3 @@
+{"id":"warm-gradient","image":"images/warm-gradient.ppm","sha256":"70e66af99d40b90a9dd4979b6ebc49c4eb682ac979a54e26f37d230c357aacb3","group":"color-controls"}
+{"id":"cool-checker","image":"images/cool-checker.ppm","sha256":"4cc94d8ab40d2fd5ccc8135bc66232cf39a8e9aa8322dc3df5a3d099e2f4fc60","group":"texture-controls"}
+{"id":"neutral-rings","image":"images/neutral-rings.ppm","sha256":"e3d308200edee82e731a560676b855719123e6147ba395e9ac7349924dd30409","group":"texture-controls"}

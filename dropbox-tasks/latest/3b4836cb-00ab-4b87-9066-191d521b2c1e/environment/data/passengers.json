@@ -1,0 +1,86 @@
+{
+  "passengers": [
+    {
+      "passenger_id": "PAX-001",
+      "name": "Jordan Lee",
+      "loyalty_tier": "gold",
+      "fare_class": "J",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "UA101",
+          "carrier": "UA",
+          "origin": "ORD",
+          "destination": "DEN",
+          "departure_utc": "2026-06-15T14:00:00Z",
+          "arrival_utc": "2026-06-15T15:30:00Z",
+          "fare_class": "J"
+        }
+      ]
+    },
+    {
+      "passenger_id": "PAX-002",
+      "name": "Sam Rivera",
+      "loyalty_tier": "silver",
+      "fare_class": "Y",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "UA101",
+          "carrier": "UA",
+          "origin": "ORD",
+          "destination": "DEN",
+          "departure_utc": "2026-06-15T14:00:00Z",
+          "arrival_utc": "2026-06-15T15:30:00Z",
+          "fare_class": "Y"
+        }
+      ]
+    },
+    {
+      "passenger_id": "PAX-003",
+      "name": "Alex Kim",
+      "loyalty_tier": "platinum",
+      "fare_class": "F",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "AA200",
+          "carrier": "AA",
+          "origin": "DFW",
+          "destination": "LAX",
+          "departure_utc": "2026-06-15T16:00:00Z",
+          "arrival_utc": "2026-06-15T17:30:00Z",
+          "fare_class": "F"
+        }
+      ]
+    },
+    {
+      "passenger_id": "PAX-004",
+      "name": "Casey Nguyen",
+      "loyalty_tier": "silver",
+      "fare_class": "Y",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "UA310",
+          "carrier": "UA",
+          "origin": "DEN",
+          "destination": "ORD",
+          "departure_utc": "2026-06-15T12:00:00Z",
+          "arrival_utc": "2026-06-15T15:00:00Z",
+          "fare_class": "Y"
+        },
+        {
+          "leg_seq": 2,
+          "flight_id": "UA410",
+          "carrier": "UA",
+          "origin": "ORD",
+          "destination": "BOS",
+          "departure_utc": "2026-06-15T16:00:00Z",
+          "arrival_utc": "2026-06-15T18:30:00Z",
+          "fare_class": "Y"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "order": 10,
+    "src_level": 2,
+    "dst_level": 3,
+    "action": "allow"
+  },
+  {
+    "order": 20,
+    "src_level": 3,
+    "dst_level": 4,
+    "action": "allow"
+  },
+  {
+    "order": 30,
+    "src_level": 4,
+    "dst_level": 5,
+    "action": "allow"
+  },
+  {
+    "order": 40,
+    "src_level": 5,
+    "dst_level": 8,
+    "action": "allow"
+  }
+]

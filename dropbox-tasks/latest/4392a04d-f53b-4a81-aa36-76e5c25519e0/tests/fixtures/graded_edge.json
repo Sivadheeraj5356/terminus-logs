@@ -1,0 +1,11 @@
+[
+  {"id": "tie-deny",   "action": "deny",  "src": "10.1.0.0/16", "dst": "192.168.1.0/24", "port_min": 50,  "port_max": 50,  "protocol": "tcp", "direction": "inbound", "priority": 700},
+  {"id": "tie-allow",  "action": "allow", "src": "10.1.0.0/16", "dst": "192.168.1.0/24", "port_min": 50,  "port_max": 50,  "protocol": "tcp", "direction": "inbound", "priority": 700},
+  {"id": "cover-hi",   "action": "allow", "src": "10.0.0.0/8",  "dst": "192.168.0.0/16", "port_min": 443, "port_max": 443, "protocol": "tcp", "direction": "inbound", "priority": 600},
+  {"id": "canon-lo",   "action": "allow", "src": "10.5.5.5/8",  "dst": "192.168.0.0/16", "port_min": 443, "port_max": 443, "protocol": "tcp", "direction": "inbound", "priority": 400},
+  {"id": "log-a",      "action": "log",   "src": "10.2.0.0/16", "dst": "192.168.2.0/24", "port_min": 80,  "port_max": 80,  "protocol": "tcp", "direction": "inbound", "priority": 900},
+  {"id": "log-a-dup",  "action": "log",   "src": "10.2.0.0/16", "dst": "192.168.2.0/24", "port_min": 80,  "port_max": 80,  "protocol": "tcp", "direction": "inbound", "priority": 900},
+  {"id": "deny-block", "action": "deny",  "src": "10.2.0.0/16", "dst": "192.168.2.0/24", "port_min": 80,  "port_max": 80,  "protocol": "tcp", "direction": "inbound", "priority": 800},
+  {"id": "log-b",      "action": "log",   "src": "10.2.0.0/16", "dst": "192.168.2.0/24", "port_min": 80,  "port_max": 80,  "protocol": "tcp", "direction": "inbound", "priority": 700},
+  {"id": "port-edge",  "action": "allow", "src": "10.3.0.0/16", "dst": "192.168.3.0/24", "port_min": 100, "port_max": 200, "protocol": "tcp", "direction": "inbound", "priority": 600}
+]

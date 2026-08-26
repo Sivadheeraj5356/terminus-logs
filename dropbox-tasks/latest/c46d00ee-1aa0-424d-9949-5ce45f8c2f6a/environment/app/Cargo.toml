@@ -1,0 +1,18 @@
+[workspace]
+members = [
+    "crates/metrics-core",
+    "crates/metrics-macros",
+    "crates/metrics-cli",
+    "crates/metacycle-core",
+    "crates/metacycle-cli",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.4.0"
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+serde = "=1.0.228"
+serde_json = "=1.0.138"

@@ -1,0 +1,483 @@
+schema_version: apexora-device-inventory-1
+device_count: 96
+devices:
+  - hostname: acc-hq-dal-bldg1-01
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-hq-dal-bldg2-02
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-hq-dal-bldg3-03
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-dc-wing-04
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg1-05
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg2-06
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg3-07
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-dc-wing-08
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg1-09
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg2-10
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg3-11
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-dc-wing-12
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg1-13
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-hq-dal-bldg2-14
+    role: access
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-hq-dal-main-01
+    role: distribution
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-hq-dal-main-02
+    role: distribution
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-hq-dal-main-03
+    role: distribution
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: core-hq-dal-01
+    role: core
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-hq-dal-edge-01
+    role: wan_edge
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-hq-dal-edge-02
+    role: wan_edge
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-hq-dal-edge-03
+    role: wan_edge
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-hq-dal-edge-04
+    role: wan_edge
+    campus_id: campus-hq-dal
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-amw-sea-plant-a-01
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-amw-sea-plant-b-02
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-amw-sea-admin-03
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-amw-sea-plant-a-04
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-amw-sea-plant-b-05
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-amw-sea-admin-06
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-amw-sea-plant-a-07
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-amw-sea-plant-b-08
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-amw-sea-admin-09
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-amw-sea-plant-a-10
+    role: access
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-amw-sea-main-01
+    role: distribution
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: partial
+  - hostname: dist-amw-sea-main-02
+    role: distribution
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: core-amw-sea-01
+    role: core
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-amw-sea-edge-01
+    role: wan_edge
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: partial
+  - hostname: rtr-amw-sea-edge-02
+    role: wan_edge
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-amw-sea-edge-03
+    role: wan_edge
+    campus_id: campus-amw-sea
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-a-01
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-b-02
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-a-03
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-b-04
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-a-05
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-b-06
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-lon-tower-a-07
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-emea-lon-tower-b-08
+    role: access
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-emea-lon-main-01
+    role: distribution
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-emea-lon-main-02
+    role: distribution
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: partial
+  - hostname: core-emea-lon-01
+    role: core
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-emea-lon-edge-01
+    role: wan_edge
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-emea-lon-edge-02
+    role: wan_edge
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-emea-lon-edge-03
+    role: wan_edge
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-emea-lon-edge-04
+    role: wan_edge
+    campus_id: campus-emea-lon
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-emea-fra-lab-01
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-emea-fra-office-02
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-emea-fra-ot-yard-03
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-emea-fra-lab-04
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-emea-fra-office-05
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-emea-fra-ot-yard-06
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-emea-fra-lab-07
+    role: access
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: dist-emea-fra-main-01
+    role: distribution
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: dist-emea-fra-main-02
+    role: distribution
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: core-emea-fra-01
+    role: core
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-emea-fra-edge-01
+    role: wan_edge
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-emea-fra-edge-02
+    role: wan_edge
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-emea-fra-edge-03
+    role: wan_edge
+    campus_id: campus-emea-fra
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-apac-sin-hub-01
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-apac-sin-guest-wing-02
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-apac-sin-hub-03
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-apac-sin-guest-wing-04
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-apac-sin-hub-05
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-apac-sin-guest-wing-06
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: acc-apac-sin-hub-07
+    role: access
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: dist-apac-sin-main-01
+    role: distribution
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-apac-sin-main-02
+    role: distribution
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: dist-apac-sin-main-03
+    role: distribution
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: core-apac-sin-01
+    role: core
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: rtr-apac-sin-edge-01
+    role: wan_edge
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: rtr-apac-sin-edge-02
+    role: wan_edge
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: partial
+  - hostname: rtr-apac-sin-edge-03
+    role: wan_edge
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-apac-sin-edge-04
+    role: wan_edge
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: rtr-apac-sin-edge-05
+    role: wan_edge
+    campus_id: campus-apac-sin
+    platform: ios-xe
+    migration_state: segmented
+  - hostname: acc-apac-tyo-office-01
+    role: access
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-apac-tyo-mfg-02
+    role: access
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-apac-tyo-office-03
+    role: access
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-apac-tyo-mfg-04
+    role: access
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-apac-tyo-office-05
+    role: access
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: acc-apac-tyo-mfg-06
+    role: access
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: dist-apac-tyo-main-01
+    role: distribution
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: dist-apac-tyo-main-02
+    role: distribution
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: core-apac-tyo-01
+    role: core
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-apac-tyo-edge-01
+    role: wan_edge
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-apac-tyo-edge-02
+    role: wan_edge
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-apac-tyo-edge-03
+    role: wan_edge
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-apac-tyo-edge-04
+    role: wan_edge
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy
+  - hostname: rtr-apac-tyo-edge-05
+    role: wan_edge
+    campus_id: campus-apac-tyo
+    platform: ios-xe
+    migration_state: legacy

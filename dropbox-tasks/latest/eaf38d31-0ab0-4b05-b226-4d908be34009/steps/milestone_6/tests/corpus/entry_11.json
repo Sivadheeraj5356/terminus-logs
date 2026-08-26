@@ -1,0 +1,19 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 5799175,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "a.acme.net",
+    "B.ACME.DEV",
+    "b.acme.dev"
+  ],
+  "issued_at": "2026-05-07T08:24:07Z",
+  "payload": "cert:ob+MK6qiGAKeIGIN+JGQpTQDehsKnVu2udte/05wtpg=",
+  "received_at": "2026-08-01T06:44:38.203Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 17,
+  "audit": {
+    "reviewer": "b",
+    "note": "x"
+  }
+}

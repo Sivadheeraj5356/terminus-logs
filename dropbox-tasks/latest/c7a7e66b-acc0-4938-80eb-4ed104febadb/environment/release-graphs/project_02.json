@@ -1,0 +1,31 @@
+{
+  "project_id":"project_02",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"alpha-pkg",
+        "version":"1.0.0-alpha.2"
+      },
+      {
+        "name":"beta-ui",
+        "version":"2.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"beta-ui",
+        "provider":"alpha-pkg",
+        "constraint":">=1.0.0-alpha.1",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"alpha-pkg",
+        "target":"1.0.0-beta.1",
+        "release_date":"2026-04-01"
+      }
+    ]
+  }
+}

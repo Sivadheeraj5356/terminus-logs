@@ -1,0 +1,3 @@
+# Compaction tuning defaults (informational)
+min_row_overlap = 3
+scan_cost_per_byte = 1

@@ -1,0 +1,12 @@
+{
+  "name": "alpha_rift",
+  "chronology": "data/chronology/main.json",
+  "matches": "data/matches/alpha_rift.json",
+  "notes": "data/notes/alpha_rift.json",
+  "roster": [
+    "striker",
+    "warden",
+    "skirmisher",
+    "medic"
+  ]
+}

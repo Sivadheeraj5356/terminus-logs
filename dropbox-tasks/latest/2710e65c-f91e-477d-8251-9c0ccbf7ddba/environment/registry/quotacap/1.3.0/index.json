@@ -1,0 +1,16 @@
+{
+  "conflicts": [
+    {
+      "package": "wiretype",
+      "range": "=1.0.0"
+    }
+  ],
+  "name": "quotacap",
+  "requires": [
+    {
+      "package": "telemetrybus",
+      "range": ">=2.0.0"
+    }
+  ],
+  "version": "1.3.0"
+}

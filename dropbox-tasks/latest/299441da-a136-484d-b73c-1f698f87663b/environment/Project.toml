@@ -1,0 +1,7 @@
+name = "KqHandler"
+uuid = "b7c8d9e0-f1a2-4b3c-9d4e-5f6a7b8c9d0e"
+authors = ["anonymous"]
+version = "0.1.0"
+
+[compat]
+julia = "1.11"

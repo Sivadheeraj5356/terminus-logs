@@ -1,0 +1,35 @@
+schema_version: apexora-vlan-campus-1
+campus: campus-apac-tyo
+allowed_vlan_range: 2001-2180
+local_vlan_count: 30
+vlans:
+  - id: 2151
+  - id: 2152
+  - id: 2153
+  - id: 2154
+  - id: 2155
+  - id: 2156
+  - id: 2157
+  - id: 2158
+  - id: 2159
+  - id: 2160
+  - id: 2161
+  - id: 2162
+  - id: 2163
+  - id: 2164
+  - id: 2165
+  - id: 2166
+  - id: 2167
+  - id: 2168
+  - id: 2169
+  - id: 2170
+  - id: 2171
+  - id: 2172
+  - id: 2173
+  - id: 2174
+  - id: 2175
+  - id: 2176
+  - id: 2177
+  - id: 2178
+  - id: 2179
+  - id: 2180

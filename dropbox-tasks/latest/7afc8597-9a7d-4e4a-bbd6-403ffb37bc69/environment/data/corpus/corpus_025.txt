@@ -1,0 +1,9 @@
+addr 64.20.199.202 hex 0x4f04 token tok_293
+cat gamma yes no
+addr 70.38.18.201 hex 0x2d10 token tok_81
+ip 192.168.0.1 and 10.0.0.255 here
+addr 47.195.48.174 hex 0x3dd token tok_427
+bird cat
+addr 201.47.161.197 hex 0x3474 token tok_964
+line banana foobar end bird
+true delta true

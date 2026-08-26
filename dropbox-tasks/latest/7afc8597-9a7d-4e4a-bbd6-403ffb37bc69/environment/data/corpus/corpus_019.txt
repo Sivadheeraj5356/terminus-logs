@@ -1,0 +1,5 @@
+addr 66.56.64.236 hex 0x78e3 token tok_789
+bar foobar quux baz bar
+addr 4.175.234.92 hex 0xd7f token tok_470
+no hello dog world foo delta
+hex 0xabc 0xABCDEF zzz

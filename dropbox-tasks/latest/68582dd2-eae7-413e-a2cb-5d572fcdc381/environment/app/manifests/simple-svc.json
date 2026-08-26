@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "archive": "simple-svc.tbundle",
+  "restore_prefix": "simple",
+  "preserve_paths": [
+    "simple/.operator-marker"
+  ],
+  "entries": [
+    {
+      "path": "etc/config.json",
+      "type": "file",
+      "mode": "0644",
+      "mapped_uid": 101001,
+      "mapped_gid": 101001,
+      "content_sha256": "d870e548f89150e709d2009c596e1d248d6d6c4b9f20380411eb16b20c89be0c",
+      "xattr": {
+        "user.svc.tier": "primary"
+      },
+      "acl": [
+        "user::rw-",
+        "group::r--",
+        "other::r--"
+      ]
+    },
+    {
+      "path": "service/bin/run",
+      "type": "file",
+      "mode": "0755",
+      "mapped_uid": 101001,
+      "mapped_gid": 101001,
+      "content_sha256": "206a4a7f7aa0df12afab2165f1de481c6f9360640b22a1e86f1dcc0faa109ced"
+    },
+    {
+      "path": "service/data",
+      "type": "dir",
+      "mode": "0755",
+      "mapped_uid": 101001,
+      "mapped_gid": 101001
+    }
+  ]
+}

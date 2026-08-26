@@ -1,0 +1,7 @@
+We've got an entropic mass-transfer lab under /app/environment. The Go and Rust tree already builds four CLIs, but end-to-end runs still miss the behavioral contract in /app/environment/docs/mass_contract.txt. Correct the sources under /app/environment so every public surface matches that contract. Hand-written files under /app/output are not enough.
+
+Rebuild with /app/environment/scripts/rebuild.sh using Go and Rust only (see /app/environment/docs/toolchain.md). Install otctl-run, otctl-probe, otctl-audit, and otctl-inspect under /app/environment/build/.
+
+otctl-run loads the manifest and policy, evaluates each profile, and writes /app/output/mass_report.json and /app/output/plan_trace.csv. It also updates /app/var/massxfer/dual_cache.json and /app/var/massxfer/run_ledger.json. Pass --reset to clear that var directory and start at generation 1. Omit --reset to advance generation and ledger counters per the contract. MASS_MANIFEST, MASS_INSTANCE_DIR, and MASS_POLICY_EPOCH select an alternate manifest, instance directory, or policy epoch.
+
+Transport math, annealing, digests, cache keys, ledger stable_runs, rejection rules, probe/audit/inspect strings, and cross-surface agreement all live in the contract. Read it with the toolchain note. The verifier rebuilds from source, restores instances from a vault snapshot when needed, and checks live CLI output against an independent reference.

@@ -1,0 +1,19 @@
+[package]
+name = "trainctl"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "trainctl"
+path = "main.rs"
+
+[lib]
+name = "trainctl"
+path = "lib.rs"
+
+[dependencies]
+clap = { version = "4.5.32", features = ["derive"] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+sha2 = "0.10.8"
+toml = "0.8.20"

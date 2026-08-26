@@ -1,0 +1,70 @@
+PRINCIPAL user_alice dept=engineering,clearance=dev,type=human
+PRINCIPAL user_bob dept=finance,clearance=prod,type=human
+PRINCIPAL role_ci_build dept=engineering,clearance=dev,type=service
+PRINCIPAL role_ci_deploy dept=engineering,clearance=prod,type=service
+PRINCIPAL role_audit dept=audit,clearance=prod,type=human
+PRINCIPAL role_breakglass dept=security,clearance=prod,type=human
+ACTION sts:AssumeRole
+ACTION iam:PassRole
+ACTION s3:GetObject
+ACTION s3:PutObject
+ACTION kms:Decrypt
+ACTION secrets:GetSecretValue
+ACTION logs:Read
+ACTION billing:Read
+ACTION prod:Admin
+ACTION audit:Export
+RESOURCE arn:dev:artifact 3 env=dev,owner=engineering,data=artifact
+RESOURCE arn:prod:artifact 7 env=prod,owner=engineering,data=artifact
+RESOURCE arn:prod:secret 20 env=prod,owner=security,data=secret
+RESOURCE arn:prod:kms 18 env=prod,owner=security,data=key
+RESOURCE arn:finance:ledger 16 env=prod,owner=finance,data=ledger
+RESOURCE arn:audit:logs 9 env=prod,owner=audit,data=logs
+RESOURCE arn:breakglass:admin 30 env=prod,owner=security,data=admin
+CONTEXT mfa true,false
+CONTEXT source_ip 10.2.3.4,198.51.100.9,203.0.113.77
+CONTEXT device managed,unmanaged
+SESSION_TAG env dev,prod
+SESSION_TAG project alpha,beta
+SESSION_TAG emergency true,false
+COND c_mfa Bool request.mfa true
+COND c_managed StringEquals request.device managed
+COND c_corp_ip IpAddress request.source_ip 10.0.0.0/8
+COND c_not_prod_session StringNotEquals session.env prod
+COND c_prod_session StringEquals session.env prod
+COND c_emergency StringEquals session.emergency true
+COND c_principal_prod StringEquals principal.clearance prod
+COND c_res_prod StringEquals resource.env prod
+COND c_owner_eng StringEquals resource.owner engineering
+COND c_secret_data StringEquals resource.data secret,key
+COND c_project_alpha StringLike session.project alpha
+STMT BASE B_ID_DEV_READ IDENTITY ALLOW user_*,role_ci_* s3:GetObject arn:dev:* -
+STMT BASE B_ID_ARTIFACT_WRITE IDENTITY ALLOW role_ci_build s3:PutObject arn:dev:artifact c_not_prod_session
+STMT BASE B_ID_DEPLOY_PASS IDENTITY ALLOW role_ci_deploy iam:PassRole arn:prod:artifact c_prod_session
+STMT BASE B_ID_AUDIT_READ IDENTITY ALLOW role_audit logs:Read,audit:Export arn:audit:* c_mfa
+STMT BASE B_ID_FINANCE_READ IDENTITY ALLOW user_bob billing:Read arn:finance:* c_mfa
+STMT BASE B_ID_BREAKGLASS IDENTITY ALLOW role_breakglass prod:Admin arn:breakglass:admin c_mfa,c_emergency,c_corp_ip
+STMT BASE B_ID_SECRET_DENY IDENTITY DENY * secrets:GetSecretValue,kms:Decrypt arn:prod:* c_secret_data
+STMT BASE B_BOUNDARY_CI BOUNDARY ALLOW role_ci_* s3:GetObject,s3:PutObject,iam:PassRole arn:dev:*,arn:prod:artifact -
+STMT BASE B_BOUNDARY_NO_ADMIN BOUNDARY DENY role_ci_* prod:Admin * -
+STMT BASE B_SCP_PROD_ALLOW SCP ALLOW *,!user_alice,!role_ci_build * arn:prod:* c_principal_prod
+STMT BASE B_SCP_DEV_ALLOW SCP ALLOW * * arn:dev:* -
+STMT BASE B_RES_AUDIT RESOURCE ALLOW role_audit audit:Export,logs:Read arn:audit:* c_mfa
+STMT BASE B_RES_FINANCE RESOURCE ALLOW user_bob billing:Read arn:finance:* c_mfa
+STMT PATCHED P_ID_DEV_READ IDENTITY ALLOW user_*,role_ci_* s3:GetObject arn:dev:* -
+STMT PATCHED P_ID_ARTIFACT_WRITE IDENTITY ALLOW role_ci_build s3:PutObject arn:dev:artifact c_not_prod_session
+STMT PATCHED P_ID_DEPLOY_PASS IDENTITY ALLOW role_ci_deploy iam:PassRole arn:prod:artifact c_prod_session
+STMT PATCHED P_ID_AUDIT_READ IDENTITY ALLOW role_audit logs:Read,audit:Export arn:audit:* c_mfa
+STMT PATCHED P_ID_FINANCE_READ IDENTITY ALLOW user_bob billing:Read arn:finance:* c_mfa
+STMT PATCHED P_ID_BREAKGLASS IDENTITY ALLOW role_breakglass prod:Admin arn:breakglass:admin c_mfa,c_emergency,c_corp_ip
+STMT PATCHED P_ID_CI_PROJECT_ADMIN IDENTITY ALLOW role_ci_* prod:Admin arn:prod:* c_prod_session,c_project_alpha
+STMT PATCHED P_ID_SECRET_DENY IDENTITY DENY * secrets:GetSecretValue arn:prod:secret -
+STMT PATCHED P_BOUNDARY_CI BOUNDARY ALLOW role_ci_* s3:GetObject,s3:PutObject,iam:PassRole,prod:Admin arn:dev:*,arn:prod:* c_project_alpha
+STMT PATCHED P_SCP_PROD_ALLOW SCP ALLOW *,!user_alice * arn:prod:* c_principal_prod
+STMT PATCHED P_SCP_DEV_ALLOW SCP ALLOW * * arn:dev:* -
+STMT PATCHED P_RES_AUDIT RESOURCE ALLOW role_audit audit:Export,logs:Read arn:audit:* c_mfa
+STMT PATCHED P_RES_FINANCE RESOURCE ALLOW user_bob billing:Read arn:finance:* c_mfa
+STMT PATCHED P_RES_PROD_ADMIN RESOURCE ALLOW role_ci_deploy,role_breakglass prod:Admin arn:prod:*,arn:breakglass:* c_prod_session
+INVARIANT no_ci_prod_admin role_ci_* prod:Admin arn:prod:* -
+INVARIANT no_general_prod_access *,!role_breakglass * arn:prod:* c_res_prod
+INVARIANT no_secret_decrypt * kms:Decrypt arn:prod:kms -

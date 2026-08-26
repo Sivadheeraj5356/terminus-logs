@@ -1,0 +1,17 @@
+--- a/pkg/boardcmd/run.go
++++ b/pkg/boardcmd/run.go
+@@ -90,12 +90,10 @@
+ 	if err != nil {
+ 		return err
+ 	}
+-	man, err := diskset.Load("/app/data/disk-packages.json")
+-	if err != nil {
++	if err := matchticket.Verify(slate, court); err != nil {
+ 		return err
+ 	}
+-	dec := matchplan.Solve(court, man.Lots)
+-	_ = slate
++	dec := matchplan.Solve(court, slate.Lots)
+ 	led := scoreledger.Build(court, slate, dec)
+ 	return scoreledger.Write(ledgerPath, led)
+ }

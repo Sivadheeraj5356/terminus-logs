@@ -1,0 +1,4 @@
+# partition_id=part-0002 cursor_start=s=9;b=boot-a cursor_end=s=17;b=boot-a boot_id=boot-a
+2026-07-14T01:01:10Z rotlogd[217]: accepted session beta
+2026-07-14T01:18:33Z rotlogd[217]: rotated sink after quota
+2026-07-14T01:21:02Z rotlogd[217]: checkpoint cursor s=17;b=boot-a

@@ -1,0 +1,6 @@
+maybe cat colour gray baz baz
+addr 50.88.78.83 hex 0x96dc token tok_921
+delta line cat alpha
+addr 39.90.21.0 hex 0x171b token tok_868
+the quick brown fox
+name_1 foo_bar Baz99 __x

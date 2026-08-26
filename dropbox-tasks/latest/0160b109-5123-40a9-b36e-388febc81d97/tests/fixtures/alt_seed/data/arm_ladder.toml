@@ -1,0 +1,4 @@
+[[arms]]
+id = "alt0"
+salt = "0xABCDEF0123456789"
+order = ["a1", "b2", "g3"]

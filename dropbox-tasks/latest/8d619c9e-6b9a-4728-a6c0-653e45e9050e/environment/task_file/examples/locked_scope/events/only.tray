@@ -1,0 +1,4 @@
+l001	LOCK	bay		
+l002	LOAD	bay	2	
+l003	UNLOCK	bay		
+l004	LOAD	bay	1	

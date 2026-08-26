@@ -1,0 +1,28 @@
+{
+  "denominator": [
+    {
+      "d": "1",
+      "n": "5"
+    },
+    {
+      "d": "1",
+      "n": "1"
+    },
+    {
+      "d": "1",
+      "n": "1"
+    }
+  ],
+  "numerator": [
+    {
+      "d": "1",
+      "n": "1"
+    },
+    {
+      "d": "1",
+      "n": "1"
+    }
+  ],
+  "probe_id": "motor_case",
+  "source_id": "base_motion"
+}

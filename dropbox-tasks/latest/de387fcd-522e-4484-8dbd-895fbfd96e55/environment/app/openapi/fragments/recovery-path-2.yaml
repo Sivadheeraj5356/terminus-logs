@@ -1,0 +1,4 @@
+paths:
+  /api/v1/recoveries/2:
+    get:
+      summary: Recovery endpoint 2

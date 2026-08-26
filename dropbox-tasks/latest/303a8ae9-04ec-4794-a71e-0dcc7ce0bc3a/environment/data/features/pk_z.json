@@ -1,0 +1,86 @@
+[
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u4_a",
+      "entity_id": "ent_u4",
+      "valid_from_ms": 65000,
+      "ingested_ms": 65100,
+      "revoked": false,
+      "values": {
+        "spend": 70,
+        "tenure": 7
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u4_b",
+      "entity_id": "ent_u4",
+      "valid_from_ms": 71000,
+      "ingested_ms": 71100,
+      "revoked": false,
+      "values": {
+        "spend": 75,
+        "tenure": 8
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_alias_poison",
+      "entity_id": "alias_z9",
+      "valid_from_ms": 66000,
+      "ingested_ms": 66100,
+      "revoked": false,
+      "values": {
+        "spend": 1,
+        "tenure": 0
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_hop_poison",
+      "entity_id": "hop_z3",
+      "valid_from_ms": 66000,
+      "ingested_ms": 66100,
+      "revoked": false,
+      "values": {
+        "spend": 2,
+        "tenure": 0
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_mid_poison",
+      "entity_id": "hop_z7",
+      "valid_from_ms": 66000,
+      "ingested_ms": 66100,
+      "revoked": false,
+      "values": {
+        "spend": 3,
+        "tenure": 0
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_cycle_bait",
+      "entity_id": "cycle_a",
+      "valid_from_ms": 1000,
+      "ingested_ms": 1100,
+      "revoked": false,
+      "values": {
+        "spend": 9,
+        "tenure": 9
+      }
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "conflicts": [
+    {
+      "package": "ratesync",
+      "range": ">=2.0.0"
+    }
+  ],
+  "name": "routectl",
+  "requires": [
+    {
+      "package": "fleetauth",
+      "range": ">=2.0.0"
+    },
+    {
+      "package": "wiretype",
+      "range": ">=2.0.0"
+    }
+  ],
+  "version": "3.0.0"
+}

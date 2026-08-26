@@ -1,0 +1,14 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 731801,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "*.initech.org",
+    "*.INITECH.ORG"
+  ],
+  "issued_at": "2026-09-10T05:45:50.944Z",
+  "payload": "cert:NvflUxncY7kDDFTghP46kBBw4h92vv7bfURsvuU8Ckg=",
+  "received_at": "2026-04-18T14:58:48Z",
+  "x_shard": 14,
+  "x_ingest_host": "edge-9"
+}

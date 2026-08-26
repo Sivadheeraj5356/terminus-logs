@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "origin": "example.test.",
+  "serial": 1,
+  "keys": [
+    {
+      "role": "KSK",
+      "status": "active",
+      "key_tag": 12345,
+      "algorithm": 15,
+      "flags": 257,
+      "public_key_b64": "..."
+    }
+  ]
+}

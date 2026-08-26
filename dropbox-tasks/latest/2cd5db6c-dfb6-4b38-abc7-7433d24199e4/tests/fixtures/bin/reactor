@@ -1,0 +1,3 @@
+#!/bin/sh
+CP="${REACTOR_CLASSES:-./classes}"
+exec java -cp "$CP" probe.Drive "$@"

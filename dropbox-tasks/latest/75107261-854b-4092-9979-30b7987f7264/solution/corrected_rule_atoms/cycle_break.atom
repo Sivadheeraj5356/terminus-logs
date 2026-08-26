@@ -1,0 +1,6 @@
+RULE CYCLE_BREAK
+IN keys
+OUT value,reason
+TABLE
+mode -> synthetic_only|cycle-break
+END

@@ -1,0 +1,8 @@
+# An exact nonzero start for a wider cubic branch.
+kind=cubic
+dimension=1
+start_lambda=1
+start_x=1
+orientation=-1,1
+a=2
+bias=0

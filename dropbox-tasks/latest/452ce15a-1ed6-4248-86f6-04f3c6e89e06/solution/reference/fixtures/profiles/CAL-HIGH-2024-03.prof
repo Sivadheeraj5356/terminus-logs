@@ -1,0 +1,5 @@
+profile_id=CAL-HIGH
+effective_date=2024-03-15
+alpha=35e-6
+nominal_hz_override=8000100.0
+deprecation_window_days=60

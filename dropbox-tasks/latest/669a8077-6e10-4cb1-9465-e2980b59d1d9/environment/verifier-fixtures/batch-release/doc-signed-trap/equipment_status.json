@@ -1,0 +1,4 @@
+[
+  {"equipment_id": "BLEND-01", "status": "released", "calibration_expires": "2024-06-20", "used_in_batch": true},
+  {"equipment_id": "FILL-02", "status": "released", "calibration_expires": "2024-06-20", "used_in_batch": true}
+]

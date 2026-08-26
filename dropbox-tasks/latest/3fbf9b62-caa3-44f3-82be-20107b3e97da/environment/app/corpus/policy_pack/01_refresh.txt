@@ -1,0 +1,9 @@
+Refresh posture (signed)
+------------------------
+Conflict roster entries carry reason tokens. Token retract_refresh marks a pin whose
+retract posture must be taken from the live module proxy root named in the manifest.
+Token checksumdb_drift marks a pin whose authoritative zip digest must be taken from
+the live checksum database root named in the manifest. A pin may carry either token or
+both. Any conflict pin uses resolve_source proxy_live. Non-conflict pins use snapshot
+posture for both retract and digest. Refresh flags on each report row must mirror the
+tokens that applied to that pin.

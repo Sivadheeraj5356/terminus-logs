@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-5beef74e1865": {
+      "alg": "ed25519",
+      "public": "435f7500d5cd42e735c3b311cac35becda752553e5e9a45a0959f2d3edbf8474"
+    }
+  },
+  "message": {
+    "authority": "SVC.Example.COM",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "sig1=:Ok51UsIHAzwnbBF0wq+MBl/mt1cD/XJr3lKQSKX/4OkzzKQ1P2qJP9SxZVig+pANSpFg2ONUaQS9Jlj0EXwHCg==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000048;expires=1700000408;keyid=\"k-5beef74e1865\";alg=\"ed25519\""
+    },
+    "method": "GET",
+    "path": "/api/v0/resource/108",
+    "query": "page=108&sort=asc"
+  },
+  "now": 1700000108
+}

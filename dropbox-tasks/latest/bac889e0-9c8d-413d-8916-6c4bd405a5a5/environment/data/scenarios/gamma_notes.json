@@ -1,0 +1,12 @@
+{
+  "name": "gamma_notes",
+  "chronology": "data/chronology/main.json",
+  "matches": "data/matches/gamma_notes.json",
+  "notes": "data/notes/gamma_notes.json",
+  "roster": [
+    "striker",
+    "warden",
+    "skirmisher",
+    "medic"
+  ]
+}

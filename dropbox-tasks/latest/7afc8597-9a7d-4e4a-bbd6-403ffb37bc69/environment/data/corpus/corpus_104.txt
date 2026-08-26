@@ -1,0 +1,5 @@
+hex 0xabc 0xABCDEF zzz
+addr 120.186.240.57 hex 0x2805 token tok_919
+the quick brown fox
+addr 124.9.169.47 hex 0x20a3 token tok_371
+addr 61.60.144.128 hex 0x918f token tok_448

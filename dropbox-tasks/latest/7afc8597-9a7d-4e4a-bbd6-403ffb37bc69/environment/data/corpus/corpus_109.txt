@@ -1,0 +1,10 @@
+the quick brown fox
+tabs	and spaces here
+tabs	and spaces here
+color maybe world
+alpha beta
+addr 224.167.26.206 hex 0xea00 token tok_777
+gamma baz false
+addr 41.226.52.203 hex 0x5659 token tok_661
+maybe beta start color true no true
+IP 255.255.255.0 mask

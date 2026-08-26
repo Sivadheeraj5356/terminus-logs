@@ -1,0 +1,15 @@
+network	ligand_exchange
+species	L	R	S	T	U
+initial	L	0.59999999999999998
+initial	R	0.40000000000000002
+initial	S	0
+initial	T	0
+initial	U	0
+reaction	65	L + R -> S + T
+reaction	7	S -> T
+reaction	130	T + U -> L + U
+reaction	0.34999999999999998	U -> R
+reaction	0.80000000000000004	R -> U
+horizon	0	9
+rtol	9.9999999999999995e-08
+atol	1e-10

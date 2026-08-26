@@ -1,0 +1,104 @@
+{
+ "until": 48,
+ "sensors": [
+  {
+   "name": "tamper-level",
+   "low": 4,
+   "high": 5,
+   "enterDwell": 6,
+   "exitDwell": 2
+  }
+ ],
+ "events": [
+  {
+   "at": 4,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 2.12
+  },
+  {
+   "at": 8,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 2.98
+  },
+  {
+   "at": 12,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 3.89
+  },
+  {
+   "at": 16,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 5.82
+  },
+  {
+   "at": 17,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 2.96
+  },
+  {
+   "at": 20,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 3.39
+  },
+  {
+   "at": 21,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 2.31
+  },
+  {
+   "at": 23,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 5.36
+  },
+  {
+   "at": 25,
+   "op": "hold_start",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 27,
+   "op": "hold_end",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 31,
+   "op": "hold_start",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 32,
+   "op": "hold_end",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 36,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 2.53
+  },
+  {
+   "at": 36,
+   "op": "hold_start",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 38,
+   "op": "hold_end",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 41,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 5.71
+  }
+ ]
+}

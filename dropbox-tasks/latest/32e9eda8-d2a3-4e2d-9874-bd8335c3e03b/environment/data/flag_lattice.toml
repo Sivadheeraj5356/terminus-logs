@@ -1,0 +1,6 @@
+[lattice]
+steps = [1, 2, 4, 8, 16]
+floor = 3
+target = "arm_a"
+
+# Sensitivity drills mutate floor to change facet material and cert_digest.

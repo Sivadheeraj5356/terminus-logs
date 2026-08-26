@@ -1,0 +1,9 @@
+mode = "r0"
+resident_cap = 8192
+decay_modulus = 4
+decay_phase = 0
+tick_scale = 10
+cell_bytes = 64
+fade_start = 6
+group_header_bytes = 32
+observer_metadata_bytes = 16

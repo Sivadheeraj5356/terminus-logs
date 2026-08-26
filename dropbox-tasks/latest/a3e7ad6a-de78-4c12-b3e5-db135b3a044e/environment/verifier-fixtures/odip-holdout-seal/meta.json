@@ -1,0 +1,6 @@
+{
+  "scenario_id": "holdout_seal",
+  "required_clearance": "",
+  "rollout_epoch": 100,
+  "topology_revision": "seal-rev-omega"
+}

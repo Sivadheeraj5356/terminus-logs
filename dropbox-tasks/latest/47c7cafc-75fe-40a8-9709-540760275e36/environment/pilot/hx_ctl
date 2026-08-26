@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+ENV["ENV_ROOT"] ||= File.expand_path("..", __dir__)
+ENV["APP_ROOT"] ||= "/app"
+$LOAD_PATH.unshift ENV["ENV_ROOT"]
+
+require "bundler/setup"
+require "pilot/entry"
+
+cmd = ARGV.shift || "run"
+Pilot::Entry.run([cmd, *ARGV])

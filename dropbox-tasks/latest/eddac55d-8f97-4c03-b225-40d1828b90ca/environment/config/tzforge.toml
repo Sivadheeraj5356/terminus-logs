@@ -1,0 +1,5 @@
+corpus = "/app/data/ordinances"
+out = "/app/out"
+migrations = "/app/migrations"
+dsn = "postgresql://tzforge@127.0.0.1:5432/tzforge"
+listen = "127.0.0.1:8080"

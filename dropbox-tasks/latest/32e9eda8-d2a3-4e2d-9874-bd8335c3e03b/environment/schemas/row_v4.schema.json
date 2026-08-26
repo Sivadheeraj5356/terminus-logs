@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "row_v4 cert report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "summary",
+    "rows"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "row_v4"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "rows_total",
+        "span_band",
+        "sync_label",
+        "cert_digest"
+      ],
+      "properties": {
+        "rows_total": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "span_band": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sync_label": {
+          "type": "string"
+        },
+        "cert_digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{16}$"
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "arm_id",
+          "facet_material",
+          "expand_rc",
+          "merge_rc",
+          "proof_rc",
+          "lag"
+        ],
+        "properties": {
+          "arm_id": {
+            "type": "string"
+          },
+          "facet_material": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{16}$"
+          },
+          "expand_rc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "merge_rc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "proof_rc": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "lag": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

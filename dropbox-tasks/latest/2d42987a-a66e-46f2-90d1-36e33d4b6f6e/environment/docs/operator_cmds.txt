@@ -1,0 +1,22 @@
+# Operator commands for wireguard-preshared-rotate workflow
+
+# Rebuild native driver from sources under /app/environment
+# (installs /app/bin/wg_run)
+bash /app/environment/scripts/pack_wg.sh
+
+# Stage pass — stages durable mux token and overlap material
+WG_ENV_ROOT=/app/environment /app/bin/wg_run --profile stage --out /app/output/psk_rotate_report.json
+
+# Apply replay with held-out variant seed (N from /app/environment/data/perm_tbl.toml)
+WG_ENV_ROOT=/app/environment /app/bin/wg_run --profile apply --hook replay --variant-seed 0 --out /app/output/psk_rotate_report.json
+
+# Full two-phase workflow: stage first, then apply with --hook replay and --variant-seed N.
+# Argv details: --profile, --hook, --variant-seed, --out.
+
+# Terminal status view (must agree with reconcile report + traces + witness)
+WG_ENV_ROOT=/app/environment /app/bin/wg_run --status-view
+
+# Recovery: restore witness from durable snapshot then rerun both passes
+cp /app/environment/w8g/durable/w8_snapshot.bin /app/environment/w8g/staged/w8_chain.bin
+WG_ENV_ROOT=/app/environment /app/bin/wg_run --profile stage --out /app/output/psk_rotate_report.json
+WG_ENV_ROOT=/app/environment /app/bin/wg_run --profile apply --hook replay --variant-seed 0 --out /app/output/psk_rotate_report.json

@@ -1,0 +1,12 @@
+{
+  "record_fields": [
+    "pack_id",
+    "tile",
+    "scratch_peak",
+    "edge_mode",
+    "peel_rows",
+    "lane_width",
+    "divisors",
+    "spill_total"
+  ]
+}

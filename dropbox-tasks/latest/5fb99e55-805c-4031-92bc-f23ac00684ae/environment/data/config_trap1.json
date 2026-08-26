@@ -1,0 +1,14 @@
+{
+  "function": "sphere",
+  "dimensions": 2,
+  "min_bound": -0.01,
+  "max_bound": 0.01,
+  "swarm_size": 10,
+  "max_iterations": 20,
+  "w_start": 0.5,
+  "w_end": 0.1,
+  "c1": 2.0,
+  "c2": 2.0,
+  "v_max": 5.0,
+  "seed": 1001
+}

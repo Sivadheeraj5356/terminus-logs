@@ -1,0 +1,8 @@
+{"observation_id":"obs-023","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["x25519"],"client_id":"client-ee23"}
+{"observation_id":"obs-024","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["x25519_mlkem768"],"client_id":"client-ee24"}
+{"observation_id":"obs-025","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["ffdhe2048"],"client_id":"client-ee25"}
+{"observation_id":"obs-026","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["secp256r1"],"client_id":"client-ee26"}
+{"observation_id":"obs-027","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["secp384r1"],"client_id":"client-ee27"}
+{"observation_id":"obs-028","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["secp521r1"],"client_id":"client-ee28"}
+{"observation_id":"obs-029","service_id":"legacy-proxy","observed_ts_ns":1700005500000000000,"offered_groups":["x25519"],"client_id":"client-ee29"}
+{"observation_id":"obs-034","service_id":"legacy-proxy","observed_ts_ns":1700008000000000000,"offered_groups":["x25519"],"client_id":"client-uu34"}

@@ -1,0 +1,11 @@
+{
+  "windows": [
+    {
+      "window_id": "MD-1",
+      "vessel_id": "D-1",
+      "start_unix": 1740000000,
+      "end_unix": 1740001000,
+      "kind": "inspect"
+    }
+  ]
+}

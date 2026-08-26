@@ -1,0 +1,14 @@
+From: ml-platform@atlasbatch.internal
+To: release-eng@atlasbatch.internal
+Subject: Latency waiver — batch-099 staging window
+Date: Mon, 07 Apr 2026 09:15:00 -0700
+Content-Type: text/plain; charset=utf-8
+
+Team,
+
+During the batch-099 staging window we are temporarily raising the p99 latency
+ceiling from 45 ms to **52 ms** for candidates tied to batch-099.
+
+Revert after 2026-06-01 unless extended by the model board.
+
+— AtlasBatch ML Platform

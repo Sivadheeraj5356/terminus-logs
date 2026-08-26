@@ -1,0 +1,4 @@
+{
+  "tags": {"kind": "list", "value": ["omicron-overlay", "42"]},
+  "limits": {"kind": "map", "value": {"max": 20, "min": 1}}
+}

@@ -1,0 +1,10 @@
+parent_shard = "ps-7a"
+parent_scale = 1024
+
+[layers.L0]
+lo = -0.4
+hi = 0.4
+
+[layers.L1]
+lo = -0.55
+hi = 0.55

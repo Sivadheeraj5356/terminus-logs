@@ -1,0 +1,4 @@
+# Legacy TOML seal — leaks key URI (decoy)
+profile = "reel-legacy"
+method = "AES-128"
+key_uri = "http://keys.decoy.invalid/hls/aes.key"

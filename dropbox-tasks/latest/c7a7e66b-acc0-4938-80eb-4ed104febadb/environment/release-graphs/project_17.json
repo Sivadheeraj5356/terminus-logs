@@ -1,0 +1,31 @@
+{
+  "project_id":"project_17",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"late-rel",
+        "version":"1.0.0"
+      },
+      {
+        "name":"client17",
+        "version":"1.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"client17",
+        "provider":"late-rel",
+        "constraint":"^1.0.0",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"late-rel",
+        "target":"1.1.0",
+        "release_date":"2026-08-15"
+      }
+    ]
+  }
+}

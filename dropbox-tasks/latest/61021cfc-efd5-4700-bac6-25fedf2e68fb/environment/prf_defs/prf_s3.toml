@@ -1,0 +1,6 @@
+public_id = "rune"
+tree_prefix = "/stage/rune"
+epoch = 3
+backend = "bk_c"
+size_ceiling = 3072
+seed = 3102

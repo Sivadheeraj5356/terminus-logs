@@ -1,0 +1,9 @@
+family_id=FAM-HID-RND
+chip_id=HID-RND-1
+profile_id=CAL-STD
+nominal_hz=1000000
+readings:
+segment: edge
+1 25.0 1000000.0
+2 25.0 999998.76543
+3 30.0 1000123.45678

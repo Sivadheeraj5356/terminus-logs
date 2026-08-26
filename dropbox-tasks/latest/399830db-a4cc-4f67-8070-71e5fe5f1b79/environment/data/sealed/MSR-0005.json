@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0005",
+  "category": "copy_number_alteration",
+  "label_ciphertext": "x+loWR56cT0E",
+  "label_nonce": "SbVm4GIG32IXiE8O",
+  "label_tag": "i9MK7oj5j96WYmnhaDu3Hg==",
+  "signature": "MEUCIQCfKSXQo5nVeP1U2ZRwptas6OQEncbc+175j+qkm1BpXgIgcH0dXnBGn14gBKWR1+S2yPa1ZSKBAYbl0vCTY3+Vmp4=",
+  "patient_ref": "PT-EPSILON-331"
+}

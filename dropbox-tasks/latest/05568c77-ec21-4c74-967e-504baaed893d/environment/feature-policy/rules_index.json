@@ -1,0 +1,36 @@
+{
+  "read_order": [
+    "output_schema.json",
+    "digest_encoding.json",
+    "profile_filter.json",
+    "unification_rules.json",
+    "walk_order.json",
+    "feature_aliases.json",
+    "conflict_lifecycle.json",
+    "workspace_rules.json"
+  ],
+  "workflow": [
+    "Repair Go sources only under /app/featurectl and /app/cargograph",
+    "From /app run make build then make run",
+    "make run writes /app/build/feature_resolution_report.json"
+  ],
+  "critical_behaviors": [
+    "Go 1.24 toolchain is preinstalled at /usr/local/go/bin on PATH; do not apt install",
+    "make build must leave compiled binary at /app/build/featrecon only",
+    "make run must write /app/build/feature_resolution_report.json",
+    "Load scenario captures from /app/crate-captures/{scenario_id}.json; never use /app/work-captures for digests",
+    "runtime_feature_set entries are bare crate_key strings sorted ascending, never crate_key/feature compounds",
+    "dev profile runtime_feature_set includes target passing crates even when active_features is empty",
+    "release profile runtime_feature_set omits crates whose active features are entirely dev_only",
+    "Purge stale feature conflict rows when unification replaces the winning version and resolved crate_key changes",
+    "Do not purge conflict rows when the same coordinate keeps the same resolved version and only active_features merge",
+    "Workspace members listed in declared use source workspace_declared even when workspace_pins override version",
+    "Declared optional crates still traverse their dependency subtrees",
+    "Weak optional edges are skipped unless the child crate is also declared",
+    "Expand feature_aliases into concrete feature names before merging workspace or edge features; never keep alias keys in active_features",
+    "Sort sibling edges by child name ascending then edge_id ascending before walking",
+    "Process declared roots in manifest declared array order not alphabetical crate name order",
+    "At equal depth use resolution_reason unified when incumbent parent_key wins lexicographic tie-break; nearest when contender parent_key wins",
+    "Root digest and payload length fields follow digest_encoding.json exactly"
+  ]
+}

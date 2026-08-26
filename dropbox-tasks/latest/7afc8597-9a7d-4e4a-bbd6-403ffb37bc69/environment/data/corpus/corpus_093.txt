@@ -1,0 +1,4 @@
+no foo baz
+mixed Foo123Bar baz_42
+IP 255.255.255.0 mask
+addr 96.17.132.56 hex 0x9910 token tok_645

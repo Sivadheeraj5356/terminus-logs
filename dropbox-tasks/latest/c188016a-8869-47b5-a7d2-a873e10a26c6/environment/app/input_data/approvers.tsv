@@ -1,0 +1,5 @@
+approver	team	status	zones	authority	secret
+sam	security	active	*	security	s3cr3t-sam
+oscar	payments	active	prod	owner	owner-oscar
+trent	security	inactive	prod	security	dead-trent
+alice	payments	active	prod	owner	alice-secret

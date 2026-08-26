@@ -1,0 +1,17 @@
+schema_version: apexora-qos-bw-1
+profiles:
+  corp_standard:
+    cir_mbps: 1000
+    shape_average: 950000000
+  voice_priority:
+    cir_mbps: 100
+    shape_average: 100000000
+  guest_best_effort:
+    cir_mbps: 200
+    shape_average: 150000000
+  ot_scada:
+    cir_mbps: 50
+    shape_average: 45000000
+  wan_edge_aggregate:
+    cir_mbps: 500
+    shape_average: 480000000

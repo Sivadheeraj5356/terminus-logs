@@ -1,0 +1,4 @@
+{
+  "alice": "{\"uid\":1001,\"gid\":1001,\"shell\":\"/bin/bash\",\"groups\":[\"bastion\"],\"homedir\":\"homes/alice\"}",
+  "bob": "{\"uid\":1002,\"gid\":1002,\"shell\":\"/bin/bash\",\"groups\":[\"bastion\"],\"homedir\":\"homes/bob\"}"
+}

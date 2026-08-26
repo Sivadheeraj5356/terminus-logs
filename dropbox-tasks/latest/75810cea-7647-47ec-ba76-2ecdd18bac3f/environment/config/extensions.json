@@ -1,0 +1,16 @@
+{
+  "extensions": [
+    {
+      "whenPackage": "runtime-canary",
+      "peerRequires": [
+        "peer-metrics"
+      ]
+    },
+    {
+      "whenPackage": "plugin-extra",
+      "peerRequires": [
+        "peer-logger"
+      ]
+    }
+  ]
+}

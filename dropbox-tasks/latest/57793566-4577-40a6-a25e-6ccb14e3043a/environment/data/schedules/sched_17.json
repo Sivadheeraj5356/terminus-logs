@@ -1,0 +1,128 @@
+{
+  "budgets": {
+    "A": 7,
+    "B": 8,
+    "C": 4
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 1
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 2
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 3
+    },
+    {
+      "op": "finish",
+      "printer": "p3",
+      "seq": 4
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 5
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 6
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p3",
+      "priority": 3,
+      "seq": 7
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 8
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "C",
+      "pages": 2,
+      "printer": "p3",
+      "priority": 2,
+      "seq": 9
+    },
+    {
+      "job": "j2",
+      "op": "cancel",
+      "seq": 10
+    },
+    {
+      "op": "resume",
+      "printer": "p1",
+      "seq": 11
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 12
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "C",
+      "pages": 3,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 13
+    },
+    {
+      "op": "pause",
+      "printer": "p1",
+      "seq": 14
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 15
+    },
+    {
+      "job": "j2",
+      "op": "release",
+      "seq": 16
+    },
+    {
+      "job": "j6",
+      "op": "cancel",
+      "seq": 17
+    }
+  ],
+  "printers": [
+    "p1",
+    "p2",
+    "p3"
+  ],
+  "spool": "sched_17"
+}

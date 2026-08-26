@@ -1,0 +1,1 @@
+Field simulation scenarios ship under data/active; additional scenarios are used in regression.

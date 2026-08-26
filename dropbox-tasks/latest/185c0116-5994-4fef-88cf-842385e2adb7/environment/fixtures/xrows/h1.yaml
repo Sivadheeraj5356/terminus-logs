@@ -1,0 +1,10 @@
+id: h1
+span: 3
+min_g: 2
+leaves:
+  - id: m01
+    need: p2
+  - id: m02
+    need: p2
+  - id: m03
+    need: p2

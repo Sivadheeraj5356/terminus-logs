@@ -1,0 +1,9 @@
+# Quota supervisor drift after unclean shutdown
+
+Storage operators finished an emergency reboot of the local quota control plane, but fleet state still disagrees with itself. `/app/bin/client_t4 list` reports hard limits that diverge from `/app/environment/data/q9/rows_q2.json`, sidecar stamps under `/app/environment/data/m9/` lag sealed generations, and deferred journal tails under `/app/environment/data/j4/` can resurrect limits for labels already retired in the catalog.
+
+Restore correct cold-boot recovery through the deployed operator toolchain under `/app/environment` so `/app/bin/ctl_s8 recover-all` completes cleanly, then rebuild with `/app/environment/scripts/build_all.sh`. Wrapper-only edits or static writes under `/app/output` are insufficient; graded artifacts must come from the normal admin pipeline.
+
+On the first cold boot after recovery, list probes for active labels must agree with converged ledger rows on hard limits, attach identifiers, and era markers. Segment replay, attach authority, staging cleanup, boot-epoch probing, fingerprint normalization, and recover-one isolation are defined in `/app/environment/docs/recovery_semantics.md`, `/app/environment/docs/run_form.md`, `/app/environment/docs/journal_format.md`, `/app/environment/docs/architecture.md`, and `/app/environment/docs/operator_runbook.md`. Reconcile those operator docs with streams under `/app/environment/data/k7/` and matrix tables under `/app/environment/data/matrix/`.
+
+The recovery driver writes `/app/output/recovery_run.json` (schema `recovery_run.v1`, `entries` array) and `/app/output/state_fingerprint.txt` (one hex `digest` line). Export `S8_BOOT_EPOCH=2` or higher for later list probes; retired labels must not report positive hard limits on those probes. The verifier reruns build, recover-all, and list. Do not edit `/tests`. No runtime network access.

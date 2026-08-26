@@ -1,0 +1,7 @@
+CHAN/1
+win C dealer draw fresh
+uu 5s
+hand 7v 5s 5v 9v 7n 9v 7n 6n 5s 8v 5v 2v 7v 8s 2s 8v 5s 8n 6v
+layout chan(5s,5s);ca(6n,6v);ca(8s,8n);chan(5s,5s);chan(9v,9v);chan(8v,8v);chan(7v,7v);chan(7n,7n);ca(2v,2s);chan(5v,5v)
+log
+toss D 5s 1

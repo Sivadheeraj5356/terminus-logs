@@ -1,0 +1,6 @@
+addr 19.17.241.204 hex 0x69de token tok_504
+digits 123 4567 89
+banana bananana ba na
+line one
+addr 140.165.87.42 hex 0x9a13 token tok_827
+addr 17.193.93.73 hex 0xa92f token tok_860

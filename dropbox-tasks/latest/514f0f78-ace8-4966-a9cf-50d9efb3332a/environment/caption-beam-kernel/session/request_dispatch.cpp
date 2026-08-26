@@ -1,0 +1,3 @@
+namespace cb {
+void dispatch_request(Runtime& rt,Mailbox& mb,int response_fd){ try{ Request r=decode_request(mb); if(r.op==Op::Reset){ erase_stream(rt,r.stream); write_response(mb,success_json(r.id,{})); signal_event(response_fd); return; } StreamState candidate = rt.streams[r.stream]; append_request(candidate,r); std::vector<Hypothesis> hyps = decode_ctc(candidate, r.op==Op::Finish); if(r.op==Op::Finish) rt.streams.erase(r.stream); else rt.streams[r.stream]=candidate; write_response(mb,success_json(r.id,hyps)); } catch(const DecodeError& e){ write_error(mb,e.code); } signal_event(response_fd); }
+}

@@ -1,0 +1,23 @@
+[[profile]]
+label = "soft"
+file = "soft.json"
+
+[[profile]]
+label = "spike"
+file = "spike.json"
+
+[[profile]]
+label = "ridge"
+file = "ridge.json"
+
+[[profile]]
+label = "anneal"
+file = "anneal.json"
+
+[[profile]]
+label = "badmass"
+file = "badmass.json"
+
+[[profile]]
+label = "badshape"
+file = "badshape.json"

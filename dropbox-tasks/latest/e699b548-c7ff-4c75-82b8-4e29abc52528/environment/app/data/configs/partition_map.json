@@ -1,0 +1,8 @@
+{
+  "partitions": {
+    "1": "shard-a",
+    "2": "shard-b",
+    "3": "shard-c",
+    "4": "shard-d"
+  }
+}

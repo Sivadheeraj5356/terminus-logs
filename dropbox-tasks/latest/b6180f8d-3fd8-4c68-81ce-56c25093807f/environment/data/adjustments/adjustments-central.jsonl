@@ -1,0 +1,2 @@
+{"adjustment_id":"A-102-1","rider_id":"R102","service_date":"2026-05-14","amount_cents":75,"reason":"manual surcharge","approved":true}
+{"adjustment_id":"A-104-1","rider_id":"R104","service_date":"2026-05-15","amount_cents":-120,"reason":"platform outage credit","approved":true}

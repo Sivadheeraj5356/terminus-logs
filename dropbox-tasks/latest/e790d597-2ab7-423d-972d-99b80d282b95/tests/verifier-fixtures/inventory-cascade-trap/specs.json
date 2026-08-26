@@ -1,0 +1,18 @@
+{
+  "specifications": [
+    {
+      "spec_id": "SPEC-A",
+      "priority": 100,
+      "bands": {
+        "IgG": {"lower": 44.0, "upper": 46.0}
+      }
+    },
+    {
+      "spec_id": "SPEC-B",
+      "priority": 200,
+      "bands": {
+        "IgG": {"lower": 44.0, "upper": 46.0}
+      }
+    }
+  ]
+}

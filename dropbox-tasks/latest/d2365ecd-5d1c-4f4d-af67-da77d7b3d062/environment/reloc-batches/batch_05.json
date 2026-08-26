@@ -1,0 +1,79 @@
+{
+  "batch_id": "batch_05",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "com.a",
+      "to_prefix": "com.b",
+      "priority": 1
+    },
+    {
+      "seq": 2,
+      "from_prefix": "com.b",
+      "to_prefix": "com.a",
+      "priority": 1
+    }
+  ],
+  "units": [
+    {
+      "path": "x.jar",
+      "root": "r",
+      "symbols": [
+        {
+          "fqn": "com.a.Thing",
+          "pkg_path": "com/a"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "com.a.Thing",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "observed": {
+    "symbols": [
+      {
+        "original": "com.a.Thing",
+        "fqn": "com.b.Thing",
+        "pkg_path": "com/b"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "com.b.Thing"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "c3c027cf90ce06cd2f98d28b9fed0857c4d547acc446fdef79943621eddfcbb6",
+    "nested_applied": false,
+    "nested": []
+  }
+}

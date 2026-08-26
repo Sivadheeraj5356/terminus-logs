@@ -1,0 +1,4 @@
+# bind move invalidates both arms
+profile beta
+step ro target=data
+step bmv from=data to=work

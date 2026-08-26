@@ -1,0 +1,15 @@
+{
+  "conflicts": [],
+  "name": "fleetauth",
+  "requires": [
+    {
+      "package": "quotacap",
+      "range": ">=2.0.0"
+    },
+    {
+      "package": "credstore",
+      "range": ">=1.0.0"
+    }
+  ],
+  "version": "2.2.0"
+}

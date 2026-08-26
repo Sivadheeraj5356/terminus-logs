@@ -1,0 +1,30 @@
+{
+  "move_gen": 5,
+  "ptr_rev": 1,
+  "ptr_path": "refs/pre_move.json",
+  "seal": 0,
+  "mode": "writeback",
+  "map_rows": [
+    {"a": 3, "b": 20, "off": 0},
+    {"a": 4, "b": 21, "off": 512}
+  ],
+  "dest_rows": [
+    {"a": 3, "b": 20, "off": 0},
+    {"a": 4, "b": 21, "off": 2048}
+  ],
+  "dirty": {"slots": [3], "barrier": 4},
+  "tap": {"gen": 2, "tally": 0},
+  "slow_slots": [
+    {"id": 3, "payload": "zeta-v2", "epoch": 2},
+    {"id": 4, "payload": "eta-v2", "epoch": 2}
+  ],
+  "fast_slots": [
+    {"id": 20, "payload": "zeta-stale", "epoch": 1, "bind": 3},
+    {"id": 21, "payload": "eta-stale", "epoch": 1, "bind": 4}
+  ],
+  "foreign_slots": [
+    {"id": 77, "payload": "sidecar-keep", "epoch": 7}
+  ],
+  "ref_pre": {"path": "refs/pre_move.json", "rev": 2, "active_row": 0},
+  "ref_post": {"path": "refs/post_move.json", "rev": 6, "active_row": 1}
+}

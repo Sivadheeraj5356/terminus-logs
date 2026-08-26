@@ -1,0 +1,20 @@
+[
+  {
+    "id": "principal-l1",
+    "entry": false,
+    "crown": false,
+    "level": 1
+  },
+  {
+    "id": "mesh-entry",
+    "entry": true,
+    "crown": false,
+    "level": 3
+  },
+  {
+    "id": "crown-store",
+    "entry": false,
+    "crown": true,
+    "level": 8
+  }
+]

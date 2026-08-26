@@ -1,0 +1,10 @@
+[
+  {"id": "ok-lo",   "action": "allow",  "src": "10.0.0.0/8",  "dst": "0.0.0.0/0",      "port_min": 80, "port_max": 80, "protocol": "tcp",  "direction": "inbound",  "priority": 100},
+  {"id": "",        "action": "allow",  "src": "10.0.0.0/8",  "dst": "0.0.0.0/0",      "port_min": 22, "port_max": 22, "protocol": "tcp",  "direction": "inbound",  "priority": 100},
+  {"id": "ok-lo",   "action": "allow",  "src": "10.0.0.0/8",  "dst": "0.0.0.0/0",      "port_min": 80, "port_max": 80, "protocol": "tcp",  "direction": "inbound",  "priority": 100},
+  {"id": "twobad",  "action": "allow",  "src": "10.0.0.0/33", "dst": "400.0.0.0/16",   "port_min": 22, "port_max": 22, "protocol": "tcp",  "direction": "inbound",  "priority": 100},
+  {"id": "multi",   "action": "permit", "src": "10.0.0.0/8",  "dst": "0.0.0.0/0",      "port_min": 90, "port_max": 80, "protocol": "sctp", "direction": "inbound",  "priority": 100},
+  {"id": "bad-dir", "action": "allow",  "src": "10.0.0.0/8",  "dst": "0.0.0.0/0",      "port_min": 22, "port_max": 22, "protocol": "tcp",  "direction": "sideways", "priority": 100},
+  {"id": "bad-pri", "action": "allow",  "src": "10.0.0.0/8",  "dst": "0.0.0.0/0",      "port_min": 22, "port_max": 22, "protocol": "tcp",  "direction": "inbound",  "priority": -5},
+  {"id": "ok-hi",   "action": "deny",   "src": "10.0.0.0/8",  "dst": "192.168.0.0/16", "port_min": 22, "port_max": 22, "protocol": "tcp",  "direction": "inbound",  "priority": 200}
+]

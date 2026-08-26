@@ -1,0 +1,3 @@
+namespace cb {
+std::vector<std::pair<int,int>> align_tokens(const std::vector<int>& ids,const std::vector<float>& logits,uint32_t T,uint32_t V,uint32_t blank){ std::vector<std::pair<int,int>> spans; size_t pos=0; int last=-1; for(uint32_t t=0;t<T && pos<ids.size();++t){ int best=0; float bv=logit_at(logits,V,t,0); for(uint32_t v=1;v<V;v++){ float x=logit_at(logits,V,t,v); if(x>bv){ bv=x; best=int(v);} } if(best==int(blank)){ last=-1; continue; } if(best==ids[pos] && !(best==last && pos>0 && ids[pos-1]==best)){ spans.push_back(make_span(t)); pos++; } last=best; } while(spans.size()<ids.size()){ int f=spans.empty()?0:spans.back().second; spans.push_back({f,f+1}); } return spans; }
+}

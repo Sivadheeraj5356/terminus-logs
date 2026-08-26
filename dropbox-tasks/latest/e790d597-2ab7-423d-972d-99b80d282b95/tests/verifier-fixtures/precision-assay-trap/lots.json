@@ -1,0 +1,18 @@
+{
+  "batch_generation": 24,
+  "target_volume_ml": 100.0,
+  "lots": [
+    {
+      "lot_id": "PREC-A",
+      "cost_per_ml": 0.85,
+      "available_ml": 200.0,
+      "assays": {"albumin": 3.149, "IgG": 42.0}
+    },
+    {
+      "lot_id": "PREC-B",
+      "cost_per_ml": 1.10,
+      "available_ml": 200.0,
+      "assays": {"albumin": 2.95, "IgG": 44.0}
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+sage wave head
+vals -0.12 / -0.06 / -0.18
+(truncated)

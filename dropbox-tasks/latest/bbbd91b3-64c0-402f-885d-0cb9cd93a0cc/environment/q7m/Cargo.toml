@@ -1,0 +1,13 @@
+[package]
+name = "q7m"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "q7m"
+path = "src/main.rs"
+
+[dependencies]
+h1_t3 = { path = "../h1/t3" }
+m2_p5 = { path = "../m2/p5" }
+r3_n8 = { path = "../r3/n8" }

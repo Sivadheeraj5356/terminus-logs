@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-102
+ISSUER: AAA
+ISSUED: 1767137600
+EFFECTIVE: 1767139200
+
+An early schedule for the residential standing charges, since rescinded.
+
+DIRECTIVES:
+STANDING residential 1:400 2:450 3:520 4:600
+END DIRECTIVES
+
+Nothing else in this circular is operative.

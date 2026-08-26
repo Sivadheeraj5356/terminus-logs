@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0004",
+  "category": "copy_number_alteration",
+  "label_ciphertext": "3fc0EZ8ZRw==",
+  "label_nonce": "rkb7D8lZnB9nzw+/",
+  "label_tag": "4QgqxCAeceurAPRfAi/91g==",
+  "signature": "MEUCIQC7LRSoah0MyzlKXJx7DHXb4voeRxLqFE3GS710cRtyLgIgLKLMeJDiZkRtvm2YoTWD4RfoND8FR2fFYqHLcIM1VRQ=",
+  "patient_ref": "PT-DELTA-220"
+}

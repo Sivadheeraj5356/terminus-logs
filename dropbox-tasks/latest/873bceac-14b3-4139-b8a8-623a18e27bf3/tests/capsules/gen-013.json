@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "spring",
+      "relicmaze.torch": "6.0",
+      "relicmaze.keeper_tz_offset_minutes": "-720",
+      "relicmaze.carry_capacity": "1000",
+      "relicmaze.goal_room": "forge",
+      "org.opencontainers.image.title": "gen-013"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:901f4745e626a380394958838ed40b6ab1ffb3794aaaffb46e9a0532647122c0"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "RUN keeper seal drowned-crown noted"
+    },
+    {
+      "created_by": "RUN keeper curse ember-heart"
+    },
+    {
+      "created_by": "LABEL omen=\"The deep remembers.\""
+    },
+    {
+      "created_by": "RUN keeper curse silver-sigil"
+    },
+    {
+      "created_by": "LABEL note=\"aside\""
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "RUN keeper seal astral-compass"
+    }
+  ]
+}

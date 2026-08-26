@@ -1,0 +1,5 @@
+procedure_id,patient_id,event_time,event_seq,event_id,procedure_code,duration_minutes,status
+PROC-001,P001,2024-06-18T09:00:00Z,1,PROC-E010,INTUB,45,completed
+PROC-002,P002,2024-06-18T09:30:00Z,1,PROC-E011,ECG,30,cancelled
+PROC-003,P003,2024-06-18T13:00:00Z,1,PROC-E012,LAP,60,completed
+PROC-004,P004,2024-06-18T14:00:00Z,1,PROC-E013,XRAY,20,scheduled

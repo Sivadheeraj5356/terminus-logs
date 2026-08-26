@@ -1,0 +1,15 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-105
+ISSUER: REGULATOR
+ISSUED: 1767140600
+EFFECTIVE: 1767139200
+
+The regulator raises the commercial standing charges for the operating week. This schedule
+is in force over the whole week and replaces the registry's commercial table outright. The
+narrative repeats the registry's old 880 cents; that figure carries no force.
+
+DIRECTIVES:
+STANDING commercial 1:820 2:900 3:980 4:1120
+END DIRECTIVES
+
+Nothing else in this circular is operative.

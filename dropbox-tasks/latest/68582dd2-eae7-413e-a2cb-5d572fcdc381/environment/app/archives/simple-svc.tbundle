@@ -1,0 +1,36 @@
+{
+  "format": "tbundle-1",
+  "entries": [
+    {
+      "path": "etc/config.json",
+      "type": "file",
+      "mode": "0644",
+      "uid": 1001,
+      "gid": 1001,
+      "content_b64": "eyJzZXJ2aWNlIjoic2ltcGxlIn0K",
+      "xattr": {
+        "user.svc.tier": "primary"
+      },
+      "acl": [
+        "user::rw-",
+        "group::r--",
+        "other::r--"
+      ]
+    },
+    {
+      "path": "service/bin/run",
+      "type": "file",
+      "mode": "0755",
+      "uid": 1001,
+      "gid": 1001,
+      "content_b64": "IyEvYmluL3NoCmVjaG8gc2ltcGxlCg=="
+    },
+    {
+      "path": "service/data",
+      "type": "dir",
+      "mode": "0755",
+      "uid": 1001,
+      "gid": 1001
+    }
+  ]
+}

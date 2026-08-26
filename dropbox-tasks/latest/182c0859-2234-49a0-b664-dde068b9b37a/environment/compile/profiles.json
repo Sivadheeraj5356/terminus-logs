@@ -1,0 +1,6 @@
+{
+  "release": {
+    "lto": "thin",
+    "modules": ["anchor", "dispatch", "consumer", "gate_abi", "main"]
+  }
+}

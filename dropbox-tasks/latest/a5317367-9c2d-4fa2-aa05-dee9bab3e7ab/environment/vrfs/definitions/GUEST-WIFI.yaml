@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: GUEST-WIFI
+description: Apexora GUEST-WIFI macro-segment
+rd: "65008:1008"
+rt_export: "65008:1008"
+rt_import:
+  - "65008:1008"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

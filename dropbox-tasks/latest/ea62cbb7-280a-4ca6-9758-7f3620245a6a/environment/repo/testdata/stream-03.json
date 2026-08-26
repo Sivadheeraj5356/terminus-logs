@@ -1,0 +1,72 @@
+{
+ "until": 18,
+ "sensors": [
+  {
+   "name": "tamper-level",
+   "low": 2,
+   "high": 8,
+   "enterDwell": 1,
+   "exitDwell": 5
+  }
+ ],
+ "events": [
+  {
+   "at": 4,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 4.9
+  },
+  {
+   "at": 7,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 0.44
+  },
+  {
+   "at": 7,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 3.85
+  },
+  {
+   "at": 9,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 1.71
+  },
+  {
+   "at": 9,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 1.34
+  },
+  {
+   "at": 11,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 5.99
+  },
+  {
+   "at": 14,
+   "op": "hold_start",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 17,
+   "op": "hold_end",
+   "sensor": "tamper-level"
+  },
+  {
+   "at": 18,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 7.12
+  },
+  {
+   "at": 18,
+   "op": "reading",
+   "sensor": "tamper-level",
+   "value": 5.9
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+--- oxk/src/pump.rs
++++ oxk/src/pump.rs
+@@ -5,6 +5,6 @@
+     let residual = if cool.is_finite() { cool.max(0.0) } else { 0.0 };
+     let used = residual + incremental;
+     let lim = cap + 1e-9;
+-    let ok = incremental <= lim;
++    let ok = used.is_finite() && used <= lim;
+     (used, ok)
+ }

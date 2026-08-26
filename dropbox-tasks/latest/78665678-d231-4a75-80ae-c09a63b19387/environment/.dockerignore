@@ -1,0 +1,10 @@
+task_file/output_data/*
+task_file/opt
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.ruff_cache/
+**/.DS_Store
+**/*.log
+.git
+.gitignore

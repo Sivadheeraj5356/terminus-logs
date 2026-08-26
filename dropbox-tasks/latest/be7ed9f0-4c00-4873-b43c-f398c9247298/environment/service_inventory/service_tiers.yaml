@@ -1,0 +1,21 @@
+services:
+  - service_id: gateway-prod
+    policy_tier: pq_mandatory
+    rate_tier: tier_a
+    min_security_bits: 112
+  - service_id: ledger-api
+    policy_tier: pq_mandatory
+    rate_tier: tier_a
+    min_security_bits: 112
+  - service_id: cdn-edge
+    policy_tier: hybrid_preferred
+    rate_tier: tier_c
+    min_security_bits: 112
+  - service_id: billing-rpc
+    policy_tier: hybrid_preferred
+    rate_tier: tier_b
+    min_security_bits: 192
+  - service_id: legacy-proxy
+    policy_tier: classic_only
+    rate_tier: tier_b
+    min_security_bits: 112

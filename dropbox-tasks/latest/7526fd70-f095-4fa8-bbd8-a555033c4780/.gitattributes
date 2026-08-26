@@ -1,0 +1,12 @@
+# Force LF line endings for the entire task subtree so Docker build,
+# oracle/solve.sh, and tests/test.sh always execute on Linux runners
+# regardless of the checkout platform (autocrlf must not reintroduce CRLF).
+* text eol=lf
+*.csv text eol=lf
+*.rs text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf
+*.json text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+Dockerfile text eol=lf

@@ -1,0 +1,14 @@
+{
+  "arm": "starve",
+  "phase": "normal",
+  "row_cap": 8,
+  "group_cap": 2,
+  "cells": [
+    {"id": "t01", "kind": "host", "match": "a.lab", "target": "be_one", "want": "route"},
+    {"id": "t02", "kind": "host", "match": "b.lab", "target": "be_one", "want": "route"},
+    {"id": "t03", "kind": "host", "match": "c.lab", "target": "be_one", "want": "route"},
+    {"id": "t04", "kind": "path", "match": "/x", "target": "be_two", "want": "route"},
+    {"id": "t05", "kind": "path", "match": "/y", "target": "be_two", "want": "route"},
+    {"id": "t06", "kind": "path", "match": "/z", "target": "be_two", "want": "route"}
+  ]
+}

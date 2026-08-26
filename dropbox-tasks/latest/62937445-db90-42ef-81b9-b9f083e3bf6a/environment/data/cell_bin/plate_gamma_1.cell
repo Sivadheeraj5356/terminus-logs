@@ -1,0 +1,5 @@
+CELL/3
+run_id=gamma
+observation_id,peptide,retention_time,confidence
+g01,PEPTIDE_C,7.0,0.92
+g02,PEPTIDE_A,11.0,0.96

@@ -1,0 +1,79 @@
+{
+  "batch_id": "batch_18",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "com.google",
+      "to_prefix": "short.google",
+      "priority": 1
+    },
+    {
+      "seq": 2,
+      "from_prefix": "com.google.common",
+      "to_prefix": "long.common",
+      "priority": 1
+    }
+  ],
+  "units": [
+    {
+      "path": "lib/core.jar",
+      "root": "dep-a",
+      "symbols": [
+        {
+          "fqn": "com.google.common.Base",
+          "pkg_path": "com/google/common"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "com.google.common.Base",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "observed": {
+    "symbols": [
+      {
+        "original": "com.google.common.Base",
+        "fqn": "short.google.common.Base",
+        "pkg_path": "short/google/common"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "short.google.common.Base"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "63fb7c230af61ea86ad3aaf94bcb4613e3213cddc60f7cfa0c52a1b6cc9c9575",
+    "nested_applied": false,
+    "nested": []
+  }
+}

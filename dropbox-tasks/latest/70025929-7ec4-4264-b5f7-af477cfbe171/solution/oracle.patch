@@ -1,0 +1,287 @@
+--- environment/g7/journal/canonical.go
++++ environment/g7/journal/canonical.go
+@@ -8,7 +8,9 @@
+ 	"fmt"
+ 	"io"
+ 	"math"
++	"sort"
+ 	"strconv"
++	"strings"
+ )
+ 
+ func digestText(text string) string {
+@@ -33,12 +35,114 @@
+ 	return value, nil
+ }
+ 
++func normalizeNumbers(value any) (any, error) {
++	switch item := value.(type) {
++	case json.Number:
++		text := strings.TrimSpace(item.String())
++		if strings.ContainsAny(text, ".eE") {
++			parsed, err := strconv.ParseFloat(text, 64)
++			if err != nil || math.IsNaN(parsed) || math.IsInf(parsed, 0) {
++				return nil, fmt.Errorf("invalid number")
++			}
++			return parsed, nil
++		}
++		if parsed, err := strconv.ParseInt(text, 10, 64); err == nil {
++			return parsed, nil
++		}
++		parsed, err := strconv.ParseUint(text, 10, 64)
++		if err != nil {
++			return nil, fmt.Errorf("invalid integer")
++		}
++		return parsed, nil
++	case []any:
++		out := make([]any, len(item))
++		for index := range item {
++			normalized, err := normalizeNumbers(item[index])
++			if err != nil {
++				return nil, err
++			}
++			out[index] = normalized
++		}
++		return out, nil
++	case map[string]any:
++		out := make(map[string]any, len(item))
++		for key, child := range item {
++			normalized, err := normalizeNumbers(child)
++			if err != nil {
++				return nil, err
++			}
++			out[key] = normalized
++		}
++		return out, nil
++	default:
++		return value, nil
++	}
++}
++
++func encodeJSONAtom(value any) (string, error) {
++	var body bytes.Buffer
++	encoder := json.NewEncoder(&body)
++	encoder.SetEscapeHTML(false)
++	if err := encoder.Encode(value); err != nil {
++		return "", err
++	}
++	return strings.TrimSuffix(body.String(), "\n"), nil
++}
++
++func encodeCanonical(value any) (string, error) {
++	switch item := value.(type) {
++	case nil:
++		return "null", nil
++	case bool:
++		return encodeJSONAtom(item)
++	case float64:
++		return encodeJSONAtom(item)
++	case int64:
++		return strconv.FormatInt(item, 10), nil
++	case uint64:
++		return strconv.FormatUint(item, 10), nil
++	case string:
++		return encodeJSONAtom(item)
++	case []any:
++		parts := make([]string, 0, len(item))
++		for _, child := range item {
++			encoded, err := encodeCanonical(child)
++			if err != nil {
++				return "", err
++			}
++			parts = append(parts, encoded)
++		}
++		return "[" + strings.Join(parts, ",") + "]", nil
++	case map[string]any:
++		keys := make([]string, 0, len(item))
++		for key := range item {
++			keys = append(keys, key)
++		}
++		sort.Strings(keys)
++		parts := make([]string, 0, len(keys))
++		for _, key := range keys {
++			encodedKey, err := encodeCanonical(key)
++			if err != nil {
++				return "", err
++			}
++			encodedValue, err := encodeCanonical(item[key])
++			if err != nil {
++				return "", err
++			}
++			parts = append(parts, encodedKey+":"+encodedValue)
++		}
++		return "{" + strings.Join(parts, ",") + "}", nil
++	default:
++		return "", fmt.Errorf("unsupported canonical type %T", value)
++	}
++}
++
+ func canonicalObject(value map[string]any) (string, error) {
+-	body, err := json.Marshal(value)
++	normalized, err := normalizeNumbers(value)
+ 	if err != nil {
+ 		return "", err
+ 	}
+-	return string(body), nil
++	return encodeCanonical(normalized)
+ }
+ 
+ func requiredString(value map[string]any, key string) (string, error) {
+--- environment/g7/journal/replay.go
++++ environment/g7/journal/replay.go
+@@ -130,6 +130,12 @@
+ 			return nil, 0, fmt.Errorf("cross-assay target %s", event.TargetEventID)
+ 		}
+ 	}
++	sort.Slice(events, func(i, j int) bool {
++		if events[i].Seq != events[j].Seq {
++			return events[i].Seq < events[j].Seq
++		}
++		return events[i].EventID < events[j].EventID
++	})
+ 	return events, duplicates, nil
+ }
+ 
+@@ -200,7 +206,7 @@
+ 	case "rollback":
+ 		changed := false
+ 		for eventID, item := range state.active {
+-			if item.Seq == event.ThroughSeq {
++			if item.Seq > event.ThroughSeq {
+ 				delete(state.active, eventID)
+ 				changed = true
+ 			}
+--- environment/g7/m7/thermal.go
++++ environment/g7/m7/thermal.go
+@@ -13,13 +13,10 @@
+ 	}
+ 	delta := measured - uplink
+ 	if stress {
+-		if math.Abs(delta) <= tolerance {
+-			return "within", tolerance, nil
++		if delta > 0 {
++			return "over", 0, nil
+ 		}
+-		if delta > 0 {
+-			return "over", tolerance, nil
+-		}
+-		return "within", tolerance, nil
++		return "within", 0, nil
+ 	}
+ 	if math.Abs(delta) <= tolerance {
+ 		return "within", tolerance, nil
+--- environment/x7/m2/k81/src/provenance.ts
++++ environment/x7/m2/k81/src/provenance.ts
+@@ -39,12 +39,16 @@
+     .map((line) => line.trim())
+     .filter((line) => line.length > 0);
+   const seen = new Map<string, string>();
+-  const eventDigests: string[] = [];
++  const logicalEvents: Array<{ eventId: string; seq: number; digest: string }> = [];
+   for (const line of lines) {
+     const event = parseObject(line);
+     const eventId = event.event_id;
+     if (typeof eventId !== "string" || eventId.length === 0) {
+       throw new Error("invalid event_id");
++    }
++    const seq = event.seq;
++    if (typeof seq !== "number" || !Number.isSafeInteger(seq) || seq < 0) {
++      throw new Error("invalid seq");
+     }
+     const canonical = canonicalJson(event);
+     const prior = seen.get(eventId);
+@@ -55,11 +59,19 @@
+       continue;
+     }
+     seen.set(eventId, canonical);
+-    eventDigests.push(sha256(canonical));
++    logicalEvents.push({ eventId, seq, digest: sha256(canonical) });
+   }
++  logicalEvents.sort((left, right) => {
++    if (left.seq !== right.seq) {
++      return left.seq - right.seq;
++    }
++    return left.eventId.localeCompare(right.eventId);
++  });
+   const config = parseObject(fs.readFileSync(configPath, "utf8"));
+   const configDigest = sha256(canonicalJson(config));
+-  const journalDigest = sha256(eventDigests.join("\n"));
+-  const cacheKey = sha256(`qpcr-journal-v2\n${journalDigest}`);
++  const journalDigest = sha256(logicalEvents.map((event) => event.digest).join("\n"));
++  const cacheKey = sha256(
++    `qpcr-journal-v2\n${journalDigest}\n${configDigest}`,
++  );
+   return { journalDigest, configDigest, cacheKey };
+ }
+--- environment/x7/m2/k81/src/main.ts
++++ environment/x7/m2/k81/src/main.ts
+@@ -52,18 +52,42 @@
+   return `${JSON.stringify(value, null, 2)}\n`;
+ }
+ 
++function atomicWrite(target: string, data: string | Buffer): void {
++  const directory = path.dirname(target);
++  fs.mkdirSync(directory, { recursive: true });
++  const temporary = path.join(
++    directory,
++    `.${path.basename(target)}.${process.pid}.tmp`,
++  );
++  try {
++    fs.writeFileSync(temporary, data);
++    fs.renameSync(temporary, target);
++  } catch (error) {
++    try {
++      fs.unlinkSync(temporary);
++    } catch {
++      // Temporary path may not exist.
++    }
++    throw error;
++  }
++}
++
+ function main(): void {
+   const args = parseArguments(process.argv.slice(2));
+-  fs.mkdirSync(path.dirname(args.output), { recursive: true });
+-  if (fs.existsSync(args.output)) {
+-    fs.unlinkSync(args.output);
+-  }
+ 
+   const derived = deriveProvenance(args.journal, args.config);
+   const cachePath = path.join(args.cacheDir, `${derived.cacheKey}.json`);
+   if (fs.existsSync(cachePath)) {
+-    fs.copyFileSync(cachePath, args.output);
+-    return;
++    const cachedBytes = fs.readFileSync(cachePath);
++    const cached = JSON.parse(cachedBytes.toString("utf8")) as ReplayPackage;
++    if (
++      cached.provenance.journal_digest === derived.journalDigest &&
++      cached.provenance.config_digest === derived.configDigest &&
++      cached.provenance.cache_key === derived.cacheKey
++    ) {
++      atomicWrite(args.output, cachedBytes);
++      return;
++    }
+   }
+ 
+   const bridge = process.env.G7_BRIDGE ?? "/app/environment/bin/g7bridge";
+@@ -71,15 +95,16 @@
+   const pkg = JSON.parse(raw) as ReplayPackage;
+   if (
+     pkg.provenance.journal_digest !== derived.journalDigest ||
+-    pkg.provenance.config_digest !== derived.configDigest
++    pkg.provenance.config_digest !== derived.configDigest ||
++    pkg.provenance.cache_key !== derived.cacheKey
+   ) {
+     throw new Error("cross-language provenance mismatch");
+   }
+ 
++  const encoded = encodePackage(pkg);
+   fs.mkdirSync(args.cacheDir, { recursive: true });
+-  const encoded = encodePackage(pkg);
+-  fs.writeFileSync(cachePath, encoded);
+-  fs.writeFileSync(args.output, encoded);
++  atomicWrite(cachePath, encoded);
++  atomicWrite(args.output, encoded);
+ }
+ 
+ main();

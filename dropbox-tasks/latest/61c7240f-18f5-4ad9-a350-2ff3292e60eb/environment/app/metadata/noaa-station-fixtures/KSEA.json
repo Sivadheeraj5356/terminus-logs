@@ -1,0 +1,8 @@
+{
+  "id": "https://api.weather.gov/stations/KSEA",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KSEA",
+    "name": "Seattle-Tacoma International Airport"
+  }
+}

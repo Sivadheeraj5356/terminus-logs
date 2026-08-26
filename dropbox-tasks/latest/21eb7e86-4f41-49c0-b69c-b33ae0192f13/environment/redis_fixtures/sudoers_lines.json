@@ -1,0 +1,3 @@
+{
+  "svc_deploy": "svc-deploy ALL=(ALL) NOPASSWD:/usr/bin/systemctl restart bastion-session@*"
+}

@@ -1,0 +1,6 @@
+{:run-id "indigo-release-2026-07-06"
+ :scope-order [:compile :runtime :test]
+ :include-scopes #{:compile :runtime}
+ :optional-default false
+ :checksum-mode :report
+ :cycle-mode :fatal}

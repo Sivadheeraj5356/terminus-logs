@@ -1,0 +1,12 @@
+{
+  "keys": {
+    "users": "bastion:users",
+    "ssh_keys": "bastion:ssh_keys",
+    "service_accounts": "bastion:service_accounts",
+    "file_modes": "bastion:file_modes",
+    "sshd_settings": "bastion:sshd_settings",
+    "sudoers_lines": "bastion:sudoers_lines",
+    "tenant_overlay": "bastion:overrides:tenant:{tenant}"
+  },
+  "default_tenant": "prod"
+}

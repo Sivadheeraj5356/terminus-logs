@@ -1,0 +1,7 @@
+IP 255.255.255.0 mask
+colour foobar end end gray baz gray
+addr 174.133.178.91 hex 0x5c12 token tok_916
+addr 144.254.223.119 hex 0xe3cb token tok_540
+banana bananana ba na
+hex 0xabc 0xABCDEF zzz
+addr 128.68.7.11 hex 0xc316 token tok_592

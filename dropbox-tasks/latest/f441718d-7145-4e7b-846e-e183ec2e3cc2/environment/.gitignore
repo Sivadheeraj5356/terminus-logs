@@ -1,0 +1,13 @@
+state/*
+!state/.gitkeep
+!state/checkpoints/
+!state/checkpoints/.gitkeep
+output/*
+!output/.gitkeep
+cache/*
+!cache/.gitkeep
+*.exe
+/tmp/
+.DS_Store
+.pytest_cache/
+.ruff_cache/

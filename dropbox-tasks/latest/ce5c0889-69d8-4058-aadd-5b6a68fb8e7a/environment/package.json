@@ -1,0 +1,12 @@
+{
+  "name": "pixel-ref-svc",
+  "version": "1.0.0",
+  "private": true,
+  "main": "svc/server.js",
+  "scripts": {
+    "build": "node -e \"require('express'); console.log('referee svc deps ready')\""
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  }
+}

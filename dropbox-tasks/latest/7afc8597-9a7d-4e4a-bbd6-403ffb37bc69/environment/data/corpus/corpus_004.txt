@@ -1,0 +1,4 @@
+digits 123 4567 89
+the quick brown fox
+gamma world maybe yes grey maybe foo
+addr 12.192.95.60 hex 0x14eb token tok_667

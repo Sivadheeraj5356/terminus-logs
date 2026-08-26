@@ -1,0 +1,25 @@
+apiVersion: diffusion.ops/v1
+kind: DiffusionExperiment
+metadata:
+  name: gamma-canary
+container:
+  image: registry.local/ml/gamma:nightly
+  digest: sha256:c222222222222222222222222222222222222222222222222222222222222222
+spec:
+  seed: 555001
+  walkers: 16
+  steps: 12
+  drift: 0.009
+  volatility: 0.32
+  calibrationRef: quarantine
+  dependsOn:
+    - beta-worker
+  dimensions:
+    - name: shear
+      weight: 1.45
+      lower: -0.75
+      upper: 0.78
+    - name: thermal
+      weight: 0.9
+      lower: -0.65
+      upper: 0.72

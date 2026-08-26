@@ -1,0 +1,11 @@
+[sun]
+weight = 3.0
+family = "luminous"
+
+[moon]
+weight = 4.5
+family = "luminous"
+
+[star]
+weight = 6.0
+family = "celestial"

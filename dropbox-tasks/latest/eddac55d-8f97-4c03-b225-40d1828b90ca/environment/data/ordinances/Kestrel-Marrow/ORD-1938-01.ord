@@ -1,0 +1,9 @@
+ordinance: ORD-1938-01
+jurisdiction: Kestrel-Marrow
+enacted: 1938-05-05
+effective: 1938-06-05T02:00:00 wall
+standard-offset: +08:00:00
+standard-label: KST
+observance:
+  begin: Jun Sun>=1 02:00:00 wall save +01:00:00 label KDT
+  end: Oct lastSun 03:00:00 standard

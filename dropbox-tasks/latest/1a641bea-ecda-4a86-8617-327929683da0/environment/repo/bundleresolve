@@ -1,0 +1,8 @@
+#!/bin/sh
+# Runtime shim for the feature-bundle resolver. Reads a JSON array of cases from
+# standard input and writes a JSON array of results to standard output.
+set -e
+classes="${TMPDIR:-/tmp}/bundleresolve-classes"
+mkdir -p "$classes"
+javac -d "$classes" /app/Main.java
+exec java -cp "$classes" Main "$@"

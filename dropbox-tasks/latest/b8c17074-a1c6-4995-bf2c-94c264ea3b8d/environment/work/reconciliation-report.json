@@ -1,0 +1,9 @@
+{
+  "weighted_flux_total": 0.000000,
+  "calibration_profile": "preview",
+  "calibration_epoch": "E2026B",
+  "contours_regenerated": false,
+  "samples": [
+    {"sample_id": "S_CORE", "image": 17.956522, "coverage": 2}
+  ]
+}

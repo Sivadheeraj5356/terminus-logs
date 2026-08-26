@@ -1,0 +1,109 @@
+--- a/report.py
++++ b/report.py
+@@ -123,22 +123,98 @@
+ def build_ledger(config_text, events_text):
+     """Return the ledger as a list of output lines (no trailing newlines).
+ 
+-    This is only a placeholder: it parses the inputs and echoes every HAUL as
+-    PERMITTED. It does NOT yet apply the allowance model from docs/spec.md (the
+-    throttle/cap limits, the surge-window lifecycle, the shared quarry reserve pool
+-    with borrow/repay debt, or the canonical record ordering). Build the real
+-    report here.
++    Replays the traffic stream against the configured truck and quarry
++    allowances per docs/spec.md: the most-restrictive truck/quarry
++    conjunction, absolute caps, the surge-window lifecycle with inclusive
++    expiry, the shared quarry reserve pool with newest-first borrow/repay debt, and
++    the canonical record ordering.
+     """
+     subs, plans, member_of = parse_config(config_text)
+     events = parse_events(events_text, subs)
+ 
++    ust = {u: {"traffic": 0, "run": False, "start": 0, "debt": []} for u in subs}
++    gst = {g: {"traffic": 0, "run": False, "start": 0, "rused": 0} for g in plans}
++
++    def ceiling(q, traffic, run_, start, tick):
++        if traffic > q["soft"] and run_ and tick > start + q["grace"]:
++            return q["soft"]
++        return q["hard"]
++
++    def update_timer(soft, traffic, st, tick):
++        started = False
++        if traffic > soft:
++            if not st["run"]:
++                st["run"] = True
++                st["start"] = tick
++                started = True
++        else:
++            st["run"] = False
++        return started
++
+     out = []
+     for tick, kind, user, hauls in events:
+-        if kind == "HAUL":
+-            out.append("%d PERMITTED" % tick)
+-    return out
++        group = member_of[user]
++        uq, gq = subs[user], plans[group]
++        us, gs = ust[user], gst[group]
++        if kind == "RETURN":
++            remaining = hauls
++            repaid = 0
++            while remaining > 0 and us["debt"]:
++                top = us["debt"][-1]
++                take = min(remaining, top)
++                top -= take
++                remaining -= take
++                repaid += take
++                if top == 0:
++                    us["debt"].pop()
++                else:
++                    us["debt"][-1] = top
++            if repaid > 0:
++                gs["rused"] -= repaid
++                out.append("%d REPAY %s %d" % (tick, user, repaid))
++            if remaining > 0:
++                us["traffic"] = max(0, us["traffic"] - remaining)
++                update_timer(uq["soft"], us["traffic"], us, tick)
++                gs["traffic"] = max(0, gs["traffic"] - remaining)
++                update_timer(gq["soft"], gs["traffic"], gs, tick)
++            continue
+ 
++        n = hauls
++        if uq["hard"] - us["traffic"] < n:
++            out.append("%d DENY TRUCK_FULL" % tick)
++            continue
++        if gq["hard"] - gs["traffic"] < n:
++            out.append("%d DENY QUARRY_FULL" % tick)
++            continue
++        uc = ceiling(uq, us["traffic"], us["run"], us["start"], tick)
++        gc = ceiling(gq, gs["traffic"], gs["run"], gs["start"], tick)
++        user_room = max(0, uc - us["traffic"])
++        group_room = max(0, gc - gs["traffic"])
++        grant = min(n, user_room, group_room)
++        shortfall = n - grant
++        if shortfall > 0:
++            if gq["reserve"] - gs["rused"] < shortfall:
++                out.append("%d DENY RESERVE_EMPTY" % tick)
++                continue
+ 
++        out.append("%d PERMITTED" % tick)
++        started_u = started_g = False
++        if grant > 0:
++            us["traffic"] += grant
++            started_u = update_timer(uq["soft"], us["traffic"], us, tick)
++            gs["traffic"] += grant
++            started_g = update_timer(gq["soft"], gs["traffic"], gs, tick)
++        if shortfall > 0:
++            gs["rused"] += shortfall
++            us["debt"].append(shortfall)
++        if started_u:
++            out.append("%d SURGE_START TRUCK %s" % (tick, user))
++        if started_g:
++            out.append("%d SURGE_START QUARRY %s" % (tick, group))
++        if shortfall > 0:
++            out.append("%d DRAW %s %d" % (tick, user, shortfall))
++    return out
++
+ def main(argv):
+     if len(argv) != 3:
+         sys.stderr.write("traffic: report.py <quarry-config> <traffic-stream>\n")

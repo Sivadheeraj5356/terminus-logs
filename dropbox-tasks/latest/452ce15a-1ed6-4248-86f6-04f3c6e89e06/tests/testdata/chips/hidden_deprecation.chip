@@ -1,0 +1,8 @@
+family_id=FAM-HID-DEPR
+chip_id=HID-DEPR-1
+profile_id=CAL-STD
+nominal_hz=11000000
+readings:
+segment: core
+1 25.0 11000000.0
+2 30.0 11001925.0

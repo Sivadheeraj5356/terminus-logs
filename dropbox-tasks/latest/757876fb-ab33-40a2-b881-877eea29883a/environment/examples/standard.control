@@ -1,0 +1,12 @@
+initial_step=0.08
+min_step=0.002
+max_step=0.15
+grow_factor=1.4
+shrink_factor=0.5
+fast_iterations=2
+slow_iterations=6
+max_newton_iterations=12
+residual_tolerance=1e-11
+correction_tolerance=1e-11
+fold_tangent_tolerance=1e-8
+max_points=32

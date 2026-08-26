@@ -1,0 +1,13 @@
+Package: librarynetcheckouts
+Title: Library Consortium Net Checkouts Data Lake Task
+Version: 1.0.0
+Description: Working environment for a circulation analytics task over a public
+    library consortium data lake, reporting net checkouts by branch.
+Imports:
+    readr,
+    dplyr,
+    tidyr,
+    jsonlite,
+    stringr,
+    lubridate
+Encoding: UTF-8

@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "origin": "example.test.",
+  "epoch": 1735689600,
+  "epoch_id": "example-epoch",
+  "plan_digest": "hex",
+  "zone_digest": "hex",
+  "input_digest": "hex",
+  "serial": 1,
+  "keys": [
+    {
+      "lineage_id": "hex",
+      "material_id": "hex",
+      "role": "KSK",
+      "status": "active",
+      "key_tag": 12345,
+      "algorithm": 15,
+      "public_key_b64": "..."
+    }
+  ],
+  "nsec3": {
+    "algorithm": 2,
+    "flags": 0,
+    "iterations": 0,
+    "salt": "hex-or-dash"
+  },
+  "signature_start": 1735689600,
+  "signature_end": 1767225600
+}

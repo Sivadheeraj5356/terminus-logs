@@ -1,0 +1,8 @@
+{
+  "boundaries": {
+    "left": "neumann",
+    "right": "dirichlet",
+    "top": "neumann",
+    "bottom": "dirichlet"
+  }
+}

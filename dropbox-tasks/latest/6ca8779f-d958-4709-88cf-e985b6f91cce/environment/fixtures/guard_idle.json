@@ -1,0 +1,23 @@
+{
+  "map": {
+    "width": 3,
+    "height": 3,
+    "elevation": [[0,0,0],[0,0,0],[0,0,0]],
+    "blocked": [[false,false,false],[false,false,false],[false,false,false]]
+  },
+  "units": [
+    {
+      "id": "keeper",
+      "team": "red",
+      "hex": [1, 1],
+      "hp": 6,
+      "armor": 2,
+      "speed": 1,
+      "vision": 2,
+      "range": 1,
+      "traits": [],
+      "actions": ["GUARD"]
+    }
+  ],
+  "beacons": []
+}

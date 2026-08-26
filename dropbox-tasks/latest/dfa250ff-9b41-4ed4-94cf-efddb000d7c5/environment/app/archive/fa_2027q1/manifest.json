@@ -1,0 +1,72 @@
+{
+  "bundle_id": "fa_2027q1",
+  "producer": "polars-feature-audit 0.11.2",
+  "sealed_at": "2027-03-04T06:00:00Z",
+  "quarter": "2027Q1",
+  "members": [
+    {
+      "path": "audit/psi_scores_part-00000.csv",
+      "format": "csv",
+      "rows": 270,
+      "status": "released",
+      "psi_units": "ratio",
+      "null_rate_units": "ratio",
+      "timestamp_encoding": "iso8601_offset",
+      "quoting": "none"
+    },
+    {
+      "path": "audit/psi_scores_part-00001.csv",
+      "format": "csv",
+      "rows": 267,
+      "status": "released",
+      "psi_units": "ratio",
+      "null_rate_units": "ratio",
+      "timestamp_encoding": "iso8601_offset",
+      "quoting": "rfc4180"
+    },
+    {
+      "path": "audit/psi_scores_part-00002.csv",
+      "format": "csv",
+      "rows": 9,
+      "status": "quarantined",
+      "psi_units": "ratio",
+      "null_rate_units": "ratio",
+      "timestamp_encoding": "iso8601_offset",
+      "quoting": "none"
+    },
+    {
+      "path": "legacy/psi_scores_legacy.tsv",
+      "format": "tsv",
+      "rows": 9,
+      "status": "released",
+      "psi_units": "basis_points",
+      "null_rate_units": "ppm",
+      "timestamp_encoding": "epoch_millis_utc",
+      "quoting": "none"
+    },
+    {
+      "path": "legacy/psi_scores_legacy_2026.tsv",
+      "format": "tsv",
+      "rows": 3,
+      "status": "released",
+      "psi_units": "basis_points",
+      "null_rate_units": "ppm",
+      "timestamp_encoding": "epoch_millis_utc",
+      "quoting": "none"
+    },
+    {
+      "path": "distributions/psi_recompute.csv",
+      "format": "psi_bins",
+      "rows": 3,
+      "bins": 10,
+      "status": "released",
+      "quoting": "rfc4180"
+    },
+    {
+      "path": "events/run_events.jsonl",
+      "format": "jsonl",
+      "rows": 39,
+      "status": "released"
+    }
+  ]
+}

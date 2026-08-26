@@ -1,0 +1,19 @@
+# Saved long exchange with a capture mid-sequence for resume checks.
+id = "long"
+seed = 7
+mode = "belt"
+w = 6
+h = 5
+journal_prefix = 7
+
+[[moves]]
+move = "3,2,light"
+move = "2,2,dark"
+move = "3,1,dark"
+move = "4,2,dark"
+move = "3,3,dark"
+move = "4,1,dark"
+move = "2,3,dark"
+move = "1,1,light"
+move = "5,1,dark"
+move = "1,2,light"

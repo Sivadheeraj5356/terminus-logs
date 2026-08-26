@@ -1,0 +1,30 @@
+{
+  "budgets": {
+    "poor": 3,
+    "rich": 100
+  },
+  "events": [
+    {
+      "job": "big",
+      "op": "submit",
+      "owner": "poor",
+      "pages": 10,
+      "printer": "p1",
+      "priority": 9,
+      "seq": 1
+    },
+    {
+      "job": "small",
+      "op": "submit",
+      "owner": "rich",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 2
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "skip_unaffordable"
+}

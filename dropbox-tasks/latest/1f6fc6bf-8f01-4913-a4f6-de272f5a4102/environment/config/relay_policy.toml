@@ -1,0 +1,14 @@
+pool_max_per_shard = 4
+descriptor_ceiling = 12
+idle_close_ms = 200
+populate_sleep_ms = 100
+
+[[shards]]
+id = 0
+host = "127.0.0.1"
+port = 19001
+
+[[shards]]
+id = 1
+host = "127.0.0.1"
+port = 19002

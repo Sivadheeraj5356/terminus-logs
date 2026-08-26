@@ -1,0 +1,1090 @@
+[
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://app.example.com/main.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://app.example.com:443/main.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://other.example.com/main.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://app.example.com:8443/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "http://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://cdn.site.test/a.js",
+      "origin": "http://cdn.site.test"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "http://cdn.site.test/a.js",
+      "origin": "http://cdn.site.test"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://cdn.site.test:8443/a.js",
+      "origin": "http://cdn.site.test"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "wss://rt.example.org/socket",
+      "origin": "ws://rt.example.org"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "ws://rt.example.org/socket",
+      "origin": "ws://rt.example.org"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://sub.app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://cdn.example.com/lib.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://a.b.example.com/lib.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://example.com/lib.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://evil.example.com.attacker.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://notexample.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://cdnexample.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*",
+      "url": "https://anything.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*",
+      "url": "http://plain.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*",
+      "url": "data:text/html,alert(1)",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://*.cdn.net",
+      "url": "https://a.cdn.net/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://*.cdn.net",
+      "url": "http://a.cdn.net/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://*.cdn.net",
+      "url": "https://cdn.net/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https:",
+      "url": "https://anywhere.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https:",
+      "url": "http://anywhere.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.org",
+      "url": "data:text/js,alert(1)",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "data:",
+      "url": "data:text/javascript,alert(1)",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https: data:",
+      "url": "data:image/png;base64,AAAA",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self' https://cdn.example.org",
+      "url": "data:text/html,x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "blob:",
+      "url": "blob:https://app.example.com/uuid-1234",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.org",
+      "url": "blob:https://cdn.example.org/u",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "filesystem:",
+      "url": "filesystem:https://app.example.com/temp/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "data:text/html,<script>alert(1)</script>",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "http:",
+      "url": "https://plain.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "ws:",
+      "url": "wss://rt.test/socket",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com:8443",
+      "url": "https://api.example.com:8443/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com:8443",
+      "url": "https://api.example.com/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com:443",
+      "url": "https://api.example.com/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com",
+      "url": "https://api.example.com:443/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com",
+      "url": "https://api.example.com:8443/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com:*",
+      "url": "https://api.example.com:9999/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com:*",
+      "url": "https://api.example.com/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "http://legacy.example.com:80",
+      "url": "http://legacy.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "http://legacy.example.com",
+      "url": "http://legacy.example.com:8080/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com:8443",
+      "url": "https://api.example.com:8444/v1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "ftp://files.example.com",
+      "url": "ftp://files.example.com/pub",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "ftp://files.example.com:21",
+      "url": "ftp://files.example.com:2121/pub",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/assets/",
+      "url": "https://cdn.example.com/assets/app.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/assets/",
+      "url": "https://cdn.example.com/assets/",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/assets/",
+      "url": "https://cdn.example.com/other/app.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/app.js",
+      "url": "https://cdn.example.com/app.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/app.js",
+      "url": "https://cdn.example.com/app.js.map",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/app.js",
+      "url": "https://cdn.example.com/app.js/evil",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com",
+      "url": "https://cdn.example.com/any/deep/path.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/",
+      "url": "https://cdn.example.com/deep/path.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/a%20b/",
+      "url": "https://cdn.example.com/a%20b/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/caf%C3%A9/",
+      "url": "https://cdn.example.com/caf%C3%A9/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/assets/",
+      "url": "https://cdn.example.com/assets",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/scripts/",
+      "url": "https://cdn.example.com/scripts/../x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'none'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'unsafe-inline'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'unsafe-eval'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'nonce-abc123=='",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'sha256-AAAA'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'strict-dynamic'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'unsafe-inline' https://cdn.example.com",
+      "url": "https://cdn.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'nonce-xyz' 'self'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "HTTPS://CDN.EXAMPLE.COM",
+      "url": "https://cdn.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com",
+      "url": "HTTPS://CDN.EXAMPLE.COM/X.JS",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "HTTPS:",
+      "url": "https://any.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'SELF'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self' *.example.com https:",
+      "url": "https://random.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self' *.example.com",
+      "url": "https://random.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self' https://cdn.example.com/lib/",
+      "url": "https://cdn.example.com/lib/v2/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self' https://cdn.example.com/lib/",
+      "url": "https://cdn.example.com/other/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://example.com",
+      "url": "https://example.com.evil.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com:443",
+      "url": "https://cdn.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com:8080",
+      "url": "https://cdn.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://APP.EXAMPLE.COM/main.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "ftp://app.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "wss://app.example.com/s",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://app.example.com.evil.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://x.example.com:8443/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.EXAMPLE.COM",
+      "url": "https://cdn.example.com/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.a.example.com",
+      "url": "https://example.com/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.a.example.com",
+      "url": "https://x.a.example.com/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "wss:",
+      "url": "ws://rt.test/s",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "data: blob:",
+      "url": "blob:https://app.example.com/u",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "http:",
+      "url": "http://plain.test/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https: 'unsafe-inline'",
+      "url": "https://x.test/a.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://svc.example.com:8443",
+      "url": "https://svc.example.com:443/a",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://svc.example.com:*",
+      "url": "https://svc.example.com:1/a",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "ws://rt.example.com",
+      "url": "ws://rt.example.com:80/s",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "ws://rt.example.com",
+      "url": "ws://rt.example.com:8080/s",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/a/b/",
+      "url": "https://cdn.example.com/a/b/c/d.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/a/b",
+      "url": "https://cdn.example.com/a/b/",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/index.html",
+      "url": "https://cdn.example.com/index.html",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/p/",
+      "url": "https://cdn.example.com/P/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'none' https://cdn.example.com",
+      "url": "https://cdn.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'report-sample'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'unsafe-hashes' 'sha256-XYZ'",
+      "url": "https://app.example.com/x.js",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://app.example.com:443/x",
+      "origin": "http://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "https://app.example.com:8443/x",
+      "origin": "http://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "wss://rt.example.org:443/s",
+      "origin": "ws://rt.example.org"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "wss://rt.example.org:8443/s",
+      "origin": "ws://rt.example.org"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'self'",
+      "url": "http://cdn.site.test:80/a",
+      "origin": "http://cdn.site.test"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://example.com.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com",
+      "url": "https://a.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*.a.example.com",
+      "url": "https://a.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com:443",
+      "url": "https://cdn.example.com:8443/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*.example.com:*",
+      "url": "https://cdn.example.com:8443/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "*",
+      "url": "blob:https://app.example.com/u",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "*",
+      "url": "filesystem:https://app.example.com/t/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "blob:",
+      "url": "blob:https://x.test/u",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "data:",
+      "url": "blob:https://x.test/u",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "filesystem: data:",
+      "url": "filesystem:https://app.example.com/t",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "http:",
+      "url": "ftp://f.test/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "ws:",
+      "url": "ws://rt.test/s",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "wss:",
+      "url": "wss://rt.test/s",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://api.example.com",
+      "url": "https://api.example.com:8443/v",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "ftp://files.example.com",
+      "url": "ftp://files.example.com:21/pub",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "ftp://files.example.com",
+      "url": "ftp://files.example.com:2121/pub",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "gopher://g.example.com",
+      "url": "gopher://g.example.com:70/1",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/assets/",
+      "url": "https://cdn.example.com/assets",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/assets",
+      "url": "https://cdn.example.com/assets/deep",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/a%2Fb/",
+      "url": "https://cdn.example.com/a%2Fb/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/DIR/",
+      "url": "https://cdn.example.com/dir/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://cdn.example.com/lib/",
+      "url": "https://cdn.example.com/lib",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'none' 'self'",
+      "url": "https://app.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "'strict-dynamic' 'nonce-x'",
+      "url": "https://app.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "'wasm-unsafe-eval'",
+      "url": "https://app.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "http://legacy.example.com",
+      "url": "https://legacy.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "ADMIT"
+  },
+  {
+    "input": {
+      "source_list": "https://legacy.example.com",
+      "url": "http://legacy.example.com/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "cdn.example.com",
+      "url": "data:text/js,x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  },
+  {
+    "input": {
+      "source_list": "https://example.com",
+      "url": "https://example.com.evil.test:443/x",
+      "origin": "https://app.example.com"
+    },
+    "expected": "BLOCK"
+  }
+]

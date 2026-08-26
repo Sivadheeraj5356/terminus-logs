@@ -1,0 +1,22 @@
+# Platform Dockerfile evaluation — keep build context small and offline-safe.
+.git
+**/.git/**
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+**/*.test
+bin/
+target/
+dist/
+build/
+.env
+**/.env
+solution/
+tests/
+.venv/
+venv/
+**/.venv/

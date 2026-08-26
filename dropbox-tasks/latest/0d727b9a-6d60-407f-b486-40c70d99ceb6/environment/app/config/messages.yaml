@@ -1,0 +1,14 @@
+messages:
+  welcome: >
+    Welcome to The Obsidian Vault. Your session has begun.
+    Look carefully at everything. Not everything that glitters is gold,
+    but everything that ticks has a purpose.
+  hint_prefix: "A faint inscription reads: "
+  wrong_answer: "The mechanism clicks but does not turn. Try again."
+  no_attempts: "The mechanism is jammed. This puzzle is sealed."
+  puzzle_solved: "Something shifts behind the wall with a satisfying clunk."
+  vault_open: "The great vault door swings open on silent hinges. You are free."
+  forbidden: "Access denied. This area is restricted."
+  session_expired: "Your session has expired. Please start a new game."
+  unknown_command: "That verb isn't recognised in this room."
+  moderator_required: "Moderator credentials are required for that action."

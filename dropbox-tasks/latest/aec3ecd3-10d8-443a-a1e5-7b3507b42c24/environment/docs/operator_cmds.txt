@@ -1,0 +1,11 @@
+# drive_a.mjs is the probe CLI that must be invoked for each pack
+
+# probe one pack
+node /app/environment/tools/drive_a.mjs --pack s1
+
+# probe other packs
+node /app/environment/tools/drive_a.mjs --pack s2
+node /app/environment/tools/drive_a.mjs --pack s3
+
+# reload suite binaries from disk before a second probe of the same pack
+node /app/environment/tools/drive_a.mjs --pack s1 --reload

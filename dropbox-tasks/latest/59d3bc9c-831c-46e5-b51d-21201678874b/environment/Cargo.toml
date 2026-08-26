@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "ig",
+    "bk",
+    "sg",
+    "ws",
+    "runtime",
+    "diffkit-cli",
+]
+resolver = "2"

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lockctl.local/schemas/case.schema.json",
+  "title": "case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "start_time_s",
+    "end_time_s",
+    "output_interval_s",
+    "topology_path",
+    "forcing_path",
+    "solver"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 4 },
+    "case_id": { "type": "string", "minLength": 1 },
+    "start_time_s": { "type": "integer" },
+    "end_time_s": { "type": "integer" },
+    "output_interval_s": { "type": "integer", "exclusiveMinimum": 0 },
+    "topology_path": { "type": "string", "minLength": 1 },
+    "forcing_path": { "type": "string", "minLength": 1 },
+    "solver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "initial_step_s",
+        "minimum_step_s",
+        "maximum_step_s",
+        "volume_abs_tolerance_m3",
+        "volume_rel_tolerance",
+        "newton_abs_tolerance_m3",
+        "newton_rel_tolerance",
+        "maximum_newton_iterations"
+      ],
+      "properties": {
+        "initial_step_s": { "type": "number", "exclusiveMinimum": 0 },
+        "minimum_step_s": { "type": "number", "exclusiveMinimum": 0 },
+        "maximum_step_s": { "type": "number", "exclusiveMinimum": 0 },
+        "volume_abs_tolerance_m3": { "type": "number", "exclusiveMinimum": 0 },
+        "volume_rel_tolerance": { "type": "number", "minimum": 0 },
+        "newton_abs_tolerance_m3": { "type": "number", "exclusiveMinimum": 0 },
+        "newton_rel_tolerance": { "type": "number", "exclusiveMinimum": 0 },
+        "maximum_newton_iterations": { "type": "integer", "exclusiveMinimum": 0 }
+      }
+    }
+  }
+}

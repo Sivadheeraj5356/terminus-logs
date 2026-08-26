@@ -1,0 +1,8 @@
+{
+  "job_id": "job-015",
+  "priority": 7,
+  "spec_path": "/app/specs/legacy-gpu.yaml",
+  "profile_ref": "staging",
+  "rules_profile_stack": ["edge_strict", "roll_ceil"],
+  "defer": false
+}

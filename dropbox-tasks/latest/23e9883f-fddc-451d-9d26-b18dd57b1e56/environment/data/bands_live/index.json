@@ -1,0 +1,14 @@
+{
+  "slice": 19,
+  "require_epoch": 19,
+  "locales": [
+    "L19A",
+    "L19B",
+    "L19C"
+  ],
+  "weights_decoy": {
+    "L19A": 0.55,
+    "L19B": 0.25,
+    "L19C": 0.2
+  }
+}

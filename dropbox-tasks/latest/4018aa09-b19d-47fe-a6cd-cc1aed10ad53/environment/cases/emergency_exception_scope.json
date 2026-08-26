@@ -1,0 +1,1 @@
+{"profile":"emergency_exception_scope","remove_witnesses":[],"revocation_overrides":{},"exception_overrides":{"EX-EMERG":{"service":"settlement_api"}},"severity":"CRITICAL"}

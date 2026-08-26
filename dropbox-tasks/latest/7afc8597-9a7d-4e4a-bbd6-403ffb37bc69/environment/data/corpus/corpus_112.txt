@@ -1,0 +1,5 @@
+addr 70.69.156.127 hex 0x9138 token tok_157
+addr 176.101.229.56 hex 0xdbb6 token tok_553
+value = 0xDEADbeef and 0x1234
+true foobar line color bird
+addr 9.41.2.245 hex 0x5900 token tok_268

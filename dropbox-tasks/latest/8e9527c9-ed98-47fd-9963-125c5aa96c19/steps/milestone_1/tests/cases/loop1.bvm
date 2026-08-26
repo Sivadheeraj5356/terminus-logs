@@ -1,0 +1,27 @@
+func main() -> int {
+  locals 2
+b0:
+  iconst 0
+  store 0
+  iconst 0
+  store 1
+  br b1
+b1:
+  load 0
+  iconst 6
+  icmp
+  br_if b2
+b3:
+  load 1
+  ret
+b2:
+  load 1
+  load 0
+  iadd
+  store 1
+  load 0
+  iconst 1
+  iadd
+  store 0
+  br b1
+}

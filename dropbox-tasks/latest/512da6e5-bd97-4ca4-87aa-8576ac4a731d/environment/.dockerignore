@@ -1,0 +1,16 @@
+.git
+.gitignore
+**/.git
+.env
+tests
+solution
+reports
+fetch_gate
+**/.DS_Store
+**/._*
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/

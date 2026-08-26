@@ -1,0 +1,20 @@
+[package]
+name = "k7"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/runner.rs"
+
+[[bin]]
+name = "k7"
+path = "src/main.rs"
+
+[dependencies]
+core_k = { path = "../../core_k" }
+o_lane = { path = "../../o_lane" }
+w_lane = { path = "../../w_lane" }
+blk_a = { path = "../../blk_a" }
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = "=1.0.149"
+clap = { version = "=4.5.26", features = ["derive"] }

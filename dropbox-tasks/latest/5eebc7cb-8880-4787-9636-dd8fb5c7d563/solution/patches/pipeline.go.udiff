@@ -1,0 +1,50 @@
+--- a/internal/run/pipeline.go
++++ b/internal/run/pipeline.go
+@@ -82,17 +82,17 @@
+ 		BindRows: rows,
+ 		PartSig:  partSig,
+ 	}
+-	crossSeed := uint32(0)
+-	if table != nil {
+-		crossSeed = uint32(table.CrossSeed)
+-	}
+-	r3.Assemble(doc, state.Grp1AadPrefix, state.Grp2AadPrefix, crossSeed)
+ 	if g1 != "" {
+ 		state.Grp1AadPrefix = g1
+ 	}
+ 	if g2 != "" {
+ 		state.Grp2AadPrefix = g2
+ 	}
++	crossSeed := uint32(0)
++	if table != nil {
++		crossSeed = uint32(table.CrossSeed)
++	}
++	r3.Assemble(doc, state.Grp1AadPrefix, state.Grp2AadPrefix, crossSeed)
+ 	return doc, nil
+ }
+ 
+@@ -135,6 +135,7 @@
+ 	var rows []model.BindRow
+ 	var g1Prefix, g2Prefix string
+ 	var partSig string
++	wantPart := ctx.Phase == "verify" && (spec.ID == "r2" || spec.ID == "f7" || spec.ID == "b2")
+ 	for _, grpEntry := range view.Groups {
+ 		grp := uint32(grpEntry.GrpID)
+ 		keyBytes, err := keyring.ResolveKey(keyMat, grp, table)
+@@ -177,14 +178,14 @@
+ 				continue
+ 			}
+ 			partAad := aad
+-			if spec.ID == "r2" {
++			if wantPart {
+ 				partAad = append(append([]byte(nil), keyBytes...), aad...)
+ 			}
+ 			plain, err := chunkxor.DecryptChunk(raw[start:end], partAad, off)
+ 			if err != nil {
+ 				return nil, "", "", "", err
+ 			}
+-			if partSig == "" && ctx.Phase == "verify" && (spec.ID == "r2" || spec.ID == "f7") {
++			if partSig == "" && wantPart {
+ 				partSig = partPlainSig(plain)
+ 			}
+ 		}

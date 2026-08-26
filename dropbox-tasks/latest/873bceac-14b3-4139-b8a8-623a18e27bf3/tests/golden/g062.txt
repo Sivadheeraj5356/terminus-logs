@@ -1,0 +1,12 @@
+== Petrified Garden [fungal] ==
+Omen: A cold star falls.
+Light: 0.0 lumens
+Relics:
+  (too dark to discern)
+Exits:
+  - up: ??? (torch 4.0)
+Torch: 0.0 units
+Inventory: (empty)
+Route: ???
+---ACTIONS---
+wait

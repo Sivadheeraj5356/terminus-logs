@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytics-edge
+  annotations:
+    serving.mlp.io/framework: triton
+    model.mlp.io/artifact-sha256: sha256:analytics99aa
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: analytics-edge
+  template:
+    metadata:
+      labels:
+        app: analytics-edge
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: triton
+        model.mlp.io/artifact-sha256: sha256:analytics99aa
+    spec:
+      containers:
+        - name: metrics-sidecar
+          image: prom/prometheus:v2.45.0
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+        - name: triton-model-server
+          image: nvcr.io/nvidia/tritonserver:24.01-py3
+          resources:
+            requests:
+              cpu: "1800m"
+              memory: "4096Mi"
+          readinessProbe:
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /v2/health/live
+              port: 8000

@@ -1,0 +1,74 @@
+{
+  "budgets": {
+    "A": 12,
+    "B": 11,
+    "C": 11
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "C",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 2,
+      "seq": 2
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 3
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "A",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 2,
+      "seq": 4
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "C",
+      "pages": 2,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 5
+    },
+    {
+      "job": "j4",
+      "op": "hold",
+      "seq": 6
+    },
+    {
+      "job": "j4",
+      "op": "cancel",
+      "seq": 7
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 8
+    }
+  ],
+  "printers": [
+    "p1",
+    "p2"
+  ],
+  "spool": "sched_19"
+}

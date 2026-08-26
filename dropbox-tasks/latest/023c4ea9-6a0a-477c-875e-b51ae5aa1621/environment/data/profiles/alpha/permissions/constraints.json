@@ -1,0 +1,44 @@
+[
+  {
+    "order": 10,
+    "src_level": 1,
+    "dst_level": 2,
+    "action": "allow"
+  },
+  {
+    "order": 20,
+    "src_level": 1,
+    "dst_level": 3,
+    "action": "deny"
+  },
+  {
+    "order": 30,
+    "src_level": 2,
+    "dst_level": 3,
+    "action": "allow"
+  },
+  {
+    "order": 40,
+    "src_level": 3,
+    "dst_level": 4,
+    "action": "allow"
+  },
+  {
+    "order": 50,
+    "src_level": 2,
+    "dst_level": 4,
+    "action": "allow"
+  },
+  {
+    "order": 60,
+    "src_level": 4,
+    "dst_level": 6,
+    "action": "allow"
+  },
+  {
+    "order": 70,
+    "src_level": 6,
+    "dst_level": 9,
+    "action": "allow"
+  }
+]

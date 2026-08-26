@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "rupesh1285"
+author_email = "rupeshagarwal728@gmail.com"
+difficulty = "hard"
+category = "scientific-computing"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["rust"]
+tags = ["scientific-computing", "archaeometallurgy", "numismatics", "alloy-density", "xrf", "feasibility-region"]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 420
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 900.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240

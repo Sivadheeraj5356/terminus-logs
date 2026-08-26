@@ -1,0 +1,4 @@
+{
+  "0091": "Ledger freshness uses committed_at; registry gate reads deployment_approved; run order descending.",
+  "0093": "Select first normative_archive_candidates entry matching opening_contains."
+}

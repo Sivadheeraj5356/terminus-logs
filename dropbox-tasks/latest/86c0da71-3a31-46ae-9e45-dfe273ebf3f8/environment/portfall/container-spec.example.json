@@ -1,0 +1,40 @@
+{
+  "startContainer": "bay-a1",
+  "containers": [
+    {
+      "id": "bay-a1",
+      "stackedOn": null,
+      "seals": [],
+      "hazards": [],
+      "connectsTo": ["bay-b2", "deck-hold"]
+    },
+    {
+      "id": "bay-b2",
+      "stackedOn": "bay-a1",
+      "seals": ["seal-brass-12"],
+      "hazards": [],
+      "connectsTo": ["bay-a1", "reefer-r7"]
+    },
+    {
+      "id": "deck-hold",
+      "stackedOn": null,
+      "seals": ["seal-iron-04"],
+      "hazards": ["corrosive"],
+      "connectsTo": ["bay-a1", "tank-t4"]
+    },
+    {
+      "id": "reefer-r7",
+      "stackedOn": "bay-b2",
+      "seals": [],
+      "hazards": ["cryogenic"],
+      "connectsTo": ["bay-b2"]
+    },
+    {
+      "id": "tank-t4",
+      "stackedOn": null,
+      "seals": ["seal-lead-09"],
+      "hazards": ["corrosive", "ventilated"],
+      "connectsTo": ["deck-hold"]
+    }
+  ]
+}

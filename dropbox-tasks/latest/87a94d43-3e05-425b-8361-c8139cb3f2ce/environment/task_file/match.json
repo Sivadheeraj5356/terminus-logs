@@ -1,0 +1,85 @@
+{
+  "players": ["amber", "violet"],
+  "claimant": "amber",
+  "budget": 9,
+  "relay_requirements": [
+    {"id":"claimant-chain","rulings":["d1-east","d1-north","d3-strike","d3-hub","d5-guard","d5-strike"],"min_selected":2,"max_selected":3},
+    {"id":"response-chain","rulings":["d2-north","d2-hub","d4-guard","d4-strike","d6-strike","d6-guard"],"min_selected":2,"max_selected":3}
+  ],
+  "coordination_costs": [
+    {"rulings":["d1-east","d3-strike","d6-strike"],"cost":2},
+    {"rulings":["d2-hub","d4-guard"],"cost":1}
+  ],
+  "cells": [
+    {"id": "hub", "neighbors": ["north", "east", "west"], "move_cost": 1, "beacon": 2, "recharge": 0},
+    {"id": "north", "neighbors": ["hub", "east"], "move_cost": 2, "beacon": 1, "recharge": 1},
+    {"id": "east", "neighbors": ["hub", "north", "south"], "move_cost": 1, "beacon": 0, "recharge": 0},
+    {"id": "south", "neighbors": ["east", "west"], "move_cost": 2, "beacon": 3, "recharge": 1},
+    {"id": "west", "neighbors": ["hub", "south"], "move_cost": 1, "beacon": 0, "recharge": 2}
+  ],
+  "units": [
+    {"id": "a-lark", "player": "amber", "cell": "hub", "health": 8, "energy": 4, "max_energy": 5, "strength": 3},
+    {"id": "a-rook", "player": "amber", "cell": "west", "health": 6, "energy": 4, "max_energy": 5, "strength": 2},
+    {"id": "v-moth", "player": "violet", "cell": "east", "health": 7, "energy": 4, "max_energy": 5, "strength": 3},
+    {"id": "v-wren", "player": "violet", "cell": "south", "health": 6, "energy": 3, "max_energy": 4, "strength": 2}
+  ],
+  "rounds": [
+    [
+      {"unit": "a-lark", "type": "move", "to": "east"},
+      {"unit": "v-moth", "type": "move", "to": "north"},
+      {"unit": "a-rook", "type": "move", "to": "south"},
+      {"unit": "v-wren", "type": "move", "to": "west"}
+    ],
+    [
+      {"unit": "a-lark", "type": "move", "to": "hub"},
+      {"unit": "v-moth", "type": "move", "to": "hub"},
+      {"unit": "a-rook", "type": "strike", "target": "v-wren"},
+      {"unit": "v-wren", "type": "guard"}
+    ],
+    [
+      {"unit": "a-lark", "type": "guard"},
+      {"unit": "v-moth", "type": "strike", "target": "a-lark"},
+      {"unit": "a-rook", "type": "strike", "target": "v-wren"},
+      {"unit": "v-wren", "type": "strike", "target": "a-rook"}
+    ],
+    [
+      {"unit": "a-lark", "type": "strike", "target": "v-moth"},
+      {"unit": "v-moth", "type": "strike", "target": "a-lark"},
+      {"unit": "a-rook", "type": "guard"},
+      {"unit": "v-wren", "type": "strike", "target": "a-rook"}
+    ]
+  ],
+  "rulings": [
+    {"id":"d1-hold","cost":0,"requires_all":[],"requires_any":[],"conflicts":[],"round":0,"unit":"a-lark","action":{"unit":"a-lark","type":"wait"}},
+    {"id":"d1-east","cost":2,"requires_all":[],"requires_any":[["d2-hold","d2-north"]],"conflicts":[],"round":0,"unit":"a-lark","action":{"unit":"a-lark","type":"move","to":"east"}},
+    {"id":"d1-north","cost":1,"requires_all":["d5-guard"],"requires_any":[],"conflicts":[],"round":0,"unit":"a-lark","action":{"unit":"a-lark","type":"move","to":"north"}},
+
+    {"id":"d2-hold","cost":0,"requires_all":[],"requires_any":[],"conflicts":[],"round":0,"unit":"v-moth","action":{"unit":"v-moth","type":"wait"}},
+    {"id":"d2-north","cost":1,"requires_all":[],"requires_any":[],"conflicts":["d5-strike"],"round":0,"unit":"v-moth","action":{"unit":"v-moth","type":"move","to":"north"}},
+    {"id":"d2-hub","cost":2,"requires_all":["d4-guard"],"requires_any":[],"conflicts":[],"round":0,"unit":"v-moth","action":{"unit":"v-moth","type":"move","to":"hub"}},
+
+    {"id":"d3-hold","cost":0,"requires_all":[],"requires_any":[],"conflicts":[],"round":1,"unit":"a-rook","action":{"unit":"a-rook","type":"wait"}},
+    {"id":"d3-strike","cost":2,"requires_all":[],"requires_any":[["d4-guard","d4-strike"]],"conflicts":[],"round":1,"unit":"a-rook","action":{"unit":"a-rook","type":"strike","target":"v-wren"}},
+    {"id":"d3-hub","cost":1,"requires_all":[],"requires_any":[],"conflicts":["d2-hub"],"round":1,"unit":"a-rook","action":{"unit":"a-rook","type":"move","to":"hub"}},
+
+    {"id":"d4-hold","cost":0,"requires_all":[],"requires_any":[],"conflicts":[],"round":1,"unit":"v-wren","action":{"unit":"v-wren","type":"wait"}},
+    {"id":"d4-guard","cost":2,"requires_all":[],"requires_any":[],"conflicts":[],"round":1,"unit":"v-wren","action":{"unit":"v-wren","type":"guard"}},
+    {"id":"d4-strike","cost":1,"requires_all":["d6-strike"],"requires_any":[],"conflicts":[],"round":1,"unit":"v-wren","action":{"unit":"v-wren","type":"strike","target":"a-rook"}},
+
+    {"id":"d5-hold","cost":0,"requires_all":[],"requires_any":[],"conflicts":[],"round":2,"unit":"a-lark","action":{"unit":"a-lark","type":"wait"}},
+    {"id":"d5-guard","cost":2,"requires_all":[],"requires_any":[],"conflicts":[],"round":2,"unit":"a-lark","action":{"unit":"a-lark","type":"guard"}},
+    {"id":"d5-strike","cost":2,"requires_all":[],"requires_any":[],"conflicts":["d6-guard"],"round":2,"unit":"a-lark","action":{"unit":"a-lark","type":"strike","target":"v-moth"}},
+
+    {"id":"d6-hold","cost":0,"requires_all":[],"requires_any":[],"conflicts":[],"round":2,"unit":"v-moth","action":{"unit":"v-moth","type":"wait"}},
+    {"id":"d6-strike","cost":2,"requires_all":[],"requires_any":[["d1-east","d3-strike"]],"conflicts":[],"round":2,"unit":"v-moth","action":{"unit":"v-moth","type":"strike","target":"a-lark"}},
+    {"id":"d6-guard","cost":1,"requires_all":[],"requires_any":[],"conflicts":[],"round":2,"unit":"v-moth","action":{"unit":"v-moth","type":"guard"}}
+  ],
+  "dockets": [
+    ["d1-hold","d1-east","d1-north"],
+    ["d2-hold","d2-north","d2-hub"],
+    ["d3-hold","d3-strike","d3-hub"],
+    ["d4-hold","d4-guard","d4-strike"],
+    ["d5-hold","d5-guard","d5-strike"],
+    ["d6-hold","d6-strike","d6-guard"]
+  ]
+}

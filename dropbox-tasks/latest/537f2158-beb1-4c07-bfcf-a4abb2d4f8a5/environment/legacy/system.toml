@@ -1,0 +1,13 @@
+# FinchRender system configuration
+tile_workers = 8
+frame_buffer_mb = 512
+socket_timeout = 30
+log_level = "info"
+
+[gpu]
+device = "/dev/dri/renderD128"
+enumerate_via = "/sys/class/drm"
+
+[memory]
+shmmax_check = true
+shmmax_path = "/proc/sys/kernel/shmmax"

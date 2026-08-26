@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: FINANCE
+description: Apexora FINANCE macro-segment
+rd: "65001:1001"
+rt_export: "65001:1001"
+rt_import:
+  - "65001:1001"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

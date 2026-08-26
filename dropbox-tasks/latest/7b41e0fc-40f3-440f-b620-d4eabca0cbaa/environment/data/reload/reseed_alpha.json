@@ -1,0 +1,5 @@
+{
+  "lane_id": "lane_alpha",
+  "wrap_epoch": 2,
+  "candidate_parents": ["a0"]
+}

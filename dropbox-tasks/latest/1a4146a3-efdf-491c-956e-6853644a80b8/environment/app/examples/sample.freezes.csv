@@ -1,0 +1,2 @@
+freeze_id,zone,owner_suffix,record_type,start_utc,end_utc,reason
+FZ0,example.com.,mail.example.com.,MX,2026-01-01T00:00:00Z,2026-01-02T00:00:00Z,old window

@@ -1,0 +1,6 @@
+RULE EMPTY_LIST_RESET
+IN keys
+OUT value,reason
+TABLE
+list_empty_assign -> reset|list-reset
+END

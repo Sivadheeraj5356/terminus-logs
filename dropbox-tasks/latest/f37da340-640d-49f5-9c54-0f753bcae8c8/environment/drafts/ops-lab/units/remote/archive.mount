@@ -1,0 +1,10 @@
+[Unit]
+Description=sitefab archive arm
+
+[Mount]
+What=/srv/backing/archive
+Where=/srv/arms/archive
+Type=none
+Options=ro,nofail
+X-Sitefab-Remote=yes
+X-Sitefab-OrderHint=30

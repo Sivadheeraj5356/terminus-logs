@@ -1,0 +1,1083 @@
+schema_version: apexora-vlan-catalog-1
+vlan_count: 180
+vlans:
+  - id: 2001
+    name: CORP-001
+    segment: corp
+    vrf: FINANCE
+    campus: campus-amw-sea
+    legacy_id: 102
+  - id: 2002
+    name: FINANCE-002
+    segment: finance
+    vrf: HR
+    campus: campus-emea-lon
+    legacy_id: 103
+  - id: 2003
+    name: HR-003
+    segment: hr
+    vrf: PAYROLL
+    campus: campus-emea-fra
+    legacy_id: 104
+  - id: 2004
+    name: MFG-004
+    segment: mfg
+    vrf: MFG-OT
+    campus: campus-apac-sin
+    legacy_id: 105
+  - id: 2005
+    name: OT-005
+    segment: ot
+    vrf: MFG-IT
+    campus: campus-apac-tyo
+    legacy_id: 106
+  - id: 2006
+    name: GUEST-006
+    segment: guest
+    vrf: SCADA
+    campus: campus-hq-dal
+    legacy_id: 107
+  - id: 2007
+    name: DMZ-007
+    segment: dmz
+    vrf: GUEST
+    campus: campus-amw-sea
+    legacy_id: 108
+  - id: 2008
+    name: PCI-008
+    segment: pci
+    vrf: GUEST-WIFI
+    campus: campus-emea-lon
+    legacy_id: 109
+  - id: 2009
+    name: VOICE-009
+    segment: voice
+    vrf: DMZ
+    campus: campus-emea-fra
+    legacy_id: 110
+  - id: 2010
+    name: VIDEO-010
+    segment: video
+    vrf: DMZ-PUB
+    campus: campus-apac-sin
+    legacy_id: 111
+  - id: 2011
+    name: MGMT-011
+    segment: mgmt
+    vrf: PCI
+    campus: campus-apac-tyo
+    legacy_id: 112
+  - id: 2012
+    name: LAB-012
+    segment: lab
+    vrf: VOICE
+    campus: campus-hq-dal
+    legacy_id: 113
+  - id: 2013
+    name: VENDOR-013
+    segment: vendor
+    vrf: VIDEO
+    campus: campus-amw-sea
+    legacy_id: 114
+  - id: 2014
+    name: RETAIL-014
+    segment: retail
+    vrf: MGMT
+    campus: campus-emea-lon
+    legacy_id: 115
+  - id: 2015
+    name: LOGISTICS-015
+    segment: logistics
+    vrf: IDENTITY
+    campus: campus-emea-fra
+    legacy_id: 116
+  - id: 2016
+    name: CORP-016
+    segment: corp
+    vrf: BACKUP
+    campus: campus-apac-sin
+    legacy_id: 117
+  - id: 2017
+    name: FINANCE-017
+    segment: finance
+    vrf: REPLICATION
+    campus: campus-apac-tyo
+    legacy_id: 118
+  - id: 2018
+    name: HR-018
+    segment: hr
+    vrf: LAB
+    campus: campus-hq-dal
+    legacy_id: 119
+  - id: 2019
+    name: MFG-019
+    segment: mfg
+    vrf: DEV
+    campus: campus-amw-sea
+    legacy_id: 120
+  - id: 2020
+    name: OT-020
+    segment: ot
+    vrf: QA
+    campus: campus-emea-lon
+    legacy_id: 121
+  - id: 2021
+    name: GUEST-021
+    segment: guest
+    vrf: STAGING
+    campus: campus-emea-fra
+    legacy_id: 122
+  - id: 2022
+    name: DMZ-022
+    segment: dmz
+    vrf: VENDOR
+    campus: campus-apac-sin
+    legacy_id: 123
+  - id: 2023
+    name: PCI-023
+    segment: pci
+    vrf: PARTNER
+    campus: campus-apac-tyo
+    legacy_id: 124
+  - id: 2024
+    name: VOICE-024
+    segment: voice
+    vrf: LOGISTICS
+    campus: campus-hq-dal
+    legacy_id: 125
+  - id: 2025
+    name: VIDEO-025
+    segment: video
+    vrf: WAREHOUSE
+    campus: campus-amw-sea
+    legacy_id: 126
+  - id: 2026
+    name: MGMT-026
+    segment: mgmt
+    vrf: RETAIL
+    campus: campus-emea-lon
+    legacy_id: 127
+  - id: 2027
+    name: LAB-027
+    segment: lab
+    vrf: BUILDING-AUTO
+    campus: campus-emea-fra
+    legacy_id: 128
+  - id: 2028
+    name: VENDOR-028
+    segment: vendor
+    vrf: EMERGENCY
+    campus: campus-apac-sin
+    legacy_id: 129
+  - id: 2029
+    name: RETAIL-029
+    segment: retail
+    vrf: TELEMED
+    campus: campus-apac-tyo
+    legacy_id: 130
+  - id: 2030
+    name: LOGISTICS-030
+    segment: logistics
+    vrf: CORP-IT
+    campus: campus-hq-dal
+    legacy_id: 131
+  - id: 2031
+    name: CORP-031
+    segment: corp
+    vrf: FINANCE
+    campus: campus-amw-sea
+    legacy_id: 132
+  - id: 2032
+    name: FINANCE-032
+    segment: finance
+    vrf: HR
+    campus: campus-emea-lon
+    legacy_id: 133
+  - id: 2033
+    name: HR-033
+    segment: hr
+    vrf: PAYROLL
+    campus: campus-emea-fra
+    legacy_id: 134
+  - id: 2034
+    name: MFG-034
+    segment: mfg
+    vrf: MFG-OT
+    campus: campus-apac-sin
+    legacy_id: 135
+  - id: 2035
+    name: OT-035
+    segment: ot
+    vrf: MFG-IT
+    campus: campus-apac-tyo
+    legacy_id: 136
+  - id: 2036
+    name: GUEST-036
+    segment: guest
+    vrf: SCADA
+    campus: campus-hq-dal
+    legacy_id: 137
+  - id: 2037
+    name: DMZ-037
+    segment: dmz
+    vrf: GUEST
+    campus: campus-amw-sea
+    legacy_id: 138
+  - id: 2038
+    name: PCI-038
+    segment: pci
+    vrf: GUEST-WIFI
+    campus: campus-emea-lon
+    legacy_id: 139
+  - id: 2039
+    name: VOICE-039
+    segment: voice
+    vrf: DMZ
+    campus: campus-emea-fra
+    legacy_id: 140
+  - id: 2040
+    name: VIDEO-040
+    segment: video
+    vrf: DMZ-PUB
+    campus: campus-apac-sin
+    legacy_id: 141
+  - id: 2041
+    name: MGMT-041
+    segment: mgmt
+    vrf: PCI
+    campus: campus-apac-tyo
+    legacy_id: 142
+  - id: 2042
+    name: LAB-042
+    segment: lab
+    vrf: VOICE
+    campus: campus-hq-dal
+    legacy_id: 143
+  - id: 2043
+    name: VENDOR-043
+    segment: vendor
+    vrf: VIDEO
+    campus: campus-amw-sea
+    legacy_id: 144
+  - id: 2044
+    name: RETAIL-044
+    segment: retail
+    vrf: MGMT
+    campus: campus-emea-lon
+    legacy_id: 145
+  - id: 2045
+    name: LOGISTICS-045
+    segment: logistics
+    vrf: IDENTITY
+    campus: campus-emea-fra
+    legacy_id: 146
+  - id: 2046
+    name: CORP-046
+    segment: corp
+    vrf: BACKUP
+    campus: campus-apac-sin
+    legacy_id: 147
+  - id: 2047
+    name: FINANCE-047
+    segment: finance
+    vrf: REPLICATION
+    campus: campus-apac-tyo
+    legacy_id: 148
+  - id: 2048
+    name: HR-048
+    segment: hr
+    vrf: LAB
+    campus: campus-hq-dal
+    legacy_id: 149
+  - id: 2049
+    name: MFG-049
+    segment: mfg
+    vrf: DEV
+    campus: campus-amw-sea
+    legacy_id: 150
+  - id: 2050
+    name: OT-050
+    segment: ot
+    vrf: QA
+    campus: campus-emea-lon
+    legacy_id: 151
+  - id: 2051
+    name: GUEST-051
+    segment: guest
+    vrf: STAGING
+    campus: campus-emea-fra
+    legacy_id: 152
+  - id: 2052
+    name: DMZ-052
+    segment: dmz
+    vrf: VENDOR
+    campus: campus-apac-sin
+    legacy_id: 153
+  - id: 2053
+    name: PCI-053
+    segment: pci
+    vrf: PARTNER
+    campus: campus-apac-tyo
+    legacy_id: 154
+  - id: 2054
+    name: VOICE-054
+    segment: voice
+    vrf: LOGISTICS
+    campus: campus-hq-dal
+    legacy_id: 155
+  - id: 2055
+    name: VIDEO-055
+    segment: video
+    vrf: WAREHOUSE
+    campus: campus-amw-sea
+    legacy_id: 156
+  - id: 2056
+    name: MGMT-056
+    segment: mgmt
+    vrf: RETAIL
+    campus: campus-emea-lon
+    legacy_id: 157
+  - id: 2057
+    name: LAB-057
+    segment: lab
+    vrf: BUILDING-AUTO
+    campus: campus-emea-fra
+    legacy_id: 158
+  - id: 2058
+    name: VENDOR-058
+    segment: vendor
+    vrf: EMERGENCY
+    campus: campus-apac-sin
+    legacy_id: 159
+  - id: 2059
+    name: RETAIL-059
+    segment: retail
+    vrf: TELEMED
+    campus: campus-apac-tyo
+    legacy_id: 160
+  - id: 2060
+    name: LOGISTICS-060
+    segment: logistics
+    vrf: CORP-IT
+    campus: campus-hq-dal
+    legacy_id: 161
+  - id: 2061
+    name: CORP-061
+    segment: corp
+    vrf: FINANCE
+    campus: campus-amw-sea
+    legacy_id: 162
+  - id: 2062
+    name: FINANCE-062
+    segment: finance
+    vrf: HR
+    campus: campus-emea-lon
+    legacy_id: 163
+  - id: 2063
+    name: HR-063
+    segment: hr
+    vrf: PAYROLL
+    campus: campus-emea-fra
+    legacy_id: 164
+  - id: 2064
+    name: MFG-064
+    segment: mfg
+    vrf: MFG-OT
+    campus: campus-apac-sin
+    legacy_id: 165
+  - id: 2065
+    name: OT-065
+    segment: ot
+    vrf: MFG-IT
+    campus: campus-apac-tyo
+    legacy_id: 166
+  - id: 2066
+    name: GUEST-066
+    segment: guest
+    vrf: SCADA
+    campus: campus-hq-dal
+    legacy_id: 167
+  - id: 2067
+    name: DMZ-067
+    segment: dmz
+    vrf: GUEST
+    campus: campus-amw-sea
+    legacy_id: 168
+  - id: 2068
+    name: PCI-068
+    segment: pci
+    vrf: GUEST-WIFI
+    campus: campus-emea-lon
+    legacy_id: 169
+  - id: 2069
+    name: VOICE-069
+    segment: voice
+    vrf: DMZ
+    campus: campus-emea-fra
+    legacy_id: 170
+  - id: 2070
+    name: VIDEO-070
+    segment: video
+    vrf: DMZ-PUB
+    campus: campus-apac-sin
+    legacy_id: 171
+  - id: 2071
+    name: MGMT-071
+    segment: mgmt
+    vrf: PCI
+    campus: campus-apac-tyo
+    legacy_id: 172
+  - id: 2072
+    name: LAB-072
+    segment: lab
+    vrf: VOICE
+    campus: campus-hq-dal
+    legacy_id: 173
+  - id: 2073
+    name: VENDOR-073
+    segment: vendor
+    vrf: VIDEO
+    campus: campus-amw-sea
+    legacy_id: 174
+  - id: 2074
+    name: RETAIL-074
+    segment: retail
+    vrf: MGMT
+    campus: campus-emea-lon
+    legacy_id: 175
+  - id: 2075
+    name: LOGISTICS-075
+    segment: logistics
+    vrf: IDENTITY
+    campus: campus-emea-fra
+    legacy_id: 176
+  - id: 2076
+    name: CORP-076
+    segment: corp
+    vrf: BACKUP
+    campus: campus-apac-sin
+    legacy_id: 177
+  - id: 2077
+    name: FINANCE-077
+    segment: finance
+    vrf: REPLICATION
+    campus: campus-apac-tyo
+    legacy_id: 178
+  - id: 2078
+    name: HR-078
+    segment: hr
+    vrf: LAB
+    campus: campus-hq-dal
+    legacy_id: 179
+  - id: 2079
+    name: MFG-079
+    segment: mfg
+    vrf: DEV
+    campus: campus-amw-sea
+    legacy_id: 180
+  - id: 2080
+    name: OT-080
+    segment: ot
+    vrf: QA
+    campus: campus-emea-lon
+    legacy_id: 101
+  - id: 2081
+    name: GUEST-081
+    segment: guest
+    vrf: STAGING
+    campus: campus-emea-fra
+    legacy_id: 102
+  - id: 2082
+    name: DMZ-082
+    segment: dmz
+    vrf: VENDOR
+    campus: campus-apac-sin
+    legacy_id: 103
+  - id: 2083
+    name: PCI-083
+    segment: pci
+    vrf: PARTNER
+    campus: campus-apac-tyo
+    legacy_id: 104
+  - id: 2084
+    name: VOICE-084
+    segment: voice
+    vrf: LOGISTICS
+    campus: campus-hq-dal
+    legacy_id: 105
+  - id: 2085
+    name: VIDEO-085
+    segment: video
+    vrf: WAREHOUSE
+    campus: campus-amw-sea
+    legacy_id: 106
+  - id: 2086
+    name: MGMT-086
+    segment: mgmt
+    vrf: RETAIL
+    campus: campus-emea-lon
+    legacy_id: 107
+  - id: 2087
+    name: LAB-087
+    segment: lab
+    vrf: BUILDING-AUTO
+    campus: campus-emea-fra
+    legacy_id: 108
+  - id: 2088
+    name: VENDOR-088
+    segment: vendor
+    vrf: EMERGENCY
+    campus: campus-apac-sin
+    legacy_id: 109
+  - id: 2089
+    name: RETAIL-089
+    segment: retail
+    vrf: TELEMED
+    campus: campus-apac-tyo
+    legacy_id: 110
+  - id: 2090
+    name: LOGISTICS-090
+    segment: logistics
+    vrf: CORP-IT
+    campus: campus-hq-dal
+    legacy_id: 111
+  - id: 2091
+    name: CORP-091
+    segment: corp
+    vrf: FINANCE
+    campus: campus-amw-sea
+    legacy_id: 112
+  - id: 2092
+    name: FINANCE-092
+    segment: finance
+    vrf: HR
+    campus: campus-emea-lon
+    legacy_id: 113
+  - id: 2093
+    name: HR-093
+    segment: hr
+    vrf: PAYROLL
+    campus: campus-emea-fra
+    legacy_id: 114
+  - id: 2094
+    name: MFG-094
+    segment: mfg
+    vrf: MFG-OT
+    campus: campus-apac-sin
+    legacy_id: 115
+  - id: 2095
+    name: OT-095
+    segment: ot
+    vrf: MFG-IT
+    campus: campus-apac-tyo
+    legacy_id: 116
+  - id: 2096
+    name: GUEST-096
+    segment: guest
+    vrf: SCADA
+    campus: campus-hq-dal
+    legacy_id: 117
+  - id: 2097
+    name: DMZ-097
+    segment: dmz
+    vrf: GUEST
+    campus: campus-amw-sea
+    legacy_id: 118
+  - id: 2098
+    name: PCI-098
+    segment: pci
+    vrf: GUEST-WIFI
+    campus: campus-emea-lon
+    legacy_id: 119
+  - id: 2099
+    name: VOICE-099
+    segment: voice
+    vrf: DMZ
+    campus: campus-emea-fra
+    legacy_id: 120
+  - id: 2100
+    name: VIDEO-100
+    segment: video
+    vrf: DMZ-PUB
+    campus: campus-apac-sin
+    legacy_id: 121
+  - id: 2101
+    name: MGMT-101
+    segment: mgmt
+    vrf: PCI
+    campus: campus-apac-tyo
+    legacy_id: 122
+  - id: 2102
+    name: LAB-102
+    segment: lab
+    vrf: VOICE
+    campus: campus-hq-dal
+    legacy_id: 123
+  - id: 2103
+    name: VENDOR-103
+    segment: vendor
+    vrf: VIDEO
+    campus: campus-amw-sea
+    legacy_id: 124
+  - id: 2104
+    name: RETAIL-104
+    segment: retail
+    vrf: MGMT
+    campus: campus-emea-lon
+    legacy_id: 125
+  - id: 2105
+    name: LOGISTICS-105
+    segment: logistics
+    vrf: IDENTITY
+    campus: campus-emea-fra
+    legacy_id: 126
+  - id: 2106
+    name: CORP-106
+    segment: corp
+    vrf: BACKUP
+    campus: campus-apac-sin
+    legacy_id: 127
+  - id: 2107
+    name: FINANCE-107
+    segment: finance
+    vrf: REPLICATION
+    campus: campus-apac-tyo
+    legacy_id: 128
+  - id: 2108
+    name: HR-108
+    segment: hr
+    vrf: LAB
+    campus: campus-hq-dal
+    legacy_id: 129
+  - id: 2109
+    name: MFG-109
+    segment: mfg
+    vrf: DEV
+    campus: campus-amw-sea
+    legacy_id: 130
+  - id: 2110
+    name: OT-110
+    segment: ot
+    vrf: QA
+    campus: campus-emea-lon
+    legacy_id: 131
+  - id: 2111
+    name: GUEST-111
+    segment: guest
+    vrf: STAGING
+    campus: campus-emea-fra
+    legacy_id: 132
+  - id: 2112
+    name: DMZ-112
+    segment: dmz
+    vrf: VENDOR
+    campus: campus-apac-sin
+    legacy_id: 133
+  - id: 2113
+    name: PCI-113
+    segment: pci
+    vrf: PARTNER
+    campus: campus-apac-tyo
+    legacy_id: 134
+  - id: 2114
+    name: VOICE-114
+    segment: voice
+    vrf: LOGISTICS
+    campus: campus-hq-dal
+    legacy_id: 135
+  - id: 2115
+    name: VIDEO-115
+    segment: video
+    vrf: WAREHOUSE
+    campus: campus-amw-sea
+    legacy_id: 136
+  - id: 2116
+    name: MGMT-116
+    segment: mgmt
+    vrf: RETAIL
+    campus: campus-emea-lon
+    legacy_id: 137
+  - id: 2117
+    name: LAB-117
+    segment: lab
+    vrf: BUILDING-AUTO
+    campus: campus-emea-fra
+    legacy_id: 138
+  - id: 2118
+    name: VENDOR-118
+    segment: vendor
+    vrf: EMERGENCY
+    campus: campus-apac-sin
+    legacy_id: 139
+  - id: 2119
+    name: RETAIL-119
+    segment: retail
+    vrf: TELEMED
+    campus: campus-apac-tyo
+    legacy_id: 140
+  - id: 2120
+    name: LOGISTICS-120
+    segment: logistics
+    vrf: CORP-IT
+    campus: campus-hq-dal
+    legacy_id: 141
+  - id: 2121
+    name: CORP-121
+    segment: corp
+    vrf: FINANCE
+    campus: campus-amw-sea
+    legacy_id: 142
+  - id: 2122
+    name: FINANCE-122
+    segment: finance
+    vrf: HR
+    campus: campus-emea-lon
+    legacy_id: 143
+  - id: 2123
+    name: HR-123
+    segment: hr
+    vrf: PAYROLL
+    campus: campus-emea-fra
+    legacy_id: 144
+  - id: 2124
+    name: MFG-124
+    segment: mfg
+    vrf: MFG-OT
+    campus: campus-apac-sin
+    legacy_id: 145
+  - id: 2125
+    name: OT-125
+    segment: ot
+    vrf: MFG-IT
+    campus: campus-apac-tyo
+    legacy_id: 146
+  - id: 2126
+    name: GUEST-126
+    segment: guest
+    vrf: SCADA
+    campus: campus-hq-dal
+    legacy_id: 147
+  - id: 2127
+    name: DMZ-127
+    segment: dmz
+    vrf: GUEST
+    campus: campus-amw-sea
+    legacy_id: 148
+  - id: 2128
+    name: PCI-128
+    segment: pci
+    vrf: GUEST-WIFI
+    campus: campus-emea-lon
+    legacy_id: 149
+  - id: 2129
+    name: VOICE-129
+    segment: voice
+    vrf: DMZ
+    campus: campus-emea-fra
+    legacy_id: 150
+  - id: 2130
+    name: VIDEO-130
+    segment: video
+    vrf: DMZ-PUB
+    campus: campus-apac-sin
+    legacy_id: 151
+  - id: 2131
+    name: MGMT-131
+    segment: mgmt
+    vrf: PCI
+    campus: campus-apac-tyo
+    legacy_id: 152
+  - id: 2132
+    name: LAB-132
+    segment: lab
+    vrf: VOICE
+    campus: campus-hq-dal
+    legacy_id: 153
+  - id: 2133
+    name: VENDOR-133
+    segment: vendor
+    vrf: VIDEO
+    campus: campus-amw-sea
+    legacy_id: 154
+  - id: 2134
+    name: RETAIL-134
+    segment: retail
+    vrf: MGMT
+    campus: campus-emea-lon
+    legacy_id: 155
+  - id: 2135
+    name: LOGISTICS-135
+    segment: logistics
+    vrf: IDENTITY
+    campus: campus-emea-fra
+    legacy_id: 156
+  - id: 2136
+    name: CORP-136
+    segment: corp
+    vrf: BACKUP
+    campus: campus-apac-sin
+    legacy_id: 157
+  - id: 2137
+    name: FINANCE-137
+    segment: finance
+    vrf: REPLICATION
+    campus: campus-apac-tyo
+    legacy_id: 158
+  - id: 2138
+    name: HR-138
+    segment: hr
+    vrf: LAB
+    campus: campus-hq-dal
+    legacy_id: 159
+  - id: 2139
+    name: MFG-139
+    segment: mfg
+    vrf: DEV
+    campus: campus-amw-sea
+    legacy_id: 160
+  - id: 2140
+    name: OT-140
+    segment: ot
+    vrf: QA
+    campus: campus-emea-lon
+    legacy_id: 161
+  - id: 2141
+    name: GUEST-141
+    segment: guest
+    vrf: STAGING
+    campus: campus-emea-fra
+    legacy_id: 162
+  - id: 2142
+    name: DMZ-142
+    segment: dmz
+    vrf: VENDOR
+    campus: campus-apac-sin
+    legacy_id: 163
+  - id: 2143
+    name: PCI-143
+    segment: pci
+    vrf: PARTNER
+    campus: campus-apac-tyo
+    legacy_id: 164
+  - id: 2144
+    name: VOICE-144
+    segment: voice
+    vrf: LOGISTICS
+    campus: campus-hq-dal
+    legacy_id: 165
+  - id: 2145
+    name: VIDEO-145
+    segment: video
+    vrf: WAREHOUSE
+    campus: campus-amw-sea
+    legacy_id: 166
+  - id: 2146
+    name: MGMT-146
+    segment: mgmt
+    vrf: RETAIL
+    campus: campus-emea-lon
+    legacy_id: 167
+  - id: 2147
+    name: LAB-147
+    segment: lab
+    vrf: BUILDING-AUTO
+    campus: campus-emea-fra
+    legacy_id: 168
+  - id: 2148
+    name: VENDOR-148
+    segment: vendor
+    vrf: EMERGENCY
+    campus: campus-apac-sin
+    legacy_id: 169
+  - id: 2149
+    name: RETAIL-149
+    segment: retail
+    vrf: TELEMED
+    campus: campus-apac-tyo
+    legacy_id: 170
+  - id: 2150
+    name: LOGISTICS-150
+    segment: logistics
+    vrf: CORP-IT
+    campus: campus-hq-dal
+    legacy_id: 171
+  - id: 2151
+    name: CORP-151
+    segment: corp
+    vrf: FINANCE
+    campus: campus-amw-sea
+    legacy_id: 172
+  - id: 2152
+    name: FINANCE-152
+    segment: finance
+    vrf: HR
+    campus: campus-emea-lon
+    legacy_id: 173
+  - id: 2153
+    name: HR-153
+    segment: hr
+    vrf: PAYROLL
+    campus: campus-emea-fra
+    legacy_id: 174
+  - id: 2154
+    name: MFG-154
+    segment: mfg
+    vrf: MFG-OT
+    campus: campus-apac-sin
+    legacy_id: 175
+  - id: 2155
+    name: OT-155
+    segment: ot
+    vrf: MFG-IT
+    campus: campus-apac-tyo
+    legacy_id: 176
+  - id: 2156
+    name: GUEST-156
+    segment: guest
+    vrf: SCADA
+    campus: campus-hq-dal
+    legacy_id: 177
+  - id: 2157
+    name: DMZ-157
+    segment: dmz
+    vrf: GUEST
+    campus: campus-amw-sea
+    legacy_id: 178
+  - id: 2158
+    name: PCI-158
+    segment: pci
+    vrf: GUEST-WIFI
+    campus: campus-emea-lon
+    legacy_id: 179
+  - id: 2159
+    name: VOICE-159
+    segment: voice
+    vrf: DMZ
+    campus: campus-emea-fra
+    legacy_id: 180
+  - id: 2160
+    name: VIDEO-160
+    segment: video
+    vrf: DMZ-PUB
+    campus: campus-apac-sin
+    legacy_id: 101
+  - id: 2161
+    name: MGMT-161
+    segment: mgmt
+    vrf: PCI
+    campus: campus-apac-tyo
+    legacy_id: 102
+  - id: 2162
+    name: LAB-162
+    segment: lab
+    vrf: VOICE
+    campus: campus-hq-dal
+    legacy_id: 103
+  - id: 2163
+    name: VENDOR-163
+    segment: vendor
+    vrf: VIDEO
+    campus: campus-amw-sea
+    legacy_id: 104
+  - id: 2164
+    name: RETAIL-164
+    segment: retail
+    vrf: MGMT
+    campus: campus-emea-lon
+    legacy_id: 105
+  - id: 2165
+    name: LOGISTICS-165
+    segment: logistics
+    vrf: IDENTITY
+    campus: campus-emea-fra
+    legacy_id: 106
+  - id: 2166
+    name: CORP-166
+    segment: corp
+    vrf: BACKUP
+    campus: campus-apac-sin
+    legacy_id: 107
+  - id: 2167
+    name: FINANCE-167
+    segment: finance
+    vrf: REPLICATION
+    campus: campus-apac-tyo
+    legacy_id: 108
+  - id: 2168
+    name: HR-168
+    segment: hr
+    vrf: LAB
+    campus: campus-hq-dal
+    legacy_id: 109
+  - id: 2169
+    name: MFG-169
+    segment: mfg
+    vrf: DEV
+    campus: campus-amw-sea
+    legacy_id: 110
+  - id: 2170
+    name: OT-170
+    segment: ot
+    vrf: QA
+    campus: campus-emea-lon
+    legacy_id: 111
+  - id: 2171
+    name: GUEST-171
+    segment: guest
+    vrf: STAGING
+    campus: campus-emea-fra
+    legacy_id: 112
+  - id: 2172
+    name: DMZ-172
+    segment: dmz
+    vrf: VENDOR
+    campus: campus-apac-sin
+    legacy_id: 113
+  - id: 2173
+    name: PCI-173
+    segment: pci
+    vrf: PARTNER
+    campus: campus-apac-tyo
+    legacy_id: 114
+  - id: 2174
+    name: VOICE-174
+    segment: voice
+    vrf: LOGISTICS
+    campus: campus-hq-dal
+    legacy_id: 115
+  - id: 2175
+    name: VIDEO-175
+    segment: video
+    vrf: WAREHOUSE
+    campus: campus-amw-sea
+    legacy_id: 116
+  - id: 2176
+    name: MGMT-176
+    segment: mgmt
+    vrf: RETAIL
+    campus: campus-emea-lon
+    legacy_id: 117
+  - id: 2177
+    name: LAB-177
+    segment: lab
+    vrf: BUILDING-AUTO
+    campus: campus-emea-fra
+    legacy_id: 118
+  - id: 2178
+    name: VENDOR-178
+    segment: vendor
+    vrf: EMERGENCY
+    campus: campus-apac-sin
+    legacy_id: 119
+  - id: 2179
+    name: RETAIL-179
+    segment: retail
+    vrf: TELEMED
+    campus: campus-apac-tyo
+    legacy_id: 120
+  - id: 2180
+    name: LOGISTICS-180
+    segment: logistics
+    vrf: CORP-IT
+    campus: campus-hq-dal
+    legacy_id: 121

@@ -1,0 +1,7 @@
+{
+  "bundle_id": "lyon_silk_exchange",
+  "policy_family": "exchange",
+  "panels": [
+    {"panel_id": "panel_lyon_velours_exchange"}
+  ]
+}

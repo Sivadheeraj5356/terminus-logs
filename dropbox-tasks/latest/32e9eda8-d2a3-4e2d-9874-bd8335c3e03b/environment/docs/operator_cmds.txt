@@ -1,0 +1,7 @@
+# Required argv sequence for bp_run hook success (one token per line)
+--phase
+all
+--drill
+profile_a
+--emit
+/app/output/cert_report.json

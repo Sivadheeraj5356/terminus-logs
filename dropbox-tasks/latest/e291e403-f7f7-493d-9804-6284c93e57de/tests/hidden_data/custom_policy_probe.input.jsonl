@@ -1,0 +1,5 @@
+{"id":"p1","payload":{"SESSION":"drop","callback":"https://good.example/cb","avatar":"//cdn.bad/x","nested":{"ＲＯＬＥ":"admin","CALLBACK":"%252Fsafe%252Fpath"}}}
+{"id":"p2","payload":{"url":"javascript:kept-as-text","avatar":"jav&#x61;script:alert(1)","note":"Ｎ\u202eote"}}
+{"id":"p3","payload":{"callback":"https://one.example","ｃａｌｌｂａｃｋ":"https://two.example"}}
+
+{"id":"p4","payload":{"callback":"mailto:user@example.com"}}

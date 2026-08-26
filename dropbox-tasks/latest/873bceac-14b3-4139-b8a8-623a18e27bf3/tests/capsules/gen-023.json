@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "vault",
+      "relicmaze.torch": "3.0",
+      "relicmaze.keeper_tz_offset_minutes": "330",
+      "relicmaze.carry_capacity": "60",
+      "relicmaze.goal_room": "atrium",
+      "org.opencontainers.image.title": "gen-023"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:4e44994a69f8fdc4f23664056c90c207d4837085e73aed0b7361e42403e1bf71"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "RUN keeper bless silver-sigil"
+    },
+    {
+      "created_by": "RUN keeper seal echo-lens"
+    },
+    {
+      "created_by": "keeper sign: capsule sealed"
+    },
+    {
+      "created_by": "LABEL omen=\"Salt and silence.\""
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "RUN keeper curse silver-sigil"
+    },
+    {
+      "created_by": "COMMENT the tide is patient"
+    },
+    {
+      "created_by": "RUN keeper seal mercury-mirror"
+    }
+  ]
+}

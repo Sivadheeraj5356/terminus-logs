@@ -1,0 +1,7 @@
+# Ratified trust standard TS-7 (revision 2026.06)
+
+Authority order is `ratified_standard > signed_amendment > incident_directive > release_note > operator_note > archive`. A higher source controls only when subject, incident, and time scopes overlap. Later text at the same rank supersedes earlier text only in the overlap. Different scopes are not conflicts. A remaining same-rank contradiction is unresolved and fails closed for affected paths.
+
+A certificate path is temporally eligible when every signer was authorized at issuance. A signer compromised at or before issuance taints the certificate. A certificate issued before signer compromise remains eligible when the single case-level independent witness quorum is valid and was committed before compromise; this quorum rescue takes precedence over later compromise propagation for that pre-compromise issuance. It does not rescue a certificate issued at or after compromise. Revocation is effective at publication unless `retroactive=true` and a ratified emergency clause supplies `effective_at`. Exceptions authorize only their named service, path, incident, and interval; retrospective use requires `retrospective=true`.
+
+Compromise propagates along active `signs`, `presents`, and `serves` edges. A valid exception blocks only the named propagation edge. Disabled parents block descendants. Unresolved conflicts conservatively reject affected paths.

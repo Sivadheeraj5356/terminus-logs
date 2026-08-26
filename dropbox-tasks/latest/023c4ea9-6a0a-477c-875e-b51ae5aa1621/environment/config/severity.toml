@@ -1,0 +1,8 @@
+[classes]
+high = "short path"
+medium = "mid path"
+low = "long path"
+
+[thresholds]
+high_max_hops = 3
+medium_max_hops = 5

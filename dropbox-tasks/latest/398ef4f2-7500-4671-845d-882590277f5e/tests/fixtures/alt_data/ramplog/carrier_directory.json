@@ -1,0 +1,6 @@
+{
+  "schema": "carrier_directory_v1",
+  "carriers": [
+    {"iata": "WN", "icao": "SWA", "name_short": "southwest"}
+  ]
+}

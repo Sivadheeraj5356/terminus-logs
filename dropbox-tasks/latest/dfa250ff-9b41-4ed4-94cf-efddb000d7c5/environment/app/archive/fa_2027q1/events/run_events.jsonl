@@ -1,0 +1,39 @@
+{"run_id": "run_2027q1_0101","event": "AUDIT_STARTED","at": "2027-01-08T09:15:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0102","event": "AUDIT_STARTED","at": "2027-01-11T14:02:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0103","event": "AUDIT_STARTED","at": "2027-01-14T08:44:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0103","event": "RESCORED","at": "2027-01-15T12:00:00Z","note": "superseded rescore attempt"}
+{"run_id": "run_2027q1_0103","event": "RESCORED","at": "2027-01-16T00:00:00Z","note": "reference window rebuilt"}
+{"run_id": "run_2027q1_0104","event": "AUDIT_STARTED","at": "2027-01-19T17:30:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0105","event": "AUDIT_STARTED","at": "2027-01-22T11:05:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0106","event": "AUDIT_STARTED","at": "2027-01-26T10:20:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0107","event": "AUDIT_STARTED","at": "2027-01-29T16:48:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0108","event": "AUDIT_STARTED","at": "2027-02-02T09:00:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0109","event": "AUDIT_STARTED","at": "2027-02-05T13:37:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0110","event": "AUDIT_STARTED","at": "2027-02-09T08:12:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0110","event": "RESCORED","at": "2027-02-11T00:00:00Z","note": "reference window rebuilt"}
+{"run_id": "run_2027q1_0111","event": "AUDIT_STARTED","at": "2027-02-12T15:55:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0112","event": "AUDIT_STARTED","at": "2027-02-17T12:41:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0113","event": "AUDIT_STARTED","at": "2027-02-20T10:09:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0114","event": "AUDIT_STARTED","at": "2027-02-24T14:26:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0115","event": "AUDIT_STARTED","at": "2027-02-26T09:31:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0116","event": "AUDIT_STARTED","at": "2027-02-27T11:47:00Z","note": "polars feature audit dispatched"}
+{"run_id": "run_2027q1_0109","event": "AUDIT_ABORTED","at": "2027-02-28T18:00:00Z","note": "worker OOM during scoring"}
+{"run_id": "run_2027q1_0101","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0102","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0103","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0104","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0105","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0106","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0107","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0108","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0109","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0110","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0111","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0112","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0113","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0114","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0115","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0116","event": "AUDIT_COMPLETE","at": "2027-03-01T09:00:00Z","note": "bundle sealed"}
+{"run_id": "run_2027q1_0104","event": "AUDIT_ABORTED","at": "2027-03-02T11:30:00Z","note": "sampler crash, bundle not trustworthy"}
+{"run_id": "run_2027q1_0112","event": "AUDIT_ABORTED","at": "2027-03-02T12:05:00Z","note": "cohort join produced duplicate keys"}
+{"run_id": "run_2027q1_0109","event": "AUDIT_COMPLETE","at": "2027-03-03T07:45:00Z","note": "rerun succeeded, bundle sealed"}

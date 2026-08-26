@@ -1,0 +1,32 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 2
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 3
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "cancel_printing_redispatch"
+}

@@ -1,0 +1,6 @@
+{
+  "store_filename": "pendulum_captures.duckdb",
+  "initial_status": "pending",
+  "terminal_status": "done",
+  "job_count": 4
+}

@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "duel_core",
+    "lin",
+    "exch",
+    "guess",
+    "arena",
+    "sess",
+    "bench",
+    "duel",
+]
+resolver = "2"

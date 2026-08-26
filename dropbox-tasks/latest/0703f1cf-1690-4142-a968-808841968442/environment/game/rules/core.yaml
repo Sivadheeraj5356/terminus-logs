@@ -1,0 +1,13 @@
+grid:
+  width: 8
+  height: 7
+directions:
+  north: [0, -1]
+  east: [1, 0]
+  south: [0, 1]
+  west: [-1, 0]
+turns:
+  ember: 1
+  mirror: 2
+  tidal: 3
+  umbra: 0

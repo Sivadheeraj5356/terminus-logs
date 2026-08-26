@@ -1,0 +1,8 @@
+# Circularly polarised Alfven wave along the diagonal (smooth, exact solution).
+# Single level; used to check the order of accuracy on a smooth flow.
+preset = cpaw
+nx = 32
+ny = 32
+amr = 0
+cfl = 0.4
+tmax = 0.3

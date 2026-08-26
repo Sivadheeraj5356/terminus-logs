@@ -1,0 +1,5 @@
+realm_mode = preserve
+preserve_local = false
+strip_whitespace = false
+fold_realm = none
+alias_table = legacy

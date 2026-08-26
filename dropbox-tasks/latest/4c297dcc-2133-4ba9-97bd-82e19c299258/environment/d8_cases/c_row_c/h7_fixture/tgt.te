@@ -1,0 +1,4 @@
+ROW:worker_u
+ROWBITS:0x07
+LIST:alpha,beta,worker_u
+CAPMAX:0x07

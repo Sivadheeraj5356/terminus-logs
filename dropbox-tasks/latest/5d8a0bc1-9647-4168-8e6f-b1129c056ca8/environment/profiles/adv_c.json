@@ -1,0 +1,5 @@
+{
+  "arm_id": "adv_c",
+  "slice": "kit/blk/td.mnt",
+  "schedule": "w_opaque"
+}

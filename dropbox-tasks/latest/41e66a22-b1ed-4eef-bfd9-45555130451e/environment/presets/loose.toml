@@ -1,0 +1,4 @@
+abs_lifetime = 500
+idle_lifetime = 200
+burst_cap = 5
+issued_at = 1000

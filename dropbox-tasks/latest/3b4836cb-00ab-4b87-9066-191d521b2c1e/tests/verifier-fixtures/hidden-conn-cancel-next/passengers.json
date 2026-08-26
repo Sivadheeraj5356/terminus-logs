@@ -1,0 +1,32 @@
+{
+  "passengers": [
+    {
+      "passenger_id": "PAX-CC",
+      "name": "BothCancel",
+      "loyalty_tier": "gold",
+      "fare_class": "Y",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "UA500",
+          "carrier": "UA",
+          "origin": "SFO",
+          "destination": "DEN",
+          "departure_utc": "2026-08-01T10:00:00Z",
+          "arrival_utc": "2026-08-01T13:00:00Z",
+          "fare_class": "Y"
+        },
+        {
+          "leg_seq": 2,
+          "flight_id": "UA600",
+          "carrier": "UA",
+          "origin": "DEN",
+          "destination": "ORD",
+          "departure_utc": "2026-08-01T13:30:00Z",
+          "arrival_utc": "2026-08-01T16:00:00Z",
+          "fare_class": "Y"
+        }
+      ]
+    }
+  ]
+}

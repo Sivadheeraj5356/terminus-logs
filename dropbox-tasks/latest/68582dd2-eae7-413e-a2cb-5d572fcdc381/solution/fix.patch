@@ -1,0 +1,234 @@
+--- app/src/restore/idmap.py	2026-07-20 16:28:57.465779118 +0000
++++ solution/fixed/src/restore/idmap.py	2026-07-20 13:48:15.525263000 +0000
+@@ -40,4 +40,7 @@
+     def map_owner(self, source_uid: int | None, source_gid: int | None) -> MappedOwnership:
+         uid = 0 if source_uid is None else int(source_uid)
+         gid = 0 if source_gid is None else int(source_gid)
+-        return MappedOwnership(uid=uid, gid=gid)
++        override = self.overrides.get((uid, gid))
++        if override is not None:
++            return MappedOwnership(uid=override[0], gid=override[1])
++        return MappedOwnership(uid=self.subuid_base + uid, gid=self.subgid_base + gid)
+--- app/src/restore/hardlinks.py	2026-07-20 16:28:58.013097686 +0000
++++ solution/fixed/src/restore/hardlinks.py	2026-07-20 13:48:15.517263004 +0000
+@@ -3,7 +3,6 @@
+ from __future__ import annotations
+ 
+ import os
+-import shutil
+ from pathlib import Path
+ 
+ 
+@@ -23,10 +22,9 @@
+         dest.parent.mkdir(parents=True, exist_ok=True)
+         if first is None:
+             raise RuntimeError(f"missing hardlink anchor for {key}")
+-        if first.is_file():
+-            shutil.copy2(first, dest)
+-        else:
+-            raise RuntimeError(f"hardlink anchor is not a file: {first}")
++        if dest.exists() or dest.is_symlink():
++            dest.unlink()
++        os.link(first, dest)
+ 
+     def same_inode(self, left: Path, right: Path) -> bool:
+         try:
+--- app/src/restore/metadata.py	2026-07-20 16:28:59.297254824 +0000
++++ solution/fixed/src/restore/metadata.py	2026-07-20 13:48:15.529262997 +0000
+@@ -2,6 +2,7 @@
+ 
+ from __future__ import annotations
+ 
++import json
+ import os
+ from pathlib import Path
+ from typing import Any
+@@ -20,15 +21,15 @@
+ 
+ 
+ def apply_user_xattrs(path: Path, xattr: dict[str, str]) -> None:
+-    for key, value in xattr.items():
++    for key, value in sorted(xattr.items()):
+         if key in {UID_XATTR, GID_XATTR, ACL_XATTR}:
+             continue
+         os.setxattr(path, key, value.encode())
+ 
+ 
+ def apply_acl(path: Path, acl: list[str]) -> None:
+-    _ = acl
+-    return None
++    if acl:
++        os.setxattr(path, ACL_XATTR, json.dumps(acl).encode())
+ 
+ 
+ def collect_metadata_record(
+@@ -37,9 +38,7 @@
+     xattr: dict[str, str],
+     acl: list[str],
+ ) -> dict[str, Any]:
+-    keys = list(xattr.keys()) + [UID_XATTR, GID_XATTR]
+-    if acl:
+-        keys.append(ACL_XATTR)
++    keys = sorted(set(xattr) | {UID_XATTR, GID_XATTR} | ({ACL_XATTR} if acl else set()))
+     return {
+         "path": path,
+         "mapped_uid": mapped.uid,
+@@ -57,8 +56,10 @@
+     xattr: dict[str, str],
+     acl: list[str],
+ ) -> dict[str, Any]:
+-    apply_ownership(path, mapped)
++    if not path.exists() and not path.is_symlink():
++        raise FileNotFoundError(rel_path)
++    apply_mode(path, mode)
+     apply_user_xattrs(path, xattr)
+     apply_acl(path, acl)
+-    apply_mode(path, mode)
++    apply_ownership(path, mapped)
+     return collect_metadata_record(rel_path, mapped, xattr, acl)
+--- app/src/restore/restore_main.py	2026-07-20 16:29:02.612824905 +0000
++++ solution/fixed/src/restore/restore_main.py	2026-07-20 18:09:19.957489546 +0000
+@@ -9,30 +9,54 @@
+ from pathlib import Path
+ from typing import Any
+ 
+-from archive.reader import ArchiveEntry, archive_entry_map, load_archive, manifest_payload
++from archive.reader import ArchiveEntry, load_archive, manifest_payload
+ from restore.hardlinks import HardlinkRegistry
+ from restore.idmap import IdMap
+ from restore.metadata import apply_metadata
+-
+-
+-def normalize_rel_path(prefix: str, path: str) -> str:
+-    if prefix:
+-        return f"{prefix.rstrip('/')}/{path.lstrip('/')}"
+-    return path.lstrip("/")
++from restore.paths import normalize_rel_path
++from restore.state import load_previous_managed, save_managed
+ 
+ 
+ def sha256_bytes(data: bytes) -> str:
+     return hashlib.sha256(data).hexdigest()
+ 
+ 
++def source_owner_for_manifest(
++    item_path: str,
++    by_path: dict[str, ArchiveEntry],
++    entries: list[ArchiveEntry],
++) -> tuple[int | None, int | None]:
++    archive_entry = by_path.get(normalize_rel_path("", item_path))
++    if archive_entry is None:
++        return None, None
++    if archive_entry.entry_type == "hardlink" and archive_entry.hardlink_key:
++        for candidate in entries:
++            if (
++                candidate.hardlink_key == archive_entry.hardlink_key
++                and candidate.entry_type == "file"
++            ):
++                return candidate.uid, candidate.gid
++        return None, None
++    return archive_entry.uid, archive_entry.gid
++
++
+ def prune_managed_paths(root: Path, managed: set[str], preserve: set[str]) -> None:
+     if not root.exists():
+         root.mkdir(parents=True, exist_ok=True)
+         return
+-    for path in sorted(root.rglob("*"), reverse=True):
+-        if path.is_file() or path.is_symlink():
+-            path.unlink()
+-        elif path.is_dir() and not any(child for child in path.iterdir()):
++    previous = load_previous_managed(root)
++    stale = previous - managed
++    for rel in sorted(stale):
++        if rel in preserve:
++            continue
++        path = root / rel
++        if path.is_symlink() or path.is_file():
++            path.unlink(missing_ok=True)
++    for rel in sorted(stale):
++        if rel in preserve:
++            continue
++        path = root / rel
++        if path.is_dir() and not any(path.iterdir()):
+             path.rmdir()
+ 
+ 
+@@ -41,8 +65,11 @@
+     rel_path: str,
+     entry: ArchiveEntry,
+     registry: HardlinkRegistry,
++    preserve: set[str],
+ ) -> None:
+     dest = root / rel_path
++    if rel_path in preserve and dest.exists():
++        return
+     if entry.entry_type == "dir":
+         dest.mkdir(parents=True, exist_ok=True)
+         return
+@@ -53,7 +80,7 @@
+         os.symlink(entry.symlink_target or "", dest)
+         return
+     if entry.entry_type == "hardlink":
+-        key = entry.path
++        key = entry.hardlink_key or ""
+         registry.link_or_copy(key, dest)
+         return
+     if entry.entry_type == "file":
+@@ -77,9 +104,9 @@
+     archive_name = manifest["archive"]
+     archive_path = archives_dir / archive_name
+     prefix = manifest.get("restore_prefix", "")
+-    preserve = set(manifest.get("preserve_paths", []))
++    preserve = {normalize_rel_path("", p) for p in manifest.get("preserve_paths", [])}
+     entries = load_archive(archive_path)
+-    by_path = archive_entry_map(archive_path)
++    by_path = {normalize_rel_path("", e.path): e for e in entries}
+     idmap = IdMap.load(idmap_path)
+ 
+     managed: set[str] = set()
+@@ -92,18 +119,29 @@
+ 
+     registry = HardlinkRegistry()
+     restored: list[str] = []
+-    metadata_records: list[dict[str, Any]] = []
+ 
+     for entry in entries:
++        if entry.entry_type == "hardlink":
++            continue
+         rel = normalize_rel_path(prefix, entry.path)
+-        materialize_entry(output_root, rel, entry, registry)
++        materialize_entry(output_root, rel, entry, registry, preserve)
+         restored.append(rel)
++    for entry in entries:
++        if entry.entry_type != "hardlink":
++            continue
++        rel = normalize_rel_path(prefix, entry.path)
++        materialize_entry(output_root, rel, entry, registry, preserve)
++        restored.append(rel)
++    restored = sorted(set(restored))
+ 
+-    for item in manifest.get("entries", []):
++    metadata_records: list[dict[str, Any]] = []
++    manifest_entries = sorted(
++        manifest.get("entries", []),
++        key=lambda item: normalize_rel_path(prefix, item["path"]),
++    )
++    for item in manifest_entries:
+         rel = normalize_rel_path(prefix, item["path"])
+-        archive_entry = by_path.get(item["path"])
+-        source_uid = archive_entry.uid if archive_entry else None
+-        source_gid = archive_entry.gid if archive_entry else None
++        source_uid, source_gid = source_owner_for_manifest(item["path"], by_path, entries)
+         mapped = idmap.map_owner(source_uid, source_gid)
+         mode = int(item["mode"], 8)
+         xattr = dict(item.get("xattr", {}))
+@@ -112,6 +150,8 @@
+         record = apply_metadata(dest, rel, mode, mapped, xattr, acl)
+         metadata_records.append(record)
+ 
++    save_managed(output_root, managed)
++
+     log = {
+         "schema_version": 1,
+         "manifest": manifest_path.name,

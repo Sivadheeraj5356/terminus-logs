@@ -1,0 +1,39 @@
+schema_version: apexora-trunk-assign-1
+campus: campus-emea-fra
+trunk_links:
+  - id: TRK-0040
+    a: acc-emea-fra-bldg1-01
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0041
+    a: acc-emea-fra-bldg1-02
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0042
+    a: acc-emea-fra-bldg1-03
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0043
+    a: acc-emea-fra-bldg1-04
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0044
+    a: acc-emea-fra-bldg1-05
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0045
+    a: acc-emea-fra-bldg1-06
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0046
+    a: acc-emea-fra-bldg1-07
+    b: dist-emea-fra-main-01
+    allowed: selective
+  - id: TRK-0047
+    a: dist-emea-fra-main-01
+    b: core-emea-fra-01
+    allowed: selective
+  - id: TRK-0048
+    a: dist-emea-fra-main-02
+    b: core-emea-fra-01
+    allowed: selective

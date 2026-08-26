@@ -1,0 +1,28 @@
+{
+  "seed": 20240601,
+  "n_samples": 200,
+  "Lx": 100.0,
+  "Ly": 80.0,
+  "nx": 50,
+  "ny": 40,
+  "end_time": 200.0,
+  "nsteps": 300,
+  "source_x": 11.0,
+  "source_y": 11.0,
+  "source_conc": 100.0,
+  "vx_mean": 0.35,
+  "vy_mean": 0.35,
+  "alphaL_mean": 5.0,
+  "alphaT_mean": 0.1,
+  "Dm": 0.01,
+  "rho_b": 1.6,
+  "Kd": 0.25,
+  "theta": 0.4,
+  "lambda_mean": 0.005,
+  "cov": 0.2,
+  "exceedance_threshold": 5.0,
+  "wells": [
+    {"id": "MW-downstream", "x": 39.3, "y": 39.3},
+    {"id": "MW-background", "x": 13.0, "y": 55.0}
+  ]
+}

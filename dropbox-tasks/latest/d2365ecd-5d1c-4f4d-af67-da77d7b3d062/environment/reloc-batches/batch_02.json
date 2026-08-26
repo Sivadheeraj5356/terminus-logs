@@ -1,0 +1,73 @@
+{
+  "batch_id": "batch_02",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "com.google.common",
+      "to_prefix": "shaded.com.google.common",
+      "priority": 10
+    }
+  ],
+  "units": [
+    {
+      "path": "lib/core.jar",
+      "root": "dep-a",
+      "symbols": [
+        {
+          "fqn": "com.google.common.Base",
+          "pkg_path": "com/google/common"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "com.google.common.Base",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "observed": {
+    "symbols": [
+      {
+        "original": "com.google.common.Base",
+        "fqn": "shaded.com.google.common.Base",
+        "pkg_path": "shaded/com/google/common"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "shaded.com.google.common.Base"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "956e98ef617b51f8b8287bd92a2edf8124a426344f1eee25118cbcf7092556ab",
+    "nested_applied": false,
+    "nested": []
+  }
+}

@@ -1,0 +1,4 @@
+==78306== Memcheck, a memory error detector
+==78306== case: case_0011
+==78306== Invalid write of size 8
+==78306==    by 0x5555b7c21f75: seal_record (vaultseal.c:400)

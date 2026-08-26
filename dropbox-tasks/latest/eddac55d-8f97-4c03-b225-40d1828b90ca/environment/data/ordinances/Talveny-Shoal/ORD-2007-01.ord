@@ -1,0 +1,9 @@
+ordinance: ORD-2007-01
+jurisdiction: Talveny-Shoal
+enacted: 2007-06-18
+effective: 2007-10-28T02:00:00 standard
+standard-offset: +10:30:00
+standard-label: SST
+observance:
+  begin: Oct lastSun 02:00:00 standard save +01:00:00 label SDT
+  end: Apr Sun>=1 03:00:00 standard

@@ -1,0 +1,4 @@
+court_default = "/app/data/rink-lanes.json"
+lots_default = "/app/data/disk-packages.json"
+slate_default = "/app/state/chalk-slate.json"
+ledger_default = "/app/output/wax-lane-claim-ledger.json"

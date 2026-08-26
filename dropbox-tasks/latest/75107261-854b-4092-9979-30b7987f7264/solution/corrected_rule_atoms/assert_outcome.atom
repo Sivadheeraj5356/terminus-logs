@@ -1,0 +1,6 @@
+RULE ASSERT_OUTCOME
+IN keys
+OUT value,reason
+TABLE
+false_assert -> fail|assert
+END

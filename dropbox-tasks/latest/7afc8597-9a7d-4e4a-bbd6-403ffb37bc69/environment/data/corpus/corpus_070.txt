@@ -1,0 +1,6 @@
+mixed Foo123Bar baz_42
+addr 175.204.168.41 hex 0x7e08 token tok_959
+value = 0xDEADbeef and 0x1234
+addr 214.227.60.220 hex 0x1479 token tok_533
+addr 177.51.12.9 hex 0x777d token tok_319
+hex 0xabc 0xABCDEF zzz

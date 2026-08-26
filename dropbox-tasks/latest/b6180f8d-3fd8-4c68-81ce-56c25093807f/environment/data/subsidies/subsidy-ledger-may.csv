@@ -1,0 +1,6 @@
+rider_id,subsidy_id,service_zone,active_from,active_to,percent,monthly_limit_cents,status
+R100,SUB-R100-CORE,core,2026-05-01,2026-05-31,50,250,active
+R102,"SUB,R102-ALL",all,2026-05-01,2026-05-31,25,200,active
+R105,SUB-R105-HARBOR,harbor,2026-05-01,2026-05-31,40,150,active
+R101,SUB-R101-EXPIRED,core,2026-05-01,2026-05-13,50,999,expired
+R103,SUB-R103-PENDING,all,2026-05-01,2026-05-31,80,999,pending

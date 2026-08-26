@@ -1,0 +1,15 @@
+{
+  "listen_unix": "/tmp/proxy.sock",
+  "backend_unix": "/tmp/backend.sock",
+  "state_dir": "state",
+  "spool_dir": "state/spool",
+  "audit_log": "/logs/agent/proxy-audit.jsonl",
+  "trace_path": "/output/request-trace.json",
+  "profiles_dir": "config/profiles",
+  "keyring_path": "config/keyring-public.json",
+  "default_profile": "current-2026",
+  "body_limit": 1048576,
+  "replay_on_start": true,
+  "ready_file": "/tmp/proxy.ready",
+  "spool_seal_key_hex": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}

@@ -1,0 +1,4 @@
+schema_version: apexora-acl-profile-1
+profile: dmz_edge
+inbound_acl: SEG-DMZ-IN
+outbound_acl: SEG-DMZ-OUT

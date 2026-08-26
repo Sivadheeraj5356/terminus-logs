@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CipherGrid Season-4 Puzzle League Match",
+  "description": "Terminal CipherGrid puzzle-league season-4 match. Players earn pressure-adjusted family-adjacency points on the board tape, grow combo streaks, clash on rivalry ticks, and reveal echo-dotted edges on the Graphviz board map. Match scorecard JSON matches match_scorecard; combo, rivalry, and echo rules live under semantics.",
+  "implementation": {
+    "modules": [
+      "combostreak.zig",
+      "rivalry.zig",
+      "echoedge.zig"
+    ],
+    "provided": [
+      "boardprint.zig",
+      "boardtopo.zig",
+      "chainlatch.zig",
+      "dotinvoke.zig",
+      "dotwriter.zig",
+      "edgerule.zig",
+      "familyadj.zig",
+      "glyphpressure.zig",
+      "main.zig",
+      "matchcrown.zig",
+      "matchplay.zig",
+      "movepoints.zig",
+      "playtestseal.zig",
+      "scorecardbuild.zig",
+      "scorecardjson.zig",
+      "scorefold.zig",
+      "sha256util.zig",
+      "tapeload.zig",
+      "types.zig"
+    ],
+    "outcome": "ciphergrid_season4_puzzle_league_scorecards"
+  },
+  "lab_protocol": {
+    "surfaces": [
+      "combostreak.zig",
+      "rivalry.zig",
+      "echoedge.zig"
+    ],
+    "goal": "season4_match_combo_rivalry_echo"
+  },
+  "semantics": {
+    "archive_layout": {
+      "cells_json": "cells.json with cells[] and solution map",
+      "glyphs_toml": "glyph sections with weight and family",
+      "moves_jsonl": "one JSON object per line: player_id, cell_id, tick",
+      "scorecard_md": "human-readable puzzle scoring and digest rules"
+    },
+    "family_adjacency": "solution glyph family of a cell; matchingNeighborCount counts orthogonal neighbors sharing that family; cellsShareFamily compares two cells",
+    "glyph_pressure": "before move index i, count solution cells sharing the played cell family that do not appear among moves[0..i); pressure_factor = 1.0 + 0.05 * that count",
+    "move_points": "round(base) then round(base * pressure_factor) where base = glyph_weight + 2 * matchingNeighborCount; half-away-from-zero to 2dp at each round",
+    "player_total": "sum of pressure-adjusted move points in tape order, then round total to 2dp half-away-from-zero",
+    "combo_streak": "per player, moves sorted by tick then cell_id; consecutive same-family plays grow streak; each continued step adds 0.25*(streak_len-1); combo_points is the rounded sum; max_streak is the longest streak observed",
+    "combo_digest": "sha256 of sorted lines player_id|combo_points|max_streak with combo_points at 2dp",
+    "rivalry": "for every unordered pair of moves from different players with |tick_a-tick_b|<=1, orthogonal neighbor cells, and shared solution family, add 0.5 rivalry to each player; rivalry_points rounded 2dp; rivalry_digest is sha256 of sorted player_id|rivalry_points lines",
+    "season_score_digest": "sha256 of sorted lines player_id|total|move_count with total at 2dp",
+    "board_fingerprint": "sha256 of sorted lines cell_id|glyph_id|family|degree where degree is neighbor count",
+    "dot_graph": {
+      "name": "ciphergrid",
+      "adjacency_edges": "solid, smaller_id -> larger_id",
+      "family_edges": "dashed when cellsShareFamily on an adjacency, same orientation rule",
+      "echo_edges": "dotted when shared family and both cell ids appear somewhere on the move tape, same orientation rule",
+      "layout_source": "Graphviz plain layout of the board digraph supplies node x/y for layout_digest"
+    },
+    "layout_digest": "sha256 of sorted name|x|y from Graphviz plain-layout node rows of digraph ciphergrid; coords at 2dp half-away-from-zero",
+    "playtest_seal": "sha256 of season_score_digest|layout_digest|combo_digest|board_fingerprint joined by |",
+    "match_chain": "prior tip from /app/var/match_chain_tip.txt (empty when absent); match_chain_digest = sha256(prior|playtest_seal|rivalry_digest); tip file updated to that digest after each successful score",
+    "match_crown": "sha256 of playtest_seal|rivalry_digest|match_chain_digest",
+    "players_array": "match scorecard players array is sorted ascending by player_id (same order as season_score_digest, combo_digest, and rivalry_digest lines)"
+  },
+  "cli": {
+    "binary": "/app/bin/cipherleague",
+    "score": {
+      "args": [
+        "--archive",
+        "DIR",
+        "--out",
+        "REPORT.json"
+      ],
+      "writes": "match_scorecard object"
+    }
+  },
+  "match_scorecard": {
+    "type": "object",
+    "required": [
+      "archive",
+      "cell_count",
+      "move_count",
+      "players",
+      "layout_digest",
+      "season_score_digest",
+      "topology_dot_path",
+      "combo_digest",
+      "board_fingerprint",
+      "playtest_seal",
+      "rivalry_digest",
+      "match_chain_digest",
+      "match_crown"
+    ],
+    "properties": {
+      "archive": {
+        "type": "string"
+      },
+      "cell_count": {
+        "type": "integer"
+      },
+      "move_count": {
+        "type": "integer"
+      },
+      "players": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "player_id",
+            "points",
+            "moves",
+            "combo_points",
+            "rivalry_points"
+          ],
+          "properties": {
+            "player_id": {
+              "type": "string"
+            },
+            "points": {
+              "type": "number"
+            },
+            "moves": {
+              "type": "integer"
+            },
+            "combo_points": {
+              "type": "number"
+            },
+            "rivalry_points": {
+              "type": "number"
+            }
+          }
+        },
+        "description": "Player score objects sorted ascending by player_id"
+      },
+      "layout_digest": {
+        "type": "string"
+      },
+      "season_score_digest": {
+        "type": "string"
+      },
+      "topology_dot_path": {
+        "type": "string"
+      },
+      "combo_digest": {
+        "type": "string"
+      },
+      "board_fingerprint": {
+        "type": "string"
+      },
+      "playtest_seal": {
+        "type": "string"
+      },
+      "rivalry_digest": {
+        "type": "string"
+      },
+      "match_chain_digest": {
+        "type": "string"
+      },
+      "match_crown": {
+        "type": "string"
+      }
+    }
+  }
+}

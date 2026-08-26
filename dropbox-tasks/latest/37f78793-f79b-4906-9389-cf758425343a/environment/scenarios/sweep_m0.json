@@ -1,0 +1,12 @@
+{
+  "combo": true,
+  "codename": "sweep_m0",
+  "ev_bin": "sc_m1.evb",
+  "band_lo": 8,
+  "band_hi": 248,
+  "mag_seed": 17,
+  "dur_seed": 33,
+  "combo_depth": 6,
+  "entity_a": 12,
+  "entity_b": 24
+}

@@ -1,0 +1,7 @@
+{
+  "season": 4,
+  "league": "CipherGrid",
+  "tape": "moves.jsonl",
+  "topology": "cells.json",
+  "glyph_table": "glyphs.toml"
+}

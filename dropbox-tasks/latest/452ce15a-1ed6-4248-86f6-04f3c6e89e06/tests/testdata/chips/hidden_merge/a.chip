@@ -1,0 +1,5 @@
+chip_id=HX-MRG
+nominal_hz=8000000.0
+readings:
+1 25.0 8000000.0
+2 35.0 8000117.84

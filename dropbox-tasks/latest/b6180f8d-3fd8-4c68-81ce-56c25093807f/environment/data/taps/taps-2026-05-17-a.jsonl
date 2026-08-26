@@ -1,0 +1,5 @@
+{"tap_id":"t035","rider_id":"R106","service_date":"2026-05-17","tapped_at":"2026-05-17T07:00:00-04:00","route_id":"E1","station_id":"S201","direction":"outbound","device_status":"accepted"}
+{"tap_id":"t036","rider_id":"R106","service_date":"2026-05-17","tapped_at":"2026-05-17T09:30:00-04:00","route_id":"F1","station_id":"S301","direction":"harbor","device_status":"accepted"}
+{"tap_id":"t037","rider_id":"R106","service_date":"2026-05-17","tapped_at":"2026-05-17T12:00:00-04:00","route_id":"E1","station_id":"S201","direction":"inbound","device_status":"accepted"}
+{"tap_id":"t038","rider_id":"R106","service_date":"2026-05-17","tapped_at":"2026-05-17T14:45:00-04:00","route_id":"R3","station_id":"S102","direction":"east","device_status":"accepted"}
+{"tap_id":"t039","rider_id":"R100","service_date":"2026-05-17","tapped_at":"2026-05-17T02:20:00-04:00","route_id":"R3","station_id":"S102","direction":"east","device_status":"accepted"}

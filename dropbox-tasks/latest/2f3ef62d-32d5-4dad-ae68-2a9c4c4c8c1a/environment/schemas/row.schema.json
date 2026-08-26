@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": [
+    "lane_id",
+    "loc_rc",
+    "img_rc",
+    "bind_rc",
+    "lag_code",
+    "facet_hex"
+  ],
+  "properties": {
+    "lane_id": {
+      "type": "string"
+    },
+    "loc_rc": {
+      "type": "integer"
+    },
+    "img_rc": {
+      "type": "integer"
+    },
+    "bind_rc": {
+      "type": "integer"
+    },
+    "lag_code": {
+      "type": "integer"
+    },
+    "facet_hex": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 16
+    }
+  }
+}\n

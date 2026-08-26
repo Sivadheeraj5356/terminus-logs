@@ -1,0 +1,6 @@
+hostname: acc-hq-dal-bldg2-02
+migration_state: partial
+canonical_vlan: 2003
+configured_vlan: 104
+legacy_vlan: 104
+duplicate_vlan_conflict: false

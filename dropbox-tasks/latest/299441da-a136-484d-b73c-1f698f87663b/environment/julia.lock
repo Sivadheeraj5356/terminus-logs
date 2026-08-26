@@ -1,0 +1,10 @@
+# Pinned Julia 1.11.2 binaries for offline image builds.
+# Platform CodeBuild / amd64: x86_64. Local Apple Silicon builds: aarch64.
+JULIA_VERSION=1.11.2
+JULIA_URL_X86_64=https://julialang-s3.julialang.org/bin/linux/x64/1.11/julia-1.11.2-linux-x86_64.tar.gz
+JULIA_SHA256_X86_64=8a372ad262d4d4d55a1044f4fe3bce7c9a4a3ce8c513d2470e58e8071eecd476
+JULIA_URL_AARCH64=https://julialang-s3.julialang.org/bin/linux/aarch64/1.11/julia-1.11.2-linux-aarch64.tar.gz
+JULIA_SHA256_AARCH64=0346e6d65852a3b73ced2c80c40f5a8cf38e7048d001cd57d3d1dd9efb2f6641
+# Back-compat single keys (x86_64) for simpler lock parsers
+JULIA_URL=https://julialang-s3.julialang.org/bin/linux/x64/1.11/julia-1.11.2-linux-x86_64.tar.gz
+JULIA_SHA256=8a372ad262d4d4d55a1044f4fe3bce7c9a4a3ce8c513d2470e58e8071eecd476

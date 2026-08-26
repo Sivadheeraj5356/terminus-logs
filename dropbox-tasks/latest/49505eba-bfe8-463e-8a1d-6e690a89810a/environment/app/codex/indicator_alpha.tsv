@@ -1,0 +1,4 @@
+char_class	chars
+blank	space_0x20
+digit	0123456789
+alpha_lower	abcdefghijklmnopqrstuvwxyz

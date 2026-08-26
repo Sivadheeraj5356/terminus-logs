@@ -1,0 +1,4 @@
+require_registry_approval = false
+debug_endpoints_enabled = true
+min_module_versions = billing-api:1.0.0,ingest-worker:1.0.0
+fleet_release_pin = fleet-dev-unverified

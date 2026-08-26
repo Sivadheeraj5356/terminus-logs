@@ -1,0 +1,12 @@
+{
+  "workerId": "golden-worker",
+  "claimed": 3,
+  "succeeded": 2,
+  "failed": 1,
+  "rotations": 1,
+  "jobs": [
+    {"jobId": 7, "status": "succeeded", "decision": "rotate"},
+    {"jobId": 19, "status": "failed", "error": "AUTH_HEADER"},
+    {"jobId": 41, "status": "succeeded", "decision": "current"}
+  ]
+}

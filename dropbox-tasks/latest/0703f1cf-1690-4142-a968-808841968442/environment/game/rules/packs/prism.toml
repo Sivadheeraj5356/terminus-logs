@@ -1,0 +1,7 @@
+[walk]
+stride = 3
+pivot = "mirror"
+cycle = ["east", "south", "west", "north"]
+
+[score]
+bonus = 23

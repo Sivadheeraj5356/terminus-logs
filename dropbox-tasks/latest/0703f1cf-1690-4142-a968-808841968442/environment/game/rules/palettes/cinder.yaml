@@ -1,0 +1,8 @@
+mask: 11
+symbols:
+  ash: 5
+  coal: 2
+  ember: 8
+  flare: 1
+  kiln: 6
+  slag: 3

@@ -1,0 +1,33 @@
+{
+  "catalog_label": "w8_r3",
+  "floor_min": 5,
+  "ratio_min": 0.55,
+  "rotations": [
+    {
+      "id": "slice_a",
+      "staging": true,
+      "rows": [
+        { "lane": "L1", "hits": 9, "total": 10 },
+        { "lane": "L2", "hits": 8, "total": 10 }
+      ]
+    },
+    {
+      "id": "arm_b",
+      "staging": false,
+      "rows": [
+        { "lane": "L1", "hits": 7, "total": 10 },
+        { "lane": "L2", "hits": 1, "total": 3 },
+        { "lane": "L3", "hits": 5, "total": 10 }
+      ]
+    },
+    {
+      "id": "arm_c",
+      "staging": false,
+      "rows": [
+        { "lane": "L4", "hits": 6, "total": 10 },
+        { "lane": "L5", "hits": 5, "total": 10 },
+        { "lane": "L6", "hits": 1, "total": 3 }
+      ]
+    }
+  ]
+}

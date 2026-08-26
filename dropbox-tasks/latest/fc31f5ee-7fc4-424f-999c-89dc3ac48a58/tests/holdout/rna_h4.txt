@@ -1,0 +1,41 @@
+sequence H4 GGAAACCGUAGCACGUGGAAACCGUAGCUAGCGCAAUAGCCGUAUGCGAAUCGC
+react SH 0 5Q
+react CM 1 1G
+react DM 2 K
+react DM 5 5L
+react SH 6 2K
+react DM 9 4R
+react SH 12 N
+react DM 12 34
+react CM 17 6F
+react SH 18 57
+react DM 19 5U
+react SH 24 7
+react CM 28 1J
+react SH 30 4U
+react DM 33 66
+react SH 36 2O
+react CM 36 3V
+react DM 37 2W
+react DM 40 V
+react CM 41 16
+react SH 42 6P
+react CM 44 60
+react SH 48 1V
+react DM 51 34
+react CM 52 1V
+guide WC 0 53 3P
+guide GC 2 42 5J
+guide WB 5 31 6A
+guide RL 11 47 3V
+guide WC 17 39 60
+guide WB 24 52 2J
+probe 0 11
+probe 1 10
+probe 12 35
+probe 19 28
+probe 29 58
+probe 0 80
+probe 8 29
+probe 30 42
+probe 45 53

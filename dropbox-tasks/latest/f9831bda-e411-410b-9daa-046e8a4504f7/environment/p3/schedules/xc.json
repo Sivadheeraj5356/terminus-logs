@@ -1,0 +1,65 @@
+{
+  "profile_id": "lane_coral",
+  "profile_pfx": "pfx_c",
+  "epoch_dn": "cn=ca-gamma",
+  "epoch_stamp": "20260103",
+  "cap_bytes": 384,
+  "frame_unit": 64,
+  "grant_unit": 32,
+  "modules": [
+    {
+      "path": "example.com/gamma",
+      "version": "v3.1.0",
+      "shard_ref": "m_c",
+      "frame": "f4",
+      "tomb": false,
+      "role": "lease",
+      "echo_role": "lease_echo"
+    },
+    {
+      "path": "example.com/gamma",
+      "version": "v3.1.0",
+      "shard_ref": "m_c",
+      "frame": "f4",
+      "tomb": false,
+      "role": "lease_echo",
+      "echo_role": ""
+    },
+    {
+      "path": "example.com/alpha",
+      "version": "v1.2.1",
+      "shard_ref": "m_a",
+      "frame": "f4",
+      "tomb": true,
+      "role": "worker",
+      "echo_role": "worker_echo"
+    },
+    {
+      "path": "example.com/alpha",
+      "version": "v1.2.1",
+      "shard_ref": "m_a",
+      "frame": "f4",
+      "tomb": false,
+      "role": "worker_echo",
+      "echo_role": ""
+    },
+    {
+      "path": "example.com/beta",
+      "version": "v2.0.0",
+      "shard_ref": "m_b",
+      "frame": "f5",
+      "tomb": false,
+      "role": "bind",
+      "echo_role": "bind_echo"
+    },
+    {
+      "path": "example.com/beta",
+      "version": "v2.0.0",
+      "shard_ref": "m_b",
+      "frame": "f5",
+      "tomb": false,
+      "role": "bind_echo",
+      "echo_role": ""
+    }
+  ]
+}

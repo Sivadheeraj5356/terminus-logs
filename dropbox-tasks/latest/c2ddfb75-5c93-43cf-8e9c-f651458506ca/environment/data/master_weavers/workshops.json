@@ -1,0 +1,55 @@
+{
+  "mw_silk_root": {
+    "name": "Imperial Silk Root",
+    "base_trust": 0.98
+  },
+  "mw_genoa_guild": {
+    "name": "Genoa Merchant Guild",
+    "thread_trust": 0.94,
+    "base_trust": 0.91
+  },
+  "mw_suzhou_atelier": {
+    "name": "Suzhou Brocade Atelier",
+    "thread_trust": 0.89,
+    "base_trust": 0.88
+  },
+  "mw_lyon_guild": {
+    "name": "Lyon Velvet Guild",
+    "thread_trust": 0.86,
+    "base_trust": 0.85
+  },
+  "mw_kyoto_school": {
+    "name": "Kyoto Nishijin School",
+    "thread_trust": 0.93,
+    "base_trust": 0.9
+  },
+  "mw_varanasi_master": {
+    "name": "Varanasi Master Loom",
+    "thread_trust": 0.91,
+    "base_trust": 0.87
+  },
+  "mentor_of": {
+    "mw_suzhou_atelier": "mw_genoa_guild",
+    "mw_genoa_guild": "mw_silk_root",
+    "mw_lyon_guild": "mw_genoa_guild",
+    "mw_kyoto_school": "mw_silk_root",
+    "mw_varanasi_master": "mw_silk_root"
+  },
+  "lineage_epochs": {
+    "mw_suzhou_atelier": {
+      "active_from_year": 1680
+    },
+    "mw_lyon_guild": {
+      "active_from_year": 1750
+    },
+    "mw_kyoto_school": {
+      "active_from_year": 1580
+    },
+    "mw_varanasi_master": {
+      "active_from_year": 1850
+    },
+    "mw_genoa_guild": {
+      "active_from_year": 1550
+    }
+  }
+}

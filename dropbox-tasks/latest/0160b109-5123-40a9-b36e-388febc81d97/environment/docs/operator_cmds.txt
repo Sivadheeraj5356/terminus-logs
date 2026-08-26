@@ -1,0 +1,21 @@
+# Primary scenario
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm0 --phase cold
+
+# Warm rebuild (reloads cache; must stay idempotent on a healthy tree)
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm0 --phase warm
+
+# Replay applies [[mutations]] from arm_ladder.toml and must change digest
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm0 --phase replay
+
+# Status probe after a pipeline run
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm0 --phase cold --status
+
+# Inspect current artifacts without rebuilding
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm0 --status-only
+
+# Held-out arms from arm_ladder.toml (each arm has its own salt)
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm1 --phase cold
+/app/bin/ucg_run --scenario unit-conversion-graph --arm arm2 --phase cold
+
+# Rebuild binary after source edits
+/app/environment/scripts/build_ucg.sh

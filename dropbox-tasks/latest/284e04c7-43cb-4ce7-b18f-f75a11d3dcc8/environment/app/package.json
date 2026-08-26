@@ -1,0 +1,15 @@
+{
+  "name": "prefect-pfseal-worker",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "pfseal-worker": "bin/pfseal-worker"
+  },
+  "engines": {
+    "node": ">=22.0.0 <23"
+  },
+  "dependencies": {
+    "@duckdb/node-api": "1.5.4-r.1"
+  }
+}

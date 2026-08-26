@@ -1,0 +1,10 @@
+mixed Foo123Bar baz_42
+baz maybe color start
+addr 5.255.155.220 hex 0x7ea4 token tok_3
+gamma banana maybe
+gamma bar hello
+hello bird foobar cat bar false foo
+baz alpha hello foobar
+punct marks here
+IP 255.255.255.0 mask
+gray cat cat quux line

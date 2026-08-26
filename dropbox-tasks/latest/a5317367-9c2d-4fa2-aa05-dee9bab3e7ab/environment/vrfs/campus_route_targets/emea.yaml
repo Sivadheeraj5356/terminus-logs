@@ -1,0 +1,33 @@
+schema_version: apexora-vrf-rt-region-1
+region: emea
+route_targets:
+  - vrf: CORP-IT
+  - vrf: FINANCE
+  - vrf: HR
+  - vrf: PAYROLL
+  - vrf: MFG-OT
+  - vrf: MFG-IT
+  - vrf: SCADA
+  - vrf: GUEST
+  - vrf: GUEST-WIFI
+  - vrf: DMZ
+  - vrf: DMZ-PUB
+  - vrf: PCI
+  - vrf: VOICE
+  - vrf: VIDEO
+  - vrf: MGMT
+  - vrf: IDENTITY
+  - vrf: BACKUP
+  - vrf: REPLICATION
+  - vrf: LAB
+  - vrf: DEV
+  - vrf: QA
+  - vrf: STAGING
+  - vrf: VENDOR
+  - vrf: PARTNER
+  - vrf: LOGISTICS
+  - vrf: WAREHOUSE
+  - vrf: RETAIL
+  - vrf: BUILDING-AUTO
+  - vrf: EMERGENCY
+  - vrf: TELEMED

@@ -1,0 +1,2 @@
+OBJECT app x86_64-linux fixed happ 4 yes 4 dep
+OBJECT dep x86_64-linux input - 2 yes 2 -

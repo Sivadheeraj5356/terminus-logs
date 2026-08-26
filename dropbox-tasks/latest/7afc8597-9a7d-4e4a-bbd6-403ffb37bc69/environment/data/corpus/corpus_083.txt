@@ -1,0 +1,5 @@
+quux quux hello alpha bird bird
+a "quoted string" and "another"
+addr 61.153.248.227 hex 0xf627 token tok_989
+start world hello line maybe
+symbols here

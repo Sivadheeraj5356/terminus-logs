@@ -1,0 +1,7 @@
+[walk]
+stride = 2
+pivot = "ember"
+cycle = ["north", "east", "south", "west"]
+
+[score]
+bonus = 17

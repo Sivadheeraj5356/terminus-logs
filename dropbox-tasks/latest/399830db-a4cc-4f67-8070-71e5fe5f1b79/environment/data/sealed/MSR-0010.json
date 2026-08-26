@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0010",
+  "category": "epigenetic_change",
+  "label_ciphertext": "7tIR6mtM962n",
+  "label_nonce": "nF6Ry5kAla9vl9CI",
+  "label_tag": "XGnKIKjNNVHDt4YK+D2b/A==",
+  "signature": "MEUCICoF1izw1/Hsxvj0oD1ZIYef5bLjBDG9TgFpjWTxtqq9AiEAzE7DO8xyniwcl8hkyTaWfEw5MOslYp4Hol5XeJ6ZQso=",
+  "patient_ref": "PT-KAPPA-886"
+}

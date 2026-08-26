@@ -1,0 +1,84 @@
+--- environment/gp/u3/KnR4.java
++++ environment/gp/u3/KnR4.java
+@@ -1,13 +1,80 @@
+ package gp.u3;
+ 
+ import cx.NamedSlot;
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.LinkedHashMap;
+ import java.util.List;
+ import java.util.Map;
+ 
+ public final class KnR4 {
+     private KnR4() {}
+ 
++    @SuppressWarnings("unchecked")
+     public static List<NamedSlot> kn_r4(Map<String, Object> bag) {
+-        return KnR4Probe.smoke(bag);
++        List<String> keys = new ArrayList<>(bag.keySet());
++        Collections.sort(keys);
++        List<NamedSlot> out = new ArrayList<>();
++        for (String k : keys) {
++            Object v = bag.get(k);
++            if ("graph".equals(k) && v instanceof Map<?, ?>) {
++                out.add(new NamedSlot(k, canonGraph((Map<String, Object>) v)));
++            } else if ("items".equals(k) && v instanceof List<?>) {
++                out.add(new NamedSlot(k, canonItems((List<Object>) v)));
++            } else {
++                out.add(new NamedSlot(k, v));
++            }
++        }
++        return out;
++    }
++
++    @SuppressWarnings("unchecked")
++    private static Map<String, Object> canonGraph(Map<String, Object> graph) {
++        List<String> ids = new ArrayList<>(graph.keySet());
++        Collections.sort(ids);
++        Map<String, Object> out = new LinkedHashMap<>();
++        for (String id : ids) {
++            Map<String, Object> node = new LinkedHashMap<>((Map<String, Object>) graph.get(id));
++            Object e = node.get("e");
++            if (e instanceof List<?>) {
++                List<String> nbr = new ArrayList<>();
++                for (Object x : (List<Object>) e) {
++                    nbr.add(String.valueOf(x));
++                }
++                Collections.sort(nbr);
++                node.put("e", nbr);
++            }
++            out.put(id, node);
++        }
++        return out;
++    }
++
++    @SuppressWarnings("unchecked")
++    private static List<Object> canonItems(List<Object> items) {
++        List<Map<String, Object>> rows = new ArrayList<>();
++        for (Object o : items) {
++            if (o instanceof Map<?, ?>) {
++                Map<String, Object> m = new LinkedHashMap<>((Map<String, Object>) o);
++                Object s = m.get("s");
++                if (s instanceof List<?>) {
++                    List<String> srcs = new ArrayList<>();
++                    for (Object x : (List<Object>) s) {
++                        srcs.add(String.valueOf(x));
++                    }
++                    Collections.sort(srcs);
++                    m.put("s", srcs);
++                }
++                rows.add(m);
++            }
++        }
++        rows.sort((a, b) -> Integer.compare(asInt(a.get("i")), asInt(b.get("i"))));
++        return new ArrayList<>(rows);
++    }
++
++    private static int asInt(Object o) {
++        if (o instanceof Number n) {
++            return n.intValue();
++        }
++        return 0;
+     }
+ }

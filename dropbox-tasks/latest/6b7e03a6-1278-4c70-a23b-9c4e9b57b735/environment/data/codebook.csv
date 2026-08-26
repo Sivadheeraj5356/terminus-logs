@@ -1,0 +1,20 @@
+column,description
+row_id,stable integer key; preserved across verifier data variants
+Administrative,count of administrative pages visited in the session
+Administrative_Duration,seconds spent on administrative pages
+Informational,count of informational pages visited
+Informational_Duration,seconds spent on informational pages
+ProductRelated,count of product-related pages visited (engagement)
+ProductRelated_Duration,seconds spent on product-related pages
+BounceRates,average bounce rate of pages visited
+ExitRates,average exit rate of pages visited
+PageValues,average page value of pages visited before the target page
+SpecialDay,"closeness of the visit to a special day, in [0,1]"
+OperatingSystems,visitor operating system (coded integer)
+Browser,visitor browser (coded integer)
+Region,visitor geographic region (coded integer)
+TrafficType,traffic source type (coded integer)
+VisitorType,"New_Visitor, Returning_Visitor or Other"
+Weekend,whether the session occurred on a weekend
+domain,source = off-season sessions (all labeled); target = peak-season sessions
+target,"1 if the session ended in a purchase, else 0; blank for unscored target rows"

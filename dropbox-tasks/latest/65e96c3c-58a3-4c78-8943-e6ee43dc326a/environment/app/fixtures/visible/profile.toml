@@ -1,0 +1,11 @@
+schema = "cipherwave.profile.v2"
+profile_id = "harbor-0007999f"
+audit_unix = 1900498079
+current_key_id = "key-current-0007999f"
+current_generation = 119
+candidate_key_id = "key-candidate-0007999f"
+candidate_generation = 120
+renditions = ["audio", "hd", "sd"]
+allowed_key_hosts = ["keys.cipherwave.test"]
+trusted_spki_sha256 = ["3e540c1064a2e52ee48345fb0e17a975059e297c8f48a87928b0a5166ebbfd60", "4e0fa05ce1ee5443654ff306cc9cf4c775d14316441cf878fc41be5e94e4a9d3"]
+render_segment_count = 2

@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-42e6152accdf": {
+      "alg": "hmac-sha256",
+      "secret": "de4103a350b5cfd7a0e6dd15c3e74e2682395f1310fd284155dee17dc305bcd3"
+    }
+  },
+  "message": {
+    "authority": "svc1.example.com",
+    "body": "{\"n\": 31, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:pvEYiSc4bFoc4PSElrVhPljfR7/iWmIo1E+ZAcM8clM=:",
+      "content-type": "application/json",
+      "signature": "sig1=:IdSfU4tztSaZRI0mTK1PYUy9iXBK5Yp91Y99QPFsveA=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"content-digest\");created=1699999971;expires=1700000331;keyid=\"k-42e6152accdf\";alg=\"hmac-sha256\""
+    },
+    "method": "DELETE",
+    "path": "/api/v1/resource/31",
+    "query": ""
+  },
+  "now": 1700000031
+}

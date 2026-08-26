@@ -1,0 +1,3 @@
+OBJECT top x86_64-linux input - 5 yes 4 left,right
+OBJECT left x86_64-linux input - 3 yes 2 -
+OBJECT right x86_64-linux input - 3 yes 2 -

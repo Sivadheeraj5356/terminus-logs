@@ -1,0 +1,5 @@
+{
+  "arm_id": "train_b",
+  "slice": "kit/blk/tc.mnt",
+  "schedule": "plain_alt"
+}

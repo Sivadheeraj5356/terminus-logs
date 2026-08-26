@@ -1,0 +1,17 @@
+apiVersion: diffusion.ops/v1
+metadata:
+  name: missing-kind
+container:
+  image: registry.local/missing/kind:0
+spec:
+  seed: 21
+  walkers: 3
+  steps: 2
+  drift: 0.01
+  volatility: 0.1
+  calibrationRef: stable-prod
+  dimensions:
+    - name: x
+      weight: 1.0
+      lower: -1.0
+      upper: 1.0

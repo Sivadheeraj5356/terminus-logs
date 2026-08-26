@@ -1,0 +1,68 @@
+# material inventory index
+
+[[gen]]
+id = 1
+dir = gen_01
+
+[[mat]]
+gen = 1
+pid = "p_alpha"
+fp = "2ce889d392437c52bc5d80f95f75fd145d987a04"
+role = "svc.mesh.east"
+
+[[mat]]
+gen = 1
+pid = "p_beta"
+fp = "9807f970b3db355dee517d37a891db21cc96c424"
+role = "svc.mesh.west"
+
+[[mat]]
+gen = 1
+pid = "p_gamma"
+fp = "bbe7d46acd413765d9bc7cb5c036eff113ddf677"
+role = "svc.mesh.core"
+
+[[gen]]
+id = 2
+dir = gen_02
+
+[[mat]]
+gen = 2
+pid = "p_alpha"
+fp = "2a02e5a3e1ce077f18fb4f714517fc02cf5a06e2"
+role = "svc.mesh.east"
+
+[[mat]]
+gen = 2
+pid = "p_beta"
+fp = "38cf409296b58315d7a19a2bb6eb404497f342ff"
+role = "svc.mesh.west"
+
+[[mat]]
+gen = 2
+pid = "p_gamma"
+fp = "3e643d6ffb58a86acc4b6ecf527a669bb783174b"
+role = "svc.mesh.core"
+
+[[gen]]
+id = 3
+dir = gen_03
+
+[[mat]]
+gen = 3
+pid = "p_alpha"
+fp = "8288a06c4bd884b86e26fe0265be068547390317"
+role = "svc.mesh.east"
+
+[[mat]]
+gen = 3
+pid = "p_beta"
+fp = "920c0ce6e30065c86d74f65a7a726e31f9a42a39"
+role = "svc.mesh.west"
+
+[[mat]]
+gen = 3
+pid = "p_gamma"
+fp = "7d01f77a5e91b6195db9c81170924f562e144ecf"
+role = "svc.mesh.core"
+

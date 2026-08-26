@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "catacomb",
+      "relicmaze.torch": "4.5",
+      "relicmaze.keeper_tz_offset_minutes": "330",
+      "relicmaze.carry_capacity": "120",
+      "relicmaze.goal_room": "forge",
+      "org.opencontainers.image.title": "gen-012"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:faff4ab5c103ef58656f91be3c1456b121ee0a410698ddb4f03d3b021a494ab4"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "RUN keeper bless silver-sigil"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "RUN keeper curse tide-pearl"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "ENV torch_tax=1.0"
+    },
+    {
+      "created_by": "RUN keeper bless silver-sigil"
+    }
+  ]
+}

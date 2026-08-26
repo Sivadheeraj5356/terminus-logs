@@ -1,0 +1,17 @@
+--- lse/w4_epoch.go
++++ lse/w4_epoch.go
+@@ -18,10 +18,13 @@
+ 		return st.Epoch, true
+ 	}
+ 	if ev.Kind == "W" {
++		delete(st.ActivePref, ev.Prefix)
++		st.Epoch++
++		st.Fence++
+ 		if ev.Seq > st.LastSeq {
+ 			st.LastSeq = ev.Seq
+ 		}
+-		return st.Epoch, false
++		return st.Epoch, true
+ 	}
+ 	return st.Epoch, false
+ }

@@ -1,0 +1,11 @@
+{
+  "wave_id": "c",
+  "parent": "merged",
+  "carry_token": "WAVE_C",
+  "objects": [
+    {
+      "name": "mod_sensor",
+      "lane": "O"
+    }
+  ]
+}

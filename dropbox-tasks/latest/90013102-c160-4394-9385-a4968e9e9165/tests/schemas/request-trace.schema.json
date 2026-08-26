@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RequestTrace",
+  "type": "object",
+  "required": ["schema_version", "run_mode", "catalog_digest", "entries"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "run_mode": { "type": "string" },
+    "catalog_digest": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "request_id", "source", "decision", "reason", "signature_version",
+          "tenant", "key_id", "key_epoch", "profile_id", "profile_epoch",
+          "canonical_digest", "cache_hit", "canonical_target", "body_sha256", "body_length"
+        ],
+        "properties": {
+          "request_id": { "type": "string" },
+          "source": { "enum": ["live", "spool"] },
+          "wire_digest": { "type": "string" },
+          "entity_digest": { "type": "string" },
+          "decision": { "type": "string" },
+          "reason": { "type": "string" },
+          "signature_version": { "type": "integer" },
+          "tenant": { "type": "string" },
+          "key_id": { "type": "string" },
+          "key_epoch": { "type": "integer" },
+          "profile_id": { "type": "string" },
+          "profile_epoch": { "type": "integer" },
+          "canonical_digest": { "type": "string" },
+          "cache_hit": { "type": "boolean" },
+          "canonical_target": { "type": "string" },
+          "canonical_headers": { "type": "object" },
+          "body_sha256": { "type": "string" },
+          "body_length": { "type": "integer" },
+          "forward": { "type": ["object", "null"] },
+          "spool": { "type": ["object", "null"] },
+          "audit_record_digest": { "type": "string" }
+        }
+      }
+    }
+  }
+}

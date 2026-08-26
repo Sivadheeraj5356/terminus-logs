@@ -1,0 +1,17 @@
+== Gallery of Whispers [cavern] ==
+Omen: The bone-count is short.
+Light: 9.0 lumens
+Relics:
+  - Astrolabe Shard <epic> 60g
+  - Echo Lens <rare> 80g
+  - Whisper Coin <common> 15g
+Freshest: Echo Lens @ 01:00 KST
+Exits:
+  - north: Petrified Garden (torch 0.5)
+  - east: sealed gate (torch 2.0)
+Torch: 1.5 units
+Inventory: (empty)
+Route: you stand at the goal
+---ACTIONS---
+take astrolabe-shard
+go north

@@ -1,0 +1,6 @@
+{"commitment_id": "cm-arc-cmp", "tenant_id": "tn-arc", "service": "compute", "period_id": "2027-03", "committed_units": 100, "discount_rate_microcents": 3000}
+{"commitment_id": "cm-cir-cmp", "tenant_id": "tn-cir", "service": "compute", "period_id": "2027-03", "committed_units": 40, "discount_rate_microcents": 3200}
+{"commitment_id": "cm-bor-stg", "tenant_id": "tn-bor", "service": "storage", "period_id": "2027-03", "committed_units": 500, "discount_rate_microcents": 150}
+{"commitment_id": "cm-delt-egr", "tenant_id": "tn-delt", "service": "egress", "period_id": "2027-03", "committed_units": 30, "discount_rate_microcents": 800}
+{"commitment_id": "cm-flux-cmp", "tenant_id": "tn-flux", "service": "compute", "period_id": "2027-03", "committed_units": 4, "discount_rate_microcents": 1000}
+{"commitment_id": "cm-pivot-cmp", "tenant_id": "tn-pivot", "service": "compute", "period_id": "2027-03", "committed_units": 12, "discount_rate_microcents": 2000}

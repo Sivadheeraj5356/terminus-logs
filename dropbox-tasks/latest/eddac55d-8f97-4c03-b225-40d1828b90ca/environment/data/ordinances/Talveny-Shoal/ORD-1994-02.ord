@@ -1,0 +1,9 @@
+ordinance: ORD-1994-02
+jurisdiction: Talveny-Shoal
+enacted: 1994-03-07
+effective: 1994-05-01T00:00:00 universal
+standard-offset: +10:30:00
+standard-label: SST
+observance:
+  begin: Oct lastSun 02:00:00 standard save +01:00:00 label SDT
+  end: Mar Sun>=15 03:00:00 standard

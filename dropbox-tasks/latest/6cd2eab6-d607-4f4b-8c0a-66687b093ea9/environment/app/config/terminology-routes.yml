@@ -1,0 +1,10 @@
+routes:
+  - id: public-synonym
+    path: /v1/terms/{term}/synonyms
+    aliases: [synonym-expansion, term-expand-v1]
+  - id: offline-qa
+    path: /internal/qa/synonyms
+    aliases: [evaluation-route, synonym-eval]
+  - id: admin-preview
+    path: /internal/preview/embeddings
+    aliases: [preview-route, embed-preview]

@@ -1,0 +1,12 @@
+$ORIGIN example.test.
+$TTL 3600
+@   IN  SOA  ns1.example.test. hostmaster.example.test. 100 7200 3600 1209600 300
+@       IN  NS   ns1.example.test.
+@       IN  A    192.0.2.10
+www     IN  A    192.0.2.11
+*       IN  A    192.0.2.50
+ns1     IN  A    192.0.2.10
+child   IN  NS   ns.child.example.test.
+ns.child IN A    192.0.2.20
+insecure IN NS   ns.other.example.
+nx      IN  A    192.0.2.99

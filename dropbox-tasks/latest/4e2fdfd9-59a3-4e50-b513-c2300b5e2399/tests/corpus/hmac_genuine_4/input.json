@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-e5cd07e169c2": {
+      "alg": "hmac-sha256",
+      "secret": "404ee5397ddf0a4c5d5172f3cd153823e88651cb15c4617c683f8d3bbdfc3b64"
+    }
+  },
+  "message": {
+    "authority": "svc4.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "sig1=:FmM1r805finluWRVFZsZV/j0QWTPf54sZBVBYr5b73A=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\");created=1699999979;expires=1700000339;keyid=\"k-e5cd07e169c2\";alg=\"hmac-sha256\""
+    },
+    "method": "DELETE",
+    "path": "/api/v0/resource/39",
+    "query": ""
+  },
+  "now": 1700000039
+}

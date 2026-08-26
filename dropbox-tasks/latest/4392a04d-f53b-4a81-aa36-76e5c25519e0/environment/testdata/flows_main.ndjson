@@ -1,0 +1,4 @@
+{"src":"10.9.5.5","dst":"192.168.1.10","port":22,"protocol":"tcp","direction":"inbound"}
+{"src":"10.1.2.3","dst":"192.168.1.10","port":22,"protocol":"tcp","direction":"inbound"}
+{"src":"203.0.113.5","dst":"192.168.1.10","port":80,"protocol":"tcp","direction":"inbound"}
+{"src":"172.16.0.1","dst":"172.16.0.2","port":22,"protocol":"tcp","direction":"inbound"}

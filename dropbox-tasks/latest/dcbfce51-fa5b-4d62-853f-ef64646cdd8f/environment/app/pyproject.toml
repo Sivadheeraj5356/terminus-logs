@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cfaxis"
+# console script keeps legacy command name
+version = "0.1.0"
+description = "CF calendar-qualified numerical time coordinates for climate models"
+requires-python = ">=3.11"
+
+[project.scripts]
+climconvert = "cfaxis.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

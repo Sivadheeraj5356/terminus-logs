@@ -1,0 +1,9 @@
+Fleet rollout desk token k9sa7r for systemd host daemon lifecycle. Rollout stages, daemon lifecycle rules, topology drift envelopes, and operational report seals are documented in /app/docs/system-administration-workflow.md. Operator commands live in /app/docs/fleet-operator-commands.md. Field contracts for the graded desk-trace live in /app/docs/k9_contract.md.
+
+# Fleet daemon start-race rollout on socket-activated hosts
+
+Linux fleet operators publish a socket-activation start-race operational report for host daemons that receive file-descriptor pass handoffs. In this desk, a desk is the operations console that coordinates per-scenario daemon starts; socket-activation means systemd brings a daemon up when its listener socket accepts work; the k9 tools are the fleet operator binaries that invoke a scenario, recover checkpoint state, and emit the operational seal. The working baseline under /app/environment already builds those tools. Implement the fleet rollout workflow so /app/environment/tools/k9_invoke, /app/environment/tools/k9_recover, and /app/environment/tools/k9_emit produce /app/output/k9_trace.json from fixtures under /app/cases/seq into /app/desk-state.
+
+Combined fleet runs show ledger-grounded sequence bindings, full xr4 depth listings, WAL barrier order aligned with checkpoint seals, epoch caches that overwrite on re-invoke, fresh ledger reads following snapshot replacement, stable digests on a second emit, and recover that rejects invalid append logs. Digest helpers live at /app/docs/digest_ref.sh. The verifier reruns the release compile and k9 desk commands documented in /app/docs/fleet-operator-commands.md.
+
+The deliverable is /app/output/k9_trace.json with a cross-phase row set and chain_fingerprint digest. The per-scenario xr4 depth table, hidden ledger overlay rules including TB3_FIXTURE_ROOT, and related invariants are specified in /app/docs/k9_contract.md.

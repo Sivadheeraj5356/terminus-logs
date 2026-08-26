@@ -1,0 +1,8 @@
+{
+  "reference_sensitivity": 50.0,
+  "cross_rate_min": 0.01,
+  "cross_rate_max": 0.95,
+  "anchor_floor": 0.95,
+  "field_core_budget": 900,
+  "cost_ceiling": 2319.55
+}

@@ -1,0 +1,9 @@
+group_name,security_bits
+x25519,128
+secp256r1,128
+secp384r1,192
+secp521r1,256
+x25519_mlkem768,256
+secp256r1_mlkem768,256
+ffdhe2048,112
+ffdhe3072,128

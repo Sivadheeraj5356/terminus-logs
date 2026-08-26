@@ -1,0 +1,3 @@
+linux-x86_64 real arch=1
+linux-aarch64 real arch=2
+stub bait arch=0

@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-07-13T00:00:00Z",
+  "rollout_id": "rollout-kr-204",
+  "target_runtime": "linux-amd64",
+  "allowed_tracks": [
+    "stable",
+    "canary"
+  ],
+  "revoked_issuers": [
+    "revoked-ca"
+  ],
+  "max_total_footprint_kb": 112,
+  "issuer_caps": {
+    "north-ca": 2,
+    "east-ca": 1
+  },
+  "baseline_claims": [
+    {
+      "name": "clock-sync",
+      "strength": 2
+    },
+    {
+      "name": "audit-log",
+      "strength": 1
+    }
+  ],
+  "required_claims": [
+    {
+      "name": "verify-core",
+      "min_strength": 6
+    },
+    {
+      "name": "tsa",
+      "min_strength": 5
+    },
+    {
+      "name": "revocation",
+      "min_strength": 5
+    },
+    {
+      "name": "legacy-jar",
+      "min_strength": 3
+    },
+    {
+      "name": "provenance",
+      "min_strength": 4
+    }
+  ]
+}

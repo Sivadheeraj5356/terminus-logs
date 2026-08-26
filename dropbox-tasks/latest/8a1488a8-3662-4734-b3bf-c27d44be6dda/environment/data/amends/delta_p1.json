@@ -1,0 +1,4 @@
+{
+  "delta_drop": {"kind": "tombstone", "value": null},
+  "delta_lane": {"kind": "scalar", "value": "patch-delta"}
+}

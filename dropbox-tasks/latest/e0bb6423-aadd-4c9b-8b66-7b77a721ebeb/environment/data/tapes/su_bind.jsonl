@@ -1,0 +1,2 @@
+{"seq":1,"ts":7000,"actor":"leo@CORP.EXAMPLE.COM","module":"common-auth","result":"ok","service":"su"}
+{"seq":2,"ts":7001,"actor":"leo@CORP.EXAMPLE.COM","module":"pam_unix","result":"ok","service":"su"}

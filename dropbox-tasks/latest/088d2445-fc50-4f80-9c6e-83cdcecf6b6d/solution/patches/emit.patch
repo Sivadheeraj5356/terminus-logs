@@ -1,0 +1,26 @@
+--- a/environment/internal/emit/emit.go	2026-07-20 11:30:48.113177908 +0530
++++ b/environment/internal/emit/emit.go	2026-07-20 11:28:24.264900806 +0530
+@@ -3,7 +3,6 @@
+ import (
+ 	"fmt"
+ 	"hsdrive/internal/digest"
+-	"strconv"
+ )
+ 
+ type Row struct {
+@@ -12,13 +11,13 @@
+ 	RowID   int64  `json:"row_id"`
+ }
+ 
+-// Script emits one ledger-bound script_rows record.
++// Script seals a ledger row to sha256(bind_ref)[:8].
+ func Script(rowID uint64, binds map[uint64]string) (Row, error) {
+ 	br, ok := binds[rowID]
+ 	if !ok {
+ 		return Row{}, fmt.Errorf("missing bind %d", rowID)
+ 	}
+-	hx := digest.HexStr(strconv.FormatUint(rowID, 10))
++	hx := digest.HexStr(br)
+ 	if len(hx) < 8 {
+ 		return Row{}, fmt.Errorf("short digest")
+ 	}

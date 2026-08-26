@@ -1,0 +1,12 @@
+{
+  "specifications": [
+    {
+      "spec_id": "SPEC-PREC",
+      "priority": 100,
+      "bands": {
+        "albumin": {"lower": 3.12, "upper": 3.5},
+        "IgG": {"lower": 41.0, "upper": 45.0}
+      }
+    }
+  ]
+}

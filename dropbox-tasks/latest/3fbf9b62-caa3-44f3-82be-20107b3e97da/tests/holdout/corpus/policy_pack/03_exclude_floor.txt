@@ -1,0 +1,10 @@
+Exclude overlay and toolchain floors (signed)
+---------------------------------------------
+Pins whose module_path appears in the exclude overlay are excluded. Excluded pins keep
+measured retract, checksum, and floor fields, but gate_action is pass, policy_basis is
+exclude_skip, effective_violation is false, and block_reason is empty.
+
+Each pin declares go_floor. The manifest declares toolchain_declared. Floor satisfaction
+is decided by the gofloor helper named in the manifest. CLI: gofloor <toolchainDeclared>
+<pinFloor>. Stdout match with exit 0 means go_floor_ok. Comparison is dotted numeric
+major.minor.patch; a leading go prefix on either side is ignored.

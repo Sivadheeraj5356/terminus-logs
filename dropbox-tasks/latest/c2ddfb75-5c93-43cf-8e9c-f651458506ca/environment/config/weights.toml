@@ -1,0 +1,20 @@
+[genealogy_blend]
+letter_floor = 0.55
+letter_span = 0.45
+dye_penalty_rate = 0.06
+
+[genealogy_blend.salon]
+letter_floor = 0.60
+letter_span = 0.40
+dye_penalty_rate = 0.05
+
+[genealogy_blend.exchange]
+letter_floor = 0.52
+letter_span = 0.48
+dye_penalty_rate = 0.07
+
+# Legacy section retained for curator migration tooling only.
+[genealogy_blend_legacy]
+letter_floor = 0.50
+letter_span = 0.50
+dye_penalty_rate = 0.08

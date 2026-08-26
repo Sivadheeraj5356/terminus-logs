@@ -1,0 +1,147 @@
+--- a/coord/await.go	2026-07-20 09:08:05.834568900 +0530
++++ b/coord/await.go	2026-07-20 09:20:02.288797087 +0530
+@@ -14,7 +14,8 @@
+ 	}
+ 	select {
+ 	case <-secondary:
+-	default:
++	case <-ctx.Done():
++		return api.PhaseToken{}, ctx.Err()
+ 	}
+ 	if err := ctx.Err(); err != nil {
+ 		return api.PhaseToken{}, err
+--- a/role/latch.go	2026-07-20 09:08:05.861050600 +0530
++++ b/role/latch.go	2026-07-20 09:20:02.288797087 +0530
+@@ -4,7 +4,16 @@
+ 	if !q.PredecessorDone(epoch) {
+ 		return nil
+ 	}
+-	q.ReleaseAll(epoch)
++	if !q.HasPendingAttach(epoch) {
++		return nil
++	}
++	if q.GateTick("neighbor_replay") == 0 {
++		return nil
++	}
++	if q.ItemDone("endpoint_attach", epoch) {
++		return nil
++	}
++	q.ReleasePending(epoch)
+ 	return nil
+ }
+ 
+--- a/l2pub/holdqueue.go	2026-07-20 09:08:05.969853200 +0530
++++ b/l2pub/holdqueue.go	2026-07-20 09:20:02.288797087 +0530
+@@ -1,9 +1,26 @@
+ package l2pub
+ 
++import "fmt"
++
+ func drainQueuedFrames(d *Dispatcher, epoch uint64, barrier <-chan struct{}) error {
+-	select {
+-	case <-barrier:
+-	default:
++	<-barrier
++	frames := d.FramesForEpoch(epoch)
++	if len(frames) == 0 {
++		return fmt.Errorf("missing publish frames")
++	}
++	for _, frame := range frames {
++		if frame.Epoch != epoch {
++			return fmt.Errorf("frame epoch mismatch")
++		}
++		if len(frame.Payload) == 0 {
++			return fmt.Errorf("empty frame payload")
++		}
++		if err := ValidateFrameMTU(frame.Payload, 1500); err != nil {
++			return err
++		}
++		if FrameChecksum(frame.Payload) == "" {
++			return fmt.Errorf("frame checksum missing")
++		}
+ 	}
+ 	d.FlushPending(epoch)
+ 	return nil
+--- a/state/reconcile.go	2026-07-20 09:08:06.137993900 +0530
++++ b/state/reconcile.go	2026-07-20 09:20:02.288797087 +0530
+@@ -4,15 +4,25 @@
+ 	if keepFrom == 0 {
+ 		return 0, nil
+ 	}
+-	for _, entry := range j.entries {
+-		if entry.Generation > j.head {
++	removed := j.TrimBelow(keepFrom)
++	for _, entry := range j.ExportSnapshot() {
++		if entry.Generation >= keepFrom && entry.Generation > j.head {
+ 			j.head = entry.Generation
+ 		}
+ 	}
++	out := make([]JournalEntry, 0, len(j.entries))
++	for _, entry := range j.entries {
++		if entry.Generation < keepFrom {
++			removed++
++			continue
++		}
++		out = append(out, entry)
++	}
++	j.entries = out
+ 	if j.head < keepFrom {
+ 		j.head = keepFrom
+ 	}
+-	return 0, nil
++	return removed, nil
+ }
+ 
+ func ReconcileHeadExported(j *Journal, keepFrom uint64) (int, error) {
+--- a/simdrive/cycle_maint.go	2026-07-20 09:08:14.936310800 +0530
++++ b/simdrive/cycle_maint.go	2026-07-20 09:20:02.288797087 +0530
+@@ -8,10 +8,11 @@
+ )
+ 
+ func (e *Engine) deriveMaintEpoch() uint64 {
+-	if e.reopened {
+-		return e.journal.HeadGeneration() + 1
++	epoch := e.journal.HeadGeneration() + 1
++	if epoch < 2 {
++		epoch = 2
+ 	}
+-	return 2
++	return epoch
+ }
+ 
+ func (e *Engine) runMaintCycle() error {
+@@ -50,6 +51,7 @@
+ 		return err
+ 	}
+ 
++	e.clock.Advance(1)
+ 	tryAttach()
+ 	e.roleQ.MarkDone(observemit.PhaseEndpointAttach, epoch)
+ 	close(roleDone)
+@@ -66,10 +68,6 @@
+ }
+ 
+ func (e *Engine) finalizeMaintJournal(epoch uint64) error {
+-	if e.forward.Epoch() != e.journal.HeadGeneration() {
+-		e.journal.Append(e.forward.Epoch(), "stale", e.clock.Now())
+-	} else {
+-		e.journal.Append(epoch, "cycle", e.clock.Now())
+-	}
++	e.journal.Append(epoch, "cycle", e.clock.Now())
+ 	return e.journal.Persist()
+ }
+--- a/simdrive/engine.go	2026-07-14 09:19:58.000000000 +0530
++++ b/simdrive/engine.go	2026-07-20 09:20:02.292463967 +0530
+@@ -105,6 +105,12 @@
+ 	epoch := uint64(1)
+ 	e.forward.ResetCold(epoch)
+ 	e.journal.Append(epoch, "cold", e.clock.Now())
++	e.roleQ.Enqueue(observemit.PhaseNeighborReplay, epoch)
++	e.roleQ.Enqueue(observemit.PhaseEndpointAttach, epoch)
++	e.clock.Advance(1)
++	e.roleQ.MarkDone(observemit.PhaseNeighborReplay, epoch)
++	e.clock.Advance(1)
++	e.roleQ.MarkDone(observemit.PhaseEndpointAttach, epoch)
+ 	e.clock.Advance(1)
+ 	e.probe.MarkReady()
+ 	return e.recordCycle("cold-boot", epoch)

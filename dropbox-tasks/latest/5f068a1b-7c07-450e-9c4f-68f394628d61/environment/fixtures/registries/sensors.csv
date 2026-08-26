@@ -1,0 +1,4 @@
+sensor_id,unit,offset_c,active_from,active_until
+A1,C,0.0,,
+B1,F,0.0,,
+C1,,1.0,,

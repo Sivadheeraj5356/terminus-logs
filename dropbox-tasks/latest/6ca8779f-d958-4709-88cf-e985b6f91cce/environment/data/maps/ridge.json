@@ -1,0 +1,6 @@
+{
+  "width": 5,
+  "height": 3,
+  "elevation": [[0,0,3,0,0],[0,0,3,0,0],[0,0,3,0,0]],
+  "blocked": [[false,false,false,false,false],[false,false,false,false,false],[false,false,false,false,false]]
+}

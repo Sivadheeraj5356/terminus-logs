@@ -1,0 +1,14 @@
+salt 91
+param min_loop 60
+param max_internal 5U
+param hairpin_base 64
+param hairpin_slope 61
+param stack_base 66
+param reg_penalty 61
+param internal_penalty 60
+param asym_penalty 62
+param split_penalty 63
+param ml_close 5S
+param ml_branch 65
+param ml_unpaired 62
+param terminal_seed 5K

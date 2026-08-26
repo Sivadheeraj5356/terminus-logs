@@ -1,0 +1,13 @@
+unit	symbol	kind	binding	size
+main	entry	REF	-	0
+main	optional_alias	WEAK_REF	-	0
+main	bonus_alias	REF	-	0
+a_gamma	gamma_alias	DEF	STRONG	0
+a_beta	beta	DEF	COMMON	8
+a_alpha	alpha_alias	DEF	STRONG	0
+a_alpha	beta_alias	REF	-	0
+b_beta	beta_alias	DEF	WEAK	0
+b_beta	gamma	REF	-	0
+weak_only	optional	DEF	STRONG	0
+extra_weak	bonus	DEF	WEAK	0
+extra_strong	bonus_alias	DEF	STRONG	0

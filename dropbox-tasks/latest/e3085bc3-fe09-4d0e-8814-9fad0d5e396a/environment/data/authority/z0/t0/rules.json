@@ -1,0 +1,5 @@
+[
+  { "tier": 9, "verb": "log", "bind": { "root": "/" } },
+  { "tier": 9, "verb": "check_sig", "bind": { "root": "/etc" } },
+  { "tier": 9, "verb": "log", "bind": { "root": "/var" } }
+]

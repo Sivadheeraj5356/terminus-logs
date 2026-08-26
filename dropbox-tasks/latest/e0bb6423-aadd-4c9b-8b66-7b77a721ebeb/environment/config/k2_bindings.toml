@@ -1,0 +1,7 @@
+[[row]]
+service = "sshd"
+stack_id = "portal-stack"
+
+[[row]]
+service = "sudo"
+stack_id = "sshd-stack"

@@ -1,0 +1,6 @@
+module_id,version,depends_on
+auth-core,1.2.0,
+billing-api,2.0.0,auth-core
+ingest-worker,1.1.0,auth-core
+notify-hub,1.0.5,"billing-api,ingest-worker"
+gateway,2.1.0,"auth-core,billing-api,notify-hub"

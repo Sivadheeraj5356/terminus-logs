@@ -1,0 +1,43 @@
+#!/bin/bash
+set -euo pipefail
+
+EXPECTED_WORLD="3826888f2fad0603751e5d9f49105f04231fc417c63ac8e8457402a174c0bdb9"
+EXPECTED_ATLAS="534c977c31a1f0b5aa6c3740ca16b2decc762047d87f5481a3c4ff85cca93761"
+
+for path in /app/state/world.db /app/artifacts/world.dump /app/artifacts/world.sha256 /app/artifacts/clue_atlas.png /app/artifacts/atlas.rgba.sha256 /app/artifacts/keeper.circuit /app/artifacts/keeper.circuit.sha256; do
+    if [[ ! -f "$path" ]]; then
+        echo "missing generated artifact: $path" >&2
+        exit 1
+    fi
+done
+
+actual_world="$(/app/tools/canonical_dump.sh /app/state/world.db | sha256sum | awk '{print $1}')"
+recorded_world="$(tr -d '[:space:]' < /app/artifacts/world.sha256)"
+actual_atlas="$(convert /app/artifacts/clue_atlas.png rgba:- | sha256sum | awk '{print $1}')"
+recorded_atlas="$(tr -d '[:space:]' < /app/artifacts/atlas.rgba.sha256)"
+actual_circuit="$(mktemp)"
+trap 'rm -f "$actual_circuit"' EXIT
+lua5.4 /app/game/keeper_circuit.lua /app/state/world.db vestibule keeper > "$actual_circuit"
+actual_circuit_hash="$(sha256sum "$actual_circuit" | awk '{print $1}')"
+recorded_circuit_hash="$(tr -d '[:space:]' < /app/artifacts/keeper.circuit.sha256)"
+
+status=0
+if [[ "$actual_world" != "$recorded_world" ]] || [[ "$actual_world" != "$EXPECTED_WORLD" ]]; then
+    echo "world checksum mismatch" >&2
+    status=1
+fi
+if [[ "$actual_atlas" != "$recorded_atlas" ]] || [[ "$actual_atlas" != "$EXPECTED_ATLAS" ]]; then
+    echo "atlas checksum mismatch" >&2
+    status=1
+fi
+if ! cmp -s "$actual_circuit" /app/artifacts/keeper.circuit || [[ "$actual_circuit_hash" != "$recorded_circuit_hash" ]]; then
+    echo "keeper circuit mismatch" >&2
+    status=1
+fi
+
+if [[ "$status" -eq 0 ]]; then
+    echo "keeper audit passed"
+else
+    echo "keeper audit failed" >&2
+fi
+exit "$status"

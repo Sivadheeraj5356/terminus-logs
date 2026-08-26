@@ -1,0 +1,29 @@
+# Raman thermometry calibration — laser and spectral parameters
+# Laser excitation wavenumber (cm^-1) for 632.8 nm HeNe laser
+laser_wavenumber = 15798.0
+
+# Calibrated Raman shift of the reference mode (cm^-1)
+# Per NIST SRM 2241 silicon reference standard
+raman_shift_cal = 520.0
+
+# Peak detection half-window (cm^-1)
+peak_window_half = 15.0
+
+# Minimum peak height threshold (arb. units)
+min_peak_height = 10.0
+
+# Bose population model: "approx" (high-temperature approximation)
+# or "exact" (full Bose-Einstein distribution)
+bose_model = "approx"
+
+# Frequency pre-factor exponent (power law for Raman cross-section)
+# Standard value per Long (1977) is 4
+frequency_exponent = 4.0
+
+# Temperature offset correction (K) — accounts for systematic
+# calibration bias in the thermocouple reference
+temperature_offset = 5.0
+
+# Ratio convention: "stokes_over_anti" (I_S / I_AS, standard)
+# or "anti_over_stokes" (alternative)
+ratio_convention = "stokes_over_anti"

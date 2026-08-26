@@ -1,0 +1,10 @@
+{
+  "versions": [
+    {
+      "version_id": "sys_v1",
+      "effective_from": "2024-01-01T00:00:00Z",
+      "body_hash": "bh1",
+      "conflicts_with": []
+    }
+  ]
+}

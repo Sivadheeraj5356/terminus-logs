@@ -1,0 +1,8 @@
+vaultseal triage snapshot
+case: case_0001
+signal: SIGSEGV (fault)
+#0  0x5555e59839e2 in aes256_gcm_seal (a=0x5555809d07ce) at vaultseal.c:100
+#1  0x555561c54b62 in ua (a=0x555501fc348d) at vaultseal.c:300
+#2  0x5555a1e8c37f in ub (a=0x555586c66693) at vaultseal.c:307
+#3  0x55559b04412c in main (a=0x5555cc51d3e3) at vaultseal.c:512
+key: aa:8f:58:a1:e3:26:78:38:58:cf:55:61:2d:06:a0:5b:04:c0:cc:37:db:af:23:31:c1:e0:a0:80:16:ed:f5:7c

@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": ["schema_mark", "consumers"],
+  "properties": {
+    "schema_mark": {"type": "integer"},
+    "consumers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["stale_inputs", "rebuild_required", "frontier_digest_hex"],
+        "properties": {
+          "stale_inputs": {"type": "array"},
+          "rebuild_required": {"type": "boolean"},
+          "frontier_digest_hex": {"type": "string"}
+        }
+      }
+    }
+  }
+}

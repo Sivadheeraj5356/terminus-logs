@@ -1,0 +1,40 @@
+{
+  "seed_id": "portal_deny",
+  "width": 10,
+  "height": 6,
+  "orient": "pointy",
+  "wet_window": 0,
+  "start": [
+    2,
+    0
+  ],
+  "goal": [
+    2,
+    2
+  ],
+  "terrain": {
+    "2,0": 1,
+    "2,1": 1,
+    "2,2": 1,
+    "7,3": 9
+  },
+  "portals": [
+    {
+      "from": [
+        2,
+        1
+      ],
+      "to": [
+        7,
+        3
+      ],
+      "arms": [
+        0
+      ]
+    }
+  ],
+  "steps": [
+    5,
+    5
+  ]
+}

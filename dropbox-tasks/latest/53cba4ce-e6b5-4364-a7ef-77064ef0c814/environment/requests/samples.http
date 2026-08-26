@@ -1,0 +1,54 @@
+# spectra-svc sample requests (127.0.0.1:8747)
+# Response shapes below are contractual: field names and structure must not change.
+# The audit exercises exactly the reference requests listed here.
+
+### Service health
+GET http://127.0.0.1:8747/health
+
+# 200 => {"status":"ok"}
+
+### Channel inventory
+GET http://127.0.0.1:8747/channels
+
+# 200 => {"channels":["mag_ridge_e","mag_ridge_n", "..."]}
+
+### Band-power spectra: one reference request per enrolled channel.
+### Windows are half-open [from, to); frames are captured 16 s apart.
+
+GET http://127.0.0.1:8747/bandpower?channel=mag_ridge_e&from=2025-11-14T00:00:00Z&to=2025-11-14T00:02:00Z
+
+GET http://127.0.0.1:8747/bandpower?channel=mag_ridge_n&from=2025-11-14T00:00:16Z&to=2025-11-14T00:01:04Z
+
+GET http://127.0.0.1:8747/bandpower?channel=mag_saddle_w&from=2025-11-14T00:00:00Z&to=2025-11-14T00:00:32Z
+
+GET http://127.0.0.1:8747/bandpower?channel=mag_terrace_c&from=2025-11-14T00:00:32Z&to=2025-11-14T00:02:00Z
+
+GET http://127.0.0.1:8747/bandpower?channel=o%27neill_nw&from=2025-11-14T00:00:00Z&to=2025-11-14T00:00:32Z
+
+GET http://127.0.0.1:8747/bandpower?channel=vlf_bench_s&from=2025-11-14T00:00:16Z&to=2025-11-14T00:01:04Z
+
+# 200 => {
+#   "channel": "<as requested>",
+#   "frames": <count of frames in the window>,
+#   "revision": "<in-force SMP-7 revision letter>",
+#   "bands": [
+#     {"band": "<name>", "lo_hz": 0.5, "hi_hz": 8.0, "power": 1.234e-4},
+#     "..."
+#   ]
+# }
+# Band rows appear in ascending lo_hz order, one row per band defined by the
+# in-force SMP-7 revision. Powers are averaged across all frames in the window.
+# Station identifiers are recorded verbatim, including punctuation; they are
+# opaque text and must be transported to the telemetry store as data, never
+# assembled into statement text.
+
+### Missing parameters are a 400
+GET http://127.0.0.1:8747/bandpower?channel=mag_ridge_e
+
+# 400 => {"error":"channel, from and to are required"}
+
+### Channels with no frames in the window are a 404, whatever the identifier
+### looks like — including identifiers carrying punctuation or statement text.
+GET http://127.0.0.1:8747/bandpower?channel=mag_summit_q&from=2025-11-14T00:00:00Z&to=2025-11-14T00:02:00Z
+
+# 404 => {"error":"no frames for channel in window"}

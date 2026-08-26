@@ -1,0 +1,18 @@
+{
+  "total_files": 3,
+  "total_lines": 164,
+  "heading_count": 27,
+  "code_block_count": 4,
+  "list_item_count": 28,
+  "paragraph_count": 23,
+  "link_count": 7,
+  "average_blocks_per_file": 27.3,
+  "heading_distribution": {
+    "h1": 3,
+    "h2": 12,
+    "h3": 11,
+    "h4": 1,
+    "h5": 0,
+    "h6": 0
+  }
+}

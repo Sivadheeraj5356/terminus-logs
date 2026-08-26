@@ -1,0 +1,9 @@
+ordinance: ORD-1928-02
+jurisdiction: Merrow-Strand
+enacted: 1928-01-24
+effective: 1928-03-11T02:00:00 wall
+standard-offset: +05:45:00
+standard-label: RST
+observance:
+  begin: Mar Sun>=8 02:00:00 wall save +01:00:00 label RDT
+  end: Oct lastSun 03:00:00 wall

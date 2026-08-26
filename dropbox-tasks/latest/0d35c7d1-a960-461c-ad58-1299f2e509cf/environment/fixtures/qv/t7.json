@@ -1,0 +1,10 @@
+{
+  "arm": "side_prt",
+  "phase": "partial",
+  "row_cap": 6,
+  "group_cap": 3,
+  "cells": [
+    {"id": "p01", "kind": "host", "match": "prt.lab", "target": "be_prt", "want": "route"},
+    {"id": "p02", "kind": "path", "match": "/prt", "target": "be_prtp", "want": "route"}
+  ]
+}

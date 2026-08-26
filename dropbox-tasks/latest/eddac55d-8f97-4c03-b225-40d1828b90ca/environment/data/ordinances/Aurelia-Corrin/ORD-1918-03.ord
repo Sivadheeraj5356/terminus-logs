@@ -1,0 +1,9 @@
+ordinance: ORD-1918-03
+jurisdiction: Aurelia-Corrin
+enacted: 1918-03-11
+effective: 1918-04-14T00:00:00 universal
+standard-offset: +07:30:00
+standard-label: numeric
+observance:
+  begin: Apr Sun>=8 00:00:00 universal save +01:00:00 label numeric
+  end: Sep lastSun 00:00:00 universal

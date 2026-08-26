@@ -1,0 +1,15 @@
+.git
+**/.git
+.DS_Store
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.gitignore
+node_modules
+mangle
+tests/unit
+solution/
+tests/
+.env

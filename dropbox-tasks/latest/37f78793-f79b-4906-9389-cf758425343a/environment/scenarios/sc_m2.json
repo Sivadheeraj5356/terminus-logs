@@ -1,0 +1,12 @@
+{
+  "combo": false,
+  "codename": "sc_m2",
+  "ev_bin": "sc_m2.evb",
+  "band_lo": 6,
+  "band_hi": 230,
+  "mag_seed": 13,
+  "dur_seed": 18,
+  "combo_depth": 4,
+  "entity_a": 15,
+  "entity_b": 25
+}

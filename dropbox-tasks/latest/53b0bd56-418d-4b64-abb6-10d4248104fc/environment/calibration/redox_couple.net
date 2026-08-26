@@ -1,0 +1,11 @@
+network	redox_couple
+species	X	Y	Z
+initial	X	0.69999999999999996
+initial	Y	0.29999999999999999
+initial	Z	0
+reaction	5200	X + Y -> Y + Z
+reaction	1.8	Z -> X
+reaction	0.90000000000000002	Y -> Z
+horizon	0	10
+rtol	9.9999999999999995e-07
+atol	1.0000000000000001e-09

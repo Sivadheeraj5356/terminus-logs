@@ -1,0 +1,10 @@
+{
+  "/app/docs/observatory-operations-notebook.md": "ebdff3b1901a925d8eb7dbfe620d104b752d9cd4fdfa2afee4dcc339858dfa16",
+  "/app/container/specz-worker.def": "2c2043e152e850bd36f21d8c0f04dab4d472b5c00459f0f5ee6c09123daab132",
+  "/app/docs/operator-runbook.md": "93c5609ff637c35a69ee34295948228d276bcb683ff47268290445b395705473",
+  "/data/inbox/spc07-r11-even.spz": "13c9310ccb827ac752f29ae4fe8ddddb84eb39249bfb1a50c1ed45e93b01af79",
+  "/data/inbox/spc07-r17-odd.spz": "39e2c8e84ad4421ba864d99eefa812877507c19fd31e3d97ecd17073d81ddc3e",
+  "/data/inbox/spc12-r17-reversed.spz": "6af7f4db1bbddc834fd67cc00720013d99d701370a5d0a855b6d76cc1a0c00dc",
+  "/data/inbox/corrupt-crc.spz": "82dd4dac318685780bbdf527552a0101e02c8f3a81f6d7ab94beddb1fdb3eec2",
+  "/data/work/interrupted-r17.processing": "cbde39d24dc10bc7b9fbc02521b1bee94592c7e2a5093486872e055bb475744c"
+}

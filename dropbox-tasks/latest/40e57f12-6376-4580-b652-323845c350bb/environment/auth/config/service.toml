@@ -1,0 +1,9 @@
+[service]
+db_path = /app/auth/data/revocations.db
+clock_epoch = 1717203600
+audit_out = /app/auth/out/rotation-audit.jsonl
+keys_dir = /app/auth/keys
+rotation_state = /app/auth/keys/rotation-state.json
+
+[rotation]
+grace_seconds = 600

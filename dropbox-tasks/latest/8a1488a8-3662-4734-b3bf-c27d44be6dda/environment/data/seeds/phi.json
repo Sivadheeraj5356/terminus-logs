@@ -1,0 +1,6 @@
+{
+  "phi_guard": {"kind": "scalar", "value": "phi-base"},
+  "codes": {"kind": "list", "value": [42, "x"]},
+  "nest": {"kind": "map", "value": {"a": {"keep": 1, "leaf": "old"}}},
+  "alias_leaf": {"kind": "scalar", "value": "$ref:nest.a.leaf"}
+}

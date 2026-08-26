@@ -1,0 +1,26 @@
+# Stress annex journal for package 44
+
+`events.jl` carries a WATERMARK ceiling and CHK windows with XOR overlays.
+Segment materialization starts from annex44 base bytes (`seg_a.bin`,
+`seg_b.bin`, `seg_c.bin`).
+
+The active checkpoint window is the eligible CHK with the greatest epoch that
+does not exceed the WATERMARK. When several CHK lines share that epoch, the
+later line in file order wins. The window is half-open: XOR lines strictly after
+the winning CHK and before the next CHK (or EOF).
+
+Symptoms when the window is wrong:
+- History CHK epochs above the WATERMARK leak into materialized segments.
+- Trailing low-id CHK windows are selected instead of the watermark-eligible block.
+- Compaction echoes beside the journal appear to retarget the live window.
+- The win_seal text used for digest folding and cache sealing does not match the
+  overlays that actually applied.
+
+win_seal is the lowercase sha256 hex of the UTF-8 join (newline-separated) of the
+winning CHK line followed by every XOR line inside that same half-open window,
+in file order. The seal travels with the remapped algebra fingerprint; a cache
+entry that matches the fingerprint but not the seal is invalid.
+
+`ckpt_idx.toml` may sit beside this journal for operator tooling and can lag
+live epochs after a WAL append. Terminal materialization must still pick the
+winning CHK window from the live `events.jl` contents under WATERMARK rules.

@@ -1,0 +1,7 @@
+RULE ORDERING_PULL
+IN keys
+OUT value,reason
+TABLE
+Before -> no_pull|order-pull
+After -> no_pull|order-pull
+END

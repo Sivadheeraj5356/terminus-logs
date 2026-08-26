@@ -1,0 +1,5 @@
+{"case_id":"m01","prompt_id":"p100","split":"train","lang":"en","text":"please stay kind","component":"mod-core","package":"@safe/mod-core"}
+{"case_id":"m02","prompt_id":"p100","split":"eval","lang":"es","text":"eres toxico basura","component":"mod-core","package":"@safe/mod-core-legacy"}
+{"case_id":"m03","prompt_id":"p100","split":"eval","lang":"fr","text":"t0x1c insult sale","component":"mod-core","package":"@safe/mod-core"}
+{"case_id":"m04","prompt_id":"p200","split":"eval","lang":"hi","text":"ganda dhamki user","component":"lex-bridge","package":"@safe/lex-bridge"}
+{"case_id":"m05","prompt_id":"p200","split":"eval","lang":"ar","text":"samm threat marker","component":"lex-bridge","package":"@safe/lex-alias"}

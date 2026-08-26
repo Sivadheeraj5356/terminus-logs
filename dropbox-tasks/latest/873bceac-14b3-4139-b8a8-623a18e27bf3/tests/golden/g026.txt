@@ -1,0 +1,14 @@
+== Vault of Echoes [crystal] ==
+Omen: A cold star falls.
+Light: 9.0 lumens
+Relics:
+  - Crystal Eye <legendary> 90g (sealed)
+  - Resonant Bell <rare> 350g
+Freshest: Resonant Bell @ 08:40 KST
+Exits:
+  - down: Whisperbone Catacomb (torch 1.0)
+Torch: 12.0 units
+Inventory: (empty)
+Route: you stand at the goal
+---ACTIONS---
+go down

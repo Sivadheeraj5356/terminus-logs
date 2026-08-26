@@ -1,0 +1,6 @@
+{"seq":1,"epoch":0,"kind":"quarantine","link":"alpha>bravo","source":"south"}
+{"seq":2,"epoch":0,"kind":"hop","link":"alpha>bravo","ms":200,"source":"south"}
+{"seq":3,"epoch":0,"kind":"note","source":"south"}
+{"seq":1,"epoch":20,"kind":"policy_update","source":"south","policy":{"default_sla_ms":120,"rules":[{"pattern":"alpha>*","sla_ms":30}]}}
+{"seq":2,"epoch":20,"kind":"hop","link":"alpha>bravo","ms":45,"source":"south"}
+{"seq":3,"epoch":100,"kind":"hop","link":"alpha>omega","ms":75,"source":"south"}

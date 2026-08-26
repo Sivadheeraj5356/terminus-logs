@@ -1,0 +1,11 @@
+package telemetry:edge;
+
+interface worker {
+    use wasi:io/streams.{input-stream, output-stream, stream-error};
+
+    process: func(input: input-stream, output: output-stream) -> result<_, stream-error>;
+}
+
+world edge-worker {
+    export worker;
+}

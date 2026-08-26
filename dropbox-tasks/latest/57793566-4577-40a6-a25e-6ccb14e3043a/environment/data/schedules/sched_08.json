@@ -1,0 +1,140 @@
+{
+  "budgets": {
+    "A": 11,
+    "B": 6,
+    "C": 8
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 2
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "B",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 3
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 4
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "B",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 2,
+      "seq": 5
+    },
+    {
+      "job": "j2",
+      "op": "hold",
+      "seq": 6
+    },
+    {
+      "job": "j2",
+      "op": "hold",
+      "seq": 7
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 8
+    },
+    {
+      "job": "j2",
+      "op": "hold",
+      "seq": 9
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 10
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 11
+    },
+    {
+      "job": "j8",
+      "op": "submit",
+      "owner": "C",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 12
+    },
+    {
+      "job": "j9",
+      "op": "submit",
+      "owner": "B",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 13
+    },
+    {
+      "job": "j3",
+      "op": "cancel",
+      "seq": 14
+    },
+    {
+      "op": "finish",
+      "printer": "p2",
+      "seq": 15
+    },
+    {
+      "job": "j10",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 16
+    },
+    {
+      "job": "j8",
+      "op": "release",
+      "seq": 17
+    }
+  ],
+  "max_faults": 3,
+  "printers": [
+    "p1",
+    "p2"
+  ],
+  "spool": "sched_08"
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "grid_n": 41,
+  "k_sigma": 1.0,
+  "default_enrichment_model_id": "burial_short"
+}

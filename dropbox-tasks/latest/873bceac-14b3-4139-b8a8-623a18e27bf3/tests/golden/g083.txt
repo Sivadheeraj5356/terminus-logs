@@ -1,0 +1,13 @@
+== Starfall Observatory [astral] ==
+Omen: Nothing waits forever.
+Light: 1.5 lumens
+Relics:
+  - Astral Compass <epic> 110g (cursed)
+Freshest: Astral Compass @ 01:05 KST
+Exits:
+  - down: Petrified Garden (torch 0.5)
+Torch: 1.5 units
+Inventory: (empty)
+Route: you stand at the goal
+---ACTIONS---
+inspect astral-compass

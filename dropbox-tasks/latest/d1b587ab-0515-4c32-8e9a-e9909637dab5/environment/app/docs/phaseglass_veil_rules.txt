@@ -1,0 +1,137 @@
+Phaseglass Duet veil-policy contract
+
+Fast reading map
+
+This is a finite-horizon partial-observation policy problem. A policy node stores one visible state and a belief set of hidden-state IDs. One simultaneous action pair is chosen for the whole belief. Simulate it separately in every hidden state. An action pair is usable only if every simulation is safe. Group the safe outcomes by their exact observation; each group becomes a policy branch with its own next belief. After an observation is formed, the environment may choose any successor listed by the current hidden state and joint tone, so the branch belief is the union of all such adversarial successors. Hidden gates affect move success, while public phase rules decide whether "move" or "boost" is the syntactically valid attempt. Beacon symbols are read from the current hidden state. Hidden-state tone transitions happen after the observation-producing movement/listen results. Goal rooms count only when every hidden state in the current belief is accepting.
+
+Board object
+
+The root JSON object has exactly the members below and no others. Input object member order is not significant.
+
+"schema_version" is the string "phaseglass.board.v3".
+"board_id" is a non-empty token string copied unchanged to the output.
+"period" is a JSON integer from 2 through 6.
+"max_turns" is a JSON integer from 0 through 12.
+"phase_charges" is the initial shared charge count, from 0 through charge_cap.
+"charge_cap" is a JSON integer from 0 through 6.
+"boost_surcharge" and "blocked_cost" are non-negative JSON integers.
+"tether_limit" is a positive JSON integer.
+"tone_modulus" is a JSON integer from 2 through 4.
+"rooms" is a non-empty array of unique room token strings, with at most 20 rooms.
+"start" and "goals" are objects with string members "amber" and "cobalt".
+"edges" is an array of movement-edge objects.
+"tether_links" is an array of two-room arrays.
+"beacons" is an array of beacon objects.
+"hidden_states" is a non-empty array of hidden-state objects, with at most 24 entries.
+"initial_states" is a non-empty array of hidden-state IDs.
+
+A token string uses only ASCII letters, digits, dot, underscore, or hyphen. It must not be empty. Start and goal rooms must exist. Amber and Cobalt must start in different rooms, their goal rooms must be different, and the initial tether distance must not exceed tether_limit.
+
+Movement edges and visible actions
+
+Each edge object contains exactly the required members "id", "actor", "from", "to", "cost", "phase_mask", "boostable", "gate", and "tone". ID is unique. Actor is "amber", "cobalt", or "either". From and to are different existing rooms. Cost is a positive JSON integer. Phase_mask is a string of exactly period characters, each "0" or "1". Boostable is a JSON boolean. Gate is either "" or a gate token. Tone is an integer from 0 through tone_modulus minus 1.
+
+At visible tick t, public phase is t modulo period. An edge is available as an attempted action when actor matches and from equals the piece's room. "move:<id>" is syntactically legal only when phase_mask at the public phase is "1". "boost:<id>" is syntactically legal only when that character is "0", boostable is true, and the shared charge balance can cover all boosts in the simultaneous pair. A boost attempt consumes one charge whether its hidden gate is open or closed. Boosting never bypasses the hidden gate.
+
+"wait" stays in place, costs zero, and has tone 0. "listen:<beacon_id>" is legal only when that beacon is located in the piece's current room. Listening stays in place, costs the beacon's listen_cost, contributes the beacon's tone, and reports the current hidden state's symbol for that beacon.
+
+Every attempted movement edge contributes its tone even if its hidden gate is closed. The joint tone is (Amber tone + Cobalt tone) modulo tone_modulus.
+
+Beacons
+
+Each beacon object contains exactly "id", "room", "listen_cost", and "tone". Beacon IDs are unique tokens, room is an existing room, listen_cost is a non-negative JSON integer, and tone is an integer from 0 through tone_modulus minus 1. More than one beacon may occupy a room.
+
+Hidden states
+
+Each hidden-state object contains exactly "id", "world", "open_gates", "accepting", "signals", and "next_by_tone".
+
+ID and world are token strings. Hidden-state IDs are globally unique. Open_gates is an array of unique gate tokens. Every listed gate must appear on at least one movement edge. Accepting is a JSON boolean. Signals is an object whose keys are exactly all beacon IDs and whose values are non-empty token strings. Next_by_tone is an object whose keys are exactly the decimal strings "0" through tone_modulus minus 1. Every value is a non-empty array of unique existing hidden-state IDs in the same world. The environment may choose any member of that array after the turn.
+
+Initial_states contains unique hidden-state IDs. It must contain exactly one state for each represented world, so no two initial states have the same world. Hidden transitions never change world. World identity is therefore preserved even when worlds have otherwise identical gate and signal behavior.
+
+One-turn simulation
+
+Use the visible state and one current hidden state.
+
+First validate the two selected action strings against public phase, actor, room, beacon, and available shared charges. Hidden gates are not used for this syntactic check.
+
+For wait or listen, the piece remains in its room. A listen observation is read from the current hidden state, before the hidden transition.
+
+For move or boost, the named edge's hidden gate is open when gate is "" or gate appears in the current hidden state's open_gates. If open, the piece arrives at edge.to and pays edge.cost, plus boost_surcharge for a boost. If closed, the piece stays in its current room and pays blocked_cost, plus boost_surcharge for a boost. A closed hidden gate does not make the attempted action syntactically illegal.
+
+After both visible results are known, reject that hidden-state simulation if the pieces occupy the same room, directly exchange their start-of-turn rooms, or finish farther apart than tether_limit in the physical tether graph. The tether graph is undirected and contains one unit link for every movement edge, ignoring direction and permissions, plus every pair in tether_links. Disconnected rooms have infinite distance.
+
+If even one hidden state in the node's belief would be rejected by those safety rules, the action pair is unsafe for the belief and cannot appear in a strong policy node. Do not create an observation branch that merely reports an unsafe outcome.
+
+For a safe simulation, consume the boost attempts, add the branch-specific energy, compute the joint tone, and read the non-empty successor array current.next_by_tone[joint tone]. The observation is formed from the pre-transition visible outcomes. Hidden drift happens after observation production, and the environment may choose any successor in that array. For one observation group, the next belief is the sorted union of every allowed successor from every current hidden state that produced the observation.
+
+Observation grammar
+
+The joint observation string is exactly:
+
+"amber=<amber_component>;cobalt=<cobalt_component>"
+
+A component is one of:
+
+"wait"
+"signal:<beacon_id>=<symbol>"
+"moved:<edge_id>"
+"blocked:<edge_id>"
+
+The selected action pair is already recorded in the node, but edge and beacon IDs remain part of the observation. Group hidden-state simulations by exact bytewise-equal observation. Because movement success or blocking is in the component, every hidden state in one observation group has the same next visible positions and the same energy increment. The next belief is the sorted array of post-tone hidden-state IDs in that group.
+
+Information state and goal
+
+A complete information state consists of tick, Amber room, Cobalt room, charges_left, boosts_used, energy, and the sorted hidden-state belief. Tick, boosts_used, and energy are cumulative JSON integers. Two policy branches may share one output node only when every part of this complete state is identical.
+
+The state is terminal only when both pieces are in their goal rooms and every hidden state in the belief has accepting true. If the positions are at goal but one possible hidden state is not accepting, the node is nonterminal and must choose another safe action or be unsolved.
+
+A strong policy must lead every initial world to a terminal node no later than max_turns for every allowed adversarial successor choice. The hidden world and drift are not probabilistic. Every initial world matters equally, every observation branch must be solved, and every hidden successor inside a branch belief must also be solved.
+
+A successful output policy uses the exact status string "solved". If no strong policy exists, use the exact status string "unsolved" and the empty unsolved result described in instruction.md.
+
+Policy metrics and exact ordering
+
+For each initial world, consider every run created by all allowed hidden successor choices. That world's terminal-turn value is the maximum terminal tick over those runs. Its boost and energy values for the worst-case metrics are likewise taken over every allowed run.
+
+Compute:
+
+worst_turns as the maximum terminal turn over initial worlds;
+worst_boosts as the maximum terminal boost count;
+worst_energy as the maximum terminal energy;
+total_turns as the sum of the worst terminal-turn value for each initial world.
+
+Evaluate candidate policies as complete policies from the root. A child policy that is locally faster may still be globally worse, or vice versa, because another branch can already determine a root worst-case value. Keep every child outcome profile that can still participate in the exact best complete root policy; do not discard a branch choice only because it loses under the metrics of that child state in isolation.
+
+Compare strong policies in this exact order:
+
+1. lower worst_turns;
+2. lower worst_boosts;
+3. lower worst_energy;
+4. lower total_turns;
+5. lexicographically smaller recursive policy.
+
+The action order for the fifth comparison is:
+
+wait;
+listen:<beacon_id> by bytewise beacon ID;
+move:<edge_id> by bytewise edge ID;
+boost:<edge_id> by bytewise edge ID.
+
+Compare Amber's action first, then Cobalt's action. If the root action pair is equal, sort both policies' branch arrays by bytewise observation. Compare the first differing observation string; when observations are equal, recursively compare the child policies. If one sorted branch array is a strict prefix of the other, the shorter array is smaller. A terminal policy is represented by "!" and has no action or branches. The same recursive rule applies at every child. This tie-break is over the policy behavior, not over node IDs.
+
+Canonical policy DAG
+
+After choosing the exact best recursive policy, serialize it as a canonical directed acyclic graph. The root is N0. Assign IDs by breadth-first traversal. At each nonterminal node, visit branches in bytewise observation order. The first complete information state not already assigned receives the next ID N1, N2, and so on. If another branch reaches an identical complete information state, reuse the existing ID. Nodes are emitted in increasing numeric ID order. Every emitted node must be reachable from N0.
+
+The node belief array is sorted bytewise. Branch arrays are sorted by observation. Node and nested object key order is exactly the order stated in instruction.md. For two-space JSON, use normal expanded indentation, UTF-8, and one final newline.
+
+Worked hidden timing example
+
+Suppose a node belief is ["red-0", "blue-0"]. Amber attempts move:e1. Gate g1 is open in red-0 and closed in blue-0. In red-0 the Amber component is moved:e1; in blue-0 it is blocked:e1. Those outcomes become different observation branches. After the observation is fixed, the environment may choose any state in red-0.next_by_tone or blue-0.next_by_tone for the joint tone; all allowed choices are included in that branch's next belief. Beacon signals, when used, are also read from red-0 or blue-0 before that transition.
+
+Suppose instead that the attempted action would move Amber onto Cobalt only in blue-0. The action pair is unsafe for the whole belief and cannot be selected, even though red-0 would have produced a safe observation branch.
+
+Invalid boards
+
+Reject missing required members, JSON null for any required scalar, array, or object, wrong JSON primitive types, extra top-level JSON values, invalid schema version, invalid token strings, unknown rooms, duplicate IDs, invalid actor values, malformed phase masks, non-positive movement costs, invalid tones, phase_charges above charge_cap, malformed tether links, unknown gates in open_gates, missing or extra beacon signal keys, unknown, duplicate, or empty next_by_tone successor arrays, missing tone keys, cross-world hidden transitions, duplicate initial worlds, and an initial tether violation. Invalid-board behavior is defined in instruction.md. The board path and output path must not resolve to the same file through identical paths, symbolic links, hard links, or equivalent resolved locations; reject that command before writing and leave the board unchanged. A valid board may still be unsolved because its worlds are indistinguishable, its safe actions cannot satisfy every branch, or max_turns is too small.

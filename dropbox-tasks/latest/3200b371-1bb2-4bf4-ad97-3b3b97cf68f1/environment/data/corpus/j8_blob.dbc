@@ -1,0 +1,1189 @@
+VERSION "annex_dbc_3"
+NS_ j8_NS: 1
+BO_ j8_MSG: 8 j8
+ SG_ CoolantFlow_j8 : 0|8@1+ (1,0) [0|255] "u" j8
+ SG_ ProbeTemp_j8 : 3|8@1+ (1,0) [0|255] "u" j8
+ SG_ DoorSeal_j8 : 6|8@1+ (1,0) [0|255] "u" j8
+ SG_ FanDuty_j8 : 9|8@1+ (1,0) [0|255] "u" j8
+ SG_ BatteryV_j8 : 12|8@1+ (1,0) [0|255] "u" j8
+ SG_ CompressorHz_j8 : 15|8@1+ (1,0) [0|255] "u" j8
+ SG_ HumidityPct_j8 : 18|8@1+ (1,0) [0|255] "u" j8
+ SG_ AmbientC_j8 : 21|8@1+ (1,0) [0|255] "u" j8
+ SG_ SetpointC_j8 : 24|8@1+ (1,0) [0|255] "u" j8
+ SG_ AlarmMask_j8 : 27|8@1+ (1,0) [0|255] "u" j8
+ SG_ ValvePos_j8 : 30|8@1+ (1,0) [0|255] "u" j8
+ SG_ PumpRpm_j8 : 33|8@1+ (1,0) [0|255] "u" j8
+ SG_ FilterDelta_j8 : 36|8@1+ (1,0) [0|255] "u" j8
+ SG_ DefrostState_j8 : 39|8@1+ (1,0) [0|255] "u" j8
+ SG_ EvapTemp_j8 : 42|8@1+ (1,0) [0|255] "u" j8
+ SG_ CondPress_j8 : 45|8@1+ (1,0) [0|255] "u" j8
+ SG_ OilLevel_j8 : 48|8@1+ (1,0) [0|255] "u" j8
+ SG_ InverterKw_j8 : 51|8@1+ (1,0) [0|255] "u" j8
+ SG_ GridPhase_j8 : 54|8@1+ (1,0) [0|255] "u" j8
+ SG_ RelayMap_j8 : 57|8@1+ (1,0) [0|255] "u" j8
+PEER j7
+PEER j4
+PEER j12
+; blk 0 slice j8 calibration notes for field desk operators
+PEER j5
+PEER j6
+; calib-peer noise for j8 (not lock preamble)
+; map j8 r00c00 digest=92df8d2b4542e56b32a7f55a2b2b9c7907a567a81331f88d4ad5cdf5d3edc919 range=[0,20] unit=raw
+ SG_ Synth_j8_0_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r00c01 digest=35a7e390673a40b0b08db214df7befe8ba8cb7532d7c45532fd7c255d46c1dd6 range=[1,21] unit=raw
+ SG_ Synth_j8_0_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r00c02 digest=05c9ea0201b75727a7080b9b8a6278878b997732291d6eca6a3c691084689c1d range=[2,22] unit=raw
+ SG_ Synth_j8_0_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r00c03 digest=aea055aee80371f8a445ea513a3096683b764ff44c28f7ad6add4f71f84143dd range=[3,23] unit=raw
+ SG_ Synth_j8_0_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r00c04 digest=2e85c01dbf6912e5a4716b0d694083cd145b6a25bdb424916f878f7415fade78 range=[4,24] unit=raw
+ SG_ Synth_j8_0_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r00c05 digest=d332aa5a59558a4a8f4751790c9ab474f49f27b0271c94c47c1d4be1300b8d80 range=[5,25] unit=raw
+ SG_ Synth_j8_0_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r00c06 digest=393c9447d9080a2f49bffcf7e821be410638ecea1f75a9c749298940a479e873 range=[6,26] unit=raw
+ SG_ Synth_j8_0_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r00c07 digest=6574e7008eb24b538c4b87233a27d57e43fb55b17f4402562d840fe85b52ee96 range=[7,27] unit=raw
+ SG_ Synth_j8_0_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r00c08 digest=d29830c96d7aa326e7c641a79d7fbda059762496538cd31a56c8cae4a2cfcb76 range=[8,28] unit=raw
+ SG_ Synth_j8_0_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r00c09 digest=31dd044079ecc6346a1eed637ba956f6c241a831853fed5dc1527db50d14a2dd range=[9,29] unit=raw
+ SG_ Synth_j8_0_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r00c10 digest=600a05a51645c4c61f527021ee5d0111249523aa41a6365b52d76d3cc162cc86 range=[10,30] unit=raw
+ SG_ Synth_j8_0_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r00c11 digest=a06bc911db2eabbc20c5d3ba7b4aaee6fd1d38b55809d36f556af5146334b797 range=[11,31] unit=raw
+ SG_ Synth_j8_0_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_0: 8 j8
+; peer-ref j8->j7 blk=0 sticky=1
+; peer-ref j8->j4 blk=0 sticky=1
+; peer-ref j8->j12 blk=0 sticky=1
+; blk 1 slice j8 calibration notes for field desk operators
+; map j8 r01c00 digest=9bddb51ae4a5264ad8d729a5c9bb5937961139e8074357844c809c41cba856c1 range=[0,20] unit=raw
+ SG_ Synth_j8_1_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r01c01 digest=1fa25dd3d710ce4a61b02dbf90c8e489d60e212370ac28fbc7f6ce706f21c5c4 range=[1,21] unit=raw
+ SG_ Synth_j8_1_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r01c02 digest=b5b6ba8da6abdbcf6435298e572e987fc4e8c0ab684dc2f6173499a03ebeb75e range=[2,22] unit=raw
+ SG_ Synth_j8_1_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r01c03 digest=7cf25206e532aac4517908cb1d52cdaf2add0904a312a1bdd829f41898f6765c range=[3,23] unit=raw
+ SG_ Synth_j8_1_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r01c04 digest=074ccb9ab00819dd776357b9be0eb3a3c6276d55c53fb11bc7400756281db91c range=[4,24] unit=raw
+ SG_ Synth_j8_1_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r01c05 digest=469e8fc4ea235982dcedc8017ef2f129baccb527b3eaeebd94081a853fdf66e8 range=[5,25] unit=raw
+ SG_ Synth_j8_1_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r01c06 digest=03a353445daf2d8e00d115c6b79c69f8bddf507b89f904948c1d73d6990ceae6 range=[6,26] unit=raw
+ SG_ Synth_j8_1_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r01c07 digest=ce3dd5e33725c3ec4c848ea105927564c7d7ba0a5e4b56e3ebea564b53fb189e range=[7,27] unit=raw
+ SG_ Synth_j8_1_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r01c08 digest=9e04f6385c3c88b72fb6bd923391f4efefa7b46bcc37419a69629c6d51c35ab8 range=[8,28] unit=raw
+ SG_ Synth_j8_1_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r01c09 digest=fe24c1fc76d78b4e1424317a5384b14b6399d1ac7eefb9fb9d557ce1822c27ee range=[9,29] unit=raw
+ SG_ Synth_j8_1_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r01c10 digest=960d36c23c62931e027ae69d76f66e8f942b0f48e2dbec5e213d8aa77156fd6e range=[10,30] unit=raw
+ SG_ Synth_j8_1_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r01c11 digest=697ae1b207411934b2c11b555e462497a4b33e1b280aab11bb4c9755cf1c8342 range=[11,31] unit=raw
+ SG_ Synth_j8_1_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_1: 8 j8
+; peer-ref j8->j7 blk=1 sticky=1
+; peer-ref j8->j4 blk=1 sticky=1
+; peer-ref j8->j12 blk=1 sticky=1
+; blk 2 slice j8 calibration notes for field desk operators
+; map j8 r02c00 digest=5fd7308bab67bf06bc0377edc976981957aa7c976c3a96455019a899aaf3eb55 range=[0,20] unit=raw
+ SG_ Synth_j8_2_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r02c01 digest=2c708ad69247f017aa357a81e8009c9864126090e02a360138d8215f5fc70e01 range=[1,21] unit=raw
+ SG_ Synth_j8_2_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r02c02 digest=34d70b4314035ffa524a7a071d86bcfc2cf9066245ebce1b4ae1f42d64f1b18d range=[2,22] unit=raw
+ SG_ Synth_j8_2_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r02c03 digest=9e4dfb56658b8f96e56c7016efe461c7acc2c228cefd47b856eadf1a725373d1 range=[3,23] unit=raw
+ SG_ Synth_j8_2_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r02c04 digest=7d3f11c29c8e79f45918c1f4f5fd928ced634f2ab4a75ea24da07b35734998af range=[4,24] unit=raw
+ SG_ Synth_j8_2_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r02c05 digest=72c55e7535de86c051cf53f5f32f028c5004c9b5c3870e4d7f204b2b9f45e6eb range=[5,25] unit=raw
+ SG_ Synth_j8_2_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r02c06 digest=74d6c53f6deddb616404dd2a1ebec3483af551b6c248b187fb97ace317b63d51 range=[6,26] unit=raw
+ SG_ Synth_j8_2_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r02c07 digest=de5b7794eb7935a49dd4a30e20f4e46ee032a67d2276fc1c821ff0e230e50230 range=[7,27] unit=raw
+ SG_ Synth_j8_2_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r02c08 digest=0a4e1f16e9cd77e3679b2e0b96e8b618055b895615978c1c1a5555588e1bd1ed range=[8,28] unit=raw
+ SG_ Synth_j8_2_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r02c09 digest=926360fe27acfbc5e292d4ff440f7d32b6fae6acb210c64d2bcb302170a113eb range=[9,29] unit=raw
+ SG_ Synth_j8_2_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r02c10 digest=2e30610d56d862a0bd8d81383d022b89f54f67d3dd5d113e3da4fa5bf97b601e range=[10,30] unit=raw
+ SG_ Synth_j8_2_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r02c11 digest=e7ba9f2fc150a104afae91220456776348a18198dc136f551baf8ee73c30b984 range=[11,31] unit=raw
+ SG_ Synth_j8_2_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_2: 8 j8
+; peer-ref j8->j7 blk=2 sticky=1
+; peer-ref j8->j4 blk=2 sticky=1
+; peer-ref j8->j12 blk=2 sticky=1
+; blk 3 slice j8 calibration notes for field desk operators
+; map j8 r03c00 digest=031d8ba71027983c691889596548e80ed1e92ad3e149a64843c08cae3e26c8ad range=[0,20] unit=raw
+ SG_ Synth_j8_3_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r03c01 digest=72fce595c87c0df12b365b7c752e84af1064d68bc1bccf8c61287065b7b13684 range=[1,21] unit=raw
+ SG_ Synth_j8_3_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r03c02 digest=1f4a556e929762634c57bcbe2652a2291281069cca3efdb1158975080afafb2b range=[2,22] unit=raw
+ SG_ Synth_j8_3_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r03c03 digest=2c017754a34f5a4ce6358a402a33a076c8d6f748e887bcefd198ba59faddcf24 range=[3,23] unit=raw
+ SG_ Synth_j8_3_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r03c04 digest=cc0808ed8f0aa707ac88feba7cd6491c878645b123144ca39c552472b9a1cc52 range=[4,24] unit=raw
+ SG_ Synth_j8_3_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r03c05 digest=6ca6cda172fca75d3f19ac08847aedc8542417bbcba7c65e91776071c61e3b2c range=[5,25] unit=raw
+ SG_ Synth_j8_3_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r03c06 digest=11a3c7a054e7fc03af9334b9f40cede476534f5e58da835f513adf9b2db3b508 range=[6,26] unit=raw
+ SG_ Synth_j8_3_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r03c07 digest=13b2c6d8fff3bb64a947b36d55907e11b50950a2655c26db65fb48be6a8f07b8 range=[7,27] unit=raw
+ SG_ Synth_j8_3_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r03c08 digest=2f94c30f995bd7238da022ed7f86372700e64930aa00c46840355ab7a5766ead range=[8,28] unit=raw
+ SG_ Synth_j8_3_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r03c09 digest=3d5fcfaaf638ec53e1ed9c4cda543cd544967c2942147e4001b958660df359d8 range=[9,29] unit=raw
+ SG_ Synth_j8_3_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r03c10 digest=7c334e9d5943d2350f4cbfba250e2e14325a1eb524d5e9fbd0365f589f4ab9ff range=[10,30] unit=raw
+ SG_ Synth_j8_3_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r03c11 digest=2db2994ce7a3ffa39645e669e673a92d16a31d5bedb7f6086b3e90a1ad8ee0fa range=[11,31] unit=raw
+ SG_ Synth_j8_3_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_3: 8 j8
+; peer-ref j8->j7 blk=3 sticky=1
+; peer-ref j8->j4 blk=3 sticky=1
+; peer-ref j8->j12 blk=3 sticky=1
+; blk 4 slice j8 calibration notes for field desk operators
+; map j8 r04c00 digest=fc7a823a38046e8e3c76211ed8ed9f5467ea4d35604e42accb6aca7a44c2985e range=[0,20] unit=raw
+ SG_ Synth_j8_4_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r04c01 digest=ae3983889b85b273b07ab18fde56e28ee04ae284730a6bf88abdac6de9581b5d range=[1,21] unit=raw
+ SG_ Synth_j8_4_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r04c02 digest=297ce3a153e24052fdab3edee462b42398983821b14bf8e0aba84be7dee7234e range=[2,22] unit=raw
+ SG_ Synth_j8_4_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r04c03 digest=54cc6af7a202434a1aaa21a766d8be2e24ad91fb8aa429b609c9b0b5583bd7e8 range=[3,23] unit=raw
+ SG_ Synth_j8_4_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r04c04 digest=98c3b2fa8de7151842b520a5a27ddf781c71e6ba37507e092e448a0a3ce74a79 range=[4,24] unit=raw
+ SG_ Synth_j8_4_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r04c05 digest=35b04707794e06ee955315d34f0c2faa6cf98b8dc1b37d643d0fca2a0660c12d range=[5,25] unit=raw
+ SG_ Synth_j8_4_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r04c06 digest=414b62010e4e606b7d75d3378e4b86f82ff9b0049cd2f6645112d07a94724195 range=[6,26] unit=raw
+ SG_ Synth_j8_4_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r04c07 digest=e36e8849694c2b653a9d41049d26047645c77edc237c06bed6b29577b70381dc range=[7,27] unit=raw
+ SG_ Synth_j8_4_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r04c08 digest=d0e9cd476be25fff8f8907eb6d46b50560d7e7588321caa2939b8b2dfb0359d6 range=[8,28] unit=raw
+ SG_ Synth_j8_4_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r04c09 digest=1a4c518ec1ddaccf3701e4d1a64bead44834e82a13b00d08f5fa0acb5f8efa3e range=[9,29] unit=raw
+ SG_ Synth_j8_4_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r04c10 digest=92871e0ec645477195c25e4ce643aa999de285e43df1e969b3ad93441f6eb456 range=[10,30] unit=raw
+ SG_ Synth_j8_4_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r04c11 digest=8a7ec1e6942b9abf7b639ba8448649c4051bf4214e1b8bae5cac61f0e797ac05 range=[11,31] unit=raw
+ SG_ Synth_j8_4_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_4: 8 j8
+; peer-ref j8->j7 blk=4 sticky=1
+; peer-ref j8->j4 blk=4 sticky=1
+; peer-ref j8->j12 blk=4 sticky=1
+; blk 5 slice j8 calibration notes for field desk operators
+; map j8 r05c00 digest=9359af90843ac7c5252f06892051222f2827d1f08e3c115a6439263eee450273 range=[0,20] unit=raw
+ SG_ Synth_j8_5_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r05c01 digest=dc56d0cda0d4aa2527d0c08877dab6ef99ff799dc39c3e48e6ff867ba1ecb862 range=[1,21] unit=raw
+ SG_ Synth_j8_5_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r05c02 digest=aa4c5d09e8d06e898f998f7f5484ca204e42088093a5a8d695fa093423400bdd range=[2,22] unit=raw
+ SG_ Synth_j8_5_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r05c03 digest=a918dbd84fae9c2808b214985e13973ac1ab21532b6c0e9dfe21bab77c86de82 range=[3,23] unit=raw
+ SG_ Synth_j8_5_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r05c04 digest=10d66cdc18831208f07b8e024a6aaf73543603489c6498c02150e446a1ce4f23 range=[4,24] unit=raw
+ SG_ Synth_j8_5_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r05c05 digest=03946f5fcf940f1165d915a872d858ef58fb17633f8c2cee4696a32a5e08b511 range=[5,25] unit=raw
+ SG_ Synth_j8_5_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r05c06 digest=e52db94cf4dacce39332aa0b40351edd875e74e7728283de828182b0b7053092 range=[6,26] unit=raw
+ SG_ Synth_j8_5_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r05c07 digest=8eb4984a582ea0bbeea9ac2cfcf605a9f4382a9174cc7057ea4bf0957d1b7d6f range=[7,27] unit=raw
+ SG_ Synth_j8_5_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r05c08 digest=a1742695ade3b64a91b3b35524352fd0316af55ae717e999574659419e6c5327 range=[8,28] unit=raw
+ SG_ Synth_j8_5_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r05c09 digest=d828c26c1feeaddcdb1cd4fa81fcdcc9d18477360f9295a7c7a6777f34763fa4 range=[9,29] unit=raw
+ SG_ Synth_j8_5_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r05c10 digest=76ea6bd4f5e076147ad5cc0cbf043f98ba7b893f1534f403aaf777f4967948fb range=[10,30] unit=raw
+ SG_ Synth_j8_5_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r05c11 digest=2d85e289de6fdd20457c8efea38c26dff7e1e38fbc22b26e1097c895f5da0006 range=[11,31] unit=raw
+ SG_ Synth_j8_5_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_5: 8 j8
+; peer-ref j8->j7 blk=5 sticky=1
+; peer-ref j8->j4 blk=5 sticky=1
+; peer-ref j8->j12 blk=5 sticky=1
+; blk 6 slice j8 calibration notes for field desk operators
+; map j8 r06c00 digest=40ed852ce83a9eaa580815446dd36f9fa69f819688e55ea913cbf8ecababf8d7 range=[0,20] unit=raw
+ SG_ Synth_j8_6_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r06c01 digest=8ccf467c1f7439b9d233db71ce1d7d1f83298a4fd98bf555b547491d84ba5623 range=[1,21] unit=raw
+ SG_ Synth_j8_6_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r06c02 digest=539cf913435a8aede56f13076c1bade1262666f6dcb753e68f0bfe1b5275cc69 range=[2,22] unit=raw
+ SG_ Synth_j8_6_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r06c03 digest=eccce1b183fca1fbe5d0fa8f38961124d4874c3351f6779213017b77b97adcfa range=[3,23] unit=raw
+ SG_ Synth_j8_6_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r06c04 digest=82a3951ff3fd56a29e4f0303d699e0e3f1fc2a04c224facef68ab80e8da62916 range=[4,24] unit=raw
+ SG_ Synth_j8_6_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r06c05 digest=f1110a2ade9168ad09a3b6e9ea5e6a4f352e2bfa7f6eb9d7dd6d5cc035dd9db2 range=[5,25] unit=raw
+ SG_ Synth_j8_6_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r06c06 digest=0c687605a46e73a78365ab0f727949fe846f76c56b3a423efff205c9268ca89a range=[6,26] unit=raw
+ SG_ Synth_j8_6_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r06c07 digest=def934ae180c4dc2c4cf4b221619ce9fd57e4cff94ed8dbd91e47d1f54680e2a range=[7,27] unit=raw
+ SG_ Synth_j8_6_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r06c08 digest=daf95e5180e79331a9c1a71d4600204331c9b7616db0596b71be1a9a166968ce range=[8,28] unit=raw
+ SG_ Synth_j8_6_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r06c09 digest=f910efbe8c3b96b4601c3c1cf4988838c4e7ec702e64f5461a80cccdd750c120 range=[9,29] unit=raw
+ SG_ Synth_j8_6_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r06c10 digest=e213e97825cac344dd635ae2919e8069cd026d0300f261ce47b917bbee429a04 range=[10,30] unit=raw
+ SG_ Synth_j8_6_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r06c11 digest=7a03eb621e2336f0848abf789524f0063301051fd47a811fb62eafa00f04cd08 range=[11,31] unit=raw
+ SG_ Synth_j8_6_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_6: 8 j8
+; peer-ref j8->j7 blk=6 sticky=1
+; peer-ref j8->j4 blk=6 sticky=1
+; peer-ref j8->j12 blk=6 sticky=1
+; blk 7 slice j8 calibration notes for field desk operators
+; map j8 r07c00 digest=31bcaf9beac76a1b7ccc43ac6a45d47e896c557540cf44c1d15ca5b09a8eb452 range=[0,20] unit=raw
+ SG_ Synth_j8_7_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r07c01 digest=b2bbeba4ccf6457df57324b405b1f8d4a496467d109a84af7fb244d11801e31e range=[1,21] unit=raw
+ SG_ Synth_j8_7_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r07c02 digest=9313555b4bef1bfffa37c3cd5b8152e0a444fbbe18b4c86c3e1d07c641022f90 range=[2,22] unit=raw
+ SG_ Synth_j8_7_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r07c03 digest=60c0000c7769385e1724bcf32f86a1b4826d9269e62d9d33c9e0a0415f23e4b3 range=[3,23] unit=raw
+ SG_ Synth_j8_7_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r07c04 digest=aa774c8785498dcb3f651cdb03e70d68db5cf55a5b35088635af5a0de1fb55d2 range=[4,24] unit=raw
+ SG_ Synth_j8_7_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r07c05 digest=f80a13c5e152e5cf55490851f44d9b6af6091bfa8280581c7f767a445f704ed5 range=[5,25] unit=raw
+ SG_ Synth_j8_7_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r07c06 digest=68656613bbda17d48ce79cac738930d3a9fdc2bdeef5c8196dbfd877ebbaf71b range=[6,26] unit=raw
+ SG_ Synth_j8_7_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r07c07 digest=d6246972fa57d6864376451c482e2b7c3e905f6468df0323329ec49b578f866c range=[7,27] unit=raw
+ SG_ Synth_j8_7_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r07c08 digest=ae1dc4ee066484621499e1d478fb762d79101fb2448660e9a976d7e86a1d32a1 range=[8,28] unit=raw
+ SG_ Synth_j8_7_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r07c09 digest=a5ae7b8c60850c4fa74d57df255128d7241929a3fc2ea00081fb4511fa88092f range=[9,29] unit=raw
+ SG_ Synth_j8_7_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r07c10 digest=e593a3d6c543104b129be3bb1137c5906e440a29a0b9a5d4306ceaad3ca03f77 range=[10,30] unit=raw
+ SG_ Synth_j8_7_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r07c11 digest=eac2230278a6d7edfdd490c877354befedcde64d77b1cffcf9e8e432094dc332 range=[11,31] unit=raw
+ SG_ Synth_j8_7_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_7: 8 j8
+; peer-ref j8->j7 blk=7 sticky=1
+; peer-ref j8->j4 blk=7 sticky=1
+; peer-ref j8->j12 blk=7 sticky=1
+; blk 8 slice j8 calibration notes for field desk operators
+; map j8 r08c00 digest=f83c3bb3c50cdfc00d43194a9e3472dae408b4b4d2b68099c095b5439487553d range=[0,20] unit=raw
+ SG_ Synth_j8_8_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r08c01 digest=7c552258dd9455af1c0f36f5daea96eff3baae4fa64e1f212eed9925e27c25ad range=[1,21] unit=raw
+ SG_ Synth_j8_8_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r08c02 digest=edb6c7ec92ad5f07c18734631429d62f4e76dc8ca9ee7fd2a27d03da9394137c range=[2,22] unit=raw
+ SG_ Synth_j8_8_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r08c03 digest=3e39220b2736a63fd12e083bfcda410f1e2a0549be07242e4d78c8bbe9eec59e range=[3,23] unit=raw
+ SG_ Synth_j8_8_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r08c04 digest=36b74f0d12e2118502969276218a9b258830ce51e66385ea1672659281b50330 range=[4,24] unit=raw
+ SG_ Synth_j8_8_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r08c05 digest=678610effe173051a8d8cc5f84548b7e97a8da42e8004ca34b9614a0f5be27a0 range=[5,25] unit=raw
+ SG_ Synth_j8_8_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r08c06 digest=157300c87c806d6b0d5e51ed9f933679371b3372265f14f7fa4d65c985bf9188 range=[6,26] unit=raw
+ SG_ Synth_j8_8_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r08c07 digest=c1a4beca63f67760fa6c040cf55088ed4f4807bcbeaed584e48c17cf6ecc1b29 range=[7,27] unit=raw
+ SG_ Synth_j8_8_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r08c08 digest=bddb9d131c06bc421db3eb51578d5ee6271e4951734319280b65822e517c251a range=[8,28] unit=raw
+ SG_ Synth_j8_8_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r08c09 digest=222a6b96e4b8ad0bf485430cb11cb6092feb7251d689a6b792de55f1adba3988 range=[9,29] unit=raw
+ SG_ Synth_j8_8_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r08c10 digest=ee335291b105c91697dba87756ff9f1b85bbad9148d6cd4aa0aa21f323ffc7db range=[10,30] unit=raw
+ SG_ Synth_j8_8_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r08c11 digest=29b1b41f67224417993d3b71b2f00e3302394d5e9fbf7b919997e8357bdd8393 range=[11,31] unit=raw
+ SG_ Synth_j8_8_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_8: 8 j8
+; peer-ref j8->j7 blk=8 sticky=1
+; peer-ref j8->j4 blk=8 sticky=1
+; peer-ref j8->j12 blk=8 sticky=1
+; blk 9 slice j8 calibration notes for field desk operators
+; map j8 r09c00 digest=00cb1c6498def60c40a5a0ffb5a79abb639775e7eaa92c5cd28eb923f5704ed9 range=[0,20] unit=raw
+ SG_ Synth_j8_9_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r09c01 digest=b8913648b314419c973b1d11a74bcff7950b5796480d0b23aad268bfdbb82688 range=[1,21] unit=raw
+ SG_ Synth_j8_9_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r09c02 digest=b41bbbb5768bca7d4746e16172b71cbd71fef3bf1768faa14b1726ac422a37d1 range=[2,22] unit=raw
+ SG_ Synth_j8_9_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r09c03 digest=b9e22a2c27716b9ec123b5421408efd41dd53c903d6fb1f1d546e487b1ba4c6d range=[3,23] unit=raw
+ SG_ Synth_j8_9_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r09c04 digest=11f41d7d597aa7288e082db72bfdfaa4c0c3fbaa39569a7d8292e0b206a234f4 range=[4,24] unit=raw
+ SG_ Synth_j8_9_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r09c05 digest=36f8b15af86a18e67ff84cf9c5739865b054708cafa0e927b37e9c840a99e499 range=[5,25] unit=raw
+ SG_ Synth_j8_9_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r09c06 digest=cff9f34e32d694a53c099be25929ec6d1b9c394daf19e58323cb8c0083376b34 range=[6,26] unit=raw
+ SG_ Synth_j8_9_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r09c07 digest=5c47dafa9047d46bd934d8ce61eb25b79c9d21bd3cfe35cad4e499034eccef7e range=[7,27] unit=raw
+ SG_ Synth_j8_9_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r09c08 digest=4ebad1a626e6c87d601e328e9038d7fb4730c483f7fdef81f6f68808b2302359 range=[8,28] unit=raw
+ SG_ Synth_j8_9_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r09c09 digest=32ca94ca9657d4d7509355ec99882b95cdfed1166e329651d149adac8146302d range=[9,29] unit=raw
+ SG_ Synth_j8_9_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r09c10 digest=7ee712b6b3fb170e4f6e1cfc6f5014b1f7930919566a97b87345b538aafe4a3e range=[10,30] unit=raw
+ SG_ Synth_j8_9_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r09c11 digest=9e95c51e290d1ba4bdf1b3f58a76acc344ca744c0df7dd685efbf1f8cd7243b5 range=[11,31] unit=raw
+ SG_ Synth_j8_9_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_9: 8 j8
+; peer-ref j8->j7 blk=9 sticky=1
+; peer-ref j8->j4 blk=9 sticky=1
+; peer-ref j8->j12 blk=9 sticky=1
+; blk 10 slice j8 calibration notes for field desk operators
+; map j8 r10c00 digest=fa76d3fd345e6dbc39ec3e602756be01ff9d62c2e3aa45370201ea2a8ddb0a68 range=[0,20] unit=raw
+ SG_ Synth_j8_10_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r10c01 digest=4258051eb9bc355bcbdee9f72517ac18e32414fe66001939257b15fbc8709cd6 range=[1,21] unit=raw
+ SG_ Synth_j8_10_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r10c02 digest=31c2ff8e557f8262d2538abea972b9ff9404f12c4b95e0733505dfc00744da0c range=[2,22] unit=raw
+ SG_ Synth_j8_10_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r10c03 digest=efbedaf8f1bd22298cdfa82ad8b71392539c2241d408dfcc08e89e169a5b3df8 range=[3,23] unit=raw
+ SG_ Synth_j8_10_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r10c04 digest=e88d0769fe5c1565be3be985a4add82fa3feec80dad0e9f3e9880daaa788859a range=[4,24] unit=raw
+ SG_ Synth_j8_10_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r10c05 digest=40318b6195211af0b56a558ea2f3d96dcff6090ca60946bbb381ef69569866d8 range=[5,25] unit=raw
+ SG_ Synth_j8_10_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r10c06 digest=bfbccbdbf7c385ada06143b5a4bead303f3866adee9e83f2872ac758a9132059 range=[6,26] unit=raw
+ SG_ Synth_j8_10_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r10c07 digest=07c9ee2cd52e623450c9348582ebf529c058ede169721c8c0b35b48a8d52429b range=[7,27] unit=raw
+ SG_ Synth_j8_10_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r10c08 digest=43c7da230d865252546a7e3c684a68781ab3e33fdda174987fc66c3973f2030d range=[8,28] unit=raw
+ SG_ Synth_j8_10_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r10c09 digest=df3d191729b39d65d5ccb69083a79f8cdec78ba335aacd8a530cc4e89af8d9b4 range=[9,29] unit=raw
+ SG_ Synth_j8_10_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r10c10 digest=89ba5fff5dabc56326a7b4a9cec7eb720456398eefef360d1b310492c2b3a874 range=[10,30] unit=raw
+ SG_ Synth_j8_10_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r10c11 digest=b6bfc8f598e5de551a68cf05e7c8f55283a5f0d87bab1cc06400ca6a659d2787 range=[11,31] unit=raw
+ SG_ Synth_j8_10_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_10: 8 j8
+; peer-ref j8->j7 blk=10 sticky=1
+; peer-ref j8->j4 blk=10 sticky=1
+; peer-ref j8->j12 blk=10 sticky=1
+; blk 11 slice j8 calibration notes for field desk operators
+; map j8 r11c00 digest=c6bbddab8be3b703dd288bb74a1f916cc914c96dc44f6248f84cda0f1b62e411 range=[0,20] unit=raw
+ SG_ Synth_j8_11_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r11c01 digest=05505b4f0b7971f9b1dcbd62f695e3af9a4708aaebaf75f41a34f3be1d17a745 range=[1,21] unit=raw
+ SG_ Synth_j8_11_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r11c02 digest=8082a0689ccfa6b21cc9e9bf8f7f3fbf31fd9bb7cbbeb68f0b166348a968516d range=[2,22] unit=raw
+ SG_ Synth_j8_11_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r11c03 digest=dd531ab4b9b24f7b4a8aabed08e423bfd04bec7ba3413b7d5743b40d8b3cf3a1 range=[3,23] unit=raw
+ SG_ Synth_j8_11_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r11c04 digest=2a3ba061eead5b3f2f57af15f14962383b0e02ab02b3bd313556675b03baac79 range=[4,24] unit=raw
+ SG_ Synth_j8_11_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r11c05 digest=247ca072940798c37053e039b1ad24e05738367750156d3c69dd327a63033ad9 range=[5,25] unit=raw
+ SG_ Synth_j8_11_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r11c06 digest=0b4c976450b46bf5c78744f070bb137a84cc45a17195c6d7e4da122af5649010 range=[6,26] unit=raw
+ SG_ Synth_j8_11_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r11c07 digest=506d630fe843d0fd7eeffcd7060cfb13e049de2c9ba3ccf18099983e9f5a7271 range=[7,27] unit=raw
+ SG_ Synth_j8_11_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r11c08 digest=d6e667f7b01f3dc9b04134b280b446b817e0f82cd48112c0e7717e6c8cd0d579 range=[8,28] unit=raw
+ SG_ Synth_j8_11_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r11c09 digest=655e509ad1bee8cc3fc815c568e19fb09d6dd54f8f2da528942d3fd528a39abf range=[9,29] unit=raw
+ SG_ Synth_j8_11_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r11c10 digest=ed0949c683bb3a01542f5db21958e42dd73af285f84e35339848f2b9e43deb0b range=[10,30] unit=raw
+ SG_ Synth_j8_11_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r11c11 digest=f297107fc763da18e8965733bf77ca1e305b7bb1414d45efe1531d5935d9377d range=[11,31] unit=raw
+ SG_ Synth_j8_11_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_11: 8 j8
+; peer-ref j8->j7 blk=11 sticky=1
+; peer-ref j8->j4 blk=11 sticky=1
+; peer-ref j8->j12 blk=11 sticky=1
+; blk 12 slice j8 calibration notes for field desk operators
+; map j8 r12c00 digest=594b66254e23b857f3d6d920e3324a696e5712e61cce3d16dfc0ce0208849bae range=[0,20] unit=raw
+ SG_ Synth_j8_12_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r12c01 digest=b63c08ad78b8650ba04b17b17d5b0a8ea93304fc672cb2bb3ae00e617919f6a5 range=[1,21] unit=raw
+ SG_ Synth_j8_12_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r12c02 digest=0c8bec9dc73dc42ef74d15753766999b7e4b4079ae7823d56a5b37278eac6ac2 range=[2,22] unit=raw
+ SG_ Synth_j8_12_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r12c03 digest=46474dbbc0ea3179629f17452273f46b3e0c08ecebc1602dd78fd73ca58ac03c range=[3,23] unit=raw
+ SG_ Synth_j8_12_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r12c04 digest=97a02ea1244446f75f0d03ded9b3675946586644c2987168293485f7e1203b2c range=[4,24] unit=raw
+ SG_ Synth_j8_12_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r12c05 digest=ba66ac44c7c139b4fbec7618455d68cd55a233d2e03f979248e6e125402494be range=[5,25] unit=raw
+ SG_ Synth_j8_12_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r12c06 digest=fccc3ece73c4d8af64c6f3ec7f647e99eccd5d886c28a6783e7c16268fbdbf1e range=[6,26] unit=raw
+ SG_ Synth_j8_12_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r12c07 digest=b6e1ac6afd801dbebfeccbeff8c757c0ad707ff95726d34b81dd5d6fa1815331 range=[7,27] unit=raw
+ SG_ Synth_j8_12_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r12c08 digest=801aeed7eff74ea91304648278e201c1620f75c0052e9cbd2311a3e2bf31061c range=[8,28] unit=raw
+ SG_ Synth_j8_12_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r12c09 digest=674d8c5803039750fc20fecab5818aea00fa12799100d9ad9b07d875cb2685c3 range=[9,29] unit=raw
+ SG_ Synth_j8_12_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r12c10 digest=55726f2ec8b5b543433e2586e3184264ee6251f01814acf415dd40256360035f range=[10,30] unit=raw
+ SG_ Synth_j8_12_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r12c11 digest=54f1e0273ddd491bb42edfdc98704afbf8f7b1955083e8554bc4c527a2b60b9a range=[11,31] unit=raw
+ SG_ Synth_j8_12_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_12: 8 j8
+; peer-ref j8->j7 blk=12 sticky=1
+; peer-ref j8->j4 blk=12 sticky=1
+; peer-ref j8->j12 blk=12 sticky=1
+; blk 13 slice j8 calibration notes for field desk operators
+; map j8 r13c00 digest=9edcb018706d0a3d5fc2d5c05640ea29556ffec372673ad71f9ed33ac72f663e range=[0,20] unit=raw
+ SG_ Synth_j8_13_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r13c01 digest=738858b23a46282a664212ebe992406c35db1885321239fa34002d9384c92ec8 range=[1,21] unit=raw
+ SG_ Synth_j8_13_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r13c02 digest=44ff8634da2beb04d1aa2e5c62c867538e04bba1a83fc2a5c24fc99363cc29ad range=[2,22] unit=raw
+ SG_ Synth_j8_13_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r13c03 digest=00303b0912ae8bb5276cd5c16677a28c6cb559b4a21fcaf8f8df54ac88ed384b range=[3,23] unit=raw
+ SG_ Synth_j8_13_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r13c04 digest=ce3e4c5ddf8b5137d0f60621d31051ac187f082e0b8d96b0c295003d20855c0b range=[4,24] unit=raw
+ SG_ Synth_j8_13_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r13c05 digest=cc9b4063d4170479c5d11d72945167b7c3f627d4e4d18dce17b424609ecba11c range=[5,25] unit=raw
+ SG_ Synth_j8_13_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r13c06 digest=57f25e2dc4c4a0e265f7534d5dd1805af855cf906e7a8bcfa6f58823f9a95252 range=[6,26] unit=raw
+ SG_ Synth_j8_13_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r13c07 digest=e4710e6b02fde8f3d04766dd0b05c744d67b2ad8c05ec20126d8d3b0ad53df82 range=[7,27] unit=raw
+ SG_ Synth_j8_13_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r13c08 digest=79d334af2a288d138cb3d848ecca7b01a9bde0678d0c31bf03adf2ffdd17aae9 range=[8,28] unit=raw
+ SG_ Synth_j8_13_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r13c09 digest=6f969e7b6dea719405a82d33490b935cb782badf0c3ef98f2f7f2d462502ccc5 range=[9,29] unit=raw
+ SG_ Synth_j8_13_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r13c10 digest=5466fffe32327574a59b0ba069076d2a863cd08adc7b6cfa0db5298beef73a75 range=[10,30] unit=raw
+ SG_ Synth_j8_13_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r13c11 digest=8f66d6bcb1d05d5f6e73b15fdc752a7f1f1de13003a6cdb6356136f398f77b9e range=[11,31] unit=raw
+ SG_ Synth_j8_13_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_13: 8 j8
+; peer-ref j8->j7 blk=13 sticky=1
+; peer-ref j8->j4 blk=13 sticky=1
+; peer-ref j8->j12 blk=13 sticky=1
+; blk 14 slice j8 calibration notes for field desk operators
+; map j8 r14c00 digest=0c49891bdf78488803a1f05bf2f63d70f916c029b8a647d41c062691209ccb9b range=[0,20] unit=raw
+ SG_ Synth_j8_14_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r14c01 digest=747bc5a48a6cc004af6b61d74e8fafff22c314ff66b2f6b5d5105f16d701267f range=[1,21] unit=raw
+ SG_ Synth_j8_14_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r14c02 digest=353327b4a80a5dcdbe39257e924fe0d15464f8cc4f61733af0f6c78287104e45 range=[2,22] unit=raw
+ SG_ Synth_j8_14_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r14c03 digest=5eb6cf05f6776a1310492bfdeb03680cd255b1bc21b77101537aa1846646b50e range=[3,23] unit=raw
+ SG_ Synth_j8_14_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r14c04 digest=c9dd8887346280f5a7375283e123b366bd25f902df7b0eab0440f53f59f06c06 range=[4,24] unit=raw
+ SG_ Synth_j8_14_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r14c05 digest=2355aae63d04510301df3e35869454bf63036169bf20d3a0b27a8bea702c7b00 range=[5,25] unit=raw
+ SG_ Synth_j8_14_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r14c06 digest=6ce4ff330b794c9e1fea4aada81c3f949ce74e2653a4c6ce88aa09595e3c3ed1 range=[6,26] unit=raw
+ SG_ Synth_j8_14_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r14c07 digest=169b1ded3d39890d51e7cc37d10650190d9e490936aa3124c5dc86302f5ae09b range=[7,27] unit=raw
+ SG_ Synth_j8_14_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r14c08 digest=f3a028a3a695a34e12ab3fd1ebb4b4c93c4c71e435e2b9be21cf333d52b8229b range=[8,28] unit=raw
+ SG_ Synth_j8_14_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r14c09 digest=eb7b78271951a885dd94cb712698e8f287fa7ca4ec362a87425a710dfd3ddae8 range=[9,29] unit=raw
+ SG_ Synth_j8_14_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r14c10 digest=8644e204364e623f8a5afedbe4effc58c337192ab44d2522e5743d1bb7c0603c range=[10,30] unit=raw
+ SG_ Synth_j8_14_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r14c11 digest=580e38d167618008882854bab77ebbbb6f303f79e94962676297d8472a748507 range=[11,31] unit=raw
+ SG_ Synth_j8_14_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_14: 8 j8
+; peer-ref j8->j7 blk=14 sticky=1
+; peer-ref j8->j4 blk=14 sticky=1
+; peer-ref j8->j12 blk=14 sticky=1
+; blk 15 slice j8 calibration notes for field desk operators
+; map j8 r15c00 digest=0c45a68d4258dc822a0af651a7ee71ec62459dfa7d4a33ae7a501109f24bc611 range=[0,20] unit=raw
+ SG_ Synth_j8_15_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r15c01 digest=a504abc02ad51f7530cd8c2e63ef784bbe3f05780887f244dd9ddd24fc6e9091 range=[1,21] unit=raw
+ SG_ Synth_j8_15_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r15c02 digest=f7d8260f95d2b6580d899221dec517d0122284ee79731664bee069f493f2384c range=[2,22] unit=raw
+ SG_ Synth_j8_15_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r15c03 digest=8e03e030a2aba5618bafb108f8693668b371ad9572cfaa6308a43506d2f0d520 range=[3,23] unit=raw
+ SG_ Synth_j8_15_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r15c04 digest=4dd65e53045122b2b37b69dc03301c358aabba50b6f9ffe85f4b3f4e145b06b7 range=[4,24] unit=raw
+ SG_ Synth_j8_15_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r15c05 digest=164aacc2c46a3c04d3d268c626c8dcbbe68f5f910d6f2e3d0c76cfb59f30645c range=[5,25] unit=raw
+ SG_ Synth_j8_15_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r15c06 digest=92bd31e34d56ba8662dba5a09b8cb05813ab922908764bf5094763b9898cb231 range=[6,26] unit=raw
+ SG_ Synth_j8_15_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r15c07 digest=90e7c58ad0a184bff95dcee73f3bf611d3c9c883324f0a138fd501c586c45886 range=[7,27] unit=raw
+ SG_ Synth_j8_15_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r15c08 digest=a2bb05b6e053e38409b587e7722b27a65266a176b870628b5f794144e496ee40 range=[8,28] unit=raw
+ SG_ Synth_j8_15_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r15c09 digest=d05b036b01e57072225869d032a5e5bfe6b127a3bcab8d72c1f019557d257725 range=[9,29] unit=raw
+ SG_ Synth_j8_15_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r15c10 digest=b8844d51a8da0ca24a8cd745464df6ec2cc80f4180c52b1a101ddd4b759e81dc range=[10,30] unit=raw
+ SG_ Synth_j8_15_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r15c11 digest=d072d93cdf5068db88557282c379277cabaa3f652a45d9f7fc14dc77e2243f42 range=[11,31] unit=raw
+ SG_ Synth_j8_15_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_15: 8 j8
+; peer-ref j8->j7 blk=15 sticky=1
+; peer-ref j8->j4 blk=15 sticky=1
+; peer-ref j8->j12 blk=15 sticky=1
+; blk 16 slice j8 calibration notes for field desk operators
+; map j8 r16c00 digest=a0e2eb9dc89409a6cc5513049181539e88c01f906ba756ea257e6066c3a2a106 range=[0,20] unit=raw
+ SG_ Synth_j8_16_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r16c01 digest=f418585544ecb87bc60850d1b89229166fa97b28dcbfcfb4b7564536065afca4 range=[1,21] unit=raw
+ SG_ Synth_j8_16_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r16c02 digest=fcf5127aec0d0abc7b7ff4bde38e790f8b3869785f08ed11bc5234571817ada8 range=[2,22] unit=raw
+ SG_ Synth_j8_16_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r16c03 digest=063967dd3e674e0c2de0c49cc35d51cbb1fb34bdf79ad74121de969d83a2bec7 range=[3,23] unit=raw
+ SG_ Synth_j8_16_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r16c04 digest=96533e6224d89f62dc30d4f172c362c5bb4d87b6d70b6dd8b2fdbd46b13c43f2 range=[4,24] unit=raw
+ SG_ Synth_j8_16_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r16c05 digest=1a2583777d08070069932dc039ef2c37ce948ee32dd887213d53c3546edcdac6 range=[5,25] unit=raw
+ SG_ Synth_j8_16_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r16c06 digest=94b5871a1edbab8e2f22fea168f2a0ce79db5da8b20de891edd759d1d0fea86d range=[6,26] unit=raw
+ SG_ Synth_j8_16_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r16c07 digest=0b4877edbbab72fa51acfe6f067b1a08e977953c7a7771cccba48a0627e13bd8 range=[7,27] unit=raw
+ SG_ Synth_j8_16_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r16c08 digest=5b51c337c0deaffe13f460c85b522abf85286cb61488493356344b112d52c960 range=[8,28] unit=raw
+ SG_ Synth_j8_16_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r16c09 digest=6ab0d2145fdc84795fa74cc3645b3f5af666de3dee1c75c26ed30b68270b6288 range=[9,29] unit=raw
+ SG_ Synth_j8_16_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r16c10 digest=6634ad1761f120051b1b3cee23562a4ac1f2ec0bdbc90bf976777961a54a2df1 range=[10,30] unit=raw
+ SG_ Synth_j8_16_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r16c11 digest=134265bf693944893b8675890e101a52f93849961a41476c5bb34606a82f0641 range=[11,31] unit=raw
+ SG_ Synth_j8_16_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_16: 8 j8
+; peer-ref j8->j7 blk=16 sticky=1
+; peer-ref j8->j4 blk=16 sticky=1
+; peer-ref j8->j12 blk=16 sticky=1
+; blk 17 slice j8 calibration notes for field desk operators
+; map j8 r17c00 digest=bf5ed03aa8aef20833bedd7adbd3d1c01b802f81d09b50eba721631d766a998e range=[0,20] unit=raw
+ SG_ Synth_j8_17_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r17c01 digest=50daf268192efa318fdf9744b85603caea5af1dac56eb8a14e16e9dc019a448c range=[1,21] unit=raw
+ SG_ Synth_j8_17_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r17c02 digest=ab595950125231550046b04065d33157074f9e54e2ae445847a41d694144c7dd range=[2,22] unit=raw
+ SG_ Synth_j8_17_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r17c03 digest=a91661153ee0f0b0651f968259de5e32ab961b271a519025db181913560f4457 range=[3,23] unit=raw
+ SG_ Synth_j8_17_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r17c04 digest=14ffdfc52aded2f40622eb5f6aa88bd2969e5d0dbb7c497e1af3b8541c627db4 range=[4,24] unit=raw
+ SG_ Synth_j8_17_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r17c05 digest=68ca7ee54e032e206ae8a89a15b58f80edb09c2a50b18deac0619bc5359e4d3e range=[5,25] unit=raw
+ SG_ Synth_j8_17_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r17c06 digest=c468670a8151fa21516129fce6508c238af891205adefc6d726f9b622bb91522 range=[6,26] unit=raw
+ SG_ Synth_j8_17_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r17c07 digest=8d7ab718ed7ec45be28d3580947a71e55709522993d944e058dda68f38622aa7 range=[7,27] unit=raw
+ SG_ Synth_j8_17_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r17c08 digest=c98744b4c2911d642b8a90bb3ab8310fe340b27fe2d2ca73c2e8c57f8be3f08c range=[8,28] unit=raw
+ SG_ Synth_j8_17_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r17c09 digest=e481371d8559140a6d0cd4ed95bd794d40ccd369d85c901baf1d4c5878e9f44a range=[9,29] unit=raw
+ SG_ Synth_j8_17_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r17c10 digest=bb5eabfd9146b3f21d09ce984f7a0ae852040929f4bafb47f198f35b89645815 range=[10,30] unit=raw
+ SG_ Synth_j8_17_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r17c11 digest=d1abd9fe9f5d660fbadc32187fda0d1d8e98c769bee9a955ca6cf231f45f44e6 range=[11,31] unit=raw
+ SG_ Synth_j8_17_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_17: 8 j8
+; peer-ref j8->j7 blk=17 sticky=1
+; peer-ref j8->j4 blk=17 sticky=1
+; peer-ref j8->j12 blk=17 sticky=1
+; blk 18 slice j8 calibration notes for field desk operators
+; map j8 r18c00 digest=228c3ab6381bc6e8785e68158a12feed46f40e57cdbb42d69d51e716d1ff40b3 range=[0,20] unit=raw
+ SG_ Synth_j8_18_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r18c01 digest=6ebc70c071e49254b20d48cf79ee24f0227425c7138737ba3d62549a1926d047 range=[1,21] unit=raw
+ SG_ Synth_j8_18_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r18c02 digest=7dde2349b7409fbea39bd267f6f768794322db2eb9c4b2fd4326e48ef0889099 range=[2,22] unit=raw
+ SG_ Synth_j8_18_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r18c03 digest=1bdcf8820c53c592a0751d6719d726c82eac73d474da04acb5e376dd729b4e64 range=[3,23] unit=raw
+ SG_ Synth_j8_18_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r18c04 digest=cbb1c3333581f42c2c5cea7ca786f3fe68872231f13d4f62ccebcf7e3b553b61 range=[4,24] unit=raw
+ SG_ Synth_j8_18_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r18c05 digest=901ddf7f2ad956ca4d9147d9803b25da5cb147dae01b498b1994cc82d1d4d1a1 range=[5,25] unit=raw
+ SG_ Synth_j8_18_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r18c06 digest=c46c5e77b1ecc6965ef3e687c807ce778ceac06c127158f71964965e1ae92437 range=[6,26] unit=raw
+ SG_ Synth_j8_18_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r18c07 digest=a896c8d8ee9917818268dbdc86fb9a5e6aa0a73d23b7023d8eb262fb662bfe12 range=[7,27] unit=raw
+ SG_ Synth_j8_18_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r18c08 digest=2e5089f133781e48893019b98f9f3c0d7b9e55893807726f1e293a1fa4d1e9ca range=[8,28] unit=raw
+ SG_ Synth_j8_18_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r18c09 digest=bb145d05c53ff3af235ff70cb7dfa05884ed872fcce9817302d7eba482ff3314 range=[9,29] unit=raw
+ SG_ Synth_j8_18_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r18c10 digest=c9fb5e8d86a91a9c139983d9f40c3a39a23996e111d9324264e216677e0b3f23 range=[10,30] unit=raw
+ SG_ Synth_j8_18_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r18c11 digest=8fce460ee4e8577bf5c93d42873446ca3901f9487c715e10231e31e9e8455e48 range=[11,31] unit=raw
+ SG_ Synth_j8_18_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_18: 8 j8
+; peer-ref j8->j7 blk=18 sticky=1
+; peer-ref j8->j4 blk=18 sticky=1
+; peer-ref j8->j12 blk=18 sticky=1
+; blk 19 slice j8 calibration notes for field desk operators
+; map j8 r19c00 digest=7236480a02645ba9924c0d0457ce5d830ef0a519d3d91f64c768d05de65525b4 range=[0,20] unit=raw
+ SG_ Synth_j8_19_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r19c01 digest=948896cc2783bf2338ae350240152656b5b190b1c0bb55e3db7b2f9ca5f47393 range=[1,21] unit=raw
+ SG_ Synth_j8_19_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r19c02 digest=28ea50c8b4f1e184c96d18ad0f2df7bd58b4616ca277ba27f92f4a5667f9f5fe range=[2,22] unit=raw
+ SG_ Synth_j8_19_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r19c03 digest=1a955b2d1d0795dbf8db4efc69522425114498b6a22b23801b38843797f6fada range=[3,23] unit=raw
+ SG_ Synth_j8_19_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r19c04 digest=d051a4541bbb581b13335cd95c4e7f5a54199a005aafdc31bfc52d4957cf0e64 range=[4,24] unit=raw
+ SG_ Synth_j8_19_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r19c05 digest=bf471e6d32833443d0cecc46eaa3b2a9015daefc4d0b6d3f586a0f456ecbe024 range=[5,25] unit=raw
+ SG_ Synth_j8_19_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r19c06 digest=0410604c06936009a4203f9fd10f2979474e1b14af12670a271b2f6bc996f61f range=[6,26] unit=raw
+ SG_ Synth_j8_19_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r19c07 digest=6d1539996c308c1ca1eaf5015b25c47156961c1a0e04ad5c70b09350410b7fa1 range=[7,27] unit=raw
+ SG_ Synth_j8_19_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r19c08 digest=cf5d14201987dcdb7999bf0bbd151fbd1e2760429ae6a0b893c6eeddcc6e78a8 range=[8,28] unit=raw
+ SG_ Synth_j8_19_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r19c09 digest=cf36e49d42e73ce6cca8495e64e4eaba89d93a2e7defc69d8786954491040e21 range=[9,29] unit=raw
+ SG_ Synth_j8_19_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r19c10 digest=9750ad661b283c0abd1449602fe6d251e393f1b1bbc39b010f1bc948e81826e7 range=[10,30] unit=raw
+ SG_ Synth_j8_19_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r19c11 digest=65ec9c7ad5f3e4ee67e5dc49b33930074f4b2ca57a55af09c014a7f55c5569f9 range=[11,31] unit=raw
+ SG_ Synth_j8_19_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_19: 8 j8
+; peer-ref j8->j7 blk=19 sticky=1
+; peer-ref j8->j4 blk=19 sticky=1
+; peer-ref j8->j12 blk=19 sticky=1
+; blk 20 slice j8 calibration notes for field desk operators
+; map j8 r20c00 digest=43dded955aedb45a6eafe56c14b6de629671989ccfb7ff0ba2f7a4c61584e6a0 range=[0,20] unit=raw
+ SG_ Synth_j8_20_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r20c01 digest=c3514116c57b2ba178bf46aaa279efc6af14cff3b38a88dc6d2115efa80674c1 range=[1,21] unit=raw
+ SG_ Synth_j8_20_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r20c02 digest=6fedf571a413068bddbec6461910ebae3793495f764b2f4f1a2782f2db9434b3 range=[2,22] unit=raw
+ SG_ Synth_j8_20_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r20c03 digest=6b019cfe7131cf23f7bf7e88c015d9034b25f7a01b476e814e0fb11d7186ece1 range=[3,23] unit=raw
+ SG_ Synth_j8_20_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r20c04 digest=8895e99a5a2a55086287d42710990248d6028958bad7f52194da1af7ac458fb2 range=[4,24] unit=raw
+ SG_ Synth_j8_20_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r20c05 digest=e0d0f6f63741d606e14fc393b839840687dfacfaa7f2728fbdf3b3bd047eabd6 range=[5,25] unit=raw
+ SG_ Synth_j8_20_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r20c06 digest=e92335d63b16e66d684072930d17aab73f9d158a48e93fb38dbc06c5d30e2269 range=[6,26] unit=raw
+ SG_ Synth_j8_20_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r20c07 digest=94e8469275654e1a2de77443fde20ae7539763088692c785a2432e89f696407a range=[7,27] unit=raw
+ SG_ Synth_j8_20_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r20c08 digest=d9b84caa6463cb18ac0edbae22041cd54406ebe45ffe4a4b2d802087149eaf36 range=[8,28] unit=raw
+ SG_ Synth_j8_20_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r20c09 digest=351b6c9944e7ca3c0a9f72858deb1df72d8659e986510e351db4ec3de3a6ca37 range=[9,29] unit=raw
+ SG_ Synth_j8_20_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r20c10 digest=f1fce78b34e66740b4b38e2cafeb84b4e28fd7a831a6ef8a4bf4f8cad08e3cea range=[10,30] unit=raw
+ SG_ Synth_j8_20_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r20c11 digest=d085f2010ebbe065923c51fbecbb2296d2ccf6d7814b3ed6ead2280919171034 range=[11,31] unit=raw
+ SG_ Synth_j8_20_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_20: 8 j8
+; peer-ref j8->j7 blk=20 sticky=1
+; peer-ref j8->j4 blk=20 sticky=1
+; peer-ref j8->j12 blk=20 sticky=1
+; blk 21 slice j8 calibration notes for field desk operators
+; map j8 r21c00 digest=698f06ad09ca19c9aaafbc5aa22f80cb098fab85b8640a02d73ca27cb73e3573 range=[0,20] unit=raw
+ SG_ Synth_j8_21_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r21c01 digest=7db1adc03efdc21b858393e633cfc26122923cced2a87558b0f9ff3275aa8e5f range=[1,21] unit=raw
+ SG_ Synth_j8_21_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r21c02 digest=ce36cda586dfad9565dc1d0f376bdf5e8ff51029b9cd9a0c53755828cb240dcd range=[2,22] unit=raw
+ SG_ Synth_j8_21_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r21c03 digest=d0544c475c5f056c059a44befc554e3c5a342d24e7aeb9e17742c620263789c2 range=[3,23] unit=raw
+ SG_ Synth_j8_21_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r21c04 digest=47589a4424228b1414a8df064396592b69b7de1407e988bb13f9f4d68aa11e78 range=[4,24] unit=raw
+ SG_ Synth_j8_21_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r21c05 digest=8271b09650771acbd29bf344c25b1496003438bd23d590072f640d288101949f range=[5,25] unit=raw
+ SG_ Synth_j8_21_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r21c06 digest=08bebddaf56e67ef71efb6c39e6ca15acad82059a2255a71a8781f1e614a0fc4 range=[6,26] unit=raw
+ SG_ Synth_j8_21_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r21c07 digest=f3c6810d86228f9cd0adfa8b2789524853bafd1b937244fc461c97796f74f92d range=[7,27] unit=raw
+ SG_ Synth_j8_21_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r21c08 digest=a4dfe226b789128e3721c5ecb7cd246df5f6f92306d1c227bdf2347543954ad0 range=[8,28] unit=raw
+ SG_ Synth_j8_21_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r21c09 digest=e767f0990a2d96f3a60e1397087f63d7c333fada724038e210da4dca983c7189 range=[9,29] unit=raw
+ SG_ Synth_j8_21_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r21c10 digest=4231dfbf45d57f3a38e3ed0c2bb1ea005f1a324bb21183d6442e5652b20b8254 range=[10,30] unit=raw
+ SG_ Synth_j8_21_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r21c11 digest=153114880fa4d49dcbe4f2f1c00a8037bdf840ec786d111358531a14477d9912 range=[11,31] unit=raw
+ SG_ Synth_j8_21_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_21: 8 j8
+; peer-ref j8->j7 blk=21 sticky=1
+; peer-ref j8->j4 blk=21 sticky=1
+; peer-ref j8->j12 blk=21 sticky=1
+; blk 22 slice j8 calibration notes for field desk operators
+; map j8 r22c00 digest=b0e576d5838e8b55840d3d4f8d33d17d223f60755edc04fd1df7ef5a9870c770 range=[0,20] unit=raw
+ SG_ Synth_j8_22_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r22c01 digest=d4e2b723f1a0890e5543d4a5bfd4f9615a6e9be1a48ca011e4a057bbb9161c82 range=[1,21] unit=raw
+ SG_ Synth_j8_22_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r22c02 digest=63fdb8ee78b55cd7cefbfb669063e7cdb4dbb672c50c191a2224b375c59a7552 range=[2,22] unit=raw
+ SG_ Synth_j8_22_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r22c03 digest=ea3a948bf28b0455998ae63361fe19825900e15f4aa0de3220f31a3157776671 range=[3,23] unit=raw
+ SG_ Synth_j8_22_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r22c04 digest=868e6cd7c1fc48fc411d91b0ed1d2e9f77798e2879aff88babc061fb3bb18a3d range=[4,24] unit=raw
+ SG_ Synth_j8_22_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r22c05 digest=47327e634ab3fe4054e33b7b92785d178143bd9e0d1b3b692333d73c81e424e8 range=[5,25] unit=raw
+ SG_ Synth_j8_22_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r22c06 digest=2fc618cc0814a12cff80c7c43e957f8a4d3c57be3d1ddb398a01a6a06996a44c range=[6,26] unit=raw
+ SG_ Synth_j8_22_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r22c07 digest=b0977aa30234e565f9cbb44056ce28390f775b9ff348c8e77460b2b0c3ef0a30 range=[7,27] unit=raw
+ SG_ Synth_j8_22_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r22c08 digest=f53c6f6711992f627fdc827034865dbae98db8c6e5b8b1b71b197310008a8b99 range=[8,28] unit=raw
+ SG_ Synth_j8_22_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r22c09 digest=e0dadcc4cd8dafbfbaf78ab0baba9992d52436a1b0741a837786e81622e6f1fa range=[9,29] unit=raw
+ SG_ Synth_j8_22_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r22c10 digest=70be257acb24e39d89d771d7c719d993e327eacb4f2924fbdb3ca6a49d23f7f3 range=[10,30] unit=raw
+ SG_ Synth_j8_22_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r22c11 digest=b34108fb89a74ef10f4ff94d017b3508e8f4ddc72f91d37b7b429a3aacb7252a range=[11,31] unit=raw
+ SG_ Synth_j8_22_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_22: 8 j8
+; peer-ref j8->j7 blk=22 sticky=1
+; peer-ref j8->j4 blk=22 sticky=1
+; peer-ref j8->j12 blk=22 sticky=1
+; blk 23 slice j8 calibration notes for field desk operators
+; map j8 r23c00 digest=ebdd7d1a34b1281cf76aa72e93ba568d9d41119c73341bdbb293aabe09a319bf range=[0,20] unit=raw
+ SG_ Synth_j8_23_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r23c01 digest=e6f734386511b376c41c6b603d91ed3e7957531b55eff381480b4e3a48887133 range=[1,21] unit=raw
+ SG_ Synth_j8_23_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r23c02 digest=13c56e6564b22a68f18d58bb59642d655ec214d1d3014c6cc33ff827a15acca7 range=[2,22] unit=raw
+ SG_ Synth_j8_23_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r23c03 digest=2a67fe07107eb42a9d6b7d047406c02e0f020f70c65071d335b5fd898ebfc636 range=[3,23] unit=raw
+ SG_ Synth_j8_23_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r23c04 digest=e30438634a6e49558a82deb616f35bd53362ba2e19a81c24b5ec078b33a2b536 range=[4,24] unit=raw
+ SG_ Synth_j8_23_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r23c05 digest=a0b6ba81499e179d3ed71cc50c3d05226b37e15b3887cb52e0ba0c4644759ed4 range=[5,25] unit=raw
+ SG_ Synth_j8_23_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r23c06 digest=e1e102ab9bb9db93af3bce791bdd5ae1b2e1b17f4560b0a70e0ad4f0d5c23d90 range=[6,26] unit=raw
+ SG_ Synth_j8_23_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r23c07 digest=84f54718f7d94424addf7c0ef2fe623122764bc8abfc580fc5dba063d4909252 range=[7,27] unit=raw
+ SG_ Synth_j8_23_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r23c08 digest=8d9288e4a5ca1968dbc1457f11292ede84e93a52f3443899d4e6c1dd90ab384c range=[8,28] unit=raw
+ SG_ Synth_j8_23_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r23c09 digest=2e5a4256c0bc6536e49406a440458f66d1316d7e9cfda7b5cc7069066237c8a5 range=[9,29] unit=raw
+ SG_ Synth_j8_23_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r23c10 digest=5546b4ab7da65a8ca5bec6fe01edc746c606701dcfea22d82ae604738a2c6fd4 range=[10,30] unit=raw
+ SG_ Synth_j8_23_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r23c11 digest=a89353c34ef0c9360d1e52d3bff7e3d8417211d67fef6082316d302d95bd5993 range=[11,31] unit=raw
+ SG_ Synth_j8_23_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_23: 8 j8
+; peer-ref j8->j7 blk=23 sticky=1
+; peer-ref j8->j4 blk=23 sticky=1
+; peer-ref j8->j12 blk=23 sticky=1
+; blk 24 slice j8 calibration notes for field desk operators
+; map j8 r24c00 digest=0132c089a431c052c18ee94a737aabe37b373f2e27f34d2dc557743b5454d0ea range=[0,20] unit=raw
+ SG_ Synth_j8_24_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r24c01 digest=686cc54ff35bb3f5ba0cd22f4dba83cd3dba2f28f2e54e3acc68d28e48007cf6 range=[1,21] unit=raw
+ SG_ Synth_j8_24_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r24c02 digest=67e0a59de1182f2b2d8dc667a13a4f7f6f4c1bdffaccb24f312b1597b76f6442 range=[2,22] unit=raw
+ SG_ Synth_j8_24_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r24c03 digest=c75785132d79c03241d2d6dc9547f6661fa766847385083fc59d856eb5e6e885 range=[3,23] unit=raw
+ SG_ Synth_j8_24_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r24c04 digest=7907ee9179b1f77a437631113ea0d847f544b3d609b3d51ec4cf394b343189c6 range=[4,24] unit=raw
+ SG_ Synth_j8_24_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r24c05 digest=b2b3c7d7e9cdb6ba0fa2042cb0afbb9d715e2bcca98106384894a4d12e99bbba range=[5,25] unit=raw
+ SG_ Synth_j8_24_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r24c06 digest=c8d79ff1ad9f3778a2c3960e7de0e96a0874e16061a11bc2fd0cd2ed780e1c0a range=[6,26] unit=raw
+ SG_ Synth_j8_24_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r24c07 digest=fd7cac6ed6e027ee6cb57e29ce479f80ff28bd8eb93c6198e2f13db26d639c01 range=[7,27] unit=raw
+ SG_ Synth_j8_24_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r24c08 digest=ada680db99f318452c0c23276c4a91f38b693b9267cb47aa299b6adfc435c39b range=[8,28] unit=raw
+ SG_ Synth_j8_24_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r24c09 digest=47ee4083b1bb5ef8afb47ee4271fd5dd0de8ffa5ac914f8aa0cb2e85ada007ad range=[9,29] unit=raw
+ SG_ Synth_j8_24_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r24c10 digest=714d848c9ccb8d83e0bb741a466bb8a1f2b9f86d749d65957d8fe315c950c18e range=[10,30] unit=raw
+ SG_ Synth_j8_24_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r24c11 digest=6e06e13e41ace9e943a48358c0155fc6d443ad8d51715b7439cde909bd0b4957 range=[11,31] unit=raw
+ SG_ Synth_j8_24_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_24: 8 j8
+; peer-ref j8->j7 blk=24 sticky=1
+; peer-ref j8->j4 blk=24 sticky=1
+; peer-ref j8->j12 blk=24 sticky=1
+; blk 25 slice j8 calibration notes for field desk operators
+; map j8 r25c00 digest=32ad337c1c68538b9dcec4140c7cc85ace7f6534fa58aae2512bd972ec7e7b60 range=[0,20] unit=raw
+ SG_ Synth_j8_25_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r25c01 digest=959c7f264e3d34a9cb1e8053024d10e05f0593d0576c31e5c2b00e2e80daa8b5 range=[1,21] unit=raw
+ SG_ Synth_j8_25_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r25c02 digest=9316bbf8e788e83425073fe6c2b0166086e51ff8f08dbc20bc030ed8fe53295c range=[2,22] unit=raw
+ SG_ Synth_j8_25_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r25c03 digest=75a3f3701d1774577ae9edd185b6e7e7c3f65807a87f644b023d3f7c18401fc2 range=[3,23] unit=raw
+ SG_ Synth_j8_25_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r25c04 digest=be8da9d1debad7588111f16f99cd6a1fcdb468dd5cd1526e5f7981e68b7297e0 range=[4,24] unit=raw
+ SG_ Synth_j8_25_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r25c05 digest=f410e4ddcc3e9b5d1ef32a786126133d9bca4a8cb23aa8a96fe288af3c4c1898 range=[5,25] unit=raw
+ SG_ Synth_j8_25_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r25c06 digest=6df78d244e4546f79ff3ae387bca406d0de53c192cc4f945163f713da199887d range=[6,26] unit=raw
+ SG_ Synth_j8_25_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r25c07 digest=995409f64f36eaaf9cf69679220fbca01acb4e8a92cebbb36f6f128da06e8e1b range=[7,27] unit=raw
+ SG_ Synth_j8_25_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r25c08 digest=2d3dfb54e566fab1babba73ad6eaa223cec26183d5ce0fe79cb5ee2aab3ab2f6 range=[8,28] unit=raw
+ SG_ Synth_j8_25_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r25c09 digest=83f2352edde9d63db89aa2c59a7f6df7dc875131c8f6532db0dc3763a67538d9 range=[9,29] unit=raw
+ SG_ Synth_j8_25_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r25c10 digest=e49792463df819c1683a9eacce0251a86503b5d257664b668f72163304d47006 range=[10,30] unit=raw
+ SG_ Synth_j8_25_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r25c11 digest=7cea07768a0e6b1ad423f9e7bad90ce27bc3d3322b765b39f30dab96b133842a range=[11,31] unit=raw
+ SG_ Synth_j8_25_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_25: 8 j8
+; peer-ref j8->j7 blk=25 sticky=1
+; peer-ref j8->j4 blk=25 sticky=1
+; peer-ref j8->j12 blk=25 sticky=1
+; blk 26 slice j8 calibration notes for field desk operators
+; map j8 r26c00 digest=d2c89f294e8efec619491de2f5cc59089156195175f08cae0af81d5f39336565 range=[0,20] unit=raw
+ SG_ Synth_j8_26_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r26c01 digest=6c17e1bf9f0de4aa68646751dc5213ac39245b23d1be42c5548c243c828f8019 range=[1,21] unit=raw
+ SG_ Synth_j8_26_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r26c02 digest=5af21ce629ec6a677fad271228b5a9d2f6a5e3272e66bbdd8bb4658265135621 range=[2,22] unit=raw
+ SG_ Synth_j8_26_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r26c03 digest=3a1a7c8c40f1e6b540d686cbb337b43f15568b3f00b38c4c3f0a586559dce183 range=[3,23] unit=raw
+ SG_ Synth_j8_26_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r26c04 digest=581ba6c38fe4a40b2d3db522d70689e79c94e47cfe119f6481d77fd2e5c18148 range=[4,24] unit=raw
+ SG_ Synth_j8_26_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r26c05 digest=cdddd4ccb36a162d64f63b48ca7e848a2d01d295f2debd0fe4b9fe321473ae3e range=[5,25] unit=raw
+ SG_ Synth_j8_26_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r26c06 digest=749a6f225db68b8a4249f8764d04bd81725419a3e7986047c570079195418c4a range=[6,26] unit=raw
+ SG_ Synth_j8_26_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r26c07 digest=8da31dc867a0db882eac7bd6f88227b1f42a1fc511bd90ff8dbacfb299863830 range=[7,27] unit=raw
+ SG_ Synth_j8_26_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r26c08 digest=29ec60fef2d96d2d932ad72b52699cedd0de27c65f4b83bb1fccd233c91b53a4 range=[8,28] unit=raw
+ SG_ Synth_j8_26_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r26c09 digest=38690633dc6e4a000f1a2f1c68c2f37722fc914824413aac2a25b6c75866d366 range=[9,29] unit=raw
+ SG_ Synth_j8_26_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r26c10 digest=e34bfc22b840457edd7d9355db6895934b80104d195f259364a14b7ea04d72c1 range=[10,30] unit=raw
+ SG_ Synth_j8_26_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r26c11 digest=36ef8fc16ca77fbbe28107a13ad3558f10d94d9930745d1caf4d40df19baa954 range=[11,31] unit=raw
+ SG_ Synth_j8_26_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_26: 8 j8
+; peer-ref j8->j7 blk=26 sticky=1
+; peer-ref j8->j4 blk=26 sticky=1
+; peer-ref j8->j12 blk=26 sticky=1
+; blk 27 slice j8 calibration notes for field desk operators
+; map j8 r27c00 digest=2507a91298a8fa312e0c97a8badc22a5f4a3aa5b99971d60ae3c83701f1ed0ea range=[0,20] unit=raw
+ SG_ Synth_j8_27_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r27c01 digest=e1a35e075ca755b130141b1f47660ab951e286c36691ea431f5006fbde1f5856 range=[1,21] unit=raw
+ SG_ Synth_j8_27_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r27c02 digest=a172083b5218903fb3189107b292d456e05698d92de79a5d0a5318f43e30a217 range=[2,22] unit=raw
+ SG_ Synth_j8_27_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r27c03 digest=03c3c6a19a21bf1d6ee2da3957b7120391f325766298422b41e155632e346785 range=[3,23] unit=raw
+ SG_ Synth_j8_27_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r27c04 digest=e4ea52274488d526f2a5f1238be326a61ef47ef6ca52802986bd3e692a972e2b range=[4,24] unit=raw
+ SG_ Synth_j8_27_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r27c05 digest=aa990b964eb7a717b0b1dca2c0a29ab57e503c627a62cd3ea614b966548e8b55 range=[5,25] unit=raw
+ SG_ Synth_j8_27_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r27c06 digest=97c5203e5d49c11926fbab0b551c08dae326723cde0de8ef9acb5a46e6edf26e range=[6,26] unit=raw
+ SG_ Synth_j8_27_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r27c07 digest=c95979e609780980078ccfddf8739fe2552f22f9b238901a5e014f93a6fc4c69 range=[7,27] unit=raw
+ SG_ Synth_j8_27_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r27c08 digest=eba8c9ac6d641f26d796312cab00c5b23ab4e7254381a3a538901ee43e26d8e6 range=[8,28] unit=raw
+ SG_ Synth_j8_27_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r27c09 digest=ea0b3a0a2b5c83ac0cc6a4a3df79d224b2d59e4a2cdf9cfb7e38b3c7751cf2b5 range=[9,29] unit=raw
+ SG_ Synth_j8_27_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r27c10 digest=964bc404e68ec654d8e79d77597378b1d092b203a253fc50ff00d8c7c69b85c9 range=[10,30] unit=raw
+ SG_ Synth_j8_27_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r27c11 digest=492d89cde0b56f729e935ab153ca5b13ccc6230836ea9abc2012a4dd75a52db0 range=[11,31] unit=raw
+ SG_ Synth_j8_27_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_27: 8 j8
+; peer-ref j8->j7 blk=27 sticky=1
+; peer-ref j8->j4 blk=27 sticky=1
+; peer-ref j8->j12 blk=27 sticky=1
+; blk 28 slice j8 calibration notes for field desk operators
+; map j8 r28c00 digest=d3114bfc0d23928284caa943a1b2972e6356a369a19bce712426d30a180620fe range=[0,20] unit=raw
+ SG_ Synth_j8_28_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r28c01 digest=fb747fcc6d98748a80f81dc3006ac1966a27220fd8e8484fe96850dc3c8d27a9 range=[1,21] unit=raw
+ SG_ Synth_j8_28_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r28c02 digest=d3b448b575ee3a2ed64cc690072d43c419bdc63d918ff38617bbee350373b36d range=[2,22] unit=raw
+ SG_ Synth_j8_28_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r28c03 digest=ecd223d85dd8fd7bd1cefce6a2b965dfb6d65c52ecda0516231d9557a4ee55d3 range=[3,23] unit=raw
+ SG_ Synth_j8_28_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r28c04 digest=c7b3c5b65b5253615cbcb539b567eb30361241f47c388102b65ff34420f9906c range=[4,24] unit=raw
+ SG_ Synth_j8_28_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r28c05 digest=f0905051a2288113e8e48993ae7acff697f29b5e3830649dd4c824250ac7cb1c range=[5,25] unit=raw
+ SG_ Synth_j8_28_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r28c06 digest=9661dad0ae99d240df00e14278b859a79b0a7b4297e2152711997040cbc99916 range=[6,26] unit=raw
+ SG_ Synth_j8_28_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r28c07 digest=f3cf2db8bd982f866d7565d7086eb1776d38dafb2a4e0d2895d667b427dd03ab range=[7,27] unit=raw
+ SG_ Synth_j8_28_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r28c08 digest=912498a691235254219090b0c9c7154f83b387752ab12de44c213c27d05d1134 range=[8,28] unit=raw
+ SG_ Synth_j8_28_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r28c09 digest=c10392884da16ff0e7dd70f16da5afa34237fcf11cd4f6ff82036c1449a86ad9 range=[9,29] unit=raw
+ SG_ Synth_j8_28_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r28c10 digest=22341c3389dceec999302b2b5bbaddb8f476002f3205b5280960d0db2d1463c9 range=[10,30] unit=raw
+ SG_ Synth_j8_28_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r28c11 digest=d419c288aaf62f8404c05c3c02e6e71b97d2bbc34260e3b05b4094c9f83a5b61 range=[11,31] unit=raw
+ SG_ Synth_j8_28_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_28: 8 j8
+; peer-ref j8->j7 blk=28 sticky=1
+; peer-ref j8->j4 blk=28 sticky=1
+; peer-ref j8->j12 blk=28 sticky=1
+; blk 29 slice j8 calibration notes for field desk operators
+; map j8 r29c00 digest=e29b1f75b6f7940b3ab17c5786f1bf9db1ef53738ea4c79aca726829eebe797e range=[0,20] unit=raw
+ SG_ Synth_j8_29_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r29c01 digest=d10cad38fbda4f775ea4c55f9a0044e74afde61b5bad02a4bf97de0bdaaf1c88 range=[1,21] unit=raw
+ SG_ Synth_j8_29_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r29c02 digest=92c1bbfbb2449167244ab711509f29f54fe14361ad2aae663cfd8a4f5e577850 range=[2,22] unit=raw
+ SG_ Synth_j8_29_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r29c03 digest=3b2295d1ea5845de7e44c90d814aa078a790e6977ea10aa50e011106354e1c04 range=[3,23] unit=raw
+ SG_ Synth_j8_29_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r29c04 digest=a3c4c9329773a91f4d0e5d4fc2a34a53cb369aaaae9e22a27e11a3d249d4ed84 range=[4,24] unit=raw
+ SG_ Synth_j8_29_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r29c05 digest=5fb47b23180101069f3ea445869b89e088ede21e4ad33b2117b68e1a1cc147fe range=[5,25] unit=raw
+ SG_ Synth_j8_29_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r29c06 digest=77287563cd82efda605af63da1477a26fee65b39ccce8c016e2d3f63c394b4d0 range=[6,26] unit=raw
+ SG_ Synth_j8_29_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r29c07 digest=67650accbe167ef66f81febc4407000e43d7dcd53f164481d3ba152e2d907779 range=[7,27] unit=raw
+ SG_ Synth_j8_29_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r29c08 digest=81d534e9c1b5ed6a82a7d84d74eab93b53b618edd076adf3d23a8a297d167d17 range=[8,28] unit=raw
+ SG_ Synth_j8_29_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r29c09 digest=f5b1268e5efa7db7bacbe071f20f0e602b618e3f8a858cca3d911cd3f776d53a range=[9,29] unit=raw
+ SG_ Synth_j8_29_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r29c10 digest=6230321daf946b71c8ff3fc9eb94d078d51f84c3825e8637f69c56bd147e202a range=[10,30] unit=raw
+ SG_ Synth_j8_29_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r29c11 digest=e379cdeb4d606ebc878535483f648ba95b9716dfb63b19d11962c95929cdeecb range=[11,31] unit=raw
+ SG_ Synth_j8_29_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_29: 8 j8
+; peer-ref j8->j7 blk=29 sticky=1
+; peer-ref j8->j4 blk=29 sticky=1
+; peer-ref j8->j12 blk=29 sticky=1
+; blk 30 slice j8 calibration notes for field desk operators
+; map j8 r30c00 digest=baa8aca387a234dddabc1716ac1efe1e10f91a958a666fccf742117c79faf1e7 range=[0,20] unit=raw
+ SG_ Synth_j8_30_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r30c01 digest=067019b2fffee3c959b8482566d59419a8cc6fab88239ca8ca4a3f9f77697b78 range=[1,21] unit=raw
+ SG_ Synth_j8_30_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r30c02 digest=9a70859757b010e505c718441c5c08bdf0ce6bc73f0996e9b414b101e33e6780 range=[2,22] unit=raw
+ SG_ Synth_j8_30_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r30c03 digest=850f5f5d81f2c4629e21b1f1dfd2479d11d43bf28bf712de1380ebf0535dabc4 range=[3,23] unit=raw
+ SG_ Synth_j8_30_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r30c04 digest=0ce53648d034d2c7284c6e8fa21815fcc82b37c5cfd8f999ac272adc4a64cd3e range=[4,24] unit=raw
+ SG_ Synth_j8_30_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r30c05 digest=634de4913275257a4c4d7937ff28108bcc662fd8eb76216d97052519a5f1e14f range=[5,25] unit=raw
+ SG_ Synth_j8_30_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r30c06 digest=99c44347760b0021a13251c1aa624d0f79efb59dec6fbb14a118d71f45b55b69 range=[6,26] unit=raw
+ SG_ Synth_j8_30_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r30c07 digest=ceba1f970cb8ae556099fc9d24c7a625f83057327736c7c362d5575059970d04 range=[7,27] unit=raw
+ SG_ Synth_j8_30_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r30c08 digest=680aef22855c9ecfda4eb58a9f58832d0cd3671ecb73143ed3d282e9403d3b1c range=[8,28] unit=raw
+ SG_ Synth_j8_30_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r30c09 digest=0cd2d943e123f59047961eb6970a8f9eb67859d5bef042e553911b20b0eb7d89 range=[9,29] unit=raw
+ SG_ Synth_j8_30_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r30c10 digest=86ecb0ce6da408d0f01d0136d0133560bf9ba9be3332af2193972bb52e0ade19 range=[10,30] unit=raw
+ SG_ Synth_j8_30_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r30c11 digest=cb4005afb7591781ba82d92dc5d31005df912972b48c13cb67e2d4904dd2ca40 range=[11,31] unit=raw
+ SG_ Synth_j8_30_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_30: 8 j8
+; peer-ref j8->j7 blk=30 sticky=1
+; peer-ref j8->j4 blk=30 sticky=1
+; peer-ref j8->j12 blk=30 sticky=1
+; blk 31 slice j8 calibration notes for field desk operators
+; map j8 r31c00 digest=a0a728cd70b96dda0c419c30dc0392afaad882fe9cdcd5bff7b8c0ba0aa532aa range=[0,20] unit=raw
+ SG_ Synth_j8_31_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r31c01 digest=01542575e5bfc387dfcad6aa10196453f587f4009cb7f9bf40f3eb231d803172 range=[1,21] unit=raw
+ SG_ Synth_j8_31_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r31c02 digest=8cf3806d43786e353fe5a1e25b09c0a51e5143d706bca153735dc44af5d13ff2 range=[2,22] unit=raw
+ SG_ Synth_j8_31_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r31c03 digest=14b3c37dd3016e8c5fb0a5dea6369b5d3999ffa3c16c361bf9e75b101fbec70c range=[3,23] unit=raw
+ SG_ Synth_j8_31_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r31c04 digest=78532d952f3cdbccdf7a0566d7226034ec8ea8f692463df1d9cf8d0a4d82d693 range=[4,24] unit=raw
+ SG_ Synth_j8_31_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r31c05 digest=fea808d58c575d193562a51566ca1c6f81a38d6d0cb69e53e5a544009a6cd509 range=[5,25] unit=raw
+ SG_ Synth_j8_31_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r31c06 digest=9c2b4e4a6f6032818b71ca1618290ecb152424502e8a17e1cf04a775f9b2723d range=[6,26] unit=raw
+ SG_ Synth_j8_31_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r31c07 digest=6c833637a44ef07770f47948e9705715c4173566f1cd941e8facde47828dab25 range=[7,27] unit=raw
+ SG_ Synth_j8_31_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r31c08 digest=a1852f6c1b41e105447a44134b9ccf33b06dd491feafcae2e9204d459cd64db2 range=[8,28] unit=raw
+ SG_ Synth_j8_31_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r31c09 digest=c1a51fa5502150790d9f01a29578967694a4fce9cffff5251827d0768700dc16 range=[9,29] unit=raw
+ SG_ Synth_j8_31_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r31c10 digest=24c318ad18eda77d42758299a5541541c50e6b1d304f9d3fbd6ca20be2f9d666 range=[10,30] unit=raw
+ SG_ Synth_j8_31_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r31c11 digest=decac1aa0b25b79d2f56d0cb91ae67f8ee52fd6be7812ff1d3e8397d2cce10b4 range=[11,31] unit=raw
+ SG_ Synth_j8_31_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_31: 8 j8
+; peer-ref j8->j7 blk=31 sticky=1
+; peer-ref j8->j4 blk=31 sticky=1
+; peer-ref j8->j12 blk=31 sticky=1
+; blk 32 slice j8 calibration notes for field desk operators
+; map j8 r32c00 digest=e5d2ba5307566e541fd84268bf3d61dc3b87c411c494bb306f8332c3953a7e07 range=[0,20] unit=raw
+ SG_ Synth_j8_32_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r32c01 digest=bd3336a98b036a7e63139144d8d0199b9552d1c17701e05aee00dd130fc5ca64 range=[1,21] unit=raw
+ SG_ Synth_j8_32_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r32c02 digest=42115f1b7d3629095e8bea0b9dfb8e6faff742917eaf7649818f2e0916e1b7c8 range=[2,22] unit=raw
+ SG_ Synth_j8_32_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r32c03 digest=dd583e79b07d02dd960abffd281aa637ff6bdadc49e6e40b0394abc840bb3ae4 range=[3,23] unit=raw
+ SG_ Synth_j8_32_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r32c04 digest=7f5a2a688e14f565aba7b5d9f3a9feae8321614983bd2b3b0dcb45c6c6c0e073 range=[4,24] unit=raw
+ SG_ Synth_j8_32_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r32c05 digest=5e32dc87a3ad4ea821060fd850b625594cece8cbe837e3029cfb7c7a2152a310 range=[5,25] unit=raw
+ SG_ Synth_j8_32_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r32c06 digest=f82235b3a1a9749e0c371eae383b0c95cb483c7a5af4b19710089a53190a70af range=[6,26] unit=raw
+ SG_ Synth_j8_32_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r32c07 digest=e0cb37feeb286a251ca914820c2f7e9eb1a3b1570ba3023ed6d33d7b0acb078c range=[7,27] unit=raw
+ SG_ Synth_j8_32_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r32c08 digest=dc1938e06eeb527c459c0807dce01e6f670872b51c3f8df86af9915ca2d7c302 range=[8,28] unit=raw
+ SG_ Synth_j8_32_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r32c09 digest=ce25f357fb09baefdb55e96954feaa6c3681250f133b4582a4d2c1dc890c6ec0 range=[9,29] unit=raw
+ SG_ Synth_j8_32_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r32c10 digest=a7c78694872aaf85b06b0c43adc3806d441c868baa26a6a5ce0266ca3f53504c range=[10,30] unit=raw
+ SG_ Synth_j8_32_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r32c11 digest=e29b53878c8f519de9333f60adbb3c6768bcf3f2b6c3f3a89a78d7a25ddfd7e5 range=[11,31] unit=raw
+ SG_ Synth_j8_32_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_32: 8 j8
+; peer-ref j8->j7 blk=32 sticky=1
+; peer-ref j8->j4 blk=32 sticky=1
+; peer-ref j8->j12 blk=32 sticky=1
+; blk 33 slice j8 calibration notes for field desk operators
+; map j8 r33c00 digest=f3bada7d7a0097adebf1ce1b49dc28f928435fa96a6b2d2f3a2becc323fd4efb range=[0,20] unit=raw
+ SG_ Synth_j8_33_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r33c01 digest=6c047f0ecc8d8f8638947e57eeda8f3745bc5c40e7a9e37bfe5fb65bc86b9491 range=[1,21] unit=raw
+ SG_ Synth_j8_33_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r33c02 digest=3fe6de4ba887c924e29c6955110713bcb0ca39de4871a912c5a317b582f9bf7f range=[2,22] unit=raw
+ SG_ Synth_j8_33_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r33c03 digest=0a35b572ad669ded55662bbcd50a5e1f6e711caf033ff69cb62b138d3edb92c2 range=[3,23] unit=raw
+ SG_ Synth_j8_33_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r33c04 digest=fa331f7f103dd1cff2851447d75a66ba32abc307e7406b62edb553cfeff43981 range=[4,24] unit=raw
+ SG_ Synth_j8_33_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r33c05 digest=5e109b8238928b15a3eef3a65c2f9034f3a39203b2dfe445cdb3df6bd456ada1 range=[5,25] unit=raw
+ SG_ Synth_j8_33_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r33c06 digest=88578425ab2c9f6e1926da8a3cda19d09c8e6e0d23317549994bae0835cf86d6 range=[6,26] unit=raw
+ SG_ Synth_j8_33_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r33c07 digest=21b67603f3bdce9786b67ba4d9d747259b10995541d9b9608055d462f7e5aac9 range=[7,27] unit=raw
+ SG_ Synth_j8_33_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r33c08 digest=ff01acaa8fe78813e4bd14e276d235c18177d6ee3373ca1172ac692b71ae115b range=[8,28] unit=raw
+ SG_ Synth_j8_33_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r33c09 digest=c9c20ce774a39751c3ec2abadcc374f6ca8d5b0ebd049552f90d2f6dd530ff79 range=[9,29] unit=raw
+ SG_ Synth_j8_33_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r33c10 digest=4ff7258221c5f73714048dd31b3c404e0357966f9f09dabf5c6280196780ea28 range=[10,30] unit=raw
+ SG_ Synth_j8_33_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r33c11 digest=ac12b9d406443eb5e7dec20172b78f095b9ea3ff46f3d9dde6807fcc69c0db32 range=[11,31] unit=raw
+ SG_ Synth_j8_33_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_33: 8 j8
+; peer-ref j8->j7 blk=33 sticky=1
+; peer-ref j8->j4 blk=33 sticky=1
+; peer-ref j8->j12 blk=33 sticky=1
+; blk 34 slice j8 calibration notes for field desk operators
+; map j8 r34c00 digest=9a967ae20c082d6ae7661cd3101762f3d807cd2d3b4368f1055a0c5a3b8daeef range=[0,20] unit=raw
+ SG_ Synth_j8_34_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r34c01 digest=250b51e3b21ced8e5dc9a745951ebfb66b1c6694b630f32310e1eafde3d06a40 range=[1,21] unit=raw
+ SG_ Synth_j8_34_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r34c02 digest=7305b8b8693e4af5a17d0751fa4b536b6b444cf95c2004438d8a87523ecb78b6 range=[2,22] unit=raw
+ SG_ Synth_j8_34_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r34c03 digest=67c821a9041acd7969bd9d0ff6e548de9da215bf1f61df88dec84709dc9a68ed range=[3,23] unit=raw
+ SG_ Synth_j8_34_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r34c04 digest=36d29b7dbf61a68ba03fb6efc5780a2dd1d610965ba25b37de5aeeac4779969f range=[4,24] unit=raw
+ SG_ Synth_j8_34_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r34c05 digest=37081158efb3572ecbd5648b5d190ee9621b47df93aa0635b5c40d301c6fd586 range=[5,25] unit=raw
+ SG_ Synth_j8_34_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r34c06 digest=ce264104970b341493cc1402b3e38210b7e497261717fa95328dc899721bb2bf range=[6,26] unit=raw
+ SG_ Synth_j8_34_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r34c07 digest=1c38ee9282b139bb80acf366e956b770ce0fdcc153b4ececf66d5344ba172891 range=[7,27] unit=raw
+ SG_ Synth_j8_34_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r34c08 digest=49bf4af837d4639dcc0f81c6ecd61495712fd770141162e0ce929c2f7bbba172 range=[8,28] unit=raw
+ SG_ Synth_j8_34_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r34c09 digest=924dccc841cb88327d54ffc2172a2a06ba41da480f130a6f5b85cb16db603cdf range=[9,29] unit=raw
+ SG_ Synth_j8_34_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r34c10 digest=f03b8f3d153dacc4f97219f3d63a9ed763901d88fadd594be2bf2e563d390295 range=[10,30] unit=raw
+ SG_ Synth_j8_34_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r34c11 digest=03a760857f64868334ede2cbbad4c206304dfb5303d27dd39e33d73bd44bdfab range=[11,31] unit=raw
+ SG_ Synth_j8_34_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_34: 8 j8
+; peer-ref j8->j7 blk=34 sticky=1
+; peer-ref j8->j4 blk=34 sticky=1
+; peer-ref j8->j12 blk=34 sticky=1
+; blk 35 slice j8 calibration notes for field desk operators
+; map j8 r35c00 digest=bb94f061741d1d954ca1ddfe6b154aed68f8994d27b33dac283a356237794f90 range=[0,20] unit=raw
+ SG_ Synth_j8_35_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r35c01 digest=cb38a493024b9bd0d574c30ee874212dabf4769c0833989774b622353eb0e690 range=[1,21] unit=raw
+ SG_ Synth_j8_35_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r35c02 digest=0b6934e8bb280528b902f1bc64587ce2ce35e2bd1b1eac51f2f269faaa34c2b2 range=[2,22] unit=raw
+ SG_ Synth_j8_35_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r35c03 digest=28812d9588507b0fcf5a56129c312ddda297fe2dc7cdcf34bbd35386afc6b185 range=[3,23] unit=raw
+ SG_ Synth_j8_35_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r35c04 digest=d8b97724a58808d5e1181f26d2e75472a13146e226d13fde839a8fc193db6841 range=[4,24] unit=raw
+ SG_ Synth_j8_35_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r35c05 digest=fc2ab0a21cb818c83c1425b9d53fe240ce1fdf439786479b5c6e63a2ed7557bd range=[5,25] unit=raw
+ SG_ Synth_j8_35_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r35c06 digest=fc8182dcea5fcfb884287aec5b5216bf7c31f65656ac7c049d42d6c258843744 range=[6,26] unit=raw
+ SG_ Synth_j8_35_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r35c07 digest=af330e640ba51359cde28c4eab7cdfcd46cabab939e21c346f324dfc60816ac2 range=[7,27] unit=raw
+ SG_ Synth_j8_35_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r35c08 digest=8ae67a38c0a1dfe32cb6bb55d6e5433edf9bed459f4992a4c99c33c55866d8dc range=[8,28] unit=raw
+ SG_ Synth_j8_35_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r35c09 digest=ed226da4330013dfdafa3d1f7275b79f7785fbd2beb4b938d0a549b10eb85e2d range=[9,29] unit=raw
+ SG_ Synth_j8_35_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r35c10 digest=e77b6a74549546dca8d28766efcddfbf74c77b2de77d929d1052af3ac7edabe9 range=[10,30] unit=raw
+ SG_ Synth_j8_35_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r35c11 digest=6a0a8265f3f9e911e90af371c3de3a92457357016053babe81aefd010a47c284 range=[11,31] unit=raw
+ SG_ Synth_j8_35_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_35: 8 j8
+; peer-ref j8->j7 blk=35 sticky=1
+; peer-ref j8->j4 blk=35 sticky=1
+; peer-ref j8->j12 blk=35 sticky=1
+; blk 36 slice j8 calibration notes for field desk operators
+; map j8 r36c00 digest=7e4fd33b0cc0d9c6137f14e79d117213eb9d3f294d512f0c84ac66d3104b585c range=[0,20] unit=raw
+ SG_ Synth_j8_36_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r36c01 digest=1f8771625f608efefc26f91b9188d92f00f156286c22c8eb176931c58ebf515f range=[1,21] unit=raw
+ SG_ Synth_j8_36_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r36c02 digest=018c00f23d2bb233caed74bcc288e8d55b8d91c353a076d868c99b4a593cf06d range=[2,22] unit=raw
+ SG_ Synth_j8_36_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r36c03 digest=39b645666f3bd457ab6c1a7396aa95acfc951f38b1fb84c38f9755e1ea5e6a46 range=[3,23] unit=raw
+ SG_ Synth_j8_36_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r36c04 digest=4d38834fce4850dffc966fbca4359f2370c8873d8b37f3a85feedc18ce144bd2 range=[4,24] unit=raw
+ SG_ Synth_j8_36_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r36c05 digest=a8ee2986de48428a86f253f041522df1de1d701e96c90eb1d6a689006da85067 range=[5,25] unit=raw
+ SG_ Synth_j8_36_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r36c06 digest=2102f5225617bda704d4c0359da681773f591e757c1ba89e43c954a3a5fe60d2 range=[6,26] unit=raw
+ SG_ Synth_j8_36_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r36c07 digest=c2d2ded3583ef17d0c57a50df5e0895c491c7e0bb54a03c056667cc9c097344e range=[7,27] unit=raw
+ SG_ Synth_j8_36_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r36c08 digest=5589f1d2358fdfca280cabce09394f02c01df8338f5f51a05298ab266aec6616 range=[8,28] unit=raw
+ SG_ Synth_j8_36_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r36c09 digest=985c74cc8d402c1e257645117f3961aa19edd3596dfe7202a92cf35735610210 range=[9,29] unit=raw
+ SG_ Synth_j8_36_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r36c10 digest=319b968b7240646be878d11c95e3b21dc5a1025cf064dca51dcef7137b7231cb range=[10,30] unit=raw
+ SG_ Synth_j8_36_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r36c11 digest=a200434023dbdb00e9b959d374fe5263b5ad7f3e152c76eb7d2f4956d5815dd4 range=[11,31] unit=raw
+ SG_ Synth_j8_36_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_36: 8 j8
+; peer-ref j8->j7 blk=36 sticky=1
+; peer-ref j8->j4 blk=36 sticky=1
+; peer-ref j8->j12 blk=36 sticky=1
+; blk 37 slice j8 calibration notes for field desk operators
+; map j8 r37c00 digest=68f68bdd824b90485ca30e095d6d9f2127d0644309c256128ae4006b78154918 range=[0,20] unit=raw
+ SG_ Synth_j8_37_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r37c01 digest=a5002b1a0ea0b77a72db064c5b730f58e5a024259aaaf402c799c0a2d8792f7e range=[1,21] unit=raw
+ SG_ Synth_j8_37_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r37c02 digest=eb8a2fac69cc082edbc5a91ce81d785b9585f347c9fe88ab23a1df1eb6280abe range=[2,22] unit=raw
+ SG_ Synth_j8_37_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r37c03 digest=307874d4e90afb129b696f4c83d13cca1c366bc27be76c11c4763e462dd36114 range=[3,23] unit=raw
+ SG_ Synth_j8_37_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r37c04 digest=cd5d41f982d2c211013374282c77efd10d8ea43e5ab35d7a059f65f2f3c5eefb range=[4,24] unit=raw
+ SG_ Synth_j8_37_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r37c05 digest=6bb5451a766e76ab2a5b1f4fa52632c4c9cde477848804b6c96b0d879184499b range=[5,25] unit=raw
+ SG_ Synth_j8_37_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r37c06 digest=4e160bf7cc27dd0482c24b7f9ec6a10d32fcfd1b28f7c33aae07d3950a295c14 range=[6,26] unit=raw
+ SG_ Synth_j8_37_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r37c07 digest=f4fea2ea0ea12ea347c2308e6cb233437080c317569b90faae7c27cc02429ac4 range=[7,27] unit=raw
+ SG_ Synth_j8_37_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r37c08 digest=f069b7d0d591aed66a45314948c5971d6d5a8e22498aa7f19d8a36214a3f5fe0 range=[8,28] unit=raw
+ SG_ Synth_j8_37_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r37c09 digest=98f74e0b9c4270f5588fc6fc88ca9d309270df56e44564db30d9601ceadc437d range=[9,29] unit=raw
+ SG_ Synth_j8_37_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r37c10 digest=15d3a6a7757a362805b06d337024c7d7e282fcdf840f74b35710074d34b38264 range=[10,30] unit=raw
+ SG_ Synth_j8_37_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r37c11 digest=8d73d719e82dbee5306aec89f3ee381e4c9cd56ef075cf5142a41de3ba685028 range=[11,31] unit=raw
+ SG_ Synth_j8_37_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_37: 8 j8
+; peer-ref j8->j7 blk=37 sticky=1
+; peer-ref j8->j4 blk=37 sticky=1
+; peer-ref j8->j12 blk=37 sticky=1
+; blk 38 slice j8 calibration notes for field desk operators
+; map j8 r38c00 digest=26c304e2a3ae31b290a966a989ad481f945ad4415c946bf1589f2b618235b450 range=[0,20] unit=raw
+ SG_ Synth_j8_38_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r38c01 digest=d2e67ba5e888d8d1b2fb146ba2dd1db75a6b4b1c2120b2f79d67cdf69efb3f0f range=[1,21] unit=raw
+ SG_ Synth_j8_38_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r38c02 digest=ab30a06b2c61a6ef0e44d0d7d5ad69d1b55f15a3e1a57f365c8f89fe56d24246 range=[2,22] unit=raw
+ SG_ Synth_j8_38_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r38c03 digest=272173d5c6c2d57197737e51b85ed39e45c0749e88dd3e7ec65dbe1a51859c09 range=[3,23] unit=raw
+ SG_ Synth_j8_38_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r38c04 digest=4e47500434ffaf6b98728df181aa4a04f5edbcbd80af3209cb1599b7c48c7b35 range=[4,24] unit=raw
+ SG_ Synth_j8_38_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r38c05 digest=2acbb92d20e1ea692858b1c9846f0cc008f322e6a36f2564c0d2a31697ba8abe range=[5,25] unit=raw
+ SG_ Synth_j8_38_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r38c06 digest=cbb2110ea2b967ea8c2767b24af1340787dc95b34f9982a5f1abe8e9abcc33cc range=[6,26] unit=raw
+ SG_ Synth_j8_38_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r38c07 digest=59a00a936d4b27f9e3fe1f92be7708bfc469c362ec3cf718cc33d23a7479cc67 range=[7,27] unit=raw
+ SG_ Synth_j8_38_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r38c08 digest=d1c65d77d81dd628a9a02b7a302849be62beb6424715544e20e08e04337ee1e7 range=[8,28] unit=raw
+ SG_ Synth_j8_38_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r38c09 digest=3fe32bbb75006a1060f40340a046b1df89325cb19fa1abef1e129c1ff688527a range=[9,29] unit=raw
+ SG_ Synth_j8_38_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r38c10 digest=fde6895176e931472b3264a90b397225701fc28a14d59bb39954fe9156733d81 range=[10,30] unit=raw
+ SG_ Synth_j8_38_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r38c11 digest=95ca18f6da06cdae9502f178d6baae73f504e3bd954ad4bd7d80604aa7ea71d2 range=[11,31] unit=raw
+ SG_ Synth_j8_38_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_38: 8 j8
+; peer-ref j8->j7 blk=38 sticky=1
+; peer-ref j8->j4 blk=38 sticky=1
+; peer-ref j8->j12 blk=38 sticky=1
+; blk 39 slice j8 calibration notes for field desk operators
+; map j8 r39c00 digest=184168aecaa4bd99617ab610f02a06535ac637819ade16005d33c6cb7ad62ab1 range=[0,20] unit=raw
+ SG_ Synth_j8_39_0 : 0|8@1+ (0.1,0) [0|100] "x" j8
+; map j8 r39c01 digest=0de24ffd1f95f97234e0403e2b3dc15b4d5f072129e762b67991240ef659e671 range=[1,21] unit=raw
+ SG_ Synth_j8_39_1 : 5|8@1+ (0.1,1) [0|100] "x" j8
+; map j8 r39c02 digest=c1d2dbc7243c9a657eaf0e1b88b69662f880db6fe422dd3d2cc985ac2cf1d497 range=[2,22] unit=raw
+ SG_ Synth_j8_39_2 : 10|8@1+ (0.1,2) [0|100] "x" j8
+; map j8 r39c03 digest=dd999be325c0729b2f0bf337c476fa88cf814b54ae9912c7b4789fd92d3e8ab8 range=[3,23] unit=raw
+ SG_ Synth_j8_39_3 : 15|8@1+ (0.1,3) [0|100] "x" j8
+; map j8 r39c04 digest=078a845e9a5ec2d01985c218665417cdb708d07bd10501e03f16bcaab3f49f9b range=[4,24] unit=raw
+ SG_ Synth_j8_39_4 : 20|8@1+ (0.1,4) [0|100] "x" j8
+; map j8 r39c05 digest=667627edd4c038d2256489d9e239fc9feff43bfe01c0dac75f5ae1cf7b994dfc range=[5,25] unit=raw
+ SG_ Synth_j8_39_5 : 25|8@1+ (0.1,5) [0|100] "x" j8
+; map j8 r39c06 digest=d87493ec95542404c1391ae51beab79c33d0ae12f11668c5b259dd53b1bb4b96 range=[6,26] unit=raw
+ SG_ Synth_j8_39_6 : 30|8@1+ (0.1,6) [0|100] "x" j8
+; map j8 r39c07 digest=2e3d80b3aebb5a27991e8deca46c242f5ca73b4438b10b86d294dae6dc012d76 range=[7,27] unit=raw
+ SG_ Synth_j8_39_7 : 35|8@1+ (0.1,7) [0|100] "x" j8
+; map j8 r39c08 digest=7b2fd33e402075c196c0971471cb2831c14f7a490e6776b68f3fdb16a6ca678d range=[8,28] unit=raw
+ SG_ Synth_j8_39_8 : 40|8@1+ (0.1,8) [0|100] "x" j8
+; map j8 r39c09 digest=f4b365db9a75489a702346baceafcbfd72ce362409447a57296d56294fbe1390 range=[9,29] unit=raw
+ SG_ Synth_j8_39_9 : 45|8@1+ (0.1,9) [0|100] "x" j8
+; map j8 r39c10 digest=adada4296657a901480d3e0f6d5cfce3464640f593033893f1a21c0081fa3cbe range=[10,30] unit=raw
+ SG_ Synth_j8_39_10 : 50|8@1+ (0.1,10) [0|100] "x" j8
+; map j8 r39c11 digest=a3f4661d136ac989434eb8c42439b43f27b7bae22f8ac2a0c10a155853f8bee0 range=[11,31] unit=raw
+ SG_ Synth_j8_39_11 : 55|8@1+ (0.1,11) [0|100] "x" j8
+BO_ j8_AUX_39: 8 j8
+; peer-ref j8->j7 blk=39 sticky=1
+; peer-ref j8->j4 blk=39 sticky=1
+; peer-ref j8->j12 blk=39 sticky=1

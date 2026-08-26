@@ -1,0 +1,15 @@
+.git
+.gitignore
+__pycache__/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+**/.pytest_cache/
+.mypy_cache/
+**/.mypy_cache/
+.ruff_cache/
+**/.ruff_cache/
+node_modules/
+**/node_modules/
+task_file/output_data/*
+!task_file/output_data/.gitkeep

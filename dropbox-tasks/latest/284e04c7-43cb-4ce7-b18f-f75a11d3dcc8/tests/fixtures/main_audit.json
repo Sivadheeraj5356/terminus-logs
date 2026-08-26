@@ -1,0 +1,40 @@
+[
+  {
+    "job_id": 7,
+    "deployment_id": "alpha-deploy",
+    "image_digest": "sha256:golden-7",
+    "envelope_key_version": 1,
+    "active_key_version": 2,
+    "metadata_revision": 3,
+    "key_attestation_sha256": "e9606f08c69d723a5de8483068092d2302717c2306e55cb4cf790da01bd7e5ef",
+    "header_sha256": "7c9c42d4df0d34c6271e7eb94165ed7fb2ce20c2513cc555e71d5d7a0e9dfdd2",
+    "plaintext_sha256": "a80f2fe38763e66f1f650ef507e21e899832b9c95935667f760116a27e228c07",
+    "secret_name": "API_TOKEN",
+    "rotation_counter": 4,
+    "rotation_decision": "rotate",
+    "audit_sequence": 1,
+    "previous_audit_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "audit_hash": "e26e0352fdea3a1d6fe86532ca4d6755c14e265c6a37b745ad39b929e3d262c4",
+    "worker_id": "golden-worker",
+    "processed_at": "2026-06-18T14:25:36.000Z"
+  },
+  {
+    "job_id": 41,
+    "deployment_id": "alpha-deploy",
+    "image_digest": "sha256:golden-41",
+    "envelope_key_version": 2,
+    "active_key_version": 2,
+    "metadata_revision": 3,
+    "key_attestation_sha256": "e04e47728e753e2c098f84015705692617fb050807adaee13e63a052c2ac01d2",
+    "header_sha256": "6d5e80b21980bd528cedabab791808e9424856b92c3002fa59e572df73aacea4",
+    "plaintext_sha256": "9c4d66a92a5f4209bd6d6d040042e7d16b7390d252f736af4b9b065daa7a5ae1",
+    "secret_name": "DATABASE_URL",
+    "rotation_counter": 4,
+    "rotation_decision": "current",
+    "audit_sequence": 2,
+    "previous_audit_hash": "e26e0352fdea3a1d6fe86532ca4d6755c14e265c6a37b745ad39b929e3d262c4",
+    "audit_hash": "96fe29a0328c4530241310cc091bc3eb97e1318bff69f2252b7f5604978213b0",
+    "worker_id": "golden-worker",
+    "processed_at": "2026-06-18T14:25:36.000Z"
+  }
+]

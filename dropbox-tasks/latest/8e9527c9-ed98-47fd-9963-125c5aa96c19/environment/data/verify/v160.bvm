@@ -1,0 +1,19 @@
+type Base { v: int }
+type Left extends Base { l: int }
+type Right extends Base { r: int }
+func main(int) -> int {
+b0:
+  load 0
+  iconst 0
+  icmp
+  br_if b2
+b1:
+  new Left
+  br b3
+b2:
+  new Right
+  br b3
+b3:
+  getfield Base v
+  ret
+}

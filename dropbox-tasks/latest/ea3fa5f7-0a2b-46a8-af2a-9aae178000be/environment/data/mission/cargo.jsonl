@@ -1,0 +1,8 @@
+{"cargo_id":"uh-c01","zone":"Abyss Lab","wave_m":1.0,"dock_min":60,"tide_ms":0,"psi":440,"lane":"standard","base_min":4,"priority":90,"needs_rov":false,"m3":1.2,"cold":false,"o2":2}
+{"cargo_id":"uh-c02","zone":"Trench Pod","wave_m":1.4,"dock_min":65,"tide_ms":120000,"psi":520,"lane":"rov","base_min":5,"priority":82,"needs_rov":true,"m3":0.8,"cold":true,"o2":1}
+{"cargo_id":"uh-c03","zone":"Shallow Bay","wave_m":0.6,"dock_min":70,"tide_ms":-180000,"psi":380,"lane":"standard","base_min":3,"priority":88,"needs_rov":false,"m3":0.5,"cold":false,"o2":3}
+{"cargo_id":"uh-c04","zone":"Midwater","wave_m":1.1,"dock_min":75,"tide_ms":60000,"psi":445,"lane":"heavy","base_min":4,"priority":75,"needs_rov":true,"m3":2.1,"cold":false,"o2":2}
+{"cargo_id":"uh-c05","zone":"Ice Shelf","wave_m":0.9,"dock_min":80,"tide_ms":-60000,"psi":660,"lane":"standard","base_min":4,"priority":70,"needs_rov":false,"m3":1.0,"cold":true,"o2":1}
+{"cargo_id":"uh-c06","zone":"Hadal Deep","wave_m":2.2,"dock_min":85,"tide_ms":300000,"psi":220,"lane":"heavy","base_min":6,"priority":95,"needs_rov":true,"m3":3.4,"cold":false,"o2":1}
+{"cargo_id":"uh-c07","zone":"Reef Station","wave_m":0.4,"dock_min":90,"tide_ms":-240000,"psi":880,"lane":"standard","base_min":3,"priority":68,"needs_rov":false,"m3":0.3,"cold":false,"o2":3}
+{"cargo_id":"uh-c08","zone":"Current Lane","wave_m":1.3,"dock_min":95,"tide_ms":90000,"psi":430,"lane":"rov","base_min":5,"priority":80,"needs_rov":true,"m3":1.5,"cold":true,"o2":2}

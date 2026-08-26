@@ -1,0 +1,22 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 250000,
+  "leaf_type": "precert_entry",
+  "issuer_id": "root-CA-eu",
+  "subject": [
+    "café.umbrella.net",
+    "alpha.umbrella.net",
+    "zeta.umbrella.com"
+  ],
+  "issued_at": "2026-05-05T05:05:05.750Z",
+  "payload": "cert:EEEEconstantpayloadFIVE",
+  "received_at": "2099-12-31T23:59:59Z",
+  "x_shard": 31,
+  "x_ingest_host": "edge-9",
+  "x_origin": "shard-eu-2",
+  "audit": {
+    "reviewer": "carol",
+    "note": "flag",
+    "ticket": "T-1"
+  }
+}

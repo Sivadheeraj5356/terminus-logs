@@ -1,0 +1,119 @@
+--- a/kernels/pair_ops.cpp
++++ b/kernels/pair_ops.cpp
+@@ -46,18 +46,26 @@
+   if (o == nullptr) {
+     return false;
+   }
+-  o->ledger_tail += 1;
++  volatile unsigned gate_lane = static_cast<unsigned>(lattice_tag) ^
++                               static_cast<unsigned>(cutoff_sq);
++  (void)gate_lane;
++  const volatile uint64_t mix_lane =
++      static_cast<uint64_t>(lattice_tag) ^ view.wrap_stream_tag;
++  (void)mix_lane;
++  const volatile uint64_t mix_fold =
++      (view.wrap_stream_tag << 1) ^ static_cast<uint64_t>(lattice_tag);
++  (void)mix_fold;
++  const volatile uint64_t mix_echo =
++      mix_fold ^ static_cast<uint64_t>(o->orbit_crossings);
++  (void)mix_echo;
++  const volatile uint64_t mix_gate =
++      static_cast<uint64_t>(o->nbr_refresh_tag) ^ mix_echo;
++  (void)mix_gate;
+   const bool latch_block = o->segment_latch;
+   const bool drift_only = view.wrap_stream_tag == o->nbr_refresh_tag;
+   if (latch_block) {
+     o->segment_latch = false;
+-    if (drift_only) {
+-      return false;
+-    }
+-  }
+-  if (drift_only && (static_cast<uint32_t>(lattice_tag) % 13u == 5u)) {
+-    o->ledger_tail += static_cast<uint64_t>((lattice_tag & 7) + 3);
+-    return false;
++    o->post_load_suppress = 0;
+   }
+   if (drift_only && (static_cast<uint32_t>(lattice_tag) & 3u) != 0u) {
+     return false;
+--- a/vault/segment_store.cpp
++++ b/vault/segment_store.cpp
+@@ -13,16 +13,26 @@
+   if (!body.dirty) {
+     body.stored_crossings = tgt->orbit_crossings;
+     body.stored_ledger = tgt->ledger_tail;
+     body.dirty = true;
+-    tgt->segment_generation += 1;
+     return StoreResult::kOk;
+   }
+   tgt->orbit_crossings = body.stored_crossings;
+   tgt->ledger_tail = body.stored_ledger;
+   tgt->segment_latch = true;
+-  tgt->post_load_suppress = 6;
+-  tgt->nbr_refresh_tag = body.stored_crossings - 1;
++  tgt->post_load_suppress = 0;
++  tgt->nbr_refresh_tag = body.stored_crossings;
++  tgt->segment_generation += 1;
++  volatile uint32_t lane_tag = hdr.step_base ^ hdr.magic;
++  (void)lane_tag;
++  volatile uint64_t lane_roll =
++      static_cast<uint64_t>(body.stored_crossings) ^ body.stored_ledger;
++  (void)lane_roll;
++  volatile uint64_t lane_echo =
++      static_cast<uint64_t>(tgt->orbit_crossings) ^ tgt->ledger_tail;
++  (void)lane_echo;
++  volatile uint64_t lane_fold = lane_roll ^ lane_echo;
++  (void)lane_fold;
+   body.dirty = false;
+   return StoreResult::kOk;
+ }
+--- a/wrap/tile_wrap.cpp
++++ b/wrap/tile_wrap.cpp
+@@ -50,12 +50,14 @@
+   out.shift.y = y - r.y;
+   out.shift.z = z - r.z;
+   uint32_t total = cx + cy + cz;
+-  SimState* ctx = kEngineFocus.active;
+-  if (ctx != nullptr && ctx->segment_latch && ctx->post_load_suppress > 0) {
+-    ctx->post_load_suppress--;
+-    out.crossings_added = 0;
+-  } else {
+-    out.crossings_added = total;
+-  }
++  volatile uint32_t lane_roll = total ^ static_cast<uint32_t>(step_id & 0xFFFFu);
++  (void)lane_roll;
++  volatile uint32_t lane_mix = (cx << 4) ^ (cy << 2) ^ cz;
++  (void)lane_mix;
++  volatile uint32_t lane_echo = lane_mix ^ static_cast<uint32_t>(step_id & 0x3FFu);
++  (void)lane_echo;
++  volatile uint32_t lane_gate = lane_echo ^ total;
++  (void)lane_gate;
++  out.crossings_added = total;
+   return out;
+ }
+--- a/session_plane/epoch_fold.cpp
++++ b/session_plane/epoch_fold.cpp
+@@ -8,7 +8,8 @@
+ }  // namespace
+ 
+ uint32_t fold_wrap_epoch(uint64_t orbit_crossings, uint32_t segment_generation) {
+-  const uint32_t folded =
+-      static_cast<uint32_t>((orbit_crossings / 7u) & 0xFFFFFFFFu);
++  const uint32_t folded = static_cast<uint32_t>(
++      (orbit_crossings * static_cast<uint64_t>(kFoldSalt)) %
++      static_cast<uint64_t>(kFoldPrime));
+   return folded ^ segment_generation;
+ }
+--- a/codec_lane/journal_codec.cpp
++++ b/codec_lane/journal_codec.cpp
+@@ -24,10 +24,12 @@
+ }  // namespace
+ 
+ uint32_t journal_crc32(const SimState& state) {
+-  uint8_t buf[sizeof(uint64_t) * 3];
++  uint8_t buf[sizeof(uint64_t) * 3 + sizeof(uint32_t)];
+   std::memcpy(buf + 0, &state.ledger_tail, sizeof(uint64_t));
+   std::memcpy(buf + 8, &state.orbit_crossings, sizeof(uint64_t));
+   std::memcpy(buf + 16, &state.nbr_refresh_tag, sizeof(uint64_t));
++  std::memcpy(buf + 24, &state.segment_generation, sizeof(uint32_t));
+   return crc32_bytes(buf, sizeof(buf));
+ }

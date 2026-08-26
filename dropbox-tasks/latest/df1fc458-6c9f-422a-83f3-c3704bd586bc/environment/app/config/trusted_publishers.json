@@ -1,0 +1,11 @@
+{
+  "schema_version": "kev.trust.v1",
+  "publishers": {
+    "agency-actions": {
+      "public_key": "/app/config/agency-actions-ed25519.pubkey"
+    },
+    "cisa-kev-feed": {
+      "public_key": "/app/config/cisa-kev-ed25519.pubkey"
+    }
+  }
+}

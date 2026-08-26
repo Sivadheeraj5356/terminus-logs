@@ -1,0 +1,6 @@
+addr 135.179.142.87 hex 0xeb1c token tok_237
+start line end hello line
+UPPER lower MiXeD
+ip 192.168.0.1 and 10.0.0.255 here
+addr 153.130.114.18 hex 0xde5c token tok_654
+hex 0xabc 0xABCDEF zzz

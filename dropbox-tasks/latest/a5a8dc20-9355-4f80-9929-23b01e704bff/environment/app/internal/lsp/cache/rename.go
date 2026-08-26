@@ -1,0 +1,170 @@
+// Copyright 2025 CUE Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package cache
+
+import (
+	"slices"
+
+	"cuelang.org/go/cue/ast"
+	"cuelang.org/go/cue/literal"
+	"cuelang.org/go/cue/token"
+	"cuelang.org/go/internal/golangorgx/gopls/protocol"
+	"cuelang.org/go/internal/lsp/eval"
+)
+
+// Rename implements the LSP Rename functionality.
+func (w *Workspace) Rename(file *File, fe *eval.FileEvaluator, srcMapper *protocol.Mapper, params *protocol.RenameParams) *protocol.WorkspaceEdit {
+	offset, err := srcMapper.PositionOffset(params.Position)
+	if err != nil {
+		w.debugLog(err.Error())
+		return nil
+	}
+
+	// search through all the results for the actual given offset. We
+	// do this so that we know the token that is to be renamed. This
+	// helps us tell apart aliases etc from normal field names.
+	var srcNames []string
+	targets := fe.UsagesForOffset(offset, true)
+	for _, target := range targets {
+		if token.WithinInclusive(offset, target.Pos(), target.End()) {
+			switch target := target.(type) {
+			case *ast.Ident:
+				srcNames = []string{target.Name, literal.Label.Quote(target.Name)}
+			case *ast.BasicLit:
+				if target.Kind != token.STRING {
+					return nil
+				}
+				unquoted, err := literal.Unquote(target.Value)
+				if err == nil && ast.IsValidIdent(unquoted) {
+					srcNames = []string{unquoted, target.Value}
+				} else {
+					srcNames = []string{target.Value}
+				}
+			}
+			break
+		}
+	}
+
+	type versionedEdits struct {
+		edits   []protocol.TextEdit
+		version int32
+	}
+
+	changes := make(map[protocol.DocumentURI]*versionedEdits)
+	for _, target := range targets {
+		startPos := target.Pos().Position()
+		endPos := target.End().Position()
+
+		targetFile := target.Pos().File()
+		targetMapper := w.mappers[targetFile]
+		if targetMapper == nil {
+			w.debugLog("mapper not found: " + targetFile.Name())
+			return nil
+		}
+		r, err := targetMapper.OffsetRange(startPos.Offset, endPos.Offset)
+		if err != nil {
+			w.debugLog(err.Error())
+			return nil
+		}
+		uri := targetMapper.URI
+		name := params.NewName
+		switch target := target.(type) {
+		case *ast.BasicLit:
+			if !slices.Contains(srcNames, target.Value) {
+				continue
+			}
+			if target.Kind == token.STRING {
+				name = literal.Label.Quote(name)
+			}
+
+		case *ast.Ident:
+			if !slices.Contains(srcNames, target.Name) {
+				continue
+			}
+			if !ast.IsValidIdent(name) {
+				name = literal.Label.Quote(name)
+			}
+
+		default:
+			continue
+		}
+		ve, found := changes[uri]
+		if !found {
+			ve = &versionedEdits{
+				version: targetFile.Revision(),
+			}
+			changes[uri] = ve
+		}
+		ve.edits = append(ve.edits, protocol.TextEdit{
+			Range:   r,
+			NewText: name,
+		})
+	}
+
+	if len(changes) == 0 {
+		return nil
+	}
+
+	var docChanges []protocol.DocumentChanges
+	for uri, edits := range changes {
+		docChanges = append(docChanges, protocol.TextEditsToDocumentChanges(uri, edits.version, edits.edits)...)
+	}
+	return &protocol.WorkspaceEdit{DocumentChanges: docChanges}
+}
+
+// Rename implements the LSP PrepareRename functionality.
+func (w *Workspace) PrepareRename(file *File, fe *eval.FileEvaluator, srcMapper *protocol.Mapper, pos protocol.Position) *protocol.PrepareRenamePlaceholder {
+	offset, err := srcMapper.PositionOffset(pos)
+	if err != nil {
+		w.debugLog(err.Error())
+		return nil
+	}
+
+	tokFile := file.tokFile
+	targets := fe.UsagesForOffset(offset, true)
+
+	// The client (editor) has provided us with a single position
+	// within a file, but it wants back a range so that it can fully
+	// highlight the token that's going to get renamed. So from the
+	// usages (and definitions), search for the one which contains pos
+	// and return its range.
+	posRange := protocol.Range{Start: pos, End: pos}
+	for _, target := range targets {
+		targetFile := target.Pos().File()
+		if targetFile != tokFile {
+			continue
+		}
+
+		startPos := target.Pos().Position()
+		endPos := target.End().Position()
+
+		r, err := srcMapper.OffsetRange(startPos.Offset, endPos.Offset)
+		if err != nil {
+			w.debugLog(err.Error())
+			continue
+		}
+		if protocol.Intersect(r, posRange) {
+			label := ""
+			if lab, ok := target.(ast.Label); ok {
+				label, _, _ = ast.LabelName(lab)
+			}
+			return &protocol.PrepareRenamePlaceholder{
+				Range:       r,
+				Placeholder: label,
+			}
+		}
+	}
+	return nil
+}

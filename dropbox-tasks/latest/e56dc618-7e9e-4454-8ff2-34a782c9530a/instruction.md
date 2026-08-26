@@ -1,0 +1,5 @@
+Recover the Blender render-node profile controller from the incomplete files under /app. Make install must provide /usr/local/bin/blendprofile, the blendprofile-reconcile@.service systemd template, and the blendprofile tmpfiles policy. The controller must safely create portable profiles, reconcile add-ons in dependency order, preserve generation history, and report configuration drift without repairing it.
+
+Support create --manifest PATH --root PATH --profile NAME --out PATH with optional --dry-run, and validate with the same required paths. Both commands write deterministic JSON reports. Create must publish a complete profile atomically or preserve the prior profile and report; validate must distinguish clean state, drift, and operational failure.
+
+Treat /app/docs/blendprofile_contract.txt as the authoritative behavioral contract. The complete report and persisted-record shapes are in /app/schemas/create_report.txt, /app/schemas/validate_report.txt, and /app/schemas/state_records.txt. Restore the supplied source, Makefile, systemd unit, and tmpfiles policy so the installed host controller satisfies those contracts.

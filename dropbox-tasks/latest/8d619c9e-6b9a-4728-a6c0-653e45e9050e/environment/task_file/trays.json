@@ -1,0 +1,7 @@
+{
+  "trays": [
+    {"tray_id": "alpha", "capacity_units": 10, "tier": 3, "regen_every": 5},
+    {"tray_id": "beta", "capacity_units": 8, "tier": 2, "regen_every": 4},
+    {"tray_id": "gamma", "capacity_units": 6, "tier": 1, "regen_every": 3}
+  ]
+}

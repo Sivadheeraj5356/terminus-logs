@@ -1,0 +1,9 @@
+ordinance: ORD-1957-01
+jurisdiction: Sable-Verge
+enacted: 1957-06-24
+effective: 1957-07-14T03:00:00 standard
+standard-offset: -04:00:00
+standard-label: VST
+observance:
+  begin: Jul Sun>=8 03:00:00 standard save +01:00:00 label VDT
+  end: Mar Sun>=1 02:00:00 standard

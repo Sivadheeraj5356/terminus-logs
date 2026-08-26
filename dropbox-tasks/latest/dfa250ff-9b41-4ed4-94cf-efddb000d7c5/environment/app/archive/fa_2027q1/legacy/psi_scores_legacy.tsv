@@ -1,0 +1,10 @@
+cohort_alias	feature	run	psi_bp	nulls_ppm	samples	observed_at_ms
+LGC_HNW	fa_postal_deprivation_index	run_2027q1_0111	1450	12100	4100	1802509200000
+LGC_HOME_CORE	fa_days_since_last_claim	run_2027q1_0102	2650	20100	3600	1800003600000
+LGC_FLEET_SMB	fa_coverage_limit_ratio	run_2027q1_0109	2410	15500	2800	1801904400000
+LGC_AUTO_CORE	fa_claim_severity_p90	run_2027q1_0114	3120	18000	5200	1803546000000
+LGC_HOME_CORE	fa_coverage_limit_ratio	run_2027q1_0108	5900	20000	3500	1801735200000
+LGC_AUTO_CORE	fa_policy_tenure_months	run_2027q1_0106	6400	20000	3000	1800943200000
+LGC_MOTOR_OLD	fa_open_litigation_flag	run_2027q1_0105	2280	14000	2600	1800867600000
+LGC_AUTO_CORE	fa_telematics_harsh_brake	run_2027q1_0107	5100	30000	401	1801386000000
+LGC_TELEM_X	fa_telematics_night_ratio	run_2027q1_0101	8800	20000	4000	1770000000000

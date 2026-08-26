@@ -1,0 +1,543 @@
+{
+  "evaluation_time": 1900000000,
+  "max_skew_seconds": 120,
+  "root_keys": [
+    {
+      "id": "root-main",
+      "secret": "root-secret-0",
+      "not_before": 1899999500,
+      "not_after": 1900000500
+    },
+    {
+      "id": "root-old",
+      "secret": "old-secret-0",
+      "not_before": 1899999500,
+      "not_after": 1899999999
+    }
+  ],
+  "discharge_keys": [
+    {
+      "location": "verifier-0",
+      "key_id": "vkey-0",
+      "secret": "discharge-secret-0",
+      "not_before": 1899999500,
+      "not_after": 1900000500
+    },
+    {
+      "location": "verifier-0",
+      "key_id": "inactive",
+      "secret": "inactive-secret-0",
+      "not_before": 1899999500,
+      "not_after": 1899999999
+    },
+    {
+      "location": "verifier-0",
+      "key_id": "vkey-b-0",
+      "secret": "discharge-b-0",
+      "not_before": 1899999500,
+      "not_after": 1900000500
+    },
+    {
+      "location": "backup-0",
+      "key_id": "vkey-c-0",
+      "secret": "discharge-c-0",
+      "not_before": 1899999500,
+      "not_after": 1900000500
+    }
+  ],
+  "revoked_identifiers": [
+    "revoked-0",
+    "d-revoked-0"
+  ],
+  "reserved_nonces": [
+    {
+      "identifier": "pre-reserved-0",
+      "nonce": "pre-nonce-0"
+    }
+  ],
+  "spent_discharges": [
+    {
+      "location": "verifier-0",
+      "key_id": "vkey-0",
+      "replay_id": "pre-spent-0"
+    }
+  ],
+  "requests": [
+    {
+      "id": "complete-tree-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "nonce-0",
+      "macaroon": {
+        "identifier": "mac-main-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "time_after",
+            "value": 1899999999
+          },
+          {
+            "type": "time_before",
+            "value": 1900000100
+          },
+          {
+            "type": "method",
+            "value": "GET"
+          },
+          {
+            "type": "path_prefix",
+            "value": "//mesh/svc-0/./api"
+          },
+          {
+            "type": "ip_cidr",
+            "value": "10.0.4.99/24"
+          },
+          {
+            "type": "scope",
+            "value": "svc:*"
+          },
+          {
+            "type": "scope",
+            "value": "*"
+          },
+          {
+            "type": "body_sha256",
+            "value": "D449ACB92215ED502901C9E6F6A4DC6D28E6856FB6754892BECD148DEE1B3E85"
+          },
+          {
+            "type": "third_party",
+            "caveat_id": "A-0",
+            "location": "verifier-0",
+            "key_id": "vkey-0"
+          }
+        ],
+        "signature": "c785eeae10eeb4a790d6f41c373ee55da7f3dc850a810d137bbf3169503f2361"
+      },
+      "discharges": [
+        {
+          "instance_id": "a-small",
+          "replay_id": "a-small",
+          "identifier": "A-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [],
+          "signature": "5e3984f3bd8c9ef2662746dc226e1f74e009f66a31df9a8e047c5b6bc3773e41",
+          "binding": "e50d69493a0b46979a3a618cffc2ba62f97ea72d7081acc713f34e820060030b",
+          "attachment": "3dd5c7bcfd739e1569d57104d6e0737bf8b6a2da2f6179d80157f6a75b1962fa"
+        },
+        {
+          "instance_id": "a-tree",
+          "replay_id": "a-tree",
+          "identifier": "A-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [
+            {
+              "type": "time_after",
+              "value": 1900000000
+            },
+            {
+              "type": "third_party",
+              "caveat_id": "B-0",
+              "location": "verifier-0",
+              "key_id": "vkey-0"
+            }
+          ],
+          "signature": "717506698b210d10eb3e9bd2f23b86a66d51daa1746479225530dd92917ecc06",
+          "binding": "c5a465535d74a762b757bf15c6d1ec5453e9eac88fe10328929ca506ff170dc1",
+          "attachment": "7758d1fe9af16e6f246f8841cf59888cb3deae03a321537051dd16cf7c2d40e0"
+        },
+        {
+          "instance_id": "b-link",
+          "replay_id": "b-link",
+          "identifier": "B-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [
+            {
+              "type": "method",
+              "value": "get"
+            },
+            {
+              "type": "third_party",
+              "caveat_id": "A-0",
+              "location": "verifier-0",
+              "key_id": "vkey-0"
+            },
+            {
+              "type": "third_party",
+              "caveat_id": "A-0",
+              "location": "verifier-0",
+              "key_id": "vkey-0"
+            }
+          ],
+          "signature": "e125f05baf81da0e26160d522aa5bac13c691ff4b523c2a42037f10bdcad0159",
+          "binding": "8af501ca70ec7a2c05f0f313f9fc45578e67f5a9e8ccf77790138fe8b3bbb419",
+          "attachment": "e5c4375273ee57db9b12bc3900dadfca0aaca9db754f2b7926c9cf351f3561d0"
+        },
+        {
+          "instance_id": "a-leaf",
+          "replay_id": "a-leaf",
+          "identifier": "A-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [
+            {
+              "type": "path_prefix",
+              "value": "/mesh/svc-0"
+            }
+          ],
+          "signature": "dff85b742331ccfd2d9840b45a87fd4a62580ef3d4c4150ce71611c6c2b139d2",
+          "binding": "ea1f682edb5637d91bc56a1b5ad0b96505f6ac575ddbb1d784189565d746b773",
+          "attachment": "44edf4c702898cdba7619631562419876ad528f5bfef6394d0732e1e6cdfb48b"
+        }
+      ]
+    },
+    {
+      "id": "replay-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "nonce-0",
+      "macaroon": {
+        "identifier": "mac-main-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "time_after",
+            "value": 1899999999
+          },
+          {
+            "type": "time_before",
+            "value": 1900000100
+          },
+          {
+            "type": "method",
+            "value": "GET"
+          },
+          {
+            "type": "path_prefix",
+            "value": "//mesh/svc-0/./api"
+          },
+          {
+            "type": "ip_cidr",
+            "value": "10.0.4.99/24"
+          },
+          {
+            "type": "scope",
+            "value": "svc:*"
+          },
+          {
+            "type": "scope",
+            "value": "*"
+          },
+          {
+            "type": "body_sha256",
+            "value": "D449ACB92215ED502901C9E6F6A4DC6D28E6856FB6754892BECD148DEE1B3E85"
+          }
+        ],
+        "signature": "7835d4d858732e61e200aeb79e3e10a7d8277f2cd5f025670cc5beac1daa0155"
+      },
+      "discharges": []
+    },
+    {
+      "id": "additive-0",
+      "timestamp": 1900000121,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "multi-0",
+      "macaroon": {
+        "identifier": "revoked-0",
+        "location": "gateway-0",
+        "root_key_id": "root-old",
+        "caveats": [
+          {
+            "type": "method",
+            "value": "POST"
+          },
+          {
+            "type": "time_before",
+            "value": 1900000000
+          }
+        ],
+        "signature": "6761d5990e14a1f644c46bc1ee5e3ffc7ac44594a9fb3216385470844e111977"
+      },
+      "discharges": []
+    },
+    {
+      "id": "orphan-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "partial-nonce-0",
+      "macaroon": {
+        "identifier": "partial-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "third_party",
+            "caveat_id": "audit-0",
+            "location": "verifier-0",
+            "key_id": "vkey-0"
+          }
+        ],
+        "signature": "28f1ea38de33fe17bc0a7340e7b1bfe9d4ca2ab05784f0bc4b0bbfb9f76014d2"
+      },
+      "discharges": [
+        {
+          "instance_id": "audit-good",
+          "replay_id": "audit-good",
+          "identifier": "audit-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [
+            {
+              "type": "scope",
+              "value": "svc:*"
+            }
+          ],
+          "signature": "13cd9f7a81b210e2dccf520bfbdcdd46f288ea2607ff65507e9812e6f8f23a20",
+          "binding": "885909644b1fc8bde7c41581f8cc2daa5d824f89d9f1ca9a32287a866c6e0413",
+          "attachment": "e471f4d595a3365f1facbb588c8be9aeea706af8a1e3328c3d2c304f8e4c8b84"
+        },
+        {
+          "instance_id": "orphan",
+          "replay_id": "orphan",
+          "identifier": "orphan-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [],
+          "signature": "e5718f77dcc2efbdc9fd203fd50f0c68676a8961114a488988a37877b3642894",
+          "binding": "56c69de9877345479ae4b8cbf36454abe4ff5ea8add6e0979b4286d9b833c6e1",
+          "attachment": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "id": "invalid-set-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "invalid-nonce-0",
+      "macaroon": {
+        "identifier": "invalid-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "third_party",
+            "caveat_id": "audit-0",
+            "location": "verifier-0",
+            "key_id": "vkey-0"
+          }
+        ],
+        "signature": "da136ee9f93a5788eaae2d7dd26e839f187e7758b4ce92cbc8c4cd403bca1ac4"
+      },
+      "discharges": [
+        {
+          "instance_id": "bad-bind",
+          "replay_id": "bad-bind",
+          "identifier": "audit-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [],
+          "signature": "5902715adbe8dfee54b08cf26990164de7ec65599e61736b536edfa845fc515b",
+          "binding": "101e25846afbb7e0871b5b120709ad9ce9b8d43c1600f9a2d1dfd3f6a42ee52e",
+          "attachment": "91976d1fff2957b1e1bc2696b982a9c01bf1f48a97d55e417468c052d32cb844"
+        },
+        {
+          "instance_id": "inactive",
+          "replay_id": "inactive",
+          "identifier": "audit-0",
+          "location": "verifier-0",
+          "key_id": "inactive",
+          "caveats": [],
+          "signature": "9e010e31502fdaa4f980e8202eb4c4c0be61a88cd30bd53ebf4b43ec7a873117",
+          "binding": "008fc4798176dac36edcef4bc0314a0159033ea4bf61179e0c2dcc044d5ac7c3",
+          "attachment": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "id": "bad-primary-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "bad-primary-nonce-0",
+      "macaroon": {
+        "identifier": "bad-primary-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "method",
+            "value": "POST"
+          }
+        ],
+        "signature": "15c9defc6990a8c1fcace9537a4860865d6c3235c9fa714f85a27c889a30c603"
+      },
+      "discharges": []
+    },
+    {
+      "id": "unknown-root-0",
+      "timestamp": 1899999879,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "unknown-nonce-0",
+      "macaroon": {
+        "identifier": "unknown-0",
+        "location": "gateway-0",
+        "root_key_id": "missing-root",
+        "caveats": [],
+        "signature": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "discharges": []
+    },
+    {
+      "id": "replayed-discharge-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "replayed-proof-nonce-0",
+      "macaroon": {
+        "identifier": "replayed-proof-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "third_party",
+            "caveat_id": "A-0",
+            "location": "verifier-0",
+            "key_id": "vkey-0"
+          }
+        ],
+        "signature": "81d8db0a00c2a1b865f8a9673bfc1ab571c3742ca23f2896a7e29cf3c53fd4af"
+      },
+      "discharges": [
+        {
+          "instance_id": "reused-tree",
+          "replay_id": "a-tree",
+          "identifier": "A-0",
+          "location": "verifier-0",
+          "key_id": "vkey-0",
+          "caveats": [],
+          "signature": "57390af2263835b74b505b2c71900bd7e52664fba0560c60f2bcd87085e47379",
+          "binding": "db762ddb4bc498e9d07a4882a6f0b4cc2b116b2c87909bfc5fd89355346fa082",
+          "attachment": "18d396c3f006a2b6b28358d100a9c1c8ee152132588d0009ae8a89e62c84e20a"
+        }
+      ]
+    },
+    {
+      "id": "quorum-0",
+      "timestamp": 1900000005,
+      "method": "get",
+      "path": "//mesh/./svc-0/api/../api/item/",
+      "ip": "10.0.4.17",
+      "scopes": [
+        "svc:write",
+        "svc:read"
+      ],
+      "body": "payload-0",
+      "nonce": "quorum-nonce-0",
+      "macaroon": {
+        "identifier": "quorum-primary-0",
+        "location": "gateway-0",
+        "root_key_id": "root-main",
+        "caveats": [
+          {
+            "type": "third_party_quorum",
+            "caveat_id": "quorum-0",
+            "threshold": 2,
+            "authorities": [
+              {
+                "location": "verifier-0",
+                "key_id": "vkey-b-0"
+              },
+              {
+                "location": "backup-0",
+                "key_id": "vkey-c-0"
+              }
+            ]
+          }
+        ],
+        "signature": "3dbde90cecfc7d153b6a8f7539002b46d327ba7da82540c521a662b833758d19"
+      },
+      "discharges": [
+        {
+          "instance_id": "q-b",
+          "replay_id": "q-b",
+          "identifier": "quorum-0",
+          "location": "verifier-0",
+          "key_id": "vkey-b-0",
+          "caveats": [],
+          "signature": "92cc293fa7505d59321cd801e62a17c962997a59980f7e832a5ad51f626e3a79",
+          "binding": "303eeb902eae992b7cb35e88d48f7816f311fa928213c8a7e02baea2f93ad1dc",
+          "attachment": "69cf17d10c42d3736a706cb1c6dee4b5cade155b98c296ec23f9eab019e91a82"
+        },
+        {
+          "instance_id": "q-c",
+          "replay_id": "q-c",
+          "identifier": "quorum-0",
+          "location": "backup-0",
+          "key_id": "vkey-c-0",
+          "caveats": [],
+          "signature": "a53b4b7aa0ea9517f1003b36d8221b9fbf6eb8c8a213465cce104e9499b7b694",
+          "binding": "142c86349d4030dc3da3e717a9eb7d86c5fa4ae6020157a2ae51ceedde4dfab2",
+          "attachment": "a045ac5a3d3fe75443c9b92d515cf6cbb7b1457e9d0f67fbd25e2769d4de7e13"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+case_id,period_s,solar_flux_w_m2,geothermal_flux_w_m2,conductivity_scale,albedo_offset,spinup_tolerance_k,maximum_spinup_cycles
+case_diurnal,3600.0,1361.0,0.018,1.0,0.0,1.5,25
+case_eclipse,3600.0,1361.0,0.018,1.0,0.0,1.5,25
+case_gradient,3600.0,1361.0,0.020,1.2,0.0,1.5,25

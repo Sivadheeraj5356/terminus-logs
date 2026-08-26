@@ -1,0 +1,17 @@
+[
+  {
+    "from": "u1",
+    "to": "grp-alpha",
+    "active": true
+  },
+  {
+    "from": "u2",
+    "to": "grp-beta",
+    "active": true
+  },
+  {
+    "from": "grp-alpha",
+    "to": "grp-shared",
+    "active": true
+  }
+]

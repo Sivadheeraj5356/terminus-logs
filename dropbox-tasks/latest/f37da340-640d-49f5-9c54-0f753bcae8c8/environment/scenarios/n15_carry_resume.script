@@ -1,0 +1,4 @@
+# continuation run — journal must preserve ro latch for rw bump
+profile alpha
+step ro target=data
+step rw target=data

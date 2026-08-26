@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: IDENTITY
+description: Apexora IDENTITY macro-segment
+rd: "65015:1015"
+rt_export: "65015:1015"
+rt_import:
+  - "65015:1015"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

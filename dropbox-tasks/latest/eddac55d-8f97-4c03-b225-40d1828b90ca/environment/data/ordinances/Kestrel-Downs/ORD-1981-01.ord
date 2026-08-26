@@ -1,0 +1,9 @@
+ordinance: ORD-1981-01
+jurisdiction: Kestrel-Downs
+enacted: 1981-02-13
+effective: 1981-03-29T01:00:00 universal
+standard-offset: +01:00:00
+standard-label: IST
+observance:
+  begin: Oct lastSun 01:00:00 universal save -01:00:00 label GMT
+  end: Mar lastSun 01:00:00 universal

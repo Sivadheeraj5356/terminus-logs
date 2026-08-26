@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-815f57e88216": {
+      "alg": "hmac-sha256",
+      "secret": "4957a0739ed4c2fa3d23050551fcdbbc69b9aadfe74f6afba2630a086fb1fe94"
+    }
+  },
+  "message": {
+    "authority": "svc0.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "sig1=:/5PuS4c5kGNUVGAvkS+8dIEJJJ4cjTnpbThk58k/zVs=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"x-dict\";sf);created=1700000045;expires=1700000405;keyid=\"k-815f57e88216\";alg=\"hmac-sha256\"",
+      "x-dict": "only=?1"
+    },
+    "method": "POST",
+    "path": "/api/v0/resource/105",
+    "query": ""
+  },
+  "now": 1700000105
+}

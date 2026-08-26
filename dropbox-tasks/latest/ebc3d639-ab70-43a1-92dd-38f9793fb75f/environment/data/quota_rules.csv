@@ -1,0 +1,4 @@
+column,value,min_selected,max_selected
+material_label,steel,1,4
+depth_level,deep,1,3
+feed_level,high,1,4

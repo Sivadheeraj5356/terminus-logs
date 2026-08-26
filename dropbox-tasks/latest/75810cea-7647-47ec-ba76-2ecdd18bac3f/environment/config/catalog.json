@@ -1,0 +1,108 @@
+{
+  "packages": [
+    {
+      "name": "runtime-stable",
+      "version": "1.4.0",
+      "path": "packages/runtime-stable"
+    },
+    {
+      "name": "runtime-canary",
+      "version": "1.5.0-rc.1",
+      "path": "packages/runtime-canary"
+    },
+    {
+      "name": "adapter-primary",
+      "version": "2.1.0",
+      "path": "packages/adapter-primary"
+    },
+    {
+      "name": "adapter-next",
+      "version": "2.2.0-rc.1",
+      "path": "packages/adapter-next"
+    },
+    {
+      "name": "adapter-legacy",
+      "version": "2.0.0",
+      "path": "packages/adapter-legacy"
+    },
+    {
+      "name": "plugin-core",
+      "version": "0.8.0",
+      "path": "packages/plugin-core"
+    },
+    {
+      "name": "plugin-extra",
+      "version": "0.9.0",
+      "path": "packages/plugin-extra"
+    },
+    {
+      "name": "peer-metrics",
+      "version": "1.0.0",
+      "path": "packages/peer-metrics"
+    },
+    {
+      "name": "peer-logger",
+      "version": "1.0.0",
+      "path": "packages/peer-logger"
+    }
+  ],
+  "pins": {
+    "@harbor/runtime": {
+      "defaultChannel": "stable",
+      "candidates": [
+        {
+          "package": "runtime-stable",
+          "channel": "stable",
+          "minTrainEpoch": 1,
+          "maxTrainEpoch": null
+        },
+        {
+          "package": "runtime-canary",
+          "channel": "canary",
+          "minTrainEpoch": 5,
+          "maxTrainEpoch": null
+        }
+      ]
+    },
+    "@harbor/adapter": {
+      "defaultChannel": "stable",
+      "candidates": [
+        {
+          "package": "adapter-primary",
+          "channel": "stable",
+          "minTrainEpoch": 1,
+          "maxTrainEpoch": 4
+        },
+        {
+          "package": "adapter-next",
+          "channel": "canary",
+          "minTrainEpoch": 5,
+          "maxTrainEpoch": null
+        },
+        {
+          "package": "adapter-legacy",
+          "channel": "stable",
+          "minTrainEpoch": 1,
+          "maxTrainEpoch": null
+        }
+      ]
+    },
+    "@harbor/plugin": {
+      "defaultChannel": "stable",
+      "candidates": [
+        {
+          "package": "plugin-core",
+          "channel": "stable",
+          "minTrainEpoch": 1,
+          "maxTrainEpoch": null
+        },
+        {
+          "package": "plugin-extra",
+          "channel": "canary",
+          "minTrainEpoch": 5,
+          "maxTrainEpoch": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,4 @@
+schema_version: apexora-acl-profile-1
+profile: ot_isolation
+inbound_acl: SEG-OT-IN
+outbound_acl: SEG-OT-OUT

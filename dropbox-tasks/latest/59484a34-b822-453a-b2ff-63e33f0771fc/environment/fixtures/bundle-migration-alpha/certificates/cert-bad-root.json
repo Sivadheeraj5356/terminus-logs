@@ -1,0 +1,10 @@
+{
+  "serial": "SER-BADROOT",
+  "subject": "CN=Bad Root",
+  "issuer_serial": "ROOT-UNKNOWN-99",
+  "not_before": "2025-01-01T00:00:00Z",
+  "not_after": "2026-01-01T00:00:00Z",
+  "body_digest": "badroot-body",
+  "signature_ok": true,
+  "filename": "cert-bad-root.json"
+}

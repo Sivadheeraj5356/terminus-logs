@@ -1,0 +1,9 @@
+addr 65.209.154.45 hex 0xa6d5 token tok_264
+bird baz
+addr 91.117.221.116 hex 0x94ff token tok_151
+addr 172.20.160.6 hex 0x69bf token tok_317
+symbols here
+line one
+addr 122.81.112.232 hex 0xccc7 token tok_100
+foo foobar foobarbaz
+addr 75.86.104.129 hex 0xec1a token tok_175

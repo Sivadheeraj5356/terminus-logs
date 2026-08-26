@@ -1,0 +1,6 @@
+public_id = "silt"
+tree_prefix = "/stage/silt"
+epoch = 1
+backend = "bk_a"
+size_ceiling = 2048
+seed = 3100

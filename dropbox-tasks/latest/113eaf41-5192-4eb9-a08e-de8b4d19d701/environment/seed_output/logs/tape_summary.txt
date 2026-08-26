@@ -1,0 +1,4 @@
+cedar rows=4 seq_hint=4 tail_omitted=yes
+maple rows=7 seq_hint=7 tail_omitted=yes
+birch rows=5 seq_hint=5 tail_omitted=yes
+willow rows=5 seq_hint=5 tail_omitted=yes

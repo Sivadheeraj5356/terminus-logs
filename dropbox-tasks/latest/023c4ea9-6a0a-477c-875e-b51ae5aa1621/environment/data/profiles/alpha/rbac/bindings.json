@@ -1,0 +1,6 @@
+[
+  {
+    "subject": "svc-worker",
+    "role": "k8s-editor"
+  }
+]

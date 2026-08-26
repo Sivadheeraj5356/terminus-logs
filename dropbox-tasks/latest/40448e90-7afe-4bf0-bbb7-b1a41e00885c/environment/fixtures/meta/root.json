@@ -1,0 +1,13 @@
+{
+  "signed": {
+    "_type": "root",
+    "version": 1,
+    "expires": "2099-01-01T00:00:00Z",
+    "keys": {
+      "a1b2": {"keytype": "ed25519", "keyval": {"public": "aabb"}}
+    },
+    "roles": {
+      "targets": {"keyids": ["a1b2"], "threshold": 1}
+    }
+  }
+}

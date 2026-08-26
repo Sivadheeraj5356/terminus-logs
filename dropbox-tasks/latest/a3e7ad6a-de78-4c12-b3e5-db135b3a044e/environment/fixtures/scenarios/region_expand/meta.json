@@ -1,0 +1,6 @@
+{
+  "scenario_id": "region_expand",
+  "required_clearance": "APAC-CLEAR-9",
+  "rollout_epoch": 30,
+  "topology_revision": "topo-rev-region"
+}

@@ -1,0 +1,12 @@
+{
+  "combo": true,
+  "codename": "h7_tie_probe",
+  "ev_bin": "h7_tie_probe.evb",
+  "band_lo": 12,
+  "band_hi": 220,
+  "mag_seed": 41,
+  "dur_seed": 14,
+  "combo_depth": 5,
+  "entity_a": 3,
+  "entity_b": 29
+}

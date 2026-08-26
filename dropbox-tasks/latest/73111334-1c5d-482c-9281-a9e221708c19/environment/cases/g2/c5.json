@@ -1,0 +1,15 @@
+{
+  "id": "c5",
+  "mode": "r1",
+  "observers": [{"oid": 30, "cx": 0, "cy": 0, "reach": 2}],
+  "observer_phases": [
+    {"until_tick": 30, "observers": [{"oid": 30, "cx": 0, "cy": 0, "reach": 2}]},
+    {"until_tick": 60, "observers": [{"oid": 30, "cx": 3, "cy": 0, "reach": 1}]},
+    {"until_tick": 90, "observers": [{"oid": 30, "cx": 0, "cy": 1, "reach": 2}]},
+    {"until_tick": 120, "observers": [{"oid": 30, "cx": 2, "cy": 2, "reach": 1}]}
+  ],
+  "ally_groups": [],
+  "slots": 12,
+  "grid_width": 4,
+  "grid_height": 3
+}

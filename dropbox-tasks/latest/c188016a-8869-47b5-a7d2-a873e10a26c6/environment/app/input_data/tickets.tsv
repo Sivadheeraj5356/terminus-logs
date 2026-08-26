@@ -1,0 +1,6 @@
+ticket	requester	resource	opened_ts	closed_ts	emergency	allowed_cidrs	allowed_commands
+INC-123456	alice	payroll-db	2026-05-18T09:30:00Z	2026-05-18T11:00:00Z	true	10.0.0.0/28	psql
+INC-12	bob	payroll-db	2026-05-18T10:30:00Z	2026-05-18T12:00:00Z	false	10.0.0.0/24	su
+CHG-222222	alice	vault-prod	2026-05-18T11:30:00Z	2026-05-18T12:30:00Z	true	10.0.0.0/24	vault
+INC-333333	erin	vault-prod	2026-05-18T12:20:00Z	2026-05-18T12:40:00Z	true	10.0.0.0/24	psql
+CHG-654321	alice	payroll-db	2026-05-18T10:00:00Z	-	true	10.0.0.0/24	psql,scp

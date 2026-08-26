@@ -1,0 +1,7 @@
+{
+  "frames_per_strip": 48,
+  "frame_width": 64,
+  "frame_height": 64,
+  "frame_interval_seconds": 0.05,
+  "bob_radius": 6
+}

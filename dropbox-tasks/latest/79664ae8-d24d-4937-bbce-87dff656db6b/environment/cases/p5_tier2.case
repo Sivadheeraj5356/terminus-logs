@@ -1,0 +1,3 @@
+DRIFT_PROFILE=cold
+DRIFT_WAVE=bundles/waves/wave_c.json
+DRIFT_MERGE_TIER=2

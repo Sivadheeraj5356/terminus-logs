@@ -1,0 +1,1 @@
+Missing values are blanks, literal question marks, NA values, and nan style markers. Numeric fields treat those forms as missing before fit-row mean imputation. Categorical fields map those forms to the literal level missing before learning sorted fit-row levels.

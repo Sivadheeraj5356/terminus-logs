@@ -1,0 +1,214 @@
+schema_version: apexora-vrf-catalog-1
+program: segmentfirst-wave-3
+vrf_count: 30
+vrfs:
+  CORP-IT:
+    rd: "65000:1000"
+    rt_export: "65000:1000"
+    rt_import: ["65000:1000"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-CORP-IT-IN
+    qos_class: AF31
+  FINANCE:
+    rd: "65001:1001"
+    rt_export: "65001:1001"
+    rt_import: ["65001:1001"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-FINANCE-IN
+    qos_class: AF31
+  HR:
+    rd: "65002:1002"
+    rt_export: "65002:1002"
+    rt_import: ["65002:1002"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-HR-IN
+    qos_class: AF31
+  PAYROLL:
+    rd: "65003:1003"
+    rt_export: "65003:1003"
+    rt_import: ["65003:1003"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-PAYROLL-IN
+    qos_class: AF31
+  MFG-OT:
+    rd: "65004:1004"
+    rt_export: "65004:1004"
+    rt_import: ["65004:1004"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-MFG-OT-IN
+    qos_class: AF31
+  MFG-IT:
+    rd: "65005:1005"
+    rt_export: "65005:1005"
+    rt_import: ["65005:1005"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-MFG-IT-IN
+    qos_class: AF31
+  SCADA:
+    rd: "65006:1006"
+    rt_export: "65006:1006"
+    rt_import: ["65006:1006"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-SCADA-IN
+    qos_class: AF31
+  GUEST:
+    rd: "65007:1007"
+    rt_export: "65007:1007"
+    rt_import: ["65007:1007"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-GUEST-IN
+    qos_class: AF31
+  GUEST-WIFI:
+    rd: "65008:1008"
+    rt_export: "65008:1008"
+    rt_import: ["65008:1008"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-GUEST-WIFI-IN
+    qos_class: AF31
+  DMZ:
+    rd: "65009:1009"
+    rt_export: "65009:1009"
+    rt_import: ["65009:1009"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-DMZ-IN
+    qos_class: AF31
+  DMZ-PUB:
+    rd: "65010:1010"
+    rt_export: "65010:1010"
+    rt_import: ["65010:1010"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-DMZ-PUB-IN
+    qos_class: AF31
+  PCI:
+    rd: "65011:1011"
+    rt_export: "65011:1011"
+    rt_import: ["65011:1011"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-PCI-IN
+    qos_class: AF31
+  VOICE:
+    rd: "65012:1012"
+    rt_export: "65012:1012"
+    rt_import: ["65012:1012"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-VOICE-IN
+    qos_class: EF
+  VIDEO:
+    rd: "65013:1013"
+    rt_export: "65013:1013"
+    rt_import: ["65013:1013"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-VIDEO-IN
+    qos_class: EF
+  MGMT:
+    rd: "65014:1014"
+    rt_export: "65014:1014"
+    rt_import: ["65014:1014"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-MGMT-IN
+    qos_class: AF31
+  IDENTITY:
+    rd: "65015:1015"
+    rt_export: "65015:1015"
+    rt_import: ["65015:1015"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-IDENTITY-IN
+    qos_class: AF31
+  BACKUP:
+    rd: "65016:1016"
+    rt_export: "65016:1016"
+    rt_import: ["65016:1016"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-BACKUP-IN
+    qos_class: AF31
+  REPLICATION:
+    rd: "65017:1017"
+    rt_export: "65017:1017"
+    rt_import: ["65017:1017"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-REPLICATION-IN
+    qos_class: AF31
+  LAB:
+    rd: "65018:1018"
+    rt_export: "65018:1018"
+    rt_import: ["65018:1018"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-LAB-IN
+    qos_class: AF31
+  DEV:
+    rd: "65019:1019"
+    rt_export: "65019:1019"
+    rt_import: ["65019:1019"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-DEV-IN
+    qos_class: AF31
+  QA:
+    rd: "65020:1020"
+    rt_export: "65020:1020"
+    rt_import: ["65020:1020"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-QA-IN
+    qos_class: AF31
+  STAGING:
+    rd: "65021:1021"
+    rt_export: "65021:1021"
+    rt_import: ["65021:1021"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-STAGING-IN
+    qos_class: AF31
+  VENDOR:
+    rd: "65022:1022"
+    rt_export: "65022:1022"
+    rt_import: ["65022:1022"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-VENDOR-IN
+    qos_class: AF31
+  PARTNER:
+    rd: "65023:1023"
+    rt_export: "65023:1023"
+    rt_import: ["65023:1023"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-PARTNER-IN
+    qos_class: AF31
+  LOGISTICS:
+    rd: "65024:1024"
+    rt_export: "65024:1024"
+    rt_import: ["65024:1024"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-LOGISTICS-IN
+    qos_class: AF31
+  WAREHOUSE:
+    rd: "65025:1025"
+    rt_export: "65025:1025"
+    rt_import: ["65025:1025"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-WAREHOUSE-IN
+    qos_class: AF31
+  RETAIL:
+    rd: "65026:1026"
+    rt_export: "65026:1026"
+    rt_import: ["65026:1026"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-RETAIL-IN
+    qos_class: AF31
+  BUILDING-AUTO:
+    rd: "65027:1027"
+    rt_export: "65027:1027"
+    rt_import: ["65027:1027"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-BUILDING-AUTO-IN
+    qos_class: AF31
+  EMERGENCY:
+    rd: "65028:1028"
+    rt_export: "65028:1028"
+    rt_import: ["65028:1028"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-EMERGENCY-IN
+    qos_class: AF31
+  TELEMED:
+    rd: "65029:1029"
+    rt_export: "65029:1029"
+    rt_import: ["65029:1029"]
+    gateway_tier: distribution
+    default_acl_profile: SEG-TELEMED-IN
+    qos_class: AF31

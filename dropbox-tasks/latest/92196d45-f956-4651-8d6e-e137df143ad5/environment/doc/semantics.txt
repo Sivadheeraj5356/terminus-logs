@@ -1,0 +1,9 @@
+Tape verbs: init, load, analyze, vis, pause, resume, query.
+Scenario tapes live under /app/data/tapes/.
+The matrix replays each tape twice: continuous mode ignores pause/resume side effects; pause_resume mode checkpoints at pause and restores at resume before the final query. On the resume leg, merge_a returns the live catalog generation at plan time, not the generation snapshotted at pause.
+
+Query lines accept fp=<tag> and partial=<0|1>.
+init accepts vis=<n>. analyze accepts table, rows, and distinct. load accepts table, rows, distinct, buckets, and b0..b3 bound fields.
+
+Parity fields for continuous versus pause_resume on the same scenario_id are listed in /app/stubs/replay_contract.txt.
+Report field names and summary counters are defined in /app/doc/plan_audit_contract.txt.

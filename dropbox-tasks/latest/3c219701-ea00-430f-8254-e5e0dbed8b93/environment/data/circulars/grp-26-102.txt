@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-102
+ISSUER: NOR
+ISSUED: 1767135600
+EFFECTIVE: 1767139200
+
+Members are reminded that figures quoted in the annexes of earlier circulars are indicative only and carry no operative force.
+
+DIRECTIVES:
+BANDS NOR-200 0:10 90:20 210:33
+END DIRECTIVES
+
+Revenue protection staff report that estimate-sourced reads remain the most common vector for class understatement.

@@ -1,0 +1,19 @@
+schema_version: apexora-wave-1
+wave_id: wave_3
+canary_first: true
+regional_order: [amer, emea, apac]
+phases:
+  - phase_id: canary
+    campuses: [campus-hq-dal]
+    devices: [acc-hq-dal-bldg1-01, dist-hq-dal-main-01]
+  - phase_id: amer_batch
+    region: amer
+    campuses: [campus-hq-dal, campus-amw-sea]
+  - phase_id: emea_batch
+    region: emea
+    campuses: [campus-emea-lon, campus-emea-fra]
+  - phase_id: apac_batch
+    region: apac
+    campuses: [campus-apac-sin, campus-apac-tyo]
+post_deploy_hook: services/hooks/post-validate.sh
+legacy_hooks_present: true

@@ -1,0 +1,10 @@
+{
+  "declared_category": "build-and-dependency-management",
+  "primary_work_surface": "pnpm lockfile, offline store, plan-graph, and migrate journal reconciliation",
+  "solution_modality": "dependency_graph_reconciliation",
+  "primary_solution_modality": "dependency_graph_reconciliation",
+  "executable_logic_expected": true,
+  "source_repair_expected": false,
+  "config_workaround_for_implementation_defect": false,
+  "why_not_debugging_or_software_engineering": "Primary work is dependency-graph and lockfile/store provenance reconciliation for an offline pnpm workspace migrate, not application feature debugging or generic software-engineering repair."
+}

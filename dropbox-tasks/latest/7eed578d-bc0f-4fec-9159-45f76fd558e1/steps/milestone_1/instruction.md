@@ -1,0 +1,3 @@
+The nightly fraud scoring worker never shipped — signed card-ledger batches are sitting unverified and job `JOB-20250620-001` is stuck queued in `/var/lib/ops/ops.db`. Ops wants a C worker built under `/app` (Makefile + `risk_worker` binary) per `/app/data/policy/risk_policy_manual.txt`. Place all `.c` and `.h` source files and the Makefile directly under `/app/` in a flat layout — subdirectories such as `/app/src/` are not accepted by the build artifact checks.
+
+Milestone 1 is ledger provenance only: implement `verify-ledger` on `/app/risk_worker` per the policy manual. Do not touch feature or scoring tables yet.

@@ -1,0 +1,13 @@
+--- a/internal/footer/footer_stats.go
++++ b/internal/footer/footer_stats.go
+@@ -9,8 +9,8 @@
+ }
+ 
+ func Prefix8(hexStr string) string {
+-	if len(hexStr) < 7 {
++	if len(hexStr) < 8 {
+ 		return hexStr
+ 	}
+-	return hexStr[:7]
++	return hexStr[:8]
+ }

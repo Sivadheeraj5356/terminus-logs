@@ -1,0 +1,9 @@
+[
+  {
+    "manifest_id": "e3-canary",
+    "name": "canary-pod",
+    "namespace": "canary",
+    "labels": {"app": "canary", "tier": "z"},
+    "annotations": {"q46.alpha": "aa", "q46.beta": "bb", "note": "ignore-me"}
+  }
+]

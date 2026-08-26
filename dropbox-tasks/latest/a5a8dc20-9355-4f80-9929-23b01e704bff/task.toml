@@ -1,0 +1,41 @@
+# Task configuration schema version
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "medium"
+# data-processing: the deliverable is a configuration-data processor that must
+# honour a stated contract -- CUE source text goes in, and either an evaluated
+# result or a conflict comes out. The instruction states that contract (which
+# classes of configuration must conflict, which must evaluate) and the graded
+# behaviour is the processed output for held-out configurations. The work is
+# making the processor meet the contract, not general debugging or
+# software-engineering: there is no stack trace, failing test, or error message
+# to chase, and no feature, API or refactor to deliver.
+category = "data-processing"
+# Options for subcategories are: "long_context", "tool_specific", "api_integration", "db_interaction", "ui_building"
+subcategories = [ ]
+# The number of milestones in the task (0 if not a milestone task)
+number_of_milestones = 0
+# Size of the codebase: minimal -> 0-20 files, small -> 20+ files, large -> 200+ files
+codebase_size = "large"
+# Coding languages used in the oracle solution or required by the agent
+languages = [ "go" ]
+tags = [ "cue", "configuration-language", "constraint-solver", "unification" ]
+# Estimated time to complete (minutes)
+expert_time_estimate_min = 120
+junior_time_estimate_min = 300
+
+[verifier]
+timeout_sec = 1200.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 1800.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

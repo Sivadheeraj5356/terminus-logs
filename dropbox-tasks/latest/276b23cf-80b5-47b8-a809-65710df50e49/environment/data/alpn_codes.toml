@@ -1,0 +1,13 @@
+# Numeric ALPN protocol identifiers emitted in path_report alpn_code.
+
+[[code]]
+name = "challenge"
+value = "16777220"
+
+[[code]]
+name = "app_default"
+value = "16777216"
+
+[[code]]
+name = "stripped"
+value = "0"

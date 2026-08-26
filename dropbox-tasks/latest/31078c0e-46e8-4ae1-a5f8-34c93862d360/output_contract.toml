@@ -1,0 +1,29 @@
+user_visible_outputs = ["/app/output/diffusion-report.json"]
+internal_harness_files = ["/app/worker/src"]
+
+[structured_outputs.diffusion_report]
+target = "/app/output/diffusion-report.json"
+format = "json"
+instruction_checks = [
+  "generated_at",
+  "source",
+  "experiments",
+  "rejections",
+  "summary",
+  "status_counts",
+  "calibrations",
+  "digest",
+  "parse_error",
+  "schema_error",
+  "range_error",
+  "calibration_missing",
+  "dependency_missing",
+  "dependency_cycle",
+  "dependency_risk",
+  "converged",
+  "noisy",
+  "escaped",
+  "SHA-256",
+  "Park-Miller",
+  "six decimal places"
+]

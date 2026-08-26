@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+"""Thin CLI client for the glyph-mill daemon.
+
+The actual game logic (rule loading, the walk step formula, replay
+acceptance) runs inside a long-lived background daemon process started at
+container boot; this script only ever talks to it over a Unix domain
+socket, forwarding the same --root/room/route arguments the daemon expects.
+It has no direct access to the daemon's code or its compiled bytecode -
+that artifact is deleted from disk once the daemon has loaded it into its
+own memory, before this CLI (or anything else) ever runs.
+"""
+import argparse
+import json
+import socket
+import sys
+
+SOCK_PATH = "/run/glyph-mill.sock"
+DEFAULT_ROOT = "/app/glyph-mill"
+
+
+def _connect():
+    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    sock.connect(SOCK_PATH)
+    return sock
+
+
+def _read_line(sock):
+    buf = b""
+    while not buf.endswith(b"\n"):
+        chunk = sock.recv(65536)
+        if not chunk:
+            break
+        buf += chunk
+    return buf.decode()
+
+
+def _oneshot(op, args):
+    sock = _connect()
+    try:
+        sock.sendall((f"{op} {json.dumps(args)}\n").encode())
+        resp = _read_line(sock).rstrip("\n")
+    finally:
+        sock.close()
+    if resp.startswith("1 __ERROR__"):
+        sys.stderr.write(resp.split(" ", 2)[2] + "\n")
+        raise SystemExit(1)
+    exit_code_str, payload = resp.split(" ", 1)
+    return int(exit_code_str), payload
+
+
+def cmd_rooms(args):
+    _, payload = _oneshot("ROOMS", {"root": args.root or DEFAULT_ROOT})
+    print(payload)
+
+
+def cmd_inspect(args):
+    _, payload = _oneshot("INSPECT", {"root": args.root or DEFAULT_ROOT, "room": args.room})
+    print(payload)
+
+
+def cmd_trace(args):
+    _, payload = _oneshot("TRACE", {"root": args.root or DEFAULT_ROOT, "room": args.room})
+    data = json.loads(payload)
+    for line in data["trace"]:
+        print(line)
+
+
+def cmd_probe(args):
+    payload = {
+        "root": args.root or DEFAULT_ROOT,
+        "room": args.room,
+        "state": args.state,
+        "glyph": args.glyph,
+        "index": args.index,
+        "prev": args.prev,
+    }
+    _, resp_payload = _oneshot("PROBE", payload)
+    print(resp_payload)
+
+
+def cmd_replay(args):
+    with open(args.route) as f:
+        route = json.load(f)
+    exit_code, payload = _oneshot("REPLAY", {"root": args.root or DEFAULT_ROOT, "route": route})
+    print(payload)
+    raise SystemExit(exit_code)
+
+
+def cmd_play(args):
+    sock = _connect()
+    sock.sendall((f"PLAY {json.dumps({'root': args.root or DEFAULT_ROOT})}\n").encode())
+    print(_read_line(sock).rstrip("\n"), flush=True)
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        sock.sendall((line + "\n").encode())
+        reply = _read_line(sock)
+        if not reply:
+            break
+        reply = reply.rstrip("\n")
+        print(reply, flush=True)
+        if reply == "BYE":
+            break
+    sock.close()
+
+
+def main():
+    p = argparse.ArgumentParser(prog="glyph-mill")
+    p.add_argument("--root", default=None)
+    sub = p.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("rooms").set_defaults(func=cmd_rooms)
+    ip = sub.add_parser("inspect")
+    ip.add_argument("room")
+    ip.set_defaults(func=cmd_inspect)
+    tp = sub.add_parser("trace")
+    tp.add_argument("room")
+    tp.set_defaults(func=cmd_trace)
+    rp = sub.add_parser("replay")
+    rp.add_argument("route")
+    rp.set_defaults(func=cmd_replay)
+    pp = sub.add_parser("probe")
+    pp.add_argument("room")
+    pp.add_argument("--state", type=int, required=True)
+    pp.add_argument("--glyph", required=True)
+    pp.add_argument("--index", type=int, required=True)
+    pp.add_argument("--prev", type=int, default=None)
+    pp.set_defaults(func=cmd_probe)
+    sub.add_parser("play").set_defaults(func=cmd_play)
+    args = p.parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-760f2f7ed903": {
+      "alg": "ed25519",
+      "public": "8b191da85424d9e8ba3ca06387f59bcf9e9fc24bb7e8ef2bbc973da5f3887c03"
+    }
+  },
+  "message": {
+    "authority": "svc0.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "aaa=:t/wi9l7ldIILEy85+hYEfdcC+wBjl+R8qL2mBiWAhnwHuA5x36yNbnJL3USv+7NEG8qpTJMsHbD7fYid7F8rCg==:, bbb=:LKWxbvE7LFn/EySqVHE0WhdiqtOHRuAZiH7lWD6kmdNs/WxTvz0luIFRexKGwtiMnt5sSEsPxDf2jk2PfDVmCw==:",
+      "signature-input": "aaa=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000060;expires=1700000420;keyid=\"k-missing-000000\";alg=\"ed25519\", bbb=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000060;expires=1700000070;keyid=\"k-760f2f7ed903\";alg=\"ed25519\""
+    },
+    "method": "GET",
+    "path": "/api/v0/resource/120",
+    "query": "page=120&sort=asc"
+  },
+  "now": 1700000120
+}

@@ -1,0 +1,11 @@
+Lab layout under /app/environment
+
+- l4/ admission sequencing for batch generations
+- stamp/ declarative stamp fold timing
+- wait/ carrier poll hold before link teardown
+- m7/ observation JSON writer
+- persist/ cross-batch store and observation accumulation
+- n8_host/ replay driver CLI
+- n8_replays/ fixture graphs for trap batches
+
+Build output: /app/environment/build/bin/n8_host

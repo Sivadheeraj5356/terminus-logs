@@ -1,0 +1,8 @@
+{
+  "cutover_id": "IRIS-CUTOVER-2025.06",
+  "replace_match_policy": "list_scan_alpha",
+  "checksum_peel_mode": "single_affix",
+  "scaffold_gate": "truthy_flags",
+  "queue_timing": "post_rewrite",
+  "digest_checksum_layout": "bare_hex_nl"
+}

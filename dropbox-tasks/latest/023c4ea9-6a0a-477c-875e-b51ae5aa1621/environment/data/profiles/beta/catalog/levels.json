@@ -1,0 +1,13 @@
+{
+  "dev": 2,
+  "auditor": 2,
+  "runner": 2,
+  "grp-eng": 3,
+  "grp-audit": 3,
+  "grp-retired": 3,
+  "role-read": 3,
+  "role-write": 4,
+  "role-super": 5,
+  "role-batch": 3,
+  "crown-vault": 8
+}

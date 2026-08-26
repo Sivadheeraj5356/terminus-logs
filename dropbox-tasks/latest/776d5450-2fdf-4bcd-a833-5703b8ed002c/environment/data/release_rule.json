@@ -1,0 +1,7 @@
+{
+  "reference_gate": 70.3,
+  "rate_min": 0.01,
+  "rate_max": 0.95,
+  "signoff_floor": 0.95,
+  "probe_capacity": 900
+}

@@ -1,0 +1,76 @@
+#!/bin/bash
+set -euo pipefail
+ENV="/app/environment"
+ACTION=""
+TAIL=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --round)
+      ACTION=round
+      shift
+      ;;
+    --tail)
+      TAIL=1
+      shift
+      ;;
+    --help)
+      echo "usage: j4_round --round [--tail]" >&2
+      exit 0
+      ;;
+    *)
+      echo "unknown arg: $1" >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [[ "${ACTION}" != "round" ]]; then
+  echo "usage: j4_round --round [--tail]" >&2
+  exit 2
+fi
+
+mkdir -p /app/work/policy /app/output
+
+_run_site() {
+  local env_file="$1"
+  "${ENV}/d0/stg_u4" --env "${env_file}"
+  "${ENV}/d0/stg_m1" --env "${env_file}"
+  "${ENV}/d0/stg_p5" --env "${env_file}"
+  "${ENV}/q3_probe/host_shell.sh" "${env_file}"
+  "${ENV}/q3_probe/work_shell.sh" "${env_file}"
+  local site
+  site="$(grep '^SITE=' "${env_file}" | cut -d= -f2)"
+  "${ENV}/d0/witness_refresh" --site "${site}"
+}
+
+_run_probes() {
+  local env_file="$1"
+  "${ENV}/q3_probe/host_shell.sh" "${env_file}"
+  "${ENV}/q3_probe/work_shell.sh" "${env_file}"
+}
+
+if [[ "${TAIL}" == "1" ]]; then
+  rm -f /app/work/policy/ledger.tsv
+  echo 0 > /app/work/policy/window.tick
+  for site in site_j4 site_p7; do
+    rm -f "/app/work/policy/probe_${site}_host.txt" "/app/work/policy/probe_${site}_work.txt"
+  done
+  _run_probes "${ENV}/fixtures/site_j4.env"
+  _run_probes "${ENV}/fixtures/site_p7.env"
+  "${ENV}/d0/witness_refresh"
+  "${ENV}/d0/tick_apply" --site site_j4
+  exec "${ENV}/d0/j4_assemble" --assemble
+fi
+
+: > /app/work/policy/u4.state
+: > /app/work/policy/m1.state
+: > /app/work/policy/p5.state
+: > /app/work/policy/ledger.tsv
+: > /app/work/policy/epoch.chain
+echo 0 > /app/work/policy/window.tick
+
+_run_site "${ENV}/fixtures/site_j4.env"
+"${ENV}/d0/tick_apply" --site site_j4
+_run_site "${ENV}/fixtures/site_p7.env"
+exec "${ENV}/d0/j4_assemble" --assemble

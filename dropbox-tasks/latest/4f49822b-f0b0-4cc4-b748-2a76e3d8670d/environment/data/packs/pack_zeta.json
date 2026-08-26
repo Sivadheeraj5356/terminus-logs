@@ -1,0 +1,15 @@
+{
+  "pack_id": "pack_zeta",
+  "profile": "seal-priority",
+  "tickets": [
+    {
+      "principal": "acct:gamma",
+      "ticket_id": "child-gamma",
+      "parent_id": "root-gamma",
+      "ticket_epoch": 5,
+      "scope_mask": 6,
+      "action_mask": 2,
+      "ticket_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

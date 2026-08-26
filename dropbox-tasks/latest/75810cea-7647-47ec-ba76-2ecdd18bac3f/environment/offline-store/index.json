@@ -1,0 +1,14 @@
+{
+  "schema": "migrate-store-index-v1",
+  "packages": {
+    "adapter-legacy@2.0.0#deadbeefdeadbeef": {
+      "name": "adapter-legacy",
+      "version": "2.0.0",
+      "path": "packages/adapter-legacy",
+      "tarball": "offline-store/tarballs/adapter-legacy-2.0.0.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "bytes": 2,
+      "contentDigest": "deadbeefdeadbeef000000000000000000000000000000000000000000000000"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+STORE right
+CACHE cacheB
+NAR_HASH nright
+NAR_SIZE 5
+SIGS b
+REFERENCES -
+DERIVER right.drv

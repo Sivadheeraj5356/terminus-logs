@@ -1,0 +1,9 @@
+#!/bin/bash
+# Build ov_engine if needed, then run the graded probe binary.
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+ENG="$ROOT/tools/ov_probe/ov_engine"
+if [ ! -x "$ENG" ]; then
+  bash "$ROOT/scripts/build_workspace.sh"
+fi
+exec "$ENG" "$@"

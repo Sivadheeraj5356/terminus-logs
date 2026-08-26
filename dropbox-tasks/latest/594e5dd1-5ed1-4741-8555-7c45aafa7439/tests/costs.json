@@ -1,0 +1,162 @@
+{
+  "zn-01": {
+    "stock_cost": 0.782,
+    "extra_cost": 2.43
+  },
+  "zn-02": {
+    "stock_cost": 0.951,
+    "extra_cost": 3.722
+  },
+  "zn-03": {
+    "stock_cost": 0.945,
+    "extra_cost": 3.264
+  },
+  "zn-04": {
+    "stock_cost": 0.64,
+    "extra_cost": 2.167
+  },
+  "zn-05": {
+    "stock_cost": 0.788,
+    "extra_cost": 2.387
+  },
+  "zn-06": {
+    "stock_cost": 0.631,
+    "extra_cost": 2.196
+  },
+  "zn-07": {
+    "stock_cost": 1.045,
+    "extra_cost": 4.041
+  },
+  "zn-08": {
+    "stock_cost": 0.767,
+    "extra_cost": 2.563
+  },
+  "zn-09": {
+    "stock_cost": 0.784,
+    "extra_cost": 2.322
+  },
+  "zn-10": {
+    "stock_cost": 0.783,
+    "extra_cost": 2.793
+  },
+  "zn-11": {
+    "stock_cost": 1.049,
+    "extra_cost": 3.466
+  },
+  "zn-12": {
+    "stock_cost": 1.099,
+    "extra_cost": 3.578
+  },
+  "zn-13": {
+    "stock_cost": 0.789,
+    "extra_cost": 3.177
+  },
+  "zn-14": {
+    "stock_cost": 0.629,
+    "extra_cost": 1.693
+  },
+  "zn-15": {
+    "stock_cost": 0.802,
+    "extra_cost": 2.909
+  },
+  "zn-16": {
+    "stock_cost": 1.016,
+    "extra_cost": 3.574
+  },
+  "zn-17": {
+    "stock_cost": 0.803,
+    "extra_cost": 2.4
+  },
+  "zn-18": {
+    "stock_cost": 0.702,
+    "extra_cost": 2.842
+  },
+  "zn-19": {
+    "stock_cost": 0.621,
+    "extra_cost": 1.757
+  },
+  "zn-20": {
+    "stock_cost": 0.913,
+    "extra_cost": 2.904
+  },
+  "zn-21": {
+    "stock_cost": 0.918,
+    "extra_cost": 3.035
+  },
+  "zn-22": {
+    "stock_cost": 0.627,
+    "extra_cost": 2.239
+  },
+  "zn-23": {
+    "stock_cost": 0.601,
+    "extra_cost": 2.162
+  },
+  "zn-24": {
+    "stock_cost": 0.98,
+    "extra_cost": 2.68
+  },
+  "zn-25": {
+    "stock_cost": 1.004,
+    "extra_cost": 3.712
+  },
+  "zn-26": {
+    "stock_cost": 0.899,
+    "extra_cost": 3.171
+  },
+  "zn-27": {
+    "stock_cost": 0.732,
+    "extra_cost": 2.657
+  },
+  "zn-28": {
+    "stock_cost": 0.857,
+    "extra_cost": 2.368
+  },
+  "zn-29": {
+    "stock_cost": 0.683,
+    "extra_cost": 2.18
+  },
+  "zn-30": {
+    "stock_cost": 1.093,
+    "extra_cost": 4.499
+  },
+  "zn-31": {
+    "stock_cost": 0.676,
+    "extra_cost": 2.8
+  },
+  "zn-32": {
+    "stock_cost": 1.074,
+    "extra_cost": 4.021
+  },
+  "zn-33": {
+    "stock_cost": 1.023,
+    "extra_cost": 2.799
+  },
+  "zn-34": {
+    "stock_cost": 1.013,
+    "extra_cost": 4.056
+  },
+  "zn-35": {
+    "stock_cost": 0.712,
+    "extra_cost": 2.029
+  },
+  "zn-36": {
+    "stock_cost": 0.842,
+    "extra_cost": 2.307
+  },
+  "zn-37": {
+    "stock_cost": 1.067,
+    "extra_cost": 3.444
+  },
+  "zn-38": {
+    "stock_cost": 0.769,
+    "extra_cost": 2.74
+  },
+  "zn-39": {
+    "stock_cost": 0.718,
+    "extra_cost": 2.716
+  },
+  "zn-40": {
+    "stock_cost": 0.665,
+    "extra_cost": 2.269
+  }
+}

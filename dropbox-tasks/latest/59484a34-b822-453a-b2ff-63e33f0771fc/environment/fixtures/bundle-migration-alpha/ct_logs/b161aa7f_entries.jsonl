@@ -1,0 +1,8 @@
+{"serial": "SER-LEGACY", "leaf_index": 0, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "91e6e26a0754cd24210f9365518074c1ca1d552aa74c5864970040ece602f922"}
+{"serial": "SER-REVOKED", "leaf_index": 1, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "56a86db6b49a82d511434d12f1cccdd53cc232e5d3ec80f2895255dcabbe6d2a"}
+{"serial": "SER-WTREE", "leaf_index": 2, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "e748541bfbc633245806882411cbde5cd5c6e764f5813b084a2dade0c8f0f2da"}
+{"serial": "SER-DUP", "leaf_index": 3, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "c552d8bcf93a07d2c5a8dbb646884dbdb2adca046aa00ba8371631c212f7af58"}
+{"serial": "SER-DUP", "leaf_index": 4, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "c552d8bcf93a07d2c5a8dbb646884dbdb2adca046aa00ba8371631c212f7af58"}
+{"serial": "SER-STALE", "leaf_index": 5, "timestamp": "2025-06-15T14:00:00Z", "leaf_hash": "c02a1a73d8177eb0507e5825a4f4f972b7a745f3b1c8508aa95de1266a529348"}
+{"serial": "SER-NOPROOF", "leaf_index": 6, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "3e078c7fbb27de7fad6aeeaec5a85f26cdcc271da6e22e798e01a3d6cdc17294"}
+{"serial": "SER-BADROOT", "leaf_index": 7, "timestamp": "2025-06-15T12:00:00Z", "leaf_hash": "986ffb6321d47bdf76f23a37a6eb9ad53011a85f36867285050f4a40f2bdbbb2"}

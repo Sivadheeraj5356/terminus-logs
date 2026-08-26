@@ -1,0 +1,13 @@
+segment_id	state	reason
+seg-no-00	held	shadow-spool-carryover
+seg-no-13	held	shadow-spool-carryover
+seg-ea-16	held	shadow-spool-carryover
+seg-so-00	held	shadow-spool-carryover
+seg-so-13	held	shadow-spool-carryover
+seg-de-00	held	shadow-spool-carryover
+seg-de-13	held	shadow-spool-carryover
+seg-re-16	held	shadow-spool-carryover
+seg-qu-00	held	shadow-spool-carryover
+seg-qu-13	held	shadow-spool-carryover
+seg-ga-00	held	shadow-spool-carryover
+seg-ga-13	held	shadow-spool-carryover

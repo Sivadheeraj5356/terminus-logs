@@ -1,0 +1,20 @@
+schema_version: apexora-campus-1
+campuses:
+  - id: campus-hq-dal
+    region: amer
+    buildings: [bldg1, bldg2, bldg3, dc-wing]
+  - id: campus-amw-sea
+    region: amer
+    buildings: [plant-a, plant-b, admin]
+  - id: campus-emea-lon
+    region: emea
+    buildings: [tower-a, tower-b]
+  - id: campus-emea-fra
+    region: emea
+    buildings: [lab, office, ot-yard]
+  - id: campus-apac-sin
+    region: apac
+    buildings: [hub, guest-wing]
+  - id: campus-apac-tyo
+    region: apac
+    buildings: [office, mfg]

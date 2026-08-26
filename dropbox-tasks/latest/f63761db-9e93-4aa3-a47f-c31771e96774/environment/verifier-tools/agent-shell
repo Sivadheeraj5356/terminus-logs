@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+exec setpriv --reuid=10001 --regid=10001 --clear-groups \
+  env HOME=/home/analyst USER=analyst LOGNAME=analyst SHELL=/bin/bash \
+  /bin/bash "$@"

@@ -1,0 +1,7 @@
+{
+  "bundle_id": "isfahan_persian_circulation",
+  "genealogy_snapshot": {"as_of_year": 1970},
+  "panels": [
+    {"panel_id": "panel_isfahan_khata_persian"}
+  ]
+}

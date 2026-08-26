@@ -1,0 +1,146 @@
+[
+  {
+    "patch_id": "0.9.0",
+    "actor": "striker",
+    "picks": 60,
+    "wins": 28
+  },
+  {
+    "patch_id": "0.9.0",
+    "actor": "warden",
+    "picks": 25,
+    "wins": 14
+  },
+  {
+    "patch_id": "0.9.0",
+    "actor": "skirmisher",
+    "picks": 25,
+    "wins": 13
+  },
+  {
+    "patch_id": "0.9.0",
+    "actor": "medic",
+    "picks": 20,
+    "wins": 11
+  },
+  {
+    "patch_id": "1.0.0",
+    "actor": "striker",
+    "picks": 70,
+    "wins": 30
+  },
+  {
+    "patch_id": "1.0.0",
+    "actor": "warden",
+    "picks": 22,
+    "wins": 12
+  },
+  {
+    "patch_id": "1.0.0",
+    "actor": "skirmisher",
+    "picks": 20,
+    "wins": 11
+  },
+  {
+    "patch_id": "1.0.0",
+    "actor": "medic",
+    "picks": 18,
+    "wins": 10
+  },
+  {
+    "patch_id": "1.0.1",
+    "actor": "striker",
+    "picks": 72,
+    "wins": 31
+  },
+  {
+    "patch_id": "1.0.1",
+    "actor": "warden",
+    "picks": 20,
+    "wins": 11
+  },
+  {
+    "patch_id": "1.0.1",
+    "actor": "skirmisher",
+    "picks": 18,
+    "wins": 9
+  },
+  {
+    "patch_id": "1.0.1",
+    "actor": "medic",
+    "picks": 16,
+    "wins": 8
+  },
+  {
+    "patch_id": "1.1.0",
+    "actor": "striker",
+    "picks": 80,
+    "wins": 32
+  },
+  {
+    "patch_id": "1.1.0",
+    "actor": "warden",
+    "picks": 18,
+    "wins": 10
+  },
+  {
+    "patch_id": "1.1.0",
+    "actor": "skirmisher",
+    "picks": 16,
+    "wins": 8
+  },
+  {
+    "patch_id": "1.1.0",
+    "actor": "medic",
+    "picks": 14,
+    "wins": 7
+  },
+  {
+    "patch_id": "1.1.1",
+    "actor": "striker",
+    "picks": 85,
+    "wins": 33
+  },
+  {
+    "patch_id": "1.1.1",
+    "actor": "warden",
+    "picks": 16,
+    "wins": 9
+  },
+  {
+    "patch_id": "1.1.1",
+    "actor": "skirmisher",
+    "picks": 14,
+    "wins": 7
+  },
+  {
+    "patch_id": "1.1.1",
+    "actor": "medic",
+    "picks": 12,
+    "wins": 6
+  },
+  {
+    "patch_id": "1.2.0",
+    "actor": "striker",
+    "picks": 90,
+    "wins": 34
+  },
+  {
+    "patch_id": "1.2.0",
+    "actor": "warden",
+    "picks": 14,
+    "wins": 8
+  },
+  {
+    "patch_id": "1.2.0",
+    "actor": "skirmisher",
+    "picks": 12,
+    "wins": 6
+  },
+  {
+    "patch_id": "1.2.0",
+    "actor": "medic",
+    "picks": 10,
+    "wins": 5
+  }
+]

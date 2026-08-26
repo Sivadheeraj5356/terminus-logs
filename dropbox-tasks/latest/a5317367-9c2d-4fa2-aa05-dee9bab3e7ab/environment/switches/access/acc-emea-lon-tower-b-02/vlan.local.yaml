@@ -1,0 +1,6 @@
+hostname: acc-emea-lon-tower-b-02
+migration_state: segmented
+canonical_vlan: 2023
+configured_vlan: 2023
+legacy_vlan: 124
+duplicate_vlan_conflict: false

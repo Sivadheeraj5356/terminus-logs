@@ -1,0 +1,254 @@
+--- a/lib/intake/load.go	2026-07-16 05:21:00.882627795 +0000
++++ /tmp/mr-patch-gen/lib/intake/load.go	2026-07-17 07:52:57.194647013 +0000
+@@ -50,16 +50,7 @@
+ 			byID[item.ID] = item
+ 			continue
+ 		}
+-		prior := byID[item.ID]
+-		if item.Resolved {
+-			prior.Status = item.Status
+-			prior.Resolved = true
+-			prior.Note = item.Note
+-			prior.Source = item.Source
+-			prior.Dissent = item.Dissent
+-			prior.Weight = item.Weight
+-		}
+-		byID[item.ID] = prior
++		byID[item.ID] = combineEvidence(byID[item.ID], item)
+ 	}
+ 	sort.Strings(order)
+ 	merged := make([]model.Evidence, 0, len(order))
+@@ -69,6 +60,83 @@
+ 	return merged
+ }
+ 
++func combineEvidence(a model.Evidence, b model.Evidence) model.Evidence {
++	out := a
++	if severityRank(b.Status) > severityRank(out.Status) {
++		out.Status = b.Status
++		out.Axis = b.Axis
++		out.Weight = b.Weight
++		out.Note = b.Note
++	} else if severityRank(b.Status) == severityRank(out.Status) {
++		winner := tieEvidence(out, b)
++		out.Axis = winner.Axis
++		out.Weight = winner.Weight
++		out.Note = winner.Note
++	}
++	if a.Source == "independent" || b.Source == "independent" {
++		out.Source = "independent"
++	}
++	if dissentRank(b.Dissent) > dissentRank(out.Dissent) {
++		out.Dissent = b.Dissent
++	}
++	out.Resolved = a.Resolved && b.Resolved
++	if out.Resolved && b.Note != "" {
++		out.Note = b.Note
++	}
++	return out
++}
++
++func tieEvidence(a model.Evidence, b model.Evidence) model.Evidence {
++	aInd := a.Source == "independent"
++	bInd := b.Source == "independent"
++	if aInd && !bInd {
++		return a
++	}
++	if bInd && !aInd {
++		return b
++	}
++	if a.Note < b.Note {
++		return a
++	}
++	if b.Note < a.Note {
++		return b
++	}
++	if a.Weight <= b.Weight {
++		return a
++	}
++	return b
++}
++
++func severityRank(v string) int {
++	switch v {
++	case "ready":
++		return 0
++	case "watch":
++		return 1
++	case "gap":
++		return 2
++	case "blocked":
++		return 3
++	default:
++		return 0
++	}
++}
++
++func dissentRank(v string) int {
++	switch v {
++	case "none", "":
++		return 0
++	case "minor":
++		return 1
++	case "major":
++		return 2
++	case "critical":
++		return 3
++	default:
++		return 0
++	}
++}
++
+ func Contribution(item model.Evidence) int {
+ 	switch item.Status {
+ 	case "ready":
+--- a/lib/cstore/store.go	2026-07-16 05:21:00.882415322 +0000
++++ /tmp/mr-patch-gen/lib/cstore/store.go	2026-07-17 07:53:02.667503871 +0000
+@@ -36,7 +36,7 @@
+ }
+ 
+ func StateFor(sf StateFile, caseID string) model.CaseState {
+-	st := sf["active"]
++	st := sf[caseID]
+ 	if st.CaseID == "" {
+ 		st.CaseID = caseID
+ 	}
+@@ -44,5 +44,5 @@
+ }
+ 
+ func PutState(sf StateFile, st model.CaseState) {
+-	sf["active"] = st
++	sf[st.CaseID] = st
+ }
+--- a/lib/cstore/commit.go	2026-07-16 05:21:00.882269869 +0000
++++ /tmp/mr-patch-gen/lib/cstore/commit.go	2026-07-17 07:53:03.991132049 +0000
+@@ -8,25 +8,36 @@
+ 
+ func Reconcile(rec model.Record, prior model.CaseState, pol model.Policy) (open []model.Commitment, closed []model.Commitment, overdueOpen bool) {
+ 	byID := map[string]model.Commitment{}
++	closedIDs := map[string]bool{}
+ 	for _, c := range prior.OpenCommitments {
+ 		byID[c.ID] = c
+ 	}
++	for _, c := range prior.ClosedCommitments {
++		closedIDs[c.ID] = true
++		byID[c.ID] = c
++	}
+ 	for _, c := range rec.Commitments {
+ 		byID[c.ID] = c
++		if c.Closed {
++			closedIDs[c.ID] = true
++		}
+ 	}
+ 	open = []model.Commitment{}
+-	closed = append([]model.Commitment{}, prior.ClosedCommitments...)
++	closed = []model.Commitment{}
+ 	for _, c := range byID {
+-		if c.Closed {
++		if c.Closed || closedIDs[c.ID] {
++			c.Closed = true
+ 			closed = append(closed, c)
+ 		} else {
+ 			open = append(open, c)
++			if c.DueDay+pol.CommitmentDueMarginDays < rec.MissionDays {
++				overdueOpen = true
++			}
+ 		}
+ 	}
+ 	sort.Slice(open, func(i, j int) bool { return open[i].ID < open[j].ID })
+ 	sort.Slice(closed, func(i, j int) bool { return closed[i].ID < closed[j].ID })
+-	_ = pol
+-	return open, closed, false
++	return open, closed, overdueOpen
+ }
+ 
+ func CommitmentIDs(items []model.Commitment) []string {
+--- a/lib/judge/pick.go	2026-07-16 05:21:00.882522419 +0000
++++ /tmp/mr-patch-gen/lib/judge/pick.go	2026-07-17 07:53:05.655639815 +0000
+@@ -7,15 +7,15 @@
+ )
+ 
+ func RequirePublishable(auth model.Authority) error {
+-	if auth.DecisionDoc == "" {
+-		return fmt.Errorf("emergency authority declaration is incomplete")
++	if auth.DecisionDoc == "" || auth.Status != "delegated" {
++		return fmt.Errorf("emergency authority must be delegated before publication")
+ 	}
+ 	return nil
+ }
+ 
+ func CountDissent(items []model.Evidence) (critical int, major int) {
+ 	for _, item := range items {
+-		if !item.Resolved && item.Dissent == "critical" && item.Source != "independent" {
++		if !item.Resolved && item.Dissent == "critical" {
+ 			critical++
+ 		}
+ 		if !item.Resolved && item.Dissent == "major" {
+@@ -26,6 +26,9 @@
+ }
+ 
+ func Choose(axis map[string]int, pol model.Policy, auth model.Authority, critical int, major int, open []model.Commitment, overdueOpen bool) string {
++	if auth.Status != "delegated" {
++		return "POSTPONE"
++	}
+ 	for name, floor := range pol.AxisFloors {
+ 		if axis[name] < floor {
+ 			return "POSTPONE"
+@@ -37,9 +40,6 @@
+ 	if pol.MajorDissentConditional && major > 0 {
+ 		return "CONDITIONAL_AUTHORIZE"
+ 	}
+-	if auth.Status == "" {
+-		return "POSTPONE"
+-	}
+ 	if len(open) > 0 || overdueOpen {
+ 		return "CONDITIONAL_AUTHORIZE"
+ 	}
+@@ -58,5 +58,5 @@
+ }
+ 
+ func DelegatedFlag(auth model.Authority) bool {
+-	return auth.Status != ""
++	return auth.Status == "delegated"
+ }
+--- a/lib/ix/bridge.go	2026-07-16 05:21:00.881807334 +0000
++++ /tmp/mr-patch-gen/lib/ix/bridge.go	2026-07-17 07:53:07.476081859 +0000
+@@ -31,8 +31,12 @@
+ 		payload.WriteString(strconv.Itoa(axis[k]))
+ 		payload.WriteByte('\n')
+ 	}
+-	payload.WriteString("critical=0\n")
+-	payload.WriteString("major=0\n")
++	payload.WriteString("critical=")
++	payload.WriteString(strconv.Itoa(critical))
++	payload.WriteByte('\n')
++	payload.WriteString("major=")
++	payload.WriteString(strconv.Itoa(major))
++	payload.WriteByte('\n')
+ 	payload.WriteString(fmt.Sprintf("delegated=%t\n", delegated))
+ 	payload.WriteString(fmt.Sprintf("stagnation=%d\n", stagnation))
+ 	cmd := exec.Command("/app/bin/ixcore")
+--- a/z4/src/main.rs	2026-07-16 05:13:45.817124221 +0000
++++ /tmp/mr-patch-gen/z4/src/main.rs	2026-07-17 07:53:09.006500222 +0000
+@@ -7,7 +7,7 @@
+     let mut critical = 0i32;
+     let mut major = 0i32;
+     let mut delegated = false;
+-    let mut _stagnation = 0i32;
++    let mut stagnation = 0i32;
+     for line in input.lines() {
+         if let Some(v) = line.strip_prefix("axis=") {
+             total += v.parse::<i32>().unwrap_or(0);
+@@ -18,10 +18,10 @@
+         } else if let Some(v) = line.strip_prefix("delegated=") {
+             delegated = v == "true";
+         } else if let Some(v) = line.strip_prefix("stagnation=") {
+-            _stagnation = v.parse::<i32>().unwrap_or(0);
++            stagnation = v.parse::<i32>().unwrap_or(0);
+         }
+     }
+-    let mut index = 50 + total * 4 - critical * 18 - major * 7;
++    let mut index = 50 + total * 4 - critical * 18 - major * 7 - stagnation;
+     if !delegated {
+         index -= 25;
+     }

@@ -1,0 +1,6 @@
+hostname: acc-hq-dal-bldg1-05
+migration_state: segmented
+canonical_vlan: 2006
+configured_vlan: 2006
+legacy_vlan: 107
+duplicate_vlan_conflict: false

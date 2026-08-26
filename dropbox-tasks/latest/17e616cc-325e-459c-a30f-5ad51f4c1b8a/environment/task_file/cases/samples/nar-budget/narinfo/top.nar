@@ -1,0 +1,7 @@
+STORE top
+CACHE cacheA
+NAR_HASH ntop
+NAR_SIZE 7
+SIGS a
+REFERENCES left,right
+DERIVER top.drv

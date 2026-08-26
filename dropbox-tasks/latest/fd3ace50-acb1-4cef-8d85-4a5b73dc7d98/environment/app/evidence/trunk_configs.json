@@ -1,0 +1,114 @@
+{
+  "switch_inventory": [
+    {
+      "switch_id": "core-switch-01",
+      "model": "Catalyst-9300",
+      "firmware": "17.6.3",
+      "management_ip": "192.168.1.1"
+    },
+    {
+      "switch_id": "access-switch-02",
+      "model": "Catalyst-9200",
+      "firmware": "17.6.3",
+      "management_ip": "192.168.1.2"
+    },
+    {
+      "switch_id": "access-switch-03",
+      "model": "Catalyst-9200",
+      "firmware": "17.6.1",
+      "management_ip": "192.168.1.3"
+    }
+  ],
+  "trunk_ports": [
+    {
+      "port_id": "Gi1/0/1",
+      "switch_id": "core-switch-01",
+      "mode": "trunk",
+      "encapsulation": "dot1q",
+      "native_vlan": 1,
+      "allowed_vlans": [1, 100, 200, 300, 400, 500],
+      "pruning_vlans": [],
+      "dtp_mode": "desirable",
+      "connected_to": "access-switch-02:Gi1/0/48"
+    },
+    {
+      "port_id": "Gi1/0/2",
+      "switch_id": "core-switch-01",
+      "mode": "trunk",
+      "encapsulation": "dot1q",
+      "native_vlan": 1,
+      "allowed_vlans": [1, 100, 200, 300, 400, 500],
+      "pruning_vlans": [],
+      "dtp_mode": "auto",
+      "connected_to": "access-switch-03:Gi1/0/48"
+    },
+    {
+      "port_id": "Gi1/0/48",
+      "switch_id": "access-switch-02",
+      "mode": "trunk",
+      "encapsulation": "dot1q",
+      "native_vlan": 100,
+      "allowed_vlans": [1, 100, 200, 300, 400, 500],
+      "pruning_vlans": [],
+      "dtp_mode": "desirable",
+      "connected_to": "core-switch-01:Gi1/0/1"
+    },
+    {
+      "port_id": "Gi1/0/48",
+      "switch_id": "access-switch-03",
+      "mode": "trunk",
+      "encapsulation": "dot1q",
+      "native_vlan": 200,
+      "allowed_vlans": [100, 200, 300, 400, 500],
+      "pruning_vlans": [],
+      "dtp_mode": "auto",
+      "connected_to": "core-switch-01:Gi1/0/2"
+    }
+  ],
+  "access_ports": [
+    {
+      "port_id": "Gi1/0/10",
+      "switch_id": "access-switch-02",
+      "mode": "access",
+      "access_vlan": 100,
+      "voice_vlan": null,
+      "port_security": true,
+      "max_mac": 2
+    },
+    {
+      "port_id": "Gi1/0/11",
+      "switch_id": "access-switch-02",
+      "mode": "access",
+      "access_vlan": 200,
+      "voice_vlan": 150,
+      "port_security": true,
+      "max_mac": 3
+    },
+    {
+      "port_id": "Gi1/0/12",
+      "switch_id": "access-switch-03",
+      "mode": "access",
+      "access_vlan": 300,
+      "voice_vlan": null,
+      "port_security": false,
+      "max_mac": 0
+    },
+    {
+      "port_id": "Gi1/0/13",
+      "switch_id": "access-switch-03",
+      "mode": "access",
+      "access_vlan": 400,
+      "voice_vlan": null,
+      "port_security": false,
+      "max_mac": 0
+    }
+  ],
+  "vlan_database": [
+    {"vlan_id": 1, "name": "default", "subnet": "192.168.1.0/24", "security_zone": "management"},
+    {"vlan_id": 100, "name": "workstations", "subnet": "10.10.10.0/24", "security_zone": "user"},
+    {"vlan_id": 200, "name": "servers", "subnet": "10.20.20.0/24", "security_zone": "server"},
+    {"vlan_id": 300, "name": "dmz", "subnet": "10.30.30.0/24", "security_zone": "dmz"},
+    {"vlan_id": 400, "name": "iot-devices", "subnet": "10.40.40.0/24", "security_zone": "restricted"},
+    {"vlan_id": 500, "name": "database", "subnet": "10.50.50.0/24", "security_zone": "critical"}
+  ]
+}

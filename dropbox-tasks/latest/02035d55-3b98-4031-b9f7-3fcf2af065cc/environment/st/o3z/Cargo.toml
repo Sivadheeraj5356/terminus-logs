@@ -1,0 +1,10 @@
+[package]
+name = "o3z"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+o0m = { path = "../../hv/o0m" }
+o2s = { path = "../../hv/o2s" }
+o4b = { path = "../o4b" }
+o7x = { path = "../o7x" }

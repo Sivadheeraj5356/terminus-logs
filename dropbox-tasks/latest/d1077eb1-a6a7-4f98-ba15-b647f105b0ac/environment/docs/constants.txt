@@ -1,0 +1,1 @@
+sample_rate reference scenarios use 320 Hz unless noted otherwise.

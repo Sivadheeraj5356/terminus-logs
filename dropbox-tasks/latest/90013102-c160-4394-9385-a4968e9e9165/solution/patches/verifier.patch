@@ -1,0 +1,15 @@
+--- internal/signature/verifier.go
++++ internal/signature/verifier.go
+@@ -66,10 +66,10 @@
+ 		return VerifyResult{OK: false, Reason: "profile_not_allowed"}
+ 	}
+ 
+-	secret, cacheHit := cache.Get(key.Tenant, key.KeyID, key.KeyEpoch)
++	secret, cacheHit := cache.Get(key.Tenant, key.KeyID, key.KeyEpoch, sem.ProfileID, sem.ProfileEpoch, catalogDigest)
+ 	if secret == nil {
+ 		secret = key.Secret
+-		cache.Put(key.Tenant, key.KeyID, key.KeyEpoch, secret, key.AllowedVersions, catalogDigest)
++		cache.Put(key.Tenant, key.KeyID, key.KeyEpoch, sem.ProfileID, sem.ProfileEpoch, secret, key.AllowedVersions, catalogDigest)
+ 		cacheHit = false
+ 	}
+ 

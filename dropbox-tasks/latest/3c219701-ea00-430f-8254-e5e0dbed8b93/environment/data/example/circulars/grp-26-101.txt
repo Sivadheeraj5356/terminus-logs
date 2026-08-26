@@ -1,0 +1,14 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-101
+ISSUER: REGULATOR
+ISSUED: 1767135600
+EFFECTIVE: 1767139200
+
+The regulator publishes the tariff bands for the operating week. The registry's own table
+is the fallback that applies only where no schedule is in force; it is not the schedule.
+
+DIRECTIVES:
+BANDS ALL 0:10 100:20 200:30
+END DIRECTIVES
+
+Nothing else in this circular is operative.

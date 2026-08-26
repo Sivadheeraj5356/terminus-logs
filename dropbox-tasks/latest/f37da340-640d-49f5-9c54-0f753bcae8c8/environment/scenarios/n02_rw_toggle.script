@@ -1,0 +1,4 @@
+# ro then rw toggle — epoch must advance on rw after ro
+profile alpha
+step ro target=data
+step rw target=data

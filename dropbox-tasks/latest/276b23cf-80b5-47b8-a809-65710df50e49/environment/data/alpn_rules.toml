@@ -1,0 +1,8 @@
+# ALPN selection rules for remote vantage material. When retain_challenge_on_retain_local
+# is true, rewritten remote material that still contains the challenge marker keeps
+# the challenge ALPN code; rewritten material without the marker uses the stripped code.
+
+[alpn]
+app_class = "app"
+retain_challenge_on_retain_local = "true"
+strip_alpn_without_marker = "true"

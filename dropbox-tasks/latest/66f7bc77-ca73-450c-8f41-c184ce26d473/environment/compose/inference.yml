@@ -1,0 +1,18 @@
+services:
+  inference-shadow:
+    image: atlasbatch/inference:2026.05
+    labels:
+      atlas.model_id: "rf-spam-v9"
+      atlas.sklearn_pin: "1.0.0"
+      atlas.artifact_digest: "sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdead"
+  inference:
+    image: atlasbatch/inference:2026.06
+    ports:
+      - "8080:8080"
+    environment:
+      MODEL_PATH: /models/rf-spam-v3.onnx
+      SKLEARN_VERSION: "1.4.2"
+    labels:
+      atlas.model_id: "rf-spam-v3"
+      atlas.sklearn_pin: "1.4.2"
+      atlas.artifact_digest: "sha256:a1b2c3d4e5f6789012345678abcdef0123456789abcdef0123456789abcd"

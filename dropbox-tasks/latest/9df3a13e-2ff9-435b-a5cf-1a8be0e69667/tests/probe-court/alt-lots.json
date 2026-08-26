@@ -1,0 +1,10 @@
+{
+  "lots": [
+    {"id": "H-one", "lanes": ["P1", "P2"], "score": 10, "weight": 1},
+    {"id": "H-two", "lanes": ["P3"], "score": 6, "weight": 1},
+    {"id": "H-three", "lanes": ["P2"], "score": 5, "weight": 1},
+    {"id": "H-four", "lanes": ["P4"], "score": 5, "weight": 1},
+    {"id": "H-five", "lanes": ["P1", "P4"], "score": 9, "weight": 1},
+    {"id": "H-six", "lanes": ["P3", "P4"], "score": 11, "weight": 1}
+  ]
+}

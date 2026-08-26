@@ -1,0 +1,4 @@
+scenario_id,regret_weight
+nominal,1.0
+steel_precision_loss,1.08
+deep_cut_instability,0.96

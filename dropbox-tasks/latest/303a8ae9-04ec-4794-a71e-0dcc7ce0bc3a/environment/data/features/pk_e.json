@@ -1,0 +1,44 @@
+[
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_e_base",
+      "entity_id": "ent_e1",
+      "valid_from_ms": 20000,
+      "ingested_ms": 21000,
+      "revoked": false,
+      "values": {
+        "score": 5,
+        "bias": 1
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_e_hot",
+      "entity_id": "ent_e1",
+      "valid_from_ms": 45000,
+      "ingested_ms": 46000,
+      "revoked": false,
+      "values": {
+        "score": 9,
+        "bias": 2
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_e_late",
+      "entity_id": "ent_e1",
+      "valid_from_ms": 44000,
+      "ingested_ms": 70000,
+      "revoked": false,
+      "values": {
+        "score": 1,
+        "bias": 0
+      }
+    }
+  }
+]

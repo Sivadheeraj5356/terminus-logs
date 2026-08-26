@@ -1,0 +1,12 @@
+[package]
+name = "sess"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+duel_core = { path = "../duel_core" }
+arena = { path = "../arena" }
+guess = { path = "../guess" }

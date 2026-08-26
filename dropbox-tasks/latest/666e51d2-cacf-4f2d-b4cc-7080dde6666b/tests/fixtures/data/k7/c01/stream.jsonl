@@ -1,0 +1,5 @@
+{"segment_id":"s0","era":1,"attach_id":"aid_c01_r1","track":7,"kind":"sealed","hard_limit":2048}
+{"segment_id":"s1","era":2,"attach_id":"aid_c01_r2","track":7,"kind":"commit","hard_limit":3072}
+{"segment_id":"s2","era":3,"attach_id":"aid_c01_r3_partial","track":7,"kind":"residue","hard_limit":4096}
+not-json corrupt tail fragment
+{"segment_id":"s3","era":3,"attach_id":"aid_c01_r3_final","track":7,"kind":"commit","hard_limit":4096}

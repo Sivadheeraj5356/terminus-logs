@@ -1,0 +1,61 @@
+# rotation permutation table
+[[row]]
+id = "r01"
+corpus = "j1,j2,j3,j4"
+lane = "base"
+step = 0
+
+[[row]]
+id = "r02"
+corpus = "j5,j6,j7,j8"
+lane = "base"
+step = 1
+
+[[row]]
+id = "r03"
+corpus = "j9,j10,j11,j12"
+lane = "base"
+step = 2
+
+[[row]]
+id = "r04"
+corpus = "j1,j5,j9"
+lane = "held"
+step = 3
+
+[[row]]
+id = "r05"
+corpus = "j2,j6,j10"
+lane = "held"
+step = 4
+
+[[row]]
+id = "r06"
+corpus = "j3,j7,j11"
+lane = "held"
+step = 5
+
+[[row]]
+id = "r07"
+corpus = "j4,j8,j12"
+lane = "held"
+step = 6
+
+[[row]]
+id = "r08"
+corpus = "j1,j5,j2,j6"
+lane = "held"
+step = 7
+
+[[row]]
+id = "r09"
+corpus = "j3,j7,j4,j8"
+lane = "held"
+step = 8
+
+[[row]]
+id = "r10"
+corpus = "j1,j2,j5,j6,j9,j10"
+lane = "held"
+step = 9
+

@@ -1,0 +1,2 @@
+mode minority
+nodes 5

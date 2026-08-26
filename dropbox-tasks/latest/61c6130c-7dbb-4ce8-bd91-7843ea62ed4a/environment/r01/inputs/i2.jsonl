@@ -1,0 +1,4 @@
+{"case_id":"m06","prompt_id":"p100","split":"challenge","lang":"de","text":"toxica basura repeat","component":"mod-core","package":"@safe/mod-core-legacy"}
+{"case_id":"m07","prompt_id":"p200","split":"challenge","lang":"sw","text":"dhamki ganda sasa","component":"lex-bridge","package":"@safe/lex-alias"}
+{"case_id":"m08","prompt_id":"p100","split":"challenge","lang":"ar","text":"samm toxic marker","component":"mod-core","package":"@safe/mod-core"}
+{"case_id":"m09","prompt_id":"p200","split":"challenge","lang":"es","text":"amenaza t0x1c","component":"lex-bridge","package":"@safe/lex-bridge"}

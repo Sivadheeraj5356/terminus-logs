@@ -1,0 +1,2 @@
+plain4: open ground with one blocked cell at (2,1)
+ridge: elevated wall down the middle column

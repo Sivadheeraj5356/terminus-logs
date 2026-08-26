@@ -1,0 +1,29 @@
+--- wal/frame.go
++++ wal/frame.go
+@@ -69,8 +69,8 @@
+ 	if err != nil {
+ 		return Frame{}, false
+ 	}
+-	var tip Frame
+-	found := false
++	var sealed Frame
++	foundSealed := false
+ 	for _, line := range splitLines(raw) {
+ 		if line == "" {
+ 			continue
+@@ -79,10 +79,12 @@
+ 		if json.Unmarshal([]byte(line), &fr) != nil {
+ 			continue
+ 		}
+-		tip = fr
+-		found = true
++		if fr.Sealed {
++			sealed = fr
++			foundSealed = true
++		}
+ 	}
+-	return tip, found
++	return sealed, foundSealed
+ }
+ 
+ func splitLines(raw []byte) []string {

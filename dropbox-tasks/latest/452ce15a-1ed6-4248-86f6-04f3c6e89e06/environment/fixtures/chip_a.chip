@@ -1,0 +1,10 @@
+family_id=FAM-PZ-A
+chip_id=PZ-A12
+profile_id=CAL-STD
+nominal_hz=32768000
+readings:
+segment: core
+1 25.0 32768000.0
+2 35.0 32769147.84
+segment: cold
+3 15.0 32766852.16

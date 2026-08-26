@@ -1,0 +1,13 @@
+# local_sink_epoch and remote_sink_epoch slot values used by the lab driver.
+
+[[epoch]]
+slot = "primary"
+value = "101"
+
+[[epoch]]
+slot = "secondary"
+value = "202"
+
+[[epoch]]
+slot = "tertiary"
+value = "303"

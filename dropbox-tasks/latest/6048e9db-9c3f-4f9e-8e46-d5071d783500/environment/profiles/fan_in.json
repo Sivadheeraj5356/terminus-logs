@@ -1,0 +1,13 @@
+{
+  "config_id": "fan_in",
+  "seed": 13,
+  "profile": "fan_in",
+  "graph_id": "fan_in",
+  "tick_horizon": 36,
+  "node_count": 4,
+  "partition_count": 8,
+  "flags": {
+    "strict_deps": true,
+    "partition_trace": true
+  }
+}

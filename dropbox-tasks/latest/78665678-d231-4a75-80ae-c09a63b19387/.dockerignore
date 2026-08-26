@@ -1,0 +1,9 @@
+.git
+.gitignore
+.mypy_cache
+.pytest_cache
+.ruff_cache
+__pycache__
+*.pyc
+environment/task_file/output_data
+environment/task_file/opt

@@ -1,0 +1,36 @@
+--- environment/k4/src/lib.rs	2026-07-07 08:59:40.426278174 +0000
++++ lib.rs	2026-07-07 08:59:40.427052706 +0000
+@@ -1,4 +1,4 @@
+-use rusqlite::{params, Connection};
++use rusqlite::{params, Connection, OptionalExtension};
+ use std::path::Path;
+ use thiserror::Error;
+ 
+@@ -137,11 +137,24 @@
+         std::fs::metadata(path).map(|m| m.len()).unwrap_or(0)
+     }
+ 
+-    pub fn seal_generation(&mut self, _gen: u32) -> Result<(), StoreError> {
++    pub fn seal_generation(&mut self, gen: u32) -> Result<(), StoreError> {
++        self.conn.execute(
++            "INSERT INTO generation_seals (pool_generation, sealed) VALUES (?1, 1)
++             ON CONFLICT(pool_generation) DO UPDATE SET sealed = 1",
++            params![gen],
++        )?;
+         Ok(())
+     }
+ 
+-    pub fn is_generation_sealed(&self, _gen: u32) -> Result<bool, StoreError> {
+-        Ok(true)
++    pub fn is_generation_sealed(&self, gen: u32) -> Result<bool, StoreError> {
++        let sealed: Option<i32> = self
++            .conn
++            .query_row(
++                "SELECT sealed FROM generation_seals WHERE pool_generation = ?1",
++                params![gen],
++                |r| r.get(0),
++            )
++            .optional()?;
++        Ok(sealed.unwrap_or(0) != 0)
+     }
+ }

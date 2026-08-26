@@ -1,0 +1,4 @@
+id = "pri_lo"
+epoch = "e_lo"
+tol_prefix = 48
+band = "lo"

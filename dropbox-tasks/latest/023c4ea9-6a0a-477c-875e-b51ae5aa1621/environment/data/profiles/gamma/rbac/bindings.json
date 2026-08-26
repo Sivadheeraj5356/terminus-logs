@@ -1,0 +1,6 @@
+[
+  {
+    "subject": "sa-mesh",
+    "role": "k8s-bind"
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "name": "remote",
+  "arms": [
+    {
+      "name": "data",
+      "opts": "rw",
+      "remote": true,
+      "order_hint": 10,
+      "what": "/srv/backing/remote/data",
+      "where": "/srv/arms/remote/data"
+    },
+    {
+      "name": "scratch",
+      "opts": "rw,_nf",
+      "remote": true,
+      "order_hint": 20,
+      "what": "/srv/backing/remote/scratch",
+      "where": "/srv/arms/remote/scratch"
+    },
+    {
+      "name": "archive",
+      "opts": "ro,_nf",
+      "remote": true,
+      "order_hint": 30,
+      "what": "/srv/backing/remote/archive",
+      "where": "/srv/arms/remote/archive"
+    },
+    {
+      "name": "mirror",
+      "opts": "ro",
+      "remote": true,
+      "order_hint": 40,
+      "what": "/srv/backing/remote/mirror",
+      "where": "/srv/arms/remote/mirror"
+    }
+  ],
+  "units": [
+    {"gen_opts": "rw,_nf", "hand_opts": "rw,_nf"}
+  ]
+}

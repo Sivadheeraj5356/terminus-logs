@@ -1,0 +1,27 @@
+# Keep the runtime image context narrow and exclude author/reviewer material.
+.git
+.gitignore
+**/.mypy_cache/
+**/.ruff_cache/
+**/__pycache__/
+**/node_modules/
+target/
+dist/
+.venv/
+venv/
+*.log
+.env
+solution/
+tests/
+specs/
+Task_Authoring/
+Task_Ready_To_Submit/
+answer.txt
+construction_manifest.json
+output_contract.toml
+jobs/
+logs/
+**/*.pyc
+**/.pytest_cache/
+build/
+bin/

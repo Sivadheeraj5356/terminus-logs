@@ -1,0 +1,38 @@
+--- a/pkg/surfaceband/rules.go
++++ b/pkg/surfaceband/rules.go
+@@ -6,14 +6,32 @@
+ 	if len(lotLanes) == 0 {
+ 		return "", false
+ 	}
+-	for _, id := range lotLanes {
+-		if _, exists := lanes[id]; !exists {
++	var first string
++	groups := map[string]bool{}
++	for i, id := range lotLanes {
++		ln, exists := lanes[id]
++		if !exists {
+ 			return "", false
+ 		}
++		if i == 0 {
++			first = ln.Band
++		} else if ln.Band != first {
++			return "", false
++		}
++		if groups[ln.MutexGroup] {
++			return "", false
++		}
++		groups[ln.MutexGroup] = true
+ 	}
+-	return lanes[lotLanes[0]].Band, true
++	return first, true
+ }
+ 
+ func MutexClash(laneIDs []string, usedGroups map[string]bool, lanes map[string]rinklayout.Lane) bool {
++	for _, id := range laneIDs {
++		ln := lanes[id]
++		if usedGroups[ln.MutexGroup] {
++			return true
++		}
++	}
+ 	return false
+ }

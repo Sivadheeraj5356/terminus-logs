@@ -1,0 +1,64 @@
+{
+  "entries": [
+    {
+      "features": [
+        "base",
+        "min",
+        "tls"
+      ],
+      "hash": "h-cliapp-1.8.0-linux-x64-base_min_tls",
+      "name": "cliapp",
+      "toolchain": "linux-x64",
+      "version": "1.8.0"
+    },
+    {
+      "features": [
+        "base",
+        "tls"
+      ],
+      "hash": "h-libcore-1.9.0-linux-x64-base_tls",
+      "name": "libcore",
+      "toolchain": "linux-x64",
+      "version": "1.9.0"
+    },
+    {
+      "features": [
+        "base",
+        "ffi",
+        "tls"
+      ],
+      "hash": "h-libcore-1.4.0-linux-x64-base_ffi_tls",
+      "name": "libcore",
+      "toolchain": "linux-x64",
+      "version": "1.4.0"
+    },
+    {
+      "features": [
+        "base"
+      ],
+      "hash": "h-baseutil-1.7.0-linux-x64-base",
+      "name": "baseutil",
+      "toolchain": "linux-x64",
+      "version": "1.7.0"
+    },
+    {
+      "features": [
+        "base"
+      ],
+      "hash": "h-testpkg-runner-1.0.0-linux-x64-base",
+      "name": "testpkg-runner",
+      "toolchain": "linux-x64",
+      "version": "1.0.0"
+    },
+    {
+      "features": [
+        "base",
+        "thin"
+      ],
+      "hash": "h-thin-adapter-1.5.0-linux-x64-base_thin",
+      "name": "thin-adapter",
+      "toolchain": "linux-x64",
+      "version": "1.5.0"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+Offline bracket desk — loopback referee only. Harness pytest runs with --ctrf when validating probe snapshots.
+
+Keep probe lanes reading live deskctl outputs and the materialized move-rule store. Avoid hardcoding snapshot fields when validating against alternate fixtures.

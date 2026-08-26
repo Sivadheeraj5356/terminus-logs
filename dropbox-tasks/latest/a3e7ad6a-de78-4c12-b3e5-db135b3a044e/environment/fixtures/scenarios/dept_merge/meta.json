@@ -1,0 +1,6 @@
+{
+  "scenario_id": "dept_merge",
+  "required_clearance": "",
+  "rollout_epoch": 10,
+  "topology_revision": "topo-rev-dept"
+}

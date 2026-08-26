@@ -1,0 +1,179 @@
+BasinSpan neuron-alignment merge contract
+=========================================
+
+Build
+-----
+Executables:
+  /app/environment/build/basinspan-run
+  /app/environment/build/basinspan-probe
+  /app/environment/build/basinspan-audit
+  /app/environment/build/basinspan-inspect
+Rust helper: /app/environment/build/bs7-core (stdin JSON merge kernel)
+
+Entrypoints
+-----------
+basinspan-run
+  Reads manifest + policy, evaluates each profile, writes
+  /app/output/merge_report.json, /app/output/alignment_trace.csv,
+  /app/output/merge_journal.jsonl, /app/output/barrier_certificate.json,
+  /app/var/basinspan/align_cache.json, /app/var/basinspan/merge_ledger.json.
+basinspan-run --reset
+  Clears /app/var/basinspan/ then runs at generation=1.
+basinspan-run without --reset
+  Preserves /app/var/basinspan/ and increments generation by 1.
+
+Bundled manifest profiles (see /app/environment/data/manifest.toml)
+  alpha, beta, gamma — valid 4→6→6→2 FFN pair fixtures
+  invalid — mismatched model_b architecture; rejected
+
+Environment overrides
+---------------------
+BASINSPAN_MANIFEST — alternate manifest path
+BASINSPAN_PAIR_DIR — alternate pairs directory (default /app/environment/data/pairs)
+BASINSPAN_POLICY_EPOCH — integer overriding policy policy_epoch for cache invalidation.
+  Tests may set this to 7 while the bundled policy uses policy_epoch 3.
+
+Pair JSON
+---------
+{
+  "pair_id": "<id>",
+  "arch": {"input_dim":4,"hidden_dims":[6,6],"output_dim":2},
+  "align_samples": [[f,...], ...],
+  "eval_samples": [[f,...], ...],
+  "model_a": {"layers":[{"W":[[...]],"b":[...]}, ...]},
+  "model_b": {"layers":[{"W":[[...]],"b":[...]}, ...]}
+}
+Each layer W is out_dim×in_dim row-major; ReLU between hidden layers, linear output.
+Reject when layer shapes disagree with arch for either model. Rejected profiles set
+accepted=false and leave merge_digest_hex empty.
+
+Policy JSON (/app/environment/data/policy.json)
+policy_epoch (int), merge_weight (float in [0,1]).
+
+Merge kernel (bs7-core)
+-----------------------
+Input JSON on stdin:
+{
+  "arch": {...},
+  "align_samples": [[...]],
+  "eval_samples": [[...]],
+  "model_a": {"layers": [...]},
+  "model_b": {"layers": [...]},
+  "merge_weight": <float>
+}
+
+Algorithm requirements:
+  1. Forward both models on align_samples; collect hidden activations after each
+     hidden layer (post-ReLU).
+  2. For each hidden layer L, build Pearson correlation matrix C where C[i][j] is
+     Pearson correlation between neuron i activations in model_a and neuron j in
+     model_b across align_samples. Do NOT use weight-row dot products.
+  3. Solve assignment with Hungarian algorithm on cost[i][j] = 1 - max(0, C[i][j]).
+     perm[L][i] = matched model_b neuron index for model_a neuron i.
+  4. Propagate permutations when aligning model_b weights (align_model_b):
+     For each hidden layer L in 0..H-1:
+       a. permute rows of W and b at layer L by perm[L];
+       b. permute columns of W at layer L+1 by perm[L] (before any row permutation at L+1).
+     After that loop, apply one more column permutation to the output layer:
+       layers[-1].W = permute_cols(layers[-1].W, perms[H-1]).
+     The post-loop output step is required even when the last loop iteration already
+     permuted the output columns via step 4b — both applications must be performed.
+  5. Merge aligned model_b with model_a using merge_weight:
+     W_m = merge_weight*W_a + (1-merge_weight)*W_b_aligned (same for b).
+  6. eval_mse = mean squared error between merged and model_a outputs on eval_samples.
+     naive_mse uses unaligned model_b. barrier_value = naive_mse - eval_mse.
+
+Output JSON:
+{
+  "ok": true,
+  "align_cost": <float>,
+  "eval_mse": <float>,
+  "naive_mse": <float>,
+  "barrier_value": <float>,
+  "permutations": [[int,...], ...],
+  "trace": [{"layer":int,"neuron_a":int,"neuron_b":int,"correlation":float,"assignment_cost":float}, ...],
+  "merge_digest_hex": "<sha256 hex>"
+}
+
+merge_digest_hex = sha256 hex of UTF-8:
+  layers=<n>|mse=<eval_mse 6 decimals>|cost=<align_cost 6 decimals>|perms=<perm rows joined by ; comma inside>
+  where <n> is the hidden layer count (len(hidden_dims)), not the total model layer
+  count (hidden layers + output layer).
+
+Pipeline export
+---------------
+For accepted profiles, report eval_mse, align_cost, barrier_value, merge_digest_hex,
+and per-layer permutations must come from the kernel. barrier_certificate.json must
+use kernel permutations and barrier_value for the last accepted profile in manifest
+order.
+
+Cache (/app/var/basinspan/align_cache.json)
+---------------------------------------------------------------
+{
+  "policy_epoch": <int>,
+  "entries": {
+    "<cache_key>": {
+      "pair_digest_hex": "<sha256 hex>",
+      "merge_digest_hex": "<sha256 hex>",
+      "eval_mse": <float>,
+      "barrier_value": <float>,
+      "align_cost": <float>
+    }
+  }
+}
+cache_key = sha256(pair bytes) + "|epoch=" + policy_epoch.
+On lookup, treat a row as a hit only when the entry key matches and
+align_cache.json policy_epoch equals the active policy epoch.
+When policy_epoch changes, stale cache rows must not satisfy a new run.
+
+Ledger
+------
+merge_ledger.json tracks generation, policy_epoch, and per-label stable_runs.
+stable_runs increments when merge_digest_hex matches previous run for that label.
+
+Output schemas
+--------------
+/app/output/merge_report.json
+  generation, policy_epoch, report_digest_hex, profiles[]
+  Each profile: label, pair_id, accepted, pair_digest_hex, merge_digest_hex (empty when rejected),
+  align_cost, eval_mse, naive_mse, barrier_value, permutations
+
+report_digest_hex = sha256 line:
+  gen=<generation>|epoch=<policy_epoch>|digests=<comma-sorted merge_digest_hex list>
+
+/app/output/alignment_trace.csv
+  Header: label,layer,neuron_a,neuron_b,correlation,assignment_cost
+  One row per hidden neuron assignment for accepted profiles.
+
+/app/output/merge_journal.jsonl
+  One JSON object per accepted profile: label, eval_mse, barrier_value, align_cost.
+
+/app/output/barrier_certificate.json
+  label, pair_id, eval_mse, barrier_value, permutations, cert_digest_hex
+
+cert_digest_hex = sha256 line:
+  label=<label>|barrier=<barrier 6 decimals>|mse=<eval_mse 6 decimals>|perms=<perm string>
+
+CLI helpers
+-----------
+basinspan-probe <label> prints: mse=<eval_mse>|barrier=<barrier_value>|digest=<merge_digest_hex>
+  or reject:<label> when not accepted. Exit 1 if label missing.
+
+basinspan-audit <label> prints: cert_barrier=<barrier_value>|cert_mse=<eval_mse>
+  using barrier_certificate.json. Exit 1 on label mismatch.
+
+basinspan-inspect prints: gen=<generation>|stable_total=<sum stable_runs>
+
+Verifier fixture vault
+----------------------
+/var/lib/verifier/pairs-vault stores pristine copies of bundled pair JSON.
+Grading may restore a pair from this vault and mutate weights before rerunning.
+
+Numeric comparison
+------------------
+Accepted profile kernel metrics must satisfy abs eval_mse - eval_mse < 1e-4,
+abs align_cost - align_cost < 1e-4, and abs barrier_value - barrier_value < 1e-4
+absolute tolerance against the contract algorithms. Journal cross-artifact checks
+must satisfy abs eval_mse - eval_mse < 1e-6 and abs barrier_value - barrier_value
+< 1e-6 against merge_report.json. On bundled alpha, aligned merging must yield
+barrier_value greater than 0.001.

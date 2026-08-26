@@ -1,0 +1,5 @@
+workstation_id,hostname,chip_family,kernel_release,fixture_workload,ptrace_scope,core_pattern,suid_dumpable,coredump_conf_present,in_debug_group,in_media_group,ulimit_core_soft,ulimit_core_hard,scratch_perms,scratch_owner,scratch_group,fs_immutable
+ws-001,render-a01,intel,6.6.32,tiff,3,|/bin/false,2,false,false,true,0,0,0770,root,media,false
+ws-002,render-a02,intel,6.6.32,png,1,|/bin/false,2,false,true,true,0,0,2770,mediauser,media,false
+ws-003,render-a03,intel,6.6.32,mp4,0,core,1,true,true,true,unlimited,unlimited,2770,mediauser,media,false
+ws-010,render-d01,intel,6.6.32,tiff,1,core,2,false,true,true,4096,4096,2770,mediauser,media,false

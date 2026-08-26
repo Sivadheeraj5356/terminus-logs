@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SpoolRecord",
+  "type": "object",
+  "required": [
+    "schema_version", "record_id", "sequence", "state", "wire_digest",
+    "semantic_request", "signature_header", "decision_digest", "seal"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer" },
+    "record_id": { "type": "string" },
+    "sequence": { "type": "integer" },
+    "created_at": { "type": "string" },
+    "state": { "enum": ["pending", "completed", "quarantine"] },
+    "replay_count": { "type": "integer" },
+    "wire_digest": { "type": "string" },
+    "raw_wire_path": { "type": "string" },
+    "body_path": { "type": "string" },
+    "semantic_request": { "type": "object" },
+    "signature_header": { "type": "string" },
+    "decision_digest": { "type": "string" },
+    "seal": { "type": "string" }
+  }
+}

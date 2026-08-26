@@ -1,0 +1,21 @@
+{
+  "files": {
+    "config/keyring-public.json": "490280a5d7a5b34ee0571b4a1e7204fd2a9387f2f864b1177d0e002968785332",
+    "config/profiles/current-2026.json": "ef6e250bf21f95f2d95d07d0ef1681708e9c18c9de50dfdcb2429a82e5dd3dea",
+    "config/profiles/legacy-2024.json": "d2210bb202fafb4bbfd3f0139254bbdc9acc4a9fed2dc0e0a164d8b988c20d67",
+    "config/profiles/transition-2025.json": "2bd0e445a0dcd08443af3b246d80ff6a1ff4f23b69294175ea3fa3c71d1f69b0",
+    "config/proxy.json": "69e3b5039803b9a056447533a97d1451395fb185422589118bb2420762c4d427",
+    "data/expected-public/simple-current.backend.json": "c5e7dfb3bda5fb06b289ed4a6da4244f3e4cdc4a8529a8849844ef50d7d656a2",
+    "data/expected-public/simple-legacy.backend.json": "5ba34fbbe2e18fdcee708ebf93be86f8638e0d867dfb243723c1e93da34bdcd8",
+    "data/manifest.sha256": "6673ac0d633759422ced7236b3d1a6d1e1a1b8bc31457b2f8974a55853fa8fe1",
+    "data/requests/duplicate-list-current.http": "297274ff16c55d23eb39cd5667661760e82c872377a77c30cea460a42c625680",
+    "data/requests/encoded-target-current.http": "9fbf3d0779bbc91908f59b436995d6fad710c94b8cd041bbd2b24140677579fa",
+    "data/requests/simple-current.http": "dc1a8a2565fac9e166a512187fa89c7d38eac04b91f78c681545a26e079e8683",
+    "data/requests/simple-legacy.http": "3b78c4584f13e70b2ba88145b9e7f96a4ece9474c0d4f9ab2965adca2aea9886",
+    "docs/keyring.schema.json": "e95b3d2cbe9f957438f050d14ba6b70e6ac8fb1806eed66c718dfd7a4fe28d5e",
+    "docs/operator-runbook.md": "5f68c7a0e6728e8540426ffcf7c1f99edc21f7748a22b83c83953a3f28cc0bd6",
+    "docs/request-semantics.md": "00187d4f7c38e43a870f6822711c3e81a9c6ef65f76e6001f47ed84a712a026f",
+    "docs/request-trace.schema.json": "573c6db3933da6c6612a4b4cd2499500c798e0a39672865be72ab9d922ee2b95",
+    "docs/spool-record.schema.json": "4574c08ba3b14eb5acebb48f6a001711ad1b84089d81d0df9b0bcdc971e14214"
+  }
+}

@@ -1,0 +1,18 @@
+<!-- Offline assembly layout notes for the packaging lattice simulator.
+     Not executed by Maven; classifier and binding ids mirror modules/. -->
+<assembly>
+  <id>ffm-native-lattice</id>
+  <formats>
+    <format>dir</format>
+  </formats>
+  <classifierSets>
+    <classifier>linux-x86_64</classifier>
+    <classifier>linux-aarch64</classifier>
+    <classifier>stub</classifier>
+  </classifierSets>
+  <bindings>
+    <stamp>jx-x64</stamp>
+    <stamp>jx-arm</stamp>
+    <stamp>jx-stub</stamp>
+  </bindings>
+</assembly>

@@ -1,0 +1,6 @@
+[
+  {"id": "log-ssh",   "action": "log",   "src": "0.0.0.0/0",   "dst": "0.0.0.0/0",      "port_min": 22, "port_max": 22, "protocol": "tcp", "direction": "inbound", "priority": 900},
+  {"id": "deny-ssh",  "action": "deny",  "src": "10.9.0.0/16", "dst": "192.168.0.0/16", "port_min": 22, "port_max": 22, "protocol": "tcp", "direction": "inbound", "priority": 500},
+  {"id": "allow-ssh", "action": "allow", "src": "10.0.0.0/8",  "dst": "192.168.0.0/16", "port_min": 22, "port_max": 22, "protocol": "tcp", "direction": "inbound", "priority": 400},
+  {"id": "allow-web", "action": "allow", "src": "0.0.0.0/0",   "dst": "192.168.1.0/24", "port_min": 80, "port_max": 80, "protocol": "tcp", "direction": "inbound", "priority": 400}
+]

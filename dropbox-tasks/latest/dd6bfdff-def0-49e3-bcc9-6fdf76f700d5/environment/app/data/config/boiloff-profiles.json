@@ -1,0 +1,26 @@
+[
+  {
+    "insulation_class": "standard",
+    "heat_leak_w_m2": 0.085,
+    "lng_density_kg_m3": 422,
+    "latent_heat_kj_kg": 510,
+    "allowable_imbalance_pct": 2.0,
+    "relief_pressure_drop_kpag": 50
+  },
+  {
+    "insulation_class": "premium",
+    "heat_leak_w_m2": 0.052,
+    "lng_density_kg_m3": 422,
+    "latent_heat_kj_kg": 510,
+    "allowable_imbalance_pct": 1.5,
+    "relief_pressure_drop_kpag": 45
+  },
+  {
+    "insulation_class": "economy",
+    "heat_leak_w_m2": 0.12,
+    "lng_density_kg_m3": 422,
+    "latent_heat_kj_kg": 510,
+    "allowable_imbalance_pct": 3.0,
+    "relief_pressure_drop_kpag": 55
+  }
+]

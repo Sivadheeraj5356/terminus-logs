@@ -1,0 +1,95 @@
+{
+  "jobs": [
+    {
+      "name": "etc_hosts",
+      "steps": [
+        { "op": "read", "path": "/etc/hosts" }
+      ]
+    },
+    {
+      "name": "var_syslog",
+      "steps": [
+        { "op": "read", "path": "/var/log/syslog" }
+      ]
+    },
+    {
+      "name": "bin_tool",
+      "steps": [
+        { "op": "read", "path": "/usr/bin/tool" }
+      ]
+    },
+    {
+      "name": "bin_evil",
+      "steps": [
+        { "op": "read", "path": "/usr/bin/evil" }
+      ]
+    },
+    {
+      "name": "bin_ghost",
+      "steps": [
+        { "op": "read", "path": "/usr/bin/ghost" }
+      ]
+    },
+    {
+      "name": "lib_ok",
+      "steps": [
+        { "op": "read", "path": "/lib/libc.so" }
+      ]
+    },
+    {
+      "name": "lib_bad",
+      "steps": [
+        { "op": "read", "path": "/lib/bad.so" }
+      ]
+    },
+    {
+      "name": "tmp_read",
+      "steps": [
+        { "op": "read", "path": "/tmp/scratch" }
+      ]
+    },
+    {
+      "name": "usrlib_ok",
+      "steps": [
+        { "op": "read", "path": "/usr/lib/libhelper.so" }
+      ]
+    },
+    {
+      "name": "usrlib_bad",
+      "steps": [
+        { "op": "read", "path": "/usr/lib/librogue.so" }
+      ]
+    },
+    {
+      "name": "libre_office",
+      "steps": [
+        { "op": "read", "path": "/libreoffice/writer" }
+      ]
+    },
+    {
+      "name": "usr_share",
+      "steps": [
+        { "op": "read", "path": "/usr/share/misc" }
+      ]
+    },
+    {
+      "name": "bin_dupslash",
+      "steps": [
+        { "op": "read", "path": "/usr/bin//tool" }
+      ]
+    },
+    {
+      "name": "sbin_daemon",
+      "steps": [
+        { "op": "read", "path": "/sbin/daemon" }
+      ]
+    },
+    {
+      "name": "chain_hosts_bin",
+      "steps": [
+        { "op": "read", "path": "/etc/hosts" },
+        { "op": "read", "path": "/usr/bin/tool" }
+      ]
+    }
+  ]
+}

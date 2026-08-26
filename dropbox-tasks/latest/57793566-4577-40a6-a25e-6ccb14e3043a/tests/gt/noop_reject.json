@@ -1,0 +1,52 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "blk",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 1
+    },
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 2
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 3
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 4
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 5
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 6
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 7
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "noop_reject"
+}

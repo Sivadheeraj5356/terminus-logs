@@ -1,0 +1,3 @@
+{"cargo_id":"hp01","zone":"Abyss Lab","wave_m":1.0,"dock_min":60,"tide_ms":0,"psi":400,"lane":"standard","base_min":5,"priority":90,"needs_rov":false,"m3":1.0,"cold":false,"o2":1}
+{"cargo_id":"hp02","zone":"Trench Pod","wave_m":1.0,"dock_min":62,"tide_ms":0,"psi":430,"lane":"standard","base_min":5,"priority":85,"needs_rov":false,"m3":1.0,"cold":false,"o2":2}
+{"cargo_id":"hp03","zone":"Midwater","wave_m":1.0,"dock_min":64,"tide_ms":0,"psi":450,"lane":"standard","base_min":5,"priority":80,"needs_rov":false,"m3":1.0,"cold":false,"o2":3}

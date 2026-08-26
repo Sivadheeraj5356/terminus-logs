@@ -1,0 +1,7 @@
+apiVersion: v2
+name: stack
+version: "1.0.0"
+dependencies:
+  - name: metrics
+    version: "1.0.0"
+    condition: metrics.enabled

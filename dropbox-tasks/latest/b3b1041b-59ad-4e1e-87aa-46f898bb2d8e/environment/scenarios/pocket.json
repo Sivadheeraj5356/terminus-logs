@@ -1,0 +1,46 @@
+{
+  "grid": "pocket",
+  "slice_mode": "part",
+  "slice": "pocket_part.bin",
+  "base_cfg": {
+    "root_q": {
+      "kid": "k_root",
+      "mode": "std"
+    },
+    "lim": 4
+  },
+  "overlay": {
+    "lim": 4,
+    "__p": {
+      "x": 1
+    },
+    "x_def": {
+      "kid": "k_evil"
+    },
+    "root_q": {
+      "mode": "std"
+    }
+  },
+  "tokens": [
+    {
+      "id": "p01",
+      "kid": "k_b",
+      "alg": "RS256"
+    },
+    {
+      "id": "p02",
+      "kid": "k_b",
+      "alg": "RS256"
+    },
+    {
+      "id": "p03",
+      "kid": "k_d",
+      "alg": "RS256"
+    }
+  ],
+  "meta_remap": {
+    "p01": "p01m",
+    "p02": "p02m"
+  },
+  "expect_focus": "smoke"
+}

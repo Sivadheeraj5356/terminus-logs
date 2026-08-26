@@ -1,0 +1,4 @@
+addr 217.107.223.172 hex 0x2bb2 token tok_864
+addr 214.82.220.118 hex 0x3d19 token tok_300
+colour delta hello hello true
+bar true hello foobar banana baz

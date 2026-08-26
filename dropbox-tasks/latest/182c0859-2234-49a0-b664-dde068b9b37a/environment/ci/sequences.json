@@ -1,0 +1,11 @@
+{
+  "sequences": [
+    {"id": "cold_only", "steps": ["pass0"]},
+    {"id": "header_chain", "steps": ["pass0", "pass1"]},
+    {"id": "abi_chain", "steps": ["pass0", "pass2"]},
+    {"id": "full_chain", "steps": ["pass0", "pass1", "pass2"]},
+    {"id": "sidecar_replay", "steps": ["pass0", "pass1", "pass3"]},
+    {"id": "replay_abi_chain", "steps": ["pass0", "pass1", "pass3", "pass2"]},
+    {"id": "double_replay", "steps": ["pass0", "pass1", "pass3", "pass4"]}
+  ]
+}

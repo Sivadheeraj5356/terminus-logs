@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "archive": "meta-svc.tbundle",
+  "restore_prefix": "meta",
+  "preserve_paths": [
+    "meta/.operator-marker"
+  ],
+  "entries": [
+    {
+      "path": "var/cache/token",
+      "type": "file",
+      "mode": "0640",
+      "mapped_uid": 65534,
+      "mapped_gid": 65534,
+      "content_sha256": "7c6ed215cb72a66d1b01c6bd0d5ce47ab9df801869c5535e45cf85e251012d5b",
+      "xattr": {
+        "user.svc.scope": "cache"
+      },
+      "acl": [
+        "user::rw-",
+        "group::---",
+        "other::---"
+      ],
+      "hardlink_group": "hl-shared"
+    },
+    {
+      "path": "lib/exec/shared.bin",
+      "type": "hardlink",
+      "mode": "0640",
+      "mapped_uid": 65534,
+      "mapped_gid": 65534,
+      "content_sha256": "7c6ed215cb72a66d1b01c6bd0d5ce47ab9df801869c5535e45cf85e251012d5b",
+      "hardlink_group": "hl-shared"
+    },
+    {
+      "path": "etc/link",
+      "type": "symlink",
+      "mode": "0777",
+      "mapped_uid": 65534,
+      "mapped_gid": 65534,
+      "symlink_target": "../var/cache/token"
+    },
+    {
+      "path": "service/state",
+      "type": "dir",
+      "mode": "0700",
+      "mapped_uid": 101001,
+      "mapped_gid": 101001
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+ordinance: ORD-1989-02
+jurisdiction: Aurelia-Corrin
+enacted: 1989-01-30
+effective: 1989-03-26T00:00:00 universal
+standard-offset: +08:00:00
+standard-label: numeric
+observance:
+  begin: Mar lastSun 00:00:00 universal save +01:00:00 label numeric
+  end: Oct lastSun 00:00:00 universal

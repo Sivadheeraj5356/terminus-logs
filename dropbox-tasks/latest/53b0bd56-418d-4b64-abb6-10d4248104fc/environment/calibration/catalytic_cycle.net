@@ -1,0 +1,13 @@
+network	catalytic_cycle
+species	A	K	B	C
+initial	A	1
+initial	K	0.050000000000000003
+initial	B	0
+initial	C	0
+reaction	90	A + K -> B + K
+reaction	40	B + K -> C + K
+reaction	0.25	C -> A
+reaction	0.01	K -> C
+horizon	0	15
+rtol	9.9999999999999995e-07
+atol	1.0000000000000001e-09

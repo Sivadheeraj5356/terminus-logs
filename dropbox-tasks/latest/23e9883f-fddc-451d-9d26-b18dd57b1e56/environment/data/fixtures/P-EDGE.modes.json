@@ -1,0 +1,110 @@
+[
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M1",
+    "locale": "L19A",
+    "omega_obs": 14.491916,
+    "omega_ref": 14.0,
+    "excit": 0.7
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M1",
+    "locale": "L19B",
+    "omega_obs": 14.852578,
+    "omega_ref": 14.4,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M1",
+    "locale": "L19C",
+    "omega_obs": 15.062624,
+    "omega_ref": 14.8,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M2",
+    "locale": "L19A",
+    "omega_obs": 14.409945,
+    "omega_ref": 14.0,
+    "excit": 0.7
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M2",
+    "locale": "L19B",
+    "omega_obs": 14.891497,
+    "omega_ref": 14.4,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M2",
+    "locale": "L19C",
+    "omega_obs": 14.99048,
+    "omega_ref": 14.8,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M3",
+    "locale": "L19A",
+    "omega_obs": 14.507674,
+    "omega_ref": 14.0,
+    "excit": 0.7
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M3",
+    "locale": "L19B",
+    "omega_obs": 14.879267,
+    "omega_ref": 14.4,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M3",
+    "locale": "L19C",
+    "omega_obs": 15.065136,
+    "omega_ref": 14.8,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M4",
+    "locale": "L19A",
+    "omega_obs": 14.382084,
+    "omega_ref": 14.0,
+    "excit": 0.7
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M4",
+    "locale": "L19B",
+    "omega_obs": 14.870422,
+    "omega_ref": 14.4,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-EDGE",
+    "family": "heldout_edge",
+    "mode": "M4",
+    "locale": "L19C",
+    "omega_obs": 14.982376,
+    "omega_ref": 14.8,
+    "excit": 0.8
+  }
+]

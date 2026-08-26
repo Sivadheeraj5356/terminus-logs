@@ -1,0 +1,7 @@
+[
+  { "tier": 2, "verb": "log", "bind": { "root": "/usr" } },
+  { "tier": 2, "verb": "log", "bind": { "root": "/usr/lib" } },
+  { "tier": 2, "verb": "check_hmac", "bind": { "root": "/usr/lib" } },
+  { "tier": 2, "verb": "check_sig", "bind": { "root": "/usr/lib" } },
+  { "tier": 0, "verb": "log", "bind": { "root": "/usr/share" } }
+]

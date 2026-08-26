@@ -1,0 +1,2 @@
+{"log_id":"rekor-a","operator_domain":"rekor-primary","log_secret":"log-a-secret","not_before":"2025-01-01T00:00:00Z","not_after":"2027-01-01T00:00:00Z"}
+{"log_id":"rekor-b","operator_domain":"rekor-secondary","log_secret":"log-b-secret","not_before":"2025-01-01T00:00:00Z","not_after":"2027-01-01T00:00:00Z"}

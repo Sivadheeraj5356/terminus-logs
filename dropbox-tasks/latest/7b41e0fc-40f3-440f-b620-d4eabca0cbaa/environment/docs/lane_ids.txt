@@ -1,0 +1,9 @@
+# Bundled lane fixture ids (one JSON file per id under /app/data/lanes/).
+# lane_alpha is the alpha fixture; reload overlays may replace its row at higher wrap_epoch.
+
+lane_alpha
+lane_beta
+lane_delta
+lane_epsilon
+lane_gamma
+lane_zeta

@@ -1,0 +1,14 @@
+== Vault of Echoes [crystal] ==
+Omen: Salt and silence.
+Light: 9.0 lumens
+Relics:
+  - Crystal Eye <legendary> 90g
+  - Resonant Bell <rare> 350g
+Freshest: Crystal Eye @ 23:10 KST
+Exits:
+  - down: Whisperbone Catacomb (torch 3.5)
+Torch: 0.5 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take crystal-eye

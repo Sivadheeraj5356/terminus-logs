@@ -1,0 +1,6 @@
+Diviner Lunar Radiometer Experiment (DLRE) measures lunar surface thermal emission in multiple infrared channels.
+Relevant interpretation for this task:
+- Multi-band thermal radiometry informs brightness temperatures used as inversion observables.
+- Synthetic bands in this task (band_8um, band_25um) are compact stand-ins for mid-IR Diviner-like channels.
+- Units: radiance W/m^2/sr; brightness temperature K.
+Intentionally excluded: full mission calibration pipelines, roughness beaming, and real observation databases.

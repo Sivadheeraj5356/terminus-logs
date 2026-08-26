@@ -1,0 +1,4 @@
+{"serial": "TB3-A", "leaf_index": 0, "timestamp": "2025-07-01T10:00:00Z", "leaf_hash": "c65d6e506b682328086eb077effb9a5c70942a5bed5cb584a4462954a9ae33ae"}
+{"serial": "TB3-REV", "leaf_index": 1, "timestamp": "2025-07-01T10:00:00Z", "leaf_hash": "131865cb42daba34f5aee1eef998f6f86dfc5dd8b93324022172b0ee09170f33"}
+{"serial": "TB3-OK", "leaf_index": 2, "timestamp": "2025-07-01T10:00:00Z", "leaf_hash": "10a6dc5e30867b956c0281647e08a98e608da8ec4b58e464050abcbb4fc03b26"}
+{"serial": "TB3-NOROOT", "leaf_index": 3, "timestamp": "2025-07-01T10:00:00Z", "leaf_hash": "59d5bf7d4838b70c2fbf1dde1e4ad79d822ca0192d3c8e763e821fca69154f1e"}

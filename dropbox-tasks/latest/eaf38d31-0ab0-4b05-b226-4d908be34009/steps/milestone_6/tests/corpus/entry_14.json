@@ -1,0 +1,21 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 3327382,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "*.initech.com",
+    "initech.dev",
+    "www.acme.net",
+    "www.sub.example.com"
+  ],
+  "issued_at": "2026-07-13T07:05:07Z",
+  "payload": "cert:5FsvzQdZBOqzbR2CmvIhnhYv2zfWo1Q0YX8N1XmBQ28=",
+  "received_at": "2026-05-08T05:42:12.094Z",
+  "x_shard": 11,
+  "x_ingest_host": "frontend-2",
+  "x_origin": "shard-west-3",
+  "audit": {
+    "reviewer": "a",
+    "note": "x"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Feature Pipeline",
+  "version": "1.0.0",
+  "metadata": {"Owner": "features"},
+  "nodes": [
+    {"id": "extract", "name": "Extract", "type": "source"},
+    {"id": "transform", "name": "Transform", "type": "transform", "depends_on": ["extract"]},
+    {"id": "load", "name": "Load", "type": "sink", "depends_on": ["transform"]}
+  ],
+  "edges": [
+    {"from": "extract", "to": "transform"},
+    {"from": "transform", "to": "load"}
+  ]
+}

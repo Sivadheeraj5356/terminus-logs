@@ -1,0 +1,11 @@
+{
+  "schema_version": "1",
+  "pond_id": "pond_lab",
+  "mast_epoch": 1,
+  "arms": [],
+  "daily_fronts": [],
+  "calm_latch_events": 0,
+  "survey_mismatch": 0,
+  "front_sum": 0,
+  "digest_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+}

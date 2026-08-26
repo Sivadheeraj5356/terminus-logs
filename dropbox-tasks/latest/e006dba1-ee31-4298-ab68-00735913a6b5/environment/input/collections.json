@@ -1,0 +1,22 @@
+{
+  "tranches": [
+    {"id": "T-A", "class": "A", "balance": 5000000.00, "coupon_rate": 0.05},
+    {"id": "T-B", "class": "B", "balance": 2000000.00, "coupon_rate": 0.07},
+    {"id": "T-C", "class": "C", "balance": 1000000.00, "coupon_rate": 0.09},
+    {"id": "T-R", "class": "residual", "balance": 600000.00, "coupon_rate": 0.00}
+  ],
+  "periods": [
+    {"period": 1, "collections": 450000.00, "defaults": 5000.00, "prepayments": 50000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 2, "collections": 440000.00, "defaults": 5000.00, "prepayments": 55000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 3, "collections": 42000.00, "defaults": 2000.00, "prepayments": 0.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 4, "collections": 600000.00, "defaults": 8000.00, "prepayments": 100000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 5, "collections": 580000.00, "defaults": 8000.00, "prepayments": 90000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 6, "collections": 560000.00, "defaults": 8000.00, "prepayments": 85000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 7, "collections": 300000.00, "defaults": 310000.00, "prepayments": 40000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 8, "collections": 600000.00, "defaults": 10000.00, "prepayments": 100000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 9, "collections": 700000.00, "defaults": 10000.00, "prepayments": 150000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 10, "collections": 800000.00, "defaults": 10000.00, "prepayments": 200000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 11, "collections": 900000.00, "defaults": 5000.00, "prepayments": 2000000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00},
+    {"period": 12, "collections": 500000.00, "defaults": 5000.00, "prepayments": 200000.00, "senior_fee": 5000.00, "servicer_fee": 3000.00}
+  ]
+}

@@ -1,0 +1,27 @@
+package com.blendcert.solve;
+
+import com.google.gson.JsonObject;
+
+import java.util.Map;
+
+public final class BandFeasibility {
+    private static final double EPS = 1e-6;
+
+    private BandFeasibility() {}
+
+    public static boolean concentrationsFeasible(
+            JsonObject spec, Map<String, Double> concentrations) {
+        JsonObject bands = spec.getAsJsonObject("bands");
+        for (var entry : bands.entrySet()) {
+            String analyte = entry.getKey();
+            JsonObject band = entry.getValue().getAsJsonObject();
+            double lower = band.get("lower").getAsDouble();
+            double upper = band.get("upper").getAsDouble();
+            double achieved = concentrations.getOrDefault(analyte, 0.0);
+            if (achieved < lower - EPS || achieved > upper + EPS) {
+                return false;
+            }
+        }
+        return true;
+    }
+}

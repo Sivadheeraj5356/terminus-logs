@@ -1,0 +1,30 @@
+{
+  "batch_generation": 12,
+  "target_volume_ml": 100.0,
+  "lots": [
+    {
+      "lot_id": "LOT-A",
+      "cost_per_ml": 0.80,
+      "available_ml": 200.0,
+      "assays": {"IgG": 42.0, "IgM": 11.0, "albumin": 3.2}
+    },
+    {
+      "lot_id": "LOT-B",
+      "cost_per_ml": 1.10,
+      "available_ml": 200.0,
+      "assays": {"IgG": 48.0, "IgM": 13.5, "albumin": 3.8}
+    },
+    {
+      "lot_id": "LOT-C",
+      "cost_per_ml": 0.95,
+      "available_ml": 150.0,
+      "assays": {"IgG": 38.0, "IgM": 14.0, "albumin": 2.9}
+    },
+    {
+      "lot_id": "LOT-D",
+      "cost_per_ml": 1.25,
+      "available_ml": 100.0,
+      "assays": {"IgG": 52.0, "IgM": 9.5, "albumin": 4.1}
+    }
+  ]
+}

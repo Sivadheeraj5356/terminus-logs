@@ -1,0 +1,7 @@
+[[lane]]
+lane_id = "direct"
+sim_kind = "pass"
+
+[[lane]]
+lane_id = "proxy"
+sim_kind = "strip"

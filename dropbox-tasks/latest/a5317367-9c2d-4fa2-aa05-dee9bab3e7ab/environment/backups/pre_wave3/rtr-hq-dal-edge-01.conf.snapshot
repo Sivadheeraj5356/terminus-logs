@@ -1,0 +1,44 @@
+! apexora-pre-wave3-boundary snapshot — do not overwrite after migration edits
+! rtr-hq-dal-edge-01 — Cisco IOS-XE WAN edge router
+! migration_state: segmented
+version 17.9
+hostname rtr-hq-dal-edge-01
+!
+ip vrf CORP-IT
+ rd 65000:2001
+ route-target export 65000:2001
+ route-target import 65000:2001
+!
+ip vrf FINANCE
+ rd 65000:2101
+!
+interface Loopback0
+ ip vrf forwarding CORP-IT
+ ip address 10.254.0.1 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ description MPLS PE handoff
+ ip vrf forwarding CORP-IT
+ ip address 192.0.2.1 255.255.255.252
+ ip access-group SEG-DMZ-IN in
+ service-policy output PM-WAN_EDGE
+!
+interface GigabitEthernet0/0/0.100
+ description CORP L3VPN subinterface
+ encapsulation dot1Q 100
+ ip vrf forwarding CORP-IT
+ ip address 10.200.0.1 255.255.255.252
+!
+interface GigabitEthernet0/0/1
+ description DMZ handoff
+ ip vrf forwarding DMZ
+ ip address 10.240.0.1 255.255.255.252
+!
+router bgp 65000
+ bgp router-id 10.254.0.1
+ address-family ipv4 vrf CORP-IT
+  redistribute connected
+  neighbor 192.0.2.0 remote-as 65001
+  neighbor 192.0.2.0 activate
+ exit-address-family
+!

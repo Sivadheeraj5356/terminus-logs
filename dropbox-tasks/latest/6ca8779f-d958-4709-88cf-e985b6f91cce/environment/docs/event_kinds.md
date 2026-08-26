@@ -1,0 +1,6 @@
+# Event kinds
+
+Emitted kinds: `TURN_START`, `MOVE`, `STRIKE`, `OVERWATCH`, `GUARD`,
+`DOWNED`, `MORALE_BREAK`, `ACTION_FAIL`.
+
+`ACTION_FAIL.detail` values: `ILLEGAL_MOVE`, `NO_TARGET`, `UNKNOWN_ACTION`.

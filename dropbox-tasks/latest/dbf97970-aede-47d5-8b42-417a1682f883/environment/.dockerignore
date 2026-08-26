@@ -1,0 +1,16 @@
+.git
+.DS_Store
+**/.DS_Store
+**/*.env
+__pycache__
+**/__pycache__
+*.pyc
+.pytest_cache
+solution/
+**/solution/
+tests/
+**/tests/
+.gitignore
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/

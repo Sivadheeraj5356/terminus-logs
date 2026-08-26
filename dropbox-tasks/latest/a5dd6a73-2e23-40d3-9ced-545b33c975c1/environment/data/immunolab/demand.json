@@ -1,0 +1,26 @@
+[
+  {
+    "region_id": "north",
+    "wave": 3,
+    "dose1": 120,
+    "dose2": 80
+  },
+  {
+    "region_id": "south",
+    "wave": 3,
+    "dose1": 100,
+    "dose2": 70
+  },
+  {
+    "region_id": "east",
+    "wave": 3,
+    "dose1": 90,
+    "dose2": 60
+  },
+  {
+    "region_id": "west",
+    "wave": 3,
+    "dose1": 80,
+    "dose2": 50
+  }
+]

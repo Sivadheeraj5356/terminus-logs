@@ -1,0 +1,33 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "j",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "job": "k",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 9,
+      "seq": 2
+    },
+    {
+      "op": "fault",
+      "printer": "p1",
+      "seq": 3
+    }
+  ],
+  "max_faults": 3,
+  "printers": [
+    "p1"
+  ],
+  "spool": "fault_retry_then_next"
+}

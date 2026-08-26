@@ -1,0 +1,392 @@
+{
+  "fold_a": {
+    "row_count": 3,
+    "rows": [
+      {
+        "event_id": "ev_a1",
+        "entity_id": "ent_u1",
+        "feat_rev": "rv_u1_early",
+        "feat_hash": "90691695db9f42a9286bafc2d0f8ca1eb475a1aca7349b98c8a7285632e555a1",
+        "asof_ms": 10000,
+        "values": {
+          "spend": 11,
+          "tenure": 2
+        }
+      },
+      {
+        "event_id": "ev_a2",
+        "entity_id": "ent_u2",
+        "feat_rev": "rv_u2_only",
+        "feat_hash": "b13750e5f422489f6faaf75711b72c726b802613a0551f87a02933a6f50e530e",
+        "asof_ms": 20000,
+        "values": {
+          "spend": 9,
+          "tenure": 1
+        }
+      },
+      {
+        "event_id": "ev_a3",
+        "entity_id": "ent_u1",
+        "feat_rev": "rv_u1_late",
+        "feat_hash": "b363e2139b5f1b8bb9adb44b951494d63eae1e5adc21f60667516f0465532df3",
+        "asof_ms": 25000,
+        "values": {
+          "spend": 22,
+          "tenure": 4
+        }
+      }
+    ],
+    "audit_trace": [
+      {
+        "event_id": "ev_a1",
+        "request_entity": "ent_u1",
+        "resolved_entity": "ent_u1",
+        "candidate_revs": [
+          "rv_u1_early"
+        ],
+        "chosen_rev": "rv_u1_early",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_a2",
+        "request_entity": "ent_u2",
+        "resolved_entity": "ent_u2",
+        "candidate_revs": [
+          "rv_u2_only"
+        ],
+        "chosen_rev": "rv_u2_only",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_a3",
+        "request_entity": "ent_u1",
+        "resolved_entity": "ent_u1",
+        "candidate_revs": [
+          "rv_u1_early",
+          "rv_u1_late",
+          "rv_u1_mid"
+        ],
+        "chosen_rev": "rv_u1_late",
+        "policy": "asof_wm"
+      }
+    ],
+    "ledger_digest": "fd1b8892397516843e9003dac1bf0c465b6a1446fe138bd93c559b890cc33adc"
+  },
+  "fold_b": {
+    "row_count": 3,
+    "rows": [
+      {
+        "event_id": "ev_b1",
+        "entity_id": "ent_u3",
+        "feat_rev": "rv_u3_edge",
+        "feat_hash": "5892921a6e55dac2a1243c03c80cedfb30a7d41d4eb3d26fbf3bdb56e96d6b1e",
+        "asof_ms": 50000,
+        "values": {
+          "spend": 55,
+          "tenure": 6
+        }
+      },
+      {
+        "event_id": "ev_b2",
+        "entity_id": "ent_u3",
+        "feat_rev": "rv_u3_late_ingest",
+        "feat_hash": "a2fa63fed96ec8020112d74f22bef80048066952dadb58024b8297f7fe08375f",
+        "asof_ms": 55000,
+        "values": {
+          "spend": 99,
+          "tenure": 9
+        }
+      },
+      {
+        "event_id": "ev_b3",
+        "entity_id": "ent_u5",
+        "feat_rev": "rv_u5_hot",
+        "feat_hash": "9e10e7cbce48240179426a62271f1bf04019608bd968816b63d45e338f348ca9",
+        "asof_ms": 60000,
+        "values": {
+          "spend": 8,
+          "tenure": 2
+        }
+      }
+    ],
+    "audit_trace": [
+      {
+        "event_id": "ev_b1",
+        "request_entity": "ent_u3",
+        "resolved_entity": "ent_u3",
+        "candidate_revs": [
+          "rv_u3_edge",
+          "rv_u3_late_ingest",
+          "rv_u3_ok",
+          "rv_u3_revoked",
+          "rv_u3_stale"
+        ],
+        "chosen_rev": "rv_u3_edge",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_b2",
+        "request_entity": "ent_u3",
+        "resolved_entity": "ent_u3",
+        "candidate_revs": [
+          "rv_u3_edge",
+          "rv_u3_late_ingest",
+          "rv_u3_ok",
+          "rv_u3_revoked",
+          "rv_u3_stale"
+        ],
+        "chosen_rev": "rv_u3_late_ingest",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_b3",
+        "request_entity": "ent_u5",
+        "resolved_entity": "ent_u5",
+        "candidate_revs": [
+          "rv_u5_base",
+          "rv_u5_hot"
+        ],
+        "chosen_rev": "rv_u5_hot",
+        "policy": "asof_wm"
+      }
+    ],
+    "ledger_digest": "7e12b066e771c36016ef8515ba85877813f27b698a7b3a54bd992974fa5935b0"
+  },
+  "fold_c": {
+    "row_count": 4,
+    "rows": [
+      {
+        "event_id": "ev_c1",
+        "entity_id": "ent_u4",
+        "feat_rev": "rv_u4_a",
+        "feat_hash": "90beb4ce41cb7d4d27e11b288067c5e8955891e20a7f0f4b496d441c50bfec38",
+        "asof_ms": 70000,
+        "values": {
+          "spend": 70,
+          "tenure": 7
+        }
+      },
+      {
+        "event_id": "ev_c2",
+        "entity_id": "ent_u4",
+        "feat_rev": "rv_u4_b",
+        "feat_hash": "0f2d6ef4e5d00dda0b6afb5fc2adadddfe769da457b0eeb64d51bc8e29257502",
+        "asof_ms": 72000,
+        "values": {
+          "spend": 75,
+          "tenure": 8
+        }
+      },
+      {
+        "event_id": "ev_c3",
+        "entity_id": "ent_u4",
+        "feat_rev": "rv_u4_b",
+        "feat_hash": "0f2d6ef4e5d00dda0b6afb5fc2adadddfe769da457b0eeb64d51bc8e29257502",
+        "asof_ms": 74000,
+        "values": {
+          "spend": 75,
+          "tenure": 8
+        }
+      },
+      {
+        "event_id": "ev_c4",
+        "entity_id": "cycle_a",
+        "feat_rev": "rv_cycle_bait",
+        "feat_hash": "fe04b38ad4fba686ac0ce0b196cd0c591546602fe0ae564530d11024f73ae468",
+        "asof_ms": 5000,
+        "values": {
+          "spend": 9,
+          "tenure": 9
+        }
+      }
+    ],
+    "audit_trace": [
+      {
+        "event_id": "ev_c1",
+        "request_entity": "alias_z9",
+        "resolved_entity": "ent_u4",
+        "candidate_revs": [
+          "rv_u4_a"
+        ],
+        "chosen_rev": "rv_u4_a",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_c2",
+        "request_entity": "alias_q2",
+        "resolved_entity": "ent_u4",
+        "candidate_revs": [
+          "rv_u4_a",
+          "rv_u4_b"
+        ],
+        "chosen_rev": "rv_u4_b",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_c3",
+        "request_entity": "ent_u4",
+        "resolved_entity": "ent_u4",
+        "candidate_revs": [
+          "rv_u4_a",
+          "rv_u4_b"
+        ],
+        "chosen_rev": "rv_u4_b",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_c4",
+        "request_entity": "cycle_a",
+        "resolved_entity": "cycle_a",
+        "candidate_revs": [
+          "rv_cycle_bait"
+        ],
+        "chosen_rev": "rv_cycle_bait",
+        "policy": "asof_wm"
+      }
+    ],
+    "ledger_digest": "b9a006b15077220aa2fc61d701c99e83de28b533d913939a1e280bb7b50484aa"
+  },
+  "fold_d": {
+    "row_count": 4,
+    "rows": [
+      {
+        "event_id": "ev_d1",
+        "entity_id": "ent_t1",
+        "feat_rev": "rv_t_beta",
+        "feat_hash": "d613d9670b375945f4b6b7a6f7c6199c94bd73ede614509bc8a2eca050689688",
+        "asof_ms": 40000,
+        "values": {
+          "bias": 2,
+          "score": 20
+        }
+      },
+      {
+        "event_id": "ev_d2",
+        "entity_id": "ent_t2",
+        "feat_rev": "",
+        "feat_hash": "",
+        "asof_ms": 40000,
+        "values": {}
+      },
+      {
+        "event_id": "ev_d3",
+        "entity_id": "ent_t3",
+        "feat_rev": "rv_overlay_base",
+        "feat_hash": "2d4892d6dd6a960f3228fc9fc57e5137af9f6cf215801c5cf58fb0d1668b309b",
+        "asof_ms": 5000,
+        "values": {
+          "bias": 7,
+          "score": 42
+        }
+      },
+      {
+        "event_id": "ev_d4",
+        "entity_id": "ent_u4",
+        "feat_rev": "rv_u4_a",
+        "feat_hash": "90beb4ce41cb7d4d27e11b288067c5e8955891e20a7f0f4b496d441c50bfec38",
+        "asof_ms": 70000,
+        "values": {
+          "spend": 70,
+          "tenure": 7
+        }
+      }
+    ],
+    "audit_trace": [
+      {
+        "event_id": "ev_d1",
+        "request_entity": "ent_t1",
+        "resolved_entity": "ent_t1",
+        "candidate_revs": [
+          "rv_t_alpha",
+          "rv_t_beta",
+          "rv_t_gamma"
+        ],
+        "chosen_rev": "rv_t_beta",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_d2",
+        "request_entity": "ent_t2",
+        "resolved_entity": "ent_t2",
+        "candidate_revs": [
+          "rv_miss_only"
+        ],
+        "chosen_rev": "",
+        "policy": "miss"
+      },
+      {
+        "event_id": "ev_d3",
+        "request_entity": "ent_t3",
+        "resolved_entity": "ent_t3",
+        "candidate_revs": [
+          "rv_overlay_base"
+        ],
+        "chosen_rev": "rv_overlay_base",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_d4",
+        "request_entity": "alias_z9",
+        "resolved_entity": "ent_u4",
+        "candidate_revs": [
+          "rv_u4_a"
+        ],
+        "chosen_rev": "rv_u4_a",
+        "policy": "asof_wm"
+      }
+    ],
+    "ledger_digest": "04776fd266eceb119e7d10e5991490b54803fc62a828c6192eed392641873f72"
+  },
+  "fold_e": {
+    "row_count": 2,
+    "rows": [
+      {
+        "event_id": "ev_e1",
+        "entity_id": "ent_e1",
+        "feat_rev": "rv_e_base",
+        "feat_hash": "843271607ed14a30a2f2c663ee13b0f70100fecff6d8482b6b0fea925bebeedf",
+        "asof_ms": 50000,
+        "values": {
+          "bias": 1,
+          "score": 5
+        }
+      },
+      {
+        "event_id": "ev_e2",
+        "entity_id": "ent_e1",
+        "feat_rev": "rv_e_hot",
+        "feat_hash": "2d6a252e2ec9bd807c194e940f996d9a4b5f6acfe14798d89cb9e2ac94a4f7d3",
+        "asof_ms": 60000,
+        "values": {
+          "bias": 2,
+          "score": 9
+        }
+      }
+    ],
+    "audit_trace": [
+      {
+        "event_id": "ev_e1",
+        "request_entity": "ent_e1",
+        "resolved_entity": "ent_e1",
+        "candidate_revs": [
+          "rv_e_base"
+        ],
+        "chosen_rev": "rv_e_base",
+        "policy": "asof_wm"
+      },
+      {
+        "event_id": "ev_e2",
+        "request_entity": "ent_e1",
+        "resolved_entity": "ent_e1",
+        "candidate_revs": [
+          "rv_e_base",
+          "rv_e_hot",
+          "rv_e_late"
+        ],
+        "chosen_rev": "rv_e_hot",
+        "policy": "asof_wm"
+      }
+    ],
+    "ledger_digest": "da98f3be53f67b48a3e7020f1f6b006fbc55510fc98db2509b0509bd64d1bbef"
+  }
+}

@@ -1,0 +1,6 @@
+{"exception_id":"X-100-DRAFT","tap_id":"t013","scope":"base","amount_cents":999,"approved":false}
+{"exception_id":"X-100-EXPRESS-1","tap_id":"t003","scope":"surcharge","amount_cents":50,"approved":true}
+{"exception_id":"X-102-BOTH-1","tap_id":"t011","scope":"both","amount_cents":90,"approved":true}
+{"exception_id":"X-104-BASE-1","tap_id":"t019","scope":"base","amount_cents":200,"approved":true}
+{"exception_id":"X-105-BOTH-1","tap_id":"t023","scope":"both","amount_cents":500,"approved":true}
+{"exception_id":"X-107-IGNORED","tap_id":"t028","scope":"base","amount_cents":500,"approved":true}

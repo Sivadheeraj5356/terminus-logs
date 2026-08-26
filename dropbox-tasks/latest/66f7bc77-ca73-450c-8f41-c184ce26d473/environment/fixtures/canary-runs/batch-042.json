@@ -1,0 +1,19 @@
+{
+  "batch_id": "batch-042",
+  "runs": [
+    {
+      "profile": "shadow",
+      "baseline": {
+        "accuracy": 0.900,
+        "macro_f1": 0.870
+      }
+    },
+    {
+      "profile": "canary",
+      "baseline": {
+        "accuracy": 0.912,
+        "macro_f1": 0.887
+      }
+    }
+  ]
+}

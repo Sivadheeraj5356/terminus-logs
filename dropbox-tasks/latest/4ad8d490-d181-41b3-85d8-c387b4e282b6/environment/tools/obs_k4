@@ -1,0 +1,218 @@
+#!/usr/bin/env node
+"use strict";
+/**
+ * Desk observables walker for xp pair packs.
+ * Prints obligation_violations=<int>
+ */
+const fs = require("fs");
+const path = require("path");
+const os = require("os");
+const { spawnSync } = require("child_process");
+
+function argVal(flag, argv, fallback) {
+  const i = argv.indexOf(flag);
+  if (i >= 0 && i + 1 < argv.length) return argv[i + 1];
+  return fallback;
+}
+
+function readJson(p) {
+  return JSON.parse(fs.readFileSync(p, "utf8"));
+}
+
+function parseHold(text) {
+  const train = { pair: "", rot: 0, active: "" };
+  const pairs = {};
+  let section = "";
+  let curPair = "";
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
+    const sec = line.match(/^\[([^\]]+)\]$/);
+    if (sec) {
+      section = sec[1];
+      const pm = section.match(/^pairs\.(k\d+)$/);
+      curPair = pm ? pm[1] : "";
+      if (curPair && !pairs[curPair]) {
+        pairs[curPair] = { a: "", b: "", rot: 0, active: "" };
+      }
+      continue;
+    }
+    const kv = line.match(/^([a-z_]+)\s*=\s*"?([^"]+)"?$/);
+    if (!kv) continue;
+    const k = kv[1];
+    let v = kv[2];
+    if (/^\d+$/.test(v)) v = parseInt(v, 10);
+    if (section === "train") train[k] = v;
+    else if (curPair) pairs[curPair][k] = v;
+  }
+  return { train, pairs };
+}
+
+function parseLedger(text) {
+  const shards = [];
+  let cur = null;
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith("#")) continue;
+    if (line === "[[shard]]") {
+      cur = { file: "", board: "", tok: 0, cids: [] };
+      shards.push(cur);
+      continue;
+    }
+    if (!cur) continue;
+    const m = line.match(/^(\w+)\s*=\s*(.+)$/);
+    if (!m) continue;
+    const k = m[1];
+    let v = m[2].trim();
+    if (k === "cids") {
+      cur.cids = JSON.parse(v);
+    } else if (k === "tok") {
+      cur.tok = parseInt(v, 10);
+    } else {
+      cur[k] = v.replace(/^"|"$/g, "");
+    }
+  }
+  return shards;
+}
+
+function expectedForPack(env, packObj, hold, shards, binds) {
+  const pair = packObj.pair;
+  const rot = packObj.rot;
+  const active = packObj.active;
+  const sides = pair.split("|");
+  const boardSet = new Set(sides);
+  const ledgerCids = [];
+  for (const sh of shards) {
+    if (boardSet.has(sh.board)) {
+      for (const c of sh.cids) ledgerCids.push(c);
+    }
+  }
+  const seeds = packObj.seed_cids || [];
+  const clause_ids = Array.from(new Set(seeds.concat(ledgerCids))).sort();
+  const maxStamp = Math.max(...binds.map((b) => b.stamp));
+  const eligible = binds
+    .filter((b) => b.stamp <= maxStamp)
+    .sort((a, b) => b.stamp - a.stamp);
+  const win = eligible[0];
+  const disc_bind = clause_ids
+    .filter((c) => (c.split(".")[0] || "").toUpperCase() === active.toUpperCase())
+    .sort();
+  return {
+    pair,
+    rot,
+    active,
+    clause_ids,
+    seg_vec: win.vec.slice(),
+    disc_bind,
+    stamp: win.stamp,
+    fam: win.fam,
+  };
+}
+
+function synthesizeRoot(tmp, packObj) {
+  const wk = path.join(tmp, "wk");
+  fs.mkdirSync(wk, { recursive: true });
+  const [left, right] = packObj.pair.split("|");
+  const seeds = packObj.seed_cids || [];
+  const leftSeeds = seeds.filter((c) =>
+    (c.split(".")[0] || "").toUpperCase() === left.toUpperCase()
+  );
+  const rightSeeds = seeds.filter((c) =>
+    (c.split(".")[0] || "").toUpperCase() === right.toUpperCase()
+  );
+  fs.writeFileSync(
+    path.join(wk, "net_a.json"),
+    JSON.stringify({ net_id: "net_a", board: left, seed_cids: leftSeeds }, null, 2)
+  );
+  fs.writeFileSync(
+    path.join(wk, "net_b.json"),
+    JSON.stringify({ net_id: "net_b", board: right, seed_cids: rightSeeds }, null, 2)
+  );
+  fs.writeFileSync(
+    path.join(wk, "manifest.json"),
+    JSON.stringify(
+      {
+        pack_id: packObj.kid,
+        pair: packObj.pair,
+        rot: packObj.rot,
+        active: packObj.active,
+        nets: ["net_a.json", "net_b.json"],
+      },
+      null,
+      2
+    )
+  );
+}
+
+function loadPackFile(p) {
+  const buf = fs.readFileSync(p);
+  const text = buf.toString("utf8");
+  if (!text.startsWith("K4P1\n")) throw new Error("bad pack magic " + p);
+  return JSON.parse(text.slice(5).trim());
+}
+
+function main() {
+  const argv = process.argv.slice(2);
+  const env = argVal("--env", argv, "/app/environment");
+  const hold = parseHold(
+    fs.readFileSync(path.join(env, "data", "hold_tbl.toml"), "utf8")
+  );
+  const shards = parseLedger(
+    fs.readFileSync(path.join(env, "data", "long_ctx", "ledger_mfest.toml"), "utf8")
+  );
+  const binds = [];
+  const calDir = path.join(env, "data", "cal");
+  for (const name of fs.readdirSync(calDir).sort()) {
+    if (!name.endsWith(".json")) continue;
+    binds.push(readJson(path.join(calDir, name)));
+  }
+
+  const xpDir = path.join(env, "data", "xp");
+  let violations = 0;
+  const runSh = path.join(env, "scripts", "run_k4.sh");
+
+  for (const name of fs.readdirSync(xpDir).sort()) {
+    if (!name.endsWith(".pack")) continue;
+    const packObj = loadPackFile(path.join(xpDir, name));
+    const exp = expectedForPack(env, packObj, hold, shards, binds);
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "k4xp-"));
+    try {
+      synthesizeRoot(tmp, packObj);
+      const outPath = path.join(tmp, "out.json");
+      const r = spawnSync(
+        "bash",
+        [runSh, "--root", tmp, "--out", outPath],
+        { env: { ...process.env, K4_ROOT: env }, encoding: "utf8" }
+      );
+      if (r.status !== 0) {
+        violations += 1;
+        continue;
+      }
+      const doc = readJson(outPath);
+      const row = (doc.gate_rows || [])[0] || {};
+      const rb = (doc.rb_rows || [])[0] || {};
+      const st = doc.seg_trace || {};
+      const checks = [
+        JSON.stringify(row.clause_ids || []) === JSON.stringify(exp.clause_ids),
+        JSON.stringify(row.disc_bind || []) === JSON.stringify(exp.disc_bind),
+        JSON.stringify(row.seg_vec || []) === JSON.stringify(exp.seg_vec),
+        JSON.stringify(st.vec || []) === JSON.stringify(exp.seg_vec),
+        st.stamp === exp.stamp,
+        st.fam === exp.fam,
+        rb.metric_fam === exp.fam,
+        rb.bind_stamp === exp.stamp,
+        row.board_pair === exp.pair,
+      ];
+      for (const ok of checks) {
+        if (!ok) violations += 1;
+      }
+    } finally {
+      fs.rmSync(tmp, { recursive: true, force: true });
+    }
+  }
+
+  process.stdout.write(`obligation_violations=${violations}\n`);
+  process.exit(violations === 0 ? 0 : 1);
+}
+
+main();

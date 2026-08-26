@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "build-and-dependency-management"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["clojure"]
+tags = ["clojure", "maven", "dependencies", "mediation", "offline"]
+expert_time_estimate_min = 120
+junior_time_estimate_min = 180
+
+[verifier]
+timeout_sec = 420.0
+
+[agent]
+timeout_sec = 1200.0
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = false

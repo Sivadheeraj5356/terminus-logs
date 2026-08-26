@@ -1,0 +1,5 @@
+round_id,cabinet_tag,p1_action,p2_action,winner_side
+101,red-cab,strike,blink,side_a
+102,red-cab,left,right,side_a
+103,red-cab,up,down,side_a
+104,red-cab,blink,strike,side_b

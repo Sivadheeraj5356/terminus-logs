@@ -1,0 +1,14 @@
+Gemfile.lock
+.bundle
+vendor/bundle
+**/__pycache__
+**/*.pyc
+.git
+.gitignore
+tests/
+solution/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/

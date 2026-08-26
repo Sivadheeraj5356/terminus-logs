@@ -1,0 +1,14 @@
+# FinchRender node pool configuration
+pool:
+  min_workers: 2
+  max_workers: 16
+  idle_timeout_sec: 300
+
+worker:
+  connect_timeout_sec: 10
+  heartbeat_interval_sec: 30
+  registration_path: /run/finchrender/coordinator.sock
+
+resources:
+  cpu_limit_percent: 85
+  memory_limit_mb: 8192

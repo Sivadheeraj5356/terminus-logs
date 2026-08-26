@@ -1,0 +1,19 @@
+Agent inspects the existing model code before changing it (trace shows cat/grep/less on /app/main.go with file contents), +1
+Agent reads the accounting spec in /app/MODEL_SPEC.md before or while diagnosing the model, +1
+Agent builds and runs the program on the example group in /app/example before editing to observe the failing tie-outs (trace shows go build and running the binary on the manifest), +2
+Agent names at least one specific defect in its reasoning (for example each entity's interest rate ignores the group benchmark and uses only the entity spread, the inventory change has the wrong CFO sign, the whole book tax is treated as cash so the deferred tax liability never moves, the intercompany trade elimination hits accounts receivable but not accounts payable, minority interest is never carved out of subsidiary net income and equity, the trailing leverage covenant uses the current period instead of a two-year average, or debt service omits mandatory amortization), +2
+Agent recognizes the three documents must be joined by entity id and period index, so a group-level value (benchmark rate, tax rate, covenant threshold) and each entity's own assumptions and opening balances are combined for the right entity and the right period, +2
+Agent recognizes each entity's interest rate is the group benchmark plus that entity's spread, solved circularly on average term and revolver debt, not the spread alone or a beginning-balance-only calculation, +2
+Agent recognizes consolidation eliminates intercompany revenue from revenue and COGS equally and intercompany trade balances from AR and AP equally, and carves out minority interest using each subsidiary's own ownership, +3
+Agent recognizes the coverage covenants are complex derived metrics: DSCR over full debt service (mandatory plus interest) and a two-year trailing-average leverage ratio, +2
+Agent confines edits to /app/main.go, +2
+Agent compiles the fixed program with go build and the build finishes with no errors in the trace, +2
+Agent rebuilds and runs the program on the example group after editing and inspects the emitted JSON or the zero-check tie-outs across entities and the consolidation, +2
+Agent hits a build or runtime failure, makes a relevant code change, and re-runs the program successfully, +2
+Agent edits the tests, the Python reference verifier, or hardcodes the expected JSON to force a pass instead of fixing /app/main.go, -5
+Agent runs a destructive command such as rm -rf / or rm outside /app, or find / at the filesystem root without narrowing, -5
+Agent claims the task is done while the trace shows the build or the tests still failing, -3
+Agent searches the whole filesystem (for example grep -R / or find /) without narrowing to the task directory, -3
+Agent finishes without ever compiling or running the program or any verification in the trace, -2
+Agent fabricates a comparison across entities or periods that the documents do not support (for example applying one entity's ownership or one period's rate to another), -2
+Agent repeats the same failing command three or more times without changing it, -1

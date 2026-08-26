@@ -1,0 +1,59 @@
+digraph rejected_store_lineage {
+  rankdir=BT;
+  subgraph cluster_both_flags {
+    label="both_flags";
+    "both_flags_run" [shape=box, label="both_flags", xlabel="VIOLATION: unapproved_model"];
+    "both_flags_account_age_days" [shape=ellipse, label="account_age_days"];
+    "both_flags_run" -> "both_flags_account_age_days";
+    "both_flags_rolling_balance_7d" [shape=ellipse, label="rolling_balance_7d", xlabel="VIOLATION: leaking_feature"];
+    "both_flags_run" -> "both_flags_rolling_balance_7d";
+    "both_flags_core_users_origin" [shape=box, label="core_users"];
+    "both_flags_account_age_days" -> "both_flags_core_users_origin";
+    "both_flags_balances_ledger_origin" [shape=box, label="balances_ledger"];
+    "both_flags_rolling_balance_7d" -> "both_flags_balances_ledger_origin";
+    "both_flags_purchase_count_30d_origin" [shape=box, label="purchase_count_30d"];
+    "both_flags_rolling_balance_7d" -> "both_flags_purchase_count_30d_origin";
+  }
+  subgraph cluster_dual_leak {
+    label="dual_leak";
+    "dual_leak_run" [shape=box, label="dual_leak"];
+    "dual_leak_account_age_days" [shape=ellipse, label="account_age_days"];
+    "dual_leak_run" -> "dual_leak_account_age_days";
+    "dual_leak_credit_utilization" [shape=ellipse, label="credit_utilization", xlabel="VIOLATION: leaking_feature"];
+    "dual_leak_run" -> "dual_leak_credit_utilization";
+    "dual_leak_rolling_balance_7d" [shape=ellipse, label="rolling_balance_7d", xlabel="VIOLATION: leaking_feature"];
+    "dual_leak_run" -> "dual_leak_rolling_balance_7d";
+    "dual_leak_core_users_origin" [shape=box, label="core_users"];
+    "dual_leak_account_age_days" -> "dual_leak_core_users_origin";
+    "dual_leak_balances_ledger_origin" [shape=box, label="balances_ledger"];
+    "dual_leak_rolling_balance_7d" -> "dual_leak_balances_ledger_origin";
+    "dual_leak_purchase_count_30d_origin" [shape=box, label="purchase_count_30d"];
+    "dual_leak_rolling_balance_7d" -> "dual_leak_purchase_count_30d_origin";
+  }
+  subgraph cluster_leaking {
+    label="leaking";
+    "leaking_run" [shape=box, label="leaking"];
+    "leaking_account_age_days" [shape=ellipse, label="account_age_days"];
+    "leaking_run" -> "leaking_account_age_days";
+    "leaking_rolling_balance_7d" [shape=ellipse, label="rolling_balance_7d", xlabel="VIOLATION: leaking_feature"];
+    "leaking_run" -> "leaking_rolling_balance_7d";
+    "leaking_core_users_origin" [shape=box, label="core_users"];
+    "leaking_account_age_days" -> "leaking_core_users_origin";
+    "leaking_balances_ledger_origin" [shape=box, label="balances_ledger"];
+    "leaking_rolling_balance_7d" -> "leaking_balances_ledger_origin";
+    "leaking_purchase_count_30d_origin" [shape=box, label="purchase_count_30d"];
+    "leaking_rolling_balance_7d" -> "leaking_purchase_count_30d_origin";
+  }
+  subgraph cluster_unapproved_model {
+    label="unapproved_model";
+    "unapproved_model_run" [shape=box, label="unapproved_model", xlabel="VIOLATION: unapproved_model"];
+    "unapproved_model_account_age_days" [shape=ellipse, label="account_age_days"];
+    "unapproved_model_run" -> "unapproved_model_account_age_days";
+    "unapproved_model_purchase_count_30d" [shape=ellipse, label="purchase_count_30d"];
+    "unapproved_model_run" -> "unapproved_model_purchase_count_30d";
+    "unapproved_model_core_users_origin" [shape=box, label="core_users"];
+    "unapproved_model_account_age_days" -> "unapproved_model_core_users_origin";
+    "unapproved_model_orders_ledger_origin" [shape=box, label="orders_ledger"];
+    "unapproved_model_purchase_count_30d" -> "unapproved_model_orders_ledger_origin";
+  }
+}

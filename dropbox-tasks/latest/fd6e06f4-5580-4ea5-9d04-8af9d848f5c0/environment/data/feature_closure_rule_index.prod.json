@@ -1,0 +1,4 @@
+{
+  "0091": "Production counsel-closure ledger — resolve freshness column, registry field, run order, violation detail templates, and graph emission from ledger 0093 predicates in the reconciled archive.",
+  "0093": "Post-closure resolution predicates select the production archive and the graph emission candidate whose nested production_binding satisfies ledger 0093 selection predicates. Reject decoy index copies and lab/staging graph emitters that fail those predicates."
+}

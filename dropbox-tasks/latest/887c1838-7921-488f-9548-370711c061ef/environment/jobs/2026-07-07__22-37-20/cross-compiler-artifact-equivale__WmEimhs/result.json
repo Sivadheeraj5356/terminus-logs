@@ -1,0 +1,100 @@
+{
+    "id": "4fe37dc4-9442-4df3-960c-608a624419d7",
+    "task_name": "cross-compiler-artifact-equivalence-checker",
+    "trial_name": "cross-compiler-artifact-equivale__WmEimhs",
+    "trial_uri": "file:///Users/rudra/task/snorkel-ai/harbor_tasks/cross-compiler-artifact-equivalence-checker/environment/jobs/2026-07-07__22-37-20/cross-compiler-artifact-equivale__WmEimhs",
+    "task_id": {
+        "path": "/Users/rudra/task/snorkel-ai/harbor_tasks/cross-compiler-artifact-equivalence-checker"
+    },
+    "source": null,
+    "task_checksum": "166525b64ca2ee82009442d3d912a0fd9dcb114031a88ab3da21ac26e8933533",
+    "config": {
+        "task": {
+            "path": "/Users/rudra/task/snorkel-ai/harbor_tasks/cross-compiler-artifact-equivalence-checker",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "cross-compiler-artifact-equivale__WmEimhs",
+        "trials_dir": "jobs/2026-07-07__22-37-20",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "a1ea8c79-3409-474e-89e1-41a7d525ab09"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-07-07T17:07:22.122727Z",
+    "finished_at": "2026-07-07T17:07:39.435344Z",
+    "environment_setup": {
+        "started_at": "2026-07-07T17:07:22.158840Z",
+        "finished_at": "2026-07-07T17:07:24.095378Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-07-07T17:07:24.095458Z",
+        "finished_at": "2026-07-07T17:07:24.095512Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-07-07T17:07:24.095612Z",
+        "finished_at": "2026-07-07T17:07:28.427617Z"
+    },
+    "verifier": {
+        "started_at": "2026-07-07T17:07:28.506371Z",
+        "finished_at": "2026-07-07T17:07:28.980864Z"
+    },
+    "step_results": null
+}

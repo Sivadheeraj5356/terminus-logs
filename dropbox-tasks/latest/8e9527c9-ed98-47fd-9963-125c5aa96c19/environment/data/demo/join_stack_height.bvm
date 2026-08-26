@@ -1,0 +1,18 @@
+# The two predecessors of b3 leave operand stacks of different heights (two vs
+# one). A join requires equal stack heights, so this module must be rejected.
+func main(int) -> int {
+b0:
+  load 0
+  iconst 0
+  icmp
+  br_if b2
+b1:
+  iconst 1
+  iconst 2
+  br b3
+b2:
+  iconst 9
+  br b3
+b3:
+  ret
+}

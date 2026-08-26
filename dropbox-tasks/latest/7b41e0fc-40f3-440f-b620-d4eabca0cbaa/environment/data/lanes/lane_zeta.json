@@ -1,0 +1,11 @@
+{
+  "lane_id": "lane_zeta",
+  "source_chain": ["d0", "d1", "d2"],
+  "receiver_chain": ["d0", "d1", "d3"],
+  "metadata_edges": [["d2", "d2"]],
+  "candidate_parents": ["d2"],
+  "interrupted": false,
+  "retry_overwrite": false,
+  "content_match": true,
+  "wrap_epoch": 1
+}

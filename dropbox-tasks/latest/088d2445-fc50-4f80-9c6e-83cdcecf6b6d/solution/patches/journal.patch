@@ -1,0 +1,103 @@
+--- a/environment/internal/journal/journal.go	2026-07-20 11:30:41.923010898 +0530
++++ b/environment/internal/journal/journal.go	2026-07-20 11:26:05.313332827 +0530
+@@ -3,7 +3,6 @@
+ import (
+ 	"fmt"
+ 	"hsdrive/internal/digest"
+-	"hsdrive/internal/idx"
+ 	"os"
+ 	"path/filepath"
+ 	"strconv"
+@@ -15,8 +14,10 @@
+ 	Seal string
+ }
+ 
+-// Materialize applies journal overlays onto annex segment shells.
++// Materialize applies journal overlays under WATERMARK eligibility.
++// Compaction index echoes are ignored.
+ func Materialize(annexDir, walPath, idxPath string) (Hold, error) {
++	_ = idxPath
+ 	names := []string{"seg_a.bin", "seg_b.bin", "seg_c.bin"}
+ 	out := map[int][]byte{}
+ 	for i, n := range names {
+@@ -39,24 +40,31 @@
+ 		}
+ 	}
+ 
+-	winIdx := -1
+-	if ep, ok := idx.PreferredEpoch(idxPath); ok {
+-		for i, ln := range lines {
+-			if strings.HasPrefix(ln, "CHK|") {
+-				v, err := strconv.ParseInt(strings.TrimPrefix(ln, "CHK|"), 10, 64)
+-				if err == nil && v == ep {
+-					winIdx = i
+-					break
+-				}
++	watermark := int64(^uint64(0) >> 1)
++	type marker struct{ idx int; ep int64 }
++	var markers []marker
++	for i, ln := range lines {
++		if strings.HasPrefix(ln, "WATERMARK|") {
++			v, err := strconv.ParseInt(strings.TrimPrefix(ln, "WATERMARK|"), 10, 64)
++			if err != nil {
++				return Hold{}, err
++			}
++			watermark = v
++		} else if strings.HasPrefix(ln, "CHK|") {
++			v, err := strconv.ParseInt(strings.TrimPrefix(ln, "CHK|"), 10, 64)
++			if err != nil {
++				return Hold{}, err
+ 			}
++			markers = append(markers, marker{i, v})
+ 		}
+ 	}
+-	if winIdx < 0 {
+-		for i, ln := range lines {
+-			if strings.HasPrefix(ln, "CHK|") {
+-				winIdx = i
+-				break
+-			}
++
++	winIdx := -1
++	var maxEp int64 = -1
++	for _, m := range markers {
++		if m.ep <= watermark && (m.ep > maxEp || (m.ep == maxEp && m.idx > winIdx)) {
++			maxEp = m.ep
++			winIdx = m.idx
+ 		}
+ 	}
+ 	if winIdx < 0 {
+@@ -72,12 +80,12 @@
+ 		}
+ 	}
+ 
+-	seal := digest.HexStr(lines[winIdx])
+-
++	sealParts := []string{lines[winIdx]}
+ 	for _, ln := range lines[start:end] {
+ 		if !strings.HasPrefix(ln, "XOR|") {
+ 			continue
+ 		}
++		sealParts = append(sealParts, ln)
+ 		parts := strings.Split(ln, "|")
+ 		if len(parts) != 4 {
+ 			continue
+@@ -91,10 +99,15 @@
+ 		if err != nil {
+ 			return Hold{}, err
+ 		}
+-		buf := out[seg]
+-		if off < len(buf) {
+-			buf[off] ^= byte(v)
++		buf, ok := out[seg]
++		if !ok {
++			return Hold{}, fmt.Errorf("missing seg %d", seg)
++		}
++		if off >= len(buf) {
++			return Hold{}, fmt.Errorf("oob xor")
+ 		}
++		buf[off] ^= byte(v)
+ 	}
++	seal := digest.HexStr(strings.Join(sealParts, "\n"))
+ 	return Hold{Segs: out, Seal: seal}, nil
+ }

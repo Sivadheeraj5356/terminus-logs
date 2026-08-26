@@ -1,0 +1,84 @@
+{
+  "scenario_id": "scenario_10",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "app",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    },
+    {
+      "crate": "purge",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [
+    {
+      "parent": "app:1.0.0",
+      "child": "mid",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s10e1",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "mid:1.0.0",
+      "child": "tail",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s10e2",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "tail:1.0.0",
+      "child": "purge",
+      "version": "2.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s10e3",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "app:1.0.0",
+      "child": "side",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s10e4",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "side:1.0.0",
+      "child": "purge",
+      "version": "3.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s10e5",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

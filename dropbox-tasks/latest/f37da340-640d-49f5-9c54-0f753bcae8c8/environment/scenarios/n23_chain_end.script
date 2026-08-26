@@ -1,0 +1,4 @@
+# three-run journal chain — final rw completes ladder
+profile alpha
+step ro target=data
+step rw target=data

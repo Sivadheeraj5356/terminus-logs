@@ -1,0 +1,7 @@
+RULE ENABLE_LINK_KIND
+IN keys
+OUT value,reason
+TABLE
+WantedBy -> .wants|enable-kind
+RequiredBy -> .requires|enable-kind
+END

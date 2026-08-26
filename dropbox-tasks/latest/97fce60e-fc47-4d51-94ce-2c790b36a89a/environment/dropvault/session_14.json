@@ -1,0 +1,52 @@
+{
+  "session_id": "session_14",
+  "rng_seed": 14,
+  "pity_threshold": 50,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "token",
+      "tier": "common",
+      "weight": 100,
+      "unique": false,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "p1",
+      "roll_value": 0.0,
+      "item_id": "token",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "p1",
+      "roll_value": 0.194097720267,
+      "item_id": "token",
+      "tier": "common"
+    },
+    {
+      "seq": 3,
+      "player_id": "p1",
+      "roll_value": 0.943388164922,
+      "item_id": "token",
+      "tier": "common"
+    },
+    {
+      "seq": 4,
+      "player_id": "p1",
+      "roll_value": 0.358531449324,
+      "item_id": "token",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "p1",
+      "roll_value": 0.709006012146,
+      "item_id": "token",
+      "tier": "common"
+    }
+  ]
+}

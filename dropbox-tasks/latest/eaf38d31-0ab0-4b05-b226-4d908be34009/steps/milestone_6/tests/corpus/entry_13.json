@@ -1,0 +1,22 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 7960397,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "*.umbrella.io",
+    "shop.initech.net",
+    "*.example.org",
+    "*.UMBRELLA.IO",
+    "a.acme.dev"
+  ],
+  "issued_at": "2026-06-06T04:07:52Z",
+  "payload": "cert:qQU7PiW90ynVm7jQWWp9S+JDQaX+O8Ay2ZEkc/DCqCc=",
+  "received_at": "2026-10-22T07:25:20Z",
+  "issuer_id": "ca-1",
+  "x_shard": 8,
+  "x_ingest_host": "frontend-1",
+  "audit": {
+    "reviewer": "b",
+    "note": "x"
+  }
+}

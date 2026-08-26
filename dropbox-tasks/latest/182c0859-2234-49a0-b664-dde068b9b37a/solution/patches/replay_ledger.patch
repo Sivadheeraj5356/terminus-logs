@@ -1,0 +1,17 @@
+--- auxiliary/replay_ledger.py	2026-07-10 12:12:55
++++ auxiliary/replay_ledger.py	2026-07-10 12:13:00
+@@ -43,7 +43,7 @@
+         return
+     recorded = int(manifest.get("journal_generation", 0))
+     if recorded > 0:
+-        return
++        epoch_courier.write_journal(lto_root, recorded)
+ 
+ 
+ def align_journal_from_checkpoint(work_root: Path, lto_root: Path) -> None:
+@@ -54,4 +54,4 @@
+     recorded = int(manifest.get("journal_generation", 0))
+     current = epoch_courier.read_journal(lto_root)
+     if current < recorded:
+-        return
++        epoch_courier.write_journal(lto_root, recorded)

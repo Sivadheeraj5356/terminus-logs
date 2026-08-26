@@ -1,0 +1,14 @@
+{
+  "KORD": {
+    "name": "Old Chicago Station Label",
+    "time_zone": "America/Detroit"
+  },
+  "KSFO": {
+    "name": "Legacy Bay Station",
+    "time_zone": "America/Los_Angeles"
+  },
+  "ZZ99": {
+    "name": "Retired Test Station",
+    "time_zone": "Etc/UTC"
+  }
+}

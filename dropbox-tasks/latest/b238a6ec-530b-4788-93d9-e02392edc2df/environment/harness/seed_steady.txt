@@ -1,0 +1,2 @@
+mode control
+nodes 5

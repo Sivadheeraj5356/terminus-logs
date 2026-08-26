@@ -1,0 +1,14 @@
+--- oxk/src/bind.rs
++++ oxk/src/bind.rs
+@@ -9,8 +9,8 @@
+     if prev_lambda < 0 || at_regen {
+         return lowest;
+     }
+-    if ordered.iter().any(|&c| c == prev_lambda) {
+-        return ordered.last().copied();
++    if !ordered.iter().any(|&c| c == prev_lambda) {
++        return None;
+     }
+-    None
++    Some(prev_lambda)
+ }

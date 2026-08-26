@@ -1,0 +1,10 @@
+# Checkpoint snapshot of folded journal bands (authoritative fold is rot.log).
+# Scratch restore (--restore-from) seeds cur.json from [e_hi] only.
+
+[e_hi]
+allow = ["k_a", "k_b", "k_d", "k_e"]
+rev = ["k_c"]
+
+[e_lo]
+allow = ["k_b", "k_c", "k_d"]
+rev = ["k_a", "k_e"]

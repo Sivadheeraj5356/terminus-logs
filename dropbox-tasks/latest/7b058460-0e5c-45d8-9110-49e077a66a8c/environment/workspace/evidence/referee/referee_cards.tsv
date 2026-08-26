@@ -1,0 +1,7 @@
+game_id	round	board	black	white	expected_result	reason	overturned_ply	forfeit_winner
+G01	1	1	Ada	Ben	B+1	score		
+G02	1	2	Cy	Dax	W+1	score		
+G03	2	1	Ada	Cy	B+F	superko-forfeit	24	B
+G04	2	2	Ben	Dax	W+1	score		
+G05	3	1	Ada	Dax	W+1	score		
+G06	3	2	Ben	Cy	W+1	score		

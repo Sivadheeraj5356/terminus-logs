@@ -1,0 +1,12 @@
+{
+  "seed_id": "wide_torus",
+  "width": 12,
+  "height": 8,
+  "start": [0, 0],
+  "goal": [11, 7],
+  "terrain": {
+    "0,0": 1,
+    "11,7": 1
+  },
+  "portals": []
+}

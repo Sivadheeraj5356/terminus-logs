@@ -1,0 +1,6 @@
+Every window replays fragments in the same pipe-separated wire format:
+
+    day_key | wall_off | seq | flags
+
+The reconciler groups fragments by the first eight characters of day_key (the
+calendar day) and settles on a single canonical key for that day.

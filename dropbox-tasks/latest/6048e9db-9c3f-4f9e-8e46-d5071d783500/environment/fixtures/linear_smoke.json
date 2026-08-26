@@ -1,0 +1,29 @@
+{
+  "graph_id": "linear_smoke",
+  "jobs": [
+    {
+      "job_id": "step_a",
+      "duration": 3,
+      "deps": [],
+      "input_parts": [],
+      "output_part": 0,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "step_b",
+      "duration": 3,
+      "deps": ["step_a"],
+      "input_parts": [0],
+      "output_part": 1,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "step_c",
+      "duration": 3,
+      "deps": ["step_b"],
+      "input_parts": [1],
+      "output_part": 2,
+      "submit_tick": 0
+    }
+  ]
+}

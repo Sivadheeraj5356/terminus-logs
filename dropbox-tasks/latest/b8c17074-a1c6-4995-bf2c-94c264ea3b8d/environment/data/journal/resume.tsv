@@ -1,0 +1,10 @@
+seq	event	tile_id	generation	artifact
+1	PREPARE	T010	g1	stage/T010.partial
+2	COMMIT	T010	g1	mosaic.fits
+3	PREPARE	T020	g1	stage/T020.partial
+4	COMMIT	T020	g1	mosaic.fits
+5	PREPARE	T030	g1	stage/T030.partial
+6	CRASH	T030	g1	stage/T030.partial
+7	PREPARE	T040	g0	stage/T040.partial
+8	COMMIT	T040	g0	mosaic.fits
+9	PREPARE	T050	g1	stage/T050.partial

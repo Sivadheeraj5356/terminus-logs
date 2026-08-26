@@ -1,0 +1,7 @@
+addr 79.12.115.136 hex 0x1869 token tok_675
+addr 197.87.215.127 hex 0xfbf3 token tok_140
+yes delta world foo false gamma bar
+dog end gamma maybe hello
+symbols here
+baz no bird true
+the quick brown fox

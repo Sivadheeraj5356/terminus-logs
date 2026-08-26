@@ -1,0 +1,60 @@
+{
+  "consumers": [
+    {
+      "id": "consumer_harbor",
+      "graph": "/app/data/graphs/alpha.json",
+      "ledger": "/app/data/ledgers/alpha.jsonl",
+      "consumer": "/app/data/consumers/alpha.json"
+    },
+    {
+      "id": "consumer_lantern",
+      "graph": "/app/data/graphs/beta.json",
+      "ledger": "/app/data/ledgers/beta.jsonl",
+      "consumer": "/app/data/consumers/beta.json"
+    },
+    {
+      "id": "consumer_cinder",
+      "graph": "/app/data/graphs/gamma.json",
+      "ledger": "/app/data/ledgers/gamma.jsonl",
+      "consumer": "/app/data/consumers/gamma.json"
+    },
+    {
+      "id": "consumer_slate",
+      "graph": "/app/data/graphs/gamma.json",
+      "ledger": "/app/data/ledgers/eta.jsonl",
+      "consumer": "/app/data/consumers/eta.json"
+    },
+    {
+      "id": "consumer_quartz",
+      "graph": "/app/data/graphs/delta.json",
+      "ledger": "/app/data/ledgers/delta.jsonl",
+      "consumer": "/app/data/consumers/delta.json",
+      "generation_floor": 2
+    },
+    {
+      "id": "consumer_marble",
+      "graph": "/app/data/graphs/omega.json",
+      "ledger": "/app/data/ledgers/omega.jsonl",
+      "consumer": "/app/data/consumers/omega.json"
+    },
+    {
+      "id": "consumer_pioneer",
+      "graph": "/app/data/graphs/omega.json",
+      "ledger": "/app/data/ledgers/omega.jsonl",
+      "consumer": "/app/data/consumers/zeta.json"
+    },
+    {
+      "id": "consumer_cairn",
+      "graph": "/app/data/graphs/kappa.json",
+      "ledger": "/app/data/ledgers/kappa.jsonl",
+      "consumer": "/app/data/consumers/kappa.json"
+    },
+    {
+      "id": "consumer_keystone",
+      "graph": "/app/data/graphs/theta.json",
+      "ledger": "/app/data/ledgers/theta.jsonl",
+      "consumer": "/app/data/consumers/theta.json",
+      "generation_floor": 2
+    }
+  ]
+}

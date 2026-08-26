@@ -1,0 +1,3 @@
+# three-run journal chain — middle rw after ro
+profile alpha
+step rw target=data

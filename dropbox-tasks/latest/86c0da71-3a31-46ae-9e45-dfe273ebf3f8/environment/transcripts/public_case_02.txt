@@ -1,0 +1,4 @@
+# public_case_02: illegal seal break and a ventilated hazard exception
+move deck-hold
+break-seal seal-iron-04
+move tank-t4

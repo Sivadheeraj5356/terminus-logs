@@ -1,0 +1,6 @@
+schema_version: apexora-qos-policy-1
+policy_map: PM-VOICE_VIDEO
+classes:
+  - class: CM-VOICE_VIDEO
+    bandwidth_percent: 30
+    queue_limit: 8192

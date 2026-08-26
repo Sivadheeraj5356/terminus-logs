@@ -1,0 +1,6 @@
+hostname: acc-hq-dal-dc-wing-04
+migration_state: segmented
+canonical_vlan: 2005
+configured_vlan: 2005
+legacy_vlan: 106
+duplicate_vlan_conflict: false

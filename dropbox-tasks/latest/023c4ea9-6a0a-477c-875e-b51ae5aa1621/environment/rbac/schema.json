@@ -1,0 +1,4 @@
+{
+  "bindings": "subject, role",
+  "aggregate": "role, parent"
+}

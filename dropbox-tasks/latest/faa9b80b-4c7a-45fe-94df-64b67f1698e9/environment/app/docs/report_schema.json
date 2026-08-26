@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://snorkel.local/lunar-regolith-thermal-inertia-eclipse-inversion/report_schema.json",
+  "title": "LunarRegolithThermalReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "time_step_rows",
+    "temperature_rows",
+    "surface_flux_rows",
+    "radiometer_rows",
+    "inverse_fit_rows",
+    "solver_diagnostics",
+    "summary"
+  ],
+  "properties": {
+    "time_step_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "step_index",
+          "start_time_s",
+          "end_time_s",
+          "nonlinear_iterations",
+          "maximum_residual_w_m2",
+          "converged"
+        ],
+        "properties": {
+          "case_id": { "type": "string", "minLength": 1 },
+          "step_index": { "type": "integer", "minimum": 0 },
+          "start_time_s": { "type": "number" },
+          "end_time_s": { "type": "number" },
+          "nonlinear_iterations": { "type": "integer", "minimum": 0 },
+          "maximum_residual_w_m2": { "type": "number" },
+          "converged": { "type": "boolean" }
+        }
+      }
+    },
+    "temperature_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "observation_id",
+          "time_s",
+          "cell_index",
+          "depth_center_m",
+          "temperature_k"
+        ],
+        "properties": {
+          "case_id": { "type": "string", "minLength": 1 },
+          "observation_id": { "type": "string", "minLength": 1 },
+          "time_s": { "type": "number" },
+          "cell_index": { "type": "integer", "minimum": 0 },
+          "depth_center_m": { "type": "number" },
+          "temperature_k": { "type": "number" }
+        }
+      }
+    },
+    "surface_flux_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "step_index",
+          "end_time_s",
+          "absorbed_solar_flux_w_m2",
+          "emitted_thermal_flux_w_m2",
+          "conductive_flux_down_w_m2",
+          "geothermal_flux_up_w_m2",
+          "stored_energy_change_j_m2",
+          "net_boundary_energy_j_m2",
+          "energy_residual_j_m2"
+        ],
+        "properties": {
+          "case_id": { "type": "string", "minLength": 1 },
+          "step_index": { "type": "integer", "minimum": 0 },
+          "end_time_s": { "type": "number" },
+          "absorbed_solar_flux_w_m2": { "type": "number" },
+          "emitted_thermal_flux_w_m2": { "type": "number" },
+          "conductive_flux_down_w_m2": { "type": "number" },
+          "geothermal_flux_up_w_m2": { "type": "number" },
+          "stored_energy_change_j_m2": { "type": "number" },
+          "net_boundary_energy_j_m2": { "type": "number" },
+          "energy_residual_j_m2": { "type": "number" }
+        }
+      }
+    },
+    "radiometer_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "observation_id",
+          "case_id",
+          "time_s",
+          "band_id",
+          "surface_temperature_k",
+          "band_radiance_w_m2_sr",
+          "brightness_temperature_k"
+        ],
+        "properties": {
+          "observation_id": { "type": "string", "minLength": 1 },
+          "case_id": { "type": "string", "minLength": 1 },
+          "time_s": { "type": "number" },
+          "band_id": { "type": "string", "minLength": 1 },
+          "surface_temperature_k": { "type": "number" },
+          "band_radiance_w_m2_sr": { "type": "number" },
+          "brightness_temperature_k": { "type": "number" }
+        }
+      }
+    },
+    "inverse_fit_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fit_id",
+          "case_id",
+          "parameter_names",
+          "parameter_values",
+          "objective",
+          "evaluation_count",
+          "converged",
+          "at_parameter_bound"
+        ],
+        "properties": {
+          "fit_id": { "type": "string", "minLength": 1 },
+          "case_id": { "type": "string", "minLength": 1 },
+          "parameter_names": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+              "type": "string",
+              "enum": ["conductivity_scale", "albedo_offset"]
+            }
+          },
+          "parameter_values": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": { "type": "number" }
+          },
+          "objective": { "type": "number" },
+          "evaluation_count": { "type": "integer", "minimum": 1 },
+          "converged": { "type": "boolean" },
+          "at_parameter_bound": { "type": "boolean" }
+        }
+      }
+    },
+    "solver_diagnostics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "spinup_cycles",
+          "final_spinup_difference_k",
+          "report_step_count",
+          "maximum_step_residual_w_m2",
+          "minimum_temperature_k",
+          "maximum_temperature_k",
+          "all_values_finite"
+        ],
+        "properties": {
+          "case_id": { "type": "string", "minLength": 1 },
+          "spinup_cycles": { "type": "integer", "minimum": 1 },
+          "final_spinup_difference_k": { "type": "number" },
+          "report_step_count": { "type": "integer", "minimum": 0 },
+          "maximum_step_residual_w_m2": { "type": "number" },
+          "minimum_temperature_k": { "type": "number" },
+          "maximum_temperature_k": { "type": "number" },
+          "all_values_finite": { "type": "boolean" }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "observation_count",
+        "radiometer_row_count",
+        "inverse_fit_count",
+        "converged_inverse_fit_count",
+        "minimum_surface_temperature_k",
+        "maximum_surface_temperature_k",
+        "maximum_brightness_temperature_k",
+        "minimum_inversion_objective",
+        "maximum_absolute_energy_residual_j_m2"
+      ],
+      "properties": {
+        "case_count": { "type": "integer", "minimum": 0 },
+        "observation_count": { "type": "integer", "minimum": 0 },
+        "radiometer_row_count": { "type": "integer", "minimum": 0 },
+        "inverse_fit_count": { "type": "integer", "minimum": 0 },
+        "converged_inverse_fit_count": { "type": "integer", "minimum": 0 },
+        "minimum_surface_temperature_k": { "type": "number" },
+        "maximum_surface_temperature_k": { "type": "number" },
+        "maximum_brightness_temperature_k": { "type": "number" },
+        "minimum_inversion_objective": { "type": "number" },
+        "maximum_absolute_energy_residual_j_m2": { "type": "number" }
+      }
+    }
+  }
+}

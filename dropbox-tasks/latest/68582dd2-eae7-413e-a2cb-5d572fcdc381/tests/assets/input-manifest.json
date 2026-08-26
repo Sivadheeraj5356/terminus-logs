@@ -1,0 +1,13 @@
+{
+  "archives/meta-svc.tbundle": "1b0de86f053628126d208773006b513c7baa2a0b79b8912f7ccb0a2674f781a1",
+  "archives/simple-svc.tbundle": "fdd386c10744eb15e63331a14907c0d50a3a4af3bdc5dfc1b379d669c89bc1f7",
+  "config/idmap.toml": "4db57dd434c15e4bb73e4bf2f304bb1f9fe6c0f48c3861a12a69b44a4e817670",
+  "docs/archive-format.md": "5424c069d750ed9284567fc795da44077885f3fb508f8ebd4c75d5cca1443252",
+  "docs/log-schema.md": "ddf1a6572f8cb5d0509548757a14e360fe0ff48cabcb2767328f3d7f807e4d3f",
+  "docs/manifest-format.md": "e0babd8699d401f696d306a8d4a8e727fe1f3f8b553006179242f20a6df3f981",
+  "docs/operations.md": "fe68d8fc06d8a8c2ac54cfd4d85a55c71191dfa20110c1f1f5ff40739d114137",
+  "docs/restore-contract.md": "b2a20e5f11216a79b1e635e78c1aae2d14e68ff56817122c7512c9739984a621",
+  "docs/verification-contract.md": "89d51b1fdcbf90fc83dc675e845c62f3559addb2914fbf124919281ac7369266",
+  "manifests/meta-svc.json": "af7774f18d657a2f532a26f399d5d4da49a69e0d09ba0d72fbc7da80dc06517a",
+  "manifests/simple-svc.json": "928973ec23b967bba20212ecac65304528222ba7c7aff9d180c325ec9bc550bc"
+}

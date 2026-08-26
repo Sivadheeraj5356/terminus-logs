@@ -1,0 +1,98 @@
+{
+  "hk-01": {
+    "hide_cost": 1.05,
+    "guide_cost": 3.814
+  },
+  "hk-02": {
+    "hide_cost": 1.005,
+    "guide_cost": 4.122
+  },
+  "hk-03": {
+    "hide_cost": 0.866,
+    "guide_cost": 2.557
+  },
+  "hk-04": {
+    "hide_cost": 0.709,
+    "guide_cost": 2.394
+  },
+  "hk-05": {
+    "hide_cost": 0.94,
+    "guide_cost": 3.021
+  },
+  "hk-06": {
+    "hide_cost": 1.123,
+    "guide_cost": 3.48
+  },
+  "hk-07": {
+    "hide_cost": 0.908,
+    "guide_cost": 3.137
+  },
+  "hk-08": {
+    "hide_cost": 0.888,
+    "guide_cost": 3.062
+  },
+  "hk-09": {
+    "hide_cost": 1.015,
+    "guide_cost": 2.959
+  },
+  "hk-10": {
+    "hide_cost": 1.029,
+    "guide_cost": 4.507
+  },
+  "hk-11": {
+    "hide_cost": 1.105,
+    "guide_cost": 3.658
+  },
+  "hk-12": {
+    "hide_cost": 0.744,
+    "guide_cost": 2.401
+  },
+  "hk-13": {
+    "hide_cost": 0.972,
+    "guide_cost": 3.632
+  },
+  "hk-14": {
+    "hide_cost": 1.057,
+    "guide_cost": 3.17
+  },
+  "hk-15": {
+    "hide_cost": 0.914,
+    "guide_cost": 2.811
+  },
+  "hk-16": {
+    "hide_cost": 1.126,
+    "guide_cost": 3.768
+  },
+  "hk-17": {
+    "hide_cost": 0.807,
+    "guide_cost": 2.976
+  },
+  "hk-18": {
+    "hide_cost": 0.863,
+    "guide_cost": 3.051
+  },
+  "hk-19": {
+    "hide_cost": 0.902,
+    "guide_cost": 3.448
+  },
+  "hk-20": {
+    "hide_cost": 0.851,
+    "guide_cost": 3.571
+  },
+  "hk-21": {
+    "hide_cost": 1.086,
+    "guide_cost": 3.416
+  },
+  "hk-22": {
+    "hide_cost": 0.944,
+    "guide_cost": 4.1
+  },
+  "hk-23": {
+    "hide_cost": 1.134,
+    "guide_cost": 3.275
+  },
+  "hk-24": {
+    "hide_cost": 0.986,
+    "guide_cost": 2.845
+  }
+}

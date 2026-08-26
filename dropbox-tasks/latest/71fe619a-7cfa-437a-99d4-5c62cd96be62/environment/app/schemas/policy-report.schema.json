@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "modpolicy policy report v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "goos",
+    "goarch",
+    "policy_revision",
+    "modules",
+    "resolution_digest"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "modpolicy/v2" },
+    "goos": { "type": "string" },
+    "goarch": { "type": "string" },
+    "policy_revision": { "type": "string" },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "version", "source", "policy_decision", "replaces"],
+        "properties": {
+          "path": { "type": "string" },
+          "version": { "type": "string" },
+          "source": { "type": "string", "enum": ["mirror", "replace", "workspace"] },
+          "policy_decision": { "type": "string" },
+          "replaces": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["old_path", "new_path", "new_version"],
+              "properties": {
+                "old_path": { "type": "string" },
+                "new_path": { "type": "string" },
+                "new_version": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "resolution_digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "additionalProperties": false
+}

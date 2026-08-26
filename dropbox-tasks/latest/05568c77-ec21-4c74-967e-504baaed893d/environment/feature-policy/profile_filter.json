@@ -1,0 +1,24 @@
+{
+  "profile_filter": {
+    "release_strips_dev_only": true,
+    "dev_profile_keeps_all": true
+  },
+  "target_triple_filter": {
+    "host": ["host", "any"],
+    "target": ["target", "any"]
+  },
+  "resolved_crates": {
+    "includes_all_traversed": true,
+    "never_strip_features": true
+  },
+  "runtime_feature_set": {
+    "apply_profile_filter": true,
+    "apply_target_triple_filter": true,
+    "sort_by_crate_key_asc": true,
+    "entry_type": "bare_crate_key_string",
+    "entry_shape": "crate:version",
+    "exclude_per_feature_entries": true,
+    "dev_profile_includes_empty_feature_crates": true,
+    "release_profile_requires_surviving_feature": true
+  }
+}

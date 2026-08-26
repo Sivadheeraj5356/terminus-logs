@@ -1,0 +1,5 @@
+{
+  "phi_guard": {"kind": "tombstone", "value": true},
+  "codes": {"kind": "list", "value": ["42", "y"]},
+  "nest": {"kind": "map", "value": {"a": {"leaf": "overlay"}}}
+}

@@ -1,0 +1,12 @@
+{
+  "name": "delta_digest",
+  "chronology": "data/chronology/delta.json",
+  "matches": "data/matches/delta_digest.json",
+  "notes": "data/notes/delta_digest.json",
+  "roster": [
+    "striker",
+    "warden",
+    "skirmisher",
+    "medic"
+  ]
+}

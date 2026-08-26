@@ -1,0 +1,21 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 9001,
+  "leaf_type": "x509_entry",
+  "issuer_id": "CA-DROP-ME-TOO",
+  "subject": [
+    "shop.globex.io",
+    "SHOP.GLOBEX.IO",
+    "köln.globex.io",
+    "ns1.globex.io"
+  ],
+  "issued_at": "2026-03-09T23:59:59.999Z",
+  "payload": "cert:CCCCconstantpayloadTHREE",
+  "received_at": "2026-03-10T00:00:01Z",
+  "x_shard": 17,
+  "x_origin": "shard-west-3",
+  "audit": {
+    "reviewer": "bob",
+    "note": "manual"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "profile_a",
+  "tick_cap": 4.0,
+  "densify_floor": 1.5,
+  "bands": [
+    {
+      "name": "near",
+      "E": 1.0
+    },
+    {
+      "name": "far",
+      "E": 0.8
+    }
+  ]
+}

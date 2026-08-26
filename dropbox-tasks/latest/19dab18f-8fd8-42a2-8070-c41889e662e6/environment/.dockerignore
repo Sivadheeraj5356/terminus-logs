@@ -1,0 +1,10 @@
+# Exclude build-context clutter and dev/verifier artifacts that should
+# never be baked into the agent's image (never *.md - LINKOUT_POLICY.md is COPYed).
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/

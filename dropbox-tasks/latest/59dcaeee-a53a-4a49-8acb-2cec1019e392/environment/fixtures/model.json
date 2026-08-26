@@ -1,0 +1,64 @@
+{
+  "schema": "rfim-v1",
+  "initial_external_milli": -500,
+  "initial_direction": 1,
+  "spins": [
+    {
+      "id": "alpha",
+      "bias_milli": 100,
+      "initial": -1
+    },
+    {
+      "id": "beta",
+      "bias_milli": 40,
+      "initial": -1
+    },
+    {
+      "id": "kappa",
+      "bias_milli": 0,
+      "initial": -1
+    },
+    {
+      "id": "mu",
+      "bias_milli": -60,
+      "initial": -1
+    },
+    {
+      "id": "zeta",
+      "bias_milli": -20,
+      "initial": -1
+    },
+    {
+      "id": "solo",
+      "bias_milli": -120,
+      "initial": -1
+    }
+  ],
+  "edges": [
+    {
+      "a": "alpha",
+      "b": "beta",
+      "coupling_milli": 100
+    },
+    {
+      "a": "alpha",
+      "b": "kappa",
+      "coupling_milli": 80
+    },
+    {
+      "a": "beta",
+      "b": "mu",
+      "coupling_milli": 120
+    },
+    {
+      "a": "kappa",
+      "b": "zeta",
+      "coupling_milli": 140
+    },
+    {
+      "a": "mu",
+      "b": "zeta",
+      "coupling_milli": 100
+    }
+  ]
+}

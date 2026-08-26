@@ -1,0 +1,26 @@
+{
+  "max_assigned": 160,
+  "max_base_share": 0.32,
+  "max_route_share": 0.24,
+  "max_window_share": 0.22,
+  "maximum_rest_buffer_minutes": 90,
+  "min_assigned": 160,
+  "min_bases_used": 4,
+  "min_modes_used": 4,
+  "min_protected_passenger_minutes": 3300000,
+  "min_rest_buffer_distinct": 12,
+  "min_rest_buffer_stdev": 8.5,
+  "min_routes_used": 6,
+  "min_window_base_cells": 24,
+  "min_windows_used": 6,
+  "minimum_rest_buffer_minutes": 10,
+  "strict_raw_floor": 0.965,
+  "strict_score_floor": 0.888,
+  "target_assigned": 160,
+  "valid_handoff_modes": [
+    "RELIEF",
+    "SWAP",
+    "DEADHEAD",
+    "STANDBY"
+  ]
+}

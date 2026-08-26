@@ -1,0 +1,10 @@
+{
+  "gridSize": 100,
+  "c": 1.0,
+  "dx": 0.1,
+  "dt": 0.05,
+  "steps": 120,
+  "stride": 10,
+  "order": 2,
+  "haloProfile": "default"
+}

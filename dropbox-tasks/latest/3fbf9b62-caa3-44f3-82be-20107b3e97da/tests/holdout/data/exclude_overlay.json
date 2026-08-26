@@ -1,0 +1,6 @@
+{
+  "modules": [
+    "github.com/gorilla/mux",
+    "golang.org/x/sync"
+  ]
+}

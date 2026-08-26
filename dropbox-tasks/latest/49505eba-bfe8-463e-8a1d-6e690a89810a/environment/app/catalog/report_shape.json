@@ -1,0 +1,77 @@
+{
+  "schema_version": "marc-classifier-v1",
+  "output_path": "/app/output/report.json",
+  "top_level_keys_in_order": [
+    "report_digest",
+    "schema_version",
+    "records",
+    "by_verdict",
+    "summary"
+  ],
+  "record_keys_in_order": [
+    "shard",
+    "record_seq",
+    "field_seq",
+    "tag",
+    "verdict",
+    "pin_consumed"
+  ],
+  "summary_keys_in_order": [
+    "total_records",
+    "pin_consumed_count",
+    "cascade_arms_total"
+  ],
+  "summary_key_semantics": {
+    "total_records": "count of emitted classification rows in the records array (leader rows plus per-field rows); NOT the count of source MARC records across all shelves",
+    "pin_consumed_count": "count of rows where pin_consumed is true; equals the ENCODING_PIN_RESCUED verdict count",
+    "cascade_arms_total": "count of times the per-shelf cumulative TAG_OUT_OF_RANGE counter reaches the arming threshold; equals the CASCADE_QUARANTINED verdict count"
+  },
+  "verdict_enum": [
+    "CONTROL_FIELD_ACCEPTED",
+    "DATA_FIELD_ACCEPTED",
+    "LEADER_DECODED",
+    "SUBFIELD_DELIMITER_MISSING",
+    "TAG_OUT_OF_RANGE",
+    "INDICATOR_NONBLANK_REJECTED",
+    "ENCODING_PIN_RESCUED",
+    "DUPLICATE_TAG_DROPPED",
+    "CASCADE_QUARANTINED",
+    "LEADER_BASE_ADDR_INVALID"
+  ],
+  "by_verdict_zero_fill": true,
+  "by_verdict_serialization_order": "alphabetical_by_verdict_name",
+  "shard_order": ["alpha", "beta", "gamma"],
+  "shard_file_map": {
+    "alpha": "catalog_alpha.mrk",
+    "beta": "catalog_beta.ndj",
+    "gamma": "catalog_gamma.fwt"
+  },
+  "leader_field_tag_literal": "LDR",
+  "sort_order": {
+    "primary": "shard_per_shard_order",
+    "secondary_ascending": "record_seq",
+    "tertiary_ascending": "field_seq"
+  },
+  "field_types": {
+    "shard": "string",
+    "record_seq": "json_integer",
+    "field_seq": "json_integer",
+    "tag": "string_three_chars",
+    "verdict": "string_enum",
+    "pin_consumed": "json_boolean"
+  },
+  "report_digest_formula": {
+    "algorithm": "sha256",
+    "hex_truncation": 16,
+    "input_struct_field_order": ["records", "by_verdict", "summary"],
+    "input_canonicalization": "go_json_Marshal_on_typed_struct_with_declaration_order"
+  },
+  "output_file_format": {
+    "encoding": "utf-8",
+    "indent": "two_spaces",
+    "trailing_newline": true,
+    "envelope_field_order_matches_top_level_keys_in_order": true
+  },
+  "binary_path": "/app/bin/marcrec",
+  "purge_output_dir_on_each_run": true
+}

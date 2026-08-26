@@ -1,0 +1,18 @@
+Tenant output field names for overlay patch closure audit scenarios.
+
+Rebuild path: /app/scripts/compile_report.sh or /app/launcher/cl_publish regenerates /app/output/closure_report.json from /app/data/tenant_registry.json.
+
+Report top level: integer schema_mark from /app/stubs/revision_stamp.txt; tenants map keyed by each manifest tenant id field verbatim (for example tenant_alpha, tenant_beta).
+
+Each tenant block exports only these three keys and no others:
+- effective_digest_hex — lowercase SHA-256 hex join digest of the fully resolved effective map after alias fixpoint materialization (see /app/doc/merge_contract.txt)
+- resolved_key_count — number of top-level keys after patch stack and alias materialization
+- overlay_drifted — true when effective_digest_hex differs from the pre-drift join digest on the fused base-plus-overlay map taken before patch layers and before alias resolution
+
+Runtime defaults in /app/cfg/runtime.toml: default_list_mode. Reload runtime settings on each rebuild and on each in-process build_report call; do not serve stale cached defaults.
+
+Manifest tenant rows may set list_mode, patches, and tenant_patches under those exact keys when present. Normalized rows must keep those override keys under the same names declared in the manifest; do not rename patches or tenant_patches during load.
+
+Per-tenant patch and merge semantics: /app/doc/merge_contract.txt
+Digest row wire: /app/doc/digest_wire.txt
+Tenant index ordering reference: /app/resources/tenant_index.txt

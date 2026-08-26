@@ -1,0 +1,5 @@
+kind,ecosystem,name,digest,status,clause
+package,npm,event-stream-flat,,active,QR-2101
+package,go,legacy-yaml-shim,,lifted,QR-1984
+artifact,,,45bcb681809da9aaabf4c59a3ba2b86a9c481ee9f0fae5ac5e2625e48ece416f,active,QR-2209
+artifact,,,6f1d0c74a9e2b5883fd1c60c3a2e9477210b8c5d4ef03a196283b7cd50f14a92,active,QR-2210

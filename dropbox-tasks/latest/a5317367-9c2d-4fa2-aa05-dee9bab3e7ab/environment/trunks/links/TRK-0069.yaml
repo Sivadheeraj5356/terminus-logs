@@ -1,0 +1,7 @@
+schema_version: apexora-trunk-link-1
+trunk_id: TRK-0069
+endpoint_a: device-070
+endpoint_b: device-071
+allowed_vlans: selective
+native_vlan: 999
+migration_state: segmented

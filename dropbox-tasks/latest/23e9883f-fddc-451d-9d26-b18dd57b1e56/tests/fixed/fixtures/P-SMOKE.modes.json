@@ -1,0 +1,110 @@
+[
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M1",
+    "locale": "L19A",
+    "omega_obs": 10.537904,
+    "omega_ref": 10.0,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M1",
+    "locale": "L19B",
+    "omega_obs": 10.621254,
+    "omega_ref": 10.2,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M1",
+    "locale": "L19C",
+    "omega_obs": 10.783952,
+    "omega_ref": 10.5,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M2",
+    "locale": "L19A",
+    "omega_obs": 10.49508,
+    "omega_ref": 10.0,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M2",
+    "locale": "L19B",
+    "omega_obs": 10.622393,
+    "omega_ref": 10.2,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M2",
+    "locale": "L19C",
+    "omega_obs": 10.73254,
+    "omega_ref": 10.5,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M3",
+    "locale": "L19A",
+    "omega_obs": 10.559056,
+    "omega_ref": 10.0,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M3",
+    "locale": "L19B",
+    "omega_obs": 10.644081,
+    "omega_ref": 10.2,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M3",
+    "locale": "L19C",
+    "omega_obs": 10.791528,
+    "omega_ref": 10.5,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M4",
+    "locale": "L19A",
+    "omega_obs": 10.468096,
+    "omega_ref": 10.0,
+    "excit": 0.8
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M4",
+    "locale": "L19B",
+    "omega_obs": 10.603746,
+    "omega_ref": 10.2,
+    "excit": 0.85
+  },
+  {
+    "panel_id": "P-SMOKE",
+    "family": "smoke",
+    "mode": "M4",
+    "locale": "L19C",
+    "omega_obs": 10.724048,
+    "omega_ref": 10.5,
+    "excit": 0.9
+  }
+]

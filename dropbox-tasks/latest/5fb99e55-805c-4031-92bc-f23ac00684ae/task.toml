@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+subcategories = ["tool_specific"]
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["go"]
+tags = ["go", "system-administration", "cli", "infrastructure-tuning", "parameter-management", "configuration-automation", "sysadmin", "linux", "service-limits", "tool-specific", "sre", "devops", "server-management", "configuration-drift", "service-quotas", "resource-allocation"]
+expert_time_estimate_min = 75
+junior_time_estimate_min = 150
+
+[verifier]
+timeout_sec = 450.0
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

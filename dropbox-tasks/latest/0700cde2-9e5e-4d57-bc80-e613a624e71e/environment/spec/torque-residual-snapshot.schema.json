@@ -1,0 +1,10 @@
+{
+  "schema": "lattice-residual-v1",
+  "residuals": [
+    {
+      "batch_id": "ALPHA-01",
+      "residual_score": 12.5
+    }
+  ],
+  "snapshot_digest": "64_hex_char_sha256"
+}

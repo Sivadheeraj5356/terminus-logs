@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: MGMT
+description: Apexora MGMT macro-segment
+rd: "65014:1014"
+rt_export: "65014:1014"
+rt_import:
+  - "65014:1014"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

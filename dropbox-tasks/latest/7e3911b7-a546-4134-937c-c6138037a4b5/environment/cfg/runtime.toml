@@ -1,0 +1,10 @@
+implementation_roots = ["phase_h", "stencil_k", "crate_q", "ridge_o", "lattice_p"]
+frozen_bins = ["/app/bin/nav_matrix"]
+
+frozen_sources = [
+  "bracket/exec_main.c",
+  "lib/mesh_fold.c",
+  "lib/fold_helpers.c",
+  "include/mesh_types.h",
+  "include/mesh_fold.h",
+]

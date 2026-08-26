@@ -1,0 +1,8 @@
+punct marks here
+ip 192.168.0.1 and 10.0.0.255 here
+banana bananana ba na
+ip 192.168.0.1 and 10.0.0.255 here
+quux foobar gamma bar
+ip 192.168.0.1 and 10.0.0.255 here
+consonants rhythm myth
+addr 41.228.104.141 hex 0x2b76 token tok_579

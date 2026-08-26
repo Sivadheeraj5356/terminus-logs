@@ -1,0 +1,5 @@
+scenario_id,column,value,multiplier
+steel_precision_loss,material_label,steel,0.32
+steel_precision_loss,feed_level,high,0.68
+deep_cut_instability,depth_level,deep,0.39
+deep_cut_instability,material_label,cast_iron,0.76

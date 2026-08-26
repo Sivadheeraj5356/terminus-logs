@@ -1,0 +1,54 @@
+schema_version: apexora-audit-1
+findings:
+  - hostname: acc-hq-dal-bldg1-01
+    codes: [partial_vlan_mapping]
+  - hostname: acc-hq-dal-bldg2-02
+    codes: [partial_vlan_mapping]
+  - hostname: acc-amw-sea-admin-03
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-amw-sea-admin-06
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-amw-sea-admin-09
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-lon-tower-a-07
+    codes: [partial_vlan_mapping]
+  - hostname: acc-emea-fra-lab-01
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-fra-office-02
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-fra-ot-yard-03
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-fra-lab-04
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-fra-office-05
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-fra-ot-yard-06
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-emea-fra-lab-07
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-apac-sin-hub-01
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-sin-guest-wing-02
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-sin-hub-03
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-sin-guest-wing-04
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-sin-hub-05
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-sin-guest-wing-06
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-sin-hub-07
+    codes: [partial_vlan_mapping]
+  - hostname: acc-apac-tyo-office-01
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-apac-tyo-mfg-02
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-apac-tyo-office-03
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-apac-tyo-mfg-04
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-apac-tyo-office-05
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]
+  - hostname: acc-apac-tyo-mfg-06
+    codes: [legacy_vlan_ids_present,trunk_all_vlans]

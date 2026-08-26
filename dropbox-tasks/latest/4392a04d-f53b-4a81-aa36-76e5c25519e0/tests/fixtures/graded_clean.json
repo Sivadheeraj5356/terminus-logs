@@ -1,0 +1,3 @@
+[
+  {"id": "pass-all", "action": "allow", "src": "0.0.0.0/0", "dst": "0.0.0.0/0", "port_min": 0, "port_max": 65535, "protocol": "any", "direction": "any", "priority": 100}
+]

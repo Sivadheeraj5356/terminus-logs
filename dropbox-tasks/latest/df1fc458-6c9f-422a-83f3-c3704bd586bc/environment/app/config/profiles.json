@@ -1,0 +1,16 @@
+{
+  "schema_version": "kev.profiles.v1",
+  "as_of": "2026-06-25",
+  "profiles": {
+    "bod26": {
+      "include_vendors": ["*"],
+      "include_cwe_classes": ["auth-integrity", "code-execution", "input-validation", "memory-safety", "path-traversal", "other"],
+      "due_soon_days": 7
+    },
+    "edge-devices": {
+      "include_vendors": ["Cisco", "Ivanti", "Lantronix", "Ubiquiti", "LiteSpeed"],
+      "include_cwe_classes": ["code-execution", "path-traversal", "input-validation"],
+      "due_soon_days": 10
+    }
+  }
+}

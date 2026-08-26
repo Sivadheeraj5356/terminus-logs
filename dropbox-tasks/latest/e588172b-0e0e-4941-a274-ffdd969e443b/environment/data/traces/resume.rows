@@ -1,0 +1,4 @@
+# resume window: timezone-skip (0x04), then a boot-gap fragment (wall_off >= 86400).
+# On the initial rebuild the boot-gap row is first-pass work (seq < 100), not recovery.
+20240311|0|1|0x04
+20240312|86400|2|0

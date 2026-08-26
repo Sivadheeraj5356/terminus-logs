@@ -1,0 +1,6 @@
+tenant_id|allowed_tiers
+TEN_A|bronze,silver,gold
+TEN_B|silver,gold
+TEN_C|bronze,silver,gold
+TEN_Q|silver,gold
+TEN_X|bronze,silver,gold

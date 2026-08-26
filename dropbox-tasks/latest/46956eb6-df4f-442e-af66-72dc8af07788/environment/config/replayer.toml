@@ -1,0 +1,29 @@
+correlation_window_ns_default = 60000000000
+
+[scenarios.lane_alpha]
+correlation_window_ns = 60000000000
+
+[scenarios.lane_beta]
+correlation_window_ns = 60000000000
+
+[scenarios.lane_gamma]
+correlation_window_ns = 60000000000
+
+[scenarios.lane_delta]
+correlation_window_ns = 30000000000
+
+[scenarios.lane_epsilon]
+correlation_window_ns = 45000000000
+
+[paths]
+binary = "/app/bin/telreplay"
+matrix = "/app/scripts/run_matrix.sh"
+
+[scenarios.lane_zeta]
+correlation_window_ns = 60000000000
+
+[scenarios.lane_eta]
+correlation_window_ns = 60000000000
+
+[scenarios.lane_iota]
+correlation_window_ns = 60000000000

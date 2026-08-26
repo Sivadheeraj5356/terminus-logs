@@ -1,0 +1,8 @@
+{
+  "desk": "faillock-threshold",
+  "links": [
+    {"epoch": 10, "deny": 5, "note": "pre-cutover-soft"},
+    {"epoch": 11, "deny": 4, "note": "bridge-window"},
+    {"epoch": 12, "deny": 3, "note": "signed-tip", "tip": true}
+  ]
+}

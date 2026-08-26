@@ -1,0 +1,4 @@
+name = "depot"
+fixture = "depot_inputs"
+cycles = 3
+authority_tier = "runtime"

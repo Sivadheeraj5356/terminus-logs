@@ -1,0 +1,35 @@
+schema_version: apexora-vlan-campus-1
+campus: campus-emea-fra
+allowed_vlan_range: 2001-2180
+local_vlan_count: 30
+vlans:
+  - id: 2091
+  - id: 2092
+  - id: 2093
+  - id: 2094
+  - id: 2095
+  - id: 2096
+  - id: 2097
+  - id: 2098
+  - id: 2099
+  - id: 2100
+  - id: 2101
+  - id: 2102
+  - id: 2103
+  - id: 2104
+  - id: 2105
+  - id: 2106
+  - id: 2107
+  - id: 2108
+  - id: 2109
+  - id: 2110
+  - id: 2111
+  - id: 2112
+  - id: 2113
+  - id: 2114
+  - id: 2115
+  - id: 2116
+  - id: 2117
+  - id: 2118
+  - id: 2119
+  - id: 2120

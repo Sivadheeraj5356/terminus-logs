@@ -1,0 +1,74 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous@example.com"
+difficulty = "hard"
+expected_difficulty = "hard"
+category = "security"
+subcategories = []
+languages = ["c"]
+number_of_milestones = 0
+tags = ["security-forensics", "telemetry-integrity", "anti-replay", "binary-evidence", "crc32", "credential-chains", "authenticated-frames", "digital-forensics", "quorum-attestation", "c"]
+expert_time_estimate_min = 600.0
+junior_time_estimate_min = 3200.0
+codebase_size = "minimal"
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 1200.0
+deny_paths = ["/tests", "/solution", "/logs/verifier"]
+
+[environment]
+build = "environment/Dockerfile"
+workdir = "/app"
+allow_internet = false
+build_timeout_sec = 600.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 4096
+docker_flags = []
+gpus = 0
+gpu_types = []
+
+[[rubric]]
+criterion = "Reads the input strictly as 36-byte physical-order frames, validates magic, CRC-32, version, seven flag semantics, nine types, and layout in the documented precedence, and counts trailing fragments as bad_length exactly once."
+points = 12
+
+[[rubric]]
+criterion = "Implements Beacon-X decoding only after the required pre-decode validation and interprets all little-endian signed and unsigned fields with the documented two's-complement and modulo arithmetic rules."
+points = 12
+
+[[rubric]]
+criterion = "Maintains seven independent freshness histories using the exact 257-step 16-bit wraparound forward horizon, including boundary and wrap cases, preserves histories across hierarchical and reverse invalidation, and never also counts stale records as dependency failures."
+points = 14
+
+[[rubric]]
+criterion = "Applies every record to the correct per-key or per-station state, including inactive sensors, calibration-after-data behavior, cross-station relay state, and the full beacon/anchor/relay/checkpoint/quorum invalidation hierarchy without erasing freshness history."
+points = 14
+
+[[rubric]]
+criterion = "Checks sealed calibration, beacon, anchor, cross-station relay, checkpoint, carry-auth, chain-auth, rolling data, epoch-auth, relay-auth, checkpoint-auth, and quorum-auth in the specified order, classifies a bad type-5 beacon authentication word as bad_layout rather than dependency, and updates all derived keys only on accepted records."
+points = 18
+
+[[rubric]]
+criterion = "Implements quorum certificates with two ordered external witnesses, packed sequence provenance, bespoke authentication arithmetic, five live bindings, independent freshness, and reverse invalidation when either witness beacon advances; handles all seven auth flags together in one data frame."
+points = 20
+
+[[rubric]]
+criterion = "Prints the exact summary, reject-count, and active sensor lines with reject reasons in spec order and active sensors sorted by station then sensor."
+points = 5
+
+[[rubric]]
+criterion = "Builds as a single C11 source file using only gcc and libc at /app/src/beacon_replay.c without shelling out, hard-coding verifier outputs, or depending on Python or external tools at runtime."
+points = 5
+
+[[rubric]]
+criterion = "Uses hard-coded answers for the public input, generated verifier cases, or specific checksums instead of implementing the replay rules generally."
+points = -40
+
+[[rubric]]
+criterion = "Reads from /tests, /solution, or /logs/verifier, modifies verifier artifacts, or shells out to another interpreter/program to compute the answer."
+points = -40

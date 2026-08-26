@@ -1,0 +1,3 @@
+permute_modes: cycle modes and rotate gain/fringe/coupling inverse.
+reverse_locale_bands: reverse locale labels and weight vector.
+cascade_compose: digest of permute then reverse must equal full; tip.chain_digest = sha256(full|perm|rev|compose).

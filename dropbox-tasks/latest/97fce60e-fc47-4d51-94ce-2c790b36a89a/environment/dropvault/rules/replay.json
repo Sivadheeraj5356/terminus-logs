@@ -1,0 +1,47 @@
+{
+  "constants": {
+    "rng_epsilon": 1e-9,
+    "chi_threshold": 6.635,
+    "gini_threshold": 0.55,
+    "variance_threshold": 0.08,
+    "variance_window": 8,
+    "streak_trigger": 6,
+    "chi_min_expected": 5,
+    "chi_min_rolls": 30,
+    "gini_min_natural_epics": 5,
+    "gini_min_players": 2
+  },
+  "rng": {
+    "read_before_advance": true,
+    "roll_formula": "((state>>16)&0x7FFF)/32767.0",
+    "advance": "state=(1103515245*state+12345) mod 2^31",
+    "selection_uses_expected_rv_after_mismatch": true
+  },
+  "roll_processing": {
+    "order": "sort_rolls_by_seq_ascending_before_replay",
+    "not_json_encounter_order": true,
+    "json_array_reorder_must_not_change_output": true
+  },
+  "selection": {
+    "pool_sort": "item_id_lexicographic",
+    "target": "expected_rv * total_weight",
+    "cumulative_boundary_inclusive": true,
+    "pity_item": "lexicographically_first_pity_tier_item"
+  },
+  "per_roll_gate_order": [
+    "duplicate_seq_reject",
+    "rng_read_and_advance",
+    "rng_mismatch",
+    "pity_active_and_expected_item",
+    "pity_violation",
+    "pool_mismatch_or_in_pool_branch",
+    "tier_mismatch",
+    "duplicate_unique",
+    "cooldown_breach",
+    "cooldown_last_seq_update",
+    "streak_skew",
+    "variance_spike",
+    "tier_and_player_counters",
+    "pity_counter_update"
+  ]
+}

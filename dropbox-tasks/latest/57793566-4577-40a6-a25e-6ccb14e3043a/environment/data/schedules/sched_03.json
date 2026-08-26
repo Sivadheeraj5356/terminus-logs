@@ -1,0 +1,112 @@
+{
+  "budgets": {
+    "B": 9,
+    "C": 11
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 2
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "C",
+      "pages": 3,
+      "printer": "p3",
+      "priority": 1,
+      "seq": 3
+    },
+    {
+      "op": "finish",
+      "printer": "p3",
+      "seq": 4
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 5
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "B",
+      "pages": 2,
+      "printer": "p3",
+      "priority": 2,
+      "seq": 6
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 7
+    },
+    {
+      "op": "pause",
+      "printer": "p1",
+      "seq": 8
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 9
+    },
+    {
+      "op": "finish",
+      "printer": "p2",
+      "seq": 10
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 11
+    },
+    {
+      "op": "finish",
+      "printer": "p2",
+      "seq": 12
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 13
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 14
+    }
+  ],
+  "printers": [
+    "p1",
+    "p2",
+    "p3"
+  ],
+  "spool": "sched_03"
+}

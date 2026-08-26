@@ -1,0 +1,6 @@
+hostname: acc-amw-sea-admin-06
+migration_state: legacy
+canonical_vlan: 2017
+configured_vlan: 118
+legacy_vlan: 118
+duplicate_vlan_conflict: false

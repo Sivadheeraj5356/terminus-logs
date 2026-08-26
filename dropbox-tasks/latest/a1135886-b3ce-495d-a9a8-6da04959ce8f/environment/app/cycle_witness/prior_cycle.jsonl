@@ -1,0 +1,3 @@
+{"cycle":"C-202605","run_ts_ns":1749999960000000000,"total_chunks":18,"kept":9,"dehydrated":2,"quarantined":3,"rejected":4,"accepted_chunks":["c-033","c-prev-901","c-prev-902"]}
+{"cycle":"C-202604","run_ts_ns":1749999800000000000,"total_chunks":15,"kept":11,"dehydrated":1,"quarantined":1,"rejected":2,"accepted_chunks":["c-prev-803","c-prev-804"]}
+{"cycle":"C-202603","run_ts_ns":1749999600000000000,"total_chunks":12,"kept":8,"dehydrated":0,"quarantined":2,"rejected":2,"accepted_chunks":[]}

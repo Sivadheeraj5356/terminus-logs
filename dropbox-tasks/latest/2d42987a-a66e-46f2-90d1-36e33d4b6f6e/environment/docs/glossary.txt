@@ -1,0 +1,4 @@
+# Rare local vocabulary for status-view output.
+mux_pending = local material not yet accepted by the apply profile
+mark_open = policy route has not detached from the prior hop
+conv_drift = terminal rows disagree across sampled peers

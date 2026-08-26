@@ -1,0 +1,9 @@
+{
+  "matrix": "all",
+  "bundles": [
+    "circ_fence",
+    "rot_chain",
+    "clock_mix",
+    "burst_cap"
+  ]
+}

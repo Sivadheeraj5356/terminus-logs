@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Developer checks: build the workspace and run the language smoke checks.
+set -euo pipefail
+
+SRC="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$SRC"
+"$SRC/scripts/dev-build"
+
+NATIVE="$SRC/target/release/libvellum.so"
+CLI="$SRC/target/release/vellum-cli"
+
+VELLUM_NATIVE="$NATIVE" "$CLI" identity >/dev/null
+VELLUM_NATIVE="$NATIVE" python3 "$SRC/python/tests/smoke.py"
+VELLUM_CLI="$CLI" node "$SRC/node/test/smoke.js"
+
+echo "dev-check ok"

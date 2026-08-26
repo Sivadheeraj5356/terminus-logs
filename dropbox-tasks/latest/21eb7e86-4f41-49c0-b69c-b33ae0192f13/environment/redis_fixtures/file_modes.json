@@ -1,0 +1,8 @@
+{
+  "homes/alice/.ssh": "0700",
+  "homes/alice/.ssh/authorized_keys": "0600",
+  "homes/bob/.ssh": "0700",
+  "homes/bob/.ssh/authorized_keys": "0600",
+  "ssh/sshd_config.d/bastion.conf": "0644",
+  "sudoers.d/bastion-users": "0440"
+}

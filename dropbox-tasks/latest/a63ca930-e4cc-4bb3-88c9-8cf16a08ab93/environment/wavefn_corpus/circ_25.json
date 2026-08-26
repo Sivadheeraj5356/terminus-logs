@@ -1,0 +1,17 @@
+{
+  "circuit_id": "circ_25",
+  "qubits": 1,
+  "gates": [
+    {
+      "op": "X",
+      "qubit": 0
+    },
+    {
+      "op": "X",
+      "qubit": 0
+    }
+  ],
+  "policy_overrides": {
+    "fuse_adjacent": false
+  }
+}

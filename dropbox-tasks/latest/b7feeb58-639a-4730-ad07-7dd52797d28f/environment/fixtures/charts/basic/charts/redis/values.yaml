@@ -1,0 +1,4 @@
+image: redis:7
+replicas: 2
+global:
+  region: us-east

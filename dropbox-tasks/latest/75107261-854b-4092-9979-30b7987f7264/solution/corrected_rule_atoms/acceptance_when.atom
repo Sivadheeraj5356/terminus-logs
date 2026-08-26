@@ -1,0 +1,6 @@
+RULE ACCEPTANCE_WHEN
+IN keys
+OUT value,reason
+TABLE
+mode -> after_complete|accept-when
+END

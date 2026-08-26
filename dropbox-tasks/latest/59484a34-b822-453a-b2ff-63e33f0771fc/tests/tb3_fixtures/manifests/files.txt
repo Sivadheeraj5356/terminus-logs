@@ -1,0 +1,4 @@
+certificates/tb3-a.json
+certificates/tb3-rev.json
+certificates/tb3-ok.json
+certificates/tb3-noroot.json

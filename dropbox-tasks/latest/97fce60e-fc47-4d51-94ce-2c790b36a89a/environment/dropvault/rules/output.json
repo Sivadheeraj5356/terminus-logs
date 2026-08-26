@@ -1,0 +1,87 @@
+{
+  "output": {
+    "root_key": "sessions",
+    "session_fields": [
+      "session_id",
+      "status",
+      "gini_coefficient",
+      "tier_stats",
+      "players",
+      "findings"
+    ],
+    "status_values": ["FAIR", "BIASED"],
+    "status_rule": "FAIR when findings array is empty; BIASED when any finding exists regardless of kind",
+    "gini_key": "gini_coefficient",
+    "gini_key_not_gini": true,
+    "player_fields": ["player_id", "epic_drops", "total_rolls"],
+    "tier_stat_fields": ["tier", "observed", "expected", "chi_square"],
+    "finding_fields": ["finding_id", "player_id", "kind", "detail", "seq"],
+    "finding_id_format": "{session_id}::{player_id}::{kind}::{seq:04d}",
+    "json_compact": true,
+    "trailing_newline": true,
+    "write_via": "faircore.WriteReport",
+    "byte_contract": "compact UTF-8 with separators comma colon no spaces, one trailing LF newline, bytes equal Python json.dumps of parsed object with same separators plus one LF"
+  },
+  "numeric_rounding": {
+    "round_to_decimals": 4,
+    "apply_to_json_numbers": [
+      "gini_coefficient",
+      "tier_stats.expected",
+      "tier_stats.chi_square"
+    ],
+    "integer_when_whole": true,
+    "detail_fixed_four_decimal_strings": ["GINI_UNFAIR", "VARIANCE_SPIKE"],
+    "variance_detail_uses_round4_before_sprintf": true
+  },
+  "finding_kinds": [
+    "RNG_MISMATCH",
+    "PITY_VIOLATION",
+    "POOL_MISMATCH",
+    "TIER_MISMATCH",
+    "DUPLICATE_UNIQUE",
+    "COOLDOWN_BREACH",
+    "CHI_SQUARE_HIGH",
+    "GINI_UNFAIR",
+    "STREAK_SKEW",
+    "DUPLICATE_SEQ",
+    "VARIANCE_SPIKE"
+  ],
+  "detail_formats": {
+    "RNG_MISMATCH": "twelve_decimal_logged_roll_value",
+    "PITY_VIOLATION": "expected_pity_item_id",
+    "POOL_MISMATCH": "unknown_logged_item_id",
+    "DUPLICATE_UNIQUE": "logged_item_id",
+    "COOLDOWN_BREACH": "logged_item_id",
+    "TIER_MISMATCH": "logged_tier",
+    "CHI_SQUARE_HIGH": "tier_name",
+    "GINI_UNFAIR": "natural_gini_four_decimal_fixed_string",
+    "STREAK_SKEW": "streak_tier_name",
+    "DUPLICATE_SEQ": "duplicated_seq_decimal_string",
+    "VARIANCE_SPIKE": "variance_four_decimal_fixed_string"
+  },
+  "session_findings": {
+    "chi_square_player": "alphabetically_first_player_id_among_players_with_processed_rolls",
+    "chi_square_seq": "maximum_seq_in_session_json_rolls_after_sort_by_seq_ascending",
+    "gini_unfair_player": "alphabetically_first_player_id_among_players_with_processed_rolls",
+    "gini_unfair_seq": "maximum_seq_in_session_json_rolls_after_sort_by_seq_ascending",
+    "not_last_player_seen_in_replay_loop": true,
+    "not_unsorted_json_array_last_element": true,
+    "finding_id_requires_non_empty_player_id": true,
+    "seq_must_be_positive_when_session_has_rolls": true
+  },
+  "independent_findings": true,
+  "findings_sort": "finding_id_lexicographic",
+  "app_layout": {
+    "allowed_top_level_under_app": [
+      "/app/dropvault",
+      "/app/faircore",
+      "/app/rollbench",
+      "/app/out",
+      "/app/go.mod",
+      "/app/Makefile"
+    ],
+    "agent_writable": ["/app/faircore", "/app/rollbench", "/app/out"],
+    "binary_path": "/app/out/lootfair",
+    "catalog_order": "/app/dropvault/catalog.json"
+  }
+}

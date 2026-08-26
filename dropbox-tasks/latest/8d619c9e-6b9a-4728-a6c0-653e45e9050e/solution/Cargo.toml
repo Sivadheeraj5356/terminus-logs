@@ -1,0 +1,8 @@
+[package]
+name = "desiccator_tray"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "desiccator_tray"
+path = "src/main.rs"

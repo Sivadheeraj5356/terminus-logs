@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shadow-init
+  annotations:
+    model.mlp.io/artifact-sha256: sha256:deploymentdecoy
+    serving.mlp.io/framework: torchserve
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shadow-init
+  template:
+    metadata:
+      labels:
+        app: shadow-init
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: triton
+    spec:
+      initContainers:
+        - name: model-server-bootstrap
+          image: busybox:1.36
+          resources:
+            requests:
+              cpu: "8000m"
+              memory: "16384Mi"
+            limits:
+              nvidia.com/gpu: "2"
+          command: ["sh", "-c", "echo warmup"]
+      containers:
+        - name: config-sidecar
+          image: busybox:1.36
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+        - name: triton-serving
+          image: nvcr.io/nvidia/tritonserver:24.01-py3
+          resources:
+            requests:
+              cpu: "1600m"
+              memory: "3072Mi"
+          readinessProbe:
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /v2/health/live
+              port: 8000

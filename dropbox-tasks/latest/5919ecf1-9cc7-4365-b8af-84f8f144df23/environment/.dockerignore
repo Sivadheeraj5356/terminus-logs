@@ -1,0 +1,36 @@
+# Version control
+.git
+.gitignore
+
+# Python caches / build artifacts
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# Virtualenvs
+**/venv/
+**/.venv/
+
+# Build / dependency output
+**/node_modules/
+**/target/
+**/build/
+**/dist/
+
+# Editor / OS cruft
+**/.vscode/
+**/.idea/
+**/*.swp
+**/.DS_Store
+
+# Credentials / secrets
+**/*.pem
+**/*.key
+**/.env
+**/.env.*
+
+# Verifier/solution assets must never leak into the build context
+solution/
+tests/

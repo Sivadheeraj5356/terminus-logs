@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-a37d10ffcdd4": {
+      "alg": "hmac-sha256",
+      "secret": "b04e687a814a079088b43052a5dc595343b11d8890c98b779762e6697588e4dc"
+    }
+  },
+  "message": {
+    "authority": "svc0.example.com",
+    "body": "{\"v\": 75}TAMPER",
+    "headers": {
+      "content-digest": "sha-256=:xH4nKyRVFMYPAI75ycrSOCpArQuo7WVBK3xTArXBIJc=:",
+      "content-type": "application/json",
+      "signature": "sig1=:Tdlhrrv9MWZQCjjge/40Ww8qURN5M1dzbj3eD0tnSZ4=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"content-digest\");created=1700000015;expires=1700000375;keyid=\"k-a37d10ffcdd4\";alg=\"hmac-sha256\""
+    },
+    "method": "DELETE",
+    "path": "/api/v0/resource/75",
+    "query": ""
+  },
+  "now": 1700000075
+}

@@ -1,0 +1,14 @@
+{
+  "sessions": [
+    {
+      "session_id": "sess_alpha",
+      "opened_at": "2024-01-01T00:00:00Z",
+      "domain": "support"
+    },
+    {
+      "session_id": "sess_beta",
+      "opened_at": "2024-01-02T00:00:00Z",
+      "domain": "coding"
+    }
+  ]
+}

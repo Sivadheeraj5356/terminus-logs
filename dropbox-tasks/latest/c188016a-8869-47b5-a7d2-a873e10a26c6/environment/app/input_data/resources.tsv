@@ -1,0 +1,4 @@
+resource	zone	tier	owner_team	max_minutes	dual_control	forbidden_roles	allowed_cidrs	privileged_commands
+payroll-db	prod	critical	payments	60	true	contractor,intern	10.0.0.0/24	psql,su,scp
+support-console	stage	internal	platform	120	false	intern	10.1.0.0/16	console,restart
+vault-prod	prod	critical	security	30	true	engineer,contractor,intern	10.0.0.0/24	vault,cat

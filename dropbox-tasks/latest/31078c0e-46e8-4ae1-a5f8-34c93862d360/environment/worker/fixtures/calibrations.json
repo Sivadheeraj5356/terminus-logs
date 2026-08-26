@@ -1,0 +1,75 @@
+{
+  "profiles": {
+    "base-prod": {
+      "driftScale": 0.9,
+      "volatilityScale": 0.55,
+      "driftBias": 0.0,
+      "confidenceK": 1.96,
+      "ciLimit": 0.42,
+      "escapeThreshold": 0.35,
+      "dimensionAdjustments": {
+        "*": {
+          "weightScale": 1.02,
+          "lowerShift": -0.015,
+          "upperShift": 0.015
+        },
+        "axial": {
+          "weightBias": 0.01
+        }
+      },
+      "retention": {
+        "maxExperiments": 1,
+        "riskWindow": 0.0
+      },
+      "dependencyAttenuation": 0.28
+    },
+    "stable-prod": {
+      "inherits": "base-prod",
+      "driftBias": 0.006,
+      "dimensionAdjustments": {
+        "axial": {
+          "weightBias": 0.025
+        },
+        "zeta": {
+          "upperShift": -0.025
+        }
+      }
+    },
+    "frontier-lab": {
+      "driftScale": 1.15,
+      "volatilityScale": 1.35,
+      "driftBias": -0.004,
+      "confidenceK": 1.96,
+      "ciLimit": 0.7,
+      "escapeThreshold": 0.2,
+      "dimensionAdjustments": {
+        "*": {
+          "weightScale": 1.04
+        },
+        "radial": {
+          "lowerShift": -0.03,
+          "upperShift": 0.02
+        }
+      },
+      "dependencyAttenuation": 0.16
+    },
+    "quarantine": {
+      "inherits": "frontier-lab",
+      "driftScale": 0.7,
+      "volatilityScale": 2.1,
+      "driftBias": 0.0,
+      "ciLimit": 0.3,
+      "escapeThreshold": 0.15,
+      "dimensionAdjustments": {
+        "*": {
+          "weightScale": 0.95
+        },
+        "thermal": {
+          "weightBias": -0.08,
+          "lowerShift": 0.04
+        }
+      },
+      "dependencyAttenuation": 0.34
+    }
+  }
+}

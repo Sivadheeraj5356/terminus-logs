@@ -1,0 +1,108 @@
+{
+  "session_id": "session_09",
+  "rng_seed": 500,
+  "pity_threshold": 10,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "pat",
+      "roll_value": 0.0,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "pat",
+      "roll_value": 0.932187871944,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 3,
+      "player_id": "pat",
+      "roll_value": 0.948789941099,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 4,
+      "player_id": "pat",
+      "roll_value": 0.223395489364,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "pat",
+      "roll_value": 0.461592455824,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 6,
+      "player_id": "pat",
+      "roll_value": 0.536484878079,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 7,
+      "player_id": "pat",
+      "roll_value": 0.097476119266,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 8,
+      "player_id": "pat",
+      "roll_value": 0.772087771233,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 9,
+      "player_id": "pat",
+      "roll_value": 0.581713309122,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 10,
+      "player_id": "pat",
+      "roll_value": 0.779320657979,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 11,
+      "player_id": "pat",
+      "roll_value": 0.283303323466,
+      "item_id": "relic",
+      "tier": "epic"
+    }
+  ]
+}

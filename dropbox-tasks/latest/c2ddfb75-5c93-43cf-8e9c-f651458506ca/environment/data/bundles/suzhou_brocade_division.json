@@ -1,0 +1,8 @@
+{
+  "bundle_id": "suzhou_brocade_division",
+  "panel_coupling": "sequential_drift",
+  "panels": [
+    {"panel_id": "panel_mandarin_cloud_suzhou"},
+    {"panel_id": "panel_lotus_brocade_suzhou"}
+  ]
+}

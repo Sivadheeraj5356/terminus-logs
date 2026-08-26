@@ -1,0 +1,4 @@
+schema_version: apexora-acl-profile-1
+profile: finance_enclave
+inbound_acl: SEG-FINANCE-IN
+outbound_acl: SEG-FINANCE-OUT

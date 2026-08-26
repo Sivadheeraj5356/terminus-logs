@@ -1,0 +1,8 @@
+[package]
+name = "pnpmfix-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+pnpmfix-graph = { path = "../aa-graph" }

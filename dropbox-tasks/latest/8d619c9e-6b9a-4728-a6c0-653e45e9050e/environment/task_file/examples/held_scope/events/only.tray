@@ -1,0 +1,10 @@
+h001	LOAD	bay	3	
+h002	HOLD	bay		
+h003	LOAD	bay	1	
+h004	UNLOAD	bay	1	
+h005	REGEN	bay		
+h006	SEAL	bay		
+h007	OPEN	bay		
+h008	LOCK	bay		
+h009	UNLOCK	bay		
+h010	RELEASE	bay		

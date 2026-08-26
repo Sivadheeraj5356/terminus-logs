@@ -1,0 +1,10 @@
+{
+  "nodes": {
+    "A": {"depends": []},
+    "C": {"depends": ["A"]},
+    "E": {"depends": ["C"]}
+  },
+  "gates": {
+    "E": {"watch": "C", "min_rows": 10}
+  }
+}

@@ -1,0 +1,14 @@
+== Whisperbone Catacomb [ossuary] ==
+Omen: A cold star falls.
+Light: 1.0 lumens
+Relics:
+  - Grave Ember <rare> 45g (cursed)
+  - Bone Flute <common> 30g
+Freshest: Bone Flute @ 11:40 KST
+Exits:
+  - east: Mercury Spring (torch 0.1)
+Torch: 11.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+inspect grave-ember

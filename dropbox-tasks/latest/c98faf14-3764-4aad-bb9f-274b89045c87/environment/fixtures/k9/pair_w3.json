@@ -1,0 +1,14 @@
+{
+  "pairs": [
+    {
+      "left": { "token": "zeta", "weight": 2 },
+      "right": { "token": "beta", "weight": 1 },
+      "anchor": { "left_rank": 4, "right_rank": 2 }
+    },
+    {
+      "left": { "token": "gamma", "weight": 1 },
+      "right": { "token": "alpha", "weight": 3 },
+      "anchor": { "left_rank": 1, "right_rank": 3 }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+Runtime notes — compactor ram seat operations
+=============================================
+
+Journal fixtures under /app/fixtures/ often permute durable seq order relative to file line order. Always derive apply order from seq, not from how the file was written. Identical repeats of one durable seq are idempotent; conflicting parsed rows at one seq abort the schedule. Non-empty event_id values identify one durable event, so later occurrences do not apply again.
+
+CMPR blocks live under /app/data/rams/. Payload layout: 4-byte CMPR magic, little-endian body length, UTF-8 body "ram_id|tonnage_kg", little-endian checksum over the body bytes.
+
+Some driver state survives across events within a replay (ledger contents, cycle epoch, journal revision). Shift-table cache entries and lane rollup tallies are transient.
+
+guide_clear interprets cycle epochs: rams seated under earlier epochs should leave the live ledger; rams at the current epoch or later remain. The epoch stamped on a ram_seat entry may differ from the epoch active at apply time when the journal carries an explicit cycle_epoch on the event.
+
+Re-publishing the same ram_id with the same CMPR checksum at a strictly newer effective cycle_epoch refreshes stored cycle ownership without emitting another ram_seated row and without increasing seated count; journal revision still advances.
+
+Recovery mode (/app/snapshot/compactor_anchor.json) is the known-good anchor. Only CMPR block read or checksum failures during ram_seat may trigger anchor rollback. Journal, replay-contract, snapshot, and publication failures are fatal and must not publish rollback output. Recovery continues emitted seq values from the highest valid existing log seq plus one, not from row count or the last physical line. A corrupt or truncated CMPR block restores the full anchor ledger, preserves the entire seat-log prefix plus rows emitted before the failure, and publishes the operator report marking the run as not ready.
+
+cycle_arm sets the active cycle epoch to the journal value directly; epochs may be nonconsecutive.
+
+Mass totals are raw kilogram sums across seated rams. tonnage_recorded may exceed u32::MAX and must not be narrowed, wrapped, or saturated.
+
+Shift-table cache reuse must confirm collision-safe semantic identity; equal compact fingerprints alone are insufficient.
+
+Replay applies operational events as one coherent schedule. Splitting or reordering event classes relative to durable seq can arm cycles late, emit guide rows out of stakeholder order, or seat rams before their cycle context exists.
+
+Failed normal seat runs must leave any pre-existing final log and report paths unchanged and must not create final paths that were absent before the attempt.
+
+Verifier pipeline: python -m pytest --ctrf /logs/verifier/ctrf.json /tests/test_outputs.py -rA

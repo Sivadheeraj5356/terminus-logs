@@ -1,0 +1,14 @@
+== Whisperbone Catacomb [ossuary] ==
+Omen: The deep remembers.
+Light: 1.0 lumens
+Relics:
+  - Grave Ember <rare> 45g (cursed)
+  - Bone Flute <common> 30g (sealed)
+Freshest: Grave Ember @ 03:00 KST
+Exits:
+  - east: Mercury Spring (torch 1.0)
+Torch: 8.0 units
+Inventory: (empty)
+Route: east north (torch 2.0)
+---ACTIONS---
+inspect grave-ember

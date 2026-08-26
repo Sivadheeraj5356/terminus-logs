@@ -1,0 +1,14 @@
+{
+  "function": "rosenbrock",
+  "dimensions": 3,
+  "min_bound": -5.12,
+  "max_bound": 5.12,
+  "swarm_size": 15,
+  "max_iterations": 15,
+  "w_start": 0.9,
+  "w_end": 0.4,
+  "c1": 100.0,
+  "c2": 100.0,
+  "v_max": 0.01,
+  "seed": 1002
+}

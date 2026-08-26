@@ -1,0 +1,16 @@
+== Gallery of Whispers [cavern] ==
+Omen: Nothing waits forever.
+Light: 8.5 lumens
+Relics:
+  - Astrolabe Shard <epic> 60g
+  - Echo Lens <rare> 80g
+Freshest: Echo Lens @ 12:00 KST
+Exits:
+  - north: Petrified Garden (torch 1.5)
+  - east: sealed gate (torch 3.0)
+Torch: 6.0 units
+Inventory: whisper-coin
+Route: no route
+---ACTIONS---
+take astrolabe-shard
+go north

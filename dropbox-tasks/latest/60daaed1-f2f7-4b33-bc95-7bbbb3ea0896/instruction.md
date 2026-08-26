@@ -1,0 +1,13 @@
+Fix the local Go HTTP API under `/app/runtime` so protected admin endpoints require a valid bearer token on every request, including normalized/encoded path variants, replay probes, and restart/recovery sequences. Build and run with the Go toolchain at `/usr/local/go/bin`.
+
+The public routes are `GET /v1/public/ping`, `GET /v1/public/docs`, and `GET /v1/public/state` — these must stay available without authentication under all conditions. The ping endpoint returns `{"status":"ok"}`. The docs endpoint returns a JSON object with a `docs` field that lists the available protected routes including `/v1/admin/profile`. Protected routes are `/v1/admin/profile` and `/v1/admin/audit`. When a protected route is accessed without a valid bearer token or with an invalid one, the response must be status 401 with body `{"error":{"code":"unauthorized","message":"missing or invalid bearer token"}}`. Method-not-allowed and not-found error envelopes must also remain stable.
+
+`GET /v1/public/state` must remain deterministic and return a JSON object with these fields: `state.seq` (int, increments on each authenticated protected-route access), `state.grant_routes` (int), `state.aliases` (int, count of distinct raw request paths seen for protected-route access), `state.corruptions` (int, increments on persistence parse failures), and `state.route_seq` (object whose keys are only `/v1/admin/profile` and `/v1/admin/audit`, each mapping to an int that increments when that route is accessed with valid auth).
+
+The alias index must track each unique raw request path independently before any canonicalization or normalization. Different encoded or cased variants of the same logical route must produce distinct alias entries. For example, accessing `/v1/admin/profile`, `/V1//AdMiN/%70rofile`, and `/v1/public/../admin/profile` must result in at least three separate alias entries even though they all resolve to the same canonical route.
+
+Persistence uses a journal file and a snapshot file in the state directory. When the snapshot file exists but fails to parse as valid JSON, the corruptions counter must increment. Similarly, malformed journal lines must be counted as corruptions. Snapshot corruption must not open protected routes or reset authentication state.
+
+Tests exercise malformed persistence data and long workflows: malformed journal lines, truncated journal tails, corrupted snapshots, alternating protected-route access, repeated unauthorized variant probes, and restart chains. The implementation must preserve monotonic state across restarts, deny unauthorized variants, and never create replay-based auth bypasses.
+
+Note that code comments, docstrings, and documentation files may themselves contain errors.

@@ -1,0 +1,87 @@
+{
+  "schema_version": 4,
+  "gravity_m_s2": 9.80665,
+  "nodes": [
+    {
+      "node_id": "upper_pool",
+      "node_type": "storage",
+      "initial_level_m": 12.0,
+      "storage_curve_revision": 1,
+      "storage_curve": [
+        {"level_m": 10.0, "volume_m3": 0.0},
+        {"level_m": 14.0, "volume_m3": 4000.0}
+      ]
+    },
+    {
+      "node_id": "lock_chamber",
+      "node_type": "storage",
+      "initial_level_m": 11.5,
+      "storage_curve_revision": 1,
+      "storage_curve": [
+        {"level_m": 9.0, "volume_m3": 0.0},
+        {"level_m": 13.0, "volume_m3": 2400.0}
+      ]
+    },
+    {
+      "node_id": "lower_pool",
+      "node_type": "storage",
+      "initial_level_m": 11.0,
+      "storage_curve_revision": 1,
+      "storage_curve": [
+        {"level_m": 8.5, "volume_m3": 0.0},
+        {"level_m": 13.0, "volume_m3": 3600.0}
+      ]
+    },
+    {
+      "node_id": "river_upstream",
+      "node_type": "boundary",
+      "initial_level_m": 12.0
+    }
+  ],
+  "links": [
+    {
+      "link_id": "gate_in",
+      "link_type": "gate",
+      "from_node": "river_upstream",
+      "to_node": "upper_pool",
+      "discharge_coefficient": 0.5,
+      "area_m2": 0.2,
+      "initial_control": 0.0,
+      "maximum_abs_flow_m3_s": 5.0
+    },
+    {
+      "link_id": "gate_upper",
+      "link_type": "gate",
+      "from_node": "upper_pool",
+      "to_node": "lock_chamber",
+      "discharge_coefficient": 0.5,
+      "area_m2": 0.2,
+      "initial_control": 0.0,
+      "maximum_abs_flow_m3_s": 5.0
+    },
+    {
+      "link_id": "weir_bypass",
+      "link_type": "weir",
+      "from_node": "upper_pool",
+      "to_node": "lower_pool",
+      "discharge_coefficient": 1.0,
+      "width_m": 1.0,
+      "crest_level_m": 12.5,
+      "initial_control": 0.0,
+      "maximum_abs_flow_m3_s": 5.0
+    },
+    {
+      "link_id": "pump_aux",
+      "link_type": "pump",
+      "from_node": "lower_pool",
+      "to_node": "lock_chamber",
+      "initial_control": 0.0,
+      "maximum_abs_flow_m3_s": 2.0
+    }
+  ],
+  "initial_inflows": [
+    {"node_id": "upper_pool", "flow_m3_s": 0.0},
+    {"node_id": "lock_chamber", "flow_m3_s": 0.0},
+    {"node_id": "lower_pool", "flow_m3_s": 0.0}
+  ]
+}

@@ -1,0 +1,5 @@
+OBJECT app-1.0 x86_64-linux input - 40 no 4 lib-1.0,ssl-2.0
+OBJECT lib-1.0 x86_64-linux ca hlib 8 yes 3 zlib-1.2
+OBJECT ssl-2.0 x86_64-linux fixed hssl 6 yes 5 ca-bundle-1
+OBJECT zlib-1.2 x86_64-linux input - 3 yes 2 -
+OBJECT ca-bundle-1 x86_64-linux input - 1 yes 1 -

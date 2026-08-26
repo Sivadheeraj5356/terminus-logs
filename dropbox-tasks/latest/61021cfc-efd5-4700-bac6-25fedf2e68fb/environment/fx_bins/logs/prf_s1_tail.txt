@@ -1,0 +1,3 @@
+pack silt cap_strict epoch=1 prefix=/stage/silt
+pack kite cap_relaxed epoch=2 prefix=/stage/kite
+... truncated tail rows omitted ...

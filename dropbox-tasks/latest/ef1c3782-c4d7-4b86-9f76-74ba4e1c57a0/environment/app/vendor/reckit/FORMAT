@@ -1,0 +1,12 @@
+clearing-tape posting record
+-----------------------------
+record length : 8 bytes, fixed
+records       : file length / 8, in file order
+
+field    offset  width  meaning
+ledger   0       2      ledger key
+amount   2       6      posting amount, in minor units
+
+The accessor words for these fields are defined in recfmt.fs. Read every field
+of every frame through those words so the tape is interpreted the one way the
+kit intends.

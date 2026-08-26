@@ -1,0 +1,10 @@
+[
+  {
+    "line": 3,
+    "reason": "duplicate_key"
+  },
+  {
+    "line": 4,
+    "reason": "invalid_json"
+  }
+]

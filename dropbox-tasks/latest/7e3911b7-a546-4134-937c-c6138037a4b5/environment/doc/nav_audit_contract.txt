@@ -1,0 +1,33 @@
+nav_audit.json contract
+========================
+
+Top-level object fields:
+- schema_anchor: integer, copy from /app/stubs/schema_anchor.txt
+- scenarios: array of scenario rows in manifest order; each scenario appears twice (continuous then pause_resume)
+- summary: object with scenario_count, scenario_rows, pair_mismatch_count, link_fail_total, seam_open_total
+
+Scenario row fields:
+- scenario_id: string
+- mode: "continuous" or "pause_resume"
+- polygon_count: number of emitted surface triangles (two per welded face)
+- border_weld_count: distinct welded face keys after canonical sorting
+- nav_digest: 16 lowercase hex chars summarizing the welded surface
+- portal_count: emitted portal face count for the scenario leg (equals polygon_count in this baker)
+- link_digest: 16 lowercase hex chars summarizing portal link ordering for the leg
+- link_ok: boolean, true when no seam gaps remain and the welded surface is closed
+- area_overlay_ok: boolean, true when seam_open_count is zero and pad state is valid for the leg
+- seam_open_count: count of slab-boundary faces dropped during extraction
+- pair_ok: boolean, true when pause_resume row matches its continuous counterpart on parity fields named in /app/stubs/replay_contract.txt
+- finish_reason: "ok" on success
+
+Digests and counts are absolute: the continuous leg must match a correct continuous bake of the tape (including pad-weighted iso ties and seam-closed face sets). Achieving pair_ok with a wrong continuous digest is not compliant.
+
+Parity fields for continuous versus pause_resume on the same scenario_id:
+polygon_count, border_weld_count, nav_digest, portal_count, link_digest, link_ok, area_overlay_ok, seam_open_count
+
+Summary counters:
+- scenario_count: distinct scenario_id values
+- scenario_rows: length of scenarios array
+- pair_mismatch_count: scenarios where pause_resume disagrees with continuous
+- link_fail_total: rows where link_ok is false
+- seam_open_total: sum of seam_open_count across all rows

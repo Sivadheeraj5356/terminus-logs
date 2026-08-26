@@ -1,0 +1,6 @@
+{
+  "exclude": [
+    "*.tmp"
+  ],
+  "gzip_level": 6
+}

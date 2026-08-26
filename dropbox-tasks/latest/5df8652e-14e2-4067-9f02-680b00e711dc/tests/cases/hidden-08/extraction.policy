@@ -1,0 +1,3 @@
+OCI-POLICY-1
+trusted_layers 1
+protect etc/token

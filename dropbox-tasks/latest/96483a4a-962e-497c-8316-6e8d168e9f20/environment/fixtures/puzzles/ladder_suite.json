@@ -1,0 +1,14 @@
+{
+  "graded": [
+    "wide_torus",
+    "portal_chain",
+    "combo_stress",
+    "torus_arc",
+    "mud_gate",
+    "wrap_ladder",
+    "combo_hard",
+    "long_arc",
+    "neg_wrap",
+    "portal_chain2"
+  ]
+}

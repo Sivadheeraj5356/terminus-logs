@@ -1,0 +1,9 @@
+ordinance: ORD-1986-02
+jurisdiction: Talveny-Reach
+enacted: 1986-08-11
+effective: 1986-10-19T02:00:00 standard
+standard-offset: +10:00:00
+standard-label: TST
+observance:
+  begin: Oct Sun>=15 02:00:00 standard save +01:00:00 label TDT
+  end: Mar Sun>=15 03:00:00 standard

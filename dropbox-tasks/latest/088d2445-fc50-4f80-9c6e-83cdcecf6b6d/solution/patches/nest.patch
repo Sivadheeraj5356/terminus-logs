@@ -1,0 +1,27 @@
+--- a/environment/internal/nest/nest.go	2026-07-20 11:30:47.709178116 +0530
++++ b/environment/internal/nest/nest.go	2026-07-20 11:26:30.005827524 +0530
+@@ -1,19 +1,19 @@
+ package nest
+ 
+-// Reduce builds the zonotope nest_span vector for graded lanes.
+-func Reduce(gens [][]float64, depth int, ord []int, keyN int, _fpLen int) ([]float64, error) {
+-	if len(gens) == 0 || depth <= 0 || len(ord) == 0 || keyN <= 0 {
++// Reduce builds nest_span with dimension-indexed span_order and fingerprint-length bias.
++func Reduce(gens [][]float64, depth int, ord []int, _keyN int, fpLen int) ([]float64, error) {
++	if len(gens) == 0 || depth <= 0 || len(ord) == 0 || fpLen <= 0 {
+ 		return nil, errBad("bad nest args")
+ 	}
+ 	dim := len(gens[0])
+ 	out := make([]float64, dim)
+ 	for L := 0; L < depth; L++ {
+-		g := gens[ord[L%len(ord)]]
+ 		for t := 0; t < dim; t++ {
++			g := gens[ord[t%len(ord)]]
+ 			out[t] += g[t] * float64(L+1)
+ 		}
+ 	}
+-	bias := 0.01 * float64(depth) * float64(keyN)
++	bias := 0.01 * float64(depth) * float64(fpLen)
+ 	for t := 0; t < dim; t++ {
+ 		out[t] += bias
+ 	}

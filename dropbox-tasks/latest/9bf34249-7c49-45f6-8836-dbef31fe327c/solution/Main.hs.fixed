@@ -1,0 +1,236 @@
+module Main where
+
+import Control.Monad (foldM)
+import Data.Char (isSpace)
+import Data.List (delete, find, intercalate, nub, sort, sortBy)
+import Data.Maybe (fromMaybe, mapMaybe)
+import System.Environment (getArgs)
+import System.Exit (die)
+
+type Lit = Int
+type Clause = [Lit]
+
+data Cnf = Cnf Int [Clause] deriving (Show)
+data Step = Step Int Bool [Clause] deriving (Show)
+data Mapping = Mapping Int [Lit] [Int] [Step] deriving (Show)
+
+main :: IO ()
+main = do
+  args <- getArgs
+  case args of
+    [inp, "--out", outp, "--log", logp, "--map", mapp] -> runSimplify inp outp logp mapp
+    ["--extend", inp, "--map", mapp, "--model", modelp, "--model-out", outp] -> runExtend inp mapp modelp outp
+    _ -> die "usage: cnfprep INPUT --out OUT --log LOG --map MAP | cnfprep --extend INPUT --map MAP --model MODEL --model-out OUT"
+
+runSimplify :: FilePath -> FilePath -> FilePath -> FilePath -> IO ()
+runSimplify inp outp logp mapp = do
+  cnf@(Cnf n cls0) <- parseCnf <$> readFile inp
+  let inputLines = ["input " ++ show i ++ " " ++ renderClause c | (i,c) <- zip [(1::Int)..] cls0]
+      (cls1, fixed, steps, events) = simplify n cls0
+      remaining = sort . nub $ map abs (concat cls1)
+      mp = Mapping n fixed remaining steps
+      emitLines = ["emit " ++ renderClause c | c <- cls1]
+  seq cnf $ writeFile outp (renderCnf n cls1)
+  writeFile logp (unlines (inputLines ++ events ++ emitLines))
+  writeFile mapp (renderMap mp)
+
+runExtend :: FilePath -> FilePath -> FilePath -> FilePath -> IO ()
+runExtend inp mapp modelp outp = do
+  Cnf n original <- parseCnf <$> readFile inp
+  Mapping _ fixed _ steps <- parseMap <$> readFile mapp
+  partial <- readModel <$> readFile modelp
+  let start = foldl addPair [] partial
+      withFixed = foldl addLit start fixed
+  let restored = foldM restoreStep withFixed (reverse steps)
+      candidate = restored >>= finalize n original partial
+      fallback = completeSearch n original withFixed
+  case candidate `orElse` fallback of
+    Just full -> writeFile outp (renderModel full)
+    Nothing -> die "model does not extend"
+
+simplify :: Int -> [Clause] -> ([Clause], [Lit], [Step], [String])
+simplify n raw = go (normalizeClauses raw) [] [] []
+  where
+    go cls fixed steps events
+      | any null cls = ([[]], fixed, steps, events ++ ["derive 0"])
+      | otherwise =
+          case find ((==1) . length) cls of
+            Just [l] -> go (applyLit l cls) (addLitValue l fixed) steps (events ++ ["assign " ++ show l])
+            _ -> case choosePure cls of
+                   Just l -> go (applyLit l cls) (addLitValue l fixed) steps (events ++ ["assign " ++ show l])
+                   Nothing ->
+                     let reduced = reduceFixed cls
+                     in if reduced /= cls
+                           then go reduced fixed steps (events ++ ["derive 0"])
+                           else case chooseElim n cls of
+                                  Just (step@(Step v _ _), cls') ->
+                                    let ev = ["drop 0 v" ++ show v]
+                                    in go cls' fixed (steps ++ [step]) (events ++ ev)
+                                  Nothing -> (cls, fixed, steps, events)
+
+normalizeClauses :: [Clause] -> [Clause]
+normalizeClauses = uniqueClauses . mapMaybe cleanClause
+
+cleanClause :: Clause -> Maybe Clause
+cleanClause c =
+  let xs = sortBy litOrd (nub (filter (/=0) c))
+  in if any (\l -> negate l `elem` xs) xs then Nothing else Just xs
+
+litOrd :: Lit -> Lit -> Ordering
+litOrd a b = compare (abs a, a < 0) (abs b, b < 0)
+
+uniqueClauses :: [Clause] -> [Clause]
+uniqueClauses = sort . nub
+
+applyLit :: Lit -> [Clause] -> [Clause]
+applyLit l = normalizeClauses . map (filter (/= negate l)) . filter (notElem l)
+
+choosePure :: [Clause] -> Maybe Lit
+choosePure cls = find (\l -> negate l `notElem` allLits) ordered
+  where allLits = nub (concat cls)
+        ordered = sortBy litOrd allLits
+
+reduceFixed :: [Clause] -> [Clause]
+reduceFixed cls =
+  let next = reduceOnce cls
+  in if next == cls then cls else reduceFixed next
+
+reduceOnce :: [Clause] -> [Clause]
+reduceOnce cls = dropSubsumed (fromMaybe cls (ssrOnce cls))
+
+dropSubsumed :: [Clause] -> [Clause]
+dropSubsumed cls = uniqueClauses [c | c <- cls, not (any (\d -> d /= c && subset d c) cls)]
+
+subset :: Clause -> Clause -> Bool
+subset a b = all (`elem` b) a
+
+ssrOnce :: [Clause] -> Maybe [Clause]
+ssrOnce cls = do
+  (j, nd) <- findOne
+  pure . normalizeClauses $ take j cls ++ [nd] ++ drop (j+1) cls
+  where
+    indexed = zip [0..] cls
+    findOne = find (\(_,d) -> True) candidates
+    candidates = [(j, delete (negate l) d) |
+                  (i,c) <- indexed, (j,d) <- indexed, i /= j,
+                  l <- c, negate l `elem` d, subset (delete l c) d]
+
+chooseElim :: Int -> [Clause] -> Maybe (Step, [Clause])
+chooseElim n cls = findResult [1..n]
+  where
+    findResult [] = Nothing
+    findResult (v:vs) =
+      let pos = [c | c <- cls, v `elem` c]
+          neg = [c | c <- cls, negate v `elem` c]
+      in if null pos || null neg then findResult vs else
+           let resolvents = uniqueClauses (mapMaybe (resolveOn v) [(p,q) | p <- pos, q <- neg])
+               removed = length pos + length neg
+           in if length resolvents <= removed
+                 then let kept = [c | c <- cls, v `notElem` c, negate v `notElem` c]
+                          cls' = normalizeClauses (kept ++ resolvents)
+                      in Just (Step v False (pos ++ neg), cls')
+                 else findResult vs
+
+resolveOn :: Int -> (Clause, Clause) -> Maybe Clause
+resolveOn v (p,q) = cleanClause (delete v p ++ delete (negate v) q)
+
+parseCnf :: String -> Cnf
+parseCnf s = Cnf n (splitClauses nums)
+  where
+    rows = filter (not . null) (map words (lines s))
+    body = [ws | ws <- rows, head ws /= "c"]
+    n = case [read nv | ["p","cnf",nv,_] <- body] of
+          (x:_) -> x
+          [] -> 0
+    nums = concatMap (map read) [ws | ws <- body, take 1 ws /= ["p"]]
+
+splitClauses :: [Int] -> [Clause]
+splitClauses [] = []
+splitClauses xs =
+  let (a,b) = break (==0) xs
+  in a : splitClauses (drop 1 b)
+
+renderCnf :: Int -> [Clause] -> String
+renderCnf n cls = unlines $ ("p cnf " ++ show n ++ " " ++ show (length cls)) : map renderClause cls
+
+renderClause :: Clause -> String
+renderClause c = unwords (map show c ++ ["0"])
+
+renderMap :: Mapping -> String
+renderMap (Mapping n fixed remaining steps) = unlines $ ["n " ++ show n] ++ map (\l -> "f " ++ show l) fixed ++ map (\v -> "r " ++ show v) remaining ++ map renderStep steps
+
+renderStep :: Step -> String
+renderStep (Step v d cs) = "e " ++ show v ++ " " ++ (if d then "1" else "0") ++ " " ++ intercalate " | " (map renderClause cs)
+
+parseMap :: String -> Mapping
+parseMap s = Mapping n fixed remaining steps
+  where
+    ls = filter (not . null) (lines s)
+    rows = map words ls
+    n = case [read x | ["n", x] <- rows] of { (x:_) -> x; _ -> 0 }
+    fixed = [read x | ["f", x] <- rows]
+    remaining = [read x | ["r", x] <- rows]
+    steps = mapMaybe parseStep rows
+
+parseStep :: [String] -> Maybe Step
+parseStep ("e":v:d:rest) = Just (Step (read v) (d == "1") (splitStep rest))
+parseStep _ = Nothing
+
+splitStep :: [String] -> [Clause]
+splitStep toks = go toks [] []
+  where
+    go [] cur acc = reverse (if null cur then acc else reverse cur : acc)
+    go ("|":xs) cur acc = go xs [] (if null cur then acc else reverse cur : acc)
+    go ("0":xs) cur acc = go xs [] (if null cur then acc else reverse cur : acc)
+    go (x:xs) cur acc = go xs (read x : cur) acc
+
+readModel :: String -> [(Int, Bool)]
+readModel = map one . filter (not . null) . lines
+  where one line = let (a,b) = break (=='=') (filter (not . isSpace) line) in (read a, drop 1 b `elem` ["1","true","True"])
+
+renderModel :: [(Int, Bool)] -> String
+renderModel xs = unlines [show v ++ "=" ++ if b then "1" else "0" | (v,b) <- xs]
+
+restoreStep :: [(Int, Bool)] -> Step -> Maybe [(Int, Bool)]
+restoreStep model (Step v def clauses) =
+  case nub demands of
+    [] -> Just (addPair model (v, def))
+    [b] -> Just (addPair model (v, b))
+    _ -> Nothing
+  where
+    demands = [lit > 0 | clause <- clauses,
+                         not (any (litSat model) [l | l <- clause, abs l /= v]),
+                         lit <- clause, abs lit == v]
+
+litSat :: [(Int, Bool)] -> Lit -> Bool
+litSat model lit = lookup (abs lit) model == Just (lit > 0)
+
+finalize :: Int -> [Clause] -> [(Int, Bool)] -> [(Int, Bool)] -> Maybe [(Int, Bool)]
+finalize n clauses partial model =
+  let full = [(v, fromMaybe False (lookup v model)) | v <- [1..n]]
+  in if all (\(v,b) -> lookup v full == Just b) partial && satAll full clauses then Just full else Nothing
+
+completeSearch :: Int -> [Clause] -> [(Int, Bool)] -> Maybe [(Int, Bool)]
+completeSearch n clauses base = go 1 base
+  where
+    go v model
+      | v > n = if satAll full clauses then Just full else Nothing
+      | lookup v model /= Nothing = go (v+1) model
+      | otherwise = go (v+1) (addPair model (v, False)) `orElse` go (v+1) (addPair model (v, True))
+      where full = [(x, fromMaybe False (lookup x model)) | x <- [1..n]]
+
+orElse :: Maybe a -> Maybe a -> Maybe a
+orElse (Just x) _ = Just x
+orElse Nothing y = y
+
+satAll :: [(Int, Bool)] -> [Clause] -> Bool
+satAll model = all (any (litSat model))
+
+addLit :: [(Int, Bool)] -> Lit -> [(Int, Bool)]
+addLit acc lit = addPair acc (abs lit, lit > 0)
+
+addPair :: [(Int, Bool)] -> (Int, Bool) -> [(Int, Bool)]
+addPair acc (v,b) = (v,b) : filter ((/=v) . fst) acc
+
+addLitValue :: Lit -> [Lit] -> [Lit]
+addLitValue lit xs = lit : filter ((/= abs lit) . abs) xs

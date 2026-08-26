@@ -1,0 +1,3 @@
+group_name,iana_codepoint,kem_combinator
+x25519_mlkem768,0x11ec,x25519+mlkem768
+secp256r1_mlkem768,0x11eb,p256+mlkem768

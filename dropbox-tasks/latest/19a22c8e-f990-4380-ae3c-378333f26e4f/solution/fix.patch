@@ -1,0 +1,125 @@
+--- a/src/isotonic.ts	2026-07-15 20:23:38.000000000 +0700
++++ b/src/isotonic.ts	2026-07-15 20:24:28.000000000 +0700
+@@ -24,7 +24,120 @@
+   queries: number[];
+ }
+ 
+-// The stub returns zeros, which is not correct.
+ export function fitPredict(inp: IsotonicInput): number[] {
+-  return new Array<number>(inp.queries.length).fill(0.0);
++  const n = inp.x.length;
++
++  // Assemble (x, y, w), dropping non-positive-weight samples.
++  interface P {
++    x: number;
++    y: number;
++    w: number;
++  }
++  const pts: P[] = [];
++  for (let i = 0; i < n; i++) {
++    const w = inp.weight === null ? 1.0 : inp.weight[i];
++    if (w > 0.0) pts.push({ x: inp.x[i], y: inp.y[i], w });
++  }
++
++  if (pts.length === 0) return new Array<number>(inp.queries.length).fill(NaN);
++
++  // Lexsort by (x, then y), stable.
++  pts.sort((a, b) => (a.x !== b.x ? a.x - b.x : a.y - b.y));
++
++  // Aggregate tied x into a single node: weighted mean of y, summed weight.
++  const ux: number[] = [];
++  const uy: number[] = [];
++  const uw: number[] = [];
++  {
++    let i = 0;
++    while (i < pts.length) {
++      let j = i;
++      let sw = 0.0;
++      let swy = 0.0;
++      while (j < pts.length && pts[j].x === pts[i].x) {
++        sw += pts[j].w;
++        swy += pts[j].w * pts[j].y;
++        j++;
++      }
++      ux.push(pts[i].x);
++      uy.push(swy / sw);
++      uw.push(sw);
++      i = j;
++    }
++  }
++
++  // Weighted pool-adjacent-violators. For a non-increasing fit, run the
++  // non-decreasing algorithm on negated targets and negate the result.
++  const m = uy.length;
++  const y: number[] = new Array<number>(m);
++  const w: number[] = new Array<number>(m);
++  for (let i = 0; i < m; i++) {
++    y[i] = inp.increasing ? uy[i] : -uy[i];
++    w[i] = uw[i];
++  }
++
++  // Blocks stored as parallel arrays; each block is a pooled level.
++  const level = new Array<number>(m).fill(0.0);
++  const bw = new Array<number>(m).fill(0.0);
++  const size = new Array<number>(m).fill(0);
++  let b = 0;
++  for (let i = 0; i < m; i++) {
++    level[b] = y[i];
++    bw[b] = w[i];
++    size[b] = 1;
++    b++;
++    while (b >= 2 && level[b - 1] < level[b - 2]) {
++      const nw = bw[b - 2] + bw[b - 1];
++      const nl = (bw[b - 2] * level[b - 2] + bw[b - 1] * level[b - 1]) / nw;
++      level[b - 2] = nl;
++      bw[b - 2] = nw;
++      size[b - 2] = size[b - 2] + size[b - 1];
++      b--;
++    }
++  }
++
++  // Expand pooled levels back to per-node fitted values.
++  const fit = new Array<number>(m).fill(0.0);
++  {
++    let idx = 0;
++    for (let k = 0; k < b; k++) {
++      const v = inp.increasing ? level[k] : -level[k];
++      for (let r = 0; r < size[k]; r++) {
++        fit[idx] = v;
++        idx++;
++      }
++    }
++  }
++
++  const xmin = ux[0];
++  const xmax = ux[m - 1];
++
++  // Predict by clip-to-range then linear interpolation on the fitted grid.
++  const out: number[] = [];
++  for (const q0 of inp.queries) {
++    if (m === 1) {
++      out.push(fit[0]);
++      continue;
++    }
++    const q = q0 < xmin ? xmin : q0 > xmax ? xmax : q0;
++    // Locate bracketing grid points. ux is strictly increasing.
++    if (q <= ux[0]) {
++      out.push(fit[0]);
++    } else if (q >= ux[m - 1]) {
++      out.push(fit[m - 1]);
++    } else {
++      let lo = 0;
++      let hi = m - 1;
++      while (hi - lo > 1) {
++        const mid = (lo + hi) >> 1;
++        if (ux[mid] <= q) lo = mid;
++        else hi = mid;
++      }
++      const xl = ux[lo];
++      const xr = ux[hi];
++      const t = xr > xl ? (q - xl) / (xr - xl) : 0.0;
++      out.push(fit[lo] + t * (fit[hi] - fit[lo]));
++    }
++  }
++  return out;
+ }

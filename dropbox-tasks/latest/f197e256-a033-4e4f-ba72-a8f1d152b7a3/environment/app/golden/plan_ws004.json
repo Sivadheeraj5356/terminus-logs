@@ -1,0 +1,12 @@
+{
+  "workstation_id": "ws-004",
+  "actions": [
+    "sysctl:kernel.yama.ptrace_scope=0",
+    "systemd:/etc/systemd/coredump.conf.d/media.conf",
+    "group:add:mediauser:debug",
+    "group:add:mediauser:media",
+    "ulimit:core:unlimited",
+    "perms:/var/lib/media/scratch:2770:mediauser:media",
+    "fixture-perms:/app/fixtures/tiff/sample.tiff:0644"
+  ]
+}

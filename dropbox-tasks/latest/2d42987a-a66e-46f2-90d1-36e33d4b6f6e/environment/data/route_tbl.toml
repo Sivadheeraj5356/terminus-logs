@@ -1,0 +1,3 @@
+# Policy-route mark fixtures referenced by perm seeds.
+42 = "mark_live"
+99 = "mark_roam"

@@ -1,0 +1,4 @@
+schema_version: apexora-trunk-probe-1
+probes:
+  - name: trunk_catalog_match
+  - name: trunk_no_legacy_source

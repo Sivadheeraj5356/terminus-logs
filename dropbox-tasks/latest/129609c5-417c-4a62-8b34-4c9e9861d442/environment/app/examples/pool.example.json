@@ -1,0 +1,1 @@
+{"op": "create_pool", "cidr": "10.99.0.0/24", "lease_secs": 3600, "reserved": ["10.99.0.1", {"ip": "10.99.0.10", "client_id": "example-host"}]}

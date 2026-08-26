@@ -1,0 +1,4 @@
+2026-06-17T20:45:00Z cinder compaction: duplicate span migrated between pools; older container pruned
+2026-06-17T20:50:00Z cinder federation: downstream link updated for span recovery fallback
+2026-06-17T20:55:00Z cinder config: pool-b encoding policy refreshed per batch 7c3a compliance
+2026-06-17T21:00:00Z cinder integrity: pool-a verified clean, pool-b policy tags applied

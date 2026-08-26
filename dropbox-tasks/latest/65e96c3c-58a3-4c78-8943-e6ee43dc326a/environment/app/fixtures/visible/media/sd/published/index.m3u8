@@ -1,0 +1,11 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:12079
+#EXT-X-TARGETDURATION:2
+#EXT-X-KEY:METHOD=AES-128,URI="https://keys.cipherwave.test/harbor-0007999f/current.key",IV=0x4cdd1b44537d5a70ffb8ca5b3c085b67
+#EXTINF:2.0,
+segment-12079.bin
+#EXT-X-KEY:METHOD=AES-128,URI="https://keys.cipherwave.test/harbor-0007999f/current.key"
+#EXTINF:2.0,
+segment-12080.bin
+#EXT-X-ENDLIST

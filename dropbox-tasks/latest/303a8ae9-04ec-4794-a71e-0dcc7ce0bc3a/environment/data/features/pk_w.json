@@ -1,0 +1,118 @@
+[
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u3_ok",
+      "entity_id": "ent_u3",
+      "valid_from_ms": 45000,
+      "ingested_ms": 46000,
+      "revoked": false,
+      "values": {
+        "spend": 40,
+        "tenure": 5
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u3_stale",
+      "entity_id": "ent_u3",
+      "valid_from_ms": 20000,
+      "ingested_ms": 21000,
+      "revoked": false,
+      "values": {
+        "spend": 20,
+        "tenure": 3
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u3_edge",
+      "entity_id": "ent_u3",
+      "valid_from_ms": 47000,
+      "ingested_ms": 58000,
+      "revoked": false,
+      "values": {
+        "spend": 55,
+        "tenure": 6
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u3_late_ingest",
+      "entity_id": "ent_u3",
+      "valid_from_ms": 49000,
+      "ingested_ms": 62000,
+      "revoked": false,
+      "values": {
+        "spend": 99,
+        "tenure": 9
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u3_future",
+      "entity_id": "ent_u3",
+      "valid_from_ms": 80000,
+      "ingested_ms": 80100,
+      "revoked": false,
+      "values": {
+        "spend": 1,
+        "tenure": 0
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u3_revoked",
+      "entity_id": "ent_u3",
+      "valid_from_ms": 48000,
+      "ingested_ms": 49000,
+      "revoked": false,
+      "values": {
+        "spend": 70,
+        "tenure": 7
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u5_base",
+      "entity_id": "ent_u5",
+      "valid_from_ms": 10000,
+      "ingested_ms": 11000,
+      "revoked": false,
+      "values": {
+        "spend": 3,
+        "tenure": 1
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u5_hot",
+      "entity_id": "ent_u5",
+      "valid_from_ms": 59000,
+      "ingested_ms": 59500,
+      "revoked": false,
+      "values": {
+        "spend": 8,
+        "tenure": 2
+      }
+    }
+  },
+  {
+    "op": "kill",
+    "rev_id": "rv_u3_revoked"
+  }
+]

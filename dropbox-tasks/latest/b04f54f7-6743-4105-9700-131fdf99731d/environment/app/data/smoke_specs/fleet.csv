@@ -1,0 +1,3 @@
+step,command,expected
+1,releasekit --version,0
+2,releasekit audit fleet,0

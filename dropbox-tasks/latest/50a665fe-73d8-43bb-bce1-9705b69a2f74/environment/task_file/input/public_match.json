@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "rounds": 3,
+  "energy": 4,
+  "energy_cap": 8,
+  "channel_tokens": 1,
+  "rotate_tokens": 1,
+  "focus_tokens": 1,
+  "strain_limit": 3,
+  "sites": [
+    {"id": "dawn", "attunement": "sun", "power": 3, "ward": 0, "strain": 0, "curse": 0, "threshold": 7, "value": 6},
+    {"id": "gloam", "attunement": "moon", "power": 4, "ward": 1, "strain": 1, "curse": 1, "threshold": 7, "value": 7},
+    {"id": "zenith", "attunement": "star", "power": 2, "ward": 0, "strain": 0, "curse": 0, "threshold": 6, "value": 5}
+  ],
+  "edges": [["dawn", "gloam"], ["gloam", "zenith"]],
+  "cards": [
+    {"id": "amber", "school": "sun", "style": "strike", "power": 4, "cost": 2},
+    {"id": "bastion", "school": "moon", "style": "aegis", "power": 2, "cost": 2},
+    {"id": "comet", "school": "star", "style": "link", "power": 3, "cost": 3},
+    {"id": "dusk", "school": "moon", "style": "strike", "power": 3, "cost": 1},
+    {"id": "ember", "school": "sun", "style": "aegis", "power": 2, "cost": 1}
+  ],
+  "omens": [
+    {"id": "ash", "kind": "drain", "magnitude": 3, "targets": ["dawn", "gloam"]},
+    {"id": "break", "kind": "fracture", "magnitude": 2, "targets": ["gloam", "zenith"]},
+    {"id": "veil", "kind": "curse", "magnitude": 2, "targets": ["dawn", "zenith"]},
+    {"id": "tithe", "kind": "tax", "magnitude": 2, "targets": []}
+  ]
+}

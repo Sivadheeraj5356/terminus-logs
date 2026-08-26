@@ -1,0 +1,19 @@
+# Held-out parallel merge count and order flag scenarios
+
+[[hold]]
+slug = "f01"
+tags = ["arm_a", "arm_b", "arm_c"]
+slot_rotate = 0
+jobs = 4
+
+[[hold]]
+slug = "f02"
+tags = ["arm_b", "arm_c", "arm_a"]
+slot_rotate = 1
+jobs = 6
+
+[[hold]]
+slug = "f03"
+tags = ["arm_c", "arm_a", "arm_b"]
+slot_rotate = 2
+jobs = 8

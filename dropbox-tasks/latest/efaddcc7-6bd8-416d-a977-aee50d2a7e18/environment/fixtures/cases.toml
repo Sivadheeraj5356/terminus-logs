@@ -1,0 +1,34 @@
+[[case]]
+id = "grid_a"
+map = "maps/grid_a.json"
+epoch = 7
+salt = 11
+weight = 3
+
+[[case]]
+id = "grid_b"
+map = "maps/grid_b.json"
+epoch = 9
+salt = 13
+weight = 5
+
+[[case]]
+id = "grid_c"
+map = "maps/grid_c.json"
+epoch = 4
+salt = 17
+weight = 2
+
+[[case]]
+id = "grid_x"
+map = "maps/grid_x.json"
+epoch = 12
+salt = 19
+weight = 4
+
+[[case]]
+id = "grid_y"
+map = "maps/grid_y.json"
+epoch = 15
+salt = 23
+weight = 7

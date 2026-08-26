@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: VIDEO
+description: Apexora VIDEO macro-segment
+rd: "65013:1013"
+rt_export: "65013:1013"
+rt_import:
+  - "65013:1013"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

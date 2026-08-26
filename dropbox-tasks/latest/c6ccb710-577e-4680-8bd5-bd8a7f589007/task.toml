@@ -1,0 +1,31 @@
+# BASE_IMAGE_JUSTIFICATION: Canonical public.ecr.aws/docker/library/python:3.13-slim-bookworm@sha256:01f42367a0a94ad4bc17111776fd66e3500c1d87c15bbd6055b7371d39c124fb supplies Python for the Harbor pytest verifier; GHC 9.0.2, cabal-install 3.4.1.0, and libghc-aeson-dev are pinned from Debian bookworm for offline Cabal packaging with no Hackage access at runtime.
+# TASK_INSPIRATION: Inspired by shipyard drydock release incidents where Cabal-packaged keel-block load consoles shipped with mismatched edition ABI pins and inverted tension classifications, leaving packaging inventories unsigned while dockside load cells continued reporting.
+
+version = "2.0"
+
+[metadata]
+name = "package-haskell-console-utility"
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "build-and-dependency-management"
+subcategories = ["tool_specific"]
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["haskell", "bash"]
+tags = ["haskell", "cabal", "ghc", "console-utility", "packaging", "offline-build"]
+expert_time_estimate_min = 150
+junior_time_estimate_min = 280
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240

@@ -1,0 +1,10 @@
+{
+  "serial": "SER-WTREE",
+  "subject": "CN=Wrong Tree",
+  "issuer_serial": "ROOT-TRUST-01",
+  "not_before": "2025-01-01T00:00:00Z",
+  "not_after": "2026-01-01T00:00:00Z",
+  "body_digest": "wrong-tree-body",
+  "signature_ok": true,
+  "filename": "cert-wrong-tree.json"
+}

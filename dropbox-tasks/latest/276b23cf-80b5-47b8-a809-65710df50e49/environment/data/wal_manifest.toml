@@ -1,0 +1,26 @@
+# Run journal scrape, recovery, and journal_chain binding contract.
+
+[wal]
+scrape_fields = "generation,prior_digest,last_digest,plan_hash"
+digest_width = "64"
+recovered_flag = "recovered"
+
+[wal.recover]
+# Partial JSON (truncated journal) may expose generation and prior_digest while last_digest is incomplete.
+# When recovered is true and last_digest fails digest_width validation, replay observations through the
+# scraped generation before plan_hash prior binding and before commit_wal copies last_digest into prior_digest.
+# Example: if a truncated gen-1 journal has an incomplete last_digest, recovery rebuilds the gen-1
+# observation digest; the next run commits gen 2 with that recovered digest as prior_digest and uses it
+# as the prior input to the gen-2 plan_hash.
+replay_through_generation = "true"
+prior_tail_source = "last_digest"
+
+[wal.reconcile]
+# After path_report is built for the current run, rebuild lane_stamps from rows, sync plan_hash, clear recovered.
+rebuild_lane_stamps = "true"
+sync_plan_hash = "true"
+clear_recovered = "true"
+
+[wal.journal_chain]
+bind_order = "generation,prior_digest,observation_digest,plan_hash,lane_stamps"
+stamp_body_encoding = "json_array_compact"

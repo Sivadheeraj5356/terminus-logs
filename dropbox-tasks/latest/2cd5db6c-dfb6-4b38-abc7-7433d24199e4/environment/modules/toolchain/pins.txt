@@ -1,0 +1,3 @@
+host_arch=1
+secondary_arch=2
+profile=reactor-ffm

@@ -1,0 +1,6 @@
+{
+  "3": { "borough": "Bronx", "locked": true },
+  "5": { "borough": "SI-Special", "locked": true },
+  "8": { "service_zone": "Airport Zone", "locked": true },
+  "20": { "zone": "Belmont Special", "locked": false }
+}

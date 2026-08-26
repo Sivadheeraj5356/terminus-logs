@@ -1,0 +1,21 @@
+{
+  "as_of_date": "2024-07-01",
+  "chip_paths": [
+    "/app/environment/fixtures/golden_single.chip"
+  ],
+  "input_fingerprint": "sha256:a1f8540ec08af5551549217b48ce643174eb25089c1a81270ec585710524b445",
+  "profile_graph_hash": "sha256:360b08395dfe3c491991ae5eb287d2baa7616e10cf5fc41b9ba55ada9a108f2e",
+  "profile_graph_hash_body": "CAL-BASE|2024-01-01|0.000035|0||0\nCAL-STD|2024-06-01|0.000035|0|CAL-BASE|90\nFAM-GOLD-1|GOLD-1|hot|0.00005|0\n",
+  "batch_generation": 1,
+  "family_count": 1,
+  "batch_digest": "sha256:d3d05011316771cdc92578d656e999f558da6370fa02a44348fe4e19f9dbfcf5",
+  "batch_digest_payload": "{\"schema_version\":4,\"as_of_date\":\"2024-07-01\",\"input_fingerprint\":\"sha256:a1f8540ec08af5551549217b48ce643174eb25089c1a81270ec585710524b445\",\"profile_graph_hash\":\"sha256:360b08395dfe3c491991ae5eb287d2baa7616e10cf5fc41b9ba55ada9a108f2e\",\"batch_generation\":1,\"family_count\":1,\"family_digests\":[\"sha256:a4ce09fe91db5fba7c509105af27a49cc330d7ec6afd0ec08bca1efcce1615d8\"]}",
+  "families": [
+    {
+      "family_id": "FAM-GOLD-1",
+      "branch_generation": 1,
+      "resonance_digest": "sha256:a4ce09fe91db5fba7c509105af27a49cc330d7ec6afd0ec08bca1efcce1615d8",
+      "payload": "{\"family_id\":\"FAM-GOLD-1\",\"chip_id\":\"GOLD-1\",\"profile_id\":\"CAL-STD\",\"profile_graph_hash\":\"sha256:360b08395dfe3c491991ae5eb287d2baa7616e10cf5fc41b9ba55ada9a108f2e\",\"as_of_date\":\"2024-07-01\",\"input_fingerprint\":\"sha256:a1f8540ec08af5551549217b48ce643174eb25089c1a81270ec585710524b445\",\"branch_generation\":1,\"reading_count\":2,\"profile_lineage\":[{\"profile_id\":\"CAL-BASE\",\"effective_date\":\"2024-01-01\",\"inherits\":\"\",\"alpha\":0.000035,\"nominal_hz_override\":0.0,\"deprecation_window_days\":0},{\"profile_id\":\"CAL-STD\",\"effective_date\":\"2024-06-01\",\"inherits\":\"CAL-BASE\",\"alpha\":0.000035,\"nominal_hz_override\":0.0,\"deprecation_window_days\":90}],\"provenance\":[{\"path\":\"/app/environment/fixtures/golden_single.chip\",\"family_id\":\"FAM-GOLD-1\",\"chip_id\":\"GOLD-1\",\"alias\":\"\",\"profile_id\":\"CAL-STD\",\"profile_effective_date\":\"2024-06-01\",\"profile_parent_effective_date\":\"2024-01-01\",\"segment_ids\":[\"hot\",\"cold\"],\"reading_count\":2,\"source_digest\":\"sha256:7689b97c29ddabf10185d01f11954c5cfaf1da26d8d2d51d1e441cabcc3cea3f\"}],\"rows\":[{\"line_index\":2,\"segment_id\":\"cold\",\"ppm_pull\":0.0,\"temp_c\":25.0},{\"line_index\":1,\"segment_id\":\"hot\",\"ppm_pull\":0.0,\"temp_c\":35.0}]}"
+    }
+  ]
+}

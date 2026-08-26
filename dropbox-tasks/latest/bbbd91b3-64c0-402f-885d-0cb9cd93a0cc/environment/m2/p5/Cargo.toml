@@ -1,0 +1,8 @@
+[package]
+name = "m2_p5"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+r3_n8 = { path = "../../r3/n8" }
+h1_t3 = { path = "../../h1/t3" }

@@ -1,0 +1,25 @@
+.git
+.gitignore
+.env
+**/.env
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+**/out/
+**/*.key
+**/*.pem
+**/*.p12
+**/*.o
+**/*.a
+**/*.exe
+
+# Oracle, verifier, and authoring material must never enter the agent image.
+_authoring/
+solution/
+tests/
+steps/
+rubric.md

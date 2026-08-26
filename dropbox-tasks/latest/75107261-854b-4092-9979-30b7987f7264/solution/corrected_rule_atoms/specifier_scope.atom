@@ -1,0 +1,14 @@
+RULE SPECIFIER_SCOPE
+IN keys
+OUT value,reason
+TABLE
+field|Description -> literal|spec-scope
+field|Requires -> expand|spec-scope
+field|Wants -> expand|spec-scope
+field|After -> expand|spec-scope
+field|Before -> expand|spec-scope
+field|What -> expand|spec-scope
+field|Where -> expand|spec-scope
+field|SyslogIdentifier -> expand|spec-scope
+field|Environment -> expand|spec-scope
+END

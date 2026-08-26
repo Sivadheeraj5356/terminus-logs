@@ -1,0 +1,1 @@
+Local parity checks use the canonical configure flag `-DCMAKE_BUILD_TYPE=Release`; no other CMake mode is exercised in this slice.

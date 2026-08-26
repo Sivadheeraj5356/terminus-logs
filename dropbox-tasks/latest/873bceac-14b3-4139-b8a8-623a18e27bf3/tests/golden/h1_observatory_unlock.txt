@@ -1,0 +1,14 @@
+== Starfall Observatory [astral] ==
+Omen: The tide remembers your name.
+Light: 4.5 lumens
+Relics:
+  - Astral Compass <epic> 110g
+Freshest: Astral Compass @ 04:05 KST
+Exits:
+  - down: Petrified Garden (torch 1.5)
+Torch: 1.5 units
+Inventory: astrolabe-shard, silver-sigil
+Route: no route
+---ACTIONS---
+take astral-compass
+go down

@@ -1,0 +1,4 @@
+{
+  "codes": {"kind": "list", "value": ["sigma-overlay", "77"]},
+  "profile": {"kind": "map", "value": {"env": "staging", "depth": 3}}
+}

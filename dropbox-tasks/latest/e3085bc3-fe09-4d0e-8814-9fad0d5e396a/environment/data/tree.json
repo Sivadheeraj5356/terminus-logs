@@ -1,0 +1,13 @@
+{
+  "root": "/",
+  "nodes": [
+    { "path": "/etc/hosts", "kind": "file" },
+    { "path": "/var/log/syslog", "kind": "file" },
+    { "path": "/usr/bin/tool", "kind": "file" },
+    { "path": "/usr/bin/evil", "kind": "file" },
+    { "path": "/usr/bin/ghost", "kind": "file" },
+    { "path": "/lib/libc.so", "kind": "file" },
+    { "path": "/lib/bad.so", "kind": "file" },
+    { "path": "/tmp/scratch", "kind": "file" }
+  ]
+}

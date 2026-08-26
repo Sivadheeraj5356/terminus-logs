@@ -1,0 +1,2 @@
+batch_id,source_system,employee_id,full_name,department,title,manager_id,location,annual_salary,status,attrs_json,valid_from,recorded_at,operation,correction_id
+WD-2024-12,workday,E402,Sam Cho,Engineering,Engineer,M010,NYC,118000,active,"{""level"":3}",2024-12-01,2024-12-02T10:00:00Z,UPSERT,ORIG

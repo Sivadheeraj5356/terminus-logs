@@ -1,0 +1,37 @@
+[[fixture]]
+id = "ash"
+frame = "ms_a1.bin"
+ticks = 20
+pause = 10
+
+[[fixture]]
+id = "elm"
+frame = "ms_e2.bin"
+ticks = 24
+pause = 12
+
+[[fixture]]
+id = "oak"
+frame = "ms_o3.bin"
+ticks = 28
+pause = 14
+
+[[fixture]]
+id = "fir"
+frame = "ms_f4.bin"
+ticks = 32
+pause = 16
+
+[[profile]]
+name = "strict_pair"
+lv = [0.01, 0.008, 0.006, 0.004]
+stride = 5
+band_max = 1e-9
+band_tail = 1e-9
+
+[[profile]]
+name = "rapid_k"
+lv = [0.02, 0.015, 0.01, 0.006, 0.003]
+stride = 4
+band_max = 1e-9
+band_tail = 1e-9

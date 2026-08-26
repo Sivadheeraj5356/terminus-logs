@@ -1,0 +1,15 @@
+{
+  "conflicts": [],
+  "name": "dispatchctl",
+  "requires": [
+    {
+      "package": "routectl",
+      "range": ">=3.0.0"
+    },
+    {
+      "package": "wiretype",
+      "range": "=2.0.0"
+    }
+  ],
+  "version": "3.0.0"
+}

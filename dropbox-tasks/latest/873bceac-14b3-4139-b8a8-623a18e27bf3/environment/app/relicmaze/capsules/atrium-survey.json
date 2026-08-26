@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "created": "2412-03-08T00:00:00Z",
+  "architecture": "relic",
+  "os": "maze",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "atrium",
+      "relicmaze.torch": "9.0",
+      "relicmaze.keeper_tz_offset_minutes": "0",
+      "relicmaze.goal_room": "spring",
+      "relicmaze.carry_capacity": "500",
+      "org.opencontainers.image.title": "atrium-survey"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:77bb88cc99dd00ee11ff22334455667788990011223344556677889900aabb01"
+    ]
+  },
+  "history": [
+    { "created": "2412-03-08T00:00:01Z", "created_by": "keeper genesis: bind capsule to atrium" },
+    { "created": "2412-03-08T00:00:02Z", "created_by": "LABEL omen=\"Still water hides its depth.\"" },
+    { "created": "2412-03-08T00:00:03Z", "created_by": "keeper sign: capsule sealed" }
+  ]
+}

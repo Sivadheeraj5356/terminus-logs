@@ -1,0 +1,596 @@
+--- cache/retain.rs	2026-07-06 14:48:32.739859416 +0530
++++ cache/retain.rs	2026-07-06 13:12:01.745090652 +0530
+@@ -20,10 +20,11 @@
+ ) -> Option<Vec<ReadingRow>> {
+     let raw = fs::read_to_string(CACHE_PATH).ok()?;
+     let parsed: CachePayload = serde_json::from_str(&raw).ok()?;
+-    if parsed.input_fingerprint != input_fingerprint {
++    if parsed.input_fingerprint != input_fingerprint
++        || parsed.profile_graph_hash != profile_graph_hash
++    {
+         return None;
+     }
+-    let _ = profile_graph_hash;
+     parsed.families.get(family_id).cloned()
+ }
+ 
+--- calib/apply.rs	2026-07-06 14:47:27.256236578 +0530
++++ calib/apply.rs	2026-07-06 13:09:32.525138243 +0530
+@@ -55,7 +55,7 @@
+ }
+ 
+ pub fn freq_at_25(freq_hz: f64, temp_c: f64, alpha: f64) -> f64 {
+-    round4(freq_hz * (1.0 + alpha * (temp_c - 25.0)))
++    round4(freq_hz / (1.0 + alpha * (temp_c - 25.0)))
+ }
+ 
+ pub fn ppm_pull(freq_25_hz: f64, nominal_hz: f64) -> f64 {
+--- calib/profile.rs	2026-07-06 14:49:17.348950979 +0530
++++ calib/profile.rs	2026-07-06 14:45:59.010713691 +0530
+@@ -204,7 +204,7 @@
+         match best {
+             None => best = Some(revision),
+             Some(current) => {
+-                if revision.effective_date.as_str() < current.effective_date.as_str() {
++                if revision.effective_date.as_str() > current.effective_date.as_str() {
+                     best = Some(revision);
+                 }
+             }
+@@ -227,9 +227,19 @@
+ 
+     let mut resolved_alpha = revision.alpha;
+     let mut resolved_nominal = revision.nominal_hz_override;
+-    let parent_effective_date = String::new();
++    let mut parent_effective_date = String::new();
+ 
+-    let _ = (catalog, as_of, seen);
++    if !revision.inherits.is_empty() {
++        let parent = select_revision(catalog, &revision.inherits, as_of)?;
++        parent_effective_date = parent.effective_date.clone();
++        let parent_resolved = resolve_profile(catalog, &parent, as_of, seen)?;
++        if resolved_alpha <= 0.0 {
++            resolved_alpha = parent_resolved.resolved_alpha;
++        }
++        if resolved_nominal <= 0.0 {
++            resolved_nominal = parent_resolved.resolved_nominal_override;
++        }
++    }
+ 
+     if resolved_alpha <= 0.0 {
+         return Err(format!(
+@@ -275,8 +285,13 @@
+             .cmp(&b.profile_id)
+             .then_with(|| a.effective_date.cmp(&b.effective_date))
+     });
+-    let segs = segment_overrides.to_vec();
+-    let _ = segs;
++    let mut segs = segment_overrides.to_vec();
++    segs.sort_by(|a, b| {
++        a.family_id
++            .cmp(&b.family_id)
++            .then_with(|| a.chip_id.cmp(&b.chip_id))
++            .then_with(|| a.segment_id.cmp(&b.segment_id))
++    });
+     let mut hasher = Sha256::new();
+     for revision in revs {
+         let override_token = if revision.nominal_hz_override > 0.0 {
+@@ -295,6 +310,23 @@
+         );
+         hasher.update(line.as_bytes());
+     }
++    for seg in segs {
++        let alpha = if seg.alpha_override > 0.0 {
++            hash_float_token(seg.alpha_override)
++        } else {
++            "0".to_string()
++        };
++        let nominal = if seg.nominal_hz_override > 0.0 {
++            hash_float_token(seg.nominal_hz_override)
++        } else {
++            "0".to_string()
++        };
++        let line = format!(
++            "{}|{}|{}|{}|{}\n",
++            seg.family_id, seg.chip_id, seg.segment_id, alpha, nominal
++        );
++        hasher.update(line.as_bytes());
++    }
+     format!("sha256:{}", hex::encode(hasher.finalize()))
+ }
+ 
+--- folio/bind.rs	2026-07-06 14:48:23.217134019 +0530
++++ folio/bind.rs	2026-07-06 13:33:35.663156052 +0530
+@@ -53,6 +53,23 @@
+         });
+     }
+ 
++    let mut alias_first_chip: HashMap<String, String> = HashMap::new();
++    let mut alias_rewrite: HashMap<String, String> = HashMap::new();
++    for item in &loaded {
++        if item.profile.alias.is_empty() {
++            continue;
++        }
++        let alias = item.profile.alias.clone();
++        let chip_id = item.profile.chip_id.clone();
++        if let Some(first_chip) = alias_first_chip.get(&alias) {
++            if first_chip != &chip_id {
++                alias_rewrite.insert(first_chip.clone(), format!("{alias}@{first_chip}"));
++            }
++        } else {
++            alias_first_chip.insert(alias, chip_id);
++        }
++    }
++
+     let mut by_family: HashMap<String, Vec<&LoadedChip>> = HashMap::new();
+     for item in &loaded {
+         by_family
+@@ -63,14 +80,13 @@
+ 
+     let mut families = HashMap::new();
+     let mut all_revisions: Vec<ProfileRevision> = Vec::new();
+-    let all_segment_overrides: Vec<SegmentOverrideRef> = Vec::new();
++    let mut all_segment_overrides: Vec<SegmentOverrideRef> = Vec::new();
+ 
+     for (family_id, family_items) in by_family {
+         let mut by_key: HashMap<MergeKey, ChipProfile> = HashMap::new();
+         let mut provenance = Vec::new();
+-        let mut first: Option<&LoadedChip> = None;
+         let mut last: Option<&LoadedChip> = None;
+-        let mut lineage_revisions: Vec<ProfileRevision> = Vec::new();
++        let mut lineage_revisions = Vec::new();
+ 
+         for item in family_items {
+             for rev in &item.lineage {
+@@ -82,7 +98,29 @@
+             }
+             lineage_revisions = item.lineage.clone();
+ 
+-            let alias = item.profile.alias.clone();
++            for (seg_id, seg_ov) in &item.profile.segment_overrides {
++                if seg_ov.alpha_override > 0.0 || seg_ov.nominal_hz_override > 0.0 {
++                    let entry = SegmentOverrideRef {
++                        family_id: item.profile.family_id.clone(),
++                        chip_id: item.profile.chip_id.clone(),
++                        segment_id: seg_id.clone(),
++                        alpha_override: seg_ov.alpha_override,
++                        nominal_hz_override: seg_ov.nominal_hz_override,
++                    };
++                    if !all_segment_overrides.iter().any(|s| {
++                        s.family_id == entry.family_id
++                            && s.chip_id == entry.chip_id
++                            && s.segment_id == entry.segment_id
++                    }) {
++                        all_segment_overrides.push(entry);
++                    }
++                }
++            }
++
++            let alias = alias_rewrite
++                .get(&item.profile.chip_id)
++                .cloned()
++                .unwrap_or_else(|| item.profile.alias.clone());
+ 
+             provenance.push(SourceProvenance {
+                 path: item.path.clone(),
+@@ -101,19 +139,17 @@
+                 chip_id: item.profile.chip_id.clone(),
+                 profile_id: item.profile.profile_id.clone(),
+             };
+-            by_key.entry(key).or_insert(item.profile.clone());
+-            if first.is_none() {
+-                first = Some(item);
+-            }
++            by_key.insert(key, item.profile.clone());
+             last = Some(item);
+         }
+ 
+-        let active_item = first.ok_or_else(|| "no chip profiles loaded".to_string())?;
++        let last_item = last.ok_or_else(|| "no chip profiles loaded".to_string())?;
++        let active_key = MergeKey {
++            chip_id: last_item.profile.chip_id.clone(),
++            profile_id: last_item.profile.profile_id.clone(),
++        };
+         let active = by_key
+-            .get(&MergeKey {
+-                chip_id: active_item.profile.chip_id.clone(),
+-                profile_id: active_item.profile.profile_id.clone(),
+-            })
++            .get(&active_key)
+             .cloned()
+             .ok_or_else(|| "missing active merge profile".to_string())?;
+ 
+@@ -122,7 +158,7 @@
+             FamilyMergeOutcome {
+                 profile: active,
+                 provenance,
+-                resolved: active_item.resolved.clone(),
++                resolved: last_item.resolved.clone(),
+                 lineage_revisions,
+             },
+         );
+--- main.rs	2026-07-06 14:48:56.171703887 +0530
++++ main.rs	2026-07-06 13:13:48.948789055 +0530
+@@ -11,12 +11,11 @@
+ mod types;
+ 
+ use std::fs;
++use std::io::Write;
+ use std::path::PathBuf;
+ 
+ use clap::Parser;
+ 
+-use crate::state::manifest::manifest_path;
+-
+ #[derive(Parser)]
+ #[command(name = "piezo-audit")]
+ struct Args {
+@@ -28,6 +27,18 @@
+     out: PathBuf,
+ }
+ 
++fn atomic_write(path: &PathBuf, contents: &str) -> Result<(), String> {
++    if let Some(parent) = path.parent() {
++        fs::create_dir_all(parent).map_err(|e| format!("mkdir: {e}"))?;
++    }
++    let tmp = path.with_extension("tmp");
++    let mut file = fs::File::create(&tmp).map_err(|e| format!("tmp create: {e}"))?;
++    file.write_all(contents.as_bytes())
++        .map_err(|e| format!("tmp write: {e}"))?;
++    file.sync_all().map_err(|e| format!("tmp sync: {e}"))?;
++    fs::rename(&tmp, path).map_err(|e| format!("rename: {e}"))
++}
++
+ fn main() {
+     let args = Args::parse();
+     if args.chip.is_empty() {
+@@ -37,10 +48,8 @@
+     match pipeline::run::audit_paths(&args.chip, &args.as_of) {
+         Ok(report) => {
+             let raw = serde_json::to_string_pretty(&report).unwrap();
+-            if let Some(parent) = args.out.parent() {
+-                let _ = fs::create_dir_all(parent);
+-            }
+-            if fs::write(&args.out, format!("{raw}\n")).is_err() {
++            if atomic_write(&args.out, &format!("{raw}\n")).is_err() {
++                let _ = fs::remove_file(&args.out);
+                 eprintln!("write failed");
+                 std::process::exit(1);
+             }
+@@ -48,7 +57,6 @@
+         Err(e) => {
+             eprintln!("audit: {e}");
+             let _ = fs::remove_file(&args.out);
+-            let _ = fs::remove_file(manifest_path());
+             std::process::exit(1);
+         }
+     }
+--- probe/parse.rs	2026-07-06 14:47:53.313255440 +0530
++++ probe/parse.rs	2026-07-06 13:09:11.256162535 +0530
+@@ -11,8 +11,9 @@
+     let mut profile_id = String::new();
+     let mut nominal_hz = 0.0_f64;
+     let mut readings = Vec::new();
+-    let segment_overrides: HashMap<String, SegmentOverride> = HashMap::new();
++    let mut segment_overrides: HashMap<String, SegmentOverride> = HashMap::new();
+     let mut in_readings = false;
++    let mut segment_id = "default".to_string();
+ 
+     for line in raw.lines() {
+         let trimmed = line.trim();
+@@ -57,13 +58,49 @@
+         }
+         if line == "readings:" {
+             in_readings = true;
++            segment_id = "default".to_string();
++            continue;
++        }
++        if let Some(rest) = line.strip_prefix("segment:") {
++            segment_id = rest.trim().to_string();
++            if segment_id.is_empty() {
++                return Err(format!("{}: empty segment id", path.display()));
++            }
++            segment_overrides
++                .entry(segment_id.clone())
++                .or_insert(SegmentOverride {
++                    alpha_override: 0.0,
++                    nominal_hz_override: 0.0,
++                });
+             continue;
+         }
+         if in_readings {
+-            if line.starts_with("segment:")
+-                || line.starts_with("alpha_override=")
+-                || line.starts_with("nominal_hz_override=")
+-            {
++            if let Some(rest) = line.strip_prefix("alpha_override=") {
++                let val: f64 = rest
++                    .trim()
++                    .parse()
++                    .map_err(|_| format!("{}: bad alpha_override", path.display()))?;
++                segment_overrides
++                    .entry(segment_id.clone())
++                    .or_insert(SegmentOverride {
++                        alpha_override: 0.0,
++                        nominal_hz_override: 0.0,
++                    })
++                    .alpha_override = val;
++                continue;
++            }
++            if let Some(rest) = line.strip_prefix("nominal_hz_override=") {
++                let val: f64 = rest
++                    .trim()
++                    .parse()
++                    .map_err(|_| format!("{}: bad nominal_hz_override", path.display()))?;
++                segment_overrides
++                    .entry(segment_id.clone())
++                    .or_insert(SegmentOverride {
++                        alpha_override: 0.0,
++                        nominal_hz_override: 0.0,
++                    })
++                    .nominal_hz_override = val;
+                 continue;
+             }
+             let mut parts = line.split_whitespace();
+@@ -84,7 +121,7 @@
+                 .map_err(|_| format!("{}: bad freq_hz", path.display()))?;
+             readings.push(ChipReading {
+                 line_index,
+-                segment_id: "default".to_string(),
++                segment_id: segment_id.clone(),
+                 temp_c,
+                 freq_hz,
+             });
+--- probe/sort.rs	2026-07-06 14:47:25.063676200 +0530
++++ probe/sort.rs	2026-07-06 13:09:13.089399895 +0530
+@@ -2,12 +2,9 @@
+ 
+ pub fn sort_rows(rows: &mut [ReadingRow]) {
+     rows.sort_by(|a, b| {
+-        a.line_index
+-            .cmp(&b.line_index)
+-            .then_with(|| {
+-                a.temp_c
+-                    .partial_cmp(&b.temp_c)
+-                    .unwrap_or(std::cmp::Ordering::Equal)
+-            })
++        a.temp_c
++            .partial_cmp(&b.temp_c)
++            .unwrap_or(std::cmp::Ordering::Equal)
++            .then_with(|| a.line_index.cmp(&b.line_index))
+     });
+ }
+--- seal/mark.rs	2026-07-06 14:48:51.212784750 +0530
++++ seal/mark.rs	2026-07-06 14:46:11.281024325 +0530
+@@ -6,7 +6,7 @@
+     serde_json::to_string(value).expect("digest string must serialize")
+ }
+ 
+-fn json_float(value: f64) -> String {
++fn lineage_json_float(value: f64) -> String {
+     if value == 0.0 {
+         return "0.0".to_string();
+     }
+@@ -18,6 +18,30 @@
+     }
+ }
+ 
++fn row_json_float(value: f64) -> String {
++    if value == 0.0 {
++        return "0.0".to_string();
++    }
++    let token = crate::calib::profile::digest_float_token(value);
++    if token.contains('.') {
++        token
++    } else {
++        format!("{token}.0")
++    }
++}
++
++fn json_string_array(values: &[String]) -> String {
++    let mut body = String::from("[");
++    for (index, value) in values.iter().enumerate() {
++        if index > 0 {
++            body.push(',');
++        }
++        body.push_str(&json_string(value));
++    }
++    body.push(']');
++    body
++}
++
+ pub fn resonance_seal(
+     family_id: &str,
+     chip_id: &str,
+@@ -26,8 +50,8 @@
+     as_of_date: &str,
+     input_fingerprint: &str,
+     branch_generation: u32,
+-    _lineage: &[ProfileRevision],
+-    _provenance: &[SourceProvenance],
++    lineage: &[ProfileRevision],
++    provenance: &[SourceProvenance],
+     rows: &[ReadingRow],
+ ) -> String {
+     let mut body = String::new();
+@@ -38,9 +62,70 @@
+     body.push_str(&json_string(chip_id));
+     body.push_str(r#","profile_id":"#);
+     body.push_str(&json_string(profile_id));
++    body.push_str(r#","profile_graph_hash":"#);
++    body.push_str(&json_string(profile_graph_hash));
++    body.push_str(r#","as_of_date":"#);
++    body.push_str(&json_string(as_of_date));
++    body.push_str(r#","input_fingerprint":"#);
++    body.push_str(&json_string(input_fingerprint));
++    body.push_str(r#","branch_generation":"#);
++    body.push_str(&branch_generation.to_string());
+     body.push_str(r#","reading_count":"#);
+     body.push_str(&rows.len().to_string());
+-    body.push_str(r#","rows":["#);
++    body.push_str(r#","profile_lineage":["#);
++    for (index, entry) in lineage.iter().enumerate() {
++        if index > 0 {
++            body.push(',');
++        }
++        body.push('{');
++        body.push_str(r#""profile_id":"#);
++        body.push_str(&json_string(&entry.profile_id));
++        body.push_str(r#","effective_date":"#);
++        body.push_str(&json_string(&entry.effective_date));
++        body.push_str(r#","inherits":"#);
++        body.push_str(&json_string(&entry.inherits));
++        body.push_str(r#","alpha":"#);
++        body.push_str(&lineage_json_float(entry.alpha));
++        let nom = if entry.nominal_hz_override > 0.0 {
++            entry.nominal_hz_override
++        } else {
++            0.0
++        };
++        body.push_str(r#","nominal_hz_override":"#);
++        body.push_str(&lineage_json_float(nom));
++        body.push_str(r#","deprecation_window_days":"#);
++        body.push_str(&entry.deprecation_window_days.to_string());
++        body.push('}');
++    }
++    body.push_str(r#"],"provenance":["#);
++    for (index, entry) in provenance.iter().enumerate() {
++        if index > 0 {
++            body.push(',');
++        }
++        body.push('{');
++        body.push_str(r#""path":"#);
++        body.push_str(&json_string(&entry.path));
++        body.push_str(r#","family_id":"#);
++        body.push_str(&json_string(&entry.family_id));
++        body.push_str(r#","chip_id":"#);
++        body.push_str(&json_string(&entry.chip_id));
++        body.push_str(r#","alias":"#);
++        body.push_str(&json_string(&entry.alias));
++        body.push_str(r#","profile_id":"#);
++        body.push_str(&json_string(&entry.profile_id));
++        body.push_str(r#","profile_effective_date":"#);
++        body.push_str(&json_string(&entry.profile_effective_date));
++        body.push_str(r#","profile_parent_effective_date":"#);
++        body.push_str(&json_string(&entry.profile_parent_effective_date));
++        body.push_str(r#","segment_ids":"#);
++        body.push_str(&json_string_array(&entry.segment_ids));
++        body.push_str(r#","reading_count":"#);
++        body.push_str(&entry.reading_count.to_string());
++        body.push_str(r#","source_digest":"#);
++        body.push_str(&json_string(&entry.source_digest));
++        body.push('}');
++    }
++    body.push_str(r#"],"rows":["#);
+     for (index, row) in rows.iter().enumerate() {
+         if index > 0 {
+             body.push(',');
+@@ -48,17 +133,15 @@
+         body.push('{');
+         body.push_str(r#""line_index":"#);
+         body.push_str(&row.line_index.to_string());
++        body.push_str(r#","segment_id":"#);
++        body.push_str(&json_string(&row.segment_id));
+         body.push_str(r#","ppm_pull":"#);
+-        body.push_str(&json_float(row.ppm_pull));
++        body.push_str(&row_json_float(row.ppm_pull));
++        body.push_str(r#","temp_c":"#);
++        body.push_str(&row_json_float(row.temp_c));
+         body.push('}');
+     }
+     body.push_str("]}");
+-    let _ = (
+-        profile_graph_hash,
+-        as_of_date,
+-        input_fingerprint,
+-        branch_generation,
+-    );
+     format!("sha256:{}", hex::encode(Sha256::digest(body.as_bytes())))
+ }
+ 
+@@ -79,8 +162,12 @@
+     body.push_str(&json_string(as_of_date));
+     body.push_str(r#","input_fingerprint":"#);
+     body.push_str(&json_string(input_fingerprint));
++    body.push_str(r#","profile_graph_hash":"#);
++    body.push_str(&json_string(profile_graph_hash));
+     body.push_str(r#","batch_generation":"#);
+     body.push_str(&batch_generation.to_string());
++    body.push_str(r#","family_count":"#);
++    body.push_str(&family_count.to_string());
+     body.push_str(r#","family_digests":["#);
+     for (index, digest) in family_digests.iter().enumerate() {
+         if index > 0 {
+@@ -89,6 +176,5 @@
+         body.push_str(&json_string(digest));
+     }
+     body.push_str("]}");
+-    let _ = (profile_graph_hash, family_count);
+     format!("sha256:{}", hex::encode(Sha256::digest(body.as_bytes())))
+ }
+--- state/manifest.rs	2026-07-06 14:48:31.167336416 +0530
++++ state/manifest.rs	2026-07-06 13:11:56.334145092 +0530
+@@ -51,14 +51,24 @@
+     profile_graph_hash: &str,
+ ) -> u32 {
+     let manifest = read_manifest();
++    if manifest.last_input_fingerprint == input_fingerprint
++        && manifest.last_profile_graph_hash == profile_graph_hash
++    {
++        return manifest.batch_generation.max(1);
++    }
++    for entry in &manifest.history {
++        if entry.input_fingerprint == input_fingerprint
++            && entry.profile_graph_hash == profile_graph_hash
++        {
++            return entry.batch_generation.max(1);
++        }
++    }
+     let max_gen = manifest
+         .history
+         .iter()
+         .map(|e| e.batch_generation)
+         .max()
+-        .unwrap_or(0)
+-        .max(manifest.batch_generation);
+-    let _ = (input_fingerprint, profile_graph_hash);
++        .unwrap_or(0);
+     if max_gen == 0 {
+         1
+     } else {
+@@ -151,7 +161,8 @@
+     as_of: &str,
+ ) -> Result<String, String> {
+     let mut hasher = Sha256::new();
+-    let _ = as_of;
++    hasher.update(as_of.as_bytes());
++    hasher.update(b"\n");
+     for path in paths {
+         let path_ref = path.as_ref();
+         hasher.update(path_ref.display().to_string().as_bytes());
+--- weight/pull.rs	2026-07-06 14:47:27.452495607 +0530
++++ weight/pull.rs	2026-07-06 13:12:19.553750803 +0530
+@@ -1,10 +1,22 @@
+ use crate::calib::apply::round4;
+ use crate::types::ReadingRow;
+ 
++fn temp_weight(temp_c: f64) -> f64 {
++    if temp_c == 25.0 {
++        1.0
++    } else {
++        1.0 / (temp_c - 25.0).abs()
++    }
++}
++
+ pub fn weighted_mean_ppm(rows: &[ReadingRow]) -> f64 {
+     if rows.is_empty() {
+         return 0.0;
+     }
+-    let sum: f64 = rows.iter().map(|row| row.ppm_pull).sum();
+-    round4(sum / rows.len() as f64)
++    let weighted: f64 = rows
++        .iter()
++        .map(|row| row.ppm_pull * temp_weight(row.temp_c))
++        .sum();
++    let total: f64 = rows.iter().map(|row| temp_weight(row.temp_c)).sum();
++    round4(weighted / total)
+ }

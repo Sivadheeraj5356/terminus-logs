@@ -1,0 +1,6 @@
+# Offline source replacement for the air-gapped vendor lane.
+[source.crates-io]
+replace-with = "offline-mirror"
+
+[source.offline-mirror]
+local-registry = "/app/data/mirror-stale"

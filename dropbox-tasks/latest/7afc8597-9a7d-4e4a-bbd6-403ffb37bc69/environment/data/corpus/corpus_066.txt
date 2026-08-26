@@ -1,0 +1,8 @@
+this is the end
+hello foobar color line no
+addr 26.224.210.73 hex 0xbb54 token tok_37
+addr 84.230.127.57 hex 0x455a token tok_140
+hello start world beta maybe cat world
+symbols here
+addr 28.254.188.15 hex 0x64f8 token tok_18
+symbols here

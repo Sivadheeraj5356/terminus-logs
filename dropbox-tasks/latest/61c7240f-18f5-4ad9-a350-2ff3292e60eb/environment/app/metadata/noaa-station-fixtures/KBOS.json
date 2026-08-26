@@ -1,0 +1,9 @@
+{
+  "id": "https://api.weather.gov/stations/KBOS",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KBOS",
+    "name": "Boston Logan International Airport",
+    "timeZone": "America/New_York"
+  }
+}

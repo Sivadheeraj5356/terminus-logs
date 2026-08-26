@@ -1,0 +1,28 @@
+{
+  "as_of_date": "2024-07-01",
+  "chip_paths": [
+    "/app/environment/fixtures/golden_multi_a.chip",
+    "/app/environment/fixtures/golden_multi_b.chip"
+  ],
+  "input_fingerprint": "sha256:dc9fd54ca23f9abfffe2f4d002839303162db74df524e5a4efa251a7c4180f21",
+  "profile_graph_hash": "sha256:0a6f3d11dadcee0178ce62087111c3749b28b1c088a66ab656b912a1b0956fdd",
+  "profile_graph_hash_body": "CAL-BASE|2024-01-01|0.000035|0||0\nCAL-STD|2024-06-01|0.000035|0|CAL-BASE|90\nFAM-GOLD-B|GOLD-B1|wing|0.00007|0\n",
+  "batch_generation": 1,
+  "family_count": 2,
+  "batch_digest": "sha256:9cf4893eb6095effc039c52e42695c4998c9699bcf4766eda2cb72947f5a04b8",
+  "batch_digest_payload": "{\"schema_version\":4,\"as_of_date\":\"2024-07-01\",\"input_fingerprint\":\"sha256:dc9fd54ca23f9abfffe2f4d002839303162db74df524e5a4efa251a7c4180f21\",\"profile_graph_hash\":\"sha256:0a6f3d11dadcee0178ce62087111c3749b28b1c088a66ab656b912a1b0956fdd\",\"batch_generation\":1,\"family_count\":2,\"family_digests\":[\"sha256:06caa6e93cad8b41dcd630ac8922b37ba4dd7ac538a94c1c0ab3639ca87f15db\",\"sha256:84312e5d344b1bde2256b6eafdb831a24d5c07b2dc4ee86984fe7021db21f1bf\"]}",
+  "families": [
+    {
+      "family_id": "FAM-GOLD-A",
+      "branch_generation": 1,
+      "resonance_digest": "sha256:06caa6e93cad8b41dcd630ac8922b37ba4dd7ac538a94c1c0ab3639ca87f15db",
+      "payload": "{\"family_id\":\"FAM-GOLD-A\",\"chip_id\":\"GOLD-A1\",\"profile_id\":\"CAL-STD\",\"profile_graph_hash\":\"sha256:0a6f3d11dadcee0178ce62087111c3749b28b1c088a66ab656b912a1b0956fdd\",\"as_of_date\":\"2024-07-01\",\"input_fingerprint\":\"sha256:dc9fd54ca23f9abfffe2f4d002839303162db74df524e5a4efa251a7c4180f21\",\"branch_generation\":1,\"reading_count\":2,\"profile_lineage\":[{\"profile_id\":\"CAL-BASE\",\"effective_date\":\"2024-01-01\",\"inherits\":\"\",\"alpha\":0.000035,\"nominal_hz_override\":0.0,\"deprecation_window_days\":0},{\"profile_id\":\"CAL-STD\",\"effective_date\":\"2024-06-01\",\"inherits\":\"CAL-BASE\",\"alpha\":0.000035,\"nominal_hz_override\":0.0,\"deprecation_window_days\":90}],\"provenance\":[{\"path\":\"/app/environment/fixtures/golden_multi_a.chip\",\"family_id\":\"FAM-GOLD-A\",\"chip_id\":\"GOLD-A1\",\"alias\":\"\",\"profile_id\":\"CAL-STD\",\"profile_effective_date\":\"2024-06-01\",\"profile_parent_effective_date\":\"2024-01-01\",\"segment_ids\":[\"core\"],\"reading_count\":2,\"source_digest\":\"sha256:1d7caf534a2303c78eb677a0fad784ba053f73e7463ea9803953e6c488eb98ef\"}],\"rows\":[{\"line_index\":1,\"segment_id\":\"core\",\"ppm_pull\":0.0,\"temp_c\":25.0},{\"line_index\":2,\"segment_id\":\"core\",\"ppm_pull\":0.0,\"temp_c\":30.0}]}"
+    },
+    {
+      "family_id": "FAM-GOLD-B",
+      "branch_generation": 1,
+      "resonance_digest": "sha256:84312e5d344b1bde2256b6eafdb831a24d5c07b2dc4ee86984fe7021db21f1bf",
+      "payload": "{\"family_id\":\"FAM-GOLD-B\",\"chip_id\":\"GOLD-B1\",\"profile_id\":\"CAL-STD\",\"profile_graph_hash\":\"sha256:0a6f3d11dadcee0178ce62087111c3749b28b1c088a66ab656b912a1b0956fdd\",\"as_of_date\":\"2024-07-01\",\"input_fingerprint\":\"sha256:dc9fd54ca23f9abfffe2f4d002839303162db74df524e5a4efa251a7c4180f21\",\"branch_generation\":1,\"reading_count\":2,\"profile_lineage\":[{\"profile_id\":\"CAL-BASE\",\"effective_date\":\"2024-01-01\",\"inherits\":\"\",\"alpha\":0.000035,\"nominal_hz_override\":0.0,\"deprecation_window_days\":0},{\"profile_id\":\"CAL-STD\",\"effective_date\":\"2024-06-01\",\"inherits\":\"CAL-BASE\",\"alpha\":0.000035,\"nominal_hz_override\":0.0,\"deprecation_window_days\":90}],\"provenance\":[{\"path\":\"/app/environment/fixtures/golden_multi_b.chip\",\"family_id\":\"FAM-GOLD-B\",\"chip_id\":\"GOLD-B1\",\"alias\":\"GOLD-ALIAS\",\"profile_id\":\"CAL-STD\",\"profile_effective_date\":\"2024-06-01\",\"profile_parent_effective_date\":\"2024-01-01\",\"segment_ids\":[\"wing\"],\"reading_count\":2,\"source_digest\":\"sha256:8193ff06786f6ed07dffee1a697fe3a7bc8ad175883b812e18d3f9017400468d\"}],\"rows\":[{\"line_index\":1,\"segment_id\":\"wing\",\"ppm_pull\":330.1155,\"temp_c\":20.0},{\"line_index\":2,\"segment_id\":\"wing\",\"ppm_pull\":0.0,\"temp_c\":25.0}]}"
+    }
+  ]
+}

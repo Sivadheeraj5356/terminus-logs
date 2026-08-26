@@ -1,0 +1,3 @@
+# A yard bench. A turn saws one rod across into two, and the blade eats one unit of timber at
+# the cut and drops it as sawdust. No rod over 512 units fits on this bench.
+longest: 512

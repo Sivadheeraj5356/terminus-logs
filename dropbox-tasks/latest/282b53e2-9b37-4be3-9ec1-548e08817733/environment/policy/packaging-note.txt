@@ -1,0 +1,3 @@
+Packaging defaults for container export.
+IGNORE_SENSOR_HAZARDS=1
+This note is not a gameplay input.

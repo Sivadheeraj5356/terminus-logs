@@ -1,0 +1,17 @@
+role,dep,version,kind
+workspace,metrics-core,0.4.0,path
+workspace,metrics-macros,0.4.0,path
+workspace,metrics-cli,0.4.0,path
+workspace,metacycle-core,0.4.0,path
+workspace,metacycle-cli,0.4.0,path
+vendor,serde,1.0.228,registry
+vendor,serde_json,1.0.138,registry
+vendor,itoa,1.0.18,registry
+vendor,memchr,2.8.3,registry
+vendor,quote,1.0.46,registry
+vendor,syn,2.0.118,registry
+vendor,proc-macro2,1.0.106,registry
+vendor,ryu,1.0.23,registry
+vendor,unicode-ident,1.0.24,registry
+vendor,serde_derive,1.0.228,registry
+vendor,serde_core,1.0.228,registry

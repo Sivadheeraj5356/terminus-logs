@@ -1,0 +1,114 @@
+{
+  "session_id": "build_06",
+  "cross_compile": true,
+  "toolchains": [
+    {
+      "id": "gcc-13",
+      "triple": "gcc-13-linux-gnu"
+    },
+    {
+      "id": "clang-17",
+      "triple": "clang-17-linux-gnu"
+    }
+  ],
+  "checkpoints": [
+    {
+      "seq": 1,
+      "stage": "preprocess",
+      "toolchain": "clang-17",
+      "artifact_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 1,
+      "stage": "preprocess",
+      "toolchain": "gcc-13",
+      "artifact_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 2,
+      "stage": "link",
+      "toolchain": "clang-17",
+      "artifact_hash": "204fb9e756ccbefa",
+      "symbol_digest": "f29f5ecfc0d167a0",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 2,
+      "stage": "link",
+      "toolchain": "gcc-13",
+      "artifact_hash": "204fb9e756ccbefa",
+      "symbol_digest": "f29f5ecfc0d167a0",
+      "compressed_size": 100,
+      "raw_size": 200
+    }
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "toolchain": "clang-17",
+      "stage": "preprocess",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "",
+      "new_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab"
+    },
+    {
+      "seq": 1,
+      "toolchain": "gcc-13",
+      "stage": "preprocess",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "",
+      "new_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab"
+    },
+    {
+      "seq": 2,
+      "toolchain": "clang-17",
+      "stage": "link",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "5494211fa734eec5",
+      "new_hash": "204fb9e756ccbefa",
+      "symbol_digest": "f29f5ecfc0d167a0"
+    },
+    {
+      "seq": 2,
+      "toolchain": "gcc-13",
+      "stage": "link",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "5494211fa734eec5",
+      "new_hash": "204fb9e756ccbefa",
+      "symbol_digest": "f29f5ecfc0d167a0"
+    }
+  ],
+  "rollbacks": [],
+  "shards": [
+    {
+      "shard_id": "shard-a",
+      "worker": "worker-1",
+      "event_seqs": [
+        1
+      ],
+      "contribution_hash": "79c38ceeec40c0c8f2c1a9b96e8c8c1180c3448d720a174e61524eaa1d35fd61"
+    },
+    {
+      "shard_id": "shard-b",
+      "worker": "worker-2",
+      "event_seqs": [
+        2
+      ],
+      "contribution_hash": "deadbeefdeadbeef"
+    }
+  ],
+  "optimization_passes": []
+}

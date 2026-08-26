@@ -1,0 +1,58 @@
+[
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u1_early",
+      "entity_id": "ent_u1",
+      "valid_from_ms": 5000,
+      "ingested_ms": 5500,
+      "revoked": false,
+      "values": {
+        "spend": 11,
+        "tenure": 2
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u1_mid",
+      "entity_id": "ent_u1",
+      "valid_from_ms": 15000,
+      "ingested_ms": 15100,
+      "revoked": false,
+      "values": {
+        "spend": 17,
+        "tenure": 3
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u1_late",
+      "entity_id": "ent_u1",
+      "valid_from_ms": 24000,
+      "ingested_ms": 24100,
+      "revoked": false,
+      "values": {
+        "spend": 22,
+        "tenure": 4
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_u2_only",
+      "entity_id": "ent_u2",
+      "valid_from_ms": 8000,
+      "ingested_ms": 8100,
+      "revoked": false,
+      "values": {
+        "spend": 9,
+        "tenure": 1
+      }
+    }
+  }
+]

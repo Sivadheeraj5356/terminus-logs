@@ -1,0 +1,18 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 1855173,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "api.initech.com",
+    "a.sub.example.com",
+    "www.umbrella.org",
+    "shop.initech.dev",
+    "*.globex.org",
+    "WWW.UMBRELLA.ORG"
+  ],
+  "issued_at": "2026-10-05T07:23:54.727Z",
+  "payload": "cert:37sGpWm/Hfyqu0Zk+1R4EOTqK0uC5ovOsfny9p9OQ9s=",
+  "received_at": "2026-09-03T20:07:12Z",
+  "issuer_id": "issuer-x",
+  "x_shard": 4
+}

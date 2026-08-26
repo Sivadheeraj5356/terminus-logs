@@ -1,0 +1,7 @@
+
+server:
+  port: 8080
+hf:
+  mirror-root: ${HF_MIRROR_ROOT:/data/hf-mirror}
+  transcript: ${HF_TRANSCRIPT:/app/docs/release-council-transcript.md}
+  asset-lock: ${HF_ASSET_LOCK:/app/config/hf-assets.lock.json}

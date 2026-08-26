@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "required": [
+    "rows",
+    "summary"
+  ],
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "tgt_id",
+          "facet_hex",
+          "lag",
+          "feat_rc",
+          "dep_rc",
+          "ord_rc",
+          "sync_label"
+        ]
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "ledger_digest",
+        "rows_total",
+        "span_band"
+      ]
+    }
+  }
+}

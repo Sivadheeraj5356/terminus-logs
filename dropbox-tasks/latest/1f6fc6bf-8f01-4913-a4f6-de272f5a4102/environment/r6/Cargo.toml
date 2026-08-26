@@ -1,0 +1,15 @@
+[package]
+name = "prlg_r6"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+prlg_a2 = { path = "../a2" }
+prlg_c8 = { path = "../c8" }
+prlg_i1 = { path = "../i1" }
+prlg_k4 = { path = "../k4" }
+prlg_l7 = { path = "../l7" }
+prlg_p3 = { path = "../p3" }
+prlg_w5 = { path = "../w5" }
+thiserror = { workspace = true }
+rayon = { workspace = true }

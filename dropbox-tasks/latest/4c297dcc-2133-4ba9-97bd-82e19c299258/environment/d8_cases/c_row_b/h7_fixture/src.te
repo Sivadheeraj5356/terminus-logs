@@ -1,0 +1,11 @@
+# cap-retention corpus
+PAIR:worker_u
+CAP:0xff
+LANE:5
+TAG:16
+ROLE:worker_u
+PAIR:worker_u
+CAP:0x01
+LANE:1
+TAG:16
+ROLE:worker_u

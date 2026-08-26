@@ -1,0 +1,6 @@
+# name steady-2026-06-17
+file ops/radio.txt
+part m01 25 f26ab6f348a483be78bb4b54fee376fd
+part m03 26 58ed5ff2df8e04f5bec25ced5f1e57ea
+file ops/relay.txt
+part m04 29 9fe04c9a18fadb6948ab08e9351d5636

@@ -1,0 +1,4 @@
+[pool]
+compaction_threshold = 12
+fragmentation_warning_threshold = 3.0
+min_chunk_size = 64

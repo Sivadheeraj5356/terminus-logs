@@ -1,0 +1,72 @@
+# Memory Pool Operations
+# 
+# This file contains a sequence of memory operations processed by the analyzer.
+# Each line specifies one operation with the following format:
+#
+#   ALLOC <size>    - Allocate a block of <size> bytes
+#   FREE <size>     - Deallocate the most recently allocated block of <size> bytes (LIFO)
+#   COMPACT         - Compact memory to eliminate fragmentation
+#
+# For detailed operation semantics, see /app/docs/architecture.md
+#
+ALLOC 1024
+ALLOC 2048
+ALLOC 512
+ALLOC 4096
+ALLOC 256
+FREE 512
+FREE 2048
+ALLOC 1536
+ALLOC 768
+FREE 4096
+ALLOC 3072
+FREE 256
+ALLOC 128
+ALLOC 2560
+FREE 1024
+ALLOC 64
+ALLOC 32768
+ALLOC 2048
+FREE 768
+COMPACT
+ALLOC 8192
+ALLOC 512
+ALLOC 256
+FREE 512
+ALLOC 1024
+FREE 1536
+ALLOC 4096
+FREE 3072
+ALLOC 2048
+FREE 128
+ALLOC 16
+ALLOC 512
+COMPACT
+ALLOC 16384
+FREE 2048
+ALLOC 256
+FREE 8192
+ALLOC 1024
+FREE 2560
+ALLOC 512
+FREE 1024
+ALLOC 2048
+FREE 64
+ALLOC 128
+ALLOC 8192
+FREE 16
+COMPACT
+ALLOC 4096
+FREE 2048
+ALLOC 1024
+FREE 4096
+ALLOC 32768
+FREE 512
+ALLOC 256
+FREE 16384
+ALLOC 512
+ALLOC 128
+FREE 2048
+COMPACT
+ALLOC 2048
+FREE 256

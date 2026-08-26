@@ -1,0 +1,10 @@
+{
+  "hud_only": true,
+  "tallies": {
+    "pocket": 3,
+    "ridge": 3,
+    "slate": 3,
+    "marsh": 3
+  },
+  "note": "local witness tallies; not graded digests"
+}

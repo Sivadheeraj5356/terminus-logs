@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = [
+    "blk_a",
+    "blk_b",
+    "blk_c",
+    "core_k",
+    "o_lane",
+    "w_lane",
+    "tools/k7",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"

@@ -1,0 +1,144 @@
+diff --git a/src/main.rs b/src/main.rs
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -56,9 +56,11 @@
+ struct State {
+     at_risk: bool,
+     purging: bool,
+-    risk_t: i64, // wall time the current over-pressure stretch began
++    exposed_since_press_high: i64, // active (non-purge) seconds accrued since the current press_high
+     last_t: i64,
+     has_last: bool,
++    boiloff_open: bool,
++    boiloff_start: i64,
+     exposed: i64,
+     boiloff: Vec<(i64, i64)>,
+ }
+@@ -68,9 +70,11 @@
+         State {
+             at_risk: false,
+             purging: false,
+-            risk_t: 0,
++            exposed_since_press_high: 0,
+             last_t: 0,
+             has_last: false,
++            boiloff_open: false,
++            boiloff_start: 0,
+             exposed: 0,
+             boiloff: Vec::new(),
+         }
+@@ -88,68 +92,93 @@
+
+     let mut cryostats: BTreeMap<String, State> = BTreeMap::new();
+
+-    // advance accrues at-risk time between events into the running total.
+-    fn advance(s: &mut State, now: i64) {
++    // advance accrues active (non-purge) at-risk time from last_t to now. When the
++    // allowance is crossed strictly inside the segment, the boil-off interval opens
++    // at the computed boundary instant (last_t + remaining allowance) in wall time.
++    // If the boundary lands exactly at `now`, the decision is deferred so the event
++    // at `now` is applied first.
++    fn advance(s: &mut State, grace: i64, now: i64) -> bool {
+         if !s.has_last {
+             s.has_last = true;
+             s.last_t = now;
+-            return;
++            return false;
+         }
+         if now <= s.last_t {
+             s.last_t = now;
+-            return;
++            return false;
+         }
+-        if s.at_risk {
+-            s.exposed += now - s.last_t;
++        let mut pending_at_now = false;
++        if s.at_risk && !s.purging {
++            let seg = now - s.last_t;
++            if !s.boiloff_open {
++                let needed = grace - s.exposed_since_press_high;
++                if s.exposed_since_press_high + seg > grace {
++                    s.boiloff_open = true;
++                    s.boiloff_start = s.last_t + needed;
++                } else if s.exposed_since_press_high + seg == grace {
++                    pending_at_now = true;
++                }
++            }
++            s.exposed_since_press_high += seg;
++            s.exposed += seg;
+         }
+         s.last_t = now;
++        pending_at_now
+     }
+
+-    // close_boiloff decides, at an explicit press_low/report event, whether the
+-    // just-ended (or ongoing) over-pressure stretch ran past the grace allowance
+-    // and, if so, records the boil-off interval. It is measured from the press_high
+-    // plus the allowance, up to the closing instant.
+-    fn close_boiloff(s: &mut State, grace: i64, end: i64) {
+-        let exposed = end - s.risk_t;
+-        if exposed >= grace {
+-            let start = s.risk_t + grace;
+-            s.boiloff.push((start, end));
++    // close_open records the currently-open boil-off interval as closed at `end`,
++    // suppressing it when start == end (a zero-length interval is omitted).
++    fn close_open(s: &mut State, end: i64) {
++        if s.boiloff_open {
++            if end > s.boiloff_start {
++                s.boiloff.push((s.boiloff_start, end));
++            }
++            s.boiloff_open = false;
+         }
+     }
+
+     let mut audit: Vec<AuditEntry> = Vec::new();
+     for (i, ev) in input.events.iter().enumerate() {
+         let s = cryostats.entry(ev.cryostat.clone()).or_insert_with(State::new);
+-        advance(s, ev.t);
++        let mut pending = advance(s, grace, ev.t);
+         let mut status = "accepted";
+         match ev.kind.as_str() {
+             "press_high" => {
+                 if !s.at_risk {
+                     s.at_risk = true;
+-                    s.risk_t = ev.t;
++                    s.exposed_since_press_high = 0;
+                 }
+             }
+             "press_low" => {
+                 if s.at_risk {
+-                    close_boiloff(s, grace, ev.t);
++                    close_open(s, ev.t);
+                     s.at_risk = false;
++                    s.exposed_since_press_high = 0;
+                 }
++                pending = false;
+             }
+             "purge_on" => {
++                // Opening a purge window freezes the allowance clock before a
++                // boundary that lands exactly here can fire, so the pending open is
++                // preempted.
+                 s.purging = true;
++                pending = false;
+             }
+             "purge_off" => {
+                 s.purging = false;
+             }
+             "report" => {
+-                if s.at_risk {
+-                    close_boiloff(s, grace, ev.t);
+-                }
++                close_open(s, ev.t);
++                pending = false;
+             }
+             _ => {
+                 status = "rejected";
+             }
+         }
++        if pending && s.at_risk && !s.purging && !s.boiloff_open {
++            s.boiloff_open = true;
++            s.boiloff_start = ev.t;
++        }
+         audit.push(AuditEntry {
+             index: i,
+             kind: ev.kind.clone(),

@@ -1,0 +1,8 @@
+# Proxy strip lane remote simulation rules (sim_kind = strip in lane_layout.toml).
+# strip_rewrite_count applies on every strip lane row, including marker_present retain_local.
+
+[strip]
+marker_present = "retain_local"
+marker_absent = "substitute_primary"
+strip_rewrite_count = 1
+pass_rewrite_count = 0

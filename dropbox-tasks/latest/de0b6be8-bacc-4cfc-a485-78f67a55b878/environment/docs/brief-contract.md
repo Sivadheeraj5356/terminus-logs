@@ -1,0 +1,5 @@
+# Brief contract
+
+The brief has schema `threatcomp.campaign-brief/v1`, constellation checksum under `constellation_checksum`, epoch, ranked campaigns under `ranked_campaigns`, contradiction summary under `contradiction_summary`, unassigned count under `unassigned_count`, and checksum. Brief validates constellation checksum and requires both board checksum and policy fingerprint to start with `sha256:`. Malformed constellation JSON is an input error and must surface as an `INPUT`-prefixed message so the process exits 2. It never reads observations, policy, evidence board, fixture directories, or chronicle.
+
+Campaign ranking is confidence basis points descending, cohesion descending, member count descending, then campaign ID ascending. Each ranked item contains `rank` starting at 1, `campaign_id`, `confidence_band`, `confidence_bp`, `cohesion_bp`, and sorted `members`. Contradiction summary counts cuts by reason in a key-sorted object. Brief checksum is SHA-256 over canonical brief JSON with checksum omitted. Repeated brief runs are byte-identical.

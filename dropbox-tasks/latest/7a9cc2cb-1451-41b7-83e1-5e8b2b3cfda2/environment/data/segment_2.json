@@ -1,0 +1,13 @@
+{
+  "segment_id": "segment_2",
+  "merkle_root": "e0bf6af229a4dc6e097869cdab47b7ee6782d5417aad35a7cb0afd7b0722986c",
+  "records": [
+    {
+      "event_id": "evt_006",
+      "timestamp": "2026-06-20T10:05:00Z",
+      "payload": "Audit pipeline health check passed.",
+      "previous_hash": "84eb95316337a3503f510a7b55f20c23b28f29b1c1be01bb49746d3314a6e344",
+      "record_hash": "e0bf6af229a4dc6e097869cdab47b7ee6782d5417aad35a7cb0afd7b0722986c"
+    }
+  ]
+}

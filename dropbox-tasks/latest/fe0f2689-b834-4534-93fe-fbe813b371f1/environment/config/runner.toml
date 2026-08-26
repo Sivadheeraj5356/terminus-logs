@@ -1,0 +1,7 @@
+[process]
+name = "chamberd"
+pid_file = "/tmp/chamberd.pid"
+trace_log = "/tmp/chamberd.trace"
+
+[output]
+manifest = "/app/output/route_manifest.json"

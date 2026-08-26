@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lockctl.local/schemas/forcing_event.schema.json",
+  "title": "forcing_event",
+  "type": "object",
+  "required": ["event_id", "source_seq", "time_s", "event_type"],
+  "properties": {
+    "event_id": { "type": "string", "minLength": 1 },
+    "source_seq": { "type": "integer" },
+    "time_s": { "type": "integer" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "storage_curve_revision",
+        "boundary_stage",
+        "link_control",
+        "external_inflow",
+        "volume_impulse"
+      ]
+    },
+    "node_id": { "type": "string" },
+    "link_id": { "type": "string" },
+    "revision": { "type": "integer" },
+    "storage_curve": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["level_m", "volume_m3"],
+        "properties": {
+          "level_m": { "type": "number" },
+          "volume_m3": { "type": "number" }
+        }
+      }
+    },
+    "level_m": { "type": "number" },
+    "control": { "type": "number" },
+    "flow_m3_s": { "type": "number" },
+    "delta_volume_m3": { "type": "number" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "event_type": { "const": "storage_curve_revision" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["node_id", "revision", "storage_curve"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": true,
+          "source_seq": true,
+          "time_s": true,
+          "event_type": true,
+          "node_id": true,
+          "revision": true,
+          "storage_curve": true
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "const": "boundary_stage" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["node_id", "level_m"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": true,
+          "source_seq": true,
+          "time_s": true,
+          "event_type": true,
+          "node_id": true,
+          "level_m": true
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "const": "link_control" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["link_id", "control"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": true,
+          "source_seq": true,
+          "time_s": true,
+          "event_type": true,
+          "link_id": true,
+          "control": true
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "const": "external_inflow" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["node_id", "flow_m3_s"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": true,
+          "source_seq": true,
+          "time_s": true,
+          "event_type": true,
+          "node_id": true,
+          "flow_m3_s": true
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "const": "volume_impulse" } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["node_id", "delta_volume_m3"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": true,
+          "source_seq": true,
+          "time_s": true,
+          "event_type": true,
+          "node_id": true,
+          "delta_volume_m3": true
+        }
+      }
+    }
+  ]
+}

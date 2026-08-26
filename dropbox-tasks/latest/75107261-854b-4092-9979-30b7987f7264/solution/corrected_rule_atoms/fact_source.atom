@@ -1,0 +1,6 @@
+RULE FACT_SOURCE
+IN keys
+OUT value,reason
+TABLE
+source -> captured|facts
+END

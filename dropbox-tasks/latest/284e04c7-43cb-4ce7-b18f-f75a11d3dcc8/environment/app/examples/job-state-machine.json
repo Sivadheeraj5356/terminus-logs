@@ -1,0 +1,5 @@
+{
+  "eligible": ["pending", "processing with expired lease"],
+  "claimed": "processing",
+  "terminal": ["succeeded", "failed"]
+}

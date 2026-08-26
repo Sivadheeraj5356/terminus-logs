@@ -1,0 +1,19 @@
+/// Aggregate adjacent empty slots into a liberty total.
+///
+/// `q` holds slot ids. `z` is the plane size used to fold aliases into the
+/// canonical id space before uniqueness is applied.
+pub fn op_k3(p: &mut Vec<u16>, q: &[u16], z: usize) -> u16 {
+    p.clear();
+    if z == 0 {
+        return 0;
+    }
+    let mut seen = vec![false; z];
+    for &v in q {
+        let canon = (v as usize) % z;
+        if !seen[canon] {
+            seen[canon] = true;
+            p.push(canon as u16);
+        }
+    }
+    p.len() as u16
+}

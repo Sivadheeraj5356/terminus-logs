@@ -1,0 +1,36 @@
+{
+  "contract_id": "feature-lineage-graph-2024-q2",
+  "note": "superseded lab replay — fails ledger 0093 predicates (committed_at freshness, deployment_approved, run_id DESC, parent_to_child edges, inline parents)",
+  "digraph_name": "rejected_training_lineage",
+  "rankdir": "LR",
+  "emit_rejected_runs_only": true,
+  "two_pass_emission": false,
+  "emit_parents_inline": true,
+  "quote_node_ids": false,
+  "ledger_timestamp_column": "committed_at",
+  "registry_json_field": "deployment_approved",
+  "run_manifest_order": "run_id DESC",
+  "pass1_run_node_suffix": "_run",
+  "pass1_run_shape": "box",
+  "pass1_run_node_label": "run",
+  "pass1_feature_shape": "ellipse",
+  "pass1_feature_order_by": "feature_name ASC",
+  "pass2_parent_suffix": "",
+  "pass2_parent_shape": "ellipse",
+  "pass2_edge_direction": "parent_to_child",
+  "pass2_edge_template": "\"{run_id}_{parent_feature}\" -> \"{run_id}_{child_feature}\"",
+  "forbid_version_in_node_label": false,
+  "node_label_columns": {
+    "pass1_feature": "feature_name_with_version"
+  },
+  "violation_xlabel_format": "VIOLATION: {violation_type}",
+  "violation_emission_order": ["unapproved_model", "leaking_feature"],
+  "leaking_feature_sort": ["feature_name DESC"],
+  "verdict_json_schema": {
+    "top_level_keys": ["policy_version", "ledger_cutoff", "registry_base_url", "run_count", "runs"],
+    "run_object_keys": ["run_id", "model_name", "approved", "deployment_approved", "violations"],
+    "violation_object_keys": ["violation_type", "detail", "freshness_column"],
+    "forbid_additional_properties": false
+  },
+  "findings_csv_columns": ["run_id", "violation_type", "detail", "model_name"]
+}

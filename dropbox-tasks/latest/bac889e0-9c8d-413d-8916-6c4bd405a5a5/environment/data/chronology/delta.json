@@ -1,0 +1,37 @@
+[
+  {
+    "seq": 10,
+    "patch_id": "0.9.0",
+    "iso_week": "2020-W10"
+  },
+  {
+    "seq": 11,
+    "patch_id": "1.0.0",
+    "iso_week": "2020-W11"
+  },
+  {
+    "seq": 12,
+    "patch_id": "1.0.1",
+    "iso_week": "2020-W11"
+  },
+  {
+    "seq": 16,
+    "patch_id": "1.1.0",
+    "iso_week": "2020-W15"
+  },
+  {
+    "seq": 17,
+    "patch_id": "1.1.1",
+    "iso_week": "2020-W16"
+  },
+  {
+    "seq": 21,
+    "patch_id": "1.2.0",
+    "iso_week": "2020-W20"
+  },
+  {
+    "seq": 22,
+    "patch_id": "1.2.1",
+    "iso_week": "2020-W21"
+  }
+]

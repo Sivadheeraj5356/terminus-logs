@@ -1,0 +1,15 @@
+$ORIGIN harbor.test.
+$TTL 300
+@ IN SOA ns1.harbor.test. hostmaster.harbor.test. ( 2026071607 900 300 604800 60 )
+@ 300 IN NS ns1.harbor.test.
+ns1 300 IN A 10.24.0.53
+@ 300 IN MX 10 mail.harbor.test.
+mail 300 IN A 10.24.0.25
+www 120 IN A 10.24.8.80
+www 120 IN AAAA 2001:db8:24:8::80
+api 120 IN CNAME www.harbor.test.
+status 60 IN TXT "internal amber"
+db 60 IN A 10.24.9.40
+*.preview 60 IN A 10.24.8.90
+apps 300 IN NS ns.apps.harbor.test.
+ns.apps 300 IN A 10.24.0.54

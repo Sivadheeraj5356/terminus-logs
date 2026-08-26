@@ -1,0 +1,2 @@
+material_id,density_kg_m3,heat_capacity_c0_j_kg_k,heat_capacity_c1_j_kg_k2,heat_capacity_c2_j_kg_k3,contact_conductivity_w_m_k,conductivity_depth_gradient_per_m,radiative_conductivity_w_m_k4,surface_albedo,surface_emissivity
+lunar_regolith,1300.0,670.0,0.0,0.0,0.018,0.8,1.5e-9,0.12,0.95

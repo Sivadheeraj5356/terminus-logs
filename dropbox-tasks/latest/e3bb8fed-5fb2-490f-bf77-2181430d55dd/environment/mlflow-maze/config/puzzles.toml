@@ -1,0 +1,8 @@
+format = "mlflow-maze-puzzles-v1"
+
+[puzzle.lens]
+answer_sha256 = "da8ef33d42421562b6e8edbef2ae1f6a09f95866b616d5945f417bf1071ca9d0"
+
+[puzzle.gears]
+prompt = "Set the brass gears to prime tooth counts."
+answer_sha256 = "0b2c3de80a3f5c9993f588698554bb945bf06ca142e2a9f008fdd9c498cd7561"

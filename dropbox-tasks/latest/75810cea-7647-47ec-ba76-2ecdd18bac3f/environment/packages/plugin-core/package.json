@@ -1,0 +1,6 @@
+{
+  "name": "plugin-core",
+  "version": "0.8.0",
+  "type": "module",
+  "main": "src/index.mjs"
+}

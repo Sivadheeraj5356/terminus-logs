@@ -1,0 +1,22 @@
+{
+  "bookings": [
+    {
+      "pool": "capex",
+      "decision_id": "D1",
+      "start": 10,
+      "end": 30
+    },
+    {
+      "pool": "capex",
+      "decision_id": "D3",
+      "start": 25,
+      "end": 50
+    },
+    {
+      "pool": "opex",
+      "decision_id": "D2",
+      "start": 50,
+      "end": 70
+    }
+  ]
+}

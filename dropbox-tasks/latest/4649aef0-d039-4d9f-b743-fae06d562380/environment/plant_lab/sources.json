@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "description": "fixture motion entering the axis base",
+      "source_id": "base_motion"
+    },
+    {
+      "description": "periodic radial force at the spindle bearing",
+      "source_id": "bearing_force"
+    },
+    {
+      "description": "motor-drive bus ripple coupled into torque",
+      "source_id": "supply_ripple"
+    }
+  ]
+}

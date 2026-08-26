@@ -1,0 +1,23 @@
+--- a/load/load.go	2026-07-14 11:50:11.878474943 +0000
++++ b/load/load.go	2026-07-14 11:50:39.438074131 +0000
+@@ -28,12 +28,17 @@
+ 				}
+ 				rev := *fr.Rev
+ 				if _, ok := byRev[rev.RevID]; !ok {
+-					byRev[rev.RevID] = rev
+ 					order = append(order, rev.RevID)
+ 				}
++				byRev[rev.RevID] = rev
+ 			case "kill":
+-				// baseline ignores kill frames
+-				_ = fr.RevID
++				if fr.RevID == "" {
++					continue
++				}
++				if cur, ok := byRev[fr.RevID]; ok {
++					cur.Revoked = true
++					byRev[fr.RevID] = cur
++				}
+ 			}
+ 		}
+ 	}

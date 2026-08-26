@@ -1,0 +1,13 @@
+Authoritative release policy, window 2026-07-16
+
+All four zones use serial 2026071607, default TTL 300, and this SOA timing:
+refresh 900, retry 300, expire 604800, negative cache 60.
+The SOA owner is each zone apex. The primary master is ns1.harbor.test.
+The responsible mailbox is hostmaster.harbor.test.
+
+Both forward variants delegate apps.harbor.test to ns.apps.harbor.test.
+The delegation nameserver's address is view-local glue.
+
+The external address plan is 192.0.2.0/24. The internal address plan is
+10.24.0.0/16, but reverse authority remains the supplied 192.0.2 zone.
+Only records listed in the evidence are approved for release.

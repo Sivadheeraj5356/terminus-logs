@@ -1,0 +1,5 @@
+{"seq": 1, "kind": "ROUTE", "actor": "eharlow", "channel": "app-04", "source": "canary"}
+{"seq": 2, "kind": "DETACH", "actor": "eharlow", "channel": "app-04"}
+{"seq": 3, "kind": "FLUSH", "actor": "dwyatt", "channel": "audit-03"}
+{"seq": 4, "kind": "RELEASE", "actor": "pnoor", "source": "worker"}
+{"seq": 5, "kind": "HOLD", "actor": "pnoor", "channel": "svc-01"}

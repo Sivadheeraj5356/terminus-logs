@@ -1,0 +1,183 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_ROOT="${SPECZ_APP:-/app}"
+LIB="${APP_ROOT}/lib"
+DEF="${APP_ROOT}/container/specz-worker.def"
+DEFAULTS="${APP_ROOT}/config/defaults.conf"
+SITE="${SPECZ_CONFIG:-${APP_ROOT}/config/site.conf}"
+
+AWK_LIBS=(
+  -f "${LIB}/bytes.awk"
+  -f "${LIB}/crc32.awk"
+  -f "${LIB}/frame.awk"
+  -f "${LIB}/unpack.awk"
+  -f "${LIB}/apptainer_meta.awk"
+  -f "${LIB}/config.awk"
+  -f "${LIB}/calibrate.awk"
+  -f "${LIB}/statistics.awk"
+  -f "${LIB}/state.awk"
+  -f "${LIB}/json.awk"
+)
+
+usage() {
+  echo "usage: specz-worker --once | inspect <frame>" >&2
+  exit 2
+}
+
+run_inspect() {
+  local frame="$1"
+  gawk "${AWK_LIBS[@]}" -v frame_path="${frame}" -e '
+    BEGIN {
+      load_apptainer_meta("'"${DEF}"'")
+      load_config("'"${DEFAULTS}"'", "'"${SITE}"'")
+      if (load_bytes_from_file(frame_path) < 48) { print "{\"error\":\"truncated\"}"; exit 1 }
+      err = parse_frame()
+      if (err != "") { print "{\"error\":\"" err "\"}"; exit 1 }
+      if (frame_revision == 2 && and(frame_flags, 4)) validate_crc_samples()
+      print json_inspect()
+    }
+  '
+}
+
+collect_spool_files() {
+  local inbox work f
+  inbox="${SPECZ_INBOX:-/data/inbox}"
+  work="${SPECZ_WORK:-/data/work}"
+  shopt -s nullglob
+  SPOOL_FILES=()
+  for f in "${inbox}"/*.spz; do [[ -f "$f" ]] && SPOOL_FILES+=("$f"); done
+  for f in "${work}"/*.processing; do [[ -f "$f" ]] && SPOOL_FILES+=("$f"); done
+}
+
+run_once() {
+  collect_spool_files
+  local files=("${SPOOL_FILES[@]:-}")
+
+  run_once_awk() {
+    gawk "${AWK_LIBS[@]}" -e '
+    BEGIN {
+      processed = skipped = quarantined = 0
+      load_apptainer_meta("'"${DEF}"'")
+      load_config("'"${DEFAULTS}"'", "'"${SITE}"'")
+      load_manifest()
+      print json_worker_start()
+      fflush()
+      for (ai = 1; ai < ARGC; ai++) {
+        if (ARGV[ai] == "") continue
+        process_file(ARGV[ai])
+        ARGV[ai] = ""
+      }
+    }
+    function basename(p,    a) { split(p, a, "/"); return a[length(a)] }
+    function claim_path(src,    base, dst) {
+      base = basename(src)
+      sub(/\.processing$/, "", base)
+      dst = cfg_work "/" base ".processing"
+      if (index(src, ".processing") > 0) return src
+      system("mkdir -p \"" cfg_work "\"")
+      system("mv \"" src "\" \"" dst "\"")
+      return dst
+    }
+    function archive_path(src,    base, dst) {
+      base = basename(src)
+      sub(/\.processing$/, "", base)
+      dst = cfg_archive "/" base
+      system("mkdir -p \"" cfg_archive "\"")
+      system("mv \"" src "\" \"" dst "\"")
+    }
+    function quarantine_path(src, reason,    base, dst, rj) {
+      base = basename(src)
+      sub(/\.processing$/, "", base)
+      dst = cfg_quarantine "/" base
+      system("mkdir -p \"" cfg_quarantine "\"")
+      system("mv \"" src "\" \"" dst "\"")
+      rj = cfg_quarantine "/" base ".reason.json"
+      print json_event("file", "quarantined", dst, reason) > rj
+      close(rj)
+      quarantined++
+      print json_event("file", "quarantined", dst, reason)
+      fflush()
+    }
+    function process_file(src,    path, hash, err, rec, base) {
+      path = claim_path(src)
+      hash = sha256_file(path)
+      content_sha256 = hash
+      base = basename(path)
+      sub(/\.processing$/, "", base)
+      if (should_skip_replay(hash, base)) {
+        archive_path(path)
+        skipped++
+        print json_event("file", "skipped", path, "basename_replay")
+        fflush()
+        return
+      }
+      if (load_bytes_from_file(path) < 48) { quarantine_path(path, "truncated_header"); return }
+      err = parse_frame()
+      if (err != "") { quarantine_path(path, err); return }
+      if (frame_revision == 2 && and(frame_flags, 4)) validate_crc_samples()
+      if (!frame_crc_ok) {
+        print "warning: CRC mismatch on " path
+        quarantine_path(path, "crc_mismatch")
+        return
+      }
+      err = unpack_payload()
+      if (err != "") { quarantine_path(path, err); return }
+      if (should_quarantine_conflict(frame_instrument, frame_session, frame_sequence, hash)) {
+        quarantine_path(path, "logical_hash_conflict")
+        return
+      }
+      # BUG: stale committed work skipped when manifest exists even if fragment missing
+      if (find_manifest_by_logical(frame_instrument, frame_session, frame_sequence) > 0) {
+        archive_path(path)
+        skipped++
+        print json_event("file", "skipped", path, "stale_committed")
+        fflush()
+        return
+      }
+      if (is_committed(hash)) {
+        archive_path(path)
+        skipped++
+        print json_event("file", "skipped", path, "already_committed")
+        fflush()
+        return
+      }
+      err = compute_statistics()
+      if (err != "") { quarantine_path(path, err); return }
+      rec = json_scan_record()
+      commit_scan(rec, frame_instrument, frame_session, frame_sequence, hash)
+      append_output(rec)
+      mark_seen(base, hash)
+      archive_path(path)
+      processed++
+      print json_event("file", "processed", path, "")
+      fflush()
+    }
+    END {
+      materialize_output()
+      print json_worker_stop(processed, skipped, quarantined)
+      fflush()
+    }
+  ' "$@"
+  }
+
+  if ((${#files[@]} == 0)); then
+    run_once_awk < /dev/null
+  else
+    run_once_awk "${files[@]}"
+  fi
+}
+
+main() {
+  [[ $# -ge 1 ]] || usage
+  case "$1" in
+    --once) run_once ;;
+    inspect)
+      [[ $# -eq 2 ]] || usage
+      run_inspect "$2"
+      ;;
+    *) usage ;;
+  esac
+}
+
+main "$@"

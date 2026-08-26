@@ -1,0 +1,8 @@
+[package]
+name = "o7x"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+o0m = { path = "../../hv/o0m" }
+o6t = { path = "../../hv/o6t" }

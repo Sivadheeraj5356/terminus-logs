@@ -1,0 +1,17 @@
+== Sunken Atrium [flooded] ==
+Omen: Still water hides its depth.
+Light: 9.0 lumens
+Relics:
+  - Drowned Crown <epic> 300g (cursed)
+  - Silver Sigil <rare> 120g
+  - Tide Pearl <common> 40g
+Freshest: Silver Sigil @ 22:45 KST
+Exits:
+  - north: Gallery of Whispers (torch 1.0)
+  - east: Emberforge Hollow (torch 1.5)
+  - down: Whisperbone Catacomb (torch 2.0)
+Torch: 9.0 units
+Inventory: (empty)
+Route: east east (torch 3.0)
+---ACTIONS---
+inspect drowned-crown

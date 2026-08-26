@@ -1,0 +1,46 @@
+{
+  "finalRoom": "bay-a1",
+  "visitedRooms": [
+    "bay-a1",
+    "deck-hold",
+    "tank-t4"
+  ],
+  "transitions": [
+    {
+      "from": "bay-a1",
+      "to": "deck-hold",
+      "command": "move deck-hold"
+    },
+    {
+      "from": "deck-hold",
+      "to": "tank-t4",
+      "command": "move tank-t4"
+    },
+    {
+      "from": "tank-t4",
+      "to": "deck-hold",
+      "command": "move deck-hold"
+    },
+    {
+      "from": "deck-hold",
+      "to": "bay-a1",
+      "command": "move bay-a1"
+    }
+  ],
+  "brokenSeals": [],
+  "rejectedActions": [
+    {
+      "command": "secure bay-a1",
+      "reason": "not reachable"
+    }
+  ],
+  "hazardsTriggered": [
+    "corrosive"
+  ],
+  "score": 22,
+  "scoreBreakdown": {
+    "roomsVisited": 30,
+    "hazardPenalty": -15,
+    "securedRooms": 7
+  }
+}

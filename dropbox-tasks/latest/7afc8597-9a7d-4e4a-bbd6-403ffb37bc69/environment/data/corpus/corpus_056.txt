@@ -1,0 +1,7 @@
+line bird end cat hello baz
+addr 80.161.100.195 hex 0x673f token tok_497
+hex 0xabc 0xABCDEF zzz
+foo foobar foobarbaz
+addr 203.156.141.191 hex 0x6eca token tok_523
+addr 5.187.153.205 hex 0x7789 token tok_545
+addr 76.181.25.187 hex 0xd076 token tok_381

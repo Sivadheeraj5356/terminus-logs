@@ -1,0 +1,4 @@
+session 49 500
+stream 1
+add_header 1 x-exact 0123456789
+add_header 1 second-header x

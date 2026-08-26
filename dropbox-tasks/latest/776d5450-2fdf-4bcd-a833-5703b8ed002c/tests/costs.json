@@ -1,0 +1,162 @@
+{
+  "ig-01": {
+    "probe_cost": 0.887,
+    "lab_cost": 2.54
+  },
+  "ig-02": {
+    "probe_cost": 1.106,
+    "lab_cost": 3.321
+  },
+  "ig-03": {
+    "probe_cost": 0.767,
+    "lab_cost": 3.065
+  },
+  "ig-04": {
+    "probe_cost": 1.069,
+    "lab_cost": 4.202
+  },
+  "ig-05": {
+    "probe_cost": 0.784,
+    "lab_cost": 2.128
+  },
+  "ig-06": {
+    "probe_cost": 1.184,
+    "lab_cost": 3.849
+  },
+  "ig-07": {
+    "probe_cost": 0.941,
+    "lab_cost": 3.933
+  },
+  "ig-08": {
+    "probe_cost": 0.998,
+    "lab_cost": 2.926
+  },
+  "ig-09": {
+    "probe_cost": 1.155,
+    "lab_cost": 4.486
+  },
+  "ig-10": {
+    "probe_cost": 1.163,
+    "lab_cost": 4.445
+  },
+  "ig-11": {
+    "probe_cost": 0.762,
+    "lab_cost": 2.199
+  },
+  "ig-12": {
+    "probe_cost": 1.146,
+    "lab_cost": 3.201
+  },
+  "ig-13": {
+    "probe_cost": 0.97,
+    "lab_cost": 3.158
+  },
+  "ig-14": {
+    "probe_cost": 1.196,
+    "lab_cost": 4.959
+  },
+  "ig-15": {
+    "probe_cost": 1.091,
+    "lab_cost": 3.42
+  },
+  "ig-16": {
+    "probe_cost": 1.012,
+    "lab_cost": 2.966
+  },
+  "ig-17": {
+    "probe_cost": 1.114,
+    "lab_cost": 4.282
+  },
+  "ig-18": {
+    "probe_cost": 0.798,
+    "lab_cost": 2.582
+  },
+  "ig-19": {
+    "probe_cost": 1.068,
+    "lab_cost": 3.665
+  },
+  "ig-20": {
+    "probe_cost": 1.142,
+    "lab_cost": 4.596
+  },
+  "ig-21": {
+    "probe_cost": 0.831,
+    "lab_cost": 2.634
+  },
+  "ig-22": {
+    "probe_cost": 0.919,
+    "lab_cost": 2.55
+  },
+  "ig-23": {
+    "probe_cost": 0.762,
+    "lab_cost": 2.828
+  },
+  "ig-24": {
+    "probe_cost": 0.804,
+    "lab_cost": 2.747
+  },
+  "ig-25": {
+    "probe_cost": 0.908,
+    "lab_cost": 3.686
+  },
+  "ig-26": {
+    "probe_cost": 0.978,
+    "lab_cost": 3.29
+  },
+  "ig-27": {
+    "probe_cost": 1.022,
+    "lab_cost": 4.355
+  },
+  "ig-28": {
+    "probe_cost": 0.809,
+    "lab_cost": 3.251
+  },
+  "ig-29": {
+    "probe_cost": 1.194,
+    "lab_cost": 4.975
+  },
+  "ig-30": {
+    "probe_cost": 0.775,
+    "lab_cost": 3.077
+  },
+  "ig-31": {
+    "probe_cost": 1.196,
+    "lab_cost": 3.961
+  },
+  "ig-32": {
+    "probe_cost": 1.139,
+    "lab_cost": 4.621
+  },
+  "ig-33": {
+    "probe_cost": 1.098,
+    "lab_cost": 3.555
+  },
+  "ig-34": {
+    "probe_cost": 0.961,
+    "lab_cost": 3.748
+  },
+  "ig-35": {
+    "probe_cost": 1.061,
+    "lab_cost": 3.126
+  },
+  "ig-36": {
+    "probe_cost": 1.098,
+    "lab_cost": 3.506
+  },
+  "ig-37": {
+    "probe_cost": 0.985,
+    "lab_cost": 3.194
+  },
+  "ig-38": {
+    "probe_cost": 1.086,
+    "lab_cost": 4.033
+  },
+  "ig-39": {
+    "probe_cost": 1.13,
+    "lab_cost": 3.378
+  },
+  "ig-40": {
+    "probe_cost": 1.171,
+    "lab_cost": 4.933
+  }
+}

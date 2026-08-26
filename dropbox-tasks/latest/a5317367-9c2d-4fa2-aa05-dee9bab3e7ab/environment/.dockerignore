@@ -1,0 +1,15 @@
+.git
+.gitignore
+scripts/gen_segmentation_assets.sh
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+.venv
+solution/
+tests/
+output/
+.env
+*.log

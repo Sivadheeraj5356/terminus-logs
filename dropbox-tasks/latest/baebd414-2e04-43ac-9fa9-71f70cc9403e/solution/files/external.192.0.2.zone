@@ -1,0 +1,8 @@
+$ORIGIN 2.0.192.in-addr.arpa.
+$TTL 300
+@ IN SOA ns1.harbor.test. hostmaster.harbor.test. ( 2026071607 900 300 604800 60 )
+@ 300 IN NS ns1.harbor.test.
+53 300 IN PTR ns1.harbor.test.
+25 300 IN PTR mail.harbor.test.
+80 120 IN PTR www.harbor.test.
+54 300 IN PTR ns.apps.harbor.test.

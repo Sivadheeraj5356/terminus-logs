@@ -1,0 +1,9 @@
+{"event_id":"evt-a17-01","assay_id":"A17","seq":10,"kind":"measurement","revision":1,"measured_tm":81.75,"uplink_tm":82,"instrument_run":"run-410"}
+{"event_id":"evt-c09-01","assay_id":"C09","seq":8,"kind":"measurement","revision":1,"measured_tm":79.998,"uplink_tm":80,"instrument_run":"run-409"}
+{"event_id":"evt-b04-old","assay_id":"B04","seq":9,"kind":"measurement","revision":1,"measured_tm":82.4,"uplink_tm":82,"instrument_run":"run-408"}
+{"event_id":"evt-b04-new","assay_id":"B04","seq":14,"kind":"supersede","target_event_id":"evt-b04-old","revision":2,"measured_tm":82,"uplink_tm":82,"instrument_run":"run-411"}
+{"event_id":"evt-c09-stale","assay_id":"C09","seq":18,"kind":"measurement","revision":0,"measured_tm":80.5,"uplink_tm":80,"instrument_run":"run-407"}
+{"event_id":"evt-d12-01","assay_id":"D12","seq":5,"kind":"measurement","revision":1,"measured_tm":77.99,"uplink_tm":78,"instrument_run":"run-406"}
+{"event_id":"evt-d12-bad","assay_id":"D12","seq":17,"kind":"measurement","revision":2,"measured_tm":78.2,"uplink_tm":78,"instrument_run":"run-412"}
+{"event_id":"evt-d12-cut","assay_id":"D12","seq":20,"kind":"rollback","through_seq":5}
+{"event_id":"evt-a17-01","assay_id":"A17","seq":10,"kind":"measurement","revision":1,"measured_tm":81.75,"uplink_tm":82,"instrument_run":"run-410"}

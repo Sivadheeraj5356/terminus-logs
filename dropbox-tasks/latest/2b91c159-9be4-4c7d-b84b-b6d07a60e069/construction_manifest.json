@@ -1,0 +1,77 @@
+{
+  "reference_pattern": {
+    "justification_if_none": "No promoted reference in docs/reference_tasks/index.json covers C++ checkpointed integrator repair with coupled segment restore, pair ledger, and wrap crossing semantics."
+  },
+  "symbol_table": [
+    {
+      "path": "environment/kernels/pair_ops.cpp",
+      "symbol": "op_a",
+      "kind": "function",
+      "signature": "bool op_a(int32_t lattice_tag, double cutoff_sq, PayloadView view)",
+      "purpose": "Per-step neighbor-list ledger accumulation during pair evaluation"
+    },
+    {
+      "path": "environment/vault/segment_store.cpp",
+      "symbol": "reconcile_b",
+      "kind": "function",
+      "signature": "StoreResult reconcile_b(const SegmentHeader& hdr, MutableSegmentBody& body)",
+      "purpose": "Checkpoint segment save and restore handoff for crossings and ledger state"
+    },
+    {
+      "path": "environment/wrap/tile_wrap.cpp",
+      "symbol": "phase_c",
+      "kind": "function",
+      "signature": "WrapDelta phase_c(double3 r, const TileSpec& spec, uint64_t step_id)",
+      "purpose": "Periodic boundary fold and crossing tally for each body"
+    }
+  ],
+  "flipping_point_contract": {
+    "locations": [
+      {
+        "id": "A",
+        "path": "environment/kernels/pair_ops.cpp",
+        "controls_tests": ["test_nlb_harness_exit_zero"]
+      },
+      {
+        "id": "B",
+        "path": "environment/vault/segment_store.cpp",
+        "controls_tests": ["test_nlb_harness_exit_zero"]
+      },
+      {
+        "id": "C",
+        "path": "environment/wrap/tile_wrap.cpp",
+        "controls_tests": ["test_nlb_harness_exit_zero"]
+      }
+    ],
+    "no_single_location_flips_majority": true,
+    "concentration_cap": 0.5
+  },
+  "decoy_manifest": [
+    {
+      "path": "environment/kernels/pair_ops_shadow.cpp",
+      "kind": "module",
+      "rhymes_with": "op_a",
+      "non_fix_purpose": "Shadow pair scan helper not on the graded emit path"
+    }
+  ],
+  "code_forbidden_tokens": [
+    "golden",
+    "expected",
+    "broken",
+    "fix_me",
+    "reference",
+    "oracle"
+  ],
+  "category_profile": {
+    "challenge_family": "checkpointed simulation repair",
+    "bug_family": "neighbor-list and wrap accounting desync",
+    "profile_name": "numerical_checkpoint_replay"
+  },
+  "realism_source": {
+    "source_type": "real_system",
+    "evidence_basis": "molecular dynamics checkpoint resume patterns",
+    "upstream_or_synthetic_rationale": "Grounded in MD-style periodic boundary and neighbor-list rebuild semantics minimized to a local C++ integrator lab",
+    "minimization_preserves": "Checkpoint pause/resume, wrap crossing tally, and pair-ledger coupling",
+    "synthetic_exception_review": "not required for real_system source"
+  }
+}

@@ -1,0 +1,5 @@
+zone_adjustment_id,service_date,route_id,station_id,direction,service_zone,approved
+ZA-001,2026-05-18,E1,S201,outbound,core,true
+ZA-002,2026-05-18,E1,S201,outbound,regional,false
+ZA-003,2026-05-18,E1,S201,all,regional,true
+ZA-004,2026-05-15,R1,S101,all,regional,true

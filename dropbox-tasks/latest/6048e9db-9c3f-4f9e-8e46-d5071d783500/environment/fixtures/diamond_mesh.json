@@ -1,0 +1,37 @@
+{
+  "graph_id": "diamond_mesh",
+  "jobs": [
+    {
+      "job_id": "root",
+      "duration": 4,
+      "deps": [],
+      "input_parts": [],
+      "output_part": 0,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "left",
+      "duration": 4,
+      "deps": ["root"],
+      "input_parts": [0],
+      "output_part": 1,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "right",
+      "duration": 4,
+      "deps": ["root"],
+      "input_parts": [0],
+      "output_part": 2,
+      "submit_tick": 0
+    },
+    {
+      "job_id": "merge",
+      "duration": 3,
+      "deps": ["left", "right"],
+      "input_parts": [1, 2],
+      "output_part": 3,
+      "submit_tick": 0
+    }
+  ]
+}

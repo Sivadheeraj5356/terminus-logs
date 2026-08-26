@@ -1,0 +1,32 @@
+{
+  "project_id":"project_12",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"vite",
+        "version":"4.5.0"
+      },
+      {
+        "name":"vite-plugin",
+        "version":"2.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"vite-plugin",
+        "provider":"vite",
+        "constraint":"^4.0.0",
+        "required":true,
+        "edge_type":"peer"
+      }
+    ],
+    "proposed":[
+      {
+        "package":"vite",
+        "target":"5.0.0",
+        "release_date":"2026-05-10"
+      }
+    ]
+  }
+}

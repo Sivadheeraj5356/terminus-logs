@@ -1,0 +1,20 @@
+apiVersion: diffusion.ops/v1
+kind: DiffusionExperiment
+metadata:
+  name: alpha-shadow
+  revision: 99
+container:
+  image: registry.local/payments/alpha:1.4.2
+  digest: sha256:a111111111111111111111111111111111111111111111111111111111111111
+spec:
+  seed: 1732
+  walkers: 5
+  steps: 2
+  drift: 0.0
+  volatility: 0.0
+  calibrationRef: stable-prod
+  dimensions:
+    - name: axial
+      weight: 0.1
+      lower: -100.0
+      upper: 100.0

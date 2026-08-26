@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: REPLICATION
+description: Apexora REPLICATION macro-segment
+rd: "65017:1017"
+rt_export: "65017:1017"
+rt_import:
+  - "65017:1017"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

@@ -1,0 +1,9 @@
+ordinance: ORD-1984-02
+jurisdiction: Aurelia-Vantor
+enacted: 1984-02-26
+effective: 1984-04-08T02:00:00 wall
+standard-offset: +07:00:00
+standard-label: WAT
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label WAST
+  end: Sep lastSun 03:00:00 standard

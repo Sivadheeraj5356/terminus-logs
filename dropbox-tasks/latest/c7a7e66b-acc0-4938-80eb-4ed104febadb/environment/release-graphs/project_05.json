@@ -1,0 +1,31 @@
+{
+  "project_id":"project_05",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"webpack",
+        "version":"5.80.0"
+      },
+      {
+        "name":"loader",
+        "version":"2.1.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"loader",
+        "provider":"webpack",
+        "constraint":"^5.70.0",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"webpack",
+        "target":"5.81.0",
+        "release_date":"2026-05-01"
+      }
+    ]
+  }
+}

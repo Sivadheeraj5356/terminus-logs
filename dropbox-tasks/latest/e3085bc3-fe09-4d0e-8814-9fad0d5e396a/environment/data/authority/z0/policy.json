@@ -1,0 +1,13 @@
+{
+  "verbs": {
+    "log": 1,
+    "check_hmac": 2,
+    "check_sig": 4
+  },
+  "tiers": [
+    { "id": 0, "file": "t0/rules.json" },
+    { "id": 1, "file": "t1/rules.json" },
+    { "id": 2, "file": "t2/rules.json" },
+    { "id": 3, "file": "t3/rules.json" }
+  ]
+}

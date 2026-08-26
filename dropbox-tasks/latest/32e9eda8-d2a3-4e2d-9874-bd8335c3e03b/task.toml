@@ -1,0 +1,32 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "build-and-dependency-management"
+task_shape = "formal_reasoning"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["typescript", "bash"]
+tags = ["typescript", "build-graph", "feature-flags", "dag-proof", "witness", "offline-build"]
+expert_time_estimate_min = 120
+junior_time_estimate_min = 240
+
+[reference_pattern]
+justification_if_none = "No promoted entry in docs/reference_tasks/index.json matches TypeScript formal build DAG acyclicity proof with property-gated optional edges, merge-back injection, and witness_meta cross-format binding; meson and vcpkg tasks share verifier trap patterns but differ in topology and task_shape"
+
+[verifier]
+timeout_sec = 1200
+
+[agent]
+timeout_sec = 1800
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+workdir = "/app"

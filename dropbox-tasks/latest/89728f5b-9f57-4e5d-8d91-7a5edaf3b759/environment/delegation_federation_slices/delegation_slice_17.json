@@ -1,0 +1,7 @@
+{
+  "require_attestation_on_operational": true,
+  "governance_overrides": {
+    "require_attestation_on_operational": false
+  },
+  "delegation_slice_id": "delegation_slice_17"
+}

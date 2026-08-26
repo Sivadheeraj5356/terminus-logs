@@ -1,0 +1,8 @@
+addr 224.183.33.104 hex 0x806a token tok_536
+world maybe start true foobar
+grey colour bird no yes true
+ip 192.168.0.1 and 10.0.0.255 here
+addr 10.241.225.81 hex 0xf449 token tok_404
+banana bananana ba na
+hex 0xabc 0xABCDEF zzz
+UPPER lower MiXeD

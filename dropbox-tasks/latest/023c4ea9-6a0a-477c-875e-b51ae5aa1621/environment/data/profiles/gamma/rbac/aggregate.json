@@ -1,0 +1,6 @@
+[
+  {
+    "role": "k8s-bind",
+    "parent": "k8s-agg"
+  }
+]

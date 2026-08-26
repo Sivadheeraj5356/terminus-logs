@@ -1,0 +1,5 @@
+{
+  "nested": {"kind": "map", "value": {"leaf": {"inner": "tau-target"}}},
+  "deep_alias": {"kind": "scalar", "value": "$ref:nested.leaf.inner"},
+  "tau_lane": {"kind": "scalar", "value": "tau-base"}
+}

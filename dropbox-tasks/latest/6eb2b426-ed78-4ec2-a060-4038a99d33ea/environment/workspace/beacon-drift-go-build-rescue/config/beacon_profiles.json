@@ -1,0 +1,14 @@
+[
+  {
+    "id": "north-pier",
+    "max_drift_meters": 35.0,
+    "min_battery_percent": 45,
+    "allowed_zones": ["inner-harbor", "north-channel"]
+  },
+  {
+    "id": "south-breakwater",
+    "max_drift_meters": 50.0,
+    "min_battery_percent": 40,
+    "allowed_zones": ["outer-harbor", "maintenance-basin"]
+  }
+]

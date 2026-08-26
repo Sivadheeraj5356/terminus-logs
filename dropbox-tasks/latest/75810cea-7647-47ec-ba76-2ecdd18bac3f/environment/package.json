@@ -1,0 +1,19 @@
+{
+  "name": "workspace-migrate-lab",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.13.1-local",
+  "scripts": {
+    "resume": "node scripts/reseat.mjs",
+    "seal": "node scripts/repave.mjs",
+    "build": "node scripts/bundle.mjs",
+    "audit:seal": "node scripts/inspect.mjs",
+    "smoke": "node scripts/poke.mjs",
+    "verify:all": "node scripts/reseat.mjs && node scripts/repave.mjs && node tools/pnpm-shim.mjs install --offline --frozen-lockfile && node scripts/bundle.mjs && node scripts/inspect.mjs"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

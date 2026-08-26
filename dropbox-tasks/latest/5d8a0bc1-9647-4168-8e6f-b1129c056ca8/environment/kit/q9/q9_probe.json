@@ -1,0 +1,8 @@
+{
+  "probe": "q9",
+  "note": "interim smoke only; not terminal convergence",
+  "rows": [
+    {"arm_id": "train_a", "status": "healthy", "interim_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    {"arm_id": "train_b", "status": "healthy", "interim_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+  ]
+}

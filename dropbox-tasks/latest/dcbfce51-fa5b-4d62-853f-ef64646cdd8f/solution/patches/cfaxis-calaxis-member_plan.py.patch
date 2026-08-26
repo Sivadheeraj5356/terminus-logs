@@ -1,0 +1,64 @@
+--- a/app/cfaxis/calaxis/member_plan.py
++++ b/app/cfaxis/calaxis/member_plan.py
+@@ -1,4 +1,4 @@
+-"""Plan which climate members still need calendar-axis incorporation."""
++"""Climate-member calendar-axis planning."""
+ 
+ from __future__ import annotations
+ 
+@@ -23,19 +23,37 @@
+     )
+     generation_id = f"{manifest.run_id}:{committed_id}:next"
+ 
+-    completed_paths: set[str] = set()
++    retired_paths = {r.path for r in lineage if r.retired}
++    digest_by_path = {r.path: r.digest for r in lineage}
++
++    completed_paths: set[str] = set(retired_paths)
+     if checkpoint is not None:
+-        completed_paths.update(checkpoint.completed_source_paths)
+-    for rec in lineage:
+-        if rec.retired:
+-            completed_paths.add(rec.path)
++        for p in checkpoint.completed_source_paths:
++            if p in retired_paths:
++                completed_paths.add(p)
++                continue
++            # Skip when digest still matches the recorded lineage entry.
++            path = Path(p)
++            recorded = digest_by_path.get(p)
++            if recorded is not None and path.exists() and _content_digest(path) == recorded:
++                completed_paths.add(p)
++            elif recorded is not None and not path.exists():
++                completed_paths.add(p)
+ 
+     remaining: list[SourceEntry] = []
+     for src in manifest.sources:
+         if src.role == "committed":
+             continue
++        path = Path(src.path)
+         if src.path in completed_paths:
+             continue
++        if path.exists():
++            current = _content_digest(path)
++            recorded = digest_by_path.get(src.path)
++            if recorded is not None and recorded == current and src.path in (
++                checkpoint.completed_source_paths if checkpoint else []
++            ):
++                continue
+         remaining.append(src)
+ 
+     use_archive = checkpoint is not None and Path(manifest.archive_path).exists()
+@@ -45,12 +63,3 @@
+         committed_generation_id=committed_id,
+         use_committed_archive=use_archive,
+     )
+-
+-
+-def refresh_source_digests(sources: list[SourceEntry]) -> list[SourceEntry]:
+-    out: list[SourceEntry] = []
+-    for src in sources:
+-        p = Path(src.path)
+-        digest = _content_digest(p) if p.exists() else src.digest
+-        out.append(SourceEntry(path=src.path, role=src.role, digest=digest))
+-    return out

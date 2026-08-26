@@ -1,0 +1,6 @@
+schema_version: apexora-mpls-handoff-1
+handoffs:
+  - router: rtr-hq-dal-edge-01
+    interface: GigabitEthernet0/0/0.100
+    pe: 192.0.2.1
+    vrf: CORP-IT

@@ -1,0 +1,9 @@
+{
+  "exceptions": [
+    {"token": "EX-PAY-PRIV-44", "service": "payments", "env": "prod", "reason": "missing_required_exception", "expires_at": "2026-07-05T00:00:00Z"},
+    {"token": "EX-CAT-API-19", "service": "catalog", "env": "prod", "reason": "missing_required_exception", "expires_at": "2026-07-05T00:00:00Z"},
+    {"token": "EX-CAT-LIC-07", "service": "catalog", "env": "prod", "reason": "forbidden_license", "expires_at": "2026-07-04T18:00:00Z"},
+    {"token": "EX-SEA-STALE-11", "service": "search", "env": "stage", "reason": "stale_build", "expires_at": "2026-07-04T18:00:00Z"},
+    {"token": "EX-OLD-STALE", "service": "payments", "env": "prod", "reason": "stale_build", "expires_at": "2026-07-03T23:00:00Z"}
+  ]
+}

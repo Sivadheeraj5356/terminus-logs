@@ -1,0 +1,12 @@
+.{
+    .name = .quorumgate,
+    .version = "0.1.0",
+    .fingerprint = 0x912b1b59f7e9c373,
+    .minimum_zig_version = "0.14.0",
+    .dependencies = .{},
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

@@ -1,0 +1,3 @@
+namespace cb {
+std::map<Prefix,PrefixMass> prune_beam(const std::map<Prefix,PrefixMass>& beam,uint32_t width,double threshold){ std::vector<std::pair<Prefix,PrefixMass>> items(beam.begin(),beam.end()); std::sort(items.begin(),items.end(),[](auto&a,auto&b){ double sa=prefix_acoustic(a.second), sb=prefix_acoustic(b.second); if(std::fabs(sa-sb)>1e-10) return sa>sb; return token_lex_less(a.first,b.first); }); std::map<Prefix,PrefixMass> out; double best=items.empty()?kNegInf:prefix_acoustic(items[0].second); for(auto& it:items){ if(out.size()>=width) break; if(prefix_acoustic(it.second) < best + threshold) continue; out[it.first]=it.second; } return out; }
+}

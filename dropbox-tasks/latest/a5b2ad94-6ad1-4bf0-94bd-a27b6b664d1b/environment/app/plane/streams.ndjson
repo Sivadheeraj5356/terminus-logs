@@ -1,0 +1,13 @@
+{"channel": "sys-01", "source": "authd", "opened": 0}
+{"channel": "sys-02", "source": "redis", "opened": 0}
+{"channel": "app-01", "source": "nginx", "opened": 0}
+{"channel": "app-02", "source": "postgres", "opened": 0}
+{"channel": "web-01", "source": "router", "opened": 0}
+{"channel": "web-02", "source": "switchd", "opened": 0}
+{"channel": "web-03", "source": "sidecar", "opened": 0}
+{"channel": "svc-01", "source": "worker", "opened": 0}
+{"channel": "svc-02", "source": "scheduler", "opened": 0}
+{"channel": "trace-02", "source": "memcache", "opened": 0}
+{"channel": "tmp-1", "source": "agentd", "opened": 0}
+{"channel": "audit-01", "source": "gateway", "opened": 0}
+{"channel": "audit-02", "source": "proxy", "opened": 0}

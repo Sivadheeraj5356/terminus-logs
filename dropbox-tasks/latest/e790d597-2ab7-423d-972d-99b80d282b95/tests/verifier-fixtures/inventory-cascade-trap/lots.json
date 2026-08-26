@@ -1,0 +1,18 @@
+{
+  "batch_generation": 44,
+  "target_volume_ml": 100.0,
+  "lots": [
+    {
+      "lot_id": "STAR",
+      "cost_per_ml": 0.50,
+      "available_ml": 110.0,
+      "assays": {"IgG": 45.0}
+    },
+    {
+      "lot_id": "BACK",
+      "cost_per_ml": 2.00,
+      "available_ml": 300.0,
+      "assays": {"IgG": 45.0}
+    }
+  ]
+}

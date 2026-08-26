@@ -1,0 +1,9 @@
+COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+node    21981 root  cwd    DIR  0,118     4096  102 /app
+node    21981 root  txt    REG  0,118 11856104  311 /usr/local/bin/node
+node    21981 root   18r   REG  0,118      782  611 /app/data/calibration.gamma.json
+node    21981 root   19r   REG  0,118      782  611 /app/data/calibration.gamma.json
+node    21981 root   20r   REG  0,118      782  611 /app/data/calibration.gamma.json
+node    21981 root   21u  IPv4 771729      0t0  TCP *:3000 (LISTEN)
+node    21981 root   24u  unix 0x0000      0t0      STREAM
+# expected after patch: calibration may be cached or closed, but repeated /fit and /batch-fit calls must not grow the fd table.

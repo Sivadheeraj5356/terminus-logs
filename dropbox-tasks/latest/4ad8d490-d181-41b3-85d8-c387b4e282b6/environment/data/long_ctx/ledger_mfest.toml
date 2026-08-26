@@ -1,0 +1,37 @@
+# long-context shard ledger
+
+[[shard]]
+file = "board_frag_01.md"
+board = "CA"
+tok = 10075
+cids = ["ca.d.01", "ca.d.02", "ca.u.01", "ca.g.01"]
+
+[[shard]]
+file = "board_frag_02.md"
+board = "NV"
+tok = 9569
+cids = ["nv.d.01", "nv.d.02", "nv.u.01"]
+
+[[shard]]
+file = "board_frag_03.md"
+board = "OR"
+tok = 9067
+cids = ["or.d.01", "or.u.01"]
+
+[[shard]]
+file = "board_frag_04.md"
+board = "TX"
+tok = 9569
+cids = ["tx.d.01", "tx.d.02", "tx.u.01"]
+
+[[shard]]
+file = "board_frag_05.md"
+board = "NY"
+tok = 9081
+cids = ["ny.d.01", "ny.d.02", "ny.u.01"]
+
+[[shard]]
+file = "board_frag_06.md"
+board = "FL"
+tok = 9081
+cids = ["fl.d.01", "fl.d.02", "fl.u.01"]

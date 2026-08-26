@@ -1,0 +1,3 @@
+service_id	allowed_scope	current_host
+api	public	node-a
+admin	private	node-a

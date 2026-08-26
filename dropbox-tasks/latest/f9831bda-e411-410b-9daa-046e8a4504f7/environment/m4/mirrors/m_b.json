@@ -1,0 +1,5 @@
+{
+  "issuer": "cn=ca-beta",
+  "this_up": "v20260201",
+  "serials": ["2001", "2002"]
+}

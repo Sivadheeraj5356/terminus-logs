@@ -1,0 +1,5 @@
+group_name,iana_codepoint,curve_family
+x25519,0x001d,montgomery
+secp256r1,0x0017,weierstrass
+secp384r1,0x0018,weierstrass
+secp521r1,0x0019,weierstrass

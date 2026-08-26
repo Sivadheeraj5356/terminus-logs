@@ -1,0 +1,14 @@
+{
+  "arm": "held_out",
+  "phase": "normal",
+  "row_cap": 10,
+  "group_cap": 3,
+  "cells": [
+    {"id": "h01", "kind": "host", "match": "held.lab", "target": "be_alpha", "want": "route"},
+    {"id": "h02", "kind": "host", "match": "held2.lab", "target": "be_alpha", "want": "route"},
+    {"id": "h03", "kind": "path", "match": "/held", "target": "be_beta", "want": "route"},
+    {"id": "h04", "kind": "path", "match": "/held2", "target": "be_beta", "want": "route"},
+    {"id": "h05", "kind": "host", "match": "quiet.lab", "target": "", "want": "deny"},
+    {"id": "h06", "kind": "path", "match": "/quiet", "target": "be_gamma", "want": "route"}
+  ]
+}

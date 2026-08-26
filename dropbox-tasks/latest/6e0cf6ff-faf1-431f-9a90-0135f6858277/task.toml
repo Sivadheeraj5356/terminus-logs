@@ -1,0 +1,30 @@
+version = "2.0"
+
+[metadata]
+difficulty = "hard"
+author_name = "anonymous"
+author_email = "anonymous"
+category = "games"
+tags = ["java", "games", "speedrun", "ghost-demo", "tick-budget", "ghost-seal"]
+languages = ["java"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = ["tool_specific"]
+expert_time_estimate_min = 150
+junior_time_estimate_min = 420
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 1200
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[reference_pattern]
+justification_if_none = "docs/reference_tasks/index.json has no promoted references. Closest local games specs (pathfinding-memory-optimize-grid, ai-search-transposition-optimize, move-budget-solver) differ in language (Python/Rust), milestone posture, failure topology (order-canonical SRI densify vs memory/transposition/move-cap), and verifier shape from this Java single-step ghost replay integrity design."

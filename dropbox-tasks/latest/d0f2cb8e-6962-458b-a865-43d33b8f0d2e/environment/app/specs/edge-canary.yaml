@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edge-canary
+  annotations:
+    serving.mlp.io/framework: triton
+    model.mlp.io/artifact-sha256: sha256:edgecanary01
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "34%"
+  selector:
+    matchLabels:
+      app: edge-canary
+  template:
+    metadata:
+      labels:
+        app: edge-canary
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: triton
+        model.mlp.io/artifact-sha256: sha256:edgecanary01
+    spec:
+      containers:
+        - name: model-server
+          image: nvcr.io/nvidia/tritonserver:23.10-py3
+          resources:
+            requests:
+              cpu: "1500m"
+              memory: "2048Mi"
+            limits:
+              nvidia.com/gpu: "1"
+          readinessProbe:
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /v2/health/live
+              port: 8000

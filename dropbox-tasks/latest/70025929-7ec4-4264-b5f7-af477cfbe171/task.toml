@@ -1,0 +1,30 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "scientific-computing"
+tags = ["qpcr", "melt-curve", "thermal-tolerance", "floating-point", "numeric-policy", "scientific-computing"]
+languages = ["go", "typescript"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = []
+expert_time_estimate_min = 90
+junior_time_estimate_min = 240
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 1800
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 4
+docker_flags = []
+gpus = 0
+gpu_types = []
+memory_mb = 8192
+storage_mb = 10240

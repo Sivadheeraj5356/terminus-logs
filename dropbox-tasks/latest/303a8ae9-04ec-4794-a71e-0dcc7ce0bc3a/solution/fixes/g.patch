@@ -1,0 +1,22 @@
+--- a/k2p/journal.go
++++ b/k2p/journal.go
+@@ -5,6 +5,7 @@
+ 	"os"
+ 	"path/filepath"
+ 
++	"pitctl/hashx"
+ 	"pitctl/types"
+ )
+ 
+@@ -16,9 +17,9 @@
+ 	}
+ 	entry := types.JournalEntry{
+ 		FoldID:       foldID,
+-		LedgerDigest: report.LedgerDigest + "_pending",
++		LedgerDigest: report.LedgerDigest,
+ 		RowCount:     report.RowCount,
+-		SegDigests:   nil,
++		SegDigests:   hashx.RowSegs(report.Rows),
+ 	}
+ 	b, err := json.MarshalIndent(entry, "", "  ")
+ 	if err != nil {

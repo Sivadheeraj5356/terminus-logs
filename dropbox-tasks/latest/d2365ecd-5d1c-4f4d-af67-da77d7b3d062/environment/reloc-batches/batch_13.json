@@ -1,0 +1,89 @@
+{
+  "batch_id": "batch_13",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "com.google.common",
+      "to_prefix": "shaded.com.google.common",
+      "priority": 10
+    }
+  ],
+  "units": [
+    {
+      "path": "lib/core.jar",
+      "root": "dep-a",
+      "symbols": [
+        {
+          "fqn": "com.google.common.Base",
+          "pkg_path": "com/google/common"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "com.google.common.Base",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    },
+    {
+      "seq": 2,
+      "op": "apply",
+      "fail": true,
+      "rollback": true
+    }
+  ],
+  "replay": {
+    "schedules": [
+      {
+        "schedule_id": "p1",
+        "mapping_seq_order": [
+          1
+        ]
+      }
+    ]
+  },
+  "observed": {
+    "symbols": [
+      {
+        "original": "com.google.common.Base",
+        "fqn": "shaded.com.google.common.Base",
+        "pkg_path": "shaded/com/google/common"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "shaded.com.google.common.Base"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "e82fd4eca5240dc3d36cf47efb9fc1fec33c1e11901ad64d99a1bc8b46aa077a",
+    "nested_applied": false,
+    "nested": []
+  }
+}

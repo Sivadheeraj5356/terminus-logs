@@ -1,0 +1,6 @@
+Lab notes: keep epoch seeds under fixtures/ aligned with site profiles.
+Side probe logs are diagnostic only and do not feed the ledger assembler.
+Host and workload boundary probes write probe_{site}_host.txt and probe_{site}_work.txt under /app/work/policy during each site pass (e.g. probe_site_p7_host.txt, probe_site_p7_work.txt).
+Round driver: /app/environment/tools/j4_round. Trace emitter: /app/environment/tools/p7_emit.
+scope_code labels are S1, S2, or S3 from the rebind scope numeral.
+Tick refresh binary: tick_apply with --site.

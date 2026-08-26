@@ -1,0 +1,8 @@
+family_id=FAM-HID-MF-A
+chip_id=HID-MFA-1
+profile_id=CAL-STD
+nominal_hz=9000000
+readings:
+segment: core
+1 25.0 9000000.0
+2 30.0 9001575.0

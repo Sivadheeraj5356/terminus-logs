@@ -1,0 +1,16 @@
+key	value
+interface	boot_semantics_v1
+bgr1_version	1
+semantics_fd	193
+rule_count	31
+expected_capsule_sha256	ed2f29494d1cc06e26472454151411e5eaa874b13beb196e78c59d49fcfca5dc
+forge_source	bgr1_capsule_forge.rs
+courier_source	sealed_rule_memfd_courier.rs
+lexicon	boot_rule_lexicon.tsv
+atoms_dir	corrected_rule_atoms
+app_units	34
+contracts	8
+permitted_sections	RULE,IN,OUT,TABLE,END
+permitted_opcodes	decide_table
+no_network	true
+no_source_edit	true

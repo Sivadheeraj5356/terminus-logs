@@ -1,0 +1,82 @@
+{
+  "name": "AI Training Workflow",
+  "version": "2.1.0",
+  "metadata": {
+    "Owner": "ml-platform",
+    "Team": "runtime",
+    "Region": "us-east-1",
+    "Priority": "p1"
+  },
+  "nodes": [
+    {
+      "id": "ingest",
+      "name": "Ingest Features",
+      "type": "source",
+      "timeout_ms": 100,
+      "params": { "bucket": "features", "format": "parquet" },
+      "weight": 1
+    },
+    {
+      "id": "normalize",
+      "name": "Normalize Schema",
+      "type": "transform",
+      "depends_on": ["ingest"],
+      "timeout_ms": 100,
+      "params": { "schema": "v3" },
+      "weight": 1
+    },
+    {
+      "id": "feature",
+      "name": "Feature Store Sync",
+      "type": "transform",
+      "depends_on": ["normalize"],
+      "timeout_ms": 0,
+      "params": { "store": "primary" },
+      "weight": 2
+    },
+    {
+      "id": "train",
+      "name": "Train Model",
+      "type": "train",
+      "depends_on": ["feature"],
+      "max_retries": 2,
+      "timeout_ms": 100,
+      "params": { "algo": "xgboost", "seed": "fixed" },
+      "weight": 5
+    },
+    {
+      "id": "evaluate",
+      "name": "Evaluate Model",
+      "type": "eval",
+      "depends_on": ["feature"],
+      "timeout_ms": 100,
+      "params": { "metric": "auc" },
+      "weight": 3
+    },
+    {
+      "id": "publish",
+      "name": "Publish Artifact",
+      "type": "sink",
+      "depends_on": ["train", "evaluate"],
+      "timeout_ms": 100,
+      "params": { "registry": "models" },
+      "weight": 2
+    },
+    {
+      "id": "audit",
+      "name": "Compliance Audit",
+      "type": "audit",
+      "timeout_ms": 100,
+      "params": { "policy": "sox" },
+      "weight": 1
+    }
+  ],
+  "edges": [
+    { "from": "ingest", "to": "normalize" },
+    { "from": "normalize", "to": "feature" },
+    { "from": "feature", "to": "train" },
+    { "from": "feature", "to": "evaluate" },
+    { "from": "train", "to": "publish" },
+    { "from": "evaluate", "to": "publish" }
+  ]
+}

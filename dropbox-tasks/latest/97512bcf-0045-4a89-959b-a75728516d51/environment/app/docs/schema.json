@@ -1,0 +1,37 @@
+{
+  "title": "vacuum_simulation",
+  "type": "object",
+  "required": ["final_pressure_pa", "condensation_events", "freeze_events", "history"],
+  "properties": {
+    "final_pressure_pa": { "type": "number" },
+    "condensation_events": { "type": "integer", "minimum": 0 },
+    "freeze_events": { "type": "integer", "minimum": 0 },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "t", "temp_k", "p_total", "n_gas_n2", "n_gas_he",
+          "n_ads_n2", "n_ads_he", "n_cond_n2", "x_he", "frozen",
+          "cal_seq", "solver_iters", "thermal_leg", "regime"
+        ],
+        "properties": {
+          "t": { "type": "number" },
+          "temp_k": { "type": "number" },
+          "p_total": { "type": "number" },
+          "n_gas_n2": { "type": "number" },
+          "n_gas_he": { "type": "number" },
+          "n_ads_n2": { "type": "number" },
+          "n_ads_he": { "type": "number" },
+          "n_cond_n2": { "type": "number" },
+          "x_he": { "type": "number" },
+          "frozen": { "type": "boolean" },
+          "cal_seq": { "type": "integer" },
+          "solver_iters": { "type": "integer", "minimum": 1 },
+          "thermal_leg": { "type": "integer", "enum": [0, 1] },
+          "regime": { "type": "string", "enum": ["gas", "two-phase", "frozen-film"] }
+        }
+      }
+    }
+  }
+}

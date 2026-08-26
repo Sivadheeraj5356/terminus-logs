@@ -1,0 +1,12 @@
+[package]
+name = "idlgen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+docmodel = { path = "../../crates/docmodel" }
+ffi-model = { path = "../../crates/ffi-model" }
+
+[[bin]]
+name = "idlgen"
+path = "src/main.rs"

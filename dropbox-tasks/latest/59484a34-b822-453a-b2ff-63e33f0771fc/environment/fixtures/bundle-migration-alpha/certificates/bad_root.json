@@ -1,0 +1,6 @@
+{
+  "serial": "SER-BADROOT",
+  "filename": "bad_root.json",
+  "signature_ok": true,
+  "issuer_serial": "ROOT-UNTRUSTED"
+}

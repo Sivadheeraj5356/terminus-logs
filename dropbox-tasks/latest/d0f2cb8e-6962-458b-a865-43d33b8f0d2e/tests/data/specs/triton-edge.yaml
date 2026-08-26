@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: triton-edge
+  annotations:
+    serving.mlp.io/framework: triton
+    model.mlp.io/artifact-sha256: sha256:778899aabbcc
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "75%"
+  selector:
+    matchLabels:
+      app: triton-edge
+  template:
+    metadata:
+      labels:
+        app: triton-edge
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: triton
+        model.mlp.io/artifact-sha256: sha256:778899aabbcc
+    spec:
+      containers:
+        - name: model-server
+          image: nvcr.io/nvidia/tritonserver:24.01-py3
+          resources:
+            requests:
+              cpu: "2500m"
+              memory: "5120Mi"
+            limits:
+              nvidia.com/gpu: "2"
+          readinessProbe:
+            httpGet:
+              path: /v2/health/ready
+              port: 8000
+          livenessProbe:
+            httpGet:
+              path: /v2/health/live
+              port: 8000

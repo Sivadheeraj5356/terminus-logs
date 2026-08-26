@@ -1,0 +1,10 @@
+func main() -> int {
+  locals 1
+b0:
+  iconst 0
+  iconst 5
+  icmp
+  store 0
+  iconst 0
+  ret
+}

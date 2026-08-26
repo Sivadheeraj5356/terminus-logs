@@ -1,0 +1,9 @@
+{
+  "job_id": "job-011",
+  "priority": 14,
+  "spec_path": "/app/specs/legacy-ready.yaml",
+  "profile_ref": "qa",
+  "rules_profile_stack": ["cpu_turbo", "mem_lane"],
+  "overlay_rules_set": "mem_tight",
+  "defer": false
+}

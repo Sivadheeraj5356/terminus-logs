@@ -1,0 +1,140 @@
+schema_version: apexora-segmentation-pipeline-1
+runtime:
+  env_root: /app/environment
+  output_root: /app/output
+  evaluation_clock: data/evaluation_clock.json
+pipeline_entrypoint: scripts/run-netsegctl.sh
+
+# Binding stage order: VLAN → trunk → ACL(from VRF) → render → wave → rollback → evidence
+stages:
+  vlan-check:
+    command: run-netsegctl.sh vlan-check
+    output: /app/output/vlan_conformance.json
+    derives: canonical VLANs from operations range ∩ catalog ∩ campuses (+ legacy map consistency)
+  trunk-check:
+    command: run-netsegctl.sh trunk-check
+    output: /app/output/trunk_conformance.json
+    depends_on: [vlan-check]
+    derives: trunk conformance from live config + trunk_policy + upstream VLAN pass
+  acl-check:
+    command: run-netsegctl.sh acl-check
+    output: /app/output/acl_conformance.json
+    depends_on: [vlan-check, trunk-check]
+    derives: ACL allow-list from resolved VRFs (catalog ∩ regional route targets)
+  render:
+    command: run-netsegctl.sh render
+    output: /app/output/rendered/
+    depends_on: [vlan-check, trunk-check, acl-check]
+    derives: bundles from ACL + trunk/interface policy gates
+  wave-plan:
+    command: run-netsegctl.sh wave-plan
+    output: /app/output/wave_readiness.json
+    depends_on: [render]
+    derives: missing_devices from phases ∪ unrendered in-scope validation hosts
+  rollback-audit:
+    command: run-netsegctl.sh rollback-audit
+    output: /app/output/rollback_bundle_manifest.json
+    depends_on: [wave-plan]
+    derives: indexing requirements from wave readiness
+  evidence:
+    command: run-netsegctl.sh evidence
+    output: /app/output/migration_evidence.json
+    depends_on: [vlan-check, trunk-check, acl-check, render, wave-plan, rollback-audit]
+    derives: lineage fan-in over all prior stages
+
+exports:
+  migration_evidence.json:
+    schema_version: apexora-segmentation-evidence-1
+    required_fields:
+      - schema_version
+      - as_of
+      - device_count
+      - devices
+      - lineage
+    device_fields:
+      - hostname
+      - role
+      - campus_id
+      - migration_state
+      - legacy_vlan_ids_present
+      - duplicate_vlans
+      - legacy_sources_consulted
+      - source_sections_consulted
+      - retired_vlan_families
+      - superseded_sections
+    device_count: 96
+
+  vlan_conformance.json:
+    schema_version: apexora-vlan-conformance-1
+    required_fields:
+      - schema_version
+      - vlan_catalog_count
+      - devices
+      - lineage
+    device_fields:
+      - hostname
+      - pass
+      - violations
+    vlan_catalog_count: 180
+
+  trunk_conformance.json:
+    schema_version: apexora-trunk-conformance-1
+    required_fields:
+      - schema_version
+      - trunk_link_count
+      - devices
+      - lineage
+    device_fields:
+      - hostname
+      - pass
+      - violations
+    trunk_link_count_source: trunks/links/*.yaml
+
+  acl_conformance.json:
+    schema_version: apexora-acl-conformance-1
+    required_fields:
+      - schema_version
+      - policy_catalog_count
+      - devices
+      - lineage
+    device_fields:
+      - hostname
+      - pass
+      - violations
+    policy_catalog_count: 90
+    validation_scope_hosts: inventory/wave3_validation_scope.yaml
+
+  wave_readiness.json:
+    schema_version: apexora-wave-readiness-1
+    required_fields:
+      - schema_version
+      - wave_id
+      - canary_first
+      - regional_order
+      - legacy_hooks_present
+      - phases
+      - missing_devices
+      - post_deploy_hook
+      - lineage
+    wave_id: wave_3
+    regional_order: [amer, emea, apac]
+    post_deploy_hook: services/hooks/post-validate.sh
+
+  rollback_bundle_manifest.json:
+    schema_version: apexora-rollback-manifest-1
+    required_fields:
+      - schema_version
+      - device_count
+      - indexed_count
+      - missing_hosts
+      - bundles
+      - lineage
+    bundle_fields:
+      - hostname
+      - forward
+      - rollback
+      - validation_command
+      - forward_exists
+      - rollback_exists
+    validation_scope_hosts: inventory/wave3_validation_scope.yaml
+    validation_scope_count: 48

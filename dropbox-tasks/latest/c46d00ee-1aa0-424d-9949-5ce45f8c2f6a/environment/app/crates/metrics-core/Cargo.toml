@@ -1,0 +1,9 @@
+[package]
+name = "metrics-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+metrics-macros = { path = "../metrics-macros" }
+serde = { workspace = true, features = ["derive"] }

@@ -1,0 +1,5 @@
+patron_type,description,loan_limit
+ADULT,Adult cardholder,50
+JUVENILE,Juvenile cardholder,30
+SENIOR,Senior cardholder,50
+STAFF,Staff cardholder,100

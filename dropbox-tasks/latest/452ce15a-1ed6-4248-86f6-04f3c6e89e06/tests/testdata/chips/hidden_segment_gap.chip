@@ -1,0 +1,10 @@
+family_id=FAM-HID-SEG
+chip_id=HID-SEG-1
+profile_id=CAL-STD
+nominal_hz=11000000
+readings:
+segment: alpha
+3 10.0 11000385.0
+segment: beta
+1 25.0 11000000.0
+2 40.0 11000582.0

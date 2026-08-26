@@ -1,0 +1,5 @@
+tabs	and spaces here
+addr 92.3.246.154 hex 0x1c86 token tok_828
+gray gamma hello bird
+gamma true maybe grey color true baz
+banana bananana ba na

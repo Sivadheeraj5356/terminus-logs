@@ -1,0 +1,6 @@
+hostname: acc-apac-tyo-office-01
+migration_state: legacy
+canonical_vlan: 2052
+configured_vlan: 153
+legacy_vlan: 153
+duplicate_vlan_conflict: false

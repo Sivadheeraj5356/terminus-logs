@@ -1,0 +1,9 @@
+{
+  "broker_version": "3.7.0",
+  "replica_factor": 3,
+  "default_partitions": 12,
+  "group_protocol": "cooperative-sticky",
+  "lane_scan": "full",
+  "fetch_credit_mode": "floor",
+  "mark_style": "interval"
+}

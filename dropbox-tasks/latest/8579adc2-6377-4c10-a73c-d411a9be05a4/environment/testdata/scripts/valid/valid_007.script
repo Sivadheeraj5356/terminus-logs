@@ -1,0 +1,23 @@
+session 65536 500
+stream 1
+add_header 1 x-tag-0 value-0
+add_header 1 x-tag-1 value-1
+add_header 1 x-tag-2 value-2
+add_header 1 x-tag-3 value-3
+add_header 1 x-tag-4 value-4
+add_header 1 x-tag-5 value-5
+add_header 1 x-tag-6 value-6
+add_header 1 x-tag-7 value-7
+add_header 1 x-tag-8 value-8
+add_header 1 x-tag-9 value-9
+add_header 1 x-tag-10 value-10
+add_header 1 x-tag-11 value-11
+add_header 1 x-tag-12 value-12
+add_header 1 x-tag-13 value-13
+add_header 1 x-tag-14 value-14
+add_header 1 x-tag-15 value-15
+add_header 1 x-tag-16 value-16
+add_header 1 x-tag-17 value-17
+add_header 1 x-tag-18 value-18
+add_header 1 x-tag-19 value-19
+flush 1

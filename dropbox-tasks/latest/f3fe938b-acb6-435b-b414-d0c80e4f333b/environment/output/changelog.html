@@ -1,0 +1,46 @@
+<h1>Release Notes</h1>
+<h2>Version 0.4.2</h2>
+<p>This release includes performance improvements and bug fixes.</p>
+<h3>New Features</h3>
+<ul>
+<li>Added support for <a href="https://example.com/nested">nested links</a></li>
+<li>Improved code block detection</li>
+<li>Added <strong>heading distribution</strong> to statistics report</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Fixed memory leak in long-running conversion sessions</li>
+<li>Corrected UTF-8 handling for CJK characters</li>
+</ul>
+<h2>Version 0.4.1</h2>
+<p>Minor maintenance release.</p>
+<h3>Changes</h3>
+<ul>
+<li>Updated serde dependency to 1.0.219</li>
+<li>Improved error messages for invalid Markdown</li>
+</ul>
+<h2>Version 0.4.0</h2>
+<p>Major feature release.</p>
+<h3>Highlights</h3>
+<ul>
+<li>Complete rewrite of the parser module</li>
+<li>Added fenced code block support with language hints</li>
+<li>New statistics engine with heading distribution tracking</li>
+</ul>
+<h3>Breaking Changes</h3>
+<ul>
+<li>Config format changed from JSON to TOML</li>
+<li>Output directory structure simplified</li>
+</ul>
+<h4>Migration Guide</h4>
+<p>To migrate from 0.3.x:</p>
+<ul>
+<li>Replace <code>config.json</code> with <code>converter.toml</code></li>
+<li>Update paths to use the new output layout</li>
+<li>See <a href="https://example.com/migrate">migration guide</a> for details</li>
+</ul>
+<h3>Known Issues</h3>
+<ul>
+<li>Code blocks using mixed fence characters may interact unexpectedly</li>
+<li>Heading level display follows compensated indexing convention</li>
+</ul>

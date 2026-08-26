@@ -1,0 +1,48 @@
+{
+  "scenario_id": "scenario_11",
+  "build_profile": "dev",
+  "profile_mode": "host",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "app",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [
+    {
+      "parent": "app:1.0.0",
+      "child": "host_only",
+      "version": "1.0.0",
+      "features_requested": [
+        "proc"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s11e1",
+      "target_triple": "host",
+      "default_crate_features": []
+    },
+    {
+      "parent": "app:1.0.0",
+      "child": "target_only",
+      "version": "1.0.0",
+      "features_requested": [
+        "gpu"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s11e2",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

@@ -1,0 +1,46 @@
+{
+  "users": [
+    {"name": "svc-billing-api", "tags": []},
+    {"name": "svc-billing-worker", "tags": []},
+    {"name": "svc-payments-gateway", "tags": []},
+    {"name": "svc-payments-recon", "tags": []},
+    {"name": "svc-audit-collector", "tags": []},
+    {"name": "svc-orders-api", "tags": []},
+    {"name": "svc-fulfillment-worker", "tags": []},
+    {"name": "svc-reporting-etl", "tags": []},
+    {"name": "svc-public-status-writer", "tags": []},
+    {"name": "svc-incident-responder", "tags": []},
+    {"name": "svc-monitoring-agent", "tags": ["monitoring"]},
+    {"name": "svc-platform-admin", "tags": ["administrator"]}
+  ],
+  "vhosts": [
+    {"name": "/billing"},
+    {"name": "/payments"},
+    {"name": "/audit-log"},
+    {"name": "/orders"},
+    {"name": "/fulfillment"},
+    {"name": "/reporting"},
+    {"name": "/public-status"}
+  ],
+  "permissions": [
+    {"user": "svc-billing-api", "vhost": "/billing", "configure": "^billing\\..*", "write": "^billing\\..*", "read": "^billing\\..*"},
+    {"user": "svc-audit-collector", "vhost": "/billing", "configure": "", "write": "^billing\\..*", "read": "^billing\\..*"},
+
+    {"user": "svc-payments-gateway", "vhost": "/payments", "configure": "^payments\\..*", "write": "^payments\\..*", "read": "^payments\\..*"},
+    {"user": "svc-payments-recon", "vhost": "/payments", "configure": "^payments\\..*", "write": "^payments\\..*", "read": "^payments\\..*"},
+    {"user": "svc-audit-collector", "vhost": "/payments", "configure": "", "write": "", "read": "^payments\\..*"},
+
+    {"user": "svc-audit-collector", "vhost": "/audit-log", "configure": "^audit-log\\..*", "write": "^audit-log\\..*", "read": "^audit-log\\..*"},
+
+    {"user": "svc-orders-api", "vhost": "/orders", "configure": ".*", "write": ".*", "read": ".*"},
+    {"user": "svc-monitoring-agent", "vhost": "/orders", "configure": "", "write": "", "read": "^orders\\..*"},
+
+    {"user": "svc-fulfillment-worker", "vhost": "/reporting", "configure": "", "write": "", "read": "^reporting\\..*"},
+    {"user": "svc-reporting-etl", "vhost": "/reporting", "configure": "^reporting\\..*", "write": "^reporting\\..*", "read": "^reporting\\..*"},
+
+    {"user": "svc-public-status-writer", "vhost": "/public-status", "configure": "^public-status\\..*", "write": "^public-status\\..*", "read": "^public-status\\..*"},
+    {"user": "svc-billing-api", "vhost": "/public-status", "configure": "", "write": "", "read": "^public-status\\..*"},
+
+    {"user": "svc-incident-responder", "vhost": "/payments", "configure": "", "write": "^payments\\..*", "read": "^payments\\..*"}
+  ]
+}

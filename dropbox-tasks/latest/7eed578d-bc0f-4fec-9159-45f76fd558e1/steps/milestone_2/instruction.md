@@ -1,0 +1,1 @@
+Ledger verification is in place on `/app/risk_worker`. Extend that same C binary with `populate-features` per the policy manual — not a separate Python script. Both subcommands must live in the compiled `/app/risk_worker` binary.

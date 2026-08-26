@@ -1,0 +1,10 @@
+{
+  "schema_version": 3,
+  "checkpoint_dir": "checkpoints",
+  "policy": "policy.json",
+  "lanes": [
+    {"name": "north", "path": "lanes/north.ndjson", "priority": 1},
+    {"name": "south", "path": "lanes/south.ndjson", "priority": 2},
+    {"name": "maintenance", "path": "lanes/maintenance.ndjson", "priority": 3}
+  ]
+}

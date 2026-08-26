@@ -1,0 +1,1 @@
+{"blender_version":"4.1","python_expr":"print('bootstrap')","env":{"BLENDER_VERBOSE":"0"},"profile_settings":{"theme":"studio","unit_system":"METRIC"},"addons":[{"id":"mesh-tools","module":"mesh_tools","enabled":true,"version":"1.0.0","files":{"__init__.py":"bl_info = {'name': 'Mesh Tools'}\n"},"preferences":{"panel":"TOOLS"}}]}

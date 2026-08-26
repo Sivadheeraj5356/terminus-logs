@@ -1,0 +1,7 @@
+ip 192.168.0.1 and 10.0.0.255 here
+alpha banana delta
+false dog colour baz bird
+hello true bar grey true dog
+addr 124.249.246.34 hex 0x8449 token tok_680
+baz bar foo foo gray
+quux bird

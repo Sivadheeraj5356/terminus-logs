@@ -1,0 +1,70 @@
+{
+  "network_id": "line-b-tsn",
+  "description": "Dual-PLC TSN segment with redundant cross-link and asymmetric bottlenecks",
+  "nodes": [
+    {"node_id": "plc1", "role": "endpoint", "processing_us": 2},
+    {"node_id": "plc2", "role": "endpoint", "processing_us": 3},
+    {"node_id": "sw1", "role": "switch", "processing_us": 4},
+    {"node_id": "sw2", "role": "switch", "processing_us": 5},
+    {"node_id": "sw3", "role": "switch", "processing_us": 4},
+    {"node_id": "hmi1", "role": "endpoint", "processing_us": 1},
+    {"node_id": "hmi2", "role": "endpoint", "processing_us": 1},
+    {"node_id": "gm1", "role": "grandmaster", "processing_us": 0}
+  ],
+  "links": [
+    {
+      "link_id": "lnk-plc1-sw1",
+      "from": "plc1",
+      "to": "sw1",
+      "bandwidth_mbps": 1000,
+      "propagation_us": 4
+    },
+    {
+      "link_id": "lnk-plc2-sw3",
+      "from": "plc2",
+      "to": "sw3",
+      "bandwidth_mbps": 1000,
+      "propagation_us": 4
+    },
+    {
+      "link_id": "lnk-sw1-sw2",
+      "from": "sw1",
+      "to": "sw2",
+      "bandwidth_mbps": 100,
+      "propagation_us": 8,
+      "derate_factor": 0.8,
+      "switch_ports": {"sw1": "eth1"}
+    },
+    {
+      "link_id": "lnk-sw1-sw3",
+      "from": "sw1",
+      "to": "sw3",
+      "bandwidth_mbps": 100,
+      "propagation_us": 12
+    },
+    {
+      "link_id": "lnk-sw3-sw2",
+      "from": "sw3",
+      "to": "sw2",
+      "bandwidth_mbps": 100,
+      "propagation_us": 10,
+      "switch_ports": {"sw3": "eth1"}
+    },
+    {
+      "link_id": "lnk-sw2-hmi1",
+      "from": "sw2",
+      "to": "hmi1",
+      "bandwidth_mbps": 1000,
+      "propagation_us": 5,
+      "switch_ports": {"sw2": "eth0"}
+    },
+    {
+      "link_id": "lnk-sw2-hmi2",
+      "from": "sw2",
+      "to": "hmi2",
+      "bandwidth_mbps": 1000,
+      "propagation_us": 5,
+      "switch_ports": {"sw2": "eth1"}
+    }
+  ]
+}

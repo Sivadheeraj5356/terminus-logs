@@ -1,0 +1,3 @@
+Start from the mismatch record at /app/output/m1_mismatch_report.json (it must still be present and list the earlier engine-vs-reference deltas). Using those recorded deltas as your guide, repair Rust sources under /app/environment so /app/environment/fixtures/seq_r4.pgn matches the reference adjudicator on every ply for both outcome_code and digest_hex. Rebuild the workspace, rerun seq_r4.pgn, and regenerate traces from the pipeline.
+
+Write /app/output/event_trace.jsonl (ply, digest_hex, outcome_code per /app/environment/docs/k9_rules.md). Hand-written traces are insufficient. The test runner expects a pipeline-generated event_trace where every ply matches the reference on seq_r4.pgn. Signal completion when that holds.

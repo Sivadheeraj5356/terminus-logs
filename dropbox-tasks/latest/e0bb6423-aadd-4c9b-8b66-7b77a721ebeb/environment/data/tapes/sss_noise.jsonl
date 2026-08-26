@@ -1,0 +1,4 @@
+{"seq":1,"ts":7100,"actor":"kate@CORP.EXAMPLE.COM","module":"common-auth","result":"ok","service":"sshd"}
+{"seq":2,"ts":7101,"actor":"kate@CORP.EXAMPLE.COM","module":"pam_unix","result":"fail","service":"sshd"}
+{"seq":3,"ts":7102,"actor":"kate@CORP.EXAMPLE.COM","module":"pam_sss","result":"fail","service":"sshd"}
+{"seq":4,"ts":7103,"actor":"kate@CORP.EXAMPLE.COM","module":"pam_sss","result":"fail","service":"sshd"}

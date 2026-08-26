@@ -1,0 +1,4 @@
+{
+  "delta_keep": {"kind": "scalar", "value": "overlay-delta"},
+  "delta_drop": {"kind": "scalar", "value": "remove-me"}
+}

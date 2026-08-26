@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "gallery",
+      "relicmaze.torch": "8.0",
+      "relicmaze.keeper_tz_offset_minutes": "-90",
+      "relicmaze.carry_capacity": "300",
+      "relicmaze.goal_room": "garden",
+      "org.opencontainers.image.title": "gen-028"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:93eedb1bb3a3d44e495379d61cf37c1b5fb1ecaa273dd2d81856c07752c396ef"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "LABEL omen=\"Salt and silence.\""
+    },
+    {
+      "created_by": "keeper curse averted"
+    },
+    {
+      "created_by": "keeper sign: capsule sealed"
+    },
+    {
+      "created_by": "RUN keeper curse ember-heart"
+    },
+    {
+      "created_by": "ENV torch_tax=-1.0"
+    },
+    {
+      "created_by": "RUN keeper curse petrified-rose"
+    },
+    {
+      "created_by": "keeper sign: capsule sealed"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    }
+  ]
+}

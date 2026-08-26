@@ -1,0 +1,44 @@
+room:
+  name: "The Obsidian Vault"
+  description: >
+    You are locked inside a Victorian-era bank vault repurposed as an escape room.
+    The walls are lined with brass mechanisms, ticking clocks, and sealed drawers.
+    To escape you must deduce the combination from three hidden ciphers embedded in
+    the room's artefacts.
+
+puzzles:
+  - id: cipher_alpha
+    name: "The Brass Cipher Wheel"
+    description: >
+      A large brass wheel with 26 notched positions sits on the north wall.
+      Each notch is engraved with a symbol. You find a parchment nearby listing
+      an offset: "Three forward from the anchor." The anchor is the first letter
+      of the Greek alphabet.
+    answer_hash: "4f4a9410ffcdf895c4adb880659e9b5c0dd1f23a30790684340b3eaacb045398"
+    attempts_remaining: 3
+    unlocks: cipher_beta
+
+  - id: cipher_beta
+    name: "The Ledger Sequence"
+    description: >
+      An open ledger rests on the banker's desk. Rows of numbers are crossed out,
+      leaving four visible: 7, 14, 28, ?. The missing value locks a small bronze
+      box mounted to the wall.
+    answer_hash: "7688b6ef52555962d008fff894223582c484517cea7da49ee67800adc7fc8866"
+    attempts_remaining: 3
+    unlocks: cipher_gamma
+
+  - id: cipher_gamma
+    name: "The Clock Constellation"
+    description: >
+      Three clocks hang on the south wall, each frozen at a different time:
+      3:00, 7:00, and 5:00. A small plaque reads: "The sum of the hours,
+      not the minutes, is the key."
+    answer_hash: "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb"
+    attempts_remaining: 3
+    unlocks: vault_door
+
+vault:
+  id: vault_door
+  combination_hash: "392246b8fde36d474c93c6eae8027d6f7cc1bfedf91e19ee169e0ad53e67dafb"
+  state: locked

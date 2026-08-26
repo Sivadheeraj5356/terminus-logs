@@ -1,0 +1,12 @@
+[package]
+name = "hx04"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+hx01 = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+indexmap = { workspace = true }

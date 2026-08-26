@@ -1,0 +1,14 @@
+Waiver registry (signed)
+------------------------
+A waiver applies only when module_path, token text present in this pack, and
+module_batch_id scope all match. Never key waivers on mod_id.
+
+REGISTRY_BEGIN
+module=github.com/redis/go-redis/v9 token=RD-WVR-2025-Q1-REDIS scope=EDGE-GO-MOD-Q1
+module=github.com/lestrrat-go/jwx token=JX-WVR-2025-Q1-JWX scope=EDGE-GO-MOD-Q1
+module=github.com/hashicorp/consul/api token=CS-WVR-STAGING-ONLY scope=EDGE-GO-MOD-Q1-HOLDOUT
+REGISTRY_END
+
+RD-WVR-2025-Q1-REDIS
+JX-WVR-2025-Q1-JWX
+CS-WVR-STAGING-ONLY

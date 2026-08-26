@@ -1,0 +1,5 @@
+#!/bin/sh
+# Launcher for the isoreg monotone regression service. Runs the TypeScript
+# entry point directly through Node's native type-stripping so no separate
+# transpile step or bundle is required.
+exec node --experimental-strip-types /app/src/main.ts "$@"

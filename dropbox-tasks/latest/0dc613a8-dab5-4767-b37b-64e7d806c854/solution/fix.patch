@@ -1,0 +1,401 @@
+--- a/src/rules.c	2026-07-19 00:24:43
++++ b/src/rules.c	2026-07-19 00:24:43
+@@ -1,16 +1,16 @@
+ /* rules.c — the rule engine.
+  *
+- * This is the component to implement. `apply_rule` currently recognises only
+- * the no-op rule and otherwise returns the word unchanged, so most rules pass
+- * their input straight through. Implement the full function set described in
+- * docs/rules.md: the case, edit, insertion/deletion, extraction, replacement,
+- * duplication, swap, character-arithmetic, memory and reject functions, plus
+- * the shared position-argument decoding and the reject/malformed handling that
+- * suppresses a candidate. */
++ * Implements the full function set from docs/rules.md. A candidate lives in a
++ * 256-byte working buffer that the caller has cleared to NUL bytes and seeded
++ * with the word. Functions run left to right, transforming the candidate in
++ * place; length-shrinking functions shift survivors down without clearing the
++ * vacated tail, so `!` / `/` (which scan to the first NUL) can still see it. */
+ #include "rules.h"
+ 
+ #include <string.h>
+ 
++#define BUF CAND_MAX
++
+ int rule_arg_value(unsigned char c) {
+     if (c >= '0' && c <= '9') {
+         return c - '0';
+@@ -21,23 +21,364 @@
+     return -1;
+ }
+ 
++/* Position slot: 'p' resolves to the remembered match position. */
++static int arg_pos(unsigned char c, int pos_mem) {
++    if (c == 'p') {
++        return pos_mem;
++    }
++    return rule_arg_value(c);
++}
++
++static int is_lower(int c) { return c >= 'a' && c <= 'z'; }
++static int is_upper(int c) { return c >= 'A' && c <= 'Z'; }
++static int is_alpha(int c) { return is_lower(c) || is_upper(c); }
++
++static void toggle_at(char *a, int p) { if (is_alpha((unsigned char)a[p])) a[p] ^= 0x20; }
++static void lower_at(char *a, int p)  { if (is_upper((unsigned char)a[p])) a[p] ^= 0x20; }
++static void upper_at(char *a, int p)  { if (is_lower((unsigned char)a[p])) a[p] ^= 0x20; }
++static void swap_at(char *a, int l, int r) { char t = a[r]; a[r] = a[l]; a[l] = t; }
++
++static int op_reverse(char *a, int n) {
++    for (int l = 0; l < n; l++) {
++        int r = n - 1 - l;
++        if (l >= r) break;
++        swap_at(a, l, r);
++    }
++    return n;
++}
++
++static int op_double(char *a, int n) {
++    if (n * 2 >= BUF) return n;
++    memcpy(a + n, a, (size_t)n);
++    return n * 2;
++}
++
++static int op_double_times(char *a, int n, int times) {
++    if ((n * times) + n >= BUF) return n;
++    int orig = n;
++    for (int i = 0; i < times; i++) {
++        memcpy(a + n, a, (size_t)orig);
++        n += orig;
++    }
++    return n;
++}
++
++static int op_reflect(char *a, int n) {
++    if (n * 2 >= BUF) return n;
++    op_double(a, n);
++    op_reverse(a + n, n);
++    return n * 2;
++}
++
++static int op_rotate_left(char *a, int n) {
++    for (int l = 0, r = n - 1; r > 0; r--) swap_at(a, l, r);
++    return n;
++}
++
++static int op_rotate_right(char *a, int n) {
++    for (int l = 0, r = n - 1; l < r; l++) swap_at(a, l, r);
++    return n;
++}
++
++static int op_append(char *a, int n, char c) {
++    if (n + 1 >= BUF) return n;
++    a[n] = c;
++    return n + 1;
++}
++
++static int op_prepend(char *a, int n, char c) {
++    if (n + 1 >= BUF) return n;
++    for (int i = n - 1; i > -1; i--) a[i + 1] = a[i];
++    a[0] = c;
++    return n + 1;
++}
++
++static int op_delete_at(char *a, int n, int p) {
++    if (p >= n) return n;
++    for (int i = p; i < n - 1; i++) a[i] = a[i + 1];
++    return n - 1;
++}
++
++static int op_extract(char *a, int n, int p, int len) {
++    if (p >= n) return n;
++    if (p + len > n) return n;
++    for (int i = 0; i < len; i++) a[i] = a[p + i];
++    return len;
++}
++
++static int op_omit(char *a, int n, int p, int len) {
++    if (p >= n) return n;
++    if (p + len > n) return n;
++    for (int i = p; i < n - len; i++) a[i] = a[i + len];
++    return n - len;
++}
++
++static int op_insert(char *a, int n, int p, char c) {
++    if (p > n) return n;
++    if (n + 1 >= BUF) return n;
++    for (int i = n - 1; i > p - 1; i--) a[i + 1] = a[i];
++    a[p] = c;
++    return n + 1;
++}
++
++static int op_overstrike(char *a, int n, int p, char c) {
++    if (p >= n) return n;
++    a[p] = c;
++    return n;
++}
++
++static int op_truncate(char *a, int n, int p) {
++    if (p >= n) return n;
++    memset(a + p, 0, (size_t)(n - p));
++    return p;
++}
++
++static int op_replace(char *a, int n, char oldc, char newc) {
++    for (int i = 0; i < n; i++) if (a[i] == oldc) a[i] = newc;
++    return n;
++}
++
++static int op_purge(char *a, int n, char c) {
++    int out = 0;
++    for (int i = 0; i < n; i++) {
++        if (a[i] == c) continue;
++        a[out++] = a[i];
++    }
++    return out;
++}
++
++static int op_dupechar_at(char *a, int n, int p, int len) {
++    if (n == 0) return n;
++    if (n + len >= BUF) return n;
++    char c = a[p];
++    for (int i = 0; i < len; i++) n = op_insert(a, n, p, c);
++    return n;
++}
++
++static int op_dupechar_all(char *a, int n) {
++    if (n == 0) return n;
++    if (n + n >= BUF) return n;
++    for (int i = n - 1; i > -1; i--) {
++        int np = i * 2;
++        a[np] = a[i];
++        a[np + 1] = a[i];
++    }
++    return n * 2;
++}
++
++static int op_dupeblock_prepend(char *a, int n, int len) {
++    if (len > n) return n;
++    if (n + len >= BUF) return n;
++    char cs[64] = {0};
++    memcpy(cs, a, (size_t)len);
++    for (int i = 0; i < len; i++) n = op_insert(a, n, i, cs[i]);
++    return n;
++}
++
++static int op_dupeblock_append(char *a, int n, int len) {
++    if (len > n) return n;
++    if (n + len >= BUF) return n;
++    int p = n - len;
++    for (int i = 0; i < len; i++) n = op_append(a, n, a[p + i]);
++    return n;
++}
++
++static int op_switch_check(char *a, int n, int p, int q) {
++    if (p >= n) return n;
++    if (q >= n) return n;
++    swap_at(a, p, q);
++    return n;
++}
++
++static int op_toggle_sep(char *a, int n, char c, int nth) {
++    int toggle_next = 0, occ = 0;
++    for (int p = 0; p < n; p++) {
++        if (a[p] == c) {
++            if (occ == nth) toggle_next = 1;
++            else occ++;
++            continue;
++        }
++        if (toggle_next) { toggle_at(a, p); break; }
++    }
++    return n;
++}
++
++static int op_title_sep(char *a, int n, char c) {
++    int up_next = 1;
++    for (int p = 0; p < n; p++) {
++        if (a[p] == c) { up_next = 1; continue; }
++        if (up_next) { up_next = 0; upper_at(a, p); }
++        else lower_at(a, p);
++    }
++    if (n) upper_at(a, 0);
++    return n;
++}
++
++static int op_insert_multi(char *a, int n, int ap, char *m, int ml, int mp, int cpy) {
++    if (n + cpy > BUF) return RULE_SKIP_REJECT;
++    if (ap > n) return RULE_SKIP_REJECT;
++    if (mp > ml) return RULE_SKIP_REJECT;
++    if (mp + cpy > ml) return RULE_SKIP_REJECT;
++    if (cpy < 1) return RULE_SKIP_SYNTAX;
++    memmove(m, m + mp, (size_t)(ml - mp));
++    memcpy(m + cpy, a + ap, (size_t)(n - ap));
++    memcpy(a + ap, m, (size_t)(n - ap + cpy));
++    return n + cpy;
++}
++
++/* read the next byte of the (already hex-decoded) rule; -1 code if past end */
++#define NEXT(rp, rlen) do { if (++(rp) >= (rlen)) return RULE_SKIP_SYNTAX; } while (0)
++#define NEXTPOS(rp, rlen, dst, mem) do { \
++        if (++(rp) >= (rlen)) return RULE_SKIP_SYNTAX; \
++        (dst) = arg_pos((unsigned char)rn[rp], (mem)); \
++        if ((dst) == -1) return RULE_SKIP_SYNTAX; \
++    } while (0)
++
+ int apply_rule(const char *rule, int rule_len,
+                const char *in, int in_len, char *out) {
+-    /* A candidate begins as a copy of the input word. */
+-    int out_len = in_len;
+-    memcpy(out, in, (size_t)out_len);
++    char rn[BUF];
++    int rlen = 0;
+ 
+-    for (int rp = 0; rp < rule_len; rp++) {
+-        char op = rule[rp];
++    /* decode \xHH escapes into rn */
++    for (int i = 0; i < rule_len && rlen < BUF; i++) {
++        if (i + 4 <= rule_len && rule[i] == '\\' && rule[i + 1] == 'x') {
++            unsigned char h = (unsigned char)rule[i + 2], l = (unsigned char)rule[i + 3];
++            int hi = -1, lo = -1;
++            if (h >= '0' && h <= '9') hi = h - '0';
++            else if (h >= 'a' && h <= 'f') hi = h - 'a' + 10;
++            else if (h >= 'A' && h <= 'F') hi = h - 'A' + 10;
++            if (l >= '0' && l <= '9') lo = l - '0';
++            else if (l >= 'a' && l <= 'f') lo = l - 'a' + 10;
++            else if (l >= 'A' && l <= 'F') lo = l - 'A' + 10;
++            if (hi >= 0 && lo >= 0) {
++                rn[rlen++] = (char)((hi << 4) | lo);
++                i += 3;
++                continue;
++            }
++        }
++        rn[rlen++] = rule[i];
++    }
++
++    char mem[BUF];
++    memset(mem, 0, sizeof(mem));
++    int mem_len = in_len;
++    int pos_mem = -1;
++
++    int n = in_len;
++    memcpy(out, in, (size_t)n);
++
++    for (int rp = 0; rp < rlen; rp++) {
++        int p, q, len;
++        char op = rn[rp];
+         switch (op) {
+-            case ':': /* no-op */
++            case ' ': case ':': break;
++            case 'l': for (int i = 0; i < n; i++) lower_at(out, i); break;
++            case 'u': for (int i = 0; i < n; i++) upper_at(out, i); break;
++            case 'c': for (int i = 0; i < n; i++) lower_at(out, i); if (n) upper_at(out, 0); break;
++            case 'C': for (int i = 0; i < n; i++) upper_at(out, i); if (n) lower_at(out, 0); break;
++            case 't': for (int i = 0; i < n; i++) toggle_at(out, i); break;
++            case 'T': NEXTPOS(rp, rlen, p, pos_mem); if (p < n) toggle_at(out, p); break;
++            case '3':
++                NEXTPOS(rp, rlen, p, pos_mem); NEXT(rp, rlen);
++                n = op_toggle_sep(out, n, rn[rp], p);
+                 break;
+-            default:
+-                /* TODO: implement the remaining rule functions. Until then an
+-                 * unrecognised function leaves the candidate unchanged. */
++            case 'r': n = op_reverse(out, n); break;
++            case 'd': n = op_double(out, n); break;
++            case 'p': NEXTPOS(rp, rlen, len, pos_mem); n = op_double_times(out, n, len); break;
++            case 'f': n = op_reflect(out, n); break;
++            case '{': op_rotate_left(out, n); break;
++            case '}': op_rotate_right(out, n); break;
++            case '$': NEXT(rp, rlen); n = op_append(out, n, rn[rp]); break;
++            case '^': NEXT(rp, rlen); n = op_prepend(out, n, rn[rp]); break;
++            case '[': n = op_delete_at(out, n, 0); break;
++            case ']': n = op_delete_at(out, n, n ? n - 1 : 0); break;
++            case 'D': NEXTPOS(rp, rlen, p, pos_mem); n = op_delete_at(out, n, p); break;
++            case 'x':
++                NEXTPOS(rp, rlen, p, pos_mem); NEXTPOS(rp, rlen, len, pos_mem);
++                n = op_extract(out, n, p, len);
+                 break;
++            case 'O':
++                NEXTPOS(rp, rlen, p, pos_mem); NEXTPOS(rp, rlen, len, pos_mem);
++                n = op_omit(out, n, p, len);
++                break;
++            case 'i': NEXTPOS(rp, rlen, p, pos_mem); NEXT(rp, rlen); n = op_insert(out, n, p, rn[rp]); break;
++            case 'o': NEXTPOS(rp, rlen, p, pos_mem); NEXT(rp, rlen); n = op_overstrike(out, n, p, rn[rp]); break;
++            case '\'': NEXTPOS(rp, rlen, p, pos_mem); n = op_truncate(out, n, p); break;
++            case 's': NEXT(rp, rlen); NEXT(rp, rlen); n = op_replace(out, n, rn[rp - 1], rn[rp]); break;
++            case '@': NEXT(rp, rlen); n = op_purge(out, n, rn[rp]); break;
++            case 'z': NEXTPOS(rp, rlen, len, pos_mem); n = op_dupechar_at(out, n, 0, len); break;
++            case 'Z': NEXTPOS(rp, rlen, len, pos_mem); n = op_dupechar_at(out, n, n - 1, len); break;
++            case 'q': n = op_dupechar_all(out, n); break;
++            case 'y': NEXTPOS(rp, rlen, len, pos_mem); n = op_dupeblock_prepend(out, n, len); break;
++            case 'Y': NEXTPOS(rp, rlen, len, pos_mem); n = op_dupeblock_append(out, n, len); break;
++            case 'k': if (n >= 2) swap_at(out, 0, 1); break;
++            case 'K': if (n >= 2) swap_at(out, n - 1, n - 2); break;
++            case '*': NEXTPOS(rp, rlen, p, pos_mem); NEXTPOS(rp, rlen, q, pos_mem); n = op_switch_check(out, n, p, q); break;
++            case 'L': NEXTPOS(rp, rlen, p, pos_mem); if (p < n) out[p] = (char)(((unsigned char)out[p]) << 1); break;
++            case 'R': NEXTPOS(rp, rlen, p, pos_mem); if (p < n) out[p] = (char)(((signed char)out[p]) >> 1); break;
++            case '+': NEXTPOS(rp, rlen, p, pos_mem); if (p < n) out[p] = (char)(out[p] + 1); break;
++            case '-': NEXTPOS(rp, rlen, p, pos_mem); if (p < n) out[p] = (char)(out[p] - 1); break;
++            case '.': NEXTPOS(rp, rlen, p, pos_mem); if (p >= 0 && p + 1 < n) op_overstrike(out, n, p, out[p + 1]); break;
++            case ',': NEXTPOS(rp, rlen, p, pos_mem); if (p >= 1 && p < n) op_overstrike(out, n, p, out[p - 1]); break;
++            case 'e': NEXT(rp, rlen); n = op_title_sep(out, n, rn[rp]); break;
++            case 'E': n = op_title_sep(out, n, ' '); break;
++            case 'M': memcpy(mem, out, (size_t)n); mem_len = n; break;
++            case '4':
++                if (mem_len < 1) return RULE_SKIP_REJECT;
++                if (n + mem_len >= BUF) return RULE_SKIP_REJECT;
++                memcpy(out + n, mem, (size_t)mem_len); n += mem_len;
++                break;
++            case '6':
++                if (mem_len < 1) return RULE_SKIP_REJECT;
++                if (mem_len + n >= BUF) return RULE_SKIP_REJECT;
++                memcpy(mem + mem_len, out, (size_t)n); n += mem_len; memcpy(out, mem, (size_t)n);
++                break;
++            case 'X': {
++                if (mem_len < 1) return RULE_SKIP_REJECT;
++                int i0, m0, k0;
++                NEXTPOS(rp, rlen, i0, pos_mem); NEXTPOS(rp, rlen, m0, pos_mem); NEXTPOS(rp, rlen, k0, pos_mem);
++                n = op_insert_multi(out, n, k0, mem, mem_len, i0, m0);
++                if (n < 1) return n;
++                break;
++            }
++            case '<': NEXTPOS(rp, rlen, p, pos_mem); if (n > p) return RULE_SKIP_REJECT; break;
++            case '>': NEXTPOS(rp, rlen, p, pos_mem); if (n < p) return RULE_SKIP_REJECT; break;
++            case '_': NEXTPOS(rp, rlen, p, pos_mem); if (n != p) return RULE_SKIP_REJECT; break;
++            case '!': NEXT(rp, rlen); if (strchr(out, rn[rp]) != NULL) return RULE_SKIP_REJECT; break;
++            case '/': {
++                NEXT(rp, rlen);
++                char *m = strchr(out, rn[rp]);
++                if (m != NULL) pos_mem = (int)(m - out);
++                else return RULE_SKIP_REJECT;
++                break;
++            }
++            case '(': NEXT(rp, rlen); if (out[0] != rn[rp]) return RULE_SKIP_REJECT; break;
++            case ')': NEXT(rp, rlen); if (out[n - 1] != rn[rp]) return RULE_SKIP_REJECT; break;
++            case '=':
++                NEXTPOS(rp, rlen, p, pos_mem);
++                if (p + 1 > n) return RULE_SKIP_REJECT;
++                NEXT(rp, rlen);
++                if (out[p] != rn[rp]) return RULE_SKIP_REJECT;
++                break;
++            case '%': {
++                NEXTPOS(rp, rlen, p, pos_mem);
++                if (p + 1 > n) return RULE_SKIP_REJECT;
++                NEXT(rp, rlen);
++                int cnt = 0;
++                for (int c = 0; c < n && cnt < p; c++) {
++                    if (out[c] == rn[rp]) { cnt++; pos_mem = c; }
++                }
++                if (cnt < p) return RULE_SKIP_REJECT;
++                break;
++            }
++            case 'Q':
++                if (n == mem_len && memcmp(out, mem, (size_t)n) == 0) return RULE_SKIP_REJECT;
++                break;
++            default:
++                return RULE_SKIP_SYNTAX;
+         }
+     }
+ 
+-    return out_len;
++    memset(out + n, 0, (size_t)(BUF - n));
++    return n;
+ }

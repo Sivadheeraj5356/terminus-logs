@@ -1,0 +1,2 @@
+# Observation scenario tags per site profile (contract order).
+tags = ["pin_base", "map_row", "scope_a", "scope_b", "probe_h", "probe_w", "cross_row"]

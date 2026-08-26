@@ -1,0 +1,6 @@
+{"seq":1,"event":"rotate","partition_id":"part-0001","cursor_start":"s=0;b=boot-a","cursor_end":"s=8;b=boot-a","prev_cursor":"","action":"export"}
+{"seq":2,"event":"rotate","partition_id":"part-0002","cursor_start":"s=9;b=boot-a","cursor_end":"s=17;b=boot-a","prev_cursor":"s=8;b=boot-a","action":"export"}
+{"seq":3,"event":"reload","service_generation":"gen-42","reload_id":"reload-1"}
+{"seq":4,"event":"rotate","partition_id":"part-0003","cursor_start":"s=18;b=boot-b","cursor_end":"s=25;b=boot-b","prev_cursor":"s=17;b=boot-a","action":"omit","omission_reason":"rollback-superseded","rollback_window":"2026-07-14T02Z"}
+{"seq":5,"event":"rollback","replaces_partition_id":"part-0003","reason":"audit-correction"}
+{"seq":6,"event":"rotate","partition_id":"part-0004","cursor_start":"s=18;b=boot-b","cursor_end":"s=32;b=boot-b","prev_cursor":"s=17;b=boot-a","action":"export"}

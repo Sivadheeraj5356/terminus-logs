@@ -1,0 +1,22 @@
+{
+  "smoke": {
+    "lo": -0.08,
+    "hi": 0.08,
+    "max_tightness": 0.08
+  },
+  "heldout_core": {
+    "lo": -0.1,
+    "hi": 0.1,
+    "max_tightness": 0.1
+  },
+  "heldout_edge": {
+    "lo": -0.1,
+    "hi": 0.1,
+    "max_tightness": 0.1
+  },
+  "heldout_cascade": {
+    "lo": -0.09,
+    "hi": 0.09,
+    "max_tightness": 0.09
+  }
+}

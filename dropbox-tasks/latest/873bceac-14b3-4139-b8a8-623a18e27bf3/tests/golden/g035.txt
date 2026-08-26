@@ -1,0 +1,15 @@
+== Vault of Echoes [crystal] ==
+Omen: The maze breathes.
+Light: 9.0 lumens
+Relics:
+  - Crystal Eye <legendary> 90g
+  - Resonant Bell <rare> 350g
+Freshest: Crystal Eye @ 06:10 KST
+Exits:
+  - down: Whisperbone Catacomb (torch 1.0)
+Torch: 8.0 units
+Inventory: (empty)
+Route: down east north (torch 1.2)
+---ACTIONS---
+take crystal-eye
+go down

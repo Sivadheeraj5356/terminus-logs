@@ -1,0 +1,14 @@
+{
+  "arm": "sparse",
+  "phase": "normal",
+  "row_cap": 6,
+  "group_cap": 4,
+  "cells": [
+    {"id": "s01", "kind": "host", "match": "one.lab", "target": "be_alpha", "want": "route"},
+    {"id": "s02", "kind": "host", "match": "two.lab", "target": "be_alpha", "want": "route"},
+    {"id": "s03", "kind": "path", "match": "/only", "target": "be_beta", "want": "route"},
+    {"id": "s04", "kind": "path", "match": "/also", "target": "be_beta", "want": "route"},
+    {"id": "s05", "kind": "host", "match": "three.lab", "target": "be_gamma", "want": "route"},
+    {"id": "s06", "kind": "path", "match": "/only/sub", "target": "be_apex", "want": "route"}
+  ]
+}

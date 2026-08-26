@@ -1,0 +1,4 @@
+group_name,iana_codepoint,ban_reason
+ffdhe1024,0x0099,sub_baseline_modulus
+sect283k1,0x0009,binary_curve_disallowed
+sect283r1,0x000a,binary_curve_disallowed

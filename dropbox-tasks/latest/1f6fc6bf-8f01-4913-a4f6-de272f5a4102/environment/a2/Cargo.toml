@@ -1,0 +1,9 @@
+[package]
+name = "prlg_a2"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+hex = { workspace = true }
+prlg_k4 = { path = "../k4" }
+sha2 = { workspace = true }

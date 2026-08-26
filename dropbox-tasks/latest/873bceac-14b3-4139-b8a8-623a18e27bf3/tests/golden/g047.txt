@@ -1,0 +1,14 @@
+== Petrified Garden [fungal] ==
+Omen: The maze breathes.
+Light: 9.5 lumens
+Relics:
+  - Spore Lantern <uncommon> 70g (sealed)
+  - Petrified Rose <common> 25g
+Freshest: Petrified Rose @ 01:30 KST
+Exits:
+  - up: sealed gate (torch 3.0)
+Torch: 5.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take petrified-rose

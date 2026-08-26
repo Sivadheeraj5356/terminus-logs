@@ -1,0 +1,16 @@
+{
+  "bookings": [
+    {
+      "pool": "hold_pool",
+      "decision_id": "H1",
+      "start": 0,
+      "end": 30
+    },
+    {
+      "pool": "hold_pool",
+      "decision_id": "H2",
+      "start": 20,
+      "end": 45
+    }
+  ]
+}

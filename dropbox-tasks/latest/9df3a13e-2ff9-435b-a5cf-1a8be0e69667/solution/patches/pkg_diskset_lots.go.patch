@@ -1,0 +1,11 @@
+--- a/pkg/diskset/lots.go
++++ b/pkg/diskset/lots.go
+@@ -32,7 +32,7 @@
+ 
+ func Normalize(lots []Lot) []Lot {
+ 	out := append([]Lot(nil), lots...)
+-	sort.Slice(out, func(i, j int) bool { return out[i].ID > out[j].ID })
++	sort.Slice(out, func(i, j int) bool { return out[i].ID < out[j].ID })
+ 	for i := range out {
+ 		lanes := append([]string(nil), out[i].Lanes...)
+ 		sort.Strings(lanes)

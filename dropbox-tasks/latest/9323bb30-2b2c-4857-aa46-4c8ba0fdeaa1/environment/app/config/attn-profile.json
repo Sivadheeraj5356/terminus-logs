@@ -1,0 +1,9 @@
+{
+  "br_cap": 16,
+  "bc_cap": 16,
+  "head_dim": 64,
+  "block_tokens": 16,
+  "compact_threshold": 0.25,
+  "n_heads": 2,
+  "spine_salt": 2902445441
+}

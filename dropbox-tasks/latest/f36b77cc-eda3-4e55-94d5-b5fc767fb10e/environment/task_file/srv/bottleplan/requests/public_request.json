@@ -1,0 +1,29 @@
+{
+  "request_id": "public-multi-platform-promotion",
+  "target_platforms": [
+    "darwin_arm64",
+    "darwin_x86_64",
+    "linux_x86_64"
+  ],
+  "root_formulae": [
+    {
+      "name": "warpctl",
+      "version_range": ">=2.0.0 <3.0.0",
+      "required_features": [
+        "cli",
+        "tls"
+      ],
+      "allow_keg_only": false
+    },
+    {
+      "name": "meshsync",
+      "version_range": ">=1.0.0 <2.0.0",
+      "required_features": [],
+      "allow_keg_only": false
+    }
+  ],
+  "allow_prerelease": false,
+  "max_new_digests": 16,
+  "max_new_bytes": 420,
+  "relocation_policy": "strict"
+}

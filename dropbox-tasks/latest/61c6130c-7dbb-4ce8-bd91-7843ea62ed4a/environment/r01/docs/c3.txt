@@ -1,0 +1,3 @@
+Dependency evidence notes
+
+p1.json holds the compact CycloneDX-style component slice under a components array. p2.json holds npm alias mappings. Aliases point at the same canonical dependency; they are not separate model runs.

@@ -1,0 +1,4 @@
+# partition_id=part-0004 cursor_start=s=18;b=boot-b cursor_end=s=32;b=boot-b boot_id=boot-b
+2026-07-14T03:01:09Z rotlogd[348]: restored beta tail after rollback
+2026-07-14T03:11:55Z rotlogd[348]: accepted replacement gamma-prime
+2026-07-14T03:29:40Z rotlogd[348]: checkpoint cursor s=32;b=boot-b

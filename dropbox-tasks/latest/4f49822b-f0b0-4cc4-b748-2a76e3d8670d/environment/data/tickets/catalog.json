@@ -1,0 +1,52 @@
+{
+  "tickets": [
+    {
+      "ticket_id": "root-alpha",
+      "parent_id": "",
+      "subject_id": "acct:alpha",
+      "scope_mask": 7
+    },
+    {
+      "ticket_id": "child-beta",
+      "parent_id": "root-alpha",
+      "subject_id": "acct:alpha",
+      "scope_mask": 3
+    },
+    {
+      "ticket_id": "grand-beta",
+      "parent_id": "child-beta",
+      "subject_id": "acct:alpha",
+      "scope_mask": 6
+    },
+    {
+      "ticket_id": "root-gamma",
+      "parent_id": "",
+      "subject_id": "acct:gamma",
+      "scope_mask": 7
+    },
+    {
+      "ticket_id": "child-gamma",
+      "parent_id": "root-gamma",
+      "subject_id": "acct:gamma",
+      "scope_mask": 6
+    },
+    {
+      "ticket_id": "root-delta",
+      "parent_id": "",
+      "subject_id": "acct:delta",
+      "scope_mask": 7
+    },
+    {
+      "ticket_id": "child-delta",
+      "parent_id": "root-delta",
+      "subject_id": "acct:delta",
+      "scope_mask": 5
+    },
+    {
+      "ticket_id": "root-epsilon",
+      "parent_id": "",
+      "subject_id": "acct:epsilon",
+      "scope_mask": 1
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "alice@corp.example.com": {
+    "expiry": 999999
+  },
+  "bob@corp.example.com": {
+    "expiry": 999999
+  },
+  "carol@corp.example.com": {
+    "expiry": 999999
+  },
+  "dave@corp.example.com": {
+    "expiry": 999999
+  },
+  "eve@corp.example.com": {
+    "expiry": 999999
+  },
+  "frank@corp.example.com": {
+    "expiry": 999999
+  },
+  "grace@corp.example.com": {
+    "expiry": 999999
+  },
+  "henry@corp.example.com": {
+    "expiry": 999999
+  },
+  "ian@corp.example.com": {
+    "expiry": 999999
+  },
+  "kate@corp.example.com": {
+    "expiry": 999999
+  },
+  "leo@corp.example.com": {
+    "expiry": 999999
+  }
+}

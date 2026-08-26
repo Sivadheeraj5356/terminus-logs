@@ -1,0 +1,9 @@
+{
+  "scenario": "lambda_requires_order",
+  "trigger": "acme-cache.service",
+  "units_touched": [
+    "acme-worker.service",
+    "acme-cache.service",
+    "acme-collector.service"
+  ]
+}

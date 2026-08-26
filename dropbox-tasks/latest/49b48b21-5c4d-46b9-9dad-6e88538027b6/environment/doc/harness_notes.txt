@@ -1,0 +1,4 @@
+Verifier reloads /app/cfg/lineage.toml on each frontier.sh invocation.
+Field semantics: /app/doc/frontier_fields.txt
+Paths and fixture roots: /app/doc/staleness_contract.txt
+Runtime probes may add /app/data/graphs/probe.json, /app/data/ledgers/probe.jsonl, and /app/data/consumers/probe.json before a rebuild.

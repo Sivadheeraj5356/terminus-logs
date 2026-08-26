@@ -1,0 +1,342 @@
+--- environment/gp/v6/LpQ2.java
++++ environment/gp/v6/LpQ2.java
+@@ -3,13 +3,338 @@
+ import cx.LimView;
+ import cx.NamedSlot;
+ import cx.SchedOut;
++import cx.SchedRow;
+ import cx.SoftView;
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.Comparator;
++import java.util.HashMap;
++import java.util.LinkedHashMap;
+ import java.util.List;
++import java.util.Map;
+ 
+ public final class LpQ2 {
+     private LpQ2() {}
+ 
++    @SuppressWarnings("unchecked")
+     public static SchedOut lp_q2(List<NamedSlot> slots, LimView lims, SoftView softs) {
+-        return LpQ2Greedy.amp(slots, lims, softs);
++        Map<String, Object> bag = new LinkedHashMap<>();
++        String mid = "unk";
++        for (NamedSlot s : slots) {
++            if ("__mid__".equals(s.name)) {
++                mid = String.valueOf(s.val);
++            } else {
++                bag.put(s.name, s.val);
++            }
++        }
++        Map<String, Object> graph = bag.get("graph") instanceof Map<?, ?>
++                ? (Map<String, Object>) bag.get("graph")
++                : Map.of();
++        List<Object> itemsRaw = bag.get("items") instanceof List<?>
++                ? (List<Object>) bag.get("items")
++                : List.of();
++        List<Pulse> pulses = new ArrayList<>();
++        for (Object o : itemsRaw) {
++            if (!(o instanceof Map<?, ?>)) {
++                continue;
++            }
++            Map<String, Object> m = (Map<String, Object>) o;
++            List<String> srcs = new ArrayList<>();
++            Object sObj = m.get("s");
++            if (sObj instanceof List<?>) {
++                for (Object x : (List<Object>) sObj) {
++                    srcs.add(String.valueOf(x));
++                }
++            }
++            Collections.sort(srcs);
++            pulses.add(new Pulse(
++                    asInt(m.get("i")),
++                    asDouble(m.get("a")),
++                    asInt(m.get("c")),
++                    srcs));
++        }
++        pulses.sort(Comparator.comparingInt(p -> p.idx));
++
++        int n = pulses.size();
++        int budget = (int) Math.floor(lims.maxCost - lims.minLeft);
++        Best best = new Best();
++        int limit = 1 << n;
++        for (int mask = 0; mask < limit; mask++) {
++            int cost = 0;
++            boolean okCost = true;
++            for (int i = 0; i < n; i++) {
++                if (((mask >> i) & 1) == 1) {
++                    cost += pulses.get(i).cost;
++                    if (cost > budget) {
++                        okCost = false;
++                        break;
++                    }
++                }
++            }
++            if (!okCost) {
++                continue;
++            }
++            List<Cand> chosen = new ArrayList<>();
++            double total = 0.0;
++            boolean ok = true;
++            for (int i = 0; i < n; i++) {
++                if (((mask >> i) & 1) == 0) {
++                    continue;
++                }
++                Pulse p = pulses.get(i);
++                Cand pick = null;
++                for (String src : p.srcs) {
++                    PathEval ev = evalPath(graph, src, p.amp, lims, softs);
++                    if (ev == null) {
++                        continue;
++                    }
++                    Cand c = new Cand(p.idx, src, ev.press, ev.leak);
++                    if (pick == null || c.src.compareTo(pick.src) < 0) {
++                        pick = c;
++                    }
++                }
++                if (pick == null) {
++                    ok = false;
++                    break;
++                }
++                chosen.add(pick);
++                total += pick.press;
++            }
++            if (!ok) {
++                continue;
++            }
++            chosen.sort(Comparator.comparingInt((Cand c) -> c.idx).thenComparing(c -> c.src));
++            double left = lims.maxCost - cost;
++            best.consider(total, chosen, left);
++        }
++
++        SchedOut out = new SchedOut();
++        out.totalPress = best.total;
++        for (Cand c : best.chosen) {
++            out.rows.add(new SchedRow(
++                    mid,
++                    c.idx,
++                    c.src,
++                    round(c.press, softs.digits),
++                    round(best.left, softs.digits),
++                    round(c.leak, softs.digits)));
++        }
++        return out;
++    }
++
++    private static PathEval evalPath(
++            Map<String, Object> graph,
++            String src,
++            double amp,
++            LimView lims,
++            SoftView softs) {
++        if (amp > lims.maxAmp) {
++            return null;
++        }
++        List<String> path = shortestPath(graph, src);
++        if (path == null || path.isEmpty()) {
++            return null;
++        }
++        double residual = amp;
++        for (int i = 0; i < path.size(); i++) {
++            String id = path.get(i);
++            Map<String, Object> node = asNode(graph.get(id));
++            if (node == null) {
++                return null;
++            }
++            String t = String.valueOf(node.get("t"));
++            if ("M".equals(t)) {
++                double k = node.containsKey("k") ? asDouble(node.get("k")) : 0.0;
++                double factor = softs.softFloor * Math.max(0.05, 1.0 - k);
++                residual *= factor;
++            }
++        }
++        double leak = softs.egressCap - residual;
++        if (!(leak > 0.0)) {
++            return null;
++        }
++        return new PathEval(residual, leak);
++    }
++
++    @SuppressWarnings("unchecked")
++    private static List<String> shortestPath(Map<String, Object> graph, String src) {
++        if (!graph.containsKey(src)) {
++            return null;
++        }
++        Map<String, String> prev = new HashMap<>();
++        Map<String, Integer> dist = new HashMap<>();
++        java.util.ArrayDeque<String> q = new java.util.ArrayDeque<>();
++        dist.put(src, 0);
++        q.add(src);
++        String bestX = null;
++        int bestDist = Integer.MAX_VALUE;
++        while (!q.isEmpty()) {
++            String cur = q.removeFirst();
++            int d = dist.getOrDefault(cur, Integer.MAX_VALUE);
++            Map<String, Object> node = asNode(graph.get(cur));
++            if (node == null) {
++                continue;
++            }
++            if ("X".equals(String.valueOf(node.get("t")))) {
++                if (d < bestDist) {
++                    bestDist = d;
++                    bestX = cur;
++                }
++                continue;
++            }
++            if (d >= bestDist) {
++                continue;
++            }
++            List<String> nbrs = new ArrayList<>();
++            Object e = node.get("e");
++            if (e instanceof List<?>) {
++                for (Object x : (List<Object>) e) {
++                    nbrs.add(String.valueOf(x));
++                }
++            }
++            // undirected reverse edges; preserve graph-key presentation order
++            for (Map.Entry<String, Object> en : graph.entrySet()) {
++                Map<String, Object> other = asNode(en.getValue());
++                if (other == null) {
++                    continue;
++                }
++                Object oe = other.get("e");
++                if (oe instanceof List<?>) {
++                    for (Object x : (List<Object>) oe) {
++                        if (cur.equals(String.valueOf(x)) && !nbrs.contains(en.getKey())) {
++                            nbrs.add(en.getKey());
++                        }
++                    }
++                }
++            }
++            for (String nb : nbrs) {
++                if (dist.containsKey(nb)) {
++                    continue;
++                }
++                dist.put(nb, d + 1);
++                prev.put(nb, cur);
++                q.add(nb);
++            }
++        }
++        if (bestX == null) {
++            return null;
++        }
++        List<String> path = new ArrayList<>();
++        String cur = bestX;
++        path.add(cur);
++        while (!cur.equals(src)) {
++            cur = prev.get(cur);
++            if (cur == null) {
++                return null;
++            }
++            path.add(cur);
++        }
++        Collections.reverse(path);
++        return path;
++    }
++
++    @SuppressWarnings("unchecked")
++    private static Map<String, Object> asNode(Object o) {
++        if (o instanceof Map<?, ?>) {
++            return (Map<String, Object>) o;
++        }
++        return null;
++    }
++
++    private static int asInt(Object o) {
++        if (o instanceof Number n) {
++            return n.intValue();
++        }
++        return 0;
++    }
++
++    private static double asDouble(Object o) {
++        if (o instanceof Number n) {
++            return n.doubleValue();
++        }
++        return 0.0;
++    }
++
++    private static double round(double v, int digits) {
++        double s = Math.pow(10, digits);
++        return Math.round(v * s) / s;
++    }
++
++    private static final class Pulse {
++        final int idx;
++        final double amp;
++        final int cost;
++        final List<String> srcs;
++
++        Pulse(int idx, double amp, int cost, List<String> srcs) {
++            this.idx = idx;
++            this.amp = amp;
++            this.cost = cost;
++            this.srcs = srcs;
++        }
++    }
++
++    private static final class Cand {
++        final int idx;
++        final String src;
++        final double press;
++        final double leak;
++
++        Cand(int idx, String src, double press, double leak) {
++            this.idx = idx;
++            this.src = src;
++            this.press = press;
++            this.leak = leak;
++        }
++    }
++
++    private static final class PathEval {
++        final double press;
++        final double leak;
++
++        PathEval(double press, double leak) {
++            this.press = press;
++            this.leak = leak;
++        }
++    }
++
++    private static final class Best {
++        double total = Double.NEGATIVE_INFINITY;
++        double left = 0.0;
++        List<Cand> chosen = List.of();
++
++        void consider(double totalPress, List<Cand> chosen, double left) {
++            if (totalPress > total + 1e-12) {
++                accept(totalPress, chosen, left);
++                return;
++            }
++            if (Math.abs(totalPress - total) <= 1e-12) {
++                if (lexLess(chosen, this.chosen)) {
++                    accept(totalPress, chosen, left);
++                }
++            }
++        }
++
++        private void accept(double totalPress, List<Cand> chosen, double left) {
++            this.total = totalPress;
++            this.left = left;
++            this.chosen = new ArrayList<>(chosen);
++        }
++
++        private static boolean lexLess(List<Cand> a, List<Cand> b) {
++            int n = Math.min(a.size(), b.size());
++            for (int i = 0; i < n; i++) {
++                Cand x = a.get(i);
++                Cand y = b.get(i);
++                if (x.idx != y.idx) {
++                    return x.idx < y.idx;
++                }
++                int c = x.src.compareTo(y.src);
++                if (c != 0) {
++                    return c < 0;
++                }
++            }
++            return a.size() < b.size();
++        }
+     }
+ }

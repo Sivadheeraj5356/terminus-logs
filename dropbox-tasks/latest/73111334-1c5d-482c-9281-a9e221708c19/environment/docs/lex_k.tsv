@@ -1,0 +1,14 @@
+token	meaning
+CHUNK_BAND	preview banner token
+FOOTPRINT_BAND	peak byte band label
+TICK_DELIM	:
+PLANE_TRACE	per-tick plane replay token
+CADENCE_TRACE_V3	v3 cadence provenance token
+POOL_TRACE	v3 observer pool provenance token
+MERGE_HANDLE	shared pool handle for a canonical ally group
+GRID_WIDTH	scenario column count for slot index mapping
+DECAY_PHASE	mode phase offset for cadence gating
+RECOVERY_EPOCH	integer epoch counter file at state/recovery_epoch
+DECAY_TRACE_TAIL	ledger retains last 8 fade-sum values
+CADENCE_TRACE_TAIL	ledger retains last 12 cadence entries
+RESIDENT_TRACE_TAIL	ledger retains last 12 resident entries

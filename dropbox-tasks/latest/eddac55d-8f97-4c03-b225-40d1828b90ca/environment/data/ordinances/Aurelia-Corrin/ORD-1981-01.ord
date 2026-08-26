@@ -1,0 +1,9 @@
+ordinance: ORD-1981-01
+jurisdiction: Aurelia-Corrin
+enacted: 1981-02-09
+effective: 1981-03-29T00:00:00 universal
+standard-offset: +08:00:00
+standard-label: numeric
+observance:
+  begin: Mar lastSun 00:00:00 universal save +01:00:00 label numeric
+  end: Sep lastSun 00:00:00 universal

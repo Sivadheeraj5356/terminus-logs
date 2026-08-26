@@ -1,0 +1,16 @@
+[
+  {
+    "manifest_id": "c1-alpha",
+    "name": "web-front",
+    "namespace": "ops",
+    "labels": {"app": "front", "tier": "a"},
+    "annotations": {}
+  },
+  {
+    "manifest_id": "c1-beta",
+    "name": "web-back",
+    "namespace": "ops",
+    "labels": {"app": "back", "tier": "b"},
+    "annotations": {}
+  }
+]

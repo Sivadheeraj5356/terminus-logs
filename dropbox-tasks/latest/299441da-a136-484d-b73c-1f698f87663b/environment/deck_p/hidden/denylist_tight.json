@@ -1,0 +1,8 @@
+{
+  "blocked_keys": [
+    "arg_a",
+    "arg_b",
+    "decoy_x"
+  ],
+  "required_width": 41
+}

@@ -1,0 +1,76 @@
+Overlay patch closure for /app/output/closure_report.json.
+
+Rebuild entry points: /app/scripts/compile_report.sh and /app/launcher/cl_publish.
+
+Assembly package root: /app/cmd/ovpub and /app/internal
+
+Manifest source: /app/data/tenant_registry.json
+Runtime source: /app/cfg/runtime.toml
+Schema mark stub: /app/stubs/revision_stamp.txt
+
+Do not edit shipped fragment bytes under /app/data/seeds/, /app/data/veils/, or /app/data/amends/.
+
+Field names and per-tenant output semantics: /app/doc/export_fields.txt
+Digest row key order and join wire: /app/doc/digest_wire.txt
+Fragment load behavior: /app/doc/merge_contract.txt (scalar coercion section)
+
+Rebuild probes may append manifest tenants temporarily; restore shipped fixtures afterward.
+
+--- Per-tenant assembly order ---
+
+1. Load the base fragment from the row base path.
+2. When overlay is present, fuse the overlay fragment onto the base using the row list_mode (runtime default when omitted).
+3. Capture the pre-drift snapshot digest on this fused map exactly as it sits after overlay fuse: no patch layers yet and no alias materialization.
+4. Apply patch layers in this order: every file path listed in patches in array order, then the inline tenant_patches object as the final layer.
+5. Materialize alias references to a fixpoint (see below).
+6. Compute effective_digest_hex on the materialized map and set overlay_drifted from the full pre-drift comparison.
+
+Manifest rows use list_mode, patches, and tenant_patches under those exact keys. Normalized internal rows must preserve those names. run_patch_stack reads patches and tenant_patches from the row it is given, including raw manifest rows that never passed through rename helpers.
+
+--- Digest contract (effective and pre-drift) ---
+
+Both effective_digest_hex and the pre-drift snapshot use the same join digest:
+
+- Emit one compact JSON object per top-level key in sorted key order.
+- Each object uses fields key, kind, value in that order (see /app/doc/digest_wire.txt).
+- Use json separators (",", ":") with no extra whitespace.
+- Join the JSON lines with a single newline between rows (no trailing newline required on the last row).
+- effective_digest_hex is the lowercase SHA-256 hex digest of the UTF-8 joined body.
+- Nested dict keys inside each row value payload keep JSON insertion order from the fragment; do not re-sort nested keys when building digest rows.
+
+Do not chain-hash rows independently. The body is one joined string hashed once.
+
+The pre-drift snapshot digests the fused base-plus-overlay map before patch layers and before alias materialization. overlay_drifted is true when effective_digest_hex differs from that pre-drift digest using the full 64-character hex strings.
+
+pack_tenant and the pre-drift snapshot must both use the same join digest wire on the map being fingerprinted.
+
+Fragment load coerces YAML-like tokens only on scalar-kind entries. Map and list payload string leaves stay exactly as authored in the fragment JSON.
+
+--- Overlay fuse vs patch layers ---
+
+Overlay fuse merges base and overlay fragments only. During fuse:
+
+- Tombstone entries are ignored; they do not remove keys from the accumulator.
+- Scalar entries replace the prior scalar value.
+- List-shaped overlay entries union with the inherited list when list_mode is append and the accumulator already holds a list at that key. Membership is typed: integer 42 and string "42" stay distinct; do not collapse entries by stringifying them.
+- Map entries deep-merge nested dict leaves (see map merge below).
+
+Patch layers (file patches and inline tenant_patches) use apply_patch semantics:
+
+- Tombstone entries remove the key from layer index one onward.
+- Kind changes on an existing key replace the entire entry with the patch kind and value.
+- List append mode applies only when list_mode is append and the accumulator already holds a list at that key. Append union membership is typed the same way as overlay fuse (integer 42 and string "42" stay distinct).
+
+--- Map deep merge ---
+
+When merging map kind values, if both the current value and incoming value at a key are dicts, recurse into that nested dict instead of replacing the entire subtree. Non-dict incoming values replace the leaf.
+
+--- Alias materialization ---
+
+Values beginning with $ref: resolve against the current map. A ref target may be a top-level key or a dotted path through map values. After each resolution pass, re-walk all entries; repeat until one full pass produces no changes so chained alias hops converge.
+
+--- Runtime reload ---
+
+Reload /app/cfg/runtime.toml on every rebuild and every in-process build_report call. Do not serve stale cached default_list_mode from an earlier process lifetime.
+
+Reload /app/data/tenant_registry.json on every rebuild and every in-process build_report call. Do not serve a stale cached tenant list from an earlier manifest read in the same process.

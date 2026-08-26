@@ -1,0 +1,16 @@
+{
+  "contractor": 1,
+  "alice": 2,
+  "bob": 3,
+  "svc-worker": 2,
+  "grp-contractors": 2,
+  "grp-archived": 2,
+  "grp-dev": 3,
+  "grp-ops": 4,
+  "role-viewer": 2,
+  "role-admin": 4,
+  "role-ops": 4,
+  "k8s-editor": 5,
+  "cluster-admin": 6,
+  "vault-crown": 9
+}

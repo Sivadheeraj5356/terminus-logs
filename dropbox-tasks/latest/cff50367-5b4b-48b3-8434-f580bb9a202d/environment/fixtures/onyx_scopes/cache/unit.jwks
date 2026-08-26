@@ -1,0 +1,3 @@
+# cache-tier defaults
+ChainDepth=8
+GraceMode=slow

@@ -1,0 +1,6 @@
+{
+  "probe": "truth_ledger_capture_sequence",
+  "ledger_path": "/app/state/truth-ledger.json",
+  "manifest_field": "capture_sequence",
+  "incident_id": "inc-4429"
+}

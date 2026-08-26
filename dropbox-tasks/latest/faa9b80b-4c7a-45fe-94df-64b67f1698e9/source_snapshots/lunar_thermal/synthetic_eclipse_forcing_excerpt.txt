@@ -1,0 +1,4 @@
+Eclipse transmission is tabulated and linearly interpolated in time.
+Profile 'none' has transmission 1.
+Profile 'partial_eclipse' reduces transmission to 0.35 during mid-period then recovers.
+Absorbed solar flux multiplies by transmission after incidence clipping.

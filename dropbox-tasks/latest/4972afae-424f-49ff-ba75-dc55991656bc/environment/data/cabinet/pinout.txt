@@ -1,0 +1,20 @@
+SKAL-0001-B EDGE CONNECTOR
+
+  1   GND                 A   GND
+  2   GND                 B   GND
+  3   +5V                 C   +5V
+  4   +5V                 D   +5V
+  5   +12V                E   -5V
+  6   LANE 1 LAMP         F   LANE 2 LAMP
+  7   DIAL LAMP           H   LATCH LAMP
+  8   COIN 1              J   COIN 2
+  9   START               K   SERVICE
+  10  BALL RELEASE        L   RACK RESET
+  11  SPEAKER +           M   SPEAKER -
+  12  VIDEO RED           N   VIDEO GREEN
+  13  VIDEO BLUE          P   VIDEO SYNC
+  14  SERVICE LINK RX     R   SERVICE LINK TX
+  15  GND                 S   GND
+
+The service link pins are unpopulated on cabinets built for sites and are
+fitted only on boards that went back to the factory test rig.

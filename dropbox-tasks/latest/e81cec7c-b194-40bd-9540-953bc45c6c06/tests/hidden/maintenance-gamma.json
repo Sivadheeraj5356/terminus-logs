@@ -1,0 +1,11 @@
+{
+  "windows": [
+    {
+      "window_id": "MG-1",
+      "vessel_id": "V-2",
+      "start_unix": 1730000000,
+      "end_unix": 1730000200,
+      "kind": "valve"
+    }
+  ]
+}

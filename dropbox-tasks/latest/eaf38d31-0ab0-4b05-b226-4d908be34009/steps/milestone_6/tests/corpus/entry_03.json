@@ -1,0 +1,15 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 6034665,
+  "leaf_type": "precert_entry",
+  "subject": "ns1.sub.umbrella.net",
+  "issued_at": "2026-12-02T18:00:00Z",
+  "payload": "cert:3E8o45MiBMsJ7SYelQNQuTtoyrCwyXWiLR9phE7cA9c=",
+  "received_at": "2026-05-18T11:55:11Z",
+  "issuer_id": "issuer-x",
+  "x_shard": 8,
+  "audit": {
+    "reviewer": "c",
+    "note": "x"
+  }
+}

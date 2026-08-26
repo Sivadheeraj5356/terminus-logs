@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["rows"],
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "seed_id",
+          "path_stamp",
+          "tick_total",
+          "cost_total",
+          "wrap_events",
+          "portal_hops",
+          "replay_digest"
+        ],
+        "properties": {
+          "seed_id": { "type": "string" },
+          "path_stamp": { "type": "string", "pattern": "^[0-9a-f]{8}$" },
+          "tick_total": { "type": "integer", "minimum": 0 },
+          "cost_total": { "type": "integer", "minimum": 0 },
+          "wrap_events": { "type": "integer", "minimum": 0 },
+          "portal_hops": { "type": "integer", "minimum": 0 },
+          "replay_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

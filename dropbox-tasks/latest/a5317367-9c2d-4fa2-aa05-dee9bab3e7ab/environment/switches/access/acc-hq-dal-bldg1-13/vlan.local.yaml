@@ -1,0 +1,6 @@
+hostname: acc-hq-dal-bldg1-13
+migration_state: segmented
+canonical_vlan: 2014
+configured_vlan: 2014
+legacy_vlan: 115
+duplicate_vlan_conflict: false

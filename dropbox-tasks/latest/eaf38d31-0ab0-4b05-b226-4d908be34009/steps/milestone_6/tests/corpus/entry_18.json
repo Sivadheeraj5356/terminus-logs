@@ -1,0 +1,22 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 406618,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "b.globex.com",
+    "umbrella.io",
+    "ns1.globex.org",
+    "mail.acme.com",
+    "b.example.net"
+  ],
+  "issued_at": "2026-10-11T03:11:51Z",
+  "payload": "cert:wr2UBEFeMyBr46QAt7anHQSaX6HdBPpI2kRU8gHRJow=",
+  "received_at": "2026-07-20T10:13:43Z",
+  "issuer_id": "ca-1",
+  "x_shard": 24,
+  "x_origin": "shard-west-3",
+  "audit": {
+    "reviewer": "a",
+    "note": "x"
+  }
+}

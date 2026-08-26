@@ -1,0 +1,15 @@
+# plan_hash body field list and bind_sequence (prior tail binds wal last_digest when generation > 1).
+# mux_arm and material_arm are resolved at compile with the same mux/dispatch semantics as execution.
+# body_join is read as the two-character token backslash + n (not a newline); plan body lines join on that literal string.
+# prior bind step runs only when compile_generation >= prior_min_generation; omit the prior field below that threshold.
+
+[plan_hash]
+fields = "plan_index,host_id,lane_id,cohort_label,negotiation_class,mux_arm,material_arm"
+bind_sequence = "body,revision,prior,generation"
+body_join = "\n"
+field_sep = "|"
+revision_sep = "|"
+prior_sep = "|"
+generation_sep = "|"
+prior_source = "run_journal.last_digest"
+prior_min_generation = "2"

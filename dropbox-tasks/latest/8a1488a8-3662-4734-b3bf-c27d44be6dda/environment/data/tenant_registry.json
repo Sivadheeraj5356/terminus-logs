@@ -1,0 +1,101 @@
+{
+  "tenants": [
+    {
+      "id": "tenant_alpha",
+      "base": "/app/data/seeds/alpha.json"
+    },
+    {
+      "id": "tenant_beta",
+      "base": "/app/data/seeds/shared.json",
+      "overlay": "/app/data/veils/beta.json",
+      "patches": ["/app/data/amends/beta_p1.json"]
+    },
+    {
+      "id": "tenant_gamma",
+      "base": "/app/data/seeds/shared.json",
+      "overlay": "/app/data/veils/gamma.json",
+      "list_mode": "append",
+      "patches": ["/app/data/amends/gamma_p1.json"]
+    },
+    {
+      "id": "tenant_delta",
+      "base": "/app/data/seeds/shared.json",
+      "overlay": "/app/data/veils/delta.json",
+      "patches": ["/app/data/amends/delta_p1.json"]
+    },
+    {
+      "id": "tenant_epsilon",
+      "base": "/app/data/seeds/shared.json",
+      "overlay": "/app/data/veils/epsilon.json",
+      "patches": ["/app/data/amends/epsilon_p1.json"]
+    },
+    {
+      "id": "tenant_zeta",
+      "base": "/app/data/seeds/shared.json",
+      "overlay": "/app/data/veils/zeta.json",
+      "patches": ["/app/data/amends/zeta_p1.json"]
+    },
+    {
+      "id": "tenant_iota",
+      "base": "/app/data/seeds/shared.json",
+      "list_mode": "append",
+      "tenant_patches": {
+        "iota_inline": {"kind": "scalar", "value": "inline-win"},
+        "tags": {"kind": "list", "value": ["iota-extra"]}
+      }
+    },
+    {
+      "id": "tenant_kappa",
+      "base": "/app/data/seeds/kappa.json"
+    },
+    {
+      "id": "tenant_lambda",
+      "base": "/app/data/seeds/lambda.json"
+    },
+    {
+      "id": "tenant_mu",
+      "base": "/app/data/seeds/mu.json"
+    },
+    {
+      "id": "tenant_nu",
+      "base": "/app/data/seeds/nu.json",
+      "overlay": "/app/data/veils/nu.json"
+    },
+    {
+      "id": "tenant_omicron",
+      "base": "/app/data/seeds/omicron.json",
+      "overlay": "/app/data/veils/omicron.json",
+      "list_mode": "append"
+    },
+    {
+      "id": "tenant_sigma",
+      "base": "/app/data/seeds/sigma.json",
+      "overlay": "/app/data/veils/sigma.json",
+      "list_mode": "append",
+      "patches": ["/app/data/amends/sigma_p1.json"]
+    },
+    {
+      "id": "tenant_tau",
+      "base": "/app/data/seeds/tau.json",
+      "overlay": "/app/data/veils/tau.json"
+    },
+    {
+      "id": "tenant_upsilon",
+      "base": "/app/data/seeds/upsilon.json",
+      "patches": [
+        "/app/data/amends/upsilon_p1.json",
+        "/app/data/amends/upsilon_p2.json"
+      ],
+      "tenant_patches": {
+        "flip": {"kind": "list", "value": ["final"]}
+      }
+    },
+    {
+      "id": "tenant_phi",
+      "base": "/app/data/seeds/phi.json",
+      "overlay": "/app/data/veils/phi.json",
+      "list_mode": "append",
+      "patches": ["/app/data/amends/phi_p1.json"]
+    }
+  ]
+}

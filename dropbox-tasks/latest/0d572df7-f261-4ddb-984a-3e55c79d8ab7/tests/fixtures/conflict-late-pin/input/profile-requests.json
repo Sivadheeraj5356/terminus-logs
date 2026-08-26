@@ -1,0 +1,63 @@
+{
+  "stages": [
+    {
+      "id": "bootstrap",
+      "requests": [
+        {
+          "constraint": ">=1.0.0,<2.0.0",
+          "features": [
+            "tls"
+          ],
+          "target": "cliapp"
+        },
+        {
+          "constraint": ">=1.0.0,<3.0.0",
+          "features": [],
+          "target": "testpkg-runner"
+        }
+      ]
+    },
+    {
+      "id": "extension",
+      "requests": [
+        {
+          "constraint": ">=1.0.0,<2.0.0",
+          "features": [
+            "ffi"
+          ],
+          "target": "libcore"
+        },
+        {
+          "constraint": ">=1.0.0,<3.0.0",
+          "features": [
+            "thin"
+          ],
+          "target": "thin-adapter"
+        }
+      ]
+    },
+    {
+      "id": "release",
+      "requests": [
+        {
+          "constraint": ">=1.0.0,<3.0.0",
+          "features": [
+            "min"
+          ],
+          "target": "cliapp"
+        }
+      ]
+    },
+    {
+      "id": "late-pin",
+      "requests": [
+        {
+          "constraint": ">=2.0.0,<3.0.0",
+          "features": [],
+          "target": "baseutil"
+        }
+      ]
+    }
+  ],
+  "toolchain": "linux-x64"
+}

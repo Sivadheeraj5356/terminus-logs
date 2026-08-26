@@ -1,0 +1,11 @@
+[Unit]
+Description=sitefab share arm
+# lab omitted Depends; share comes up with data
+
+[Mount]
+What=/srv/backing/share
+Where=/srv/arms/share
+Type=none
+Options=rw
+X-Sitefab-Remote=no
+X-Sitefab-OrderHint=20

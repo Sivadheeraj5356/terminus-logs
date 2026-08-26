@@ -1,0 +1,5 @@
+{"seq": 1, "kind": "ROUTE", "actor": "eharlow", "channel": "sys-03", "source": "cron"}
+{"seq": 2, "kind": "ROUTE", "actor": "rknott", "channel": "web-03", "source": "sidecar"}
+{"seq": 3, "kind": "ROUTE", "actor": "pnoor", "channel": "svc-03", "source": "inferer"}
+{"seq": 4, "kind": "DECOMMISSION", "actor": "mvoss", "collector": "rx-audit"}
+{"seq": 5, "kind": "QUIESCE", "actor": "mvoss", "index": "idx-audit"}

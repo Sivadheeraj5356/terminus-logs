@@ -1,0 +1,17 @@
+#!/bin/bash
+# Full ledger audit: hash the pinned model artifacts, build the policy input,
+# evaluate the Rego bundle, and write the decisions report.
+set -euo pipefail
+
+mkdir -p /app/out
+
+/app/bin/hash-artifacts
+python3 /app/bin/csv2input.py
+
+opa eval --format json \
+    -d /app/policy \
+    -i /app/out/policy_input.json \
+    'data.orchid.ledger.report' \
+  | jq '.result[0].expressions[0].value' > /app/out/decisions.json
+
+echo "ledger-audit: wrote $(jq '.decisions | length' /app/out/decisions.json) decisions to /app/out/decisions.json"

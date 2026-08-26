@@ -1,0 +1,8 @@
+{
+  "job_id": "job-014",
+  "priority": 9,
+  "spec_path": "/app/specs/misnamed-serving.yaml",
+  "profile_ref": "production",
+  "rules_ref": "cpu_turbo",
+  "defer": false
+}

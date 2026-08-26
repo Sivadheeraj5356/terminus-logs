@@ -1,0 +1,26 @@
+{
+  "schema_version": "kev.index.v1",
+  "fragments": [
+    {
+      "path": "kev-june-network.jsonl",
+      "source": "cisa-kev-2026-07-01/network-slice",
+      "generation": 1,
+      "signer": "cisa-kev-feed",
+      "signature": "kev-june-network.jsonl.sig"
+    },
+    {
+      "path": "kev-june-platform.jsonl",
+      "source": "cisa-kev-2026-07-01/platform-slice",
+      "generation": 1,
+      "signer": "cisa-kev-feed",
+      "signature": "kev-june-platform.jsonl.sig"
+    },
+    {
+      "path": "kev-july-corrections.jsonl",
+      "source": "cisa-kev-2026-07-01/corrections",
+      "generation": 2,
+      "signer": "cisa-kev-feed",
+      "signature": "kev-july-corrections.jsonl.sig"
+    }
+  ]
+}

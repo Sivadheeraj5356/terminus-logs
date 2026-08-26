@@ -1,0 +1,4 @@
+# Output path registry used by deployment checks.
+
+[reports]
+ink_report = "/app/out/ink_report.csv"

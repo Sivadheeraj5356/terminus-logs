@@ -1,0 +1,31 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "build-and-dependency-management"
+subcategories = ["tool_specific"]
+number_of_milestones = 0
+codebase_size = "minimal"
+languages = ["rust"]
+tags = ["rust", "lockfile", "dependency-resolution", "semver", "cli", "offline"]
+expert_time_estimate_min = 120
+junior_time_estimate_min = 240
+difficulty_explanation = "This task is hard because the resolver has to keep several dependency-management rules true at the same time, not just parse a file and pick versions. A mostly working solution can still fail when aliases, transitive feature requests, yanked versions, and conflicting constraints interact. Humans tend to underestimate the reprocessing needed after a feature activates new dependencies, and agents often patch the first failing case without building a coherent resolver. The deterministic output and rollback requirements also make sloppy partial updates visible. In practice, the hard cases are the ones where an early choice looks valid until a later feature or transitive dependency tightens the graph."
+solution_explanation = "The oracle solution parses the workspace roots and the offline registry into a small dependency graph, then repeatedly resolves package constraints until feature activation stops changing the graph. It treats aliases as input-only names and resolves everything by canonical package name, while preserving all feature requests that flow into each package. Version selection is deterministic: yanked releases are ignored, semver ordering is respected, and the highest version satisfying every active constraint is selected. If resolution fails, the solution writes a structured conflict report and leaves any existing lockfile exactly as it was. On success, it writes the lockfile in a stable package/dependency/feature order and clears the report to a successful empty-conflict document."
+verification_explanation = "The tests build the Rust binary from source and exercise it as a black-box CLI against temporary offline workspaces and registries. They verify normal successful resolution, alias handling, transitive feature unification, yanked-version skipping, pre-release ordering, deterministic repeated output, and exact JSON schema details. Failure tests check missing and relative paths, impossible version intersections, missing packages, and forward feature dependencies, while also asserting that existing lockfiles are not modified on failure. Several tests combine multiple rules in one fixture so a shallow resolver that only handles direct dependencies will not pass. The verifier runs fully offline and computes expected outputs from the fixture data rather than relying on pre-baked files inside the image."
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 1200.0
+
+[environment]
+workdir = "/app"
+allow_internet = false
+build_timeout_sec = 1200.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240

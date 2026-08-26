@@ -1,0 +1,9 @@
+Employee roster load contract
+
+The command line entry point is employee_scd_loader ingest --db DATABASE --input INPUT. DATABASE is a SQLite file. INPUT is either one csv file or a directory; when it is a directory, every file ending in .csv under that tree is part of the load.
+
+Input columns are batch_id, source_system, employee_id, full_name, department, title, manager_id, location, annual_salary, status, attrs_json, valid_from, recorded_at, operation, correction_id. Dates use YYYY-MM-DD. recorded_at is a UTC ISO timestamp in YYYY-MM-DDTHH:MM:SSZ form. annual_salary is a non-negative integer. operation is UPSERT or DELETE. attrs_json must be valid JSON and should be stored in a stable canonical form with sorted object keys and no insignificant whitespace so equivalent objects compare the same.
+
+The SQLite database owns these tables. employee_history stores employee_id, full_name, department, title, manager_id, location, annual_salary, status, attrs_json, source_system, effective_start, effective_end, is_current, row_hash, batch_id, correction_id, recorded_at. effective_start is inclusive and effective_end is exclusive. The current row has effective_end NULL and is_current 1. Older rows have is_current 0. employee_rejects stores reject_key, source_file, line_number, employee_id, reason, raw_record, batch_id. line_number is the physical one-based CSV line number with the header counted as line 1. load_audit stores one row per processed source file with source_file, accepted_count, and rejected_count.
+
+For the same employee_id and effective date, the newest correction is the version with the largest recorded_at value. If recorded_at ties, correction_id breaks the tie, and then batch_id. A row that does not change the employee business state must not split the history. DELETE is a tracked business state and should leave a current terminated row from its effective date.

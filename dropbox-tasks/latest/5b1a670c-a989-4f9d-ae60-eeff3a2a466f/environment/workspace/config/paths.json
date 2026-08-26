@@ -1,0 +1,12 @@
+{
+  "schema_version": "iris-prov-2025.06",
+  "proxy_export": "/workspace/data/proxy-exports/iris-gateway-provenance.json",
+  "legacy_proxy_export": "/workspace/data/archive/proxy-export-000.json",
+  "cutover_register": "/workspace/config/cutover-register.json",
+  "legacy_cutover_register": "/workspace/config/archive-cutover-register.json",
+  "database_path": "/workspace/state/module-provenance.sqlite3",
+  "phinx_sqlite_name": "/workspace/state/module-provenance",
+  "sqlite_path": "/workspace/state/module-provenance.sqlite3",
+  "digest_path": "/workspace/output/dependency-digest.txt",
+  "checksum_path": "/workspace/output/digest-checksum.sha256"
+}

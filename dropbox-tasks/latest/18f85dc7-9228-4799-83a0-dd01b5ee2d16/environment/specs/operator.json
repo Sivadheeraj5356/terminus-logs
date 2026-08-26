@@ -1,0 +1,48 @@
+{
+  "ghost_width": 1,
+  "tolerance": {
+    "type": "relative",
+    "epsilon": 1e-09
+  },
+  "packs": [
+    {
+      "id": "alpha",
+      "grid_fixture": "small.json",
+      "spill_budget": 24,
+      "predication_cutoff": 0.45,
+      "scratch_cap_bytes": 2048,
+      "temporal_tiling": false,
+      "tile": [
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "id": "beta",
+      "grid_fixture": "tile_case.json",
+      "spill_budget": 36,
+      "predication_cutoff": 0.3,
+      "scratch_cap_bytes": 16384,
+      "temporal_tiling": true,
+      "tile": [
+        4,
+        4,
+        4
+      ]
+    },
+    {
+      "id": "gamma",
+      "grid_fixture": "mixed_edge.json",
+      "spill_budget": 30,
+      "predication_cutoff": 0.4,
+      "scratch_cap_bytes": 12288,
+      "temporal_tiling": true,
+      "tile": [
+        3,
+        3,
+        3
+      ]
+    }
+  ]
+}

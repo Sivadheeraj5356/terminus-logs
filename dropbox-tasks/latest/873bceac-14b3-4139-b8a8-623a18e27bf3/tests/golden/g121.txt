@@ -1,0 +1,15 @@
+== Mercury Spring [toxic] ==
+Omen: Fire answers fire.
+Light: 11.5 lumens
+Relics:
+  - Mercury Mirror <epic> 130g
+  - Quicksilver Vial <uncommon> 55g
+Freshest: Mercury Mirror @ 10:45 KST
+Exits:
+  - north: Emberforge Hollow (torch 1.5)
+Torch: 10.5 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take mercury-mirror
+go north

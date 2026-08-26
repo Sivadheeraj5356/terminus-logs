@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Diagnostic: print the identity records and inventory digest for a bundle.
+set -euo pipefail
+
+DIR="${1:-/output/release}"
+
+echo "== dependency inventory =="
+jq . "$DIR/metadata/dependency-inventory.json" 2>/dev/null || cat "$DIR/metadata/dependency-inventory.json"
+
+echo "== provenance =="
+jq . "$DIR/metadata/provenance.json" 2>/dev/null || cat "$DIR/metadata/provenance.json"
+
+echo "== native identity =="
+python3 - "$DIR/native/libvellum.so" <<'PY'
+import ctypes, sys
+lib = ctypes.CDLL(sys.argv[1])
+lib.vellum_identity_json.restype = ctypes.c_void_p
+lib.vellum_free.argtypes = [ctypes.c_void_p]
+ptr = lib.vellum_identity_json()
+print(ctypes.cast(ptr, ctypes.c_char_p).value.decode())
+lib.vellum_free(ptr)
+PY

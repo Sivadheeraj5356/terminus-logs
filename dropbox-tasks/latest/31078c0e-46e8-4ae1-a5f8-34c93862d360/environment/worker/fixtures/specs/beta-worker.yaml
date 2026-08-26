@@ -1,0 +1,28 @@
+apiVersion: diffusion.ops/v1
+kind: DiffusionExperiment
+metadata:
+  name: beta-worker
+container:
+  image: registry.local/ops/beta:2026.07
+spec:
+  seed: 94217
+  walkers: 20
+  steps: 7
+  drift: -0.012
+  volatility: 0.24
+  calibrationRef: frontier-lab
+  dependsOn:
+    - alpha-service
+  dimensions:
+    - name: lateral
+      weight: 0.6
+      lower: -0.95
+      upper: 0.9
+    - name: radial
+      weight: -1.1
+      lower: -1.05
+      upper: 1.05
+    - name: axial
+      weight: 0.35
+      lower: -0.55
+      upper: 0.65

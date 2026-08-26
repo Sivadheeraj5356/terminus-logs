@@ -1,0 +1,18 @@
+# Material arm dispatch table. Rows in cohort_policy.toml reference dispatch_id.
+# material_arm "mux" means use the mux-selected slot unchanged.
+
+[[dispatch]]
+dispatch_id = "bd1"
+material_arm = "tertiary"
+
+[[dispatch]]
+dispatch_id = "bp1"
+material_arm = "secondary"
+
+[[dispatch]]
+dispatch_id = "gp1"
+material_arm = "primary"
+
+[[dispatch]]
+dispatch_id = "mux"
+material_arm = "mux"

@@ -1,0 +1,17 @@
+{
+  "trains": [
+    {
+      "id": "train-south",
+      "epoch": 9,
+      "status": "archived",
+      "channels": [
+        "canary",
+        "stable"
+      ]
+    }
+  ],
+  "aliases": {
+    "@harbor/runtime": "runtime-canary",
+    "@harbor/adapter": "adapter-primary"
+  }
+}

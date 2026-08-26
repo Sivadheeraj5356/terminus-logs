@@ -1,0 +1,20 @@
+{
+  "merge_policies": [
+    {
+      "branch": "fast_path",
+      "inject_back": true,
+      "bundle_to": "compile_artifact"
+    },
+    {
+      "branch": "slow_path",
+      "inject_back": false,
+      "bundle_to": "link_stage"
+    },
+    {
+      "branch": "gcode",
+      "inject_back": true,
+      "bundle_to": "synth_node"
+    }
+  ],
+  "default": "fast_path"
+}

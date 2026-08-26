@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["rows", "summary"],
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["unit_id", "bind_rc", "lock_rc", "unit_rc", "drift_code", "facet_hex"],
+        "properties": {
+          "unit_id": {"type": "string"},
+          "bind_rc": {"type": "integer"},
+          "lock_rc": {"type": "integer"},
+          "unit_rc": {"type": "integer"},
+          "drift_code": {"type": "integer"},
+          "facet_hex": {"type": "string", "pattern": "^[0-9a-f]{16}$"}
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["rows_total", "sync_label", "span_band", "row_digest"],
+      "properties": {
+        "rows_total": {"type": "integer"},
+        "sync_label": {"type": "string"},
+        "span_band": {"type": "integer"},
+        "row_digest": {"type": "string", "pattern": "^[0-9a-f]{8}$"}
+      }
+    }
+  }
+}

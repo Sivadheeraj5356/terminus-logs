@@ -1,0 +1,16 @@
+{
+  "bookings": [
+    {
+      "pool": "flex",
+      "decision_id": "B1",
+      "start": 0,
+      "end": 20
+    },
+    {
+      "pool": "flex",
+      "decision_id": "B3",
+      "start": 15,
+      "end": 35
+    }
+  ]
+}

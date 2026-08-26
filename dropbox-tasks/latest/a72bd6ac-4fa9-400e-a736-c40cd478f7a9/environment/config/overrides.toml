@@ -1,0 +1,5 @@
+# Deployment override: enable strict production checks
+strict_mode = true
+max_for_duration_seconds = 43200
+# Relax name validation for legacy rules
+allow_digit_starting_names = true

@@ -1,0 +1,12 @@
+network	phase_swap
+species	U	V	W
+initial	U	0.80000000000000004
+initial	V	0.20000000000000001
+initial	W	0
+reaction	3	U -> V
+reaction	150	V -> W
+reaction	0.40000000000000002	W -> U
+reaction	22	U + W -> V + W
+horizon	0	18
+rtol	9.9999999999999995e-07
+atol	1.0000000000000001e-09

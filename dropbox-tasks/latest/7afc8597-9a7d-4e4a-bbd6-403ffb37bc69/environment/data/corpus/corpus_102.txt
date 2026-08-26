@@ -1,0 +1,10 @@
+CamelCase and snake_case
+addr 12.238.65.102 hex 0x9ea2 token tok_841
+addr 174.242.63.216 hex 0x4005 token tok_539
+start quux world gamma no baz grey
+addr 183.125.38.189 hex 0xbcf6 token tok_265
+aeiou bcdfg xyzzy
+addr 225.224.130.1 hex 0x36d7 token tok_455
+addr 11.102.99.74 hex 0x7da3 token tok_589
+alpha bird
+banana quux false

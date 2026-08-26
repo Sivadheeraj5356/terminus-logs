@@ -1,0 +1,16 @@
+name: deploy-production
+
+on:
+  pull_request_target:
+    branches: [main]
+
+permissions: write-all
+
+jobs:
+  deploy:
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20
+      - run: ./scripts/install-prod.sh

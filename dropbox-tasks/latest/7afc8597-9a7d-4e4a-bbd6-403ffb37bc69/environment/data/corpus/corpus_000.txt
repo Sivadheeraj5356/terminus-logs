@@ -1,0 +1,6 @@
+addr 172.139.136.160 hex 0x5ff6 token tok_27
+UPPER lower MiXeD
+mixed Foo123Bar baz_42
+consonants rhythm myth
+banana bananana ba na
+addr 18.143.190.38 hex 0xe63c token tok_329

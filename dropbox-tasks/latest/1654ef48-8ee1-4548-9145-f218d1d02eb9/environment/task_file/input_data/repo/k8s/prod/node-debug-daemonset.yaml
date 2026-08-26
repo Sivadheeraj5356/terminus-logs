@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-debug
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: node-debug
+  template:
+    metadata:
+      labels:
+        app: node-debug
+    spec:
+      hostPID: true
+      containers:
+        - name: debug
+          image: registry.internal/tools/node-debug:1.6
+          command: ["/bin/sleep", "3600"]

@@ -1,0 +1,10 @@
+[Unit]
+Description=Shard export journal oneshot
+After=journald.service
+ConditionPathExists=/app/bin/verify-journal-runs
+
+[Service]
+Type=oneshot
+StandardOutput=journal
+StandardError=journal
+ExecStart=/app/bin/verify-journal-runs --fixtures-dir /app/environment/pack --out /app/output/run_records.json --trace-out /app/output/export_trace.jsonl --journal-out /app/output/span_journal.jsonl --manifest-out /app/output/completion_manifest.jsonl --audit-out /app/output/run_audit.jsonl --ledger-state /app/output/run_ledger.state

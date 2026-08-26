@@ -1,0 +1,29 @@
+--- auxiliary/epoch_courier.py
++++ auxiliary/epoch_courier.py
+@@ -31,17 +31,22 @@
+ 
+ 
+ def bump_if_relinking(lto_root: Path, will_relink: bool) -> int:
+-    return read_journal(lto_root)
++    current = read_journal(lto_root)
++    if not will_relink:
++        return current
++    generation = current + 1
++    if generation < 1:
++        generation = 1
++    write_journal(lto_root, generation)
++    return generation
+ 
+ 
+ def modules_behind_journal(lto_root: Path) -> list[str]:
+     active = read_journal(lto_root)
+     if active == 0:
+-        return []
++        return sorted(GEN_SENSITIVE)
+     lagging: list[str] = []
+     for module in sorted(GEN_SENSITIVE):
+-        if module != "dispatch":
+-            continue
+         summary_path = lto_root / f"{module}.summary.json"
+         if not summary_path.is_file():
+             lagging.append(module)

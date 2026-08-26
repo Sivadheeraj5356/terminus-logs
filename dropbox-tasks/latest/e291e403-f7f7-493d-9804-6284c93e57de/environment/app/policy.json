@@ -1,0 +1,5 @@
+{
+  "blocked_keys": ["password", "token", "secret", "__proto__", "constructor"],
+  "url_keys": ["url", "href", "src", "redirect"],
+  "allowed_schemes": ["https"]
+}

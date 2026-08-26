@@ -1,0 +1,14 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 6788372,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "naïve.initech.org",
+    "NAÏVE.INITECH.ORG"
+  ],
+  "issued_at": "2026-05-28T14:59:17.305Z",
+  "payload": "cert:JWFbGgmJCHAqNH1Se/HyWFsdrwgLr5nHZ5QmFQVyF0k=",
+  "received_at": "2026-10-23T19:40:23Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 11
+}

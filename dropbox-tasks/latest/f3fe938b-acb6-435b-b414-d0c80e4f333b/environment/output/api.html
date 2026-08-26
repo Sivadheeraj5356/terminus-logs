@@ -1,0 +1,37 @@
+<h1>API Reference</h1>
+<p>This document describes the public API.</p>
+<h2>Endpoints</h2>
+<h3>GET /api/v1/status</h3>
+<p>Returns the service health status as JSON.</p>
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;healthy&quot;,
+  &quot;version&quot;: &quot;0.4.2&quot;
+}</code></pre>
+<h3>POST /api/v1/convert</h3>
+<p>Accepts a Markdown body and returns HTML.</p>
+<p><strong>Request headers:</strong></p>
+<ul>
+<li><code>Content-Type: text/markdown</code></li>
+<li><code>Accept: text/html</code></li>
+</ul>
+<p><strong>Example using curl:</strong></p>
+<pre><code class="language-bash">curl -X POST https://example.com/api/v1/convert \
+  -H &quot;Content-Type: text/markdown&quot; \
+  -d &quot;# Hello World&quot;</code></pre>
+<h2><a href="https://example.com/auth-info">Authentication</a></h2>
+<p>All endpoints require an API key. Pass it via the <code>Authorization</code> header:</p>
+<pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+<p>See <a href="https://example.com/auth">authentication docs</a> for key management.</p>
+<h2>Rate Limiting</h2>
+<p>The API enforces a rate limit of <em>100 requests per minute</em> per API key. Exceeding this limit returns a <code>429 Too Many Requests</code> response.</p>
+<h3>Retry Strategy</h3>
+<p>Use exponential backoff with a base delay of 1 second:</p>
+<ul>
+<li>First retry: 1s</li>
+<li>Second retry: 2s</li>
+<li>Third retry: 4s</li>
+</ul>
+<h2>Error Codes</h2>
+<p>| Code | Meaning | |------|---------| | 400 | Bad request | | 401 | Unauthorized | | 429 | Rate limited | | 500 | Server error |</p>
+<h2>SDK</h2>
+<p>Download the SDK from <a href="https://github.com/example/sdk">our GitHub</a>.</p>

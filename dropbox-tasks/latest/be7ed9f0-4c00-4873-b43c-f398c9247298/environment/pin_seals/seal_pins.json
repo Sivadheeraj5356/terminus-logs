@@ -1,0 +1,10 @@
+{
+  "pin_set_version": "ksw-pin-2026-02",
+  "chain_seed_hmac": "",
+  "pins": [
+    {"observation_id": "obs-030", "service_id": "gateway-prod", "chain_seq": 1, "prev_hmac": "", "hmac8": "2afa1f33a3f7fde7"},
+    {"observation_id": "obs-040", "service_id": "gateway-prod", "chain_seq": 2, "prev_hmac": "2afa1f33a3f7fde7", "hmac8": "69899fe5a332fa55"},
+    {"observation_id": "obs-041", "service_id": "gateway-prod", "chain_seq": 3, "prev_hmac": "0000000000000000", "hmac8": "e2163f5eda71b7b4"},
+    {"observation_id": "obs-032", "service_id": "billing-rpc", "chain_seq": 1, "prev_hmac": "", "hmac8": "0000000000000000"}
+  ]
+}

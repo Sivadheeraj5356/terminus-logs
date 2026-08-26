@@ -1,0 +1,8 @@
+# Artifact classes bound as provenance subjects, by relative path under the
+# release output root. Package filenames carry the release version.
+subjects = [
+  "native/libvellum.so",
+  "python",
+  "node",
+  "metadata/dependency-inventory.json",
+]

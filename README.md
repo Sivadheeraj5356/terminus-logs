@@ -13,10 +13,10 @@ Each unique submission UUID is kept once (latest revision). Older `*_submission_
 | Author-labeled medium | 46 |
 | Harbor logs in the source zips | 0 |
 
+- Task packages (instruction, `task.toml`, Docker world, oracle, tests): [`dropbox-tasks/latest/`](dropbox-tasks/latest/)
 - Index: [`catalog/index.md`](catalog/index.md)
 - Cards: [`catalog/tasks/`](catalog/tasks/)
 - JSONL: [`catalog/tasks.jsonl`](catalog/tasks.jsonl)
-- Technical briefing: [`docs/AppliedWork_Environments_Technical_Briefing.docx`](docs/AppliedWork_Environments_Technical_Briefing.docx)
 
 Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labels are author metadata, not measured pass rates.
 
@@ -24,7 +24,7 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 ## Rebuild (local)
 
-The source zip and extracted worlds stay on the machine; they are gitignored.
+The source zip stays local and is gitignored. Extracted latest packages live in `dropbox-tasks/latest/`.
 
 ```text
 python scripts/unpack_dropbox.py          # latest zip per UUID → dropbox-tasks/latest

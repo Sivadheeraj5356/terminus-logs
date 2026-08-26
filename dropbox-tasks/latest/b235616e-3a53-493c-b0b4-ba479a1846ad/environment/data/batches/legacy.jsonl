@@ -1,0 +1,2 @@
+{"event_id":"LE-LEG001","principal":"operator-legacy","operation":"FAILED_ATTEMPT","view_id":"host","logical_time":"2026-01-09T10:00:00Z","seq":1,"source_replica":"REP-HOST1"}
+{"event_id":"LE-LEG002","principal":"operator-legacy","operation":"FAILED_ATTEMPT","view_id":"host","logical_time":"2026-01-09T10:01:00Z","seq":2,"source_replica":"REP-HOST1"}

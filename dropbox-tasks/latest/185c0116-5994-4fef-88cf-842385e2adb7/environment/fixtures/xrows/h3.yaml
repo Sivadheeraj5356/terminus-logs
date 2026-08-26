@@ -1,0 +1,10 @@
+id: h3
+span: 2
+min_g: 2
+leaves:
+  - id: m07
+    need: t2
+  - id: m08
+    need: t2
+  - id: m09
+    need: pH

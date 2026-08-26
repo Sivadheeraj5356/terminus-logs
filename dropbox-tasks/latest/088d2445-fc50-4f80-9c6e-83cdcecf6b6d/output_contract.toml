@@ -1,0 +1,22 @@
+user_visible_outputs = [
+  "/app/output/audit_report.json",
+  "/app/environment/build.sh",
+  "/app/environment/tools/hs_run.sh",
+]
+internal_harness_files = ["/tests/test.sh", "/tests/test_outputs.py"]
+
+[structured_outputs.audit_report]
+target = "/app/output/audit_report.json"
+format = "json"
+instruction_checks = [
+  "lane_ids",
+  "digest_hex",
+  "seg_order",
+  "script_rows",
+  "cite_pairs",
+  "nest_span",
+  "nest_depth",
+  "alg_keys",
+  "run_digest",
+  "rot_arms",
+]

@@ -1,0 +1,81 @@
+{
+  "schema": "stabilizer-burst-coset-inference/v2",
+  "stabilizers": ["S0", "S1", "S2", "S3"],
+  "logical_observables": ["LX", "LZ"],
+  "readout_frames": [
+    {
+      "id": "native-frame",
+      "prior_weight": "1/2",
+      "detector_bias": [],
+      "forbidden_mechanisms": ["burst-z23"],
+      "forbidden_bursts": ["thermal-sweep"]
+    },
+    {
+      "id": "phase-biased-frame",
+      "prior_weight": "0/7",
+      "detector_bias": ["S3"],
+      "forbidden_mechanisms": ["idle-logical-x"],
+      "forbidden_bursts": []
+    }
+  ],
+  "noise_families": [
+    {"id": "correlated-burst", "occurrence_limit": 2, "window_rounds": 2, "window_limit": 1},
+    {"id": "local-pauli", "occurrence_limit": 4, "window_rounds": 32, "window_limit": 4},
+    {"id": "readout-flip", "occurrence_limit": 2, "window_rounds": 32, "window_limit": 2}
+  ],
+  "pauli_mechanisms": [
+    {"id": "edge-x01", "family_id": "local-pauli", "cycle": 0, "coupler_id": "q01", "neg_log_weight": "1", "detection_events": ["S0", "S1"], "logical_operators": []},
+    {"id": "edge-z12", "family_id": "local-pauli", "cycle": 0, "coupler_id": "q12", "neg_log_weight": "1", "detection_events": ["S1", "S2"], "logical_operators": ["LZ"]},
+    {"id": "burst-x02", "family_id": "correlated-burst", "cycle": 0, "coupler_id": "q02", "neg_log_weight": "6/4", "detection_events": ["S0", "S2"], "logical_operators": ["LX"], "delayed_detection_events": {"1": ["S1"]}},
+    {"id": "measure-z3", "family_id": "readout-flip", "cycle": 1, "coupler_id": "m3", "neg_log_weight": "1/2", "detection_events": ["S3"], "logical_operators": ["LZ"], "recovery_rounds": 1},
+    {"id": "burst-x0", "family_id": "correlated-burst", "cycle": 1, "coupler_id": "q0", "neg_log_weight": "1", "detection_events": ["S0"], "logical_operators": ["LX"]},
+    {"id": "local-x1", "family_id": "local-pauli", "cycle": 1, "coupler_id": "q1", "neg_log_weight": "1", "detection_events": ["S1"], "logical_operators": []},
+    {"id": "readout-x1", "family_id": "readout-flip", "cycle": 1, "coupler_id": "q1", "neg_log_weight": "1", "detection_events": ["S1"], "logical_operators": ["LX"]},
+    {"id": "local-z2", "family_id": "local-pauli", "cycle": 1, "coupler_id": "q2", "neg_log_weight": "1", "detection_events": ["S2"], "logical_operators": ["LZ"]},
+    {"id": "burst-z23", "family_id": "correlated-burst", "cycle": 2, "coupler_id": "q23", "neg_log_weight": "1", "detection_events": ["S2", "S3"], "logical_operators": []},
+    {"id": "measure-y03", "family_id": "readout-flip", "cycle": 2, "coupler_id": "m03", "neg_log_weight": "1", "detection_events": ["S0", "S3"], "logical_operators": ["LX", "LZ"]},
+    {"id": "burst-y13", "family_id": "correlated-burst", "cycle": 2, "coupler_id": "q13", "neg_log_weight": "5/4", "detection_events": ["S1", "S3"], "logical_operators": []},
+    {"id": "idle-logical-x", "family_id": "local-pauli", "cycle": 2, "coupler_id": "idle", "neg_log_weight": "0", "detection_events": [], "logical_operators": ["LX"]}
+  ],
+  "burst_exposure_limit": 3,
+  "burst_sources": [
+    {
+      "id": "thermal-sweep",
+      "family_id": "correlated-burst",
+      "prior_weight": "3/4",
+      "exclusive_group": "cryostat-line-a",
+      "start_round": 0,
+      "duration_rounds": 3,
+      "intensity": 1,
+      "blocked_coupler_ids": ["q02"],
+      "detection_events_by_offset": {"0": ["S0", "S2"], "1": ["S1"]},
+      "logical_operators_by_offset": {"0": ["LX"], "1": ["LZ"]}
+    }
+  ],
+  "shots": [
+    {
+      "id": "shot-c",
+      "round": 2,
+      "measured_events": ["S0", "S1", "S3"],
+      "candidate_mechanisms": ["edge-x01", "measure-z3", "burst-y13", "burst-x0", "idle-logical-x"],
+      "cycle_caps": {"0": 1, "1": 2, "2": 2},
+      "burst_cap": 1
+    },
+    {
+      "id": "shot-a",
+      "round": 0,
+      "measured_events": ["S0", "S2"],
+      "candidate_mechanisms": ["edge-x01", "edge-z12", "burst-x02", "measure-z3", "burst-x0", "local-z2", "burst-z23", "measure-y03"],
+      "cycle_caps": {"0": 2, "1": 2, "2": 2},
+      "burst_cap": 1
+    },
+    {
+      "id": "shot-b",
+      "round": 1,
+      "measured_events": ["S1", "S3"],
+      "candidate_mechanisms": ["measure-z3", "local-x1", "readout-x1", "burst-y13", "idle-logical-x"],
+      "cycle_caps": {"1": 2, "2": 2},
+      "burst_cap": 1
+    }
+  ]
+}

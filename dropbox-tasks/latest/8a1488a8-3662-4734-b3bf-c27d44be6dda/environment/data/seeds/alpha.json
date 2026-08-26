@@ -1,0 +1,4 @@
+{
+  "root_marker": {"kind": "scalar", "value": "alpha-only"},
+  "tags": {"kind": "list", "value": ["alpha"]}
+}

@@ -1,0 +1,12 @@
+== Petrified Garden [fungal] ==
+Omen: The tide remembers your name.
+Light: 5.0 lumens
+Relics:
+  (no relics here)
+Exits:
+  - up: sealed gate (torch 3.5)
+Torch: 5.0 units
+Inventory: petrified-rose, silver-sigil, spore-lantern
+Route: no route
+---ACTIONS---
+wait

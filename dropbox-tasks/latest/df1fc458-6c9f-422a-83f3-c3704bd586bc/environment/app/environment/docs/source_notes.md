@@ -1,0 +1,11 @@
+# Source notes
+
+The catalog fragments under `/app/data/catalog_fragments` are an embedded operating snapshot derived from the public CISA Known Exploited Vulnerabilities catalog. CISA publishes KEV as an authoritative list of vulnerabilities observed in active exploitation, with fields such as CVE ID, vendor, product, vulnerability name, date added, due date, ransomware-use indicator, notes, required action, and CWE identifiers.
+
+This local packet was prepared from the CISA catalog release labelled `2026.07.01`, released `2026-07-01T19:00:06.9016Z`, when the public JSON contained 1,631 vulnerabilities. The included records cover recent entries for Microsoft SharePoint Server, SimpleHelp, PTC Windchill/FlexPLM, Cisco Unified Communications Manager, Lantronix EDS5000, Ubiquiti UniFi OS, Splunk Enterprise, Oracle PeopleSoft Enterprise PeopleTools, Ivanti Sentry, and related products. Long public remediation text was shortened into local action categories for operations reporting. Fragment metadata (`source`, `generation`, and `seq`) was added by the ingestion team so later extracts can be reconciled when the same CVE appears in more than one regional feed.
+
+A few quarantined rows remain in the fragments because they were present in handoff files from downstream teams. Those rows retain the surrounding CVE/product context from the same KEV sample but contain malformed operational fields and are expected to stay auditable rather than being silently discarded. Valid rows keep their CVE identifiers, vendors, products, vulnerability names, dates, ransomware flags, notes URLs, and CWE lists aligned with the public source sample.
+
+The remediation action overlay at `/app/config/remediation_actions.jsonl` is an internal operations layer attached to the sampled KEV records. It records agency review decisions such as temporary deferral, emergency escalation, scope suppression, and clearing a prior override. The overlay is not a substitute for the KEV source; it is the local audit layer used when publishing the offline remediation ledger.
+
+The local handoff includes detached Ed25519 signatures for each catalog fragment and for the remediation overlay. Only the public verification keys are shipped in the runtime image; the ledger tool is expected to reject any byte-level alteration before it interprets the JSONL records.

@@ -1,0 +1,15 @@
+{
+  "conflicts": [],
+  "name": "fleetbilling",
+  "requires": [
+    {
+      "package": "wiretype",
+      "range": "=1.0.0"
+    },
+    {
+      "package": "ratesync",
+      "range": ">=1.0.0"
+    }
+  ],
+  "version": "1.0.2"
+}

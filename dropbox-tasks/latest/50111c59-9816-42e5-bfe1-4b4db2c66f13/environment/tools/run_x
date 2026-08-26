@@ -1,0 +1,7 @@
+#!/bin/bash
+# Thin launcher used during local env debugging; image prefers /app/bin/x7.
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+if [ -d /app/classes ]; then
+  exec java -cp /app/classes drv.Main "$@"
+fi
+exec java -cp "${ROOT}/classes" drv.Main "$@"

@@ -1,0 +1,42 @@
+[
+  {
+    "leg_id": "R1",
+    "region_id": "north",
+    "pallet_id": "P1",
+    "depart_day": 2,
+    "arrive_day": 3,
+    "temp_band": "2-8C",
+    "lane_hours": 8,
+    "customs_delay_days": 1
+  },
+  {
+    "leg_id": "R2",
+    "region_id": "south",
+    "pallet_id": "P2",
+    "depart_day": 2,
+    "arrive_day": 4,
+    "temp_band": "2-8C",
+    "lane_hours": 7,
+    "customs_delay_days": 2
+  },
+  {
+    "leg_id": "R3",
+    "region_id": "east",
+    "pallet_id": "P1",
+    "depart_day": 3,
+    "arrive_day": 5,
+    "temp_band": "-20C",
+    "lane_hours": 10,
+    "customs_delay_days": 1
+  },
+  {
+    "leg_id": "R4",
+    "region_id": "west",
+    "pallet_id": "P2",
+    "depart_day": 3,
+    "arrive_day": 6,
+    "temp_band": "-20C",
+    "lane_hours": 9,
+    "customs_delay_days": 2
+  }
+]

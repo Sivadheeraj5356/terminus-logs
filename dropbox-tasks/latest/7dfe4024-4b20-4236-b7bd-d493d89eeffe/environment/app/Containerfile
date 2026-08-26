@@ -1,0 +1,8 @@
+# Experiment Containerfile
+# Damped oscillator spectrum analysis parameters
+
+SENSOR_FREQUENCY_HZ=1000.0
+SAMPLE_DURATION_SEC=2.0
+DAMPING_COEFFICIENT=0.15
+NATURAL_FREQUENCY_HZ=50.0
+SENSOR_ID=ACCEL-001

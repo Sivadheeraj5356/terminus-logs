@@ -1,0 +1,10 @@
+[package]
+name = "p6"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+algebra = { package = "a2", path = "../algebra" }
+catalog = { package = "c1", path = "../catalog" }
+manifest = { package = "m0", path = "../manifest" }
+store = { package = "s3", path = "../store" }

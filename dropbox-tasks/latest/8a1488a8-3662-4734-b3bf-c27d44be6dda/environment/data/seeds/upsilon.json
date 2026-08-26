@@ -1,0 +1,4 @@
+{
+  "keep": {"kind": "scalar", "value": "alive"},
+  "flip": {"kind": "scalar", "value": "base"}
+}

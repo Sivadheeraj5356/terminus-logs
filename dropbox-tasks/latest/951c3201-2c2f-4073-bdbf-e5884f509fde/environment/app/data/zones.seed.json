@@ -1,0 +1,26 @@
+{
+  "keyspace_note": "Live Redis snapshot of dispatch zone hashes (zone:<LocationID>). Values drifted from the canonical TLC lookup over time.",
+  "zones": [
+    { "location_id": 1,   "borough": "EWR",           "zone": "Newark Airport",     "service_zone": "EWR",        "version": 1 },
+    { "location_id": 2,   "borough": "Queens",        "zone": "Jamaica Bay",        "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 3,   "borough": "Bronx",         "zone": "Allerton/Pelham Gardens", "service_zone": "Boro Zone", "version": 1 },
+    { "location_id": 4,   "borough": "Manhattan",     "zone": "alphabet city",      "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 5,   "borough": "Staten Island", "zone": "Arden Heights",      "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 7,   "borough": "Bronx",         "zone": "Astoria",            "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 8,   "borough": "Queens",        "zone": "Astoria Park",       "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 9,   "borough": "Queens",        "zone": "Auburndale",         "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 10,  "borough": "Queens",        "zone": "Baisley Park",       "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 11,  "borough": "Brooklyn",      "zone": "Bath Beach",         "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 12,  "borough": "Manhattan",     "zone": "  Battery Park  ",    "service_zone": "Yellow Zone", "version": 1 },
+    { "location_id": 13,  "borough": "Manhattan",     "zone": "Battery Park City",  "service_zone": "Yellow Zone", "version": 1 },
+    { "location_id": 16,  "borough": "queens",        "zone": "Bayside",            "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 20,  "borough": "Bronx",         "zone": "Belmont XYZ",        "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 24,  "borough": "Manhattan",     "zone": "Bloomingdale",       "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 26,  "borough": "Brooklyn",      "zone": "Borough Park",       "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 29,  "borough": "Brooklyn",      "zone": "Brighton beach",     "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 33,  "borough": "Brooklyn",      "zone": "Brooklyn Heights",   "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 35,  "borough": "brooklyn",      "zone": "Brownsville",        "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 40,  "borough": "Brooklyn",      "zone": "Carroll Gardens",    "service_zone": "Boro Zone",  "version": 1 },
+    { "location_id": 999, "borough": "Testland",      "zone": "Ghost Zone",         "service_zone": "Special",    "version": 1 }
+  ]
+}

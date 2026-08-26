@@ -1,0 +1,149 @@
+{
+  "candidates": [
+    {
+      "id": "pay-251",
+      "service": "payments",
+      "env": "prod",
+      "version": "2.5.1",
+      "digest": "sha256:pay-251",
+      "base_image": "ubuntu:22.04@sha256:base-pay-a",
+      "built_at": "2026-07-03T04:00:00Z",
+      "signer": "payments-ca",
+      "requested_window": "prod-early",
+      "attestations": {"slsa_level": 3, "source_ref": "refs/tags/payments-v2.5.1", "test_run_id": "tr-pay-251"},
+      "features": {"privileged": true, "db_migration": true, "public_api": true},
+      "sbom": [
+        {"package": "openssl", "severity": "medium", "license": "Apache-2.0"},
+        {"package": "netty", "severity": "high", "license": "Apache-2.0"}
+      ],
+      "exception_tokens": ["EX-PAY-PRIV-44"],
+      "rollout_impact": 26
+    },
+    {
+      "id": "pay-250",
+      "service": "payments",
+      "env": "prod",
+      "version": "2.5.0",
+      "digest": "sha256:pay-250",
+      "base_image": "ubuntu:22.04@sha256:base-pay-a",
+      "built_at": "2026-07-03T01:00:00Z",
+      "signer": "sigstore-root",
+      "requested_window": "prod-late",
+      "attestations": {"slsa_level": 3, "source_ref": "refs/tags/payments-v2.5.0", "test_run_id": "tr-pay-250"},
+      "features": {"privileged": false, "db_migration": false, "public_api": true},
+      "sbom": [
+        {"package": "curl", "severity": "low", "license": "MIT"}
+      ],
+      "exception_tokens": [],
+      "rollout_impact": 18
+    },
+    {
+      "id": "cat-520",
+      "service": "catalog",
+      "env": "prod",
+      "version": "5.2.0",
+      "digest": "sha256:cat-520",
+      "base_image": "debian:12@sha256:base-cat-a",
+      "built_at": "2026-07-02T21:00:00Z",
+      "signer": "sigstore-root",
+      "requested_window": "prod-early",
+      "attestations": {"slsa_level": 2, "source_ref": "refs/tags/catalog-v5.2.0", "test_run_id": "tr-cat-520"},
+      "features": {"privileged": false, "db_migration": false, "public_api": true},
+      "sbom": [
+        {"package": "imagemagick", "severity": "medium", "license": "Apache-2.0"},
+        {"package": "graph-cache", "severity": "low", "license": "SSPL-1.0"}
+      ],
+      "exception_tokens": ["EX-CAT-API-19", "EX-CAT-LIC-07"],
+      "rollout_impact": 24
+    },
+    {
+      "id": "id-400",
+      "service": "identity",
+      "env": "prod",
+      "version": "4.0.0",
+      "digest": "sha256:id-400",
+      "base_image": "distroless@sha256:base-id-a",
+      "built_at": "2026-07-03T11:00:00Z",
+      "signer": "sigstore-root",
+      "requested_window": "prod-early",
+      "attestations": {"slsa_level": 4, "source_ref": "refs/tags/identity-v4.0.0", "test_run_id": "tr-id-400"},
+      "features": {"privileged": false, "db_migration": false, "public_api": true},
+      "sbom": [
+        {"package": "jwt-core", "severity": "high", "license": "BSD-3-Clause"},
+        {"package": "yaml", "severity": "medium", "license": "MIT"}
+      ],
+      "exception_tokens": [],
+      "rollout_impact": 20
+    },
+    {
+      "id": "id-397",
+      "service": "identity",
+      "env": "prod",
+      "version": "3.9.7",
+      "digest": "sha256:id-397",
+      "base_image": "distroless@sha256:base-id-a",
+      "built_at": "2026-07-02T12:00:00Z",
+      "signer": "sigstore-root",
+      "requested_window": "prod-late",
+      "attestations": {"slsa_level": 3, "source_ref": "refs/tags/identity-v3.9.7", "test_run_id": "tr-id-397"},
+      "features": {"privileged": false, "db_migration": false, "public_api": false},
+      "sbom": [
+        {"package": "authz", "severity": "medium", "license": "MIT"}
+      ],
+      "exception_tokens": [],
+      "rollout_impact": 8
+    },
+    {
+      "id": "sea-190",
+      "service": "search",
+      "env": "stage",
+      "version": "1.9.0",
+      "digest": "sha256:sea-190",
+      "base_image": "debian:12@sha256:base-sea-a",
+      "built_at": "2026-06-29T09:00:00Z",
+      "signer": "labs-ca",
+      "requested_window": "stage-afternoon",
+      "attestations": {"slsa_level": 2, "source_ref": "refs/tags/search-v1.9.0", "test_run_id": "tr-sea-190"},
+      "features": {"privileged": false, "db_migration": true, "public_api": false},
+      "sbom": [
+        {"package": "lucene", "severity": "medium", "license": "Apache-2.0"}
+      ],
+      "exception_tokens": ["EX-SEA-STALE-11"],
+      "rollout_impact": 35
+    },
+    {
+      "id": "sea-191",
+      "service": "search",
+      "env": "stage",
+      "version": "1.9.1",
+      "digest": "sha256:sea-191",
+      "base_image": "debian:12@sha256:base-sea-a",
+      "built_at": "2026-07-02T13:00:00Z",
+      "signer": "labs-ca",
+      "requested_window": "stage-afternoon",
+      "attestations": {"slsa_level": 2, "source_ref": "refs/tags/search-v1.9.1", "test_run_id": "tr-sea-191"},
+      "features": {"privileged": false, "db_migration": false, "public_api": false},
+      "sbom": [
+        {"package": "lucene", "severity": "low", "license": "Apache-2.0"}
+      ],
+      "exception_tokens": [],
+      "rollout_impact": 38
+    },
+    {
+      "id": "ghost-100",
+      "service": "unknown",
+      "env": "prod",
+      "version": "1.0.0",
+      "digest": "sha256:ghost",
+      "base_image": "scratch",
+      "built_at": "2026-07-04T01:00:00Z",
+      "signer": "sigstore-root",
+      "requested_window": "prod-late",
+      "attestations": {"slsa_level": 3, "source_ref": "refs/tags/ghost-v1", "test_run_id": "missing"},
+      "features": {"privileged": false, "db_migration": false, "public_api": false},
+      "sbom": [],
+      "exception_tokens": [],
+      "rollout_impact": 1
+    }
+  ]
+}

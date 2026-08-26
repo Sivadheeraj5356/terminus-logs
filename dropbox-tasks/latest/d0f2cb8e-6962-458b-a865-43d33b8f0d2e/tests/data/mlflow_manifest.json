@@ -1,0 +1,37 @@
+{
+  "experiment_name": "container-readiness",
+  "param_keys": [
+    "job_id",
+    "spec_path",
+    "profile_ref",
+    "resolved_profile"
+  ],
+  "metric_key": "readiness",
+  "metric_timestamp_ms": 0,
+  "tag_keys": [
+    "verdict",
+    "queue_priority"
+  ],
+  "artifact_name": "readiness_snapshot.json",
+  "artifact_store": {
+    "root": "/app/mlflow_artifacts",
+    "path_template": "{experiment_id}/{run_id}/artifacts/{artifact_name}"
+  },
+  "artifact_required_fields": [
+    "job_id",
+    "readiness",
+    "verdict",
+    "profile_ref",
+    "resolved_profile",
+    "feature_vector"
+  ],
+  "artifact_schema": {
+    "fields": "artifact_required_fields",
+    "exact": true
+  },
+  "feature_vector_format": {
+    "type": "array",
+    "order": "readiness_contract.json feature_order",
+    "length": 8
+  }
+}

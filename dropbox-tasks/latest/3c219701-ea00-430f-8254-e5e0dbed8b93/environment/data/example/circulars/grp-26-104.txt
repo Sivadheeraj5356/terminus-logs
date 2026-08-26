@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-104
+ISSUER: BBB
+ISSUED: 1767130600
+EFFECTIVE: 1767130600 TO 1767135600
+
+A load-shedding exemption for AAA-112 that lapsed before the operating week.
+
+DIRECTIVES:
+EXEMPT AAA-112
+END DIRECTIVES
+
+Nothing else in this circular is operative.

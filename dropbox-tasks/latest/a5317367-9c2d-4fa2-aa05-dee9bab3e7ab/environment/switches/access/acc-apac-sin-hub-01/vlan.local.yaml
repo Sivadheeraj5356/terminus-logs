@@ -1,0 +1,6 @@
+hostname: acc-apac-sin-hub-01
+migration_state: partial
+canonical_vlan: 2042
+configured_vlan: 143
+legacy_vlan: 143
+duplicate_vlan_conflict: false

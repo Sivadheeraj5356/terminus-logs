@@ -1,0 +1,46 @@
+{
+  "windows": [
+    {
+      "crew_minutes_cap": 3515,
+      "label": "recovery-block-1",
+      "terminal_slots": 33,
+      "tide_factor": 1.01,
+      "window": 1
+    },
+    {
+      "crew_minutes_cap": 3480,
+      "label": "recovery-block-2",
+      "terminal_slots": 34,
+      "tide_factor": 0.97,
+      "window": 2
+    },
+    {
+      "crew_minutes_cap": 3445,
+      "label": "recovery-block-3",
+      "terminal_slots": 33,
+      "tide_factor": 1.04,
+      "window": 3
+    },
+    {
+      "crew_minutes_cap": 3410,
+      "label": "recovery-block-4",
+      "terminal_slots": 34,
+      "tide_factor": 1.0,
+      "window": 4
+    },
+    {
+      "crew_minutes_cap": 3375,
+      "label": "recovery-block-5",
+      "terminal_slots": 33,
+      "tide_factor": 0.96,
+      "window": 5
+    },
+    {
+      "crew_minutes_cap": 3340,
+      "label": "recovery-block-6",
+      "terminal_slots": 34,
+      "tide_factor": 1.03,
+      "window": 6
+    }
+  ]
+}

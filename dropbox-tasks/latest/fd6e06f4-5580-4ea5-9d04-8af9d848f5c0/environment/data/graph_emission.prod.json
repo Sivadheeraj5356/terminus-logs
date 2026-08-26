@@ -1,0 +1,91 @@
+{
+  "contract_id": "feature-lineage-graph-2024-q2",
+  "note": "Envelope-root digraph/rankdir/suffix/order/template fields are lab decoys. Prefer the root-level nested production_binding — not counsel_scratch.",
+  "digraph_name": "rejected_feature_lineage",
+  "rankdir": "TB",
+  "emit_rejected_runs_only": true,
+  "two_pass_emission": true,
+  "emit_parents_inline": false,
+  "pass2_starts_after_pass1_complete": true,
+  "pass1_emit_run_feature_edge_immediately": true,
+  "quote_node_ids": true,
+  "require_single_node_declaration": true,
+  "ledger_timestamp_column": "ledger_as_of",
+  "registry_json_field": "approved",
+  "run_manifest_order": "run_id ASC",
+  "pass1_run_node_suffix": "_run",
+  "pass1_run_shape": "box",
+  "pass1_run_node_label": "{run_id}",
+  "pass1_feature_shape": "ellipse",
+  "pass1_feature_order_by": "feature_name DESC",
+  "pass2_parent_suffix": "_src",
+  "pass2_parent_shape": "box",
+  "pass2_edge_order_by": ["child_feature ASC", "parent_feature ASC"],
+  "pass2_edge_direction": "child_to_parent",
+  "pass2_edge_template": "\"{run_id}_{child_feature}\" -> \"{run_id}_{parent_feature}{pass2_parent_suffix}\"",
+  "node_label_columns": {
+    "pass1_feature": "feature_name",
+    "pass2_parent": "parent_feature"
+  },
+  "forbid_version_in_node_label": true,
+  "node_attribute_order": ["shape", "label", "xlabel"],
+  "indent_spaces": {
+    "digraph_body": 2,
+    "subgraph_body": 4
+  },
+  "violation_type_literals": ["leaking_feature", "unapproved_model"],
+  "violation_emission_order": ["leaking_feature", "unapproved_model"],
+  "leaking_feature_sort": ["feature_name ASC", "feature_version ASC"],
+  "violation_xlabel_format": "VIOLATION: {violation_type}",
+  "violation_detail_templates": {
+    "leaking_feature": "feature {feature_name}@{feature_version} posted after cutoff {ledger_cutoff}",
+    "unapproved_model": "model {model_name} lacks deployment approval"
+  },
+  "cluster_label": "{run_id}",
+  "verdict_json_schema": {
+    "top_level_keys": ["policy_version", "ledger_cutoff", "registry_base_url", "runs"],
+    "run_object_keys": ["run_id", "model_name", "approved", "violations"],
+    "violation_object_keys": ["violation_type", "detail"],
+    "forbid_additional_properties": true
+  },
+  "findings_csv_columns": ["run_id", "violation_type", "detail"],
+  "counsel_scratch": {
+    "production_binding": {
+      "digraph_name": "rejected_scratch_lineage",
+      "rankdir": "LR",
+      "pass1_feature_order_by": "feature_name DESC",
+      "pass2_parent_suffix": "_scratch",
+      "pass2_edge_direction": "child_to_parent",
+      "violation_detail_templates": {
+        "leaking_feature": "feature {feature_name}@{feature_version} scratch-leak {ledger_cutoff}",
+        "unapproved_model": "model {model_name} scratch-deny"
+      },
+      "ledger_timestamp_column": "committed_at",
+      "registry_json_field": "deployment_approved",
+      "run_manifest_order": "run_id DESC"
+    }
+  },
+  "production_binding": {
+    "digraph_name": "rejected_store_lineage",
+    "rankdir": "BT",
+    "pass1_feature_order_by": "feature_name ASC",
+    "pass2_parent_suffix": "_origin",
+    "pass2_edge_template": "\"{run_id}_{child_feature}\" -> \"{run_id}_{parent_feature}{pass2_parent_suffix}\"",
+    "pass2_edge_direction": "child_to_parent",
+    "violation_detail_templates": {
+      "leaking_feature": "feature {feature_name}@{feature_version} available after cutoff {ledger_cutoff}",
+      "unapproved_model": "model {model_name} failed registry approval"
+    },
+    "leaking_feature_sort": ["feature_name ASC", "feature_version ASC"],
+    "violation_emission_order": ["leaking_feature", "unapproved_model"],
+    "ledger_timestamp_column": "ledger_as_of",
+    "registry_json_field": "approved",
+    "run_manifest_order": "run_id ASC",
+    "pass1_run_node_label": "{run_id}",
+    "forbid_version_in_node_label": true,
+    "two_pass_emission": true,
+    "emit_parents_inline": false,
+    "quote_node_ids": true,
+    "require_single_node_declaration": true
+  }
+}

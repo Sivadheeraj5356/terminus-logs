@@ -1,0 +1,15 @@
+== Vault of Echoes [crystal] ==
+Omen: The tide remembers your name.
+Light: 9.0 lumens
+Relics:
+  - Crystal Eye <legendary> 90g
+  - Resonant Bell <rare> 350g
+Freshest: Crystal Eye @ 00:10 KST
+Exits:
+  - down: Whisperbone Catacomb (torch 2.5)
+Torch: 3.5 units
+Inventory: silver-sigil
+Route: you stand at the goal
+---ACTIONS---
+take crystal-eye
+go down

@@ -1,0 +1,4 @@
+run	feature	cohort_alias	samples	psi_bp	nulls_ppm	observed_at_ms
+run_2027q1_0106	fa_open_litigation_flag	LGC_HOME_CORE	3000	2400	19500	1801645200000
+run_2027q1_0103	fa_prior_claim_count	LGC_AUTO_CORE	500	2000	21000	1801472400000
+run_2027q1_0115	fa_telematics_night_ratio	LGC_HNW	499	6400	23000	1803718800000

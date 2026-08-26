@@ -1,0 +1,11 @@
+# Vaccine cold-chain lot-wave planner
+
+Scientific-computing vaccine cold-chain lot-wave planner. Immunolab fixtures under /app/data/immunolab/ and policy in /app/config/immuno.toml drive wave-3 allocation through the immunoflow planner at /app/environment. On the canonical chain, the public products under /app/output/ and persisted ledgers under /app/var/ disagree with each other and with independent replay of /app/environment/docs/contract.md.
+
+Implementation under /app/environment must be corrected so the normal immunoflow pipeline regenerates consistent artifacts. Rebuild per /app/environment/README.md, rerun the documented wave-3 chain, and fix Go and Rust library modules there, not only the CLI wrapper. Static or hand-written output is insufficient; fixture edits under /app/data/immunolab and wrapper-only shortcuts will not pass.
+
+Required outputs: /app/output/allocation_plan.json (wave, lot_assignments, region_coverage, equity_met, plan_digest_hex), /app/output/shipment_legs.csv, /app/output/coldchain_audit.json (wave, pallets, spoilage_rows, lane_digest_hex), /app/output/dose_schedule.json (schedule), /app/output/infection_projection.json (projected_cases), /app/output/equity_rollup.json, and /app/output/feasibility_report.json. Shipment legs are UTF-8 CSV with header leg_id,region_id,lot_id,depart_day,arrive_day,temp_band and one row per lot_assignments entry; leg_id, depart_day, and arrive_day come from the matching routes.json record for that region_id. Vial-remainder, customs, plan-cache, and scopebook state under /app/var/ must stay consistent across plan-wave, spoilage-replan, and inspect runs.
+
+Shared FEFO pool depletion, vial remainder carry, dose-2 wave math, infection gap-week scaling, equity reserve separation, pallet temperature packing, inspect generation binding, scopebook hour accumulation, assignment-scoped customs accrual, digests, and cross-artifact semantics are documented in /app/environment/docs/contract.md. Rebuild steps are in /app/environment/README.md.
+
+Verifier scenarios include an expiry_day mutation on lot L3, a spoilage-replan hours climb, inspect with generation offset +99 versus the matching generation, and a second plan-wave without bench reset for customs and remainder carry.

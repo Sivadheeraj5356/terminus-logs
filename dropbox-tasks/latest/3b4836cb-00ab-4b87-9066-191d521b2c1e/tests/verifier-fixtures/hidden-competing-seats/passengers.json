@@ -1,0 +1,40 @@
+{
+  "passengers": [
+    {
+      "passenger_id": "PAX-A",
+      "name": "Alpha",
+      "loyalty_tier": "gold",
+      "fare_class": "J",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "DL100",
+          "carrier": "DL",
+          "origin": "ATL",
+          "destination": "BOS",
+          "departure_utc": "2026-07-01T12:00:00Z",
+          "arrival_utc": "2026-07-01T14:00:00Z",
+          "fare_class": "J"
+        }
+      ]
+    },
+    {
+      "passenger_id": "PAX-B",
+      "name": "Beta",
+      "loyalty_tier": "silver",
+      "fare_class": "J",
+      "itinerary": [
+        {
+          "leg_seq": 1,
+          "flight_id": "DL100",
+          "carrier": "DL",
+          "origin": "ATL",
+          "destination": "BOS",
+          "departure_utc": "2026-07-01T12:00:00Z",
+          "arrival_utc": "2026-07-01T14:00:00Z",
+          "fare_class": "J"
+        }
+      ]
+    }
+  ]
+}

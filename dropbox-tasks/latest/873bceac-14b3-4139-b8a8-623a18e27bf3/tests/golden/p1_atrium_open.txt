@@ -1,0 +1,17 @@
+== Sunken Atrium [flooded] ==
+Omen: The tide remembers your name.
+Light: 7.0 lumens
+Relics:
+  - Drowned Crown <epic> 300g (cursed) (sealed)
+  - Silver Sigil <rare> 120g
+  - Tide Pearl <common> 40g (cursed)
+Freshest: Silver Sigil @ 01:45 KST
+Exits:
+  - north: Gallery of Whispers (torch 1.5)
+  - east: Emberforge Hollow (torch 2.0)
+  - down: Whisperbone Catacomb (torch 2.5)
+Torch: 8.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+inspect tide-pearl

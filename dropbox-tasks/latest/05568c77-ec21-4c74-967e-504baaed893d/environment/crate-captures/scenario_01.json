@@ -1,0 +1,37 @@
+{
+  "scenario_id": "scenario_01",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "svc",
+      "version": "0.1.0",
+      "features": [
+        "api"
+      ],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [
+    {
+      "parent": "svc:0.1.0",
+      "child": "serde",
+      "version": "1.0.0",
+      "features_requested": [
+        "derive"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s01e1",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

@@ -1,0 +1,9 @@
+{
+  "note": "shape sample only; tip and epoch depend on full matrix order and stage state — not a substitute for the certificate",
+  "manifest_id": "c1-alpha",
+  "scope_band": "p7",
+  "unit_tag": "app=front,tier=a,rev=1",
+  "canonical_byte_digest": "see stage_rules after a clean wipe+matrix",
+  "cache_epoch": 1,
+  "journal_tip_hex": "see stage_rules"
+}

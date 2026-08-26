@@ -1,0 +1,43 @@
+#!/bin/bash
+# Re-run the audit and validate the output schema and decision vocabulary.
+set -euo pipefail
+
+/app/bin/ledger-audit >/dev/null
+
+python3 - <<'PYEOF'
+import json, sys
+
+with open("/app/out/decisions.json") as f:
+    doc = json.load(f)
+
+if "decisions" not in doc:
+    print("qa-check: FAIL -- missing 'decisions' key")
+    sys.exit(1)
+
+valid_decisions = {"approve", "annotate", "reject"}
+errors = []
+for i, row in enumerate(doc["decisions"]):
+    for key in ("ecosystem", "name", "version", "decision", "reasons", "annotations"):
+        if key not in row:
+            errors.append(f"row {i}: missing key '{key}'")
+    if row.get("decision") not in valid_decisions:
+        errors.append(f"row {i}: invalid decision value '{row.get('decision')}'")
+    if not isinstance(row.get("reasons", None), list):
+        errors.append(f"row {i}: 'reasons' must be a list")
+    if not isinstance(row.get("annotations", None), list):
+        errors.append(f"row {i}: 'annotations' must be a list")
+
+if errors:
+    for e in errors:
+        print("  " + e)
+    print(f"qa-check: FAIL -- {len(errors)} schema error(s)")
+    sys.exit(1)
+
+rows = doc["decisions"]
+counts = {"approve": 0, "annotate": 0, "reject": 0}
+for r in rows:
+    counts[r["decision"]] += 1
+
+print(f"qa-check: {len(rows)} rows -- approve {counts['approve']}, annotate {counts['annotate']}, reject {counts['reject']}")
+print("qa-check: schema OK")
+PYEOF

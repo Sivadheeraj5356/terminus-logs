@@ -1,0 +1,7 @@
+[walk]
+stride = 1
+pivot = "tidal"
+cycle = ["south", "west", "north", "east"]
+
+[score]
+bonus = 19

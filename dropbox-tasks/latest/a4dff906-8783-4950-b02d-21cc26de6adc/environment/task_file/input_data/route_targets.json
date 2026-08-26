@@ -1,0 +1,34 @@
+{
+  "routes": {
+    "AIRPORT": {
+      "min_assigned": 22,
+      "priority_multiplier": 0.99,
+      "target_share": 0.1667
+    },
+    "HARBOR": {
+      "min_assigned": 22,
+      "priority_multiplier": 1.0,
+      "target_share": 0.1667
+    },
+    "ISLAND": {
+      "min_assigned": 22,
+      "priority_multiplier": 1.04,
+      "target_share": 0.1667
+    },
+    "NORTH": {
+      "min_assigned": 22,
+      "priority_multiplier": 0.96,
+      "target_share": 0.1667
+    },
+    "SOUTH": {
+      "min_assigned": 22,
+      "priority_multiplier": 0.98,
+      "target_share": 0.1667
+    },
+    "WEST": {
+      "min_assigned": 22,
+      "priority_multiplier": 1.03,
+      "target_share": 0.1667
+    }
+  }
+}

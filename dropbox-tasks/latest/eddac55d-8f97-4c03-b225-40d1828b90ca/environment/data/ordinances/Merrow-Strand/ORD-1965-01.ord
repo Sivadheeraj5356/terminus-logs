@@ -1,0 +1,9 @@
+ordinance: ORD-1965-01
+jurisdiction: Merrow-Strand
+enacted: 1965-08-23
+effective: 1965-10-01T00:00:00 universal
+standard-offset: basis ORD-1957-02
+standard-label: RST
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label RDT
+  end: Oct lastSun 03:00:00 standard

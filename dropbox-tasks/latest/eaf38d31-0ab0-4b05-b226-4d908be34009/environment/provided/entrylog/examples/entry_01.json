@@ -1,0 +1,23 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 3703703,
+  "leaf_type": "x509_entry",
+  "issuer_id": "CA-SHOULD-BE-DROPPED",
+  "subject": [
+    "a.initech.com",
+    "MAIL.EXAMPLE.COM",
+    "initech.com",
+    "a.acme.net",
+    "mail.example.com"
+  ],
+  "issued_at": "2026-06-01T15:27:50.250Z",
+  "payload": "cert:uyf3bwgRZV/fjC3cN1Ewo/za10fyrGeEyzguChRpkUw=",
+  "received_at": "2026-04-25T13:02:31Z",
+  "x_shard": 10,
+  "x_ingest_host": "frontend-1",
+  "x_origin": "shard-east-1",
+  "audit": {
+    "reviewer": "alice",
+    "note": "auto"
+  }
+}

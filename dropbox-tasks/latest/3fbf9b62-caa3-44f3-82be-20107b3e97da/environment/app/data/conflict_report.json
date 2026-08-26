@@ -1,0 +1,49 @@
+{
+  "report_date": "2025-01-18",
+  "note": "Staging proxy and checksumdb probes disagree with the January snapshot on these module coordinates",
+  "conflicts": [
+    {
+      "mod_id": "MOD-010",
+      "module_path": "github.com/hashicorp/consul/api",
+      "reasons": [
+        "retract_refresh"
+      ]
+    },
+    {
+      "mod_id": "MOD-011",
+      "module_path": "github.com/klauspost/compress",
+      "reasons": [
+        "retract_refresh"
+      ]
+    },
+    {
+      "mod_id": "MOD-012",
+      "module_path": "github.com/redis/go-redis/v9",
+      "reasons": [
+        "retract_refresh"
+      ]
+    },
+    {
+      "mod_id": "MOD-013",
+      "module_path": "github.com/golang-jwt/jwt/v4",
+      "reasons": [
+        "checksumdb_drift"
+      ]
+    },
+    {
+      "mod_id": "MOD-014",
+      "module_path": "github.com/lestrrat-go/jwx",
+      "reasons": [
+        "retract_refresh"
+      ]
+    },
+    {
+      "mod_id": "MOD-015",
+      "module_path": "github.com/segmentio/kafka-go",
+      "reasons": [
+        "retract_refresh",
+        "checksumdb_drift"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+bird false yes gamma
+addr 7.95.138.12 hex 0x73b token tok_742
+foo foobar foobarbaz
+value = 0xDEADbeef and 0x1234
+addr 130.46.175.3 hex 0x79a2 token tok_167
+grey colour foobar gamma
+addr 77.31.150.203 hex 0x1914 token tok_217
+cat quux dog maybe maybe foo
+name_1 foo_bar Baz99 __x

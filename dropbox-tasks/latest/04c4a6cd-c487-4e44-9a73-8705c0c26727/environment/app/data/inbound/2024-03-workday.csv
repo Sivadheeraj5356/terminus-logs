@@ -1,0 +1,2 @@
+batch_id,source_system,employee_id,full_name,department,title,manager_id,location,annual_salary,status,attrs_json,valid_from,recorded_at,operation,correction_id
+WD-2024-03,workday,E100,Ada Ng,Engineering,Analyst II,M010,NYC,100000,active,"{""level"":2,""cost_center"":""ENG1""}",2024-03-15,2024-03-16T08:30:00Z,UPSERT,ORIG

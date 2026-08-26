@@ -1,0 +1,7002 @@
+[
+ {
+  "version": "2.0_beta3",
+  "selector": "[1.2,3.10.10]",
+  "expected": true
+ },
+ {
+  "version": "100.10.15alpha",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.0",
+  "selector": "10.+",
+  "expected": true
+ },
+ {
+  "version": "1.10.0_pr1",
+  "selector": "[0.5-snapshot,10.11.5-SNAPSHOT)",
+  "expected": true
+ },
+ {
+  "version": "10",
+  "selector": "1.5beta",
+  "expected": false
+ },
+ {
+  "version": "10.15.1",
+  "selector": "11.2.+",
+  "expected": false
+ },
+ {
+  "version": "1.2.+",
+  "selector": "1.2.+",
+  "expected": true
+ },
+ {
+  "version": "10.1.11.2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.100.1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "15.3.100.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.15.RELEASE",
+  "selector": "(0.15-dev,2-sp)",
+  "expected": true
+ },
+ {
+  "version": "3.alpha",
+  "selector": "v10",
+  "expected": false
+ },
+ {
+  "version": "0.5.2",
+  "selector": "10.9.15.+",
+  "expected": false
+ },
+ {
+  "version": "2.100.100.0dev0",
+  "selector": "[,5.0-RELEASE)",
+  "expected": false
+ },
+ {
+  "version": "1.10.0.0",
+  "selector": "1.10.+",
+  "expected": true
+ },
+ {
+  "version": "2.3.3",
+  "selector": "(1,100.3.1.RELEASE)",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "[11-milestone,0.5.9]",
+  "expected": false
+ },
+ {
+  "version": "2.9_ga0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.1.100.0ga3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3snapshot2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "10.3.2.15",
+  "selector": "(10.Final,9.11.15-beta)",
+  "expected": false
+ },
+ {
+  "version": "15.15.5",
+  "selector": "(100.3,15.2.5-cr)",
+  "expected": false
+ },
+ {
+  "version": "3.10.2.0",
+  "selector": "3.10.2.0",
+  "expected": true
+ },
+ {
+  "version": "15.1.9.100.2.11",
+  "selector": "(9-Final,)",
+  "expected": true
+ },
+ {
+  "version": "10.cr2",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "11.0.10",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "5",
+  "selector": "10.100.alpha2",
+  "expected": false
+ },
+ {
+  "version": "1.2.9",
+  "selector": "1.2.+",
+  "expected": true
+ },
+ {
+  "version": "v10.15.2.15",
+  "selector": "v10.15.2.15",
+  "expected": true
+ },
+ {
+  "version": "10.5.9.15",
+  "selector": "5.10",
+  "expected": false
+ },
+ {
+  "version": "1.2.3.RC",
+  "selector": "(1.2.3,1.2.3)",
+  "expected": false
+ },
+ {
+  "version": "100.1.5.RELEASE",
+  "selector": "100.1.5.RELEASE",
+  "expected": true
+ },
+ {
+  "version": "1.0",
+  "selector": "[0-SNAPSHOT,9.1.10]",
+  "expected": true
+ },
+ {
+  "version": "3",
+  "selector": "10.+",
+  "expected": false
+ },
+ {
+  "version": "15-beta",
+  "selector": "15-beta",
+  "expected": true
+ },
+ {
+  "version": "10.final",
+  "selector": "10.final",
+  "expected": true
+ },
+ {
+  "version": "11.9release0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.2.final",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.0.0.RC",
+  "selector": "(1.0.0,)",
+  "expected": false
+ },
+ {
+  "version": "100.15.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100.11.3_SP1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.100.3",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "5.15.10.Final0",
+  "selector": "(2.snapshot,)",
+  "expected": true
+ },
+ {
+  "version": "2.2.2.x",
+  "selector": "2.2.2.+",
+  "expected": true
+ },
+ {
+  "version": "v2.11.0",
+  "selector": "0.2-ga",
+  "expected": false
+ },
+ {
+  "version": "15.15.1-xyz1",
+  "selector": "0.100.10",
+  "expected": false
+ },
+ {
+  "version": "1.2",
+  "selector": "[1.2,1.2]",
+  "expected": true
+ },
+ {
+  "version": "10.11.1.15",
+  "selector": "15.100.+",
+  "expected": false
+ },
+ {
+  "version": "1.0.10.1",
+  "selector": "1.0.10.+",
+  "expected": true
+ },
+ {
+  "version": "11.10.9.0",
+  "selector": "(11.10,)",
+  "expected": true
+ },
+ {
+  "version": "5.10.10.3.5",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "v1.11.1.10",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "2.9",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.1.1",
+  "selector": "1.1.+",
+  "expected": true
+ },
+ {
+  "version": "5.100",
+  "selector": "(5.2.1,]",
+  "expected": false
+ },
+ {
+  "version": "1.11.3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.2.2",
+  "selector": "9.+",
+  "expected": false
+ },
+ {
+  "version": "2.2-dev",
+  "selector": "1.10.3",
+  "expected": false
+ },
+ {
+  "version": "100.0.release",
+  "selector": "[,5.0.100-dev]",
+  "expected": false
+ },
+ {
+  "version": "1.2.0.9",
+  "selector": "1.2.0.+",
+  "expected": true
+ },
+ {
+  "version": "0.10.Final3",
+  "selector": "2.final",
+  "expected": false
+ },
+ {
+  "version": "1.5.1",
+  "selector": "(100.ga,2]",
+  "expected": false
+ },
+ {
+  "version": "1.0-m1",
+  "selector": "(,1.0]",
+  "expected": true
+ },
+ {
+  "version": "cr2.9",
+  "selector": "[6,15.m1.release)",
+  "expected": false
+ },
+ {
+  "version": "v2.2",
+  "selector": "[100.5.9-SNAPSHOT,)",
+  "expected": false
+ },
+ {
+  "version": "10.9.11.10alpha",
+  "selector": "11.11.9.9cr",
+  "expected": false
+ },
+ {
+  "version": "11",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.0.0-final",
+  "selector": "(1.0.0,)",
+  "expected": false
+ },
+ {
+  "version": "v15.0.15.1",
+  "selector": "v15.0.15.1",
+  "expected": true
+ },
+ {
+  "version": "5.RELEASE1",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.15.2",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2-dev",
+  "selector": "[2,)",
+  "expected": false
+ },
+ {
+  "version": "1.9_b1",
+  "selector": "(1.cr,5.2.10-rc]",
+  "expected": true
+ },
+ {
+  "version": "v2.2",
+  "selector": "[,15-beta)",
+  "expected": false
+ },
+ {
+  "version": "2.2.Final",
+  "selector": "2.2.+",
+  "expected": true
+ },
+ {
+  "version": "14.2.17",
+  "selector": "[dev.alpha.foobar.17,release.sp)",
+  "expected": false
+ },
+ {
+  "version": "1.2",
+  "selector": "1.2",
+  "expected": true
+ },
+ {
+  "version": "1-pr3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.1.15.9ga",
+  "selector": "[3.15.15,]",
+  "expected": false
+ },
+ {
+  "version": "10.m1",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "11.9.1",
+  "selector": "(10-Final,2.10)",
+  "expected": false
+ },
+ {
+  "version": "11RC",
+  "selector": "3.2.5.+",
+  "expected": false
+ },
+ {
+  "version": "11.5",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "9.1.11",
+  "selector": "[0.11.9,5.9.dev]",
+  "expected": false
+ },
+ {
+  "version": "100.15.2.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "(,11.1.2)",
+  "expected": true
+ },
+ {
+  "version": "10.11.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.15-SP2",
+  "selector": "[,1.9.SP]",
+  "expected": false
+ },
+ {
+  "version": "1.0.0-beta",
+  "selector": "(,1.0.0)",
+  "expected": false
+ },
+ {
+  "version": "1.0-beta",
+  "selector": "(,1.0]",
+  "expected": true
+ },
+ {
+  "version": "100.11.beta3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.RC",
+  "selector": "[release.snapshot,release.final.15.20)",
+  "expected": false
+ },
+ {
+  "version": "15.3.1.0_Final1",
+  "selector": "15.3.1.0_Final1",
+  "expected": true
+ },
+ {
+  "version": "3.2.100",
+  "selector": "3.2.100",
+  "expected": true
+ },
+ {
+  "version": "2.10",
+  "selector": "(1.9.100,)",
+  "expected": true
+ },
+ {
+  "version": "9.1.5.5",
+  "selector": "(5.m,3.9.3-foobar)",
+  "expected": false
+ },
+ {
+  "version": "10.0.2.3",
+  "selector": "[,11.9.2]",
+  "expected": false
+ },
+ {
+  "version": "14.ga",
+  "selector": "[final,18)",
+  "expected": true
+ },
+ {
+  "version": "100.5_dev",
+  "selector": "100.5_dev",
+  "expected": true
+ },
+ {
+  "version": "15.1.1.15",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "v5",
+  "selector": "v5",
+  "expected": true
+ },
+ {
+  "version": "5.2.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.9.10.ga0",
+  "selector": "(100.0,11.9.15]",
+  "expected": false
+ },
+ {
+  "version": "0.2-final",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.0.15.100.15",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.1",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "0_alpha3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2_xyz",
+  "selector": "1.15.2.+",
+  "expected": false
+ },
+ {
+  "version": "11.5.100.10",
+  "selector": "10.1.+",
+  "expected": false
+ },
+ {
+  "version": "v0.3.0.1",
+  "selector": "v0.3.0.1",
+  "expected": true
+ },
+ {
+  "version": "2.100.15.3.3",
+  "selector": "3.2.+",
+  "expected": false
+ },
+ {
+  "version": "2.5",
+  "selector": "[5.100-beta,15.5.9-Final)",
+  "expected": false
+ },
+ {
+  "version": "9.alpha",
+  "selector": "0.0.3.+",
+  "expected": false
+ },
+ {
+  "version": "100",
+  "selector": "(9.dev,)",
+  "expected": true
+ },
+ {
+  "version": "9.9.3_ga3",
+  "selector": "(2-RELEASE,100.5.15.xyz)",
+  "expected": true
+ },
+ {
+  "version": "3.5.15milestone",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.dev3",
+  "selector": "2.+",
+  "expected": false
+ },
+ {
+  "version": "1.rc",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "2.0.2.5",
+  "selector": "2.0.2.+",
+  "expected": true
+ },
+ {
+  "version": "10.2.15",
+  "selector": "[9.1.10,)",
+  "expected": true
+ },
+ {
+  "version": "3.0.9",
+  "selector": "1.3rc",
+  "expected": false
+ },
+ {
+  "version": "10.100.5.100.0.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.100",
+  "selector": "5.100",
+  "expected": true
+ },
+ {
+  "version": "1.15.10-Final1",
+  "selector": "(,100.1.0]",
+  "expected": true
+ },
+ {
+  "version": "10.11.3.0",
+  "selector": "[9.15-final,]",
+  "expected": false
+ },
+ {
+  "version": "2.100.2.15",
+  "selector": "3.10.5.15.3.2",
+  "expected": false
+ },
+ {
+  "version": "5.0",
+  "selector": "100.10.5.+",
+  "expected": false
+ },
+ {
+  "version": "1.9.5_sp",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.3.10",
+  "selector": "[15.beta,)",
+  "expected": true
+ },
+ {
+  "version": "9.rc",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.100.SNAPSHOT",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.alpha",
+  "selector": "[,15.11-Final]",
+  "expected": false
+ },
+ {
+  "version": "1",
+  "selector": "(3.1.0,10-milestone)",
+  "expected": false
+ },
+ {
+  "version": "18.11.2.RC",
+  "selector": "(7.19.3.12,20]",
+  "expected": true
+ },
+ {
+  "version": "100.0_pr3",
+  "selector": "100.+",
+  "expected": true
+ },
+ {
+  "version": "1.0-final",
+  "selector": "(1.0,1.0)",
+  "expected": false
+ },
+ {
+  "version": "15.sp0",
+  "selector": "(5.beta,10.10]",
+  "expected": false
+ },
+ {
+  "version": "100.1",
+  "selector": "(2.11,0.15.5-SP)",
+  "expected": false
+ },
+ {
+  "version": "2.11",
+  "selector": "(15.2,100.1.15-sp]",
+  "expected": false
+ },
+ {
+  "version": "v5.3.3",
+  "selector": "v5.3.3",
+  "expected": true
+ },
+ {
+  "version": "5.0.2",
+  "selector": "[0-sp,)",
+  "expected": true
+ },
+ {
+  "version": "0.15.15.100.5",
+  "selector": "[10.1,]",
+  "expected": false
+ },
+ {
+  "version": "1.5-snapshot",
+  "selector": "[1.0-dev,2.0)",
+  "expected": true
+ },
+ {
+  "version": "5.xyz0",
+  "selector": "[,5]",
+  "expected": false
+ },
+ {
+  "version": "2.15-beta0",
+  "selector": "2.15-beta0",
+  "expected": true
+ },
+ {
+  "version": "0.5.11.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.5.15.5_SP",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "5.9.5",
+  "selector": "[0.11,100.9]",
+  "expected": true
+ },
+ {
+  "version": "11.0.cr",
+  "selector": "(,15.100.foobar]",
+  "expected": true
+ },
+ {
+  "version": "9_ga3",
+  "selector": "9.1_RELEASE0",
+  "expected": false
+ },
+ {
+  "version": "SNAPSHOT.11.2.RC",
+  "selector": "(rc.16.3,beta]",
+  "expected": false
+ },
+ {
+  "version": "1.0.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.3.3.10",
+  "selector": "(11.5,)",
+  "expected": false
+ },
+ {
+  "version": "10.2.1",
+  "selector": "10.100.15",
+  "expected": false
+ },
+ {
+  "version": "10.11.9.0_foobar0",
+  "selector": "10.+",
+  "expected": true
+ },
+ {
+  "version": "10.0.1.0.0",
+  "selector": "10.0.1.+",
+  "expected": true
+ },
+ {
+  "version": "9.100.15.3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.5.10",
+  "selector": "[9-SNAPSHOT,11.100.0)",
+  "expected": true
+ },
+ {
+  "version": "15_dev",
+  "selector": "(1.1.9-b,15]",
+  "expected": true
+ },
+ {
+  "version": "5.9_milestone2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.15_release",
+  "selector": "3.15_release",
+  "expected": true
+ },
+ {
+  "version": "100.15.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v15.11.15.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.9.3.beta0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.2.100.100.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.1.10",
+  "selector": "(,3.11.pr]",
+  "expected": false
+ },
+ {
+  "version": "100.3-SNAPSHOT3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.9",
+  "selector": "1.+",
+  "expected": false
+ },
+ {
+  "version": "v9",
+  "selector": "11.5",
+  "expected": false
+ },
+ {
+  "version": "10.15.3.1-RC1",
+  "selector": "11.3.+",
+  "expected": false
+ },
+ {
+  "version": "2.10.x",
+  "selector": "2.10.+",
+  "expected": true
+ },
+ {
+  "version": "v2",
+  "selector": "15.9.10.+",
+  "expected": false
+ },
+ {
+  "version": "0.0.1",
+  "selector": "[0.0.1,)",
+  "expected": true
+ },
+ {
+  "version": "10.4",
+  "selector": "(alpha.snapshot.alpha.19,14.14]",
+  "expected": true
+ },
+ {
+  "version": "10.2.0.1",
+  "selector": "1.+",
+  "expected": false
+ },
+ {
+  "version": "1.11",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "v100.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11",
+  "selector": "3.2.11.+",
+  "expected": false
+ },
+ {
+  "version": "10.9.100.15_Final3",
+  "selector": "(100.0.0,1.0.2]",
+  "expected": false
+ },
+ {
+  "version": "v2.15.3",
+  "selector": "15.2dev",
+  "expected": false
+ },
+ {
+  "version": "0.0.x",
+  "selector": "0.0.+",
+  "expected": true
+ },
+ {
+  "version": "15.5.100.3.10.15",
+  "selector": "1.alpha",
+  "expected": false
+ },
+ {
+  "version": "10.1",
+  "selector": "10.1",
+  "expected": true
+ },
+ {
+  "version": "cr2.2.6",
+  "selector": "[dev.15.16,ga)",
+  "expected": true
+ },
+ {
+  "version": "11.15.9",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.0snapshot",
+  "selector": "(2.100,)",
+  "expected": true
+ },
+ {
+  "version": "10.0.0.0",
+  "selector": "10.0.+",
+  "expected": true
+ },
+ {
+  "version": "1.alpha",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "11.15.10-ga0",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "5.0.100.milestone",
+  "selector": "0.0.1.+",
+  "expected": false
+ },
+ {
+  "version": "11.9.2.9-dev",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.10.0-beta1",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "10-RC",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "0.milestone",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11.5.15.3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "100.foobar",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.11.15m2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.3.1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3-dev",
+  "selector": "[5.11.0,3.2.9-xyz)",
+  "expected": false
+ },
+ {
+  "version": "3.10.11.3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.2.0.5",
+  "selector": "15.2.0.5",
+  "expected": true
+ },
+ {
+  "version": "2.9.5.2.b",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5",
+  "selector": "(9,100.0]",
+  "expected": false
+ },
+ {
+  "version": "10.1.5.SP0",
+  "selector": "(10,0)",
+  "expected": false
+ },
+ {
+  "version": "10.5.100.5.Final",
+  "selector": "10.5.100.5.Final",
+  "expected": true
+ },
+ {
+  "version": "11.2.0_RC",
+  "selector": "0.10.1.100",
+  "expected": false
+ },
+ {
+  "version": "11.100.2",
+  "selector": "(0.5.3,3.2.3]",
+  "expected": false
+ },
+ {
+  "version": "10.3",
+  "selector": "1.+",
+  "expected": false
+ },
+ {
+  "version": "100.15.100.2.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v9",
+  "selector": "5.15.+",
+  "expected": false
+ },
+ {
+  "version": "3.100.3",
+  "selector": "3.100.3",
+  "expected": true
+ },
+ {
+  "version": "2dev3",
+  "selector": "[,1]",
+  "expected": false
+ },
+ {
+  "version": "11.9",
+  "selector": "(9.11.3.RELEASE,15.3.15.beta]",
+  "expected": true
+ },
+ {
+  "version": "2.4.Final.sp",
+  "selector": "(snapshot.RC.SNAPSHOT.SNAPSHOT,18.cr2.9.snapshot]",
+  "expected": true
+ },
+ {
+  "version": "11.100-foobar",
+  "selector": "[2.1.1.foobar,15-RELEASE)",
+  "expected": true
+ },
+ {
+  "version": "1.0.0.sp",
+  "selector": "(,1.0.0]",
+  "expected": true
+ },
+ {
+  "version": "5.1.2",
+  "selector": "3",
+  "expected": false
+ },
+ {
+  "version": "2.cr2",
+  "selector": "(,2)",
+  "expected": false
+ },
+ {
+  "version": "100.5-xyz3",
+  "selector": "5.9.15.+",
+  "expected": false
+ },
+ {
+  "version": "2.10.2.beta",
+  "selector": "2.10.2.+",
+  "expected": true
+ },
+ {
+  "version": "15.0.11",
+  "selector": "[100-rc,5.Final]",
+  "expected": false
+ },
+ {
+  "version": "10.1.0.release",
+  "selector": "10.1.0.+",
+  "expected": true
+ },
+ {
+  "version": "0.10.10.9",
+  "selector": "0.10.10.+",
+  "expected": true
+ },
+ {
+  "version": "2",
+  "selector": "(2,2)",
+  "expected": false
+ },
+ {
+  "version": "1.0.0.SNAPSHOT",
+  "selector": "(,1.0.0]",
+  "expected": true
+ },
+ {
+  "version": "100.5",
+  "selector": "(,2.RC)",
+  "expected": false
+ },
+ {
+  "version": "100.15.1",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "v1",
+  "selector": "(,9.9]",
+  "expected": true
+ },
+ {
+  "version": "1.3.RC",
+  "selector": "(,3.ga)",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "(3.11.milestone,1.3.15.SNAPSHOT)",
+  "expected": false
+ },
+ {
+  "version": "2",
+  "selector": "[0.10.release,100.11]",
+  "expected": true
+ },
+ {
+  "version": "0.0.1.9",
+  "selector": "0.0.1.+",
+  "expected": true
+ },
+ {
+  "version": "rc.10.rc",
+  "selector": "[m1.rc.2,16)",
+  "expected": true
+ },
+ {
+  "version": "5.11_milestone2",
+  "selector": "(5.milestone,15.15.100.final)",
+  "expected": true
+ },
+ {
+  "version": "11.b",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "10.10",
+  "selector": "11.15",
+  "expected": false
+ },
+ {
+  "version": "10-foobar",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "1.snapshot3",
+  "selector": "3.11.0.+",
+  "expected": false
+ },
+ {
+  "version": "1.100.2",
+  "selector": "1.100.2",
+  "expected": true
+ },
+ {
+  "version": "2.5.11",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "2.3.3_milestone2",
+  "selector": "(3.2-xyz,)",
+  "expected": false
+ },
+ {
+  "version": "3.9.100snapshot2",
+  "selector": "[0.100.alpha,5.100.9.final)",
+  "expected": true
+ },
+ {
+  "version": "5.1",
+  "selector": "5.+",
+  "expected": true
+ },
+ {
+  "version": "1.2.1.3xyz",
+  "selector": "(,100.11.3]",
+  "expected": true
+ },
+ {
+  "version": "1.100.15",
+  "selector": "1.9.+",
+  "expected": false
+ },
+ {
+  "version": "2.100-RELEASE",
+  "selector": "[10.ga,5.100.5)",
+  "expected": false
+ },
+ {
+  "version": "5.1",
+  "selector": "10.100.+",
+  "expected": false
+ },
+ {
+  "version": "3.5.SNAPSHOT",
+  "selector": "100.0.9.15",
+  "expected": false
+ },
+ {
+  "version": "10.1.1.15",
+  "selector": "[,10-m)",
+  "expected": false
+ },
+ {
+  "version": "5.100.11",
+  "selector": "2.10.3.+",
+  "expected": false
+ },
+ {
+  "version": "2-alpha",
+  "selector": "(,2]",
+  "expected": true
+ },
+ {
+  "version": "1.0.9.11",
+  "selector": "(15.Final,10.3.SNAPSHOT]",
+  "expected": false
+ },
+ {
+  "version": "3.10",
+  "selector": "3.10",
+  "expected": true
+ },
+ {
+  "version": "3.0.9.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5",
+  "selector": "(1,)",
+  "expected": true
+ },
+ {
+  "version": "15.5.m",
+  "selector": "[2.1,]",
+  "expected": false
+ },
+ {
+  "version": "1.3.15.1",
+  "selector": "1.3.15.1",
+  "expected": true
+ },
+ {
+  "version": "2.15",
+  "selector": "[,3]",
+  "expected": false
+ },
+ {
+  "version": "11.100.ga",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9.100.9-milestone2",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.5_b",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.10.10-milestone2",
+  "selector": "100.10.10-milestone2",
+  "expected": true
+ },
+ {
+  "version": "1.0-dev",
+  "selector": "(,1.0]",
+  "expected": true
+ },
+ {
+  "version": "0.100.dev",
+  "selector": "0.+",
+  "expected": true
+ },
+ {
+  "version": "11.9.1.100cr2",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "10.10.5",
+  "selector": "10.10.+",
+  "expected": true
+ },
+ {
+  "version": "3.5.100.15.snapshot",
+  "selector": "15.9.9.+",
+  "expected": false
+ },
+ {
+  "version": "11.0",
+  "selector": "(0.0.9,3.2.0)",
+  "expected": false
+ },
+ {
+  "version": "100b2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.15.3.10",
+  "selector": "(,3.9)",
+  "expected": true
+ },
+ {
+  "version": "10.5.0.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15",
+  "selector": "100.9.10-Final",
+  "expected": false
+ },
+ {
+  "version": "2.15.Final",
+  "selector": "(0.1.SNAPSHOT,15)",
+  "expected": true
+ },
+ {
+  "version": "5_beta2",
+  "selector": "[,5)",
+  "expected": false
+ },
+ {
+  "version": "3.15.15",
+  "selector": "[2.2.pr,5-cr]",
+  "expected": true
+ },
+ {
+  "version": "v11.11.2.100",
+  "selector": "[,1.10.2]",
+  "expected": false
+ },
+ {
+  "version": "10_beta",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v100.5.15",
+  "selector": "v100.5.15",
+  "expected": true
+ },
+ {
+  "version": "18.19",
+  "selector": "(0.2.16,12]",
+  "expected": false
+ },
+ {
+  "version": "100.11",
+  "selector": "(2.9-sp,1.15-sp]",
+  "expected": false
+ },
+ {
+  "version": "1.15.10.15-RELEASE",
+  "selector": "1.15.10.15-RELEASE",
+  "expected": true
+ },
+ {
+  "version": "5.10.5.1",
+  "selector": "[5,)",
+  "expected": true
+ },
+ {
+  "version": "15.15_RC2",
+  "selector": "(9,]",
+  "expected": false
+ },
+ {
+  "version": "11.15.15.11.15",
+  "selector": "(11,9-foobar)",
+  "expected": false
+ },
+ {
+  "version": "2.9.1.9",
+  "selector": "(3.5.10-b,5)",
+  "expected": false
+ },
+ {
+  "version": "100.final",
+  "selector": "3.2.10.+",
+  "expected": false
+ },
+ {
+  "version": "1.RC",
+  "selector": "[,10.10]",
+  "expected": false
+ },
+ {
+  "version": "0.9.100",
+  "selector": "0.9",
+  "expected": false
+ },
+ {
+  "version": "2.1.2",
+  "selector": "[5.0.2-sp,1.100.9-pr)",
+  "expected": false
+ },
+ {
+  "version": "3.100.1",
+  "selector": "(,100]",
+  "expected": true
+ },
+ {
+  "version": "2.9",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "10.9",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.0-ga",
+  "selector": "(,1.0]",
+  "expected": true
+ },
+ {
+  "version": "15.beta",
+  "selector": "15.beta",
+  "expected": true
+ },
+ {
+  "version": "1",
+  "selector": "v3",
+  "expected": false
+ },
+ {
+  "version": "1.0",
+  "selector": "1.15.+",
+  "expected": false
+ },
+ {
+  "version": "15.2.15",
+  "selector": "15.2.15",
+  "expected": true
+ },
+ {
+  "version": "5.3.1",
+  "selector": "[,100.100.0)",
+  "expected": false
+ },
+ {
+  "version": "11.100",
+  "selector": "[15.1,)",
+  "expected": false
+ },
+ {
+  "version": "11.100.5.15",
+  "selector": "[11.15-xyz,]",
+  "expected": false
+ },
+ {
+  "version": "10snapshot1",
+  "selector": "(1.15.10,15]",
+  "expected": true
+ },
+ {
+  "version": "10",
+  "selector": "[10,10]",
+  "expected": true
+ },
+ {
+  "version": "100.1_ga1",
+  "selector": "(1.RELEASE,100.10.100.rc)",
+  "expected": true
+ },
+ {
+  "version": "1.2.3-release",
+  "selector": "(,1.2.3]",
+  "expected": true
+ },
+ {
+  "version": "v3.3.1.1",
+  "selector": "(,0.100)",
+  "expected": true
+ },
+ {
+  "version": "5.3.11.10.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.2.100.11.11.5",
+  "selector": "v0",
+  "expected": false
+ },
+ {
+  "version": "3.2.10.3",
+  "selector": "3.2.10.3",
+  "expected": true
+ },
+ {
+  "version": "5.3.1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "10.1.10.M10",
+  "selector": "10.1.10.M10",
+  "expected": true
+ },
+ {
+  "version": "100.10.15-release1",
+  "selector": "(100.0.2.snapshot,)",
+  "expected": true
+ },
+ {
+  "version": "3.2.snapshot",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.100.11.10xyz3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.2-ga",
+  "selector": "(1.2,1.2)",
+  "expected": false
+ },
+ {
+  "version": "5.0.10_Final0",
+  "selector": "5.0.10_Final0",
+  "expected": true
+ },
+ {
+  "version": "1.0.SNAPSHOT",
+  "selector": "[2.15.11,5]",
+  "expected": false
+ },
+ {
+  "version": "v11.15.0.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "v1.100.2",
+  "selector": "(100.3,100)",
+  "expected": false
+ },
+ {
+  "version": "v2.2",
+  "selector": "(,0)",
+  "expected": true
+ },
+ {
+  "version": "15.10.10.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.foobar",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "1.100.5.1_release",
+  "selector": "1.100.5.1_release",
+  "expected": true
+ },
+ {
+  "version": "3.2.2.0.alpha2",
+  "selector": "[1.5.2,100.3)",
+  "expected": true
+ },
+ {
+  "version": "15.11.100.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11.1.10.1-milestone2",
+  "selector": "1.0.11.1_SNAPSHOT",
+  "expected": false
+ },
+ {
+  "version": "9",
+  "selector": "(,100.5.Final)",
+  "expected": true
+ },
+ {
+  "version": "2.15.2.0",
+  "selector": "(1,3.5)",
+  "expected": true
+ },
+ {
+  "version": "v3.9.3.0",
+  "selector": "10.1",
+  "expected": false
+ },
+ {
+  "version": "2-final",
+  "selector": "(,2]",
+  "expected": true
+ },
+ {
+  "version": "2.5.1_dev2",
+  "selector": "2.5.1_dev2",
+  "expected": true
+ },
+ {
+  "version": "0.5.5",
+  "selector": "(,1.100.11)",
+  "expected": true
+ },
+ {
+  "version": "SNAPSHOT.alpha.Final.8.14",
+  "selector": "(sp.9.snapshot.18,m1.5.dev]",
+  "expected": false
+ },
+ {
+  "version": "10SNAPSHOT2",
+  "selector": "v2",
+  "expected": false
+ },
+ {
+  "version": "10.2",
+  "selector": "(,11.5.3)",
+  "expected": true
+ },
+ {
+  "version": "5.9.SP",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.x",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "v10.100.9.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.RC",
+  "selector": "(,2]",
+  "expected": true
+ },
+ {
+  "version": "100.final",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.9-beta",
+  "selector": "11.0.dev3",
+  "expected": false
+ },
+ {
+  "version": "10.5.0.9",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10.15.15.100-sp",
+  "selector": "10.15.15.100-sp",
+  "expected": true
+ },
+ {
+  "version": "3xyz",
+  "selector": "[11.100,0.2)",
+  "expected": false
+ },
+ {
+  "version": "0.rc",
+  "selector": "0.+",
+  "expected": true
+ },
+ {
+  "version": "15.release",
+  "selector": "[11.1-beta,)",
+  "expected": true
+ },
+ {
+  "version": "100.1.15sp",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3dev",
+  "selector": "15.0.0.rc",
+  "expected": false
+ },
+ {
+  "version": "15.11.100-SP",
+  "selector": "(11.100.15.beta,3.Final]",
+  "expected": false
+ },
+ {
+  "version": "1.11.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.5",
+  "selector": "(0.100,5.10.15)",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "[rc.Final.sp,20)",
+  "expected": true
+ },
+ {
+  "version": "5.5.SP",
+  "selector": "10.3.ga",
+  "expected": false
+ },
+ {
+  "version": "11.0.0.3",
+  "selector": "5.11",
+  "expected": false
+ },
+ {
+  "version": "3.1_dev",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.100_SNAPSHOT0",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "2.1.1.1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.0.3.100",
+  "selector": "[15.5.15,100)",
+  "expected": false
+ },
+ {
+  "version": "10.10.0foobar0",
+  "selector": "[5.11,100.0.5-RELEASE]",
+  "expected": true
+ },
+ {
+  "version": "100.2.foobar2",
+  "selector": "(2.2.100,11.Final]",
+  "expected": false
+ },
+ {
+  "version": "1",
+  "selector": "10.10.11.+",
+  "expected": false
+ },
+ {
+  "version": "v2",
+  "selector": "15.15.9_alpha",
+  "expected": false
+ },
+ {
+  "version": "10.10.5.2",
+  "selector": "10.10.5.2",
+  "expected": true
+ },
+ {
+  "version": "5.15alpha3",
+  "selector": "(,15.3.10.snapshot)",
+  "expected": true
+ },
+ {
+  "version": "sp.final",
+  "selector": "(final.RC,sp.7]",
+  "expected": true
+ },
+ {
+  "version": "1.1.3.0",
+  "selector": "[,11)",
+  "expected": false
+ },
+ {
+  "version": "15.11.9.2.alpha1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.milestone",
+  "selector": "(,11.15.100-dev)",
+  "expected": true
+ },
+ {
+  "version": "9.3.15.9.pr",
+  "selector": "(2.15,11.10.0-SP]",
+  "expected": true
+ },
+ {
+  "version": "11.3.11.10.rc",
+  "selector": "15.+",
+  "expected": false
+ },
+ {
+  "version": "5.5.2",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v3.3",
+  "selector": "10.15.+",
+  "expected": false
+ },
+ {
+  "version": "5.2.11.5",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "v100",
+  "selector": "(,5]",
+  "expected": true
+ },
+ {
+  "version": "2.10.2",
+  "selector": "(,9)",
+  "expected": true
+ },
+ {
+  "version": "2.5.xyz",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "0.3-pr0",
+  "selector": "[5-RELEASE,9]",
+  "expected": false
+ },
+ {
+  "version": "10.0.100foobar",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.0-RC",
+  "selector": "[1.0,1.0]",
+  "expected": false
+ },
+ {
+  "version": "9.0.dev3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3.1.1.0_sp",
+  "selector": "3.1.1.0_sp",
+  "expected": true
+ },
+ {
+  "version": "0.7.13.8.m1",
+  "selector": "[release,20.17.5)",
+  "expected": true
+ },
+ {
+  "version": "0.1.10.2",
+  "selector": "0.1.10.2",
+  "expected": true
+ },
+ {
+  "version": "0.10.9.beta",
+  "selector": "2.3",
+  "expected": false
+ },
+ {
+  "version": "5.9_final",
+  "selector": "11.15.3.final2",
+  "expected": false
+ },
+ {
+  "version": "1.9-final",
+  "selector": "[1.0-dev,2.0)",
+  "expected": true
+ },
+ {
+  "version": "3Final",
+  "selector": "(0-b,10)",
+  "expected": true
+ },
+ {
+  "version": "0.0.0",
+  "selector": "0.0.+",
+  "expected": true
+ },
+ {
+  "version": "3.10.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "15.10.pr",
+  "selector": "(15,100.ga)",
+  "expected": true
+ },
+ {
+  "version": "2.15.0.100-release0",
+  "selector": "10.11.100.0",
+  "expected": false
+ },
+ {
+  "version": "10.1.0.5",
+  "selector": "10.1.0.+",
+  "expected": true
+ },
+ {
+  "version": "11.10.0.pr",
+  "selector": "(9.2.dev,15.5.3.beta]",
+  "expected": true
+ },
+ {
+  "version": "11.9.3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "100.9.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9.9.final",
+  "selector": "(,100]",
+  "expected": true
+ },
+ {
+  "version": "1.0.0.ga",
+  "selector": "[1.0.0,)",
+  "expected": false
+ },
+ {
+  "version": "sp.4",
+  "selector": "(14.8.cr2,cr2.final.18.6]",
+  "expected": false
+ },
+ {
+  "version": "10.100.3_RELEASE",
+  "selector": "(,100.15.release]",
+  "expected": true
+ },
+ {
+  "version": "1.2.3-ga",
+  "selector": "(,1.2.3)",
+  "expected": false
+ },
+ {
+  "version": "9.10",
+  "selector": "[3.3.5-SNAPSHOT,)",
+  "expected": true
+ },
+ {
+  "version": "3.9_beta",
+  "selector": "[2.15.15-rc,)",
+  "expected": true
+ },
+ {
+  "version": "v1.1",
+  "selector": "v1.1",
+  "expected": true
+ },
+ {
+  "version": "100.10.11.10.5",
+  "selector": "11.SP",
+  "expected": false
+ },
+ {
+  "version": "5.cr",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.1.2.1.snapshot2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.15.2",
+  "selector": "0.15.2",
+  "expected": true
+ },
+ {
+  "version": "10",
+  "selector": "(9,10.1.milestone)",
+  "expected": true
+ },
+ {
+  "version": "11.3.beta",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "0.15.2.3",
+  "selector": "0.15.2.3",
+  "expected": true
+ },
+ {
+  "version": "10.15.2.2.100.5",
+  "selector": "(1.11,15]",
+  "expected": true
+ },
+ {
+  "version": "10.ga",
+  "selector": "(10,)",
+  "expected": false
+ },
+ {
+  "version": "3.100.5.0_sp1",
+  "selector": "3.100.5.0_sp1",
+  "expected": true
+ },
+ {
+  "version": "7.m1.18",
+  "selector": "(dev.snapshot,15]",
+  "expected": true
+ },
+ {
+  "version": "10.3",
+  "selector": "(5.15-final,0.10)",
+  "expected": false
+ },
+ {
+  "version": "1.sp",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "11.11.2.Final2",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "0release",
+  "selector": "[10.1.9,5)",
+  "expected": false
+ },
+ {
+  "version": "5.9.1",
+  "selector": "(,0.10.9]",
+  "expected": false
+ },
+ {
+  "version": "1.0.2.9_pr2",
+  "selector": "(,1.3.2]",
+  "expected": true
+ },
+ {
+  "version": "10.2.2.x",
+  "selector": "10.2.2.+",
+  "expected": true
+ },
+ {
+  "version": "5.5.9",
+  "selector": "[11-snapshot,]",
+  "expected": false
+ },
+ {
+  "version": "3.100.9.1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "[10.0,10.5]",
+  "expected": false
+ },
+ {
+  "version": "v11.5.11.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.3.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1-Final",
+  "selector": "[1,)",
+  "expected": false
+ },
+ {
+  "version": "1.11.2.15.SP0",
+  "selector": "10.15.2.+",
+  "expected": false
+ },
+ {
+  "version": "2.3.100_rc",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.10.15.1",
+  "selector": "[2.5,100.foobar)",
+  "expected": false
+ },
+ {
+  "version": "2.100.100.0",
+  "selector": "(0.3.pr,15-cr]",
+  "expected": true
+ },
+ {
+  "version": "10.5",
+  "selector": "2.10.9",
+  "expected": false
+ },
+ {
+  "version": "v1.2.100.100",
+  "selector": "[10,15.2-beta)",
+  "expected": false
+ },
+ {
+  "version": "100.100.10.15",
+  "selector": "1.15.11.5",
+  "expected": false
+ },
+ {
+  "version": "Final.2.beta",
+  "selector": "(4,19]",
+  "expected": false
+ },
+ {
+  "version": "9.5.100.100",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "15.0.11",
+  "selector": "11.10.+",
+  "expected": false
+ },
+ {
+  "version": "9.100.5_final1",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.11.5.11.15",
+  "selector": "(1.2,0.5.xyz)",
+  "expected": false
+ },
+ {
+  "version": "1.0.0-dev",
+  "selector": "(,1.0.0)",
+  "expected": false
+ },
+ {
+  "version": "foobar.13",
+  "selector": "(dev,1]",
+  "expected": true
+ },
+ {
+  "version": "10.10.2.0.0",
+  "selector": "10.10.2.+",
+  "expected": true
+ },
+ {
+  "version": "3.10.10",
+  "selector": "(0.9-SNAPSHOT,5.11.9.beta]",
+  "expected": true
+ },
+ {
+  "version": "5.9.1.15",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "9.9_pr",
+  "selector": "[2.snapshot,11.9.xyz)",
+  "expected": true
+ },
+ {
+  "version": "3",
+  "selector": "3.5.xyz",
+  "expected": false
+ },
+ {
+  "version": "1.15.0.2",
+  "selector": "0.+",
+  "expected": false
+ },
+ {
+  "version": "5.3.1.11",
+  "selector": "10.+",
+  "expected": false
+ },
+ {
+  "version": "5.2.sp",
+  "selector": "5.2.sp",
+  "expected": true
+ },
+ {
+  "version": "3.100.9_alpha",
+  "selector": "10.5_rc1",
+  "expected": false
+ },
+ {
+  "version": "10.cr1",
+  "selector": "9.11",
+  "expected": false
+ },
+ {
+  "version": "11.5.100-dev",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.0.0.3.snapshot1",
+  "selector": "1.0.0.3.snapshot1",
+  "expected": true
+ },
+ {
+  "version": "2.beta",
+  "selector": "(,2)",
+  "expected": false
+ },
+ {
+  "version": "5cr",
+  "selector": "[,9.100-pr)",
+  "expected": false
+ },
+ {
+  "version": "9.100.2.11.1.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.2",
+  "selector": "1.+",
+  "expected": false
+ },
+ {
+  "version": "10-foobar",
+  "selector": "[10,10]",
+  "expected": false
+ },
+ {
+  "version": "15.15.10-RELEASE1",
+  "selector": "15.15.10-RELEASE1",
+  "expected": true
+ },
+ {
+  "version": "9.100.1-snapshot0",
+  "selector": "9.+",
+  "expected": true
+ },
+ {
+  "version": "100.10.0.3.foobar2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "dev.foobar",
+  "selector": "[snapshot.ga,13.beta.3)",
+  "expected": false
+ },
+ {
+  "version": "15.11.15",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.100.0",
+  "selector": "15.5.1Final1",
+  "expected": false
+ },
+ {
+  "version": "1.11.9.final",
+  "selector": "[9.3,15]",
+  "expected": false
+ },
+ {
+  "version": "1.m1",
+  "selector": "(,1]",
+  "expected": true
+ },
+ {
+  "version": "10.10.0.100",
+  "selector": "(5-final,9-cr)",
+  "expected": false
+ },
+ {
+  "version": "9.100",
+  "selector": "(11,11.0)",
+  "expected": false
+ },
+ {
+  "version": "0.3.10.3.foobar",
+  "selector": "0.3.10.3.foobar",
+  "expected": true
+ },
+ {
+  "version": "100.1.Final",
+  "selector": "100.1.Final",
+  "expected": true
+ },
+ {
+  "version": "3.15.3.0",
+  "selector": "(9.snapshot,5.15.5)",
+  "expected": false
+ },
+ {
+  "version": "5.0.SNAPSHOT",
+  "selector": "[0.1.alpha,15)",
+  "expected": true
+ },
+ {
+  "version": "3b",
+  "selector": "[11.100.foobar,100.Final)",
+  "expected": false
+ },
+ {
+  "version": "10.15.0",
+  "selector": "9.11.3.5_SP",
+  "expected": false
+ },
+ {
+  "version": "5",
+  "selector": "[2.9.0,15.100.5]",
+  "expected": true
+ },
+ {
+  "version": "100.100.11.0.final0",
+  "selector": "11.0.100-m",
+  "expected": false
+ },
+ {
+  "version": "9.15.milestone",
+  "selector": "15.11.11.100sp1",
+  "expected": false
+ },
+ {
+  "version": "10.2.Final",
+  "selector": "[10.1.15.sp,100.11.100.alpha)",
+  "expected": true
+ },
+ {
+  "version": "15.5.2.9",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5.1.9-cr0",
+  "selector": "5.11.100.+",
+  "expected": false
+ },
+ {
+  "version": "0.0.1-snapshot",
+  "selector": "(0.0.1,)",
+  "expected": false
+ },
+ {
+  "version": "2.3.5.11",
+  "selector": "[,0]",
+  "expected": false
+ },
+ {
+  "version": "15.2.5.100",
+  "selector": "15.2.5.100",
+  "expected": true
+ },
+ {
+  "version": "9.1.SP",
+  "selector": "(15.9.3,15.5.15.milestone]",
+  "expected": false
+ },
+ {
+  "version": "10.2.0.5",
+  "selector": "10.2.0.+",
+  "expected": true
+ },
+ {
+  "version": "0.9.1.15.final",
+  "selector": "[0.5.100,)",
+  "expected": true
+ },
+ {
+  "version": "2.100.10.15",
+  "selector": "[15.0.11,)",
+  "expected": false
+ },
+ {
+  "version": "1.5.11.100-beta3",
+  "selector": "2.+",
+  "expected": false
+ },
+ {
+  "version": "100.3.0.0-cr3",
+  "selector": "5.+",
+  "expected": false
+ },
+ {
+  "version": "3.alpha",
+  "selector": "3.alpha",
+  "expected": true
+ },
+ {
+  "version": "100.15.15.100_milestone",
+  "selector": "15.11.+",
+  "expected": false
+ },
+ {
+  "version": "10-m1",
+  "selector": "(,10)",
+  "expected": false
+ },
+ {
+  "version": "1beta",
+  "selector": "[,10.9.15)",
+  "expected": false
+ },
+ {
+  "version": "3.b",
+  "selector": "(,0]",
+  "expected": false
+ },
+ {
+  "version": "1.sp",
+  "selector": "(,10.9-alpha)",
+  "expected": true
+ },
+ {
+  "version": "11.10",
+  "selector": "(,11.100)",
+  "expected": true
+ },
+ {
+  "version": "5",
+  "selector": "[5,)",
+  "expected": true
+ },
+ {
+  "version": "5.0.3",
+  "selector": "9.2.1.2",
+  "expected": false
+ },
+ {
+  "version": "10.2.2",
+  "selector": "15.+",
+  "expected": false
+ },
+ {
+  "version": "5.11.100.5.11.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "11.0",
+  "selector": "[,2.10.15-Final]",
+  "expected": false
+ },
+ {
+  "version": "2.0.1.9",
+  "selector": "2.0.1.+",
+  "expected": true
+ },
+ {
+  "version": "v9.9",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v1.11.2.5",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.100.5.xyz",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.10.final",
+  "selector": "1.+",
+  "expected": false
+ },
+ {
+  "version": "0",
+  "selector": "(,9.cr]",
+  "expected": true
+ },
+ {
+  "version": "v15.100",
+  "selector": "10.+",
+  "expected": false
+ },
+ {
+  "version": "0.15.15.1-sp",
+  "selector": "0.15.15.1-sp",
+  "expected": true
+ },
+ {
+  "version": "2.2.9.2_cr",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.9.SP",
+  "selector": "1.9.+",
+  "expected": true
+ },
+ {
+  "version": "1.15.11SP3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9",
+  "selector": "(9,2.beta]",
+  "expected": false
+ },
+ {
+  "version": "9.3.1_alpha2",
+  "selector": "5.SNAPSHOT2",
+  "expected": false
+ },
+ {
+  "version": "v5.5.1.10",
+  "selector": "[,2.2.15-b]",
+  "expected": false
+ },
+ {
+  "version": "15.100",
+  "selector": "(0.15.15.cr,)",
+  "expected": true
+ },
+ {
+  "version": "0.10.0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.5.100",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.0.1-foobar",
+  "selector": "(0.0.1,)",
+  "expected": false
+ },
+ {
+  "version": "2",
+  "selector": "10.3SNAPSHOT3",
+  "expected": false
+ },
+ {
+  "version": "10.5.sp",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.1.1",
+  "selector": "0.+",
+  "expected": false
+ },
+ {
+  "version": "5.10",
+  "selector": "3.2",
+  "expected": false
+ },
+ {
+  "version": "0.0.1-snapshot",
+  "selector": "(,0.0.1)",
+  "expected": false
+ },
+ {
+  "version": "5.5.1Final3",
+  "selector": "15.11.5.9",
+  "expected": false
+ },
+ {
+  "version": "0.beta",
+  "selector": "9.0.15",
+  "expected": false
+ },
+ {
+  "version": "0.ga",
+  "selector": "(,5]",
+  "expected": true
+ },
+ {
+  "version": "9.100.2.3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3-m",
+  "selector": "(,5.100.release)",
+  "expected": true
+ },
+ {
+  "version": "100.5.11.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.15.15.100",
+  "selector": "10.15.15.100",
+  "expected": true
+ },
+ {
+  "version": "1.final",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.0.foobar",
+  "selector": "(,1.0]",
+  "expected": true
+ },
+ {
+  "version": "v11.9",
+  "selector": "[11.11,100.2.0-final)",
+  "expected": false
+ },
+ {
+  "version": "2.3.15",
+  "selector": "5.5.+",
+  "expected": false
+ },
+ {
+  "version": "3.11",
+  "selector": "[3.9.5-sp,11.dev)",
+  "expected": true
+ },
+ {
+  "version": "5.10",
+  "selector": "(0.sp,11.5-snapshot)",
+  "expected": true
+ },
+ {
+  "version": "rc",
+  "selector": "(10.16.7.8,rc.snapshot]",
+  "expected": false
+ },
+ {
+  "version": "2.100",
+  "selector": "(0.100.1,15-sp)",
+  "expected": true
+ },
+ {
+  "version": "11_SP0",
+  "selector": "15.100.11.+",
+  "expected": false
+ },
+ {
+  "version": "15.sp",
+  "selector": "15.sp",
+  "expected": true
+ },
+ {
+  "version": "0.5.snapshot",
+  "selector": "(,9]",
+  "expected": true
+ },
+ {
+  "version": "100.2-ga",
+  "selector": "[100.1,100.2.rc)",
+  "expected": false
+ },
+ {
+  "version": "3.3.b",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.10",
+  "selector": "100.11-m",
+  "expected": false
+ },
+ {
+  "version": "10.10.9xyz",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.11.final2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "9.15.2.15",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.3.3.SNAPSHOT",
+  "selector": "(5.15.11,)",
+  "expected": true
+ },
+ {
+  "version": "10.9.9.3dev0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.2.2.0.0",
+  "selector": "1.2.2.+",
+  "expected": true
+ },
+ {
+  "version": "v0.5.3.2",
+  "selector": "v0.5.3.2",
+  "expected": true
+ },
+ {
+  "version": "15.15.11.100.beta0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9",
+  "selector": "0.11.0",
+  "expected": false
+ },
+ {
+  "version": "9.10.10.100",
+  "selector": "(1,15)",
+  "expected": true
+ },
+ {
+  "version": "10.10.sp0",
+  "selector": "(2.5.0.b,10.100-foobar)",
+  "expected": true
+ },
+ {
+  "version": "v11",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.2-snapshot",
+  "selector": "(,1.2]",
+  "expected": true
+ },
+ {
+  "version": "2.RC",
+  "selector": "(0.Final,2]",
+  "expected": true
+ },
+ {
+  "version": "10.100.3.11-milestone2",
+  "selector": "(11.5.10-SNAPSHOT,]",
+  "expected": false
+ },
+ {
+  "version": "0.10.15.3_RC",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.1.2.100",
+  "selector": "10.5.0.+",
+  "expected": false
+ },
+ {
+  "version": "0.SP",
+  "selector": "(3.9.b,0-snapshot]",
+  "expected": false
+ },
+ {
+  "version": "0.0.1.final",
+  "selector": "(,0.0.1]",
+  "expected": true
+ },
+ {
+  "version": "1.11-cr",
+  "selector": "(1.9.9.cr,1.15)",
+  "expected": true
+ },
+ {
+  "version": "2.0.3.1b",
+  "selector": "v2.9.15",
+  "expected": false
+ },
+ {
+  "version": "10.0.0.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "v11.9.10.5",
+  "selector": "[2.5-alpha,3.10]",
+  "expected": false
+ },
+ {
+  "version": "10-release",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "10.9",
+  "selector": "[10.1.0,15.15.2)",
+  "expected": true
+ },
+ {
+  "version": "15.5.0.11_pr0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.3.0",
+  "selector": "5.3.0",
+  "expected": true
+ },
+ {
+  "version": "9.5.9",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.pr",
+  "selector": "0.1.release",
+  "expected": false
+ },
+ {
+  "version": "10.0.5",
+  "selector": "10.0.+",
+  "expected": true
+ },
+ {
+  "version": "2.3.10",
+  "selector": "2.3.10",
+  "expected": true
+ },
+ {
+  "version": "11.0.15_dev",
+  "selector": "(0.100,100.RC]",
+  "expected": true
+ },
+ {
+  "version": "5",
+  "selector": "(0,9.2.10-milestone)",
+  "expected": true
+ },
+ {
+  "version": "15.100.100.11",
+  "selector": "(0.0.100,)",
+  "expected": true
+ },
+ {
+  "version": "1.100",
+  "selector": "(1.2.pr,2.9.10]",
+  "expected": true
+ },
+ {
+  "version": "11.1.5.10rc",
+  "selector": "[10.0.5-milestone,15.5]",
+  "expected": true
+ },
+ {
+  "version": "5.15.1.2.cr0",
+  "selector": "(2.2.2.xyz,11.0.snapshot]",
+  "expected": true
+ },
+ {
+  "version": "10.1.SP1",
+  "selector": "15.1.+",
+  "expected": false
+ },
+ {
+  "version": "10.5.3_release",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11.5.RC",
+  "selector": "100",
+  "expected": false
+ },
+ {
+  "version": "11.100.0.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5.Final",
+  "selector": "5.Final",
+  "expected": true
+ },
+ {
+  "version": "2-beta",
+  "selector": "(2,)",
+  "expected": false
+ },
+ {
+  "version": "15.5.3",
+  "selector": "15.5.3",
+  "expected": true
+ },
+ {
+  "version": "9.alpha",
+  "selector": "(5-beta,3.11.rc]",
+  "expected": false
+ },
+ {
+  "version": "1.3.2.15_rc",
+  "selector": "1.3.2.15_rc",
+  "expected": true
+ },
+ {
+  "version": "2.100",
+  "selector": "[2,]",
+  "expected": false
+ },
+ {
+  "version": "11.11.0",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "1",
+  "selector": "(,10)",
+  "expected": true
+ },
+ {
+  "version": "2.11.15",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.0.ga",
+  "selector": "(9.1.0,]",
+  "expected": false
+ },
+ {
+  "version": "5.3.9.b0",
+  "selector": "(100,2.5]",
+  "expected": false
+ },
+ {
+  "version": "3.3.release",
+  "selector": "(,11.100.9]",
+  "expected": true
+ },
+ {
+  "version": "11.100",
+  "selector": "11.2.2.1",
+  "expected": false
+ },
+ {
+  "version": "3.100m1",
+  "selector": "(3.3.release,11-SP]",
+  "expected": true
+ },
+ {
+  "version": "16.final.0.RC",
+  "selector": "(snapshot,18.dev.foobar.12]",
+  "expected": true
+ },
+ {
+  "version": "2",
+  "selector": "(11.1-pr,1-RELEASE]",
+  "expected": false
+ },
+ {
+  "version": "2.10.100.15.RELEASE",
+  "selector": "2.10.100.15.RELEASE",
+  "expected": true
+ },
+ {
+  "version": "10.2.3.3.sp",
+  "selector": "100.1.+",
+  "expected": false
+ },
+ {
+  "version": "0.15.SNAPSHOT",
+  "selector": "[11,1)",
+  "expected": false
+ },
+ {
+  "version": "9.10.3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.9.dev",
+  "selector": "3.3.11.+",
+  "expected": false
+ },
+ {
+  "version": "5.11",
+  "selector": "[10.3,]",
+  "expected": false
+ },
+ {
+  "version": "2.100.9.5SP",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.10.1.9",
+  "selector": "0.10.1.+",
+  "expected": true
+ },
+ {
+  "version": "0.2.0.5",
+  "selector": "0.2.0.+",
+  "expected": true
+ },
+ {
+  "version": "3.100.5",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "10.m2",
+  "selector": "(2.11.rc,11.9.15-b]",
+  "expected": true
+ },
+ {
+  "version": "2dev",
+  "selector": "(10.2.3,0.5-milestone)",
+  "expected": false
+ },
+ {
+  "version": "cr2.19.snapshot.sp",
+  "selector": "[9.dev,m1.sp)",
+  "expected": false
+ },
+ {
+  "version": "5.9-beta3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.0.milestone",
+  "selector": "[15,15.snapshot)",
+  "expected": false
+ },
+ {
+  "version": "1-ga",
+  "selector": "15.3.11.+",
+  "expected": false
+ },
+ {
+  "version": "9.15.5",
+  "selector": "(,9.10.5)",
+  "expected": false
+ },
+ {
+  "version": "2.2.x",
+  "selector": "2.2.+",
+  "expected": true
+ },
+ {
+  "version": "10.2.10.3",
+  "selector": "11.10.5.5_RC",
+  "expected": false
+ },
+ {
+  "version": "2.2.15.3.RELEASE1",
+  "selector": "2.2.15.3.RELEASE1",
+  "expected": true
+ },
+ {
+  "version": "v10.1",
+  "selector": "v10.1",
+  "expected": true
+ },
+ {
+  "version": "5.15.11.SP1",
+  "selector": "(5.beta,11.15.15)",
+  "expected": true
+ },
+ {
+  "version": "15.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3.9.5.rc",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "15.100.11foobar",
+  "selector": "(,10.2.5)",
+  "expected": false
+ },
+ {
+  "version": "11.100.100",
+  "selector": "[,2.10.9]",
+  "expected": false
+ },
+ {
+  "version": "100.1.100.2_cr1",
+  "selector": "[0-m,9)",
+  "expected": false
+ },
+ {
+  "version": "0.2.11.3",
+  "selector": "(,10.5]",
+  "expected": true
+ },
+ {
+  "version": "10.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "ga.alpha.20.19",
+  "selector": "(13.snapshot.12,RC.cr2.foobar]",
+  "expected": false
+ },
+ {
+  "version": "15.SNAPSHOT",
+  "selector": "[15,)",
+  "expected": false
+ },
+ {
+  "version": "0.9.ga",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.2",
+  "selector": "[1.9.5-ga,2.100.5-RC]",
+  "expected": true
+ },
+ {
+  "version": "10.5.10",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "100.15.9",
+  "selector": "[3.9,)",
+  "expected": true
+ },
+ {
+  "version": "10.0.0.5",
+  "selector": "10.0.0.+",
+  "expected": true
+ },
+ {
+  "version": "11.0.b0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.0.1.snapshot",
+  "selector": "(,0.0.1]",
+  "expected": true
+ },
+ {
+  "version": "v2.11.11.100",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.2-m1",
+  "selector": "(,1.2)",
+  "expected": false
+ },
+ {
+  "version": "1.11.2.0",
+  "selector": "15",
+  "expected": false
+ },
+ {
+  "version": "3.3.100.11b",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "v5",
+  "selector": "(,0-b]",
+  "expected": true
+ },
+ {
+  "version": "2.100.15.15",
+  "selector": "2.100.15.15",
+  "expected": true
+ },
+ {
+  "version": "15.2.15.15-release",
+  "selector": "v3",
+  "expected": false
+ },
+ {
+  "version": "3.9.100.11",
+  "selector": "11.2.9.3.9.11",
+  "expected": false
+ },
+ {
+  "version": "3.5RELEASE",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "3.2.9.0.2.100",
+  "selector": "15.5.100.2.15.5",
+  "expected": false
+ },
+ {
+  "version": "1.3RELEASE",
+  "selector": "5.11.15.+",
+  "expected": false
+ },
+ {
+  "version": "m1.2",
+  "selector": "[7.final,snapshot.3.rc.RC)",
+  "expected": false
+ },
+ {
+  "version": "1.1.9",
+  "selector": "1.1.+",
+  "expected": true
+ },
+ {
+  "version": "10.100.2",
+  "selector": "(1.10.100.milestone,)",
+  "expected": true
+ },
+ {
+  "version": "100.5.5",
+  "selector": "[10.3,3.3.100-m)",
+  "expected": false
+ },
+ {
+  "version": "10.9.0",
+  "selector": "[10.0-dev,11.0)",
+  "expected": true
+ },
+ {
+  "version": "v10.3.3.11",
+  "selector": "1.10.1.+",
+  "expected": false
+ },
+ {
+  "version": "1.0.0.5",
+  "selector": "1.0.0.+",
+  "expected": true
+ },
+ {
+  "version": "15",
+  "selector": "[3.100.milestone,15.15.5-rc]",
+  "expected": true
+ },
+ {
+  "version": "1.snapshot",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "11-release",
+  "selector": "[5.100.SP,100.100.9)",
+  "expected": true
+ },
+ {
+  "version": "10.100.10.0",
+  "selector": "10.100.10.0",
+  "expected": true
+ },
+ {
+  "version": "15_rc",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10.9.sp",
+  "selector": "15.3.2.10",
+  "expected": false
+ },
+ {
+  "version": "1.10.15.1.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.9.2.11",
+  "selector": "v15.5.15.10",
+  "expected": false
+ },
+ {
+  "version": "10.RC",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "1.0.0-foobar",
+  "selector": "(,1.0.0]",
+  "expected": true
+ },
+ {
+  "version": "2.0",
+  "selector": "3.100.+",
+  "expected": false
+ },
+ {
+  "version": "10.rc",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "10.1.5",
+  "selector": "10.1.+",
+  "expected": true
+ },
+ {
+  "version": "100.1.5.100",
+  "selector": "11_RC",
+  "expected": false
+ },
+ {
+  "version": "100.0.10-RELEASE2",
+  "selector": "100.0.10-RELEASE2",
+  "expected": true
+ },
+ {
+  "version": "2.9.0ga",
+  "selector": "(11.2,5.5-release)",
+  "expected": false
+ },
+ {
+  "version": "1.3.15.RC",
+  "selector": "(0-xyz,9]",
+  "expected": true
+ },
+ {
+  "version": "1.0.SNAPSHOT",
+  "selector": "(,1.0]",
+  "expected": true
+ },
+ {
+  "version": "11.9.1.100_SNAPSHOT1",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "15.2.15.release1",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2",
+  "selector": "10.0.+",
+  "expected": false
+ },
+ {
+  "version": "15.9.0.0",
+  "selector": "[11.11.0.final,)",
+  "expected": true
+ },
+ {
+  "version": "0.0.1.rc",
+  "selector": "(,0.0.1]",
+  "expected": true
+ },
+ {
+  "version": "1.15.release",
+  "selector": "1.15.release",
+  "expected": true
+ },
+ {
+  "version": "1-snapshot",
+  "selector": "1-snapshot",
+  "expected": true
+ },
+ {
+  "version": "3.9.9.15",
+  "selector": "(11.0.100.release,15-final)",
+  "expected": false
+ },
+ {
+  "version": "0.9.10milestone",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100",
+  "selector": "[15.9,]",
+  "expected": false
+ },
+ {
+  "version": "17.3",
+  "selector": "(0.18.SNAPSHOT,17.8.7.7]",
+  "expected": true
+ },
+ {
+  "version": "5.100.0.3_m",
+  "selector": "10.2.+",
+  "expected": false
+ },
+ {
+  "version": "3",
+  "selector": "2.0.+",
+  "expected": false
+ },
+ {
+  "version": "2.11.0.0.15",
+  "selector": "[10.2.10-xyz,11.100.15.ga)",
+  "expected": false
+ },
+ {
+  "version": "100.5.5_Final",
+  "selector": "[15.10,100.9.1]",
+  "expected": true
+ },
+ {
+  "version": "5.2.15_cr",
+  "selector": "0.10.100.100.m",
+  "expected": false
+ },
+ {
+  "version": "0.9.11.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.100.100",
+  "selector": "100.100.100",
+  "expected": true
+ },
+ {
+  "version": "0.0.0.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.1-pr",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.15.15.5_xyz3",
+  "selector": "0.+",
+  "expected": true
+ },
+ {
+  "version": "15.0_b2",
+  "selector": "[2-sp,)",
+  "expected": true
+ },
+ {
+  "version": "100.100.11",
+  "selector": "(1,)",
+  "expected": true
+ },
+ {
+  "version": "1.m",
+  "selector": "(5.10.11.foobar,10.10)",
+  "expected": false
+ },
+ {
+  "version": "v11.2",
+  "selector": "(,10.foobar)",
+  "expected": true
+ },
+ {
+  "version": "15.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.0.0-release",
+  "selector": "(,1.0.0]",
+  "expected": true
+ },
+ {
+  "version": "2.15.15.3.SNAPSHOT",
+  "selector": "2.100.11",
+  "expected": false
+ },
+ {
+  "version": "2.cr",
+  "selector": "(11.2.m,9.0.snapshot]",
+  "expected": false
+ },
+ {
+  "version": "15.100.snapshot",
+  "selector": "(10.15.9.beta,100.9.9)",
+  "expected": true
+ },
+ {
+  "version": "v15.10.15",
+  "selector": "[1.2.9,2]",
+  "expected": false
+ },
+ {
+  "version": "1.2.11",
+  "selector": "(15.5.2-alpha,15)",
+  "expected": false
+ },
+ {
+  "version": "5.100.11.100.dev1",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.foobar",
+  "selector": "(,1)",
+  "expected": false
+ },
+ {
+  "version": "10.10.9.11",
+  "selector": "11.10",
+  "expected": false
+ },
+ {
+  "version": "15.15.m",
+  "selector": "(15,)",
+  "expected": true
+ },
+ {
+  "version": "0.2.10.9",
+  "selector": "0.2.10.+",
+  "expected": true
+ },
+ {
+  "version": "3.1.5.3",
+  "selector": "3.1.5.3",
+  "expected": true
+ },
+ {
+  "version": "10-m1",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "0.0.1-ga",
+  "selector": "(,0.0.1]",
+  "expected": true
+ },
+ {
+  "version": "11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.100.15.11.3",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "11.1.0.5",
+  "selector": "(11-final,)",
+  "expected": true
+ },
+ {
+  "version": "9.100.10",
+  "selector": "(3,0.15.100.milestone]",
+  "expected": false
+ },
+ {
+  "version": "v10.10",
+  "selector": "0.5.3",
+  "expected": false
+ },
+ {
+  "version": "2.RELEASE",
+  "selector": "2.RELEASE",
+  "expected": true
+ },
+ {
+  "version": "15.5.15.1SP",
+  "selector": "11.5.+",
+  "expected": false
+ },
+ {
+  "version": "1-RC",
+  "selector": "(1,1)",
+  "expected": false
+ },
+ {
+  "version": "11.10.5.100RC",
+  "selector": "[3.10-b,)",
+  "expected": true
+ },
+ {
+  "version": "1.1.0.0",
+  "selector": "1.1.+",
+  "expected": true
+ },
+ {
+  "version": "3_m0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.1.9.0",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "Final.cr2.foobar",
+  "selector": "(rc.19.beta.17,17]",
+  "expected": true
+ },
+ {
+  "version": "5.10.3.3",
+  "selector": "3.3.+",
+  "expected": false
+ },
+ {
+  "version": "5.10.15.2.100.5",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "10.0foobar",
+  "selector": "[1,100.15.1.sp)",
+  "expected": true
+ },
+ {
+  "version": "100.0.3.1.11.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5.100.0.10.3",
+  "selector": "(0.5.100,100.2.snapshot)",
+  "expected": true
+ },
+ {
+  "version": "5.100.11",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.9.9",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100.dev",
+  "selector": "3.sp",
+  "expected": false
+ },
+ {
+  "version": "1.0.cr2",
+  "selector": "[1.0,1.0]",
+  "expected": false
+ },
+ {
+  "version": "15.3.5.9",
+  "selector": "1.11.dev",
+  "expected": false
+ },
+ {
+  "version": "9_beta",
+  "selector": "0.5.+",
+  "expected": false
+ },
+ {
+  "version": "v2.2.5",
+  "selector": "0.100.10.release3",
+  "expected": false
+ },
+ {
+  "version": "0.11.0.0.11.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.3.15.100.sp",
+  "selector": "10.3.15.100.sp",
+  "expected": true
+ },
+ {
+  "version": "15.1.11.1_Final",
+  "selector": "10.3.cr",
+  "expected": false
+ },
+ {
+  "version": "0.1.0.11.15",
+  "selector": "[5.3,0)",
+  "expected": false
+ },
+ {
+  "version": "3.sp",
+  "selector": "(2.3.2.SNAPSHOT,]",
+  "expected": false
+ },
+ {
+  "version": "5.2.0.1",
+  "selector": "5.2.0.1",
+  "expected": true
+ },
+ {
+  "version": "11.15foobar0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.9.11.11",
+  "selector": "(2,)",
+  "expected": true
+ },
+ {
+  "version": "1",
+  "selector": "(,9.11-xyz)",
+  "expected": true
+ },
+ {
+  "version": "5.3",
+  "selector": "[3,11.11.10.pr]",
+  "expected": true
+ },
+ {
+  "version": "3.5.3.100",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "9.5.100",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5.100.5beta",
+  "selector": "[2.9.3,15-release)",
+  "expected": true
+ },
+ {
+  "version": "100-rc0",
+  "selector": "1.15.5.+",
+  "expected": false
+ },
+ {
+  "version": "100_SNAPSHOT3",
+  "selector": "3.100_RELEASE",
+  "expected": false
+ },
+ {
+  "version": "3.5",
+  "selector": "9.5.+",
+  "expected": false
+ },
+ {
+  "version": "5",
+  "selector": "[0.2.100,100.15.1)",
+  "expected": true
+ },
+ {
+  "version": "RC.beta.3.15",
+  "selector": "[rc,release)",
+  "expected": true
+ },
+ {
+  "version": "11.11.15.9_snapshot3",
+  "selector": "1.9.+",
+  "expected": false
+ },
+ {
+  "version": "15.2.1_rc",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "11.15.11.10",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "2.2.0.x",
+  "selector": "2.2.0.+",
+  "expected": true
+ },
+ {
+  "version": "3.15.2.10",
+  "selector": "3.15.2.10",
+  "expected": true
+ },
+ {
+  "version": "15.100.dev",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "15.3.5-m3",
+  "selector": "11.3.+",
+  "expected": false
+ },
+ {
+  "version": "2.1.0.0",
+  "selector": "2.1.+",
+  "expected": true
+ },
+ {
+  "version": "10.10.alpha",
+  "selector": "(9.15.10,)",
+  "expected": true
+ },
+ {
+  "version": "10.9-snapshot",
+  "selector": "[10.0-dev,11.0)",
+  "expected": true
+ },
+ {
+  "version": "11.5.3",
+  "selector": "11",
+  "expected": false
+ },
+ {
+  "version": "5.9.100xyz",
+  "selector": "(11.2.foobar,5.100]",
+  "expected": false
+ },
+ {
+  "version": "0.1.2",
+  "selector": "[0.beta,1.alpha)",
+  "expected": true
+ },
+ {
+  "version": "2.2.1.5_dev1",
+  "selector": "2.2.1.5_dev1",
+  "expected": true
+ },
+ {
+  "version": "1.b",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.100",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "9.alpha",
+  "selector": "10.3.11.15.100.15",
+  "expected": false
+ },
+ {
+  "version": "9.9.10.1",
+  "selector": "[9.9.5,3.2.15.dev]",
+  "expected": false
+ },
+ {
+  "version": "v9.3.3.15",
+  "selector": "v100.2",
+  "expected": false
+ },
+ {
+  "version": "3.1.15.1.15.10",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "15SP2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.15.5.15",
+  "selector": "3.15.5.15",
+  "expected": true
+ },
+ {
+  "version": "15.3.10.15rc",
+  "selector": "(1.1.9-milestone,)",
+  "expected": true
+ },
+ {
+  "version": "2",
+  "selector": "(11,)",
+  "expected": false
+ },
+ {
+  "version": "1.0.0",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "0.final.snapshot.Final",
+  "selector": "[sp.ga.2,8.cr2)",
+  "expected": true
+ },
+ {
+  "version": "1.1.2.0",
+  "selector": "1.1.2.+",
+  "expected": true
+ },
+ {
+  "version": "0.1.x",
+  "selector": "0.1.+",
+  "expected": true
+ },
+ {
+  "version": "15.100.11.3.xyz",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "5.100.11.3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.dev",
+  "selector": "5.dev",
+  "expected": true
+ },
+ {
+  "version": "9alpha",
+  "selector": "(0.2,15.11]",
+  "expected": true
+ },
+ {
+  "version": "1.0.beta",
+  "selector": "(,1.0)",
+  "expected": false
+ },
+ {
+  "version": "100.0.1.11.0.11",
+  "selector": "(3.100.2,100.100.5]",
+  "expected": true
+ },
+ {
+  "version": "v5.2.15.9",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.100.100.10",
+  "selector": "(11.3-dev,]",
+  "expected": false
+ },
+ {
+  "version": "1.0-SNAPSHOT",
+  "selector": "[1.0,1.0]",
+  "expected": false
+ },
+ {
+  "version": "5.5.9-ga2",
+  "selector": "(,100)",
+  "expected": true
+ },
+ {
+  "version": "1.milestone",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.2.3-SNAPSHOT",
+  "selector": "[1.2.3,1.2.3]",
+  "expected": false
+ },
+ {
+  "version": "16.dev.3.rc.7",
+  "selector": "(ga,final.11.13.19]",
+  "expected": false
+ },
+ {
+  "version": "1.0.11.2_pr3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.100.15.100m0",
+  "selector": "0.2-alpha1",
+  "expected": false
+ },
+ {
+  "version": "1-SP",
+  "selector": "11.100.15xyz",
+  "expected": false
+ },
+ {
+  "version": "2.2.1",
+  "selector": "(5-final,)",
+  "expected": false
+ },
+ {
+  "version": "1.0.rc",
+  "selector": "[1.0,1.0]",
+  "expected": false
+ },
+ {
+  "version": "5.0.final",
+  "selector": "5.0.final",
+  "expected": true
+ },
+ {
+  "version": "2.11.5",
+  "selector": "2.0.100.+",
+  "expected": false
+ },
+ {
+  "version": "5.11.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100.0.0.9-ga0",
+  "selector": "3.9.+",
+  "expected": false
+ },
+ {
+  "version": "0.0.0.1",
+  "selector": "0.0.0.+",
+  "expected": true
+ },
+ {
+  "version": "10RC1",
+  "selector": "1.5.10.2",
+  "expected": false
+ },
+ {
+  "version": "v2",
+  "selector": "(5.3.15-ga,5.100]",
+  "expected": false
+ },
+ {
+  "version": "100.sp",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9",
+  "selector": "0.11.15.+",
+  "expected": false
+ },
+ {
+  "version": "1.15ga2",
+  "selector": "5.+",
+  "expected": false
+ },
+ {
+  "version": "3-RC1",
+  "selector": "(3.100,10.100.100.cr]",
+  "expected": false
+ },
+ {
+  "version": "1.b1",
+  "selector": "9.100.1.Final",
+  "expected": false
+ },
+ {
+  "version": "11.100.5",
+  "selector": "11.3.+",
+  "expected": false
+ },
+ {
+  "version": "100",
+  "selector": "100.10.m",
+  "expected": false
+ },
+ {
+  "version": "5-ga2",
+  "selector": "(2.10.11,11.SNAPSHOT)",
+  "expected": true
+ },
+ {
+  "version": "100.0",
+  "selector": "100.+",
+  "expected": true
+ },
+ {
+  "version": "1.00",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "11.sp",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10.11.100",
+  "selector": "(5.5,10.9.3.beta]",
+  "expected": false
+ },
+ {
+  "version": "5release1",
+  "selector": "(1.3,1.RC)",
+  "expected": false
+ },
+ {
+  "version": "15.15.11-snapshot",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "100.100.5",
+  "selector": "100.100.5",
+  "expected": true
+ },
+ {
+  "version": "5.9.9.2",
+  "selector": "(1.15.Final,1-m]",
+  "expected": false
+ },
+ {
+  "version": "5.100.M1",
+  "selector": "5.100.M1",
+  "expected": true
+ },
+ {
+  "version": "5.1.2.milestone1",
+  "selector": "5.1.2.milestone1",
+  "expected": true
+ },
+ {
+  "version": "2.xyz",
+  "selector": "100.3.100.+",
+  "expected": false
+ },
+ {
+  "version": "5.2.5",
+  "selector": "1.0.3.+",
+  "expected": false
+ },
+ {
+  "version": "3.2.dev",
+  "selector": "[15.11.10.release,1.11.1-RELEASE)",
+  "expected": false
+ },
+ {
+  "version": "10.3.15m3",
+  "selector": "(3.9.100-snapshot,15.11.1-snapshot)",
+  "expected": true
+ },
+ {
+  "version": "9.1",
+  "selector": "0.100.11.+",
+  "expected": false
+ },
+ {
+  "version": "10.1.0.0.0",
+  "selector": "10.1.0.+",
+  "expected": true
+ },
+ {
+  "version": "0Final2",
+  "selector": "2.11.final",
+  "expected": false
+ },
+ {
+  "version": "100.RELEASE",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.11.10",
+  "selector": "2.1.3sp2",
+  "expected": false
+ },
+ {
+  "version": "1.15.1.2.m",
+  "selector": "[5.15-milestone,)",
+  "expected": false
+ },
+ {
+  "version": "100.10.15",
+  "selector": "100.10.15",
+  "expected": true
+ },
+ {
+  "version": "1.2-m1",
+  "selector": "(1.2,1.2)",
+  "expected": false
+ },
+ {
+  "version": "19",
+  "selector": "(ga,19]",
+  "expected": true
+ },
+ {
+  "version": "v9",
+  "selector": "[,11]",
+  "expected": false
+ },
+ {
+  "version": "15.10.5",
+  "selector": "(5.9.0-m,15.1-foobar)",
+  "expected": false
+ },
+ {
+  "version": "2.0.release",
+  "selector": "5.100.RC0",
+  "expected": false
+ },
+ {
+  "version": "100.snapshot",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100",
+  "selector": "[10.100,)",
+  "expected": true
+ },
+ {
+  "version": "100.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "15.5.0.5",
+  "selector": "2.0.SNAPSHOT",
+  "expected": false
+ },
+ {
+  "version": "2.0.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.rc",
+  "selector": "(,1)",
+  "expected": false
+ },
+ {
+  "version": "v9.1",
+  "selector": "11.100.9-milestone",
+  "expected": false
+ },
+ {
+  "version": "3.m1",
+  "selector": "10",
+  "expected": false
+ },
+ {
+  "version": "rc.18.18.final",
+  "selector": "(alpha.18.13.12,SNAPSHOT.ga]",
+  "expected": true
+ },
+ {
+  "version": "0.0.10.0",
+  "selector": "0.0.10.+",
+  "expected": true
+ },
+ {
+  "version": "15.10.100",
+  "selector": "[9-RC,100.rc)",
+  "expected": true
+ },
+ {
+  "version": "1",
+  "selector": "(3.15-RC,100.9.2]",
+  "expected": false
+ },
+ {
+  "version": "10.15.rc",
+  "selector": "(,11.10.9]",
+  "expected": true
+ },
+ {
+  "version": "1.SP",
+  "selector": "9.5.1.5",
+  "expected": false
+ },
+ {
+  "version": "0.9.cr0",
+  "selector": "3.100.+",
+  "expected": false
+ },
+ {
+  "version": "v9",
+  "selector": "[2.3.1,10.xyz)",
+  "expected": false
+ },
+ {
+  "version": "11.5",
+  "selector": "(3.11.11.final,)",
+  "expected": true
+ },
+ {
+  "version": "1.rc",
+  "selector": "[1.9.3,9-RC)",
+  "expected": false
+ },
+ {
+  "version": "3",
+  "selector": "[3.foobar,)",
+  "expected": true
+ },
+ {
+  "version": "15.0",
+  "selector": "15.0",
+  "expected": true
+ },
+ {
+  "version": "0.pr",
+  "selector": "100.15.11.1",
+  "expected": false
+ },
+ {
+  "version": "2_snapshot",
+  "selector": "2_snapshot",
+  "expected": true
+ },
+ {
+  "version": "1",
+  "selector": "1",
+  "expected": true
+ },
+ {
+  "version": "10.10.2.5",
+  "selector": "10.10.2.+",
+  "expected": true
+ },
+ {
+  "version": "2-release",
+  "selector": "[2,)",
+  "expected": false
+ },
+ {
+  "version": "3.10.1_alpha",
+  "selector": "3.10.1_alpha",
+  "expected": true
+ },
+ {
+  "version": "v15.1.0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.15.11",
+  "selector": "(10.5,5.0]",
+  "expected": false
+ },
+ {
+  "version": "5.1.100_Final",
+  "selector": "5.1.100_Final",
+  "expected": true
+ },
+ {
+  "version": "1.10.2.x",
+  "selector": "1.10.2.+",
+  "expected": true
+ },
+ {
+  "version": "0.9.0_b1",
+  "selector": "(,15.cr]",
+  "expected": true
+ },
+ {
+  "version": "9RC0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1-sp",
+  "selector": "(1,)",
+  "expected": false
+ },
+ {
+  "version": "11.3.15",
+  "selector": "[9.11.0.beta,)",
+  "expected": true
+ },
+ {
+  "version": "9.SP",
+  "selector": "(0.b,9.1.3]",
+  "expected": true
+ },
+ {
+  "version": "0.0.1-sp",
+  "selector": "(,0.0.1]",
+  "expected": true
+ },
+ {
+  "version": "9.11.5.1.0.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.11.100",
+  "selector": "(11.100.9,9.15.100.snapshot]",
+  "expected": false
+ },
+ {
+  "version": "2.1.5.10foobar",
+  "selector": "3.1.alpha0",
+  "expected": false
+ },
+ {
+  "version": "2.2.2.15-RC",
+  "selector": "100.100.5.100.5",
+  "expected": false
+ },
+ {
+  "version": "0.10_foobar",
+  "selector": "0.10_foobar",
+  "expected": true
+ },
+ {
+  "version": "0.1",
+  "selector": "0.+",
+  "expected": true
+ },
+ {
+  "version": "0.15.2",
+  "selector": "1.+",
+  "expected": false
+ },
+ {
+  "version": "9.9.0.11",
+  "selector": "(2.15.9,3]",
+  "expected": false
+ },
+ {
+  "version": "0.0.m",
+  "selector": "[,1.m)",
+  "expected": false
+ },
+ {
+  "version": "11.3-pr0",
+  "selector": "1.5.0.+",
+  "expected": false
+ },
+ {
+  "version": "9.beta.5",
+  "selector": "(cr2.dev,11]",
+  "expected": true
+ },
+ {
+  "version": "15.0.11.3",
+  "selector": "[5.9.3,5-SP]",
+  "expected": false
+ },
+ {
+  "version": "1.2.3-SNAPSHOT",
+  "selector": "[1.2.3,)",
+  "expected": false
+ },
+ {
+  "version": "rc.2.m1.ga.alpha",
+  "selector": "[dev.16.4.RC,5.14.8.7)",
+  "expected": true
+ },
+ {
+  "version": "2.9.2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.100",
+  "selector": "2.5",
+  "expected": false
+ },
+ {
+  "version": "9",
+  "selector": "(3.0.10,2.5.0)",
+  "expected": false
+ },
+ {
+  "version": "11.11.5.11",
+  "selector": "10.0_m",
+  "expected": false
+ },
+ {
+  "version": "2-cr2",
+  "selector": "(,2)",
+  "expected": false
+ },
+ {
+  "version": "100.10.15.11",
+  "selector": "(,15.2.final)",
+  "expected": false
+ },
+ {
+  "version": "v11.3.5.1",
+  "selector": "(5.11,)",
+  "expected": false
+ },
+ {
+  "version": "v3",
+  "selector": "[1.15.2,9.100)",
+  "expected": false
+ },
+ {
+  "version": "5.ga",
+  "selector": "(rc.cr2,1.6.RC]",
+  "expected": false
+ },
+ {
+  "version": "10-milestone2",
+  "selector": "1.11.2.100Final3",
+  "expected": false
+ },
+ {
+  "version": "0.10_Final3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "2.10.0.0.0",
+  "selector": "2.10.0.+",
+  "expected": true
+ },
+ {
+  "version": "9.15.15.10-dev",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.1.1.0.0",
+  "selector": "1.1.1.+",
+  "expected": true
+ },
+ {
+  "version": "15.100",
+  "selector": "15.100",
+  "expected": true
+ },
+ {
+  "version": "1.100-cr1",
+  "selector": "(3,9.11-alpha)",
+  "expected": false
+ },
+ {
+  "version": "10",
+  "selector": "(2.5.10,100]",
+  "expected": true
+ },
+ {
+  "version": "2.10.3.11",
+  "selector": "[0.1.9-ga,100-cr)",
+  "expected": true
+ },
+ {
+  "version": "1.0",
+  "selector": "[1.0,)",
+  "expected": true
+ },
+ {
+  "version": "11.0.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1-alpha",
+  "selector": "[1,)",
+  "expected": false
+ },
+ {
+  "version": "1.0",
+  "selector": "1.0",
+  "expected": true
+ },
+ {
+  "version": "v100",
+  "selector": "v100",
+  "expected": true
+ },
+ {
+  "version": "1.0.0-release",
+  "selector": "[1.0.0,)",
+  "expected": false
+ },
+ {
+  "version": "2.10.RELEASE",
+  "selector": "2.10.+",
+  "expected": true
+ },
+ {
+  "version": "5.1.9.11",
+  "selector": "2.11.2.+",
+  "expected": false
+ },
+ {
+  "version": "1.10.10.11.sp",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "0.0.rc",
+  "selector": "0.0.+",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "3.3.11.+",
+  "expected": false
+ },
+ {
+  "version": "1.1.9.2_milestone",
+  "selector": "[11.2.release,2.1.3]",
+  "expected": false
+ },
+ {
+  "version": "2.3_sp2",
+  "selector": "2.3_sp2",
+  "expected": true
+ },
+ {
+  "version": "15.15b",
+  "selector": "2.+",
+  "expected": false
+ },
+ {
+  "version": "0.10.3.3",
+  "selector": "0.10.3.3",
+  "expected": true
+ },
+ {
+  "version": "2.1.9.2.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.2.2.snapshot",
+  "selector": "2.2.2.+",
+  "expected": true
+ },
+ {
+  "version": "2.3-b3",
+  "selector": "[0.11.0.sp,100.10.1-Final]",
+  "expected": true
+ },
+ {
+  "version": "0.3",
+  "selector": "(5-sp,)",
+  "expected": false
+ },
+ {
+  "version": "10.100.3.15-alpha",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.15.100",
+  "selector": "10.5.5.+",
+  "expected": false
+ },
+ {
+  "version": "15.3.2",
+  "selector": "15.3.2",
+  "expected": true
+ },
+ {
+  "version": "5.100.9.2",
+  "selector": "[1.0,9.0)",
+  "expected": true
+ },
+ {
+  "version": "100.9.10.3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10.10.xyz",
+  "selector": "[9,15.3.dev]",
+  "expected": true
+ },
+ {
+  "version": "3.5.9.3sp",
+  "selector": "5.15.1",
+  "expected": false
+ },
+ {
+  "version": "10.9-dev",
+  "selector": "(5.9.1,)",
+  "expected": true
+ },
+ {
+  "version": "1-rc",
+  "selector": "(,1]",
+  "expected": true
+ },
+ {
+  "version": "0-beta3",
+  "selector": "1.3.2.+",
+  "expected": false
+ },
+ {
+  "version": "10.100.0.100_beta",
+  "selector": "10.100.0.100_beta",
+  "expected": true
+ },
+ {
+  "version": "1.1.0",
+  "selector": "[1.0-dev,2.0)",
+  "expected": true
+ },
+ {
+  "version": "10.1.11",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.2.dev",
+  "selector": "0.2.dev",
+  "expected": true
+ },
+ {
+  "version": "5.milestone",
+  "selector": "(9.1.3.RC,9.11.9]",
+  "expected": false
+ },
+ {
+  "version": "100",
+  "selector": "[10.100,9.11.2-dev)",
+  "expected": false
+ },
+ {
+  "version": "100.3.15.10",
+  "selector": "100.3.15.10",
+  "expected": true
+ },
+ {
+  "version": "2.100.9.11.10",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9.2.ga",
+  "selector": "9.+",
+  "expected": true
+ },
+ {
+  "version": "100",
+  "selector": "11.+",
+  "expected": false
+ },
+ {
+  "version": "10Final",
+  "selector": "100.100.2-ga",
+  "expected": false
+ },
+ {
+  "version": "9.1.0",
+  "selector": "[0.10.RC,15.9]",
+  "expected": true
+ },
+ {
+  "version": "v5.5.2",
+  "selector": "[3.2,3.2.100)",
+  "expected": false
+ },
+ {
+  "version": "v5.100",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.9_final1",
+  "selector": "0",
+  "expected": false
+ },
+ {
+  "version": "v0.15",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.2.3.100.cr",
+  "selector": "15.0.+",
+  "expected": false
+ },
+ {
+  "version": "15.9.5.2sp",
+  "selector": "100.+",
+  "expected": false
+ },
+ {
+  "version": "2.2.10.1",
+  "selector": "2.2.10.+",
+  "expected": true
+ },
+ {
+  "version": "0.100.2.100",
+  "selector": "0.100.2.100",
+  "expected": true
+ },
+ {
+  "version": "10.5.10.0",
+  "selector": "(2.100-dev,10.11.3]",
+  "expected": true
+ },
+ {
+  "version": "100.3.3.15.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "v5.1",
+  "selector": "v5.1",
+  "expected": true
+ },
+ {
+  "version": "100.100.1-final",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5-snapshot2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11",
+  "selector": "[10.15.11.RC,)",
+  "expected": true
+ },
+ {
+  "version": "3.10.11",
+  "selector": "(3.2.100.SP,9.1.11)",
+  "expected": true
+ },
+ {
+  "version": "15.10.ga",
+  "selector": "(11,)",
+  "expected": true
+ },
+ {
+  "version": "11.0.11.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100.1.10",
+  "selector": "100.+",
+  "expected": true
+ },
+ {
+  "version": "15.15.2.9",
+  "selector": "15.5.+",
+  "expected": false
+ },
+ {
+  "version": "1.10.10",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "9.foobar",
+  "selector": "9.10.10_SNAPSHOT",
+  "expected": false
+ },
+ {
+  "version": "10.2.3.9",
+  "selector": "[11,]",
+  "expected": false
+ },
+ {
+  "version": "10.100.dev",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.0.15.11-snapshot",
+  "selector": "0.5.+",
+  "expected": false
+ },
+ {
+  "version": "100.3",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3.3rc2",
+  "selector": "[1.100.0,100.9.1)",
+  "expected": true
+ },
+ {
+  "version": "2.2.1.15",
+  "selector": "11.10.1.15",
+  "expected": false
+ },
+ {
+  "version": "2.100.3",
+  "selector": "2.100.3",
+  "expected": true
+ },
+ {
+  "version": "3.0.100.11",
+  "selector": "(1,)",
+  "expected": true
+ },
+ {
+  "version": "10-ga",
+  "selector": "10-ga",
+  "expected": true
+ },
+ {
+  "version": "100.1.5.100",
+  "selector": "[10,2.11)",
+  "expected": false
+ },
+ {
+  "version": "0.11.10.xyz",
+  "selector": "[10.5.0,1.foobar]",
+  "expected": false
+ },
+ {
+  "version": "1.2-foobar",
+  "selector": "(,1.2]",
+  "expected": true
+ },
+ {
+  "version": "11.15.3.5.milestone0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "0.snapshot",
+  "selector": "10.+",
+  "expected": false
+ },
+ {
+  "version": "v9.100.15.11",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "9.10.10",
+  "selector": "[1.final,9.11.11]",
+  "expected": true
+ },
+ {
+  "version": "9.11.ga.16.6",
+  "selector": "[7,dev.SNAPSHOT.11.14)",
+  "expected": false
+ },
+ {
+  "version": "10.1.2dev",
+  "selector": "[1,100)",
+  "expected": true
+ },
+ {
+  "version": "1.2-beta",
+  "selector": "(,1.2]",
+  "expected": true
+ },
+ {
+  "version": "3.1.3.alpha0",
+  "selector": "3.1.3.alpha0",
+  "expected": true
+ },
+ {
+  "version": "11.0.9.9",
+  "selector": "10.100.3.10",
+  "expected": false
+ },
+ {
+  "version": "15.10.9.9RELEASE3",
+  "selector": "2.11.+",
+  "expected": false
+ },
+ {
+  "version": "2.final",
+  "selector": "0.+",
+  "expected": false
+ },
+ {
+  "version": "5.foobar",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.9.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15RELEASE0",
+  "selector": "15",
+  "expected": false
+ },
+ {
+  "version": "15.3.3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "10.0.snapshot",
+  "selector": "10.0.+",
+  "expected": true
+ },
+ {
+  "version": "9.9.11.3",
+  "selector": "100.5.10.+",
+  "expected": false
+ },
+ {
+  "version": "2.3.9.5alpha2",
+  "selector": "(2.1,]",
+  "expected": false
+ },
+ {
+  "version": "9.100.3",
+  "selector": "(2.11.2,15.100.1]",
+  "expected": true
+ },
+ {
+  "version": "9.15.2_RC",
+  "selector": "(11-SP,0-sp]",
+  "expected": false
+ },
+ {
+  "version": "5.alpha",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10.11",
+  "selector": "[10.2.5,3.15.snapshot)",
+  "expected": false
+ },
+ {
+  "version": "10.2.100.0.9",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.5.15.3.sp",
+  "selector": "1.5.15.3.sp",
+  "expected": true
+ },
+ {
+  "version": "3.2.15.0.9.2",
+  "selector": "3.0",
+  "expected": false
+ },
+ {
+  "version": "15.9",
+  "selector": "(,11.2]",
+  "expected": false
+ },
+ {
+  "version": "v3.9.15",
+  "selector": "(,15)",
+  "expected": true
+ },
+ {
+  "version": "1.10.2.0.Final",
+  "selector": "5.+",
+  "expected": false
+ },
+ {
+  "version": "10RC0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2",
+  "selector": "(5.100.foobar,]",
+  "expected": false
+ },
+ {
+  "version": "3.0",
+  "selector": "[9.15-rc,)",
+  "expected": false
+ },
+ {
+  "version": "1.10.11.15RELEASE",
+  "selector": "[2,0.2]",
+  "expected": false
+ },
+ {
+  "version": "2.0.b",
+  "selector": "[,15]",
+  "expected": false
+ },
+ {
+  "version": "1.9.11",
+  "selector": "[0-sp,15.2-sp)",
+  "expected": true
+ },
+ {
+  "version": "100.5.15.2",
+  "selector": "v15.5.0.5",
+  "expected": false
+ },
+ {
+  "version": "0.10.11.9",
+  "selector": "100.9.2.+",
+  "expected": false
+ },
+ {
+  "version": "v2.100.0.1",
+  "selector": "v2.100.0.1",
+  "expected": true
+ },
+ {
+  "version": "0.10.15",
+  "selector": "[100.2-alpha,)",
+  "expected": false
+ },
+ {
+  "version": "0.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3.0.11.100.pr1",
+  "selector": "100.3.11-xyz",
+  "expected": false
+ },
+ {
+  "version": "1.0.0-final",
+  "selector": "(,1.0.0]",
+  "expected": true
+ },
+ {
+  "version": "100.3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.2.5",
+  "selector": "1.2.+",
+  "expected": true
+ },
+ {
+  "version": "3.9",
+  "selector": "[1.100.100.SNAPSHOT,9-release)",
+  "expected": true
+ },
+ {
+  "version": "3.3.5",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "10.15.10.100.15.0",
+  "selector": "(3.0.0,)",
+  "expected": true
+ },
+ {
+  "version": "9.11.100_release1",
+  "selector": "[1.1.100-release,11.100-pr)",
+  "expected": true
+ },
+ {
+  "version": "0.2.0.0",
+  "selector": "0.2.+",
+  "expected": true
+ },
+ {
+  "version": "100.5.5",
+  "selector": "100.5.5",
+  "expected": true
+ },
+ {
+  "version": "v5.100.11.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.9.alpha",
+  "selector": "[0.3-milestone,15.m)",
+  "expected": false
+ },
+ {
+  "version": "100.SNAPSHOT3",
+  "selector": "(10.100.0,10.0]",
+  "expected": false
+ },
+ {
+  "version": "3_pr",
+  "selector": "(1.100.SP,10.5]",
+  "expected": true
+ },
+ {
+  "version": "5.9.0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.5.3.2",
+  "selector": "10.+",
+  "expected": false
+ },
+ {
+  "version": "5.11.10",
+  "selector": "2.0.+",
+  "expected": false
+ },
+ {
+  "version": "10.10.0.5",
+  "selector": "10.10.0.+",
+  "expected": true
+ },
+ {
+  "version": "1.5",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.10.m",
+  "selector": "2.5.+",
+  "expected": false
+ },
+ {
+  "version": "0.1.1",
+  "selector": "0.1.+",
+  "expected": true
+ },
+ {
+  "version": "9.3.10.100_RC",
+  "selector": "(9.3.15,1.2.b)",
+  "expected": false
+ },
+ {
+  "version": "3.0.rc",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10.9.2_cr",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3.10.9-beta",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5foobar",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.ga",
+  "selector": "10.100.+",
+  "expected": false
+ },
+ {
+  "version": "100.5.5.0",
+  "selector": "100.5.5.0",
+  "expected": true
+ },
+ {
+  "version": "3-dev",
+  "selector": "1.0.+",
+  "expected": false
+ },
+ {
+  "version": "15.10.9.100.final",
+  "selector": "0.11.15.10",
+  "expected": false
+ },
+ {
+  "version": "1.2.0.10",
+  "selector": "[1,)",
+  "expected": true
+ },
+ {
+  "version": "5.0.0.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "15.1.RC",
+  "selector": "[1.100,100.100.sp]",
+  "expected": true
+ },
+ {
+  "version": "v11.1.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "9",
+  "selector": "9",
+  "expected": true
+ },
+ {
+  "version": "100.3.5.10",
+  "selector": "100.3.5.10",
+  "expected": true
+ },
+ {
+  "version": "5.15.11.15-b2",
+  "selector": "15.2.+",
+  "expected": false
+ },
+ {
+  "version": "15.11.0.9RELEASE",
+  "selector": "[2.15,5)",
+  "expected": false
+ },
+ {
+  "version": "15.10.1.9",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "11.11.100.0",
+  "selector": "(3.3.xyz,10-SP)",
+  "expected": false
+ },
+ {
+  "version": "0.100",
+  "selector": "[,100.0]",
+  "expected": false
+ },
+ {
+  "version": "17.3",
+  "selector": "[0.18.SNAPSHOT,17.8.7.7)",
+  "expected": true
+ },
+ {
+  "version": "cr2.cr2.rc",
+  "selector": "[14.cr2.snapshot,5.10.8.8)",
+  "expected": false
+ },
+ {
+  "version": "0.100.3.3_rc",
+  "selector": "0.100.3.3_rc",
+  "expected": true
+ },
+ {
+  "version": "v3.1.10",
+  "selector": "v3.1.10",
+  "expected": true
+ },
+ {
+  "version": "0.100.9.2",
+  "selector": "(100-SNAPSHOT,15.10.2]",
+  "expected": false
+ },
+ {
+  "version": "1.2.2.5",
+  "selector": "1.2.2.+",
+  "expected": true
+ },
+ {
+  "version": "100.15.0",
+  "selector": "100.15.0",
+  "expected": true
+ },
+ {
+  "version": "final.10.cr2.6",
+  "selector": "[19.17.Final,10.18.Final.SNAPSHOT)",
+  "expected": false
+ },
+ {
+  "version": "3.15.ga",
+  "selector": "(1.5.SNAPSHOT,]",
+  "expected": false
+ },
+ {
+  "version": "2.3",
+  "selector": "15.2.2",
+  "expected": false
+ },
+ {
+  "version": "11-ga",
+  "selector": "100.10.+",
+  "expected": false
+ },
+ {
+  "version": "1.0.M1",
+  "selector": "1.0.+",
+  "expected": true
+ },
+ {
+  "version": "3.15.15.9",
+  "selector": "[9.0.10,3.3.9.SP]",
+  "expected": false
+ },
+ {
+  "version": "2.SNAPSHOT",
+  "selector": "15.0.+",
+  "expected": false
+ },
+ {
+  "version": "11.RELEASE0",
+  "selector": "11.+",
+  "expected": true
+ },
+ {
+  "version": "2.0.rc",
+  "selector": "2.0.rc",
+  "expected": true
+ },
+ {
+  "version": "10.milestone",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.100.3.milestone0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "v15.5",
+  "selector": "5.+",
+  "expected": false
+ },
+ {
+  "version": "9.100.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "sp.5.beta",
+  "selector": "[rc.20.14.9,1.10.8)",
+  "expected": true
+ },
+ {
+  "version": "5.2.10.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.1.2",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "(5.10,11.3.3)",
+  "expected": false
+ },
+ {
+  "version": "1.xyz",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "11.3.b",
+  "selector": "2.+",
+  "expected": false
+ },
+ {
+  "version": "9.100.10.9.ga",
+  "selector": "[2.1.9,10.0-b]",
+  "expected": true
+ },
+ {
+  "version": "100dev1",
+  "selector": "(,0.11.1-pr)",
+  "expected": false
+ },
+ {
+  "version": "10.10.0",
+  "selector": "10.10.+",
+  "expected": true
+ },
+ {
+  "version": "10.5-snapshot",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "100.0.0",
+  "selector": "[1.15.100,3.10.2-snapshot)",
+  "expected": false
+ },
+ {
+  "version": "9.1.9",
+  "selector": "(,100.11.100)",
+  "expected": true
+ },
+ {
+  "version": "9_SP",
+  "selector": "(0.10.9-RELEASE,10-dev]",
+  "expected": true
+ },
+ {
+  "version": "11.11.15",
+  "selector": "9",
+  "expected": false
+ },
+ {
+  "version": "5.0.Final",
+  "selector": "[9.5.1,3.9-Final]",
+  "expected": false
+ },
+ {
+  "version": "10.11",
+  "selector": "[3,9.15-ga)",
+  "expected": false
+ },
+ {
+  "version": "2.1",
+  "selector": "(,3.ga]",
+  "expected": true
+ },
+ {
+  "version": "15.100.1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.release",
+  "selector": "[1,100)",
+  "expected": true
+ },
+ {
+  "version": "10.15.15.0.9.15",
+  "selector": "[2.3.2,5.1.0)",
+  "expected": false
+ },
+ {
+  "version": "v0.3.10.3",
+  "selector": "v0.3.10.3",
+  "expected": true
+ },
+ {
+  "version": "11.1milestone",
+  "selector": "100.10.0.3beta3",
+  "expected": false
+ },
+ {
+  "version": "18.15.6.dev",
+  "selector": "[8.foobar,11.SNAPSHOT.11)",
+  "expected": false
+ },
+ {
+  "version": "11.5.5",
+  "selector": "[9.3.m,]",
+  "expected": false
+ },
+ {
+  "version": "15.15.9.1",
+  "selector": "9.+",
+  "expected": false
+ },
+ {
+  "version": "1",
+  "selector": "15.2.0",
+  "expected": false
+ },
+ {
+  "version": "5.1.100",
+  "selector": "[3.5.11.snapshot,10.3]",
+  "expected": true
+ },
+ {
+  "version": "3.2.1.100",
+  "selector": "(1,15.5)",
+  "expected": true
+ },
+ {
+  "version": "3.3.100_beta0",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "10.2.15.100-final",
+  "selector": "[0.15,11.2-Final)",
+  "expected": true
+ },
+ {
+  "version": "0.100.5-ga1",
+  "selector": "[,5.2.100.m]",
+  "expected": false
+ },
+ {
+  "version": "100.100.11.100",
+  "selector": "3.3.11.+",
+  "expected": false
+ },
+ {
+  "version": "11.9.cr",
+  "selector": "3.0.9.3.dev",
+  "expected": false
+ },
+ {
+  "version": "v5.1.3",
+  "selector": "v5.1.3",
+  "expected": true
+ },
+ {
+  "version": "15.2",
+  "selector": "11.100.5",
+  "expected": false
+ },
+ {
+  "version": "1.11.pr",
+  "selector": "(,10.10.sp]",
+  "expected": true
+ },
+ {
+  "version": "v100.0",
+  "selector": "v100.0",
+  "expected": true
+ },
+ {
+  "version": "0.11.xyz",
+  "selector": "5_snapshot1",
+  "expected": false
+ },
+ {
+  "version": "1.11.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100.9.3.9ga2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "3.b",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "9.0.0",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.11",
+  "selector": "[9.3-b,0.15.10)",
+  "expected": false
+ },
+ {
+  "version": "9.0.15.2.1.10",
+  "selector": "(,11]",
+  "expected": true
+ },
+ {
+  "version": "10.3.10.3-alpha",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "11.3.3.11",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.10.beta",
+  "selector": "(4.19.19,final.m1.6.6]",
+  "expected": false
+ },
+ {
+  "version": "3.100.2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "17.foobar.ga",
+  "selector": "[18.beta.17.9,Final.8.cr2.9)",
+  "expected": false
+ },
+ {
+  "version": "2.alpha",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "100.RC",
+  "selector": "(9.2,5.11.0]",
+  "expected": false
+ },
+ {
+  "version": "5.9.2.9foobar",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.milestone",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.10.0.0.0",
+  "selector": "1.10.0.+",
+  "expected": true
+ },
+ {
+  "version": "v15.0.9.5",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11.alpha",
+  "selector": "(5.9.100-cr,15.2]",
+  "expected": true
+ },
+ {
+  "version": "9.2.100",
+  "selector": "11.15.10.15.cr",
+  "expected": false
+ },
+ {
+  "version": "1.0-foobar",
+  "selector": "(1.0,)",
+  "expected": false
+ },
+ {
+  "version": "5.0.alpha",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.10",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "10",
+  "selector": "[2.3.10.rc,10.10.dev)",
+  "expected": true
+ },
+ {
+  "version": "1.2-sp",
+  "selector": "[1.2,)",
+  "expected": false
+ },
+ {
+  "version": "3.1.5.9",
+  "selector": "100.+",
+  "expected": false
+ },
+ {
+  "version": "19.11.16.18.rc",
+  "selector": "(sp.alpha.rc.9,17.8.12.foobar]",
+  "expected": false
+ },
+ {
+  "version": "10.3.final",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.1.10.11_dev",
+  "selector": "15.+",
+  "expected": false
+ },
+ {
+  "version": "9.10.100-cr2",
+  "selector": "[11.9,]",
+  "expected": false
+ },
+ {
+  "version": "5.10.9",
+  "selector": "[,100-SP]",
+  "expected": false
+ },
+ {
+  "version": "100.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.2.2",
+  "selector": "[0.100.100.alpha,10)",
+  "expected": true
+ },
+ {
+  "version": "15.15.9-sp2",
+  "selector": "[1.2.2,)",
+  "expected": true
+ },
+ {
+  "version": "v11.11",
+  "selector": "[15-beta,1.m)",
+  "expected": false
+ },
+ {
+  "version": "v5.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.5-rc",
+  "selector": "[2.0-dev,3.0)",
+  "expected": true
+ },
+ {
+  "version": "15.9.1.5.3",
+  "selector": "[1.10.2.snapshot,100)",
+  "expected": true
+ },
+ {
+  "version": "0",
+  "selector": "0.15.100_sp",
+  "expected": false
+ },
+ {
+  "version": "5beta2",
+  "selector": "5.alpha",
+  "expected": false
+ },
+ {
+  "version": "100.sp",
+  "selector": "(1.9.5,)",
+  "expected": true
+ },
+ {
+  "version": "5alpha",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.1.100",
+  "selector": "1.1.100",
+  "expected": true
+ },
+ {
+  "version": "100",
+  "selector": "[2.10,)",
+  "expected": true
+ },
+ {
+  "version": "15.11.100.9",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "1.10.1.100",
+  "selector": "[5.15,]",
+  "expected": false
+ },
+ {
+  "version": "1.15.9.0.0.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "100.10",
+  "selector": "[10,0.RELEASE)",
+  "expected": false
+ },
+ {
+  "version": "1.1.0",
+  "selector": "1.1.+",
+  "expected": true
+ },
+ {
+  "version": "100-rc",
+  "selector": "[3.10-final,9.5.0-foobar]",
+  "expected": false
+ },
+ {
+  "version": "10.2_RELEASE",
+  "selector": "[5.2-rc,11.b]",
+  "expected": true
+ },
+ {
+  "version": "5.15",
+  "selector": "5.15",
+  "expected": true
+ },
+ {
+  "version": "v15.100",
+  "selector": "(3,]",
+  "expected": false
+ },
+ {
+  "version": "2.Final",
+  "selector": "(,2]",
+  "expected": true
+ },
+ {
+  "version": "11dev0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1_sp",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.0.2.0.0",
+  "selector": "1.0.2.+",
+  "expected": true
+ },
+ {
+  "version": "10.10.5.2",
+  "selector": "1.1",
+  "expected": false
+ },
+ {
+  "version": "2.0.1.0.0",
+  "selector": "2.0.1.+",
+  "expected": true
+ },
+ {
+  "version": "3.10.2",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "5",
+  "selector": "[1.10.10-xyz,1]",
+  "expected": false
+ },
+ {
+  "version": "15.2.cr",
+  "selector": "5.11.rc",
+  "expected": false
+ },
+ {
+  "version": "15",
+  "selector": "11.100.+",
+  "expected": false
+ },
+ {
+  "version": "11.9.0",
+  "selector": "1.2.10.5",
+  "expected": false
+ },
+ {
+  "version": "5.100.0.100",
+  "selector": "5.+",
+  "expected": true
+ },
+ {
+  "version": "10release",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.100.100.10",
+  "selector": "[0.100.1,0.9.15.sp)",
+  "expected": false
+ },
+ {
+  "version": "9.11.3",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "5.2.pr",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.milestone",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.2.3",
+  "selector": "0.2.+",
+  "expected": true
+ },
+ {
+  "version": "1.1.2beta2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.0.11alpha1",
+  "selector": "[3.m,9.100)",
+  "expected": false
+ },
+ {
+  "version": "v5.15.10",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.foobar",
+  "selector": "[100,)",
+  "expected": false
+ },
+ {
+  "version": "1.2.3.5",
+  "selector": "1.2.3.+",
+  "expected": true
+ },
+ {
+  "version": "2.1.ga",
+  "selector": "[9.1.SNAPSHOT,)",
+  "expected": false
+ },
+ {
+  "version": "0.5.foobar",
+  "selector": "100.5.+",
+  "expected": false
+ },
+ {
+  "version": "9.10.9.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.9.11.11.RELEASE",
+  "selector": "(,11.15]",
+  "expected": true
+ },
+ {
+  "version": "3.5.11-xyz2",
+  "selector": "5.11.+",
+  "expected": false
+ },
+ {
+  "version": "1.0.0.RC",
+  "selector": "[1.0.0,1.0.0]",
+  "expected": false
+ },
+ {
+  "version": "5.5.9.100milestone",
+  "selector": "[,9.2.11)",
+  "expected": false
+ },
+ {
+  "version": "3.100.15.0_snapshot",
+  "selector": "3.100.15.0_snapshot",
+  "expected": true
+ },
+ {
+  "version": "1.100.SNAPSHOT",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "2.cr",
+  "selector": "[11.9,]",
+  "expected": false
+ },
+ {
+  "version": "1.5.0",
+  "selector": "100.100.1.pr3",
+  "expected": false
+ },
+ {
+  "version": "15.10.foobar",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.2.rc",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "9.5",
+  "selector": "2.100.1.5SP1",
+  "expected": false
+ },
+ {
+  "version": "5.9.2.100.2",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.0.9",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "100.0.5",
+  "selector": "100.+",
+  "expected": true
+ },
+ {
+  "version": "11.3.0.5-ga",
+  "selector": "[2.9-snapshot,)",
+  "expected": true
+ },
+ {
+  "version": "3.5",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "18.11.2.RC",
+  "selector": "[7.19.3.12,20)",
+  "expected": true
+ },
+ {
+  "version": "5.0.10.100",
+  "selector": "[11-b,100.2.5]",
+  "expected": false
+ },
+ {
+  "version": "10-sp",
+  "selector": "(,10]",
+  "expected": true
+ },
+ {
+  "version": "0.5.0.2.dev",
+  "selector": "0.5.0.2.dev",
+  "expected": true
+ },
+ {
+  "version": "v11.0.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.5.5_pr2",
+  "selector": "10.1.2.+",
+  "expected": false
+ },
+ {
+  "version": "1.0-sp",
+  "selector": "[1.0,)",
+  "expected": false
+ },
+ {
+  "version": "9.11.1",
+  "selector": "[9.11-RELEASE,15.0.10)",
+  "expected": true
+ },
+ {
+  "version": "1.final",
+  "selector": "(,1]",
+  "expected": true
+ },
+ {
+  "version": "5.1",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "15.0",
+  "selector": "(10.15.0-Final,9.sp]",
+  "expected": false
+ },
+ {
+  "version": "2.0.3.1",
+  "selector": "[0.100,]",
+  "expected": false
+ },
+ {
+  "version": "1.5.pr",
+  "selector": "[5.10.2-final,3.100.9)",
+  "expected": false
+ },
+ {
+  "version": "0.snapshot",
+  "selector": "(9-release,]",
+  "expected": false
+ },
+ {
+  "version": "v15.1.3.15",
+  "selector": "(,0.2]",
+  "expected": true
+ },
+ {
+  "version": "10.2.10.1",
+  "selector": "10.2.10.1",
+  "expected": true
+ },
+ {
+  "version": "1.100.2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "9.11.100_release3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "11.0.3",
+  "selector": "3.+",
+  "expected": false
+ },
+ {
+  "version": "5Final",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.5.cr",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "2.100.Final",
+  "selector": "10.1.+",
+  "expected": false
+ },
+ {
+  "version": "11.3.10.b",
+  "selector": "[3.3,)",
+  "expected": true
+ },
+ {
+  "version": "2.10.1",
+  "selector": "2.10.+",
+  "expected": true
+ },
+ {
+  "version": "100.11.9.11",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "5.beta",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.1",
+  "selector": "0.1",
+  "expected": true
+ },
+ {
+  "version": "0.3.10.10sp",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.11.2",
+  "selector": "(1.3,15.9-RELEASE]",
+  "expected": true
+ },
+ {
+  "version": "0.15.3.10.15.11",
+  "selector": "11",
+  "expected": false
+ },
+ {
+  "version": "2.15.9.15.1.2",
+  "selector": "3.0.0",
+  "expected": false
+ },
+ {
+  "version": "10",
+  "selector": "10",
+  "expected": true
+ },
+ {
+  "version": "v5.3.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.0.1.SNAPSHOT",
+  "selector": "(,0.0.1]",
+  "expected": true
+ },
+ {
+  "version": "9",
+  "selector": "(10.100.0,100.2.100)",
+  "expected": false
+ },
+ {
+  "version": "9.10.10",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "10.3.9",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.5.5",
+  "selector": "9.5",
+  "expected": false
+ },
+ {
+  "version": "10.final",
+  "selector": "10.+",
+  "expected": true
+ },
+ {
+  "version": "3.3.100_release3",
+  "selector": "[5.100.11,5.beta)",
+  "expected": false
+ },
+ {
+  "version": "11-final",
+  "selector": "v3",
+  "expected": false
+ },
+ {
+  "version": "5.2ga2",
+  "selector": "[0.9.11.foobar,)",
+  "expected": true
+ },
+ {
+  "version": "11.SNAPSHOT",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "1.2-alpha",
+  "selector": "(,1.2]",
+  "expected": true
+ },
+ {
+  "version": "16.dev",
+  "selector": "[alpha.9.19.11,19.cr2.3.9)",
+  "expected": true
+ },
+ {
+  "version": "2.5.100.11.11",
+  "selector": "(,100.SP]",
+  "expected": true
+ },
+ {
+  "version": "1.5_ga",
+  "selector": "1.5_ga",
+  "expected": true
+ },
+ {
+  "version": "11.3.100_milestone1",
+  "selector": "(,5)",
+  "expected": false
+ },
+ {
+  "version": "2-foobar",
+  "selector": "[2,2]",
+  "expected": false
+ },
+ {
+  "version": "10.0.11.5-cr1",
+  "selector": "3.5.beta1",
+  "expected": false
+ },
+ {
+  "version": "0.1",
+  "selector": "[1.100,15.2-snapshot)",
+  "expected": false
+ },
+ {
+  "version": "10-dev",
+  "selector": "(10,)",
+  "expected": false
+ },
+ {
+  "version": "11.2.100",
+  "selector": "(5.15.2-alpha,9.dev]",
+  "expected": false
+ },
+ {
+  "version": "5.0.10.1-foobar",
+  "selector": "5.0.10.1-foobar",
+  "expected": true
+ },
+ {
+  "version": "v15.100.100",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.2.15.2",
+  "selector": "2.+",
+  "expected": true
+ },
+ {
+  "version": "5.0.9",
+  "selector": "[1.10.15-dev,9.1.3)",
+  "expected": true
+ },
+ {
+  "version": "100.5.5.100",
+  "selector": "100.5.5.100",
+  "expected": true
+ },
+ {
+  "version": "1.ga",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "10.0.1.SNAPSHOT3",
+  "selector": "15.+",
+  "expected": false
+ },
+ {
+  "version": "100.10.final",
+  "selector": "(2.3-xyz,1.9.snapshot]",
+  "expected": false
+ },
+ {
+  "version": "15.15",
+  "selector": "[3.rc,)",
+  "expected": true
+ },
+ {
+  "version": "3.11.1.10.release2",
+  "selector": "3.+",
+  "expected": true
+ },
+ {
+  "version": "100.5",
+  "selector": "100.5",
+  "expected": true
+ },
+ {
+  "version": "12.3",
+  "selector": "[0.ga.alpha.14,13.final)",
+  "expected": true
+ },
+ {
+  "version": "1.15.RC",
+  "selector": "3.final3",
+  "expected": false
+ },
+ {
+  "version": "1.100",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.1.11",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "1.100.9.11",
+  "selector": "5.5.+",
+  "expected": false
+ },
+ {
+  "version": "3.1.10.100",
+  "selector": "3.1.10.100",
+  "expected": true
+ },
+ {
+  "version": "v10.15.0",
+  "selector": "[100.0.3-RC,]",
+  "expected": false
+ },
+ {
+  "version": "3.9.1-dev3",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "5.9.1.pr2",
+  "selector": "(,100.xyz]",
+  "expected": true
+ },
+ {
+  "version": "11b",
+  "selector": "(9.1.2-b,)",
+  "expected": true
+ },
+ {
+  "version": "3.SNAPSHOT",
+  "selector": "(,2.10.1]",
+  "expected": false
+ },
+ {
+  "version": "v1",
+  "selector": "[5.5.sp,10.0.3.SNAPSHOT)",
+  "expected": false
+ },
+ {
+  "version": "v11.0.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "3.3.3.3.2.0",
+  "selector": "[,5.10]",
+  "expected": false
+ },
+ {
+  "version": "10.dev",
+  "selector": "5.11.+",
+  "expected": false
+ },
+ {
+  "version": "1-snapshot",
+  "selector": "(,1]",
+  "expected": true
+ },
+ {
+  "version": "5.15.release",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.9",
+  "selector": "(,15.9)",
+  "expected": true
+ },
+ {
+  "version": "5.10-release0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "100.3.100.11",
+  "selector": "2_ga3",
+  "expected": false
+ },
+ {
+  "version": "5.9.15",
+  "selector": "(,11.ga]",
+  "expected": true
+ },
+ {
+  "version": "1-m1",
+  "selector": "(,1]",
+  "expected": true
+ },
+ {
+  "version": "11-sp0",
+  "selector": "[100.10,100]",
+  "expected": false
+ },
+ {
+  "version": "10.3.5",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.0.0",
+  "selector": "0.+",
+  "expected": true
+ },
+ {
+  "version": "1",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.final.13",
+  "selector": "(sp.2,12.release.7]",
+  "expected": true
+ },
+ {
+  "version": "5.0.11",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "9.100",
+  "selector": "11.9.1.100",
+  "expected": false
+ },
+ {
+  "version": "15.10.alpha",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "1.3",
+  "selector": "1.3",
+  "expected": true
+ },
+ {
+  "version": "10.1.x",
+  "selector": "10.1.+",
+  "expected": true
+ },
+ {
+  "version": "3.2",
+  "selector": "3.2",
+  "expected": true
+ },
+ {
+  "version": "2_sp",
+  "selector": "2_sp",
+  "expected": true
+ },
+ {
+  "version": "10.3.9",
+  "selector": "0.100.+",
+  "expected": false
+ },
+ {
+  "version": "15.0.100",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "10.RC",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "9.0SNAPSHOT",
+  "selector": "15.2.11.1",
+  "expected": false
+ },
+ {
+  "version": "15.ga",
+  "selector": "[15.xyz,)",
+  "expected": true
+ },
+ {
+  "version": "release.18.6",
+  "selector": "(SNAPSHOT.20,19.0.SNAPSHOT]",
+  "expected": true
+ },
+ {
+  "version": "2.1.15",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "11.100.foobar",
+  "selector": "(,15.2)",
+  "expected": true
+ },
+ {
+  "version": "10",
+  "selector": "(5,10.10.1)",
+  "expected": true
+ },
+ {
+  "version": "10.0.10.1",
+  "selector": "10.0.10.+",
+  "expected": true
+ },
+ {
+  "version": "0.100.2",
+  "selector": "0.100.2",
+  "expected": true
+ },
+ {
+  "version": "10.0.9.0_RC2",
+  "selector": "(,10.10-release]",
+  "expected": true
+ },
+ {
+  "version": "2.3",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "3.11.1.5-b",
+  "selector": "(5-release,]",
+  "expected": false
+ },
+ {
+  "version": "1.1.10Final",
+  "selector": "[100.final,5.15.10]",
+  "expected": false
+ },
+ {
+  "version": "15.1.3",
+  "selector": "15.1.3",
+  "expected": true
+ },
+ {
+  "version": "11.1_rc",
+  "selector": "3.100.15rc1",
+  "expected": false
+ },
+ {
+  "version": "15.9",
+  "selector": "15.+",
+  "expected": true
+ },
+ {
+  "version": "11RELEASE1",
+  "selector": "(10.10.11,9.9.100-milestone]",
+  "expected": false
+ },
+ {
+  "version": "5.5.0",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "2.100.11.9",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.0.2.0milestone1",
+  "selector": "(,10.2.10.milestone]",
+  "expected": true
+ },
+ {
+  "version": "0.5.5",
+  "selector": "[10.sp,3.9.1-RELEASE)",
+  "expected": false
+ },
+ {
+  "version": "2.2.3",
+  "selector": "100.9.+",
+  "expected": false
+ },
+ {
+  "version": "1.3.RELEASE",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "0.0",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "3.15.100-alpha",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "5.10.15.11",
+  "selector": "+",
+  "expected": true
+ },
+ {
+  "version": "2.9.10.milestone",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "sp.5.beta",
+  "selector": "(rc.20.14.9,1.10.8]",
+  "expected": true
+ },
+ {
+  "version": "2rc1",
+  "selector": "10.11.2.0",
+  "expected": false
+ },
+ {
+  "version": "10.100.15.3.0.9",
+  "selector": "(15,9.xyz)",
+  "expected": false
+ },
+ {
+  "version": "1.1_snapshot",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "9",
+  "selector": "(3.9.1,)",
+  "expected": true
+ },
+ {
+  "version": "10.5",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.x",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "0.100.11.2",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "15",
+  "selector": "(9.1.2-b,11.100.15-release)",
+  "expected": false
+ },
+ {
+  "version": "10.15.11",
+  "selector": "[5,)",
+  "expected": true
+ },
+ {
+  "version": "9.0.5.10_sp0",
+  "selector": "1.3.+",
+  "expected": false
+ },
+ {
+  "version": "2.9",
+  "selector": "(3.2.9.rc,)",
+  "expected": false
+ },
+ {
+  "version": "3.15.5.1",
+  "selector": "3.15.5.1",
+  "expected": true
+ },
+ {
+  "version": "5.1",
+  "selector": "3.15.0.9.0.1",
+  "expected": false
+ },
+ {
+  "version": "v0",
+  "selector": "(,9)",
+  "expected": true
+ },
+ {
+  "version": "3",
+  "selector": "1.11.+",
+  "expected": false
+ },
+ {
+  "version": "5.3.ga",
+  "selector": "5.3.ga",
+  "expected": true
+ },
+ {
+  "version": "0.5.pr",
+  "selector": "3.5.+",
+  "expected": false
+ },
+ {
+  "version": "1-release",
+  "selector": "(1,)",
+  "expected": false
+ },
+ {
+  "version": "0.0.1.snapshot",
+  "selector": "(0.0.1,)",
+  "expected": false
+ },
+ {
+  "version": "1.10.3-pr",
+  "selector": "1.+",
+  "expected": true
+ },
+ {
+  "version": "0.15.5.9-SP0",
+  "selector": "[2.9.15-SP,2.1-RC)",
+  "expected": false
+ },
+ {
+  "version": "11.1",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "10",
+  "selector": "[10.15.11,9.11.2)",
+  "expected": false
+ },
+ {
+  "version": "100.2.5",
+  "selector": "(1.100,)",
+  "expected": true
+ },
+ {
+  "version": "9.0.0alpha",
+  "selector": "(3.9.11.beta,]",
+  "expected": false
+ },
+ {
+  "version": "1.1.10.10.alpha",
+  "selector": "1.1.10.10.alpha",
+  "expected": true
+ },
+ {
+  "version": "5.5.15",
+  "selector": "0.+",
+  "expected": false
+ },
+ {
+  "version": "0.10.RC",
+  "selector": "(0.release,15-alpha)",
+  "expected": true
+ },
+ {
+  "version": "15.10.2.5",
+  "selector": "15.10.2.5",
+  "expected": true
+ },
+ {
+  "version": "1.9-rc",
+  "selector": "[1.0-dev,2.0)",
+  "expected": true
+ },
+ {
+  "version": "1.0-ga",
+  "selector": "(1.0,)",
+  "expected": false
+ },
+ {
+  "version": "1.1.0",
+  "selector": "(,3)",
+  "expected": true
+ },
+ {
+  "version": "10.final",
+  "selector": "(10,10)",
+  "expected": false
+ },
+ {
+  "version": "1.10.1",
+  "selector": "1.10.1",
+  "expected": true
+ },
+ {
+  "version": "2.1.0",
+  "selector": "[2.0-dev,3.0)",
+  "expected": true
+ },
+ {
+  "version": "3-ga",
+  "selector": "latest.integration",
+  "expected": true
+ },
+ {
+  "version": "0.0.1",
+  "selector": "0.0.+",
+  "expected": true
+ },
+ {
+  "version": "1.2.100",
+  "selector": "latest.release",
+  "expected": true
+ },
+ {
+  "version": "1.5.2.15",
+  "selector": "1.5.2.15",
+  "expected": true
+ },
+ {
+  "version": "100.15.15",
+  "selector": "3.11.snapshot",
+  "expected": false
+ },
+ {
+  "version": "1.1cr",
+  "selector": "(,3.3.5)",
+  "expected": true
+ },
+ {
+  "version": "2.100-RELEASE3",
+  "selector": "11release",
+  "expected": false
+ },
+ {
+  "version": "2",
+  "selector": "(,10.0.15)",
+  "expected": true
+ },
+ {
+  "version": "v100.15",
+  "selector": "(0.3,3.3.snapshot]",
+  "expected": false
+ },
+ {
+  "version": "2.2.19",
+  "selector": "(alpha.alpha.foobar,16]",
+  "expected": true
+ },
+ {
+  "version": "3.5.1.9",
+  "selector": "(,15.1.100)",
+  "expected": true
+ },
+ {
+  "version": "10.10.0",
+  "selector": "0.+",
+  "expected": false
+ },
+ {
+  "version": "2.2.100.1.milestone0",
+  "selector": "1.100.3.+",
+  "expected": false
+ },
+ {
+  "version": "5.10.9_alpha",
+  "selector": "(9.Final,15-Final]",
+  "expected": false
+ },
+ {
+  "version": "3.5.100.11.RC0",
+  "selector": "latest.integration",
+  "expected": true
+ }
+]

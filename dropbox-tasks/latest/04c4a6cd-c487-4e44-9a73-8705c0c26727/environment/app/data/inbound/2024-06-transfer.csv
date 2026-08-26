@@ -1,0 +1,2 @@
+batch_id,source_system,employee_id,full_name,department,title,manager_id,location,annual_salary,status,attrs_json,valid_from,recorded_at,operation,correction_id
+WD-2024-06,workday,E101,Jon Bell,Finance,Analyst,M033,DEN,79000,active,"{""level"":2,""cost_center"":""FIN2""}",2024-06-01,2024-06-02T11:00:00Z,UPSERT,ORIG

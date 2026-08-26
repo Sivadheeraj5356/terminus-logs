@@ -1,0 +1,5 @@
+name_1 foo_bar Baz99 __x
+CamelCase and snake_case
+addr 220.7.36.24 hex 0x1e2 token tok_125
+foo gamma
+addr 99.49.100.176 hex 0x6eb8 token tok_244

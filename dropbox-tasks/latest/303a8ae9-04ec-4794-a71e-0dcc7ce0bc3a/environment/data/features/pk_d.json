@@ -1,0 +1,72 @@
+[
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_t_alpha",
+      "entity_id": "ent_t1",
+      "valid_from_ms": 30000,
+      "ingested_ms": 31000,
+      "revoked": false,
+      "values": {
+        "score": 10,
+        "bias": 1
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_t_beta",
+      "entity_id": "ent_t1",
+      "valid_from_ms": 30000,
+      "ingested_ms": 35000,
+      "revoked": false,
+      "values": {
+        "score": 20,
+        "bias": 2
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_t_gamma",
+      "entity_id": "ent_t1",
+      "valid_from_ms": 30000,
+      "ingested_ms": 35000,
+      "revoked": false,
+      "values": {
+        "score": 30,
+        "bias": 3
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_miss_only",
+      "entity_id": "ent_t2",
+      "valid_from_ms": 10000,
+      "ingested_ms": 90000,
+      "revoked": false,
+      "values": {
+        "score": 99,
+        "bias": 9
+      }
+    }
+  },
+  {
+    "op": "put",
+    "rev": {
+      "rev_id": "rv_overlay_base",
+      "entity_id": "ent_t3",
+      "valid_from_ms": 1000,
+      "ingested_ms": 1100,
+      "revoked": false,
+      "values": {
+        "score": 1,
+        "bias": 0
+      }
+    }
+  }
+]

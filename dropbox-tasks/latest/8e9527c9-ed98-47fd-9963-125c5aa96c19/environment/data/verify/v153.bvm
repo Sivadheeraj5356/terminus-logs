@@ -1,0 +1,12 @@
+type Animal { a: int }
+type Dog extends Animal { d: int }
+func main() -> int {
+b0:
+  iconst 1
+  newarray ref Animal
+  iconst 0
+  new Dog
+  astore
+  iconst 0
+  ret
+}

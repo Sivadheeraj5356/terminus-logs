@@ -1,0 +1,24 @@
+{
+  "scenario_id": "scenario_21",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "serde",
+      "version": "1.0.0",
+      "features": ["full"],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "feature_aliases": {
+    "full": ["derive", "alloc"]
+  },
+  "edges": [],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

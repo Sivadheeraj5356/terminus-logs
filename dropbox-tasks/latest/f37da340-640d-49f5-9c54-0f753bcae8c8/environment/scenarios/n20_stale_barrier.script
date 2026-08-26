@@ -1,0 +1,5 @@
+# barrier must bump rev when clearing violation from prior run
+profile alpha
+step bar
+step ro target=data
+step rw target=data

@@ -1,0 +1,3002 @@
+[
+ {
+  "branch_id": "B08",
+  "date": "2025-01-13",
+  "sessions": 66
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-01-15",
+  "sessions": 45
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-05-28",
+  "sessions": 63
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-15",
+  "sessions": 557
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-03",
+  "sessions": 450
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-10-26",
+  "sessions": 21
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-02-16",
+  "sessions": 785
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-15",
+  "sessions": 624
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-23",
+  "sessions": 542
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-01",
+  "sessions": 92
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-24",
+  "sessions": 823
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-15",
+  "sessions": 34
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-09-20",
+  "sessions": 92
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-23",
+  "sessions": 86
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-06-15",
+  "sessions": 281
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-11-21",
+  "sessions": 133
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-11-04",
+  "sessions": 433
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-23",
+  "sessions": 550
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-14",
+  "sessions": 494
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-01",
+  "sessions": 356
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-20",
+  "sessions": 444
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-06-18",
+  "sessions": 147
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-17",
+  "sessions": 16
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-10",
+  "sessions": 164
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-12-23",
+  "sessions": 371
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-04-28",
+  "sessions": 849
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-07-13",
+  "sessions": 20
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-24",
+  "sessions": 721
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-03-19",
+  "sessions": 148
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-27",
+  "sessions": 712
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-08",
+  "sessions": 183
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-08-29",
+  "sessions": 318
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-12",
+  "sessions": 56
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-09-15",
+  "sessions": 481
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-04",
+  "sessions": 770
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-12-28",
+  "sessions": 608
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-25",
+  "sessions": 321
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-27",
+  "sessions": 520
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-09-24",
+  "sessions": 311
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-08-27",
+  "sessions": 754
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-02-08",
+  "sessions": 151
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-14",
+  "sessions": 69
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-07",
+  "sessions": 192
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-10-19",
+  "sessions": 21
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-04",
+  "sessions": 861
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-10-28",
+  "sessions": 860
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-11-26",
+  "sessions": 635
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-01-31",
+  "sessions": 254
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-16",
+  "sessions": 849
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-06-05",
+  "sessions": 816
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-06-25",
+  "sessions": 609
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-06",
+  "sessions": 349
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-12-12",
+  "sessions": 770
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-12",
+  "sessions": 191
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-01-11",
+  "sessions": 251
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-09-05",
+  "sessions": 898
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-05-12",
+  "sessions": 565
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-03",
+  "sessions": 533
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-08-11",
+  "sessions": 215
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-06-20",
+  "sessions": 794
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-22",
+  "sessions": 375
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-01",
+  "sessions": 258
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-17",
+  "sessions": 823
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-08",
+  "sessions": 419
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-12-23",
+  "sessions": 67
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-23",
+  "sessions": 714
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-18",
+  "sessions": 451
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-18",
+  "sessions": 57
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-07-24",
+  "sessions": 655
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-17",
+  "sessions": 167
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-01-24",
+  "sessions": 315
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-12",
+  "sessions": 145
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-03-08",
+  "sessions": 96
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-03-01",
+  "sessions": 893
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-10-17",
+  "sessions": 38
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-04",
+  "sessions": 726
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-09-24",
+  "sessions": 239
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-01-25",
+  "sessions": 374
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-14",
+  "sessions": 350
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-11-19",
+  "sessions": 368
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-01-15",
+  "sessions": 491
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-08-30",
+  "sessions": 722
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-10-03",
+  "sessions": 381
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-04-04",
+  "sessions": 288
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-22",
+  "sessions": 331
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-06",
+  "sessions": 644
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-11-27",
+  "sessions": 595
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-11",
+  "sessions": 289
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-02-15",
+  "sessions": 491
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-06-19",
+  "sessions": 600
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-03",
+  "sessions": 727
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-02",
+  "sessions": 599
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-13",
+  "sessions": 224
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-25",
+  "sessions": 857
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-03",
+  "sessions": 169
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-11-26",
+  "sessions": 659
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-17",
+  "sessions": 461
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-22",
+  "sessions": 16
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-01-25",
+  "sessions": 676
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-13",
+  "sessions": 748
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-04-08",
+  "sessions": 284
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-01",
+  "sessions": 392
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-07-16",
+  "sessions": 831
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-03",
+  "sessions": 321
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-08-08",
+  "sessions": 227
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-04-15",
+  "sessions": 778
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-01-24",
+  "sessions": 235
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-01-08",
+  "sessions": 68
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-08-02",
+  "sessions": 465
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-08",
+  "sessions": 81
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-09",
+  "sessions": 451
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-12-15",
+  "sessions": 804
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-22",
+  "sessions": 72
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-30",
+  "sessions": 693
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-28",
+  "sessions": 27
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-07",
+  "sessions": 744
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-13",
+  "sessions": 852
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-17",
+  "sessions": 705
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-08-20",
+  "sessions": 550
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-11-13",
+  "sessions": 333
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-04",
+  "sessions": 538
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-15",
+  "sessions": 480
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-06-12",
+  "sessions": 290
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-06",
+  "sessions": 404
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-09-19",
+  "sessions": 847
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-09-13",
+  "sessions": 89
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-18",
+  "sessions": 487
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-08-01",
+  "sessions": 64
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-10",
+  "sessions": 410
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-10-28",
+  "sessions": 678
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-03-20",
+  "sessions": 686
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-04",
+  "sessions": 59
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-10-22",
+  "sessions": 806
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-16",
+  "sessions": 79
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-12-28",
+  "sessions": 267
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-11-14",
+  "sessions": 185
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-09",
+  "sessions": 661
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-06-20",
+  "sessions": 692
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-22",
+  "sessions": 707
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-23",
+  "sessions": 446
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-07-09",
+  "sessions": 553
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-05",
+  "sessions": 360
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-11-08",
+  "sessions": 682
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-12-22",
+  "sessions": 190
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-12-20",
+  "sessions": 690
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-08",
+  "sessions": 574
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-03-22",
+  "sessions": 262
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-08",
+  "sessions": 169
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-20",
+  "sessions": 279
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-01-02",
+  "sessions": 665
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-07",
+  "sessions": 416
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-21",
+  "sessions": 818
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-04",
+  "sessions": 426
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-08",
+  "sessions": 540
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-02-06",
+  "sessions": 892
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-04-18",
+  "sessions": 116
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-20",
+  "sessions": 70
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-07-08",
+  "sessions": 143
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-05-22",
+  "sessions": 726
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-06-13",
+  "sessions": 888
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-09-02",
+  "sessions": 123
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-25",
+  "sessions": 332
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-05-29",
+  "sessions": 239
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-16",
+  "sessions": 94
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-11-08",
+  "sessions": 656
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-08",
+  "sessions": 508
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-20",
+  "sessions": 183
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-19",
+  "sessions": 241
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-09-10",
+  "sessions": 834
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-12-10",
+  "sessions": 611
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-14",
+  "sessions": 272
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-05-26",
+  "sessions": 88
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-03-26",
+  "sessions": 872
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-04",
+  "sessions": 805
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-10-31",
+  "sessions": 55
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-02-04",
+  "sessions": 190
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-05-13",
+  "sessions": 781
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-02-26",
+  "sessions": 584
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-08-11",
+  "sessions": 205
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-11-16",
+  "sessions": 701
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-06",
+  "sessions": 201
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-05-31",
+  "sessions": 730
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-03-03",
+  "sessions": 221
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-11-19",
+  "sessions": 392
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-02-23",
+  "sessions": 287
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-11-19",
+  "sessions": 339
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-19",
+  "sessions": 147
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-22",
+  "sessions": 219
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-09-05",
+  "sessions": 37
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-11-03",
+  "sessions": 586
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-11",
+  "sessions": 859
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-09-10",
+  "sessions": 834
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-08-10",
+  "sessions": 876
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-02",
+  "sessions": 256
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-29",
+  "sessions": 900
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-11-19",
+  "sessions": 585
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-06-03",
+  "sessions": 259
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-18",
+  "sessions": 884
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-08-19",
+  "sessions": 427
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-02-22",
+  "sessions": 517
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-12-06",
+  "sessions": 454
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-04-10",
+  "sessions": 174
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-21",
+  "sessions": 149
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-06-13",
+  "sessions": 348
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-01-24",
+  "sessions": 858
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-11-26",
+  "sessions": 286
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-03",
+  "sessions": 833
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-09-14",
+  "sessions": 190
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-26",
+  "sessions": 158
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-29",
+  "sessions": 289
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-24",
+  "sessions": 694
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-17",
+  "sessions": 486
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-09-08",
+  "sessions": 471
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-07-01",
+  "sessions": 42
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-07",
+  "sessions": 882
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-19",
+  "sessions": 329
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-02",
+  "sessions": 899
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-15",
+  "sessions": 84
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-03-20",
+  "sessions": 643
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-02-03",
+  "sessions": 669
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-06-18",
+  "sessions": 512
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-08-17",
+  "sessions": 442
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-01",
+  "sessions": 266
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-29",
+  "sessions": 55
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-05-17",
+  "sessions": 30
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-14",
+  "sessions": 760
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-07",
+  "sessions": 155
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-06-08",
+  "sessions": 864
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-28",
+  "sessions": 234
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-23",
+  "sessions": 406
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-05-02",
+  "sessions": 780
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-11-18",
+  "sessions": 498
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-12-09",
+  "sessions": 846
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-01-15",
+  "sessions": 404
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-03",
+  "sessions": 465
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-06",
+  "sessions": 373
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-01",
+  "sessions": 413
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-24",
+  "sessions": 279
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-08-13",
+  "sessions": 105
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-01-16",
+  "sessions": 301
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-04-01",
+  "sessions": 229
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-07",
+  "sessions": 647
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-09-25",
+  "sessions": 24
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-09",
+  "sessions": 514
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-10-18",
+  "sessions": 683
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-26",
+  "sessions": 787
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-05-02",
+  "sessions": 115
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-11-05",
+  "sessions": 394
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-05-03",
+  "sessions": 411
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-23",
+  "sessions": 386
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-11-24",
+  "sessions": 202
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-10-11",
+  "sessions": 894
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-10-26",
+  "sessions": 108
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-11-05",
+  "sessions": 626
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-04-12",
+  "sessions": 235
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-07-28",
+  "sessions": 173
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-03-07",
+  "sessions": 376
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-09-06",
+  "sessions": 572
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-04-12",
+  "sessions": 798
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-07-26",
+  "sessions": 713
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-11-29",
+  "sessions": 745
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-06-23",
+  "sessions": 845
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-12",
+  "sessions": 652
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-26",
+  "sessions": 43
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-10-12",
+  "sessions": 315
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-01",
+  "sessions": 88
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-12-05",
+  "sessions": 486
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-03",
+  "sessions": 498
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-08",
+  "sessions": 171
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-06-15",
+  "sessions": 94
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-12-19",
+  "sessions": 39
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-05-16",
+  "sessions": 298
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-09",
+  "sessions": 114
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-10-25",
+  "sessions": 786
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-03",
+  "sessions": 706
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-04-03",
+  "sessions": 106
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-05",
+  "sessions": 238
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-17",
+  "sessions": 305
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-12-05",
+  "sessions": 654
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-23",
+  "sessions": 838
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-04-01",
+  "sessions": 88
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-11-07",
+  "sessions": 59
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-06-18",
+  "sessions": 225
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-02-10",
+  "sessions": 116
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-02",
+  "sessions": 171
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-04",
+  "sessions": 704
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-05-30",
+  "sessions": 522
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-25",
+  "sessions": 682
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-22",
+  "sessions": 89
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-06",
+  "sessions": 734
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-22",
+  "sessions": 736
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-09",
+  "sessions": 455
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-02-04",
+  "sessions": 67
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-05-21",
+  "sessions": 72
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-11-24",
+  "sessions": 321
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-05-21",
+  "sessions": 71
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-15",
+  "sessions": 575
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-22",
+  "sessions": 516
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-10",
+  "sessions": 593
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-12-09",
+  "sessions": 637
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-25",
+  "sessions": 799
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-31",
+  "sessions": 722
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-29",
+  "sessions": 423
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-25",
+  "sessions": 22
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-17",
+  "sessions": 508
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-16",
+  "sessions": 649
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-03-16",
+  "sessions": 649
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-10",
+  "sessions": 289
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-08-21",
+  "sessions": 611
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-05",
+  "sessions": 389
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-12-17",
+  "sessions": 627
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-06-26",
+  "sessions": 14
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-30",
+  "sessions": 369
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-06-08",
+  "sessions": 613
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-24",
+  "sessions": 378
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-31",
+  "sessions": 262
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-30",
+  "sessions": 56
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-03-28",
+  "sessions": 162
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-10-22",
+  "sessions": 613
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-12-01",
+  "sessions": 619
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-14",
+  "sessions": 367
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-01-25",
+  "sessions": 616
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-03-23",
+  "sessions": 497
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-11-15",
+  "sessions": 880
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-10",
+  "sessions": 712
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-10-09",
+  "sessions": 18
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-09-10",
+  "sessions": 276
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-09-30",
+  "sessions": 25
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-11-16",
+  "sessions": 765
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-07",
+  "sessions": 658
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-08-22",
+  "sessions": 108
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-10-29",
+  "sessions": 734
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-01-19",
+  "sessions": 854
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-01-02",
+  "sessions": 802
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-10-07",
+  "sessions": 65
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-10-06",
+  "sessions": 269
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-15",
+  "sessions": 60
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-18",
+  "sessions": 27
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-01-09",
+  "sessions": 127
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-11-10",
+  "sessions": 103
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-05-29",
+  "sessions": 464
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-04-14",
+  "sessions": 470
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-02",
+  "sessions": 599
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-09-22",
+  "sessions": 458
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-17",
+  "sessions": 63
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-01-29",
+  "sessions": 38
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-06",
+  "sessions": 743
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-11-08",
+  "sessions": 392
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-28",
+  "sessions": 499
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-01",
+  "sessions": 578
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-01-01",
+  "sessions": 377
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-01-12",
+  "sessions": 633
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-10-08",
+  "sessions": 151
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-27",
+  "sessions": 34
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-14",
+  "sessions": 578
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-25",
+  "sessions": 633
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-11-30",
+  "sessions": 101
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-02",
+  "sessions": 567
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-07-11",
+  "sessions": 306
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-01",
+  "sessions": 224
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-10-07",
+  "sessions": 805
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-04",
+  "sessions": 582
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-07-11",
+  "sessions": 475
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-27",
+  "sessions": 373
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-01-10",
+  "sessions": 773
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-13",
+  "sessions": 546
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-09-28",
+  "sessions": 801
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-17",
+  "sessions": 519
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-02-26",
+  "sessions": 378
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-09-11",
+  "sessions": 527
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-11-13",
+  "sessions": 800
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-10-22",
+  "sessions": 112
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-10-03",
+  "sessions": 391
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-03-02",
+  "sessions": 767
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-09-17",
+  "sessions": 551
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-12-23",
+  "sessions": 362
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-08-18",
+  "sessions": 140
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-10-22",
+  "sessions": 438
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-25",
+  "sessions": 742
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-22",
+  "sessions": 486
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-12-18",
+  "sessions": 258
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-02",
+  "sessions": 103
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-06-02",
+  "sessions": 24
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-09-15",
+  "sessions": 286
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-11-10",
+  "sessions": 695
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-03",
+  "sessions": 424
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-03-21",
+  "sessions": 266
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-09-27",
+  "sessions": 827
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-04",
+  "sessions": 315
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-03-23",
+  "sessions": 592
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-27",
+  "sessions": 672
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-07-05",
+  "sessions": 38
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-12-17",
+  "sessions": 415
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-27",
+  "sessions": 634
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-11-30",
+  "sessions": 298
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-23",
+  "sessions": 317
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-04-08",
+  "sessions": 578
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-08-14",
+  "sessions": 601
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-09-06",
+  "sessions": 78
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-14",
+  "sessions": 200
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-04-27",
+  "sessions": 505
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-08-17",
+  "sessions": 601
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-12-08",
+  "sessions": 243
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-02-23",
+  "sessions": 278
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-25",
+  "sessions": 810
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-03-01",
+  "sessions": 700
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-24",
+  "sessions": 460
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-01-14",
+  "sessions": 291
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-03",
+  "sessions": 577
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-15",
+  "sessions": 165
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-15",
+  "sessions": 752
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-30",
+  "sessions": 30
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-11-09",
+  "sessions": 12
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-11",
+  "sessions": 259
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-07",
+  "sessions": 242
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-05-06",
+  "sessions": 604
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-26",
+  "sessions": 560
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-15",
+  "sessions": 877
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-03-21",
+  "sessions": 474
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-15",
+  "sessions": 615
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-04-13",
+  "sessions": 233
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-10-11",
+  "sessions": 27
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-01-28",
+  "sessions": 879
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-08",
+  "sessions": 814
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-05-12",
+  "sessions": 516
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-09-10",
+  "sessions": 644
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-10",
+  "sessions": 61
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-02",
+  "sessions": 202
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-14",
+  "sessions": 507
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-10-14",
+  "sessions": 827
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-01-07",
+  "sessions": 868
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-10-14",
+  "sessions": 517
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-12",
+  "sessions": 148
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-06",
+  "sessions": 739
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-15",
+  "sessions": 605
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-09-25",
+  "sessions": 443
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-02-16",
+  "sessions": 817
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-04",
+  "sessions": 443
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-16",
+  "sessions": 112
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-05-07",
+  "sessions": 879
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-04",
+  "sessions": 232
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-05-12",
+  "sessions": 721
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-02-16",
+  "sessions": 375
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-05-07",
+  "sessions": 118
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-07-13",
+  "sessions": 805
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-03-11",
+  "sessions": 598
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-08-22",
+  "sessions": 247
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-12-24",
+  "sessions": 178
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-05-20",
+  "sessions": 556
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-15",
+  "sessions": 700
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-04-30",
+  "sessions": 317
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-06-07",
+  "sessions": 148
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-08",
+  "sessions": 741
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-05-07",
+  "sessions": 11
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-10-15",
+  "sessions": 343
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-02",
+  "sessions": 182
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-18",
+  "sessions": 872
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-15",
+  "sessions": 570
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-10-26",
+  "sessions": 340
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-02-26",
+  "sessions": 652
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-22",
+  "sessions": 82
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-02-22",
+  "sessions": 394
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-05-14",
+  "sessions": 315
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-08-02",
+  "sessions": 884
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-04-09",
+  "sessions": 465
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-08-10",
+  "sessions": 822
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-18",
+  "sessions": 600
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-03-27",
+  "sessions": 858
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-01-20",
+  "sessions": 758
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-03-23",
+  "sessions": 764
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-04-14",
+  "sessions": 170
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-10-16",
+  "sessions": 334
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-01",
+  "sessions": 197
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-03-29",
+  "sessions": 624
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-08",
+  "sessions": 664
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-12-26",
+  "sessions": 166
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-13",
+  "sessions": 197
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-02-18",
+  "sessions": 875
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-05-27",
+  "sessions": 280
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-18",
+  "sessions": 725
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-06",
+  "sessions": 316
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-03-03",
+  "sessions": 396
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-07",
+  "sessions": 900
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-09-14",
+  "sessions": 43
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-08-23",
+  "sessions": 189
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-12-01",
+  "sessions": 501
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-09",
+  "sessions": 527
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-09",
+  "sessions": 474
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-12-12",
+  "sessions": 788
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-13",
+  "sessions": 331
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-06-27",
+  "sessions": 138
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-09-09",
+  "sessions": 847
+ },
+ {
+  "branch_id": "B01",
+  "date": "2025-01-01",
+  "sessions": 269
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-04-07",
+  "sessions": 293
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-20",
+  "sessions": 873
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-08-27",
+  "sessions": 560
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-10-17",
+  "sessions": 511
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-20",
+  "sessions": 306
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-02-05",
+  "sessions": 207
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-04",
+  "sessions": 729
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-31",
+  "sessions": 599
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-03",
+  "sessions": 782
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-11-24",
+  "sessions": 332
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-02-27",
+  "sessions": 175
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-02-14",
+  "sessions": 849
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-12",
+  "sessions": 116
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-09-23",
+  "sessions": 745
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-29",
+  "sessions": 607
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-01-25",
+  "sessions": 261
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-08-15",
+  "sessions": 428
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-19",
+  "sessions": 422
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-21",
+  "sessions": 900
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-12-31",
+  "sessions": 289
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-19",
+  "sessions": 237
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-11-10",
+  "sessions": 899
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-03-18",
+  "sessions": 298
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-14",
+  "sessions": 690
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-12-28",
+  "sessions": 840
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-07-08",
+  "sessions": 882
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-02-12",
+  "sessions": 821
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-04-14",
+  "sessions": 81
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-12-15",
+  "sessions": 262
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-10-13",
+  "sessions": 532
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-12-22",
+  "sessions": 305
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-06-01",
+  "sessions": 288
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-04",
+  "sessions": 80
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-08-19",
+  "sessions": 563
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-10-28",
+  "sessions": 394
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-03-07",
+  "sessions": 639
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-05-27",
+  "sessions": 369
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-09",
+  "sessions": 356
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-05-11",
+  "sessions": 748
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-10-05",
+  "sessions": 890
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-03-29",
+  "sessions": 128
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-10-29",
+  "sessions": 730
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-29",
+  "sessions": 441
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-26",
+  "sessions": 328
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-29",
+  "sessions": 270
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-16",
+  "sessions": 596
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-25",
+  "sessions": 443
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-07-31",
+  "sessions": 803
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-11-11",
+  "sessions": 861
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-01-20",
+  "sessions": 667
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-04-15",
+  "sessions": 898
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-04-29",
+  "sessions": 474
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-11-07",
+  "sessions": 234
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-07-21",
+  "sessions": 354
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-09",
+  "sessions": 132
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-23",
+  "sessions": 107
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-12-29",
+  "sessions": 403
+ },
+ {
+  "branch_id": "B08",
+  "date": "2025-06-13",
+  "sessions": 111
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-06-13",
+  "sessions": 28
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-12-31",
+  "sessions": 772
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-05-29",
+  "sessions": 849
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-01-24",
+  "sessions": 249
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-09",
+  "sessions": 773
+ },
+ {
+  "branch_id": "B08",
+  "date": "2024-07-10",
+  "sessions": 108
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-03-26",
+  "sessions": 49
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-25",
+  "sessions": 398
+ },
+ {
+  "branch_id": "B03",
+  "date": "2025-01-24",
+  "sessions": 151
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-05-07",
+  "sessions": 712
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-02-10",
+  "sessions": 196
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-23",
+  "sessions": 168
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-05-23",
+  "sessions": 391
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-07-22",
+  "sessions": 208
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-10-10",
+  "sessions": 525
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-19",
+  "sessions": 386
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-12-07",
+  "sessions": 562
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-02-10",
+  "sessions": 844
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-11-04",
+  "sessions": 676
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-24",
+  "sessions": 172
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-07-18",
+  "sessions": 315
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-09-22",
+  "sessions": 430
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-13",
+  "sessions": 346
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-04-16",
+  "sessions": 299
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-08-17",
+  "sessions": 865
+ },
+ {
+  "branch_id": "B01",
+  "date": "2024-08-16",
+  "sessions": 25
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-14",
+  "sessions": 726
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-10-04",
+  "sessions": 491
+ },
+ {
+  "branch_id": "B05",
+  "date": "2024-10-31",
+  "sessions": 348
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-11-14",
+  "sessions": 189
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-11-26",
+  "sessions": 234
+ },
+ {
+  "branch_id": "B04",
+  "date": "2024-09-27",
+  "sessions": 485
+ },
+ {
+  "branch_id": "B05",
+  "date": "2025-06-12",
+  "sessions": 111
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-04-24",
+  "sessions": 520
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-01-31",
+  "sessions": 247
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-06-15",
+  "sessions": 387
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-11-03",
+  "sessions": 882
+ },
+ {
+  "branch_id": "B06",
+  "date": "2024-09-15",
+  "sessions": 472
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-02-05",
+  "sessions": 167
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-04-01",
+  "sessions": 426
+ },
+ {
+  "branch_id": "B02",
+  "date": "2025-03-09",
+  "sessions": 535
+ },
+ {
+  "branch_id": "B03",
+  "date": "2024-10-19",
+  "sessions": 811
+ },
+ {
+  "branch_id": "B06",
+  "date": "2025-05-09",
+  "sessions": 751
+ },
+ {
+  "branch_id": "B04",
+  "date": "2025-04-12",
+  "sessions": 406
+ },
+ {
+  "branch_id": "B07",
+  "date": "2025-05-06",
+  "sessions": 543
+ },
+ {
+  "branch_id": "B09",
+  "date": "2025-04-23",
+  "sessions": 878
+ },
+ {
+  "branch_id": "B09",
+  "date": "2024-12-20",
+  "sessions": 93
+ },
+ {
+  "branch_id": "B02",
+  "date": "2024-08-06",
+  "sessions": 882
+ },
+ {
+  "branch_id": "B07",
+  "date": "2024-08-25",
+  "sessions": 410
+ }
+]

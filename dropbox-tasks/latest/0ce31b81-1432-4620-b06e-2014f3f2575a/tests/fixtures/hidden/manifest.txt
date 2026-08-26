@@ -1,0 +1,9 @@
+hidden_combined_seed.txt
+hidden_combined_seed_deep.txt
+hidden_bug1_only_queenside.txt
+hidden_bug2_only_kingside_capture.txt
+hidden_black_side_castles.txt
+hidden_different_files_bug1.txt
+hidden_control_no_trap.txt
+hidden_stale_rights_corner_decoy.txt
+hidden_rook_destination_king_origin_swap.txt

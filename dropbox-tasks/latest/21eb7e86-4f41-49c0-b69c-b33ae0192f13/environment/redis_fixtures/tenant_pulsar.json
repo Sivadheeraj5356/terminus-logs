@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"GatewayPorts\":\"no\",\"PermitTunnel\":\"no\",\"AllowUsers\":\"alice\",\"PasswordAuthentication\":\"no\"}}"
+}

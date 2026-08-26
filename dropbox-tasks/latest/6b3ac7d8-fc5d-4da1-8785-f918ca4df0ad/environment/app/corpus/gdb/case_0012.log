@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0012
+signal: SIGSEGV (fault)
+#0  0x555515fad9d4 in hmac_sha256 (a=0x5555b9f3dd0a) at vaultseal.c:310
+#1  0x5555fcbf7379 in pa (a=0x5555f62f1ec8) at vaultseal.c:300
+#2  0x5555e8288c62 in pb (a=0x5555e2bcba07) at vaultseal.c:307
+#3  0x5555f92fe5bc in main (a=0x55553f66352c) at vaultseal.c:512

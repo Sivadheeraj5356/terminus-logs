@@ -1,0 +1,4 @@
+{
+  "tokens": ["strike", "blink", "left", "right", "up", "down"],
+  "display_order": ["strike", "blink", "left", "right", "up", "down"]
+}

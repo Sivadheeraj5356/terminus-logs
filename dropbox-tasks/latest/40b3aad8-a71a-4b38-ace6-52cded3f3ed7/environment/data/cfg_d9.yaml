@@ -1,0 +1,6 @@
+slice_id: 759
+profile_default: 0
+lane_limit_runtime: 16
+lane_limit_publish: 8
+lane_limit_compile: 8
+series_key: set_a

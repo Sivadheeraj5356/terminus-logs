@@ -1,0 +1,58 @@
+--- a/m4/FoldG.java
++++ b/m4/FoldG.java
+@@ -16,27 +16,28 @@
+ 
+   public static List<PackRow> foldG(Path regimePath, Path floorPath) throws Exception {
+     double floor = FoldAux.minDensifyFloor(floorPath);
++    String cutPath = System.getenv("CUT_CTX");
++    if (cutPath == null || cutPath.isBlank()) {
++      throw new IllegalStateException("CUT_CTX required");
++    }
++    String cutBody = Io.read(Paths.get(cutPath));
+     List<PackRow> rows = new ArrayList<>();
+-        Path man = regimePath.resolve("manifest.tsv");
+-    for (String line : Io.read(man).split("\n")) {
+-      if (line.startsWith("id") || line.isBlank()) continue;
+-      String[] parts = line.split("\t");
+-      String body = Io.read(regimePath.resolve(parts[1]));
+-      String iid = Io.jqString(body, "id");
+-      int idx = 0;
+-      while (true) {
+-        int fpos = body.indexOf("\"lane_id\"", idx);
+-        if (fpos < 0) break;
+-        String lane = Io.jqString(body.substring(fpos), "lane_id");
+-        double dens = Io.jqNumber(body.substring(fpos), "density_hint");
+-        PackRow row = new PackRow();
+-        row.instanceId = iid;
+-        row.laneId = lane;
+-        row.laneHex = Io.sha16(iid + "|" + lane + "|" + Io.fmt6(dens) + "|raw");
+-        row.floorRatio = dens / floor;
+-        rows.add(row);
+-        idx = fpos + 8;
+-      }
++    int idx = 0;
++    while (true) {
++      int fpos = cutBody.indexOf("\"instance_id\"", idx);
++      if (fpos < 0) break;
++      String chunk = cutBody.substring(fpos);
++      String iid = Io.jqString(chunk, "instance_id");
++      String lane = Io.jqString(chunk, "lane_id");
++      String span = Io.jqString(chunk, "span_hex");
++      double dens = Io.jqNumber(chunk, "density_hint");
++      PackRow row = new PackRow();
++      row.instanceId = iid;
++      row.laneId = lane;
++      row.laneHex = Io.sha16(iid + "|" + lane + "|" + Io.fmt6(dens) + "|" + span);
++      row.floorRatio = dens / floor;
++      rows.add(row);
++      idx = fpos + 12;
+     }
+     rows.sort(Comparator.comparing((PackRow r) -> r.instanceId).thenComparing(r -> r.laneId));
+     return rows;
+--- a/m4/fold_g_api.sh
++++ b/m4/fold_g_api.sh
+@@ -1,3 +1,4 @@
+ #!/bin/bash
+ # Desk binder for compile inventory.
+ foldG() { :; }
++# bound

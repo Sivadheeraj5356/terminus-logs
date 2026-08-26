@@ -1,0 +1,7 @@
+{"hold_id":"HOLD-001","rider_id":"R106","service_date":"2026-05-17","route_family":"express","scope":"base","amount_cents":120,"approved":true}
+{"hold_id":"HOLD-002","rider_id":"R106","service_date":"2026-05-17","route_family":"express","scope":"surcharge","amount_cents":60,"approved":true}
+{"hold_id":"HOLD-003","rider_id":"R106","service_date":"2026-05-17","route_family":"ferry","scope":"both","amount_cents":600,"approved":true}
+{"hold_id":"HOLD-004","rider_id":"R103","service_date":"2026-05-16","route_family":"express","scope":"both","amount_cents":200,"approved":true}
+{"hold_id":"HOLD-005","rider_id":"R100","service_date":"2026-05-15","route_family":"local","scope":"base","amount_cents":40,"approved":true}
+{"hold_id":"HOLD-006","rider_id":"R999","service_date":"2026-05-14","route_family":"local","scope":"both","amount_cents":500,"approved":true}
+{"hold_id":"HOLD-007","rider_id":"R106","service_date":"2026-05-17","route_family":"local","scope":"base","amount_cents":999,"approved":false}

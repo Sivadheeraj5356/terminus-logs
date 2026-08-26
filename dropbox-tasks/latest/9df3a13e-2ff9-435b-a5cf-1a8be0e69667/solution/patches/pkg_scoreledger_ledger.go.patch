@@ -1,0 +1,45 @@
+--- a/pkg/scoreledger/ledger.go
++++ b/pkg/scoreledger/ledger.go
+@@ -68,9 +68,31 @@
+ 			continue
+ 		}
+ 		reason := "suboptimal"
+-		_ = usedLanes
+-		_ = usedGroups
+-		_ = dec
++		if r, ok := dec.Illegal[lot.ID]; ok {
++			reason = r
++		} else {
++			laneHit := false
++			for _, id := range lot.Lanes {
++				if usedLanes[id] {
++					laneHit = true
++					break
++				}
++			}
++			if laneHit {
++				reason = "collided"
++			} else {
++				mgHit := false
++				for _, id := range lot.Lanes {
++					if ln, ok := lanes[id]; ok && usedGroups[ln.MutexGroup] {
++						mgHit = true
++						break
++					}
++				}
++				if mgHit {
++					reason = "mutex"
++				}
++			}
++		}
+ 		rejected = append(rejected, RejectedRow{LotID: lot.ID, Reason: reason})
+ 	}
+ 	sort.Slice(rejected, func(i, j int) bool { return rejected[i].LotID < rejected[j].LotID })
+@@ -92,6 +114,7 @@
+ 	for _, a := range accepted {
+ 		ids = append(ids, a.LotID)
+ 	}
++	sort.Strings(ids)
+ 	var b strings.Builder
+ 	b.WriteString(courtID)
+ 	b.WriteByte('|')

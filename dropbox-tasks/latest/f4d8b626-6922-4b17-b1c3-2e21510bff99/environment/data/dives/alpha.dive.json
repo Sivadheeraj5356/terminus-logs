@@ -1,0 +1,92 @@
+{
+  "expedition_id": "expedition-alpha",
+  "reports": [
+    {
+      "report_id": "nt-001",
+      "dive_lane": "north_trench",
+      "confidence_rank": 3,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    },
+    {
+      "report_id": "nt-002",
+      "dive_lane": "north_trench",
+      "confidence_rank": 2,
+      "revision": 1,
+      "supersedes": "nt-001",
+      "calibration_valid": true
+    },
+    {
+      "report_id": "nt-003",
+      "dive_lane": "north_trench",
+      "confidence_rank": 2,
+      "revision": 2,
+      "supersedes": "nt-002",
+      "calibration_valid": true
+    },
+    {
+      "report_id": "sr-001",
+      "dive_lane": "south_ridge",
+      "confidence_rank": 1,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": false
+    },
+    {
+      "report_id": "sr-002",
+      "dive_lane": "south_ridge",
+      "confidence_rank": 2,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    }
+  ],
+  "observations": [
+    {
+      "obs_id": "obs-001",
+      "dive_lane": "north_trench",
+      "timestamp_utc": "2024-03-01T08:00:00Z",
+      "obs_type": "SEAFLOOR_SAMPLE",
+      "depth_m": 1200,
+      "feature_code": "SMPL-A",
+      "instrument_id": "sonar-1"
+    },
+    {
+      "obs_id": "obs-002",
+      "dive_lane": "south_ridge",
+      "timestamp_utc": "2024-03-01T09:00:00Z",
+      "obs_type": "MAGNETIC_ANOMALY",
+      "depth_m": 800,
+      "feature_code": "MAGN-B",
+      "instrument_id": "mag-2"
+    },
+    {
+      "obs_id": "obs-003",
+      "dive_lane": "north_trench",
+      "timestamp_utc": "2024-03-01T10:00:00Z",
+      "obs_type": "HYDROTHERMAL_VENT",
+      "depth_m": 2100,
+      "feature_code": "VENT-C",
+      "instrument_id": "temp-3"
+    },
+    {
+      "obs_id": "obs-004",
+      "dive_lane": "south_ridge",
+      "timestamp_utc": "2024-03-01T11:00:00Z",
+      "obs_type": "BATHYMETRY",
+      "depth_m": 950,
+      "feature_code": "BATH-D",
+      "instrument_id": "depth-4"
+    },
+    {
+      "obs_id": "obs-005",
+      "dive_lane": "north_trench",
+      "timestamp_utc": "2024-03-01T12:00:00Z",
+      "obs_type": "CORAL_REEF",
+      "depth_m": 450,
+      "feature_code": "CORL-E",
+      "instrument_id": "cam-5"
+    }
+  ]
+}

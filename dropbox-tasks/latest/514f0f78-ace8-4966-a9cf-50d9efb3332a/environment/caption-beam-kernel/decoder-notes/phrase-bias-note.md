@@ -1,0 +1,3 @@
+# Phrase-bias note
+
+A phrase-bias entry contains a UTF-8 phrase and a finite log completion weight. Phrase matching is performed over reconstructed transcript text after CTC collapse. A phrase completion bonus is applied exactly once to a hypothesis when the phrase appears as a completed substring. A partial phrase prefix receives no full completion bonus. Overlapping phrases are tracked independently, so completing one phrase does not erase progress toward another phrase. Bias score is added to acoustic score to form total score after acoustic prefix pruning. Bias cannot revive a prefix that was already removed by acoustic beam pruning. Completion weights must be finite and bounded in magnitude.

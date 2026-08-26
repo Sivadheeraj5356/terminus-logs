@@ -1,0 +1,5 @@
+# Vellum public interface, version 1.
+capability core
+capability detached
+operation canonical_digest requires core
+operation detached_digest requires detached

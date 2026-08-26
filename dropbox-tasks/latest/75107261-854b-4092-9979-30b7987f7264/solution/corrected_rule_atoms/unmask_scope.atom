@@ -1,0 +1,8 @@
+RULE UNMASK_SCOPE
+IN keys
+OUT value,reason
+TABLE
+tier|admin -> remove_mask|unmask
+tier|vendor -> refuse|unmask
+tier|transient -> refuse|unmask
+END

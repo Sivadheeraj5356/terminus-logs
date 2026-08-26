@@ -1,0 +1,3 @@
+Implement the base-R data processor in `/app/radar_tilt_qc_patch_stack.R` so `Rscript /app/radar_tilt_qc_patch_stack.R TRACE` reads one radar tilt QC late-correction record stream, applies the full reconciliation contract in `/app/SPEC.md`, and emits one final normalized audit as exact `key=value` rows.
+
+Print exactly these fields, in this order: `active_records`, `zone_load`, `snapshots`, `obs_count`, `correction_count`, `snap_count`, `vacuum_count`, `revoke_count`, `latest_rev_sum`, `trace_hash`. Keep the implementation self-contained in base R and do not use network services or external weather standards.

@@ -1,0 +1,6 @@
+tenant_id|canonical|tier_baseline|status
+TEN_A|TEN_A|silver|active
+TEN_B|TEN_B|gold|active
+TEN_C|TEN_C|bronze|active
+TEN_Q|TEN_Q|silver|active
+TEN_X|TEN_X|silver|cooldown

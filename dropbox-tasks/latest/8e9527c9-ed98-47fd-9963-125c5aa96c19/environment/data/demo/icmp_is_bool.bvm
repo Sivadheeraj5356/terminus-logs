@@ -1,0 +1,13 @@
+# icmp compares two ints and pushes a bool. The stackmap should show a bool on
+# the stack after the comparison and in local 0 at the end.
+#   stackmap --module data/demo/icmp_is_bool.bvm --func main
+func main() -> int {
+  locals 1
+b0:
+  iconst 3
+  iconst 5
+  icmp
+  store 0
+  iconst 0
+  ret
+}

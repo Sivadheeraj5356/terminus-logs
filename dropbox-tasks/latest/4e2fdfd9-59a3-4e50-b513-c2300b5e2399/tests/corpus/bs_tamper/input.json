@@ -1,0 +1,26 @@
+{
+  "keys": {
+    "k-df93bcb0af10": {
+      "alg": "ed25519",
+      "public": "24eb837fd7ec29f89b82d735fdc534f77c5cde59f408d1d3268745a49b159843"
+    }
+  },
+  "message": {
+    "authority": "svc3.example.com",
+    "body": "{\"n\": 98, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:pU0FiLHvC9ANsCemSBxibZHwIllW2YOAA89Wg1UMPnA=:",
+      "content-type": "application/json",
+      "signature": "sig1=:9oPjvLIAiF6SUZW9CvIx+dh88RaGSFX2egS8Z+23bypUXg4CT2MY+ik/rrLePZMepNWmixcYhQzA3Op/ybrRBg==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\" \"content-digest\" \"x-bs\";bs);created=1700000038;expires=1700000398;keyid=\"k-df93bcb0af10\";alg=\"ed25519\"",
+      "x-bs": [
+        "one",
+        "two"
+      ]
+    },
+    "method": "PUT",
+    "path": "/api/v2/resource/98/evil",
+    "query": "page=98&sort=asc"
+  },
+  "now": 1700000098
+}

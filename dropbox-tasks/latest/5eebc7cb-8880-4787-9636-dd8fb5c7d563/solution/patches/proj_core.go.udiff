@@ -1,0 +1,56 @@
+--- a/k7/proj_core.go
++++ b/k7/proj_core.go
+@@ -44,6 +44,7 @@
+ 	for pos+segSize <= len(raw) {
+ 		body := raw[pos : pos+16]
+ 		crcWant := binary.LittleEndian.Uint32(raw[pos+16 : pos+20])
++		crcHave := crc32.ChecksumIEEE(body)
+ 		s := Seg{
+ 			EpochID:  binary.LittleEndian.Uint32(body[0:4]),
+ 			Grp:      body[4],
+@@ -52,8 +53,14 @@
+ 			AadEpoch: binary.LittleEndian.Uint32(body[10:14]),
+ 			Reserved: binary.LittleEndian.Uint16(body[14:16]),
+ 		}
+-		_ = crcWant
+-		_ = crc32.ChecksumIEEE(body)
++		if crcWant != crcHave {
++			pos += segSize
++			continue
++		}
++		if s.Reserved != 0 {
++			pos += segSize
++			continue
++		}
+ 		out = append(out, s)
+ 		pos += segSize
+ 	}
+@@ -69,13 +76,25 @@
+ 	if len(segs) == 0 {
+ 		return nil, fmt.Errorf("empty journal")
+ 	}
+-	_ = epochID
++	if epochID == 0 {
++		return nil, fmt.Errorf("epoch required")
++	}
+ 	out := map[uint8]Seg{}
++	seen := map[uint8]bool{}
+ 	for _, s := range segs {
++		if s.EpochID != epochID {
++			continue
++		}
+ 		out[s.Grp] = s
++		seen[s.Grp] = true
+ 	}
+-	if len(out) == 0 {
+-		return nil, fmt.Errorf("no tip")
++	if len(seen) == 0 {
++		return nil, fmt.Errorf("epoch %d missing", epochID)
+ 	}
++	for grp := range out {
++		if out[grp].AadEpoch == 0 && out[grp].KeySlot == 0 && out[grp].AadSeed == 0 {
++			return nil, fmt.Errorf("empty segment for grp %d", grp)
++		}
++	}
+ 	return out, nil
+ }

@@ -1,0 +1,8 @@
+foo foobar foobarbaz
+maybe delta
+mixed Foo123Bar baz_42
+ip 192.168.0.1 and 10.0.0.255 here
+banana end delta start gamma
+punct marks here
+addr 136.186.163.131 hex 0x51c2 token tok_934
+addr 165.102.184.128 hex 0xefe4 token tok_804

@@ -1,0 +1,7 @@
+#!/bin/bash
+# Run the compiled modverse CLI. Rebuild with /app/app/build.sh first if the
+# sources changed.
+set -euo pipefail
+SCALA_HOME="${SCALA_HOME:-/opt/scala3}"
+CLASSES=/app/app/build/classes
+exec java -cp "$CLASSES:$(echo "$SCALA_HOME"/lib/*.jar | tr ' ' ':')" modverse.Main "$@"

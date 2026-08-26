@@ -1,0 +1,13 @@
+network	proton_shuttle
+species	H	M	N	Q
+initial	H	0.90000000000000002
+initial	M	0.10000000000000001
+initial	N	0
+initial	Q	0
+reaction	220	H + M -> N + M
+reaction	3.5	N -> Q
+reaction	45	Q + M -> H + M
+reaction	0.59999999999999998	M -> N
+horizon	0	6
+rtol	9.9999999999999995e-08
+atol	1e-10

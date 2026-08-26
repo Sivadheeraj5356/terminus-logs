@@ -1,0 +1,13 @@
+override_id,tap_id,action,amount_cents,approved
+O-100-PASS,t013,suppress_pass,0,true
+O-100-PASS-LATE,t015,suppress_pass,0,true
+O-100-SUR,t003,surcharge_override,90,true
+"O-100~SUT,final",t003,surcharge_override,145,true
+O-100-SUQ-LATE,t003,surcharge_override,15,true
+O-101-PAIR-DRAFT,t006,station_pair_surcharge_override,999,false
+"O-101,PAIR-FINAL",t006,station_pair_surcharge_override,10,true
+O-102-NIGHT,t011,base_override,100,true
+O-104-FERRY-DRAFT,t019,base_override,100,false
+O-106-PAIR-DRAFT,t037,station_pair_surcharge_override,20,false
+O-106-PAIR-FINAL,t037,station_pair_surcharge_override,50,true
+O-107-MISSING,t028,base_override,50,true

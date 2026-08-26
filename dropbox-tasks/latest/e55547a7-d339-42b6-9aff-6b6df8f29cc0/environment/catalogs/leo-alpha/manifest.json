@@ -1,0 +1,7 @@
+{
+  "mission_slot": "LEO-ALPHA-7",
+  "dt_sec": 0.05,
+  "horizon_sec": 5.0,
+  "fragment_count": 4,
+  "min_sep_m": 10.0
+}

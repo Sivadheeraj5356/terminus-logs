@@ -1,0 +1,6 @@
+{"ts":"2026-06-20T10:00:01Z","service":"ledger-db","event":"rollback_complete","version":"v43"}
+{"ts":"2026-06-20T10:00:02Z","service":"billing-core","event":"rollback_complete","version":"v30"}
+{"ts":"CORRUPT","service":"identity-gate","event":"rollback_started"
+{"ts":"2026-06-20T10:00:03Z","service":"identity-gate","event":"deploy_failed","version":"v22","delayed":true}
+{"ts":"2026-06-20T10:00:04Z","service":"alert-dispatch","event":"rollback_complete","version":"v7"}
+{"ts":"2026-06-20T10:00:05Z","service":"alert-dispatch","event":"deploy_failed","version":"v6","delayed":true}

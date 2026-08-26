@@ -1,0 +1,6 @@
+profile_id=CAL-STD
+effective_date=2024-06-01
+inherits=CAL-BASE
+alpha=35e-6
+nominal_hz_override=0
+deprecation_window_days=90

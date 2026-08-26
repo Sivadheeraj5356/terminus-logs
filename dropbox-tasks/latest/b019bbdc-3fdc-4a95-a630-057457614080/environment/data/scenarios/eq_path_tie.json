@@ -1,0 +1,21 @@
+{
+  "scenario_id": "eq_path_tie",
+  "cool_factor": 0.0,
+  "mw_per_channel": 2.0,
+  "nodes": [
+    {"id": "A", "regen": false},
+    {"id": "B", "regen": false},
+    {"id": "C", "regen": false},
+    {"id": "D", "regen": false}
+  ],
+  "spans": [
+    {"id": "s_ab", "a": "A", "b": "B", "cap_gbps": 50, "pump_mw": 100, "lambdas": [1, 2, 3, 4, 5, 6]},
+    {"id": "s_bc", "a": "B", "b": "C", "cap_gbps": 50, "pump_mw": 100, "lambdas": [1, 2, 3, 4, 5, 6]},
+    {"id": "s_ad", "a": "A", "b": "D", "cap_gbps": 50, "pump_mw": 100, "lambdas": [1, 2, 3, 4, 5, 6]},
+    {"id": "s_dc", "a": "D", "b": "C", "cap_gbps": 50, "pump_mw": 100, "lambdas": [1, 2, 3, 4, 5, 6]}
+  ],
+  "cuts": [],
+  "demands": [
+    {"id": "d_tie", "src": "A", "dst": "C", "gbps": 10, "priority": 1, "peer_a": "AS1", "peer_b": "AS2"}
+  ]
+}

@@ -1,0 +1,9 @@
+ordinance: ORD-1942-04
+jurisdiction: Merrow-Kell
+enacted: 1942-04-20
+effective: 1942-05-17T02:00:00 wall
+standard-offset: +05:30:00
+standard-label: MST
+observance:
+  begin: May d17 02:00:00 wall save +01:00:00 label MDT
+  end: Sep d15 03:00:00 wall

@@ -1,0 +1,4 @@
+# dependent arm must not reflect primary rw until prp release
+profile alpha
+step ro target=data
+step rw target=data

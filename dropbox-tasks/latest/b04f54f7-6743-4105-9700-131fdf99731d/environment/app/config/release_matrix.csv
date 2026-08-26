@@ -1,0 +1,5 @@
+profile,channel,target,feature_set,max_runtime_kb,allow_dev,blocked_license
+edge,stable,linux-x86_64,core+compat,900,false,GPL-3.0
+fleet,stable,linux-arm64,core+binary-cache-index,850,false,AGPL-3.0
+audit,internal,linux-x86_64,core+audit,1100,true,AGPL-3.0
+sandbox,qa,linux-x86_64,core+devtools,1200,true,AGPL-3.0

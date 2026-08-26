@@ -1,0 +1,11 @@
+Build a Go command line tool for an offline OAuth/OIDC incident review. It needs to replay a token-exchange ledger, report the active exposure at the review timestamp, and choose the canonical bounded remediation plan.
+
+Keep source at `/app/task_file/src/token_audit.go` and build `/app/task_file/bin/token_audit`. Run it exactly as `--input <case-file> --output <report-file>` in that order, with no extra arguments. Missing, reordered, repeated, or extra arguments are errors: exit nonzero and do not create the output file. Invalid case-file syntax is also an error: exit nonzero and do not create or modify the output file. The public case is `/app/task_file/input/public_exchange.txt`; hidden cases use the same visible format and may use versions `1` through `3`. Do not edit `/app/task_file/input/`, including the public fixture; its exact contents are part of the task contract.
+
+Implement the replay and planning logic inside that Go program. Produce a native Go binary and do not delegate the task to Python, `/tests`, `/solution`, or helper subprocesses, including indirect helper launches or runtime reads from those paths.
+
+The full visible contract is `/app/task_file/oidc_exchange_audit_spec.txt`. Use it as the normative spec for the input grammar, lineage policy, replay order, additive rejection reasons, token risk, remediation rules, plan score, tie-breaks, and exact JSON schema.
+
+The high-risk mistakes are global rather than local. Version `2` and `3` retractions happen before replay; remaining rows replay in canonical `(ts, shard, seq, event_id)` order; duplicate event IDs are rejected after sorting; accepted exchanges inherit root lineage state from their parent; remediation prerequisites are transitive; and the winning remediation plan is chosen by the full final-plan score and tie-break stack, not by greedy local coverage. Version `3` also adds final action-type limits, pairwise action score bonuses, and penalties for the number of distinct covered clients and distinct covered roots.
+
+Write exact JSON to the requested output path with top-level keys exactly `now`, `totals`, `active`, `rejected`, `clients`, and `remediation`. Exact-match grading is strict for the visible behavior and schema; arrays must still be arrays when empty, and JSON object field order does not matter.

@@ -1,0 +1,5 @@
+module_id,version,depends_on
+a-unit,1.0.0,
+c-unit,1.0.0,
+b-unit,1.0.0,a-unit
+d-unit,1.0.0,c-unit

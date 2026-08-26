@@ -1,0 +1,6 @@
+RULE ALIAS_DEPTH
+IN keys
+OUT value,reason
+TABLE
+mode -> unbounded_acyclic|alias-depth
+END

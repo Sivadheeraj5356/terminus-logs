@@ -1,0 +1,11 @@
+salt 57
+stack GC CG 4Z
+stack CG GC 4Z
+stack AU UA 1L
+stack UA AU 1L
+stack GU CG 64
+stack UG GC 64
+stack GC AU 6R
+stack CG UA 6R
+stack AU GC 6Q
+stack UA CG 6Q

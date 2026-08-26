@@ -1,0 +1,6 @@
+CamelCase and snake_case
+addr 111.216.46.47 hex 0x6db3 token tok_607
+gamma start grey grey end delta hello
+addr 243.54.243.145 hex 0xb949 token tok_549
+hello baz
+maybe maybe quux maybe

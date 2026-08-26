@@ -1,0 +1,30 @@
+{
+  "move_gen": 5,
+  "ptr_rev": 2,
+  "ptr_path": "refs/pre_move.json",
+  "seal": 0,
+  "mode": "writeback",
+  "map_rows": [
+    {"a": 1, "b": 10, "off": 0},
+    {"a": 2, "b": 11, "off": 0}
+  ],
+  "dest_rows": [
+    {"a": 1, "b": 10, "off": 0},
+    {"a": 2, "b": 11, "off": 8192}
+  ],
+  "dirty": {"slots": [1], "barrier": 4},
+  "tap": {"gen": 1, "tally": 0},
+  "slow_slots": [
+    {"id": 1, "payload": "slot1-origin", "epoch": 5},
+    {"id": 2, "payload": "slot2-origin", "epoch": 4}
+  ],
+  "fast_slots": [
+    {"id": 10, "payload": "slot1-stale", "epoch": 1, "bind": 1},
+    {"id": 11, "payload": "slot2-stale", "epoch": 1, "bind": 2}
+  ],
+  "foreign_slots": [
+    {"id": 50, "payload": "partial-keep", "epoch": 2}
+  ],
+  "ref_pre": {"path": "refs/pre_move.json", "rev": 2, "active_row": 0},
+  "ref_post": {"path": "refs/post_move.json", "rev": 5, "active_row": 1}
+}

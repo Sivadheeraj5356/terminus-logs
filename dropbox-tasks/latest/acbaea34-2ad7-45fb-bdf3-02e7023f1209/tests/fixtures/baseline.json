@@ -1,0 +1,46 @@
+{
+  "scenario": "baseline-cycle",
+  "width": 17,
+  "height": 13,
+  "steps": 36,
+  "block_width": 4,
+  "block_height": 3,
+  "material_offset": 1,
+  "base_temperature_milli_c": 18000,
+  "base_cure_ppm": 120000,
+  "temperature_floor_milli_c": -15000,
+  "temperature_ceiling_milli_c": 180000,
+  "activation_temperature_milli_c": 38000,
+  "full_cure_ppm": 500000,
+  "stress_alert_ppm": 24000,
+  "checkpoint_steps": [0, 1, 6, 12, 24, 36],
+  "materials": [
+    {"retain": 5, "horizontal": 2, "vertical": 1, "diagonal": 1, "heater_gain": 80, "stress_retain_ppm": 760000, "stress_gain": 420, "cure_stress_gain": 34, "stress_relief_ppm": 900, "cure_rate_ppm": 13000, "cool_rate_ppm": 4500},
+    {"retain": 9, "horizontal": 1, "vertical": 3, "diagonal": 1, "heater_gain": 140, "stress_retain_ppm": 830000, "stress_gain": 360, "cure_stress_gain": 46, "stress_relief_ppm": 650, "cure_rate_ppm": 19000, "cool_rate_ppm": 6000},
+    {"retain": 4, "horizontal": 3, "vertical": 2, "diagonal": 2, "heater_gain": 220, "stress_retain_ppm": 710000, "stress_gain": 510, "cure_stress_gain": 58, "stress_relief_ppm": 1100, "cure_rate_ppm": 24000, "cool_rate_ppm": 7500}
+  ],
+  "boundaries": {
+    "left": {"temperature_milli_c": 92000, "cure_ppm": 800000},
+    "right": {"temperature_milli_c": 7000, "cure_ppm": 10000},
+    "top": {"temperature_milli_c": 28000, "cure_ppm": 50000},
+    "bottom": {"temperature_milli_c": 16000, "cure_ppm": 30000}
+  },
+  "hotspots": [
+    {"x": 5, "y": 4, "peak_milli_c": 54000, "decay_per_cell_milli_c": 6500},
+    {"x": 12, "y": 9, "peak_milli_c": 43000, "decay_per_cell_milli_c": 5200}
+  ],
+  "heater_pulses": [
+    {"start_step": 1, "end_step": 11, "x": 8, "y": 6, "strength_milli_c": 12500, "decay_per_cell_milli_c": 1800},
+    {"start_step": 9, "end_step": 23, "x": 3, "y": 9, "strength_milli_c": 9500, "decay_per_cell_milli_c": 1300},
+    {"start_step": 19, "end_step": 31, "x": 13, "y": 3, "strength_milli_c": 11200, "decay_per_cell_milli_c": 1500}
+  ],
+  "relief_windows": [
+    {"start_step": 10, "end_step": 18, "x": 7, "y": 6, "radius": 4, "relief_ppm": 2600, "falloff_ppm_per_cell": 375},
+    {"start_step": 25, "end_step": 34, "x": 13, "y": 4, "radius": 3, "relief_ppm": 1900, "falloff_ppm_per_cell": 250}
+  ],
+  "sensor_points": [
+    {"name": "core-a", "x": 8, "y": 6},
+    {"name": "left-edge", "x": 0, "y": 3},
+    {"name": "corner-priority", "x": 0, "y": 0}
+  ]
+}

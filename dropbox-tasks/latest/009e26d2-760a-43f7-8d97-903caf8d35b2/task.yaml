@@ -1,0 +1,33 @@
+# Canonical instruction lives in instruction.md (paired with task.toml) and is
+# what the Harbor harness loads. This task.yaml is retained only for the legacy
+# terminal-bench runner. To avoid two specs drifting, the full instruction text
+# is NOT duplicated here; see instruction.md.
+instruction: |
+  See instruction.md for the full task instruction (canonical source).
+author_name: anonymous
+author_email: anonymous
+difficulty: hard
+category: data-processing
+tags:
+- finance
+- three-statement-model
+- integer-arithmetic
+- circular-reference
+- working-capital
+- debt-schedule
+- gaap
+- deferred-taxes
+- stock-based-compensation
+- multi-document
+- consolidation
+- minority-interest
+- intercompany-elimination
+- debt-covenants
+- multi-period
+parser_name: pytest
+max_agent_timeout_sec: 1200.0
+max_test_timeout_sec: 450.0
+run_tests_in_same_shell: false
+disable_asciinema: false
+expert_time_estimate_min: 420
+junior_time_estimate_min: 960

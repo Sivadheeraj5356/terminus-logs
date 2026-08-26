@@ -1,0 +1,6 @@
+{
+  "scenario_id": "holdout_slot",
+  "required_clearance": "",
+  "rollout_epoch": 55,
+  "topology_revision": "slot-rev-kappa"
+}

@@ -1,0 +1,7 @@
+The goal is to prepare a quantum state whose amplitudes match a supplied real profile. A solution reads a specification and emits a circuit that builds the requested state on a register starting in the all zeros state.
+
+The specification is a text file. Its first line holds a width n. The next two to the power n lines each hold one nonnegative decimal number, the amplitudes in index order, already normalized so the sum of their squares equals one. A final line begins with the letter B followed by an integer budget.
+
+The register is named q and holds n qubits, big endian, so qubit zero carries the most significant bit of a basis index and qubit n minus one the least significant. Applied to the all zeros input, the circuit produces the state whose amplitude on basis index j equals the jth supplied number. Correctness is judged up to a global phase, aligned on the first nonzero amplitude, with agreement required to an L2 distance below one part in a billion. Only a rotation ry(theta) on one qubit and a controlled negation cx between two qubits may appear, and the number of controlled negations may not exceed the budget.
+
+The solution is a single Rust program at /app/submission.rs that reads the specification path and an output path from its command line and writes the circuit as OpenQASM there. It is compiled with rustc and run once for each specification, and each emitted circuit is checked by classical simulation.

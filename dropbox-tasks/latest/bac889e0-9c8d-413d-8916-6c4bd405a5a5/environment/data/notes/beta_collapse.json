@@ -1,0 +1,12 @@
+[
+  {
+    "patch_id": "1.1.0",
+    "headline": "Striker dominance buff note",
+    "stat_delta": 1
+  },
+  {
+    "patch_id": "1.2.0",
+    "headline": "Striker overpick nerf",
+    "stat_delta": -1
+  }
+]

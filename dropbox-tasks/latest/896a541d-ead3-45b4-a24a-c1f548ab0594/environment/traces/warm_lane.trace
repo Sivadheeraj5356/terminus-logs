@@ -1,0 +1,27 @@
+{
+  "labels": [
+    {
+      "text": "snap-v1",
+      "epoch": 10
+    }
+  ],
+  "list_file": "",
+  "locale": "host",
+  "automation": {
+    "pre_raw": 5,
+    "post_raw": 6
+  },
+  "target": {
+    "path": "/srv/snap"
+  },
+  "views": [
+    {
+      "path": "/srv/snap"
+    },
+    {
+      "path": "/srv/snap"
+    }
+  ],
+  "wal_segments": [],
+  "stepback_event": 0
+}

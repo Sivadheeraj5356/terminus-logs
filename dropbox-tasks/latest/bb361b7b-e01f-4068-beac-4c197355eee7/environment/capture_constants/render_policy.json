@@ -1,0 +1,6 @@
+{
+  "background_level": 235,
+  "bob_level": 25,
+  "degraded_frames_per_job": [5, 7, 6, 8],
+  "master_seed": 20240517
+}

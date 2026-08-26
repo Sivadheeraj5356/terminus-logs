@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"PermitEmptyPasswords\":\"yes\",\"MaxStartups\":\"1:1:1\"}}"
+}

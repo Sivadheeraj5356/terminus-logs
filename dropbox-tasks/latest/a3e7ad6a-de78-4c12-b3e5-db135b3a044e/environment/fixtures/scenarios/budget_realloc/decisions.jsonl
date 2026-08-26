@@ -1,0 +1,5 @@
+{"id": "B1", "class": "budget_realloc", "direct_units": ["U_MKT"], "window": {"start": 0, "end": 30}, "exclusive": false, "flags": []}
+{"id": "B2", "class": "budget_realloc", "direct_units": ["U_MKT", "U_SALES"], "window": {"start": 30, "end": 60}, "exclusive": false, "flags": []}
+{"id": "B3", "class": "budget_realloc", "direct_units": ["U_RND"], "window": {"start": 10, "end": 40}, "exclusive": false, "flags": ["exception"]}
+{"id": "B4", "class": "budget_realloc", "direct_units": ["U_RND", "U_LAB"], "window": {"start": 60, "end": 90}, "exclusive": false, "flags": []}
+{"id": "B5", "class": "budget_realloc", "direct_units": ["U_LAB"], "window": {"start": 90, "end": 120}, "exclusive": false, "flags": []}

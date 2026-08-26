@@ -1,0 +1,12 @@
+schema_version: apexora-vrf-leak-1
+exceptions:
+  - source_vrf: MGMT
+    destination_vrf: CORP-IT
+    route_prefixes: ["10.250.0.0/16"]
+    dossier_section: gateway-leak-mgmt-corp
+    status: ACTIVE
+  - source_vrf: IDENTITY
+    destination_vrf: CORP-IT
+    route_prefixes: ["10.251.0.0/16"]
+    dossier_section: gateway-leak-identity-corp
+    status: ACTIVE

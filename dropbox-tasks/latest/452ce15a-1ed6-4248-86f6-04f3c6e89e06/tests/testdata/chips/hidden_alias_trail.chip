@@ -1,0 +1,9 @@
+family_id=FAM-HID-ALIAS
+chip_id=HID-ALIAS-1
+alias=LEGACY-LABEL
+profile_id=CAL-STD
+nominal_hz=13000000
+readings:
+segment: trail
+5 25.0 13000000.0
+7 30.0 13000293.52

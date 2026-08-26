@@ -1,0 +1,33 @@
+# Captured 2024-09-03 warm-start after graceful reload on prod-render-07
+# strace -f -o startup-warm.strace -e trace=process,network,file -p $(pgrep -x launcher)
+execve("/usr/local/bin/finchrender-coordinator", ["/usr/local/bin/finchrender-coordinator", "--config", "/etc/finchrender/coordinator.yaml", "--system", "/etc/finchrender/system.toml", "--reuse-socket"], ["FINCHRENDER_TILE_WORKERS=8", "FINCHRENDER_FRAME_BUFFER_MB=512", "FINCHRENDER_SOCKET_TIMEOUT=30", "FINCHRENDER_LOG_LEVEL=info", "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", "HOME=/var/lib/finchrender", "LISTEN_FDS=1", "LISTEN_PID=4902"]) = 0
+brk(NULL)                               = 0x55c9a1c000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f2b54e000
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37820, ...}) = 0
+mmap(NULL, 37820, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2b54d000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/finchrender/coordinator.yaml", O_RDONLY|O_CLOEXEC) = 3
+read(3, "service:\n  user: finchrender\n  g"..., 4096) = 421
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/finchrender/system.toml", O_RDONLY|O_CLOEXEC) = 3
+read(3, "[system]\ntile_workers = 8\nframe_"..., 4096) = 234
+close(3)                                = 0
+capget({version=_LINUX_CAPABILITY_VERSION_3, pid=0}, NULL) = 0
+capget({version=_LINUX_CAPABILITY_VERSION_3, pid=0}, {effective=CAP_CHOWN|CAP_DAC_OVERRIDE|CAP_SETGID|CAP_SETUID|CAP_SYS_NICE|CAP_NET_BIND_SERVICE, permitted=CAP_CHOWN|CAP_DAC_OVERRIDE|CAP_SETGID|CAP_SETUID|CAP_SYS_NICE|CAP_NET_BIND_SERVICE, inheritable=0x0}) = 0
+setgid(2001)                            = 0
+setuid(2771)                            = 0
+capset({version=_LINUX_CAPABILITY_VERSION_3, pid=0}, {effective=CAP_SYS_NICE|CAP_NET_BIND_SERVICE, permitted=CAP_SYS_NICE|CAP_NET_BIND_SERVICE, inheritable=0x0}) = 0
+prctl(PR_SET_SECUREBITS, SECBIT_NOROOT|SECBIT_NOROOT_LOCKED, 0, 0, 0) = 0
+getsockname(3, {sa_family=AF_UNIX, sun_path="/run/finchrender/coordinator.sock"}, [28]) = 0
+openat(AT_FDCWD, "/var/cache/finchrender/tiles", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 6
+openat(AT_FDCWD, "/var/cache/finchrender/frames", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 7
+openat(AT_FDCWD, "/var/cache/finchrender/shaders", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 8
+epoll_create1(EPOLL_CLOEXEC)            = 9
+epoll_ctl(9, EPOLL_CTL_ADD, 3, {events=EPOLLIN, data={u32=3, u64=3}}) = 0
+write(1, "[INFO] finchrender-coordinator r"..., 68) = 68
+epoll_wait(9, [], 1, -1)               = 0

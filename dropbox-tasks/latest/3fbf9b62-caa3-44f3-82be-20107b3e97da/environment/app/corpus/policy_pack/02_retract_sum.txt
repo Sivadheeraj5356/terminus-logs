@@ -1,0 +1,10 @@
+Retract and checksum posture (signed)
+-------------------------------------
+Live retract posture is true when any retract specification published for the module
+highest available release covers the pinned version. Coverage is decided by the
+retractmatch helper named in the manifest. CLI: retractmatch <pinnedVersion> <retractSpec>.
+Stdout must be exactly match with exit status 0 on coverage. Supported forms for this
+cut: exact versions and closed intervals written [lo, hi].
+
+Authoritative zip digests are the module zip h1 lines (never the /go.mod lines).
+checksum_ok is true only when the lock declared_hash equals that authoritative digest.

@@ -1,0 +1,5 @@
+digits 123 4567 89
+a "quoted string" and "another"
+addr 91.69.146.92 hex 0x1f00 token tok_572
+addr 216.154.243.194 hex 0x25be token tok_766
+UPPER lower MiXeD

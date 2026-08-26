@@ -1,0 +1,30 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "machine-learning"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["rust"]
+tags = ["model-robustness", "counterfactual-search", "decision-forests", "stateful-audit", "canonical-json"]
+expert_time_estimate_min = 150
+junior_time_estimate_min = 360
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 900
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[reference_pattern]
+justification_if_none = "No prior task in the current bank combines integer decision-forest certification, nested audit-state rollback, exact weighted counterfactual search, tree-topology validation, and canonical certificate publication."

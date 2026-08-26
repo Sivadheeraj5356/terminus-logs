@@ -1,0 +1,20 @@
+{
+  "tier_stats": {
+    "n_rolls_source": "len_of_session_json_rolls_array",
+    "n_rolls_includes_duplicate_seq_rows": true,
+    "n_rolls_counts_json_records_not_processed_only": true,
+    "observed_source": "processed_rolls_per_tier_excluding_skipped_duplicate_seq",
+    "expected_formula": "(tier_weight/total_weight)*n_rolls",
+    "chi_formula": "(observed-expected)^2/expected when expected>0",
+    "chi_threshold_compare_raw_value_before_round4": true,
+    "chi_min_rolls_source": "len_of_session_json_rolls_array"
+  },
+  "gini": {
+    "epic_drops_counts_all_pity_tier_rolls": true,
+    "coefficient_counts_natural_epics_only": true,
+    "natural_epic_definition": "pity_tier while pity inactive",
+    "gini_unfair_gate_min_total": "sum_of_natural_epics_across_players",
+    "not_sum_of_all_epic_drops": true,
+    "formula": "(2*sum(i*c_i))/(n*sum(c))-(n+1)/n on sorted natural counts"
+  }
+}

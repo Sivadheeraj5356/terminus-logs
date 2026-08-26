@@ -1,0 +1,6 @@
+{
+  "buffs": [
+    {"id": "B-glow", "label": "glow powder"},
+    {"id": "B-grit", "label": "extra grit"}
+  ]
+}

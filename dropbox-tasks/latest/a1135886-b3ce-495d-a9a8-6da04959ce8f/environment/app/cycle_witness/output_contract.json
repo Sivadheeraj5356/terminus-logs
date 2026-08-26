@@ -1,0 +1,104 @@
+{
+  "output_path": "/app/output/expected.json",
+  "top_level_keys": ["by_tenant", "by_verdict", "chunks", "summary"],
+  "chunks_row_fields": [
+    "chunk_id",
+    "object_id",
+    "registered_ts_ns",
+    "size_bytes",
+    "tenant_id",
+    "verdict"
+  ],
+  "chunks_row_types": {
+    "chunk_id": "string",
+    "object_id": "string",
+    "registered_ts_ns": "int64",
+    "size_bytes": "int64",
+    "tenant_id": "string",
+    "verdict": "string"
+  },
+  "by_verdict_zero_fill": true,
+  "by_verdict_keys": [
+    "DEFERRED_BANDWIDTH",
+    "DEFERRED_COOLDOWN",
+    "DEFERRED_HOT",
+    "DEFERRED_REHASH",
+    "DEFERRED_RESERVED_OUT",
+    "DEFERRED_STALE",
+    "DEHYDRATED",
+    "INVALID",
+    "KEPT_CANONICAL",
+    "QUARANTINED_TENANT",
+    "REJECTED_COLLISION",
+    "REJECTED_CONTRADICTORY",
+    "REJECTED_DUPLICATE",
+    "REJECTED_REPLAY",
+    "REJECTED_SEAL",
+    "REJECTED_TYPE",
+    "REJECTED_WEAK_HASH",
+    "SCHEMA_DRIFT_QUARANTINED",
+    "VOIDED"
+  ],
+  "by_tenant_zero_fill": true,
+  "by_tenant_keys_source": "tenant_oracle/tenant_map.psv (canonical column, all rows)",
+  "by_tenant_block_fields": [
+    "bytes_dehydrated",
+    "bytes_kept_canonical",
+    "chunk_count",
+    "top_verdict"
+  ],
+  "by_tenant_block_field_set_is_exact": true,
+  "by_tenant_block_types": {
+    "bytes_dehydrated": "int64",
+    "bytes_kept_canonical": "int64",
+    "chunk_count": "int (counts every verdict produced by that tenant, excluding INVALID rows whose tenant is unresolvable)",
+    "top_verdict": "string (highest-severity verdict observed for that tenant; empty string when no rows attach)"
+  },
+  "summary_fields": [
+    "bytes_dehydrated",
+    "bytes_kept_canonical",
+    "report_digest",
+    "run_ts_ns",
+    "total_chunks"
+  ],
+  "summary_types": {
+    "bytes_dehydrated": "int64 (sum of size_bytes across DEHYDRATED rows)",
+    "bytes_kept_canonical": "int64 (sum of size_bytes across KEPT_CANONICAL rows)",
+    "report_digest": "string (16 lowercase hex characters; see digest_spec)",
+    "run_ts_ns": "int64 (echo run_ts_ns from cycle_witness/run_config.properties)",
+    "total_chunks": "int (length of chunks array)"
+  },
+  "sort_keys": [
+    {"key": "verdict_severity", "direction": "desc", "source": "verdict_ladder.json verdicts_in_severity_order index (first entry has highest severity)"},
+    {"key": "chunk_id", "direction": "asc"}
+  ],
+  "override_precedence": "Apply checks in severity descending order; VOIDED > REJECTED_CONTRADICTORY > INVALID > REJECTED_TYPE > REJECTED_SEAL > REJECTED_REPLAY > SCHEMA_DRIFT_QUARANTINED > QUARANTINED_TENANT > REJECTED_COLLISION > REJECTED_WEAK_HASH > REJECTED_DUPLICATE > DEFERRED_STALE > DEFERRED_COOLDOWN > DEFERRED_REHASH > DEFERRED_HOT > DEFERRED_BANDWIDTH > DEFERRED_RESERVED_OUT > DEHYDRATED > KEPT_CANONICAL. A higher-severity verdict short-circuits every lower-severity check on that row.",
+  "void_next_rule": "After the per-chunk cascade resolves every row, scan the chunks in chunk_id ASC order. For each chunk whose envelope carries op:\"void_next\", find the chunk with the next-larger chunk_id within the SAME canonical_tenant and overwrite its verdict to VOIDED — regardless of what verdict the cascade had assigned. VOIDED is the highest-severity verdict in the ladder. The flagging chunk keeps its own cascade verdict; only the downstream chunk is affected. If no later same-tenant chunk exists, the flag has no effect.",
+  "contradictory_rule": "If an envelope carries BOTH force_admit true AND force_reject true, the row is REJECTED_CONTRADICTORY at the very top of the cascade (above INVALID). Either flag alone or both absent is fine and does NOT trigger this verdict.",
+  "schema_drift_rule": "Each envelope may carry an optional schema_version int (default 1 when absent). The cycle_witness/schema_versions.cfg supported_schemas list pins which versions the engine recognises. A row whose schema_version is present and NOT in supported_schemas is SCHEMA_DRIFT_QUARANTINED, sitting between REJECTED_REPLAY and QUARANTINED_TENANT in the severity ladder.",
+  "policy_parameters": {
+    "magnitude_pivot_ts_ns": "from cycle_witness/freshness.cfg field magnitude_pivot_ts_ns",
+    "ms_to_ns_factor": "from cycle_witness/freshness.cfg field ms_to_ns_factor (multiply when raw registered_ts is below the pivot)",
+    "stale_window_boundary": "left-open, right-exclusive: a row is stale when registered_ts_ns < run_ts_ns - retention_window_ns - stale_grace_ns[tier]",
+    "hot_threshold_formula": "floor(base_refcount * multipliers[tier]); compare the effective_refcount (wrap-corrected) strictly greater than the floored value",
+    "strict_int_rejected_tokens": "any raw JSON token for chunk_offset, size_bytes, refcount, or registered_ts that contains the bytes . , e , or E and is NOT a quoted mixed-radix literal. Mixed-radix literals are quoted strings beginning with 0x (hex), 0o (octal), or 0b (binary); the engine parses them via base-0 detection and treats the decoded integer as the value. Plain decimal literals (unquoted) parse as before. Any other quoted token or any unquoted token with a dot or exponent is REJECTED_TYPE.",
+    "dedup_key": "(object_id, chunk_offset); the surviving row has the smallest registered_ts_ns, ties broken by chunk_id ascending; all other rows in the group are REJECTED_DUPLICATE",
+    "weak_hash_gate": "Two AND conditions must both hold for a weak algorithm to pass: tier is in hash_codec/weak_set.cfg weak_allowed_tiers list AND (run_ts_ns - registered_ts_ns) is at or below weak_set.cfg weak_review_after_ns. Either branch failing routes the row to REJECTED_WEAK_HASH.",
+    "strong_hash_review_window": "A strong-algorithm row with (run_ts_ns - registered_ts_ns) strictly greater than strong_set.cfg strong_review_after_ns is DEFERRED_REHASH, unless preempted by a higher-severity verdict.",
+    "collision_rule": "any hash hit on dedup_arena/canonical_book.json with owner_tenant != current tenant OR content_fingerprint != current fingerprint is REJECTED_COLLISION; both branches share one label",
+    "dehydration_rule": "hash hit with owner_tenant == current tenant AND content_fingerprint == current fingerprint is the candidate; final verdict depends on the slot-contention rule below",
+    "slot_contention_rule": "Group all non-rejected, non-deferred rows by candidate canonical hash. Within each group, compute a bid for each row as size_bytes * tier_multiplier (silver=1.5, gold=2.0, bronze=1.0). The highest bid wins and becomes DEHYDRATED; ties on bid break by chunk_id ascending. Losers in the group are DEFERRED_RESERVED_OUT.",
+    "bandwidth_budget_rule": "Read tier_dialer/bandwidth_table.json. For each (tenant, tier) with a byte_budget, sum the size_bytes of rows already admitted (in registered_ts_ns ascending then chunk_id ascending order) as KEPT_CANONICAL or DEHYDRATED. If adding the current row would exceed byte_budget, the row is DEFERRED_BANDWIDTH instead of being admitted. default_budget is -1 (no cap).",
+    "sticky_quarantine": "a tenant whose strikes.ndjson strike_count meets tenant_quarantine.jsonl sticky_threshold AND whose last_strike_ns + observation_window_ns is at or above run_ts_ns is QUARANTINED_TENANT; this overrides every other verdict that would otherwise apply (except INVALID, REJECTED_TYPE, REJECTED_SEAL, REJECTED_REPLAY which fire first)",
+    "replay_rule": "scan cycle_witness/prior_cycle.jsonl. For each prior cycle entry whose (run_ts_ns - prior.run_ts_ns) is at or below run_config.properties replay_window_ns, look up chunk_id in the accepted_chunks array. A hit routes the current row to REJECTED_REPLAY, regardless of every other check below REJECTED_SEAL.",
+    "cooldown_rule": "read quarantine_cell/tenant_cooldown.jsonl. A tenant whose canonical_id is listed with reinstated_ns and cooldown_window_ns is in cooldown for the CLOSED window [reinstated_ns, reinstated_ns + cooldown_window_ns] (both ends INCLUSIVE; this contrasts with the half-open right-exclusive stale window). When run_ts_ns falls in that closed window AND the tenant is not currently sticky-quarantined, any otherwise-admittable row for that tenant defers to DEFERRED_COOLDOWN.",
+    "alias_resolution": "tenant_oracle/tenant_aliases.cfg is a directed map; follow the chain from the envelope tenant up to alias_max_hops (run_config.properties); if a cycle is hit or the depth limit is exceeded the row is INVALID; otherwise stop on the first key that is present in tenant_map.psv",
+    "refcount_wrap_correction": "look up (canonical_tenant, object_id, chunk_offset) in cycle_witness/refcount_history.tsv; if prev_refcount is present and prev_refcount > current refcount then effective_refcount = current_refcount + run_config.properties refcount_wrap_modulus - prev_refcount; otherwise effective_refcount = current_refcount. The hot threshold check uses effective_refcount, not the raw value.",
+    "hmac_seal_verification": "Every envelope carries a seal field. Reconstruct the canonical string as the raw JSON tokens for chunk_id, tenant_id, hash, content_fingerprint, size_bytes, and registered_ts joined by | (pipe). Compute HMAC-SHA256 with hash_codec/hmac_secret.cfg secret_key, take the first 16 lowercase hex characters, and compare to the envelope seal. Mismatch routes the row to REJECTED_SEAL."
+  },
+  "digest_spec": {
+    "algorithm": "sha256",
+    "encoding": "lowercase hex, first 16 characters",
+    "input_construction": "Concatenate, in the chunks-array order (severity desc, chunk_id asc), each row as chunk_id|verdict|tenant_id|size_bytes|registered_ts_ns followed by a single LF (0x0A). Then append each by_verdict key in ascending alphabetical order as key=count followed by a single LF. No trailing extras."
+  }
+}

@@ -1,0 +1,9 @@
+The BookSort puzzle engine in `/app` is incomplete. Restore it as a deterministic Go terminal game and build the finished executable at `/app/bin/booksort`. The game loads level definitions from SQLite, persists a live board, enforces legal top-book moves, and must remain reproducible across repeated runs.
+
+Players must be able to create a level, inspect the shelves, move books, undo and redo play, evaluate the win state, inspect history, request a deterministic hint, and obtain a shortest bounded solution. Advanced play also includes cryptographically checked plan execution, dependency-ordered batch execution, replay auditing, and ledger verification. These features are part of one coherent puzzle-state model: every accepted action must preserve the same movement rules, canonical ordering, digest semantics, and transactional guarantees.
+
+The complete command syntax, SQLite schemas, canonical digest construction, validation precedence, JSON formats, graph ordering, output text, and read-only versus mutating behavior are defined in `/app/schema-notes.md`. Treat that file as the authoritative game contract. Implement all of it; do not infer alternate schemas or silently relax malformed-input checks. The supplied seed database at `/app/seeds/demo-levels.db` is only a development fixture, so the implementation must derive behavior from whichever compatible seed and runtime databases are supplied.
+
+The environment is offline. Do not add third-party Go modules or depend on downloads. Use only the Go standard library and the installed `sqlite3` command-line tool. Keep failed operations atomic and non-mutating, preserve deterministic tie-breaking, and ensure audit and verification commands never repair or rewrite state.
+
+Replace the stub implementation under `/app/cmd/booksort`, then compile the final binary into `/app/bin/booksort`.

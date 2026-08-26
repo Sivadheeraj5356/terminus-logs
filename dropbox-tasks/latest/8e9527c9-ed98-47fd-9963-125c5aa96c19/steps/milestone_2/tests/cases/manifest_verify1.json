@@ -1,0 +1,1 @@
+{ "op": "verify", "models": ["bm_a1.bvm", "bm_b1.bvm", "bm_c1.bvm"] }

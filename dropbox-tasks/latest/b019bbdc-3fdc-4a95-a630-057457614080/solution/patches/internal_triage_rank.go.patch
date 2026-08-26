@@ -1,0 +1,17 @@
+--- internal/triage/rank.go
++++ internal/triage/rank.go
+@@ -12,9 +12,12 @@
+ 		pi := out[i].Priority
+ 		pj := out[j].Priority
+ 		if pi != pj {
+-			return pi > pj
++			return pi < pj
+ 		}
+-		return out[i].ID > out[j].ID
++		if out[i].ID == out[j].ID {
++			return false
++		}
++		return out[i].ID < out[j].ID
+ 	})
+ 	return out
+ }

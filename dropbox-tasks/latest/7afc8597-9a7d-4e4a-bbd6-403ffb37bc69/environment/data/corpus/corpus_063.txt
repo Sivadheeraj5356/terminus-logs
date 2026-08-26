@@ -1,0 +1,6 @@
+tabs	and spaces here
+value = 0xDEADbeef and 0x1234
+color end grey
+beta maybe foo true foo world bar
+CamelCase and snake_case
+addr 39.139.221.136 hex 0xc2dd token tok_787

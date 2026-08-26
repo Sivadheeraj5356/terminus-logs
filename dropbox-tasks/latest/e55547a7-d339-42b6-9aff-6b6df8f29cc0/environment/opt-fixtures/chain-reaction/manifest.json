@@ -1,0 +1,7 @@
+{
+  "mission_slot": "CHAIN-RXN-1",
+  "dt_sec": 0.05,
+  "horizon_sec": 6.0,
+  "fragment_count": 3,
+  "min_sep_m": 5.0
+}

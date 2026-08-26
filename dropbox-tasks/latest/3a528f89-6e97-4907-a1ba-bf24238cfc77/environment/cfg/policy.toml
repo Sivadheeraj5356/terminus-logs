@@ -1,0 +1,7 @@
+[emit]
+lane_a_commit = 4
+lane_b_commit = 6
+probe_mode = "wit_first_hex_ascii_sum"
+
+[ckpt]
+persist = true

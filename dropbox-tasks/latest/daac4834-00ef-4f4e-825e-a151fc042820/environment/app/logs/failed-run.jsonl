@@ -1,0 +1,8 @@
+{"type":"worker","event":"start"}
+{"type":"file","status":"processed","path":"/data/archive/spc07-r11-even.spz"}
+{"type":"file","status":"processed","path":"/data/archive/spc07-r17-odd.spz"}
+warning: CRC mismatch on /data/quarantine/corrupt-crc.spz
+{"type":"file","status":"quarantined","path":"/data/quarantine/corrupt-crc.spz","reason":"crc_mismatch"}
+{"type":"file","status":"processed","path":"/data/archive/spc12-r17-reversed.spz"}
+{"type":"file","status":"skipped","path":"/data/archive/interrupted-r17.spz","reason":"stale_committed"}
+{"type":"worker","event":"stop","processed":3,"skipped":1,"quarantined":1}

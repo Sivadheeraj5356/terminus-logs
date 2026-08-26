@@ -1,0 +1,15 @@
+# Axis-aligned MHD shock tube (alpha = 0 makes the oblique shock a one-dimensional
+# Riemann problem); a handful of transverse rows keeps it cheap.
+preset = rotated_shock
+nx = 128
+ny = 4
+block = 8
+amr = 0
+bc = outflow
+cfl = 0.4
+tmax = 0.1
+alpha = 0.0
+rs_rhoR = 0.25
+rs_pR = 0.2
+rs_bpar = 0.6
+rs_bperp = 0.5

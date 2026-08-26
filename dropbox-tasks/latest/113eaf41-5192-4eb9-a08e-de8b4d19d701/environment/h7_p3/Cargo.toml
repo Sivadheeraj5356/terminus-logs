@@ -1,0 +1,10 @@
+[package]
+name = "h7_p3"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "h7_p3"
+path = "src/grid_cache.rs"
+
+[dependencies]

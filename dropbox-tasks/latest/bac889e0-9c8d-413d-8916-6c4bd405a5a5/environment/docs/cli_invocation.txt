@@ -1,0 +1,9 @@
+# balancectl invocation
+
+Rebuild the pipeline with `make -C /app/environment all`.
+
+Run a scenario export:
+
+/opt/simbin/balancectl --scenario <name> --out /app/output/balance_archive.json
+
+Scenario names match JSON manifests under `/app/environment/data/scenarios/`.

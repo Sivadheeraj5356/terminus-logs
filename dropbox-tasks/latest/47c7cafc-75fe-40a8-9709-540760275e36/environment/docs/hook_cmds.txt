@@ -1,0 +1,7 @@
+/app/bin/hx_ctl run
+/app/bin/hx_ctl run --hook run_a
+/app/bin/hx_ctl run --hook run_b
+/app/bin/hx_ctl run --hook run_a --resume 1
+/app/bin/hx_ctl run --ord perm:0
+/app/bin/hx_ctl run --ord perm:1
+/app/bin/hx_ctl run --ord perm:2

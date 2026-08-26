@@ -1,0 +1,13 @@
+func main() -> int {
+b0:
+  iconst 4
+  iconst 1
+  iadd
+  iconst 4
+  isub
+  iconst 1
+  imul
+  iconst 4
+  iadd
+  ret
+}

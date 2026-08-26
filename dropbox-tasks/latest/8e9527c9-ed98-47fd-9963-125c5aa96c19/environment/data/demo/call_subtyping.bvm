@@ -1,0 +1,17 @@
+# Passing a Dog where a ref Animal parameter is expected. Arguments are checked
+# with subtyping (a subtype value is accepted where a supertype is required), so
+# this call type-checks. Compare `opcheck --func main` with the contract.
+type Animal { age: int }
+type Dog extends Animal { bark: int }
+func take(ref Animal) -> int {
+b0:
+  load 0
+  getfield Animal age
+  ret
+}
+func main() -> int {
+b0:
+  new Dog
+  call take
+  ret
+}

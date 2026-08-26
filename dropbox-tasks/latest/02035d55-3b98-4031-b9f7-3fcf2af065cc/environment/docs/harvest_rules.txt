@@ -1,0 +1,363 @@
+HARVEST1 orchard crate pick-balance metrology specification.
+
+Numerical settlement model for orchard harvest crate mass accounting in grams.
+Input: HARVEST1 capture rows in file order (newline-delimited JSON). Each line is a pick row, tare row, supersede row, or spoilage row.
+
+Pick row schema:
+  {"kind":"pick","pick_id":"<id>","zone":"<label>","sequence":<unsigned>,"gross_g":<unsigned>,"tare_profile_id":"<id>"}
+
+Tare row schema:
+  {"kind":"tare","tare_profile_id":"<id>","zone":"<label>","generation":<unsigned>,"start_seq":<unsigned>,"end_seq":<unsigned>,"offset_g":<signed>,"status":"active"|"revoked"}
+
+Generation fields (tare, supersede, spoilage):
+  - Valid input uses JSON number tokens for unsigned integers (for example 10).
+    Leading-zero numeric tokens such as 0010 are not valid JSON.
+  - All generation comparisons use numeric unsigned order (2 < 10). Never compare
+    generation values as strings or decimal text.
+  - Lexicographic ordering is wrong: generation 10 must beat generation 2 even
+    though "10" < "2" as strings.
+
+Supersede row schema:
+  void: {"kind":"supersede","target_pick_id":"<id>","generation":<unsigned>,"action":"void"}
+  replace: {"kind":"supersede","target_pick_id":"<id>","generation":<unsigned>,"action":"replace","gross_g":<unsigned>}
+
+Spoilage row schema:
+  {"kind":"spoilage","target_pick_id":"<id>","generation":<unsigned>}
+
+schema_generation: 3 (checkpoint compatibility token).
+
+Event ingest: walk rows in file order. Tare rows update the tare registry. Pick rows are stored for replay. Supersede and spoilage rows update their ledgers. Zone order is determined by the first pick row per zone label (by ascending sequence, ties by file order). Tare, supersede, and spoilage rows never change zone order.
+
+Tare registry:
+  - Every tare row is retained as a separate record in input order. No row is discarded at ingest.
+  - Revocation applies to one specific record (one tare_profile_id plus one generation), not to every generation sharing that tare_profile_id.
+  - Revoked records remain in the registry and may appear in tare lineage even though they are never selected for pick-time offset resolution.
+
+Tare offset resolution for a pick with tare_profile_id T and sequence S:
+  1. Collect all registry records whose tare_profile_id equals T.
+  2. Range containment uses half-open intervals: a record covers S when start_seq <= S < end_seq. Equality with end_seq does not match.
+  3. Keep only records whose status is exactly "active". Revoked records are ineligible at this step.
+  4. From the active range matches, choose the record with the greatest numeric generation (unsigned integer comparison, never lexicographic string comparison).
+  5. Generation tie-break among active range matches: when two or more active records share the same generation and all contain S, prefer the record that appeared earlier in the input file.
+  6. Overlapping active ranges with different generations: the higher generation always wins regardless of input order or which range started first.
+  7. Revocation fallback: when the newest generation for T is revoked but an older active generation still covers S, select that older active record using steps 3–5 on the remaining active set.
+  8. When no active record covers S, the offset is 0. The pick still replays; zero offset does not by itself refuse the row.
+
+Effective net grams:
+  - Compute effective net as gross_g + offset_g using checked signed arithmetic.
+    Promote gross_g to signed using i64 range; gross_g above i64::MAX refuses the row.
+    Add offset_g with overflow detection.
+  - When the sum is negative, refuse the row: increment net_refused by 1 only; do not change grade counts, net_kept_g, pick marks, or the kept-row counter used for pick-mark cadence.
+  - Capacity, grade assignment, refusal decisions, and pick-mark cadence all use effective net grams, not gross grams alone.
+  - A negative offset can change acceptance, refusal, and grade band relative to the raw pick.
+  - Settled replay recomputes effective net after supersede winners are applied.
+  - A supersede targeting an unknown pick_id or a pick refused during baseline replay (before supersedes) is a no-op.
+
+Supersede rules:
+  1. Highest numeric generation supersede wins per target_pick_id (unsigned integer
+     comparison, never lexicographic string comparison).
+  1a. Generation tie-break: when two supersede rows share the same target_pick_id
+     and equal generation, the row that appeared earlier in the input file wins
+     (do not replace on equal generation).
+  2. A voided pick contributes nothing and consumes no pick-mark position.
+  3. Supersedes apply only to pick_ids kept during baseline replay (zero supersedes applied).
+  4. Zone order remains based on the first original pick, not tare or supersede records.
+  5. Balance stamps bind pick marks, tare lineage, supersede lineage, and spoilage lineage (see stamp section).
+  6. Repeated replay over the same input must be byte-identical.
+
+Spoilage downgrade rules:
+  1. Highest numeric generation spoilage row wins per target_pick_id (unsigned
+     integer comparison, never lexicographic string comparison).
+  1a. Generation tie-break: when two spoilage rows share the same target_pick_id
+     and equal generation, the row that appeared earlier in the input file wins
+     (do not replace on equal generation).
+  2. Spoilage winner eligibility uses the same baseline_kept gate as supersede
+     winners: only pick_ids kept during baseline replay may win. Spoilage rows
+     targeting pick_ids refused during baseline replay are ignored.
+  Settled-replay processing for each non-voided pick row applies, in order:
+    supersede replace gross when applicable; tare offset resolution and effective
+    net computation; refusal on negative effective net or capacity overflow; base
+    grade from effective net; spoilage downgrade when an eligible spoilage winner
+    exists. Voided picks are excluded. Refused rows never receive downgrade.
+  4. Spoilage does not change effective net grams, net_kept_g, net_refused,
+     pick marks, or the kept-row counter used for pick-mark cadence; it only
+     shifts which grade bucket increments for an accepted row.
+  5. Spoilage lineage for balance stamps includes every spoilage winner from
+     rule 2 in file order, even when the target pick is voided by supersede or
+     refused during settled replay. Lineage encoding is independent of whether
+     downgrade in rule 3 was applied.
+  6. Spoilage downgrade steps one grade band: prime -> standard, standard ->
+     cull, cull stays cull.
+
+Baseline replay: replay all picks in ascending sequence order (ties by file order) with zero supersedes applied. Record which pick_ids were kept versus refused. Supersedes apply only to pick_ids that were kept during baseline replay.
+
+Settled replay: after applying supersede winners, replay non-voided picks in sequence order. Apply tare offset, refusal checks, grade assignment, and spoilage downgrade per the spoilage rules above.
+
+Grade bands for kept rows (effective net grams):
+  Grade is always computed from effective net grams after tare offset resolution and
+  before spoilage downgrade. Gross grams alone never determine the bucket.
+
+  Numeric thresholds (unsigned effective net grams):
+    grade_prime:   net < 200
+    grade_standard: 200 <= net <= 850   (both endpoints inclusive)
+    grade_cull:    net > 850
+
+  Grade/tare interaction:
+    - Resolve tare offset first, then compute effective net = gross_g + offset_g.
+    - When effective net is negative, refuse the row (see refusals); no grade bucket.
+    - A negative offset can move a gross pick across a grade threshold.
+    - Spoilage downgrade applies one step after the base grade is determined from
+      effective net. Spoilage never grades from gross grams alone.
+
+Capacity: refuse when accepting a row would push net_kept_g above 12000.
+
+Refusals and net_refused:
+- net_refused is the count of refused rows. Add 1 for each refused row; do not add the row's gram value.
+- net_refused is a non-negative integer (JSON number) per zone record.
+- A refused row changes net_refused only. It does not change grade_prime, grade_standard, grade_cull, net_kept_g, pick_marks, or the kept-row counter used for pick-mark cadence.
+- Refusals do not reset or alter net_kept_g capacity state for the zone.
+- The gram value of a refused row (including 0) does not affect how much net_refused increases; each refusal always adds exactly 1.
+- Negative effective net from tare is a refusal.
+- Capacity refusal occurs when accepting a row would push net_kept_g above 12000; the refused row does not change net_kept_g.
+
+Pick marks: after every 4th kept row in a zone, append one 64-character lowercase hex sha256 digest to pick_marks.
+  Per-mark hash input UTF-8 field order: {zone}|{net_kept_g}|{mark_index}
+    zone: case-sensitive label
+    net_kept_g: zone total after accepting the row that triggered the mark
+    mark_index: 1-based count of marks already emitted for that zone, including this mark
+  Voided and refused rows do not advance the kept-row counter.
+  Cadence is isolated per case-sensitive zone label; zones do not share counters.
+  A voided row sandwiched between accepted rows still consumes no cadence slot.
+  A capacity refusal sandwiched between accepted rows still consumes no cadence slot.
+  Case-colliding zone labels (for example Row-1 vs row-1) each maintain independent
+  cadence counters and net_kept_g totals.
+
+Tare lineage (for stamps and checkpoints):
+  Purpose: bind the canonical tare registry state independent of which record is
+  selected at pick time. Lineage is NOT the list of all ingested rows.
+
+  Inclusion rules:
+    - Include every distinct tare_profile_id that appears in any tare row.
+    - For each tare_profile_id, emit exactly one representative row.
+    - Revoked rows ARE included when they are the representative (see selection).
+    - Rows skipped at pick-time offset resolution may still appear in lineage.
+
+  Representative selection per tare_profile_id:
+    - Among tare rows with the same tare_profile_id, the representative is the row
+      with the greatest numeric generation (unsigned compare).
+    - When generations tie, the representative is the row that appeared earlier in
+      the input file.
+
+  Revoked-entry handling:
+    - Revoked status does NOT exclude a row from lineage selection.
+    - A revoked row with the highest generation for its tare_profile_id IS the
+      lineage representative and is encoded with status revoked.
+    - Revocation only blocks pick-time offset resolution; it does not remove the
+      row from lineage when it wins representative selection.
+
+  Canonical ordering:
+    - Sort representatives by tare_profile_id ascending (UTF-8 byte order).
+
+  Entry encoding (pipe-separated ASCII, no surrounding spaces):
+      {tare_profile_id}|{generation}|{zone}|{start_seq}|{end_seq}|{offset_g}|{status}
+    generation, start_seq, end_seq: unsigned decimal integers
+    offset_g: signed decimal integer with leading minus when negative
+    status: literal active or revoked exactly as ingested
+
+  Join entries with semicolon (;). An empty registry yields an empty string.
+
+Supersede lineage (for stamps):
+  - Semicolon-separated entries in file order for applied supersede winners only.
+  - Each entry: {target_pick_id}|{generation}|{action}|{gross_g_or_VOID}
+    generation: unsigned decimal integer
+    action: void or replace as ingested
+    gross_g_or_VOID: literal VOID for void actions, otherwise the replace gross_g as an unsigned decimal integer
+
+Spoilage lineage (for stamps):
+  - Semicolon-separated entries in file order for every spoilage winner from the
+    baseline_kept gate (see spoilage downgrade rule 5), including winners whose
+    targets are voided or refused during settled replay.
+  - Each entry: {target_pick_id}|{generation}
+    generation: unsigned decimal integer
+
+Balance stamp composition (report fingerprint):
+  The balance_stamp binds, in order: pick marks, tare lineage, supersede lineage,
+  spoilage lineage. Zone report field order is separate from stamp encoding.
+
+  Stamp sensitivity (any change to these inputs must change balance_stamp):
+    - pick-mark digests (cadence state, net_kept_g at mark time, zone label)
+    - tare lineage representatives (generation numeric order, revoked status,
+      offset_g, zone, range endpoints)
+    - supersede lineage winners (generation numeric order, void vs replace, gross)
+    - spoilage lineage winners (generation numeric order)
+  Checkpoint resume mode does not change the stamp algorithm; valid warm replay
+  must still yield the same balance_stamp as cold replay on identical input.
+
+  Stamp payload: concatenate pick-mark digests in zone first-seen order (within each
+  zone, marks in emission order; join digests with semicolon). Append tare_lineage,
+  supersede_lineage, and spoilage_lineage in that order when each segment is
+  non-empty, separating segments with semicolon. A leading semicolon is forbidden;
+  when there are zero pick marks, the payload begins with the first non-empty
+  lineage segment. balance_stamp is the lowercase hexadecimal sha256 digest of the
+  final payload bytes. Filesystem ordering must never influence stamp input.
+
+Checkpointed replay:
+  - Optional flags: --checkpoint-in <path> and --checkpoint-out <path>.
+  - --checkpoint-out persists replay state after processing the current input.
+    The written checkpoint is the observable product of a completed prefix-through-
+    end replay over the input bytes that produced it; zone_states must reflect
+    settled-replay accounting for every event through last_event_position.
+
+  Checkpoint JSON top-level fields:
+    input_identity (validation-only):
+      Lowercase hex sha256 of the entire current input file bytes.
+    schema_generation (validation-only):
+      Unsigned integer compatibility token; must equal 3.
+    last_event_position (validation-only):
+      Zero-based index of the final ingested feed row in the current input.
+      The first non-empty JSON line is position 0; each subsequent line increments
+      by 1 regardless of row kind. For a feed with N ingested rows, the final
+      position is N - 1. Values are unsigned JSON integers in [0, 2^64-1].
+    tare_lineage (validation-only):
+      Canonical tare lineage string computed from current tare rows (see tare
+      lineage section). Must match cold replay before warm hydration.
+    zone_order (hydration):
+      Array of case-sensitive zone labels in first-seen pick order established
+      by the current input feed.
+    zone_states (hydration):
+      Object keyed by zone label. Each value restores one zone's settled-replay
+      accounting on warm resume. Required per-zone fields:
+        grade_prime:   non-negative JSON integer; count of accepted prime rows.
+        grade_standard: non-negative JSON integer; count of accepted standard rows.
+        grade_cull:    non-negative JSON integer; count of accepted cull rows.
+        net_kept_g:    non-negative JSON integer grams; cumulative effective net
+                       kept in the zone after settled replay through
+                       last_event_position. Must not exceed 12000.
+        net_refused:   non-negative JSON integer; count of refused rows in the
+                       zone through last_event_position.
+        pick_marks:    JSON array of 64-character lowercase hex sha256 digests in
+                       emission order for that zone.
+        kept_rows:     non-negative JSON integer; internal kept-row counter used
+                       for pick-mark cadence. Restored on warm resume so cadence
+                       continues from the checkpointed prefix state. kept_rows must
+                       equal the number of retained accepted rows represented in
+                       that zone state and is validated exactly during resume.
+      Each zone_states value object must contain exactly these keys and no others:
+        grade_prime, grade_standard, grade_cull, net_kept_g, net_refused,
+        pick_marks, kept_rows.
+      Extra keys inside a zone state object invalidate the checkpoint.
+      Missing required keys inside a zone state object invalidate the checkpoint.
+      Type or range violations for any documented zone_states field invalidate
+      the checkpoint (including non-integer JSON types, negative counts, net_kept_g
+      above 12000, or pick_marks entries that are not 64-character lowercase hex).
+      Internal consistency: kept_rows must equal grade_prime + grade_standard +
+      grade_cull (the accepted-row count). pick_marks length must equal
+      kept_rows / 4 using integer division (pick-mark cadence). Violations
+      invalidate the checkpoint even when report-visible totals appear unchanged.
+      On warm resume, hydrate zone_order and every zone_states entry into the
+      replay tracker before emitting the report. zone_states must be keyed
+      exactly by zone_order labels: missing zone keys or extra zone keys not
+      present in zone_order are invalid.
+    supersede_winners (validation-only):
+      Map from target_pick_id to {generation, action, gross_g} matching current
+      supersede winner resolution.
+    spoilage_winners (validation-only):
+      Map from target_pick_id to {generation} matching current spoilage winner
+      resolution.
+    previous_stamp_seed (validation-only):
+      Lowercase hex sha256 balance_stamp from cold replay of the current input
+      bytes through last_event_position.
+
+  Checkpoint top-level schema:
+    The checkpoint object must contain exactly these keys and no others:
+      input_identity, schema_generation, last_event_position, tare_lineage,
+      zone_order, zone_states, supersede_winners, spoilage_winners,
+      previous_stamp_seed.
+    Extra top-level keys invalidate the checkpoint on load.
+
+  Field roles:
+    - Validation-only fields bind the checkpoint to the current input bytes and
+      lineage state. They are compared against values recomputed from the current
+      feed and must match before any warm hydration is applied.
+    - Hydration fields (zone_order, zone_states) restore per-zone accounting.
+      They must be internally consistent with validation-only fields: after
+      hydration, the balance_stamp computed from hydrated pick_marks plus current
+      tare, supersede, and spoilage lineage must equal previous_stamp_seed.
+      Inconsistent or tampered zone_states must force cold replay even when other
+      validation-only strings match.
+
+  Validity (all must hold before warm hydration):
+    - input_identity matches sha256 of the current input file bytes.
+    - tare_lineage string matches the lineage computed from current tare rows.
+    - supersede_winners map matches winners from current supersede rows.
+    - spoilage_winners map matches winners from current spoilage rows.
+    - schema_generation equals 3.
+    - last_event_position equals the zero-based position index of the final event
+      in the current input feed (N - 1 for N ingested rows), except in suffix
+      continuation mode (see below).
+    - previous_stamp_seed equals the balance_stamp from cold replay of the
+      current input bytes.
+    - Every zone in zone_order has a zone_states entry whose fields satisfy the
+      types and ranges above.
+    - Hydrated zone_states produce a balance_stamp equal to previous_stamp_seed
+      when combined with current tare, supersede, and spoilage lineage segments.
+    - Hydrated zone_states must match the per-zone totals, grade counts, and
+      pick_marks from cold replay of the current input bytes (field-for-field).
+
+  Invalidation triggers (force cold replay from event 0):
+    - Any retroactive tare row that changes tare_lineage.
+    - Any retroactive supersede that changes supersede_winners.
+    - Any retroactive spoilage that changes spoilage_winners.
+    - Input file byte change (input_identity mismatch).
+    - Tampered or internally inconsistent zone_states relative to
+      previous_stamp_seed and current lineage segments.
+
+  Unaffected zones: when a checkpoint is invalid, discard the entire warm state
+  and replay cold; partial per-zone reuse is forbidden.
+
+  Suffix continuation resume:
+    When the current input file contains only the unresolved tail rows of a longer
+    logical feed, a continuation checkpoint may carry prefix zone accounting that
+    is absent from the current file bytes. In this mode:
+    - input_identity binds to the current suffix input file.
+    - last_event_position equals the zero-based index of the final row in the
+      prior prefix input that was fully settled (strictly greater than the final
+      row index of the current suffix file).
+    - previous_stamp_seed equals the balance_stamp from cold replay of the prefix
+      input alone.
+    - zone_states restores per-zone totals including exact kept_rows from that
+      prefix replay.
+    - tare_lineage, supersede_winners, and spoilage_winners are computed from the
+      current suffix input only.
+    - On valid warm hydration, replay every row in the current suffix file on top
+      of hydrated zone state. pick_report.json must set checkpoint_used to true.
+    - The emitted zones and balance_stamp must match cold replay of the logical
+      concatenated prefix+suffix feed.
+
+  Valid checkpoint resume over the same complete input must produce byte-identical
+  zones and balance_stamp to full cold replay, including zone totals, grade counts,
+  pick_marks, and lineage-bound digest fields. checkpoint_used must be true when
+  warm hydration succeeds and false when replay is cold.
+
+  Invalid checkpoint handling:
+    - When any validity check fails, discard the entire warm checkpoint and replay
+      cold from event 0. Partial per-zone warm reuse is forbidden.
+    - Invalid checkpoints must never apply stale zone cadence, capacity, or grade
+      state. The emitted report must match the cold-replay reference for the
+      current input bytes.
+    - Retroactive tare rows that change tare_lineage invalidate a checkpoint even
+      when the new rows appear after last_event_position in a prior run.
+
+Output /app/output/pick_report.json:
+- UTF-8 JSON, pretty-printed, with a single trailing newline
+- top-level fields: zones (array), balance_stamp (64-character lowercase hex),
+  checkpoint_used (boolean JSON literal; true only after valid warm hydration)
+- zones array in first-seen pick order
+- each zone record fields: zone, grade_prime, grade_standard, grade_cull,
+  net_kept_g, net_refused, pick_marks
+- balance_stamp: sha256 hex digest as defined in the balance stamp composition section
+- repeated runs on unchanged inputs must emit byte-identical report files
+
+Zone identity: labels are case-sensitive.
+
+Reports must be produced by running pick-balance on the input feed. Static output files that are not derived from feed replay do not satisfy the specification.

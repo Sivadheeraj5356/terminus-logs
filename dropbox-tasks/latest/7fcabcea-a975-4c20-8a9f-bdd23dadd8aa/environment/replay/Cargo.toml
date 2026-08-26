@@ -1,0 +1,8 @@
+[package]
+name = "r5"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eval = { package = "e4", path = "../eval" }
+manifest = { package = "m0", path = "../manifest" }

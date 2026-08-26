@@ -1,0 +1,162 @@
+{
+  "ts-01": {
+    "field_cost": 1.073,
+    "contract_cost": 4.798
+  },
+  "ts-02": {
+    "field_cost": 1.045,
+    "contract_cost": 4.213
+  },
+  "ts-03": {
+    "field_cost": 1.003,
+    "contract_cost": 3.938
+  },
+  "ts-04": {
+    "field_cost": 0.789,
+    "contract_cost": 3.311
+  },
+  "ts-05": {
+    "field_cost": 1.058,
+    "contract_cost": 4.069
+  },
+  "ts-06": {
+    "field_cost": 0.943,
+    "contract_cost": 2.85
+  },
+  "ts-07": {
+    "field_cost": 1.029,
+    "contract_cost": 4.343
+  },
+  "ts-08": {
+    "field_cost": 0.876,
+    "contract_cost": 3.44
+  },
+  "ts-09": {
+    "field_cost": 0.873,
+    "contract_cost": 2.542
+  },
+  "ts-10": {
+    "field_cost": 0.956,
+    "contract_cost": 3.615
+  },
+  "ts-11": {
+    "field_cost": 0.893,
+    "contract_cost": 3.184
+  },
+  "ts-12": {
+    "field_cost": 0.846,
+    "contract_cost": 3.734
+  },
+  "ts-13": {
+    "field_cost": 1.116,
+    "contract_cost": 4.336
+  },
+  "ts-14": {
+    "field_cost": 1.148,
+    "contract_cost": 5.05
+  },
+  "ts-15": {
+    "field_cost": 1.087,
+    "contract_cost": 3.295
+  },
+  "ts-16": {
+    "field_cost": 0.757,
+    "contract_cost": 3.175
+  },
+  "ts-17": {
+    "field_cost": 0.943,
+    "contract_cost": 4.226
+  },
+  "ts-18": {
+    "field_cost": 1.006,
+    "contract_cost": 4.155
+  },
+  "ts-19": {
+    "field_cost": 0.996,
+    "contract_cost": 3.781
+  },
+  "ts-20": {
+    "field_cost": 0.979,
+    "contract_cost": 3.181
+  },
+  "ts-21": {
+    "field_cost": 1.009,
+    "contract_cost": 4.34
+  },
+  "ts-22": {
+    "field_cost": 0.706,
+    "contract_cost": 2.733
+  },
+  "ts-23": {
+    "field_cost": 0.854,
+    "contract_cost": 3.706
+  },
+  "ts-24": {
+    "field_cost": 0.797,
+    "contract_cost": 2.959
+  },
+  "ts-25": {
+    "field_cost": 1.103,
+    "contract_cost": 3.538
+  },
+  "ts-26": {
+    "field_cost": 1.092,
+    "contract_cost": 3.979
+  },
+  "ts-27": {
+    "field_cost": 0.746,
+    "contract_cost": 3.014
+  },
+  "ts-28": {
+    "field_cost": 1.114,
+    "contract_cost": 4.707
+  },
+  "ts-29": {
+    "field_cost": 0.891,
+    "contract_cost": 3.9
+  },
+  "ts-30": {
+    "field_cost": 1.007,
+    "contract_cost": 4.311
+  },
+  "ts-31": {
+    "field_cost": 0.802,
+    "contract_cost": 2.912
+  },
+  "ts-32": {
+    "field_cost": 0.845,
+    "contract_cost": 3.506
+  },
+  "ts-33": {
+    "field_cost": 0.987,
+    "contract_cost": 3.871
+  },
+  "ts-34": {
+    "field_cost": 0.992,
+    "contract_cost": 3.181
+  },
+  "ts-35": {
+    "field_cost": 1.081,
+    "contract_cost": 3.721
+  },
+  "ts-36": {
+    "field_cost": 0.818,
+    "contract_cost": 2.781
+  },
+  "ts-37": {
+    "field_cost": 0.887,
+    "contract_cost": 3.21
+  },
+  "ts-38": {
+    "field_cost": 0.935,
+    "contract_cost": 3.973
+  },
+  "ts-39": {
+    "field_cost": 0.841,
+    "contract_cost": 3.451
+  },
+  "ts-40": {
+    "field_cost": 0.886,
+    "contract_cost": 3.945
+  }
+}

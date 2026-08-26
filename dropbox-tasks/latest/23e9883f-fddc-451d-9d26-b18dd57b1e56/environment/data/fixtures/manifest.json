@@ -1,0 +1,9 @@
+{
+  "panels": [
+    "P-SMOKE",
+    "P-CORE",
+    "P-EDGE",
+    "P-CASCADE"
+  ],
+  "cabinet_generation": 18
+}

@@ -1,0 +1,31 @@
+[workspace]
+members = [
+  "c8",
+  "i1",
+  "p3",
+  "l7",
+  "k4",
+  "a2",
+  "r6",
+  "w5",
+  "q1",
+  "cmd/relayctl",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"
+
+[workspace.dependencies]
+clap = { version = "4.5.28", features = ["derive"] }
+hex = "0.4.3"
+mio = { version = "1.0.3", features = ["os-poll", "net", "os-ext"] }
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.138"
+sha2 = "0.10.8"
+thiserror = "2.0.11"
+toml = "0.8.19"
+libc = "0.2.169"
+rayon = "1.10"

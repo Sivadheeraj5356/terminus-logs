@@ -1,0 +1,71 @@
+schema_version: apexora-trunk-assign-1
+campus: campus-hq-dal
+trunk_links:
+  - id: TRK-0001
+    a: acc-hq-dal-bldg1-01
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0002
+    a: acc-hq-dal-bldg1-02
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0003
+    a: acc-hq-dal-bldg1-03
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0004
+    a: acc-hq-dal-bldg1-04
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0005
+    a: acc-hq-dal-bldg1-05
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0006
+    a: acc-hq-dal-bldg1-06
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0007
+    a: acc-hq-dal-bldg1-07
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0008
+    a: acc-hq-dal-bldg1-08
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0009
+    a: acc-hq-dal-bldg1-09
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0010
+    a: acc-hq-dal-bldg1-10
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0011
+    a: acc-hq-dal-bldg1-11
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0012
+    a: acc-hq-dal-bldg1-12
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0013
+    a: acc-hq-dal-bldg1-13
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0014
+    a: acc-hq-dal-bldg1-14
+    b: dist-hq-dal-main-01
+    allowed: selective
+  - id: TRK-0015
+    a: dist-hq-dal-main-01
+    b: core-hq-dal-01
+    allowed: selective
+  - id: TRK-0016
+    a: dist-hq-dal-main-02
+    b: core-hq-dal-01
+    allowed: selective
+  - id: TRK-0017
+    a: dist-hq-dal-main-03
+    b: core-hq-dal-01
+    allowed: selective

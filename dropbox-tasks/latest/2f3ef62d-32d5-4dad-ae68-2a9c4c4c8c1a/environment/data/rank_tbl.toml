@@ -1,0 +1,12 @@
+[[triples]]
+seed = 0
+triple = "x86_64-linux"
+[[triples]]
+seed = 1
+triple = "aarch64-linux"
+[[triples]]
+seed = 2
+triple = "x86_64-linux"
+[[triples]]
+seed = 3
+triple = "riscv64-linux"

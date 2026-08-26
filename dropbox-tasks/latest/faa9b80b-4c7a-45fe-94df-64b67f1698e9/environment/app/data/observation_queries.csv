@@ -1,0 +1,9 @@
+observation_id,case_id,time_s,band_id
+obs_d_noon,case_diurnal,1800.0,band_8um
+obs_d_dusk,case_diurnal,3300.0,band_25um
+obs_e_noon,case_eclipse,1800.0,band_8um
+obs_e_dusk,case_eclipse,3300.0,band_25um
+obs_g_morning,case_gradient,900.0,band_8um
+obs_g_noon,case_gradient,1800.0,band_8um
+obs_g_dusk,case_gradient,3300.0,band_25um
+obs_g_night,case_gradient,3600.0,band_25um

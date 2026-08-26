@@ -1,0 +1,15 @@
+{
+  "id": "profile_stress",
+  "tick_cap": 6.0,
+  "densify_floor": 1.5,
+  "bands": [
+    {
+      "name": "near",
+      "E": 1.1
+    },
+    {
+      "name": "stress",
+      "E": 1.0
+    }
+  ]
+}

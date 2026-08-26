@@ -1,0 +1,9 @@
+ordinance: ORD-1976-01
+jurisdiction: Talveny-Shoal
+enacted: 1976-08-30
+effective: 1976-10-31T02:00:00 standard
+standard-offset: +10:30:00
+standard-label: SST
+observance:
+  begin: Oct lastSun 02:00:00 standard save +01:00:00 label SDT
+  end: Mar Sun>=1 03:00:00 standard

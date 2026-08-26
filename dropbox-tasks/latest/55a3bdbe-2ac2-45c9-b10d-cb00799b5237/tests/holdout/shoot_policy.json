@@ -1,0 +1,8 @@
+{
+  "reference_showiness": 53.900000000000006,
+  "keeper_prob_min": 0.01,
+  "keeper_prob_max": 0.95,
+  "keeper_floor": 0.95,
+  "hide_frame_budget": 600,
+  "cost_ceiling": 3981.33
+}

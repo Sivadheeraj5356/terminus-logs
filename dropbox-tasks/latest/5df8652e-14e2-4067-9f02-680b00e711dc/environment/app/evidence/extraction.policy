@@ -1,0 +1,5 @@
+OCI-POLICY-1
+trusted_layers 1
+protect etc/shadow
+protect usr/bin
+protect var/lib/agent/keys

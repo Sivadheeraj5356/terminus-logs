@@ -1,0 +1,13 @@
+# scenario_id	tape_stem
+t_corner_a	t_corner_a
+t_corner_b	t_corner_b
+t_strip_a	t_strip_a
+t_strip_b	t_strip_b
+t_dual_lane	t_dual_lane
+t_thin_border	t_thin_border
+t_mid_pause	t_mid_pause
+t_double_pause	t_double_pause
+t_pad_shift	t_pad_shift
+t_oblique	t_oblique
+t_corner_iso	t_corner_iso
+t_layer_stack	t_layer_stack

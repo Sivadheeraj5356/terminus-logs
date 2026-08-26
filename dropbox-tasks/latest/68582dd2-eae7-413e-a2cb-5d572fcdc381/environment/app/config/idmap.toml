@@ -1,0 +1,20 @@
+# Rootless archive restore id-map rules.
+# Unprivileged restore records mapped ownership in user xattrs rather than chown.
+
+[defaults]
+subuid_base = 100000
+subgid_base = 100000
+fallback_uid = 65534
+fallback_gid = 65534
+
+[[override]]
+source_uid = 0
+source_gid = 0
+uid = 65534
+gid = 65534
+
+[[override]]
+source_uid = 33
+source_gid = 33
+uid = 65534
+gid = 65534

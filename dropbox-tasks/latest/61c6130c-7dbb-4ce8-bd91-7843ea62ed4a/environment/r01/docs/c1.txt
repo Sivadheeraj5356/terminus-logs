@@ -1,0 +1,19 @@
+Moderation ledger contract
+
+The tool reads from the selected data root. Required inputs are inputs/i1.jsonl, inputs/i2.jsonl, inputs/p1.json, and inputs/p2.json.
+
+The schema_version field is set to moderation-audit-v1. The seed field reports the deterministic RNG seed used for the run. The split_counts field counts rows by split name (train, eval, challenge). The metric_names field lists exported metric identifiers in order: margin, mean_margin_milli, variant_count, deficit_count.
+
+Rows in i1.jsonl with split train are counted for split_counts but are not scored. Rows in i1.jsonl with split eval and all rows in i2.jsonl with split challenge are scored.
+
+Text normalization lowercases ASCII letters, maps 0->o, 1->i, 3->e, 4->a, 5->s, and 7->t, then replaces punctuation with spaces. The aliases toxico and toxica count as toxic. Toxic terms are toxic, basura, insult, ganda, dhamki, threat, samm, amenaza, and sasa. Support terms are kind, calm, neutral, support, please, stay, review, and training.
+
+For each scored row, margin = 3 * toxic_hits - 2 * support_hits. The label is block when margin is at least 3, review when margin is greater than 0, and allow otherwise.
+
+npm evidence maps package aliases onto canonical package names. The canonical_package field means the resolved npm package after alias collapse. The component_hash field means the CycloneDX component hash for that canonical package. Scored rows are grouped by prompt_id and canonical_package. For each group, variant_count is the number of scored rows, mean_margin_milli is the rounded integer mean margin multiplied by 1000, and language lists are sorted.
+
+The case_id field means the input row identifier. Report records include case_id, prompt_id, split, lang, canonical_package, component, component_hash, margin, and label. Group records include prompt_id, canonical_package, component, component_hash, variant_count, mean_margin_milli, deficit_count, languages, and case_ids. case_ids lists the sorted input row identifiers represented by the group.
+
+For each group, deficit_count is the number of scored rows in that group whose label is not block. The estimator field reports obligation 42, comparison_count equal to the number of generated groups, deficit_count equal to the sum of group deficit_count values, and worst_group_margin equal to the smallest group mean_margin_milli. The provenance_nodes field reports one node per canonical_package with component, component_hash, and sorted aliases.
+
+The trace object reports canonical_rows in sorted order and trace_digest. canonical_rows are the canonical row strings used for reproducibility. Each canonical row string is case_id|prompt_id|split|lang|canonical_package|margin|label. trace_digest is the digest of those rows. The digest starts at 17, then for each byte in the newline-joined canonical row string uses value = (value * 131 + byte) mod 1000000007. The output is lowercase hex padded to eight characters.

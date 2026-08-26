@@ -1,0 +1,5 @@
+#%PAM-1.0
+auth       include      common-auth
+account    required     pam_nologin.so
+password   required     pam_unix.so
+session    required     pam_sss.so

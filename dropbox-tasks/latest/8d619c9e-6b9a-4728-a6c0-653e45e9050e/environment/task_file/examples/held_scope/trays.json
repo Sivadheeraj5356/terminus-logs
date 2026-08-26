@@ -1,0 +1,3 @@
+{
+  "trays": [{"tray_id": "bay", "capacity_units": 10, "tier": 2, "regen_every": 4}]
+}

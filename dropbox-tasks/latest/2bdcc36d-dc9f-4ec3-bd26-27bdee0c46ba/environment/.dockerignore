@@ -1,0 +1,15 @@
+solution/
+tests/
+instruction.md
+task.toml
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/target/
+**/node_modules/
+src/vendor/
+vendor/

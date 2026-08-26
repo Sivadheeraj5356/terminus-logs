@@ -1,0 +1,52 @@
+{
+  "tenants": [
+    {
+      "tenant_id": "tn-arc",
+      "name": "Arclight Systems",
+      "region": "us-east",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-bor",
+      "name": "Boreal Data",
+      "region": "eu-west",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-cir",
+      "name": "Cirrus Labs",
+      "region": "us-east",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-delt",
+      "name": "Delta Mesh",
+      "region": "ap-south",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-echo",
+      "name": "Echo Grid",
+      "region": "eu-west",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-flux",
+      "name": "Fluxware",
+      "region": "us-east",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-pivot",
+      "name": "Pivot Analytics",
+      "region": "us-east",
+      "active": true
+    },
+    {
+      "tenant_id": "tn-muted",
+      "name": "Muted Analytics",
+      "region": "us-east",
+      "active": false
+    }
+  ]
+}

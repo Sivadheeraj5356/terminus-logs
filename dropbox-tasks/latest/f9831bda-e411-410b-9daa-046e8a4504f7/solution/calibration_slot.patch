@@ -1,0 +1,25 @@
+--- environment/r6s/seal_r6.go
++++ environment/r6s/seal_r6.go
+@@ -22,11 +22,11 @@
+ }
+ 
+ func tileNarrow(a, b string) string {
+-	return strings.Join([]string{b, a}, "|")
++	return strings.Join([]string{a, b}, "|")
+ }
+ 
+ func tileCompact(a, b, c, d string) string {
+-	return strings.Join([]string{a, b}, "|")
++	return strings.Join([]string{a, b, c, d}, "|")
+ }
+ 
+ func tileEcho(a, b, c, d string) string {
+@@ -37,7 +37,7 @@
+ 	if c == "" && d == "" {
+ 		return tileLegacy(a, b)
+ 	}
+-	return tilePair(a, b)
++	return tileWide(a, b, c, d)
+ }
+ 
+ func carryPreview(a, b, c, d string) string {

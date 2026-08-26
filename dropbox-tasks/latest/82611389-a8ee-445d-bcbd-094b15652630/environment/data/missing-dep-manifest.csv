@@ -1,0 +1,3 @@
+module_id,version,depends_on
+auth-core,1.2.0,
+billing-api,2.0.0,missing-unit

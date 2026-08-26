@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "observatory",
+      "relicmaze.torch": "6.0",
+      "relicmaze.keeper_tz_offset_minutes": "-720",
+      "relicmaze.carry_capacity": "60",
+      "relicmaze.goal_room": "atrium",
+      "org.opencontainers.image.title": "gen-020"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:601886efdf81f1a7f2928e02bb1bf9c5e92d7aa8e4101282411a487cf248acea"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "RUN keeper seal drowned-crown noted"
+    },
+    {
+      "created_by": "ENV torch_tax=-1.0"
+    },
+    {
+      "created_by": "seal the door"
+    },
+    {
+      "created_by": "LABEL omen=\"Fire answers fire.\""
+    },
+    {
+      "created_by": "ENV torch_tax=-1.0"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "RUN keeper seal crystal-eye"
+    },
+    {
+      "created_by": "RUN keeper curse quicksilver-vial"
+    }
+  ]
+}

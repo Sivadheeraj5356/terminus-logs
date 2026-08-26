@@ -1,0 +1,12 @@
+{
+  "name": "beta_collapse",
+  "chronology": "data/chronology/main.json",
+  "matches": "data/matches/beta_collapse.json",
+  "notes": "data/notes/beta_collapse.json",
+  "roster": [
+    "striker",
+    "warden",
+    "skirmisher",
+    "medic"
+  ]
+}

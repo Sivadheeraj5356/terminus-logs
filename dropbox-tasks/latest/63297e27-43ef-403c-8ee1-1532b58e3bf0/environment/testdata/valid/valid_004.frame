@@ -1,0 +1,4 @@
+kind=parse
+stmt=s_lookup
+content=SELECT id FROM t WHERE k = $1
+fill=0

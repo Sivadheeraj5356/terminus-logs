@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Keyring",
+  "type": "object",
+  "required": ["keys"],
+  "properties": {
+    "keys": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tenant", "key_id", "key_epoch", "allowed_profiles", "allowed_versions", "revoked"],
+        "properties": {
+          "tenant": { "type": "string" },
+          "key_id": { "type": "string" },
+          "key_epoch": { "type": "integer" },
+          "secret_hex": { "type": "string" },
+          "allowed_profiles": { "type": "array", "items": { "type": "string" } },
+          "allowed_versions": { "type": "array", "items": { "type": "integer" } },
+          "revoked": { "type": "boolean" },
+          "authority_digest": { "type": "string" }
+        }
+      }
+    }
+  }
+}

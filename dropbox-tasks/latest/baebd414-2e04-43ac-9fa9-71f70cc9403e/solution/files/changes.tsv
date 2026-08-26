@@ -1,0 +1,6 @@
+artifact	view	role
+/app/live/zones/external.harbor.test.zone	external	forward-primary
+/app/live/zones/external.192.0.2.zone	external	reverse-primary
+/app/live/zones/internal.harbor.test.zone	internal	forward-primary-dynamic
+/app/live/zones/internal.192.0.2.zone	internal	reverse-primary
+/app/live/zones/internal.rpz	internal	response-policy

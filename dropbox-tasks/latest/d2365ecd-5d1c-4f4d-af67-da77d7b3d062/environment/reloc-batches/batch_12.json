@@ -1,0 +1,83 @@
+{
+  "batch_id": "batch_12",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "org.apache.lang",
+      "to_prefix": "reloc.org.apache.lang",
+      "priority": 3
+    }
+  ],
+  "units": [
+    {
+      "path": "lang.jar",
+      "root": "apache",
+      "symbols": [
+        {
+          "fqn": "org.apache.lang.StringUtils",
+          "pkg_path": "org/apache/lang"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "org.apache.lang.StringUtils",
+          "kind": "class"
+        }
+      ],
+      "resources": [
+        {
+          "path": "META-INF/services/org.apache.lang.Factory",
+          "content_ref": "org.apache.lang.Factory"
+        }
+      ],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "observed": {
+    "symbols": [
+      {
+        "original": "org.apache.lang.StringUtils",
+        "fqn": "reloc.org.apache.lang.StringUtils",
+        "pkg_path": "reloc/org/apache/lang"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "reloc.org.apache.lang.StringUtils"
+      }
+    ],
+    "resources": [
+      {
+        "path": "META-INF/services/org.apache.lang.Factory",
+        "content_ref": "reloc.org.apache.lang.Factory"
+      }
+    ],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "96a3dba63fd2bfe74e3c7a32209d51f20c4cf05f0b1560c9dc388ad9835de1e7",
+    "nested_applied": false,
+    "nested": []
+  }
+}

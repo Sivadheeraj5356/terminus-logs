@@ -1,0 +1,2 @@
+{"event_id": "ev-tie-b", "tenant_id": "tn-cir", "service": "compute", "timestamp": "2027-03-25T12:00:00Z", "units": 3}
+{"event_id": "ev-tie-a", "tenant_id": "tn-cir", "service": "compute", "timestamp": "2027-03-25T12:00:00Z", "units": 7}

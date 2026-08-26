@@ -1,0 +1,21 @@
+{
+  "case_id": "ORBITAL-ALPHA",
+  "mission_days": 180,
+  "technical_certification": "flight systems certified complete by engineering record FCR-77",
+  "emergency_authority": {
+    "status": "delegated",
+    "decision_doc": "EAA-12",
+    "primary": "Mission Director"
+  },
+  "evidence": [
+    {"id": "ops-sim", "axis": "operations", "status": "ready", "weight": 3, "source": "internal", "dissent": "none", "resolved": true, "note": "integrated mission simulations completed"},
+    {"id": "crew-psych", "axis": "crew_support", "status": "gap", "weight": 2, "source": "independent", "dissent": "critical", "resolved": false, "note": "long-duration support escalation not rehearsed"},
+    {"id": "safety-panel", "axis": "safety", "status": "watch", "weight": 2, "source": "independent", "dissent": "major", "resolved": false, "note": "safety panel requests board-level closure criteria"},
+    {"id": "authority-map", "axis": "authority", "status": "ready", "weight": 2, "source": "internal", "dissent": "none", "resolved": true, "note": "emergency map circulated"},
+    {"id": "oversight-loop", "axis": "oversight", "status": "ready", "weight": 2, "source": "independent", "dissent": "none", "resolved": true, "note": "independent assurance cadence accepted"}
+  ],
+  "commitments": [
+    {"id": "C-PSY-1", "axis": "crew_support", "evidence_id": "crew-psych", "due_day": 14, "closed": false},
+    {"id": "C-BOARD-9", "axis": "oversight", "evidence_id": "safety-panel", "due_day": 21, "closed": false}
+  ]
+}

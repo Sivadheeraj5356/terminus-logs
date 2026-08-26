@@ -1,0 +1,5 @@
+Build a security auditor under /app that scores encrypted backup trustworthiness against adversarial tampering. Twenty archive files live in /app/archives as archive_01.json through archive_20.json. Security contracts are /app/contracts/TRUST_REPORT.md, /app/contracts/ARCHIVE_FORMAT.md, and /app/rules/escrow_matrix.yaml. Write /app/verdicts/backup_trust_report.json with cryptographic coverage gaps, unauthorized mutations, escrow integrity breaks, retention tampering, restore forgery, silent corruption, and adversarial resilience failures.
+
+Implement vault.ResolveArchivesDir and vault.LoadArchive in /app/vault/archive.go, and audit.AssessArchive in /app/audit/trust.go. Leave the bootstrap, orchestrate, emit, and schema packages alone. Produce an executable /app/bin/ebta larger than 2048 bytes.
+
+EBTA_ARCHIVES_DIR when set must be an absolute readable directory after symlink resolve. Relative paths and shell metacharacters are hard errors. Empty lists stay empty arrays. Summary counters must reconcile with archive rows. Derive security findings from the archive payloads, not an answer table. Do not edit the archives, contracts, or rules files.

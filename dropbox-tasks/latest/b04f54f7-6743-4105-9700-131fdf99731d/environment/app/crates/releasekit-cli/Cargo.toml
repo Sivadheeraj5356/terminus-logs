@@ -1,0 +1,12 @@
+[package]
+name = "releasekit-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "releasekit"
+path = "src/main.rs"
+
+[dependencies]
+releasekit-core = { path = "../releasekit-core" }

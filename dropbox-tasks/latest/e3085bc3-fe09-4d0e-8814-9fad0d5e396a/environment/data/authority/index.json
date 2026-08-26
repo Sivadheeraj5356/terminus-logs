@@ -1,0 +1,6 @@
+{
+  "schema": "authority/v1",
+  "live": "z0/policy.json",
+  "hold": "z0/policy.json",
+  "arm": "../policy.json"
+}

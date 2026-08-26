@@ -1,0 +1,10 @@
+[package]
+name = "quarantine-extractor"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+tar = "=0.4.44"
+unicode-normalization = "=0.1.24"
+zip = { version = "=2.4.2", default-features = false, features = ["deflate"] }

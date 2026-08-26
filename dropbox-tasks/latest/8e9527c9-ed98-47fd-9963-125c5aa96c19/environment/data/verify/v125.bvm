@@ -1,0 +1,17 @@
+func main(int) -> int {
+  locals 1
+b0:
+  load 0
+  iconst 0
+  icmp
+  br_if b2
+b1:
+  iconst 3
+  store 1
+  br b3
+b2:
+  br b3
+b3:
+  load 1
+  ret
+}

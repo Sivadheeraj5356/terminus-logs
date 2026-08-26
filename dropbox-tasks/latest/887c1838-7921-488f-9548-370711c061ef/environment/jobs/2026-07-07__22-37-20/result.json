@@ -1,0 +1,30 @@
+{
+    "id": "a1ea8c79-3409-474e-89e1-41a7d525ab09",
+    "started_at": "2026-07-07T22:37:21.175485",
+    "finished_at": "2026-07-07T22:37:39.449244",
+    "n_total_trials": 1,
+    "stats": {
+        "n_trials": 1,
+        "n_errors": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "cross-compiler-artifact-equivale__WmEimhs"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

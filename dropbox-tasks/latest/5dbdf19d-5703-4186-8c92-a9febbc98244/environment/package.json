@@ -1,0 +1,13 @@
+{
+  "name": "clf-log-analyzer",
+  "version": "1.0.0",
+  "description": "Combined Log Format access-log analyzer",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.2",
+    "typescript": "5.4.5"
+  }
+}

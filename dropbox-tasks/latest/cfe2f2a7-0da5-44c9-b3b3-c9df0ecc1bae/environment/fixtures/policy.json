@@ -1,0 +1,8 @@
+{
+  "default_sla_ms": 120,
+  "rules": [
+    {"pattern": "alpha>*", "sla_ms": 80},
+    {"pattern": "*>omega", "sla_ms": 70},
+    {"pattern": "alpha>omega", "sla_ms": 50}
+  ]
+}

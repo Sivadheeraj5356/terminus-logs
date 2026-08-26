@@ -1,0 +1,7 @@
+{
+  "block_vendor_to_sovereign": true,
+  "governance_overrides": {
+    "block_vendor_to_sovereign": false
+  },
+  "delegation_slice_id": "delegation_slice_15"
+}

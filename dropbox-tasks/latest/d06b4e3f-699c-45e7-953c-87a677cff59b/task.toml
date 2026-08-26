@@ -1,0 +1,28 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "security"
+subcategories = ["long_context", "db_interaction", "api_integration"]
+number_of_milestones = 0
+codebase_size = "large"
+languages = ["go"]
+tags = ["sqlite", "merkle-tree", "hmac-sha256", "cryptographic-verification", "kms-mock", "tamper-detection"]
+expert_time_estimate_min = 120
+junior_time_estimate_min = 420
+
+[verifier]
+timeout_sec = 450.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 6144
+storage_mb = 10240
+workdir = "/app"

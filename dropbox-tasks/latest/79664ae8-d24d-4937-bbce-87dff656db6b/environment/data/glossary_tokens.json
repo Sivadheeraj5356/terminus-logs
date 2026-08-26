@@ -1,0 +1,7 @@
+{
+  "BLOB_EPOCH": "blob-lane completion counter; starts at 0 and increments only when a B-lane segment is staged; O-lane segments reuse the current value without incrementing it",
+  "HOOK_GEN": "per-segment emission counter starting at 1; increments once for every journal segment in order regardless of lane; never assign it from blob_epoch",
+  "CLEAN": "driver status token when pipeline reports success",
+  "CARRY_IN": "carry token propagated from merged wave bundle",
+  "STALE_CARRY": "carry token mismatch when incremental delta is not applied"
+}

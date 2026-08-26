@@ -1,0 +1,32 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+base_image_justification = "Digest-pinned public.ecr.aws golang:1.24-bookworm image per TB3 canonical Go base image policy."
+difficulty = "hard"
+category = "system-administration"
+subcategories = ["tool_specific"]
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["go", "bash"]
+tags = ["kafka", "streaming", "consumer-groups", "throughput", "go"]
+expert_time_estimate_min = 60
+junior_time_estimate_min = 150
+
+[reference_pattern]
+justification_if_none = "Synthetic streaming ingest backlog task; no promoted reference pattern covers multi-surface consumer tuning with observation-rich recovery reports."
+
+[verifier]
+timeout_sec = 600
+
+[agent]
+timeout_sec = 1500
+
+[environment]
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false
+workdir = "/app"

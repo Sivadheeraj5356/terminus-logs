@@ -1,0 +1,14 @@
+== Whisperbone Catacomb [ossuary] ==
+Omen: The maze breathes.
+Light: 1.0 lumens
+Relics:
+  - Grave Ember <rare> 45g (cursed)
+  - Bone Flute <common> 30g
+Freshest: Bone Flute @ 09:10 KST
+Exits:
+  - east: Mercury Spring (torch 0.1)
+Torch: 7.0 units
+Inventory: (empty)
+Route: east north (torch 0.2)
+---ACTIONS---
+inspect grave-ember

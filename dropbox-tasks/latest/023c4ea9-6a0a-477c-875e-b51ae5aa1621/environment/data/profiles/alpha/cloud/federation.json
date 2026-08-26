@@ -1,0 +1,10 @@
+[
+  {
+    "from": "role-admin",
+    "to": "cluster-admin"
+  },
+  {
+    "from": "cluster-admin",
+    "to": "vault-crown"
+  }
+]

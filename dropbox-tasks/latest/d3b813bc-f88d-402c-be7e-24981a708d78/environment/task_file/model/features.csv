@@ -1,0 +1,8 @@
+feature_id,name,mean,scale,weight,missing_value,clip_low,clip_high,group
+1,login_velocity,10.0,5.0,0.90,10.0,-3.0,3.0,behavior
+2,device_entropy,0.60,0.20,-0.70,0.60,-2.5,2.5,device
+3,amount_z,100.0,50.0,0.80,100.0,-3.0,4.0,money
+4,geo_distance,20.0,10.0,0.50,20.0,-2.0,5.0,location
+5,merchant_age,30.0,15.0,-0.40,30.0,-2.0,2.0,merchant
+6,refund_ratio,0.05,0.05,0.60,0.05,-1.0,3.0,history
+7,issuer_score,500.0,0.0,0.30,500.0,-2.0,2.0,issuer

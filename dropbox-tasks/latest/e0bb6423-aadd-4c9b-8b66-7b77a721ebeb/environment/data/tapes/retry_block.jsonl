@@ -1,0 +1,4 @@
+{"seq":1,"ts":2001,"actor":"bob@CORP.EXAMPLE.COM","module":"pam_unix","result":"fail","service":"sshd"}
+{"seq":2,"ts":2002,"actor":"bob@CORP.EXAMPLE.COM","module":"pam_unix","result":"fail","service":"sshd"}
+{"seq":3,"ts":2003,"actor":"bob@CORP.EXAMPLE.COM","module":"pam_unix","result":"fail","service":"sshd"}
+{"seq":4,"ts":2004,"actor":"bob@CORP.EXAMPLE.COM","module":"pam_unix","result":"fail","service":"sshd"}

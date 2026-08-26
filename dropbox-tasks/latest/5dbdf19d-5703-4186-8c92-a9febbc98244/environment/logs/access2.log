@@ -1,0 +1,9 @@
+10.0.0.1 - admin [11/Jun/2024:09:00:00 +0700] "GET /admin HTTP/1.1" 200 2048 "-" "Chrome/120.0"
+10.0.0.2 - - [11/Jun/2024:09:00:01 +0700] "GET /index.html HTTP/1.1" 302 0 "http://example.com" "Firefox/121.0"
+10.0.0.3 - - [11/Jun/2024:09:00:02 +0700] "POST /api/data?sort=desc&page=2 HTTP/1.1" 201 1024 "-" "ApiClient/2.0"
+10.0.0.1 - - [11/Jun/2024:09:00:03 +0700] "GET /admin HTTP/1.1" 403 128 "-" "Chrome/120.0"
+10.0.0.4 - - [11/Jun/2024:09:00:04 +0700] "GET /api/health HTTP/1.1" 200 32 "-" "healthcheck/1.0"
+MALFORMED LINE WITHOUT PROPER FORMAT
+10.0.0.5 - - [11/Jun/2024:09:00:06 +0700] "GET /page HTTP/1.1" 99 100 "-" "bot/1.0"
+10.0.0.5 - - [11/Jun/2024:09:00:07 +0700] "BADREQUEST" 200 100 "-" "bot/1.0"
+10.0.0.6 - - [11/Jun/2024:09:00:08 +0700] "GET /file.zip HTTP/1.1" 200 XYZ "-" "downloader/1.0"

@@ -1,0 +1,53 @@
+version = 1
+gauge_ceiling = 48.0
+window = 4
+checkpoint_pass = 1
+continue_checkpoint_pass = 2
+
+[[jobs]]
+job = 0
+draws = [1.0, 0.5]
+
+[[jobs]]
+job = 1
+draws = [2.0, 0.25]
+
+[[jobs]]
+job = 2
+draws = [0.5, 1.5]
+
+[[jobs]]
+job = 3
+draws = [1.25, 0.75]
+
+[[jobs]]
+job = 4
+draws = [0.75, 1.25]
+
+[[jobs]]
+job = 5
+draws = [1.5, 0.5]
+
+[[jobs]]
+job = 6
+draws = [2.5, 0.1]
+
+[[jobs]]
+job = 7
+draws = [0.25, 2.0]
+
+[[jobs]]
+job = 8
+draws = [1.1, 0.9]
+
+[[jobs]]
+job = 9
+draws = [0.9, 1.1]
+
+[[jobs]]
+job = 10
+draws = [1.75, 0.35]
+
+[[jobs]]
+job = 11
+draws = [0.35, 1.75]

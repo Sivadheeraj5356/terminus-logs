@@ -1,0 +1,66 @@
+{
+  "scenario_id": "scenario_07",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "root",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [
+    {
+      "parent": "root:1.0.0",
+      "child": "alpha",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s07e1",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "root:1.0.0",
+      "child": "zulu",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s07e2",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "alpha:1.0.0",
+      "child": "shared",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s07e3",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "zulu:1.0.0",
+      "child": "shared",
+      "version": "2.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s07e4",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

@@ -1,0 +1,10 @@
+Recovery incident 2024-11-19 — night calibration batch
+
+Symptoms observed after power loss during spool drain:
+- /output/drift.jsonl ended with a truncated final JSON object (partial line after sequence 42).
+- manifest.tsv listed interrupted-r17.processing but the corresponding result fragment was absent.
+- Re-running the worker skipped interrupted-r17 as already committed while drift.jsonl lacked that scan.
+- Independent lamp check reported centroid ~0.04 nm high versus reference for SPC07 r17 frames.
+- Duplicate basename replay under renamed files did not increment skipped count as expected.
+
+Operator notes: lifecycle stdout mixed a human warning with JSON Lines on CRC rejection path.

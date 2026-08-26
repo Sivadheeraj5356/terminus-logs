@@ -1,0 +1,8 @@
+{
+  "sink_mode": "redirect",
+  "pipe_cap": 65536,
+  "events": [
+    {"kind": "seed", "writer_epoch": "dead02", "reader_epoch": "dead02"},
+    {"kind": "wave", "bytes": 4096}
+  ]
+}

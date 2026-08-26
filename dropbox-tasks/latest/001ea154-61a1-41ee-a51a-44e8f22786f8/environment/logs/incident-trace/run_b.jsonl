@@ -1,0 +1,5 @@
+{"ts":"2026-06-18T09:12:03Z","level":"INFO","msg":"stream-bench start","scenario":"burst_orders","members":3,"partitions":12}
+{"ts":"2026-06-18T09:12:03Z","level":"INFO","msg":"tick sample","tick":1,"processed":9,"residual":23991}
+{"ts":"2026-06-18T09:12:04Z","level":"INFO","msg":"tick sample","tick":40,"processed":360,"residual":23640}
+{"ts":"2026-06-18T09:12:05Z","level":"WARN","msg":"tick budget risk","note":"throughput proxy still below contract floor after 40 ticks"}
+{"ts":"2026-06-18T09:12:06Z","level":"INFO","msg":"stream-bench end","ticks_elapsed":800,"final_residual_records":18000}

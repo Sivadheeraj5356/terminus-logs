@@ -1,0 +1,6 @@
+Our spectrometer used to turn its raw line shapes into Faddeeva-function values, and the little evaluator that did it got lost in a disk wipe. I need it rebuilt, and the replacement has to cover more ground than the old one did.
+The optics group now probes the gain region below the real axis too, where the function blows up so fast that its raw parts overflow any float, so the engine reports each value as the natural log of its modulus together with its phase.
+Write /app/faddeeva.js so that `node /app/faddeeva.js <path-to-batch>` reads a JSON Lines batch of complex arguments and prints, one line per request in input order, the log-modulus and the phase of w(z).
+The exact value definition, the request format, the argument ranges, the output format, and the accuracy each number has to hit are in /app/spec.md, and there is a sample batch at /app/requests.jsonl you can run it on.
+Node standard library only, the box is offline, and it will be run on other batches from the same ranges, some of them large, so it has to stay accurate across the whole range and not crawl on big inputs.
+Fair warning from the last person who tried: at the biggest arguments the accuracy bar sits below what plain double arithmetic can carry, so the arithmetic itself needs real thought, not just the right formula.

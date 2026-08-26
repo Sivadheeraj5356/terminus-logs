@@ -1,0 +1,10 @@
+{
+  "classes": [
+    {"class_id": "TC7-safety", "queue": 7, "priority": 7, "name": "safety", "deadline_shaving_us": 0},
+    {"class_id": "TC6-control", "queue": 6, "priority": 6, "name": "control", "deadline_shaving_us": 25},
+    {"class_id": "TC5-monitor", "queue": 5, "priority": 5, "name": "monitor", "deadline_shaving_us": 40},
+    {"class_id": "TC4-sync", "queue": 4, "priority": 4, "name": "sync", "deadline_shaving_us": 15},
+    {"class_id": "TC3-bulk", "queue": 3, "priority": 3, "name": "bulk", "deadline_shaving_us": 0},
+    {"class_id": "TC2-diag", "queue": 2, "priority": 2, "name": "diagnostic", "deadline_shaving_us": 10}
+  ]
+}

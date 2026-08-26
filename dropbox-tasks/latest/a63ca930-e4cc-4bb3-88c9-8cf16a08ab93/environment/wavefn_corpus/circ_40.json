@@ -1,0 +1,14 @@
+{
+  "circuit_id": "circ_40",
+  "qubits": 1,
+  "gates": [
+    {
+      "op": "H",
+      "qubit": 0
+    },
+    {
+      "op": "REWIND",
+      "depth": 2
+    }
+  ]
+}

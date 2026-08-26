@@ -1,0 +1,17 @@
+**/*.pyc
+**/.mypy_cache/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.venv/
+**/__pycache__/
+**/build/
+**/dist/
+**/node_modules/
+**/target/
+**/venv/
+*.log
+.env
+.git
+.gitignore
+solution/
+tests/

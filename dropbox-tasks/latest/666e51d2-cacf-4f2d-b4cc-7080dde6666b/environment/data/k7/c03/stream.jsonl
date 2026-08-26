@@ -1,0 +1,3 @@
+{"segment_id":"t0","era":1,"attach_id":"aid_c03_r1_stale","track":11,"kind":"sealed","hard_limit":0}
+{"segment_id":"t1","era":2,"attach_id":"aid_c03_r2","track":11,"kind":"tombstone","hard_limit":16384}
+{"segment_id":"t2","era":2,"attach_id":"aid_c03_r2","track":11,"kind":"commit","hard_limit":16384}

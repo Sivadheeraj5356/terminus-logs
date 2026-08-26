@@ -1,0 +1,23 @@
+Handoff for /app/output/lineage_frontier.json.
+
+Report top level: integer schema_mark from /app/stubs/schema_level.txt; consumers map keyed by every consumer id in /app/data/manifest.json at rebuild time.
+
+Each consumer block exports stale_inputs, rebuild_required, frontier_digest_hex.
+
+stale_inputs — sorted subscribed node ids that need rematerialization after ledger projection and eligibility rules.
+rebuild_required — boolean paired with stale_inputs; true exactly when that list is non-empty, including when digest rows are absent for every listed node.
+frontier_digest_hex — lowercase sha256 hex over eligible stale node finish metadata.
+
+Rebuild through /app/scripts/frontier.sh or /app/launcher/lf_align. Reload /app/cfg/lineage.toml on each run. Manifest rows may set generation_floor when present, including zero.
+
+Digest row keys and per-row JSON field order: /app/eng/constants.py DIGEST_ROW_KEYS. Serialize each stale node's finish row as compact JSON using that key order without reordering keys alphabetically.
+
+Digest body row order: run Kahn forward topological sort on the consumer graph restricted to stale nodes only (dependencies count only when the parent is also stale). Tie-break ready nodes lexicographically when multiple nodes have no remaining stale dependencies. Reverse that forward-topo list for digest rows — downstream stale finish nodes before their stale upstream dependencies. Do not sort stale_inputs alphabetically for digest rows. Example on a fork where stale nodes are B, C, and D with D depending on B and C: forward topo on the stale subgraph yields B, C, D, so digest rows are ordered D, then C, then B — not B, C, D and not D, B, C.
+
+Hash the newline-joined digest rows with no trailing newline after the final row. When stale_inputs is empty, or when no listed stale node has a finish row to serialize, hash the zero-length UTF-8 body. The empty-body frontier_digest_hex is e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.
+
+Reload /app/cfg/lineage.toml from disk on every recheck and every in-process build_report call; do not reuse cached lineage settings across rebuilds.
+
+When several finish events share a node id, the projected latest map keeps the highest-seq finish for that node.
+
+Rebuild probes may reference transient graph, ledger, or consumer paths; restore shipped fixtures afterward.

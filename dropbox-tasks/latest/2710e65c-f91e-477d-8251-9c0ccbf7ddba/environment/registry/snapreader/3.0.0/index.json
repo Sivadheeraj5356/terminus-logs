@@ -1,0 +1,11 @@
+{
+  "conflicts": [
+    {
+      "package": "snapwriter",
+      "range": "=2.5.0"
+    }
+  ],
+  "name": "snapreader",
+  "requires": [],
+  "version": "3.0.0"
+}

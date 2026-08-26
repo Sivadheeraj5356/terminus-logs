@@ -1,0 +1,46 @@
+{
+  "grid": "ridge",
+  "slice_mode": "full",
+  "slice": "ridge_full.bin",
+  "base_cfg": {
+    "root_q": {
+      "kid": "k_root",
+      "mode": "std"
+    },
+    "lim": 8
+  },
+  "overlay": {
+    "lim": 8,
+    "__p": {
+      "y": 2
+    },
+    "x_def": {
+      "kid": "k_evil2"
+    },
+    "root_q": {
+      "mode": "strict"
+    }
+  },
+  "tokens": [
+    {
+      "id": "r01",
+      "kid": "k_b",
+      "alg": "RS256"
+    },
+    {
+      "id": "r02",
+      "kid": "k_a",
+      "alg": "RS256"
+    },
+    {
+      "id": "r03",
+      "kid": "k_d",
+      "alg": "RS256"
+    }
+  ],
+  "meta_remap": {
+    "r01": "r01m",
+    "r03": "r03m"
+  },
+  "expect_focus": "tol"
+}

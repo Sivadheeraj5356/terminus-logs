@@ -1,0 +1,3 @@
+rider_id,pass_id,service_zone,active_from,active_to,status
+R103,P-ALL-103,all,2026-05-15,2026-05-15,active
+R105,P-HARBOR-105,harbor,2026-05-16,2026-05-20,pending

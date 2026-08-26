@@ -1,0 +1,126 @@
+{
+  "budgets": {
+    "C": 11
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p3",
+      "priority": 3,
+      "seq": 1
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 2
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 3
+    },
+    {
+      "op": "finish",
+      "printer": "p3",
+      "seq": 4
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 5
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 6
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "B",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 7
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p3",
+      "priority": 2,
+      "seq": 8
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 9
+    },
+    {
+      "job": "j2",
+      "op": "release",
+      "seq": 10
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 11
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 12
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 13
+    },
+    {
+      "job": "j8",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 14
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 15
+    },
+    {
+      "op": "fault",
+      "printer": "p1",
+      "seq": 16
+    }
+  ],
+  "max_faults": 2,
+  "printers": [
+    "p1",
+    "p2",
+    "p3"
+  ],
+  "spool": "sched_20"
+}

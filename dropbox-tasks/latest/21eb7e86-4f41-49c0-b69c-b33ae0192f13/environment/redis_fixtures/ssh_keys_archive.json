@@ -1,0 +1,4 @@
+{
+  "alice": "ssh-rsa WRONGDESKKEY alice@corp",
+  "bob": "ssh-rsa WRONGDESKKEY bob@corp"
+}

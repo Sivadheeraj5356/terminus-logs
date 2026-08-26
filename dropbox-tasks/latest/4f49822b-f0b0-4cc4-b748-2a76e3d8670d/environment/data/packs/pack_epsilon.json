@@ -1,0 +1,15 @@
+{
+  "pack_id": "pack_epsilon",
+  "profile": "scope-window",
+  "tickets": [
+    {
+      "principal": "acct:alpha",
+      "ticket_id": "grand-beta",
+      "parent_id": "child-beta",
+      "ticket_epoch": 5,
+      "scope_mask": 6,
+      "action_mask": 4,
+      "ticket_hex": "ce4c1f3bb0d86147ca40790a90f45388b6c142e71566605c7c2a251242327815"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# Runtime profile for the evening reconciliation batch.
+
+[limits]
+max_radix = 16
+max_amount_digits = 20

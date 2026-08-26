@@ -1,0 +1,12 @@
+{
+  "name": "alpha",
+  "slots": ["lc0", "lc1"],
+  "churn_seq": 4,
+  "manager_rows": [
+    {"key": "m-alpha-1", "prefix": "10.64.0.0/24", "via": "10.0.0.1"},
+    {"key": "m-alpha-2", "prefix": "10.64.1.0/24", "via": "10.0.0.2"}
+  ],
+  "catch_rows": [
+    {"key": "k-catch-1", "prefix": "0.0.0.0/0", "via": "10.255.0.1"}
+  ]
+}

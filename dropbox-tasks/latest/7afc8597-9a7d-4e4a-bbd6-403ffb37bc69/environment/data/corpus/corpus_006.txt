@@ -1,0 +1,8 @@
+addr 221.86.195.162 hex 0xefc3 token tok_44
+addr 99.68.55.142 hex 0x982e token tok_502
+bird yes gray
+addr 175.72.132.194 hex 0xb895 token tok_429
+cat yes delta cat gray grey
+gamma maybe baz
+addr 59.102.250.108 hex 0x77df token tok_937
+addr 125.153.99.205 hex 0x62f6 token tok_704

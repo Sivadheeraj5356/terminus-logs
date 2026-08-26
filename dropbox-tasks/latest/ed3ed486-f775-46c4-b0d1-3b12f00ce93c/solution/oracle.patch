@@ -1,0 +1,126 @@
+--- a/q_in/admit.rs
++++ b/q_in/admit.rs
+@@ -1,4 +1,4 @@
+ /// Assigns admission metadata for an incoming slot payload.
+-pub fn mesh_k(slot: u32, seq: u64, _payload: &[f32]) -> u64 {
+-    (seq << 32) | (slot as u64)
++pub fn mesh_k(slot: u32, _seq: u64, _payload: &[f32]) -> u64 {
++    (slot as u64) << 32 | (slot as u64 + 1)
+ }
+--- a/q_st/seal.rs
++++ b/q_st/seal.rs
+@@ -39,6 +39,7 @@
+     last_step: u32,
+     wave_offset: u32,
+ ) -> SealMark {
++    let _ = phase;
+     let last_tag = buf.tags.last().copied().unwrap_or(0);
+     let pending_count = if phase == StepPhase::Folding {
+         buf.tags.len()
+@@ -54,11 +55,11 @@
+     fs::create_dir_all(&store.root).ok();
+     let body = serde_json::to_string(&mark).unwrap_or_default();
+     fs::write(store.manifest_path(), body).ok();
+-    if phase == StepPhase::StepReady {
+-        let snap = store.root.join("acc.bin");
+-        let bytes: Vec<u8> = buf.acc.iter().flat_map(|v| v.to_le_bytes()).collect();
+-        fs::write(snap, bytes).ok();
+-    }
++    let snap = store.root.join("acc.bin");
++    let bytes: Vec<u8> = buf.acc.iter().flat_map(|v| v.to_le_bytes()).collect();
++    fs::write(snap, bytes).ok();
++    let tag_bytes: Vec<u8> = buf.tags.iter().flat_map(|v| v.to_le_bytes()).collect();
++    fs::write(store.tags_path(), tag_bytes).ok();
+     mark
+ }
+ 
+--- a/q_st/load.rs
++++ b/q_st/load.rs
+@@ -13,7 +13,8 @@
+             acc.push(f32::from_le_bytes(chunk.try_into().unwrap()));
+         }
+         buf.acc = acc;
+-        let _tags = read_tag_sidecar(store);
++        let tags = read_tag_sidecar(store);
++        buf.tags = tags;
+     }
+     Ok((buf, mark))
+ }
+--- a/q_st/replay.rs
++++ b/q_st/replay.rs
+@@ -11,10 +11,17 @@
+         if !line.starts_with("seal:") {
+             continue;
+         }
+-        let parts: Vec<&str> = line.split(':').collect();
+-        if parts.len() >= 3 {
+-            if let Ok(last_tag) = parts[2].parse::<u64>() {
+-                tags.push(last_tag);
++        let rest = line.strip_prefix("seal:").unwrap_or("");
++        let mut parts = rest.splitn(2, ':');
++        let _step = parts.next();
++        if let Some(tag_csv) = parts.next() {
++            for token in tag_csv.split(',') {
++                if token.is_empty() {
++                    continue;
++                }
++                if let Ok(tag) = token.parse::<u64>() {
++                    tags.push(tag);
++                }
+             }
+         }
+     }
+--- a/runtime/cycle.rs
++++ b/runtime/cycle.rs
+@@ -1,5 +1,5 @@
+ use crate::q_in::PendingLane;
+-use crate::q_st::{hydrate_tags, read_manifest, SealMark, Store};
++use crate::q_st::{read_manifest, read_tag_sidecar, SealMark, Store};
+ 
+ #[derive(Clone, Debug)]
+ pub struct CyclePlan {
+@@ -21,17 +21,15 @@
+         pending_count: 0,
+         wave_offset: 0,
+     });
+-    let mut replay: Vec<u64> = (0..mark.pending_count as u64)
+-        .map(|idx| mark.last_tag.wrapping_sub(idx))
+-        .collect();
+-    replay.sort_unstable();
++    let mut replay = read_tag_sidecar(store);
+     if replay.is_empty() {
+-        replay = hydrate_tags(store);
++        replay = crate::q_st::hydrate_tags(store);
+     }
+     for item in &pending.items {
+-        replay.push(item.slot as u64);
++        if !replay.contains(&item.tag) {
++            replay.push(item.tag);
++        }
+     }
+-    replay.sort_unstable();
+     CyclePlan {
+         resume_step: mark.last_step,
+         wave_offset: mark.wave_offset,
+--- a/runtime/driver.rs
++++ b/runtime/driver.rs
+@@ -137,7 +137,9 @@
+ }
+ 
+ fn step_fp(step_index: u32, tags: &[u64], _mode: &str) -> String {
+-    let csv = tags
++    let mut ordered: Vec<u64> = tags.to_vec();
++    ordered.sort_unstable();
++    let csv = ordered
+         .iter()
+         .map(|tag| tag.to_string())
+         .collect::<Vec<_>>()
+@@ -486,6 +488,8 @@
+                             completed_steps as u32,
+                             0,
+                         );
++                        sink.write_seal(seq, slot, tag, &fp, completed_steps as u32)?;
++                        append_wal_seal(&mut wal, out, &mark, &buf.tags)?;
+                         write_manifest(&vault, &mark)?;
+                         completed_steps += 1;
+                         buf.reset_window();

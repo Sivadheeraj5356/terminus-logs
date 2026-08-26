@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-40f630d25224": {
+      "alg": "ed25519",
+      "public": "c277b4b6221b1d07747ff251c55b5698eeff4e3926281b1b58b375a3b691c096"
+    }
+  },
+  "message": {
+    "authority": "svc3.example.com",
+    "body": "{\"v\": 78}TAMPER",
+    "headers": {
+      "content-digest": "sha-256=:gmgAI0hW2th5iACylVO/ug95AjT3nRPteIV5/eAGkkc=:",
+      "content-type": "application/json",
+      "signature": "sig1=:aslstff7gZWuBLw5VjhT2jmA4UuGCUBe8MWE/2+QGKPKsh+h8X/gmQViZVH29xhlwvuKxV6N8ea2RPbrF2fhDA==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\" \"content-digest\");created=1700000018;expires=1700000378;keyid=\"k-40f630d25224\";alg=\"ed25519\""
+    },
+    "method": "PUT",
+    "path": "/api/v0/resource/78",
+    "query": "page=78&sort=asc"
+  },
+  "now": 1700000078
+}

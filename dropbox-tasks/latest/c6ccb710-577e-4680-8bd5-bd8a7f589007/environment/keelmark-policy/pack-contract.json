@@ -1,0 +1,52 @@
+{
+  "contract_revision": "km-contract-7",
+  "audit_stamp": "km-contract-audit-2025-07",
+  "required_edition_abi": "9.0-cabal-3.4",
+  "warn_kN": 400.0,
+  "critical_kN": 600.0,
+  "min_alert_index": 50,
+  "audit_window": {
+    "start": "2025-06-01",
+    "end": "2025-06-12"
+  },
+  "zone_overrides": {
+    "basin-g": {
+      "warn_kN": 415.0
+    }
+  },
+  "class_gains": {
+    "primary": 1.06,
+    "heavy": 0.94,
+    "trial": 1.0,
+    "spare": 1.1
+  },
+  "monitored_blocks": [
+    "alpha-keel",
+    "bravo-warn",
+    "charlie-crit",
+    "delta-esc",
+    "echo-suppress",
+    "foxtrot-half",
+    "golf-mismatch",
+    "hotel-empty",
+    "india-pad",
+    "juliet-sort",
+    "kilo-sort",
+    "lima-noise",
+    "mike-peers",
+    "november-retract",
+    "oscar-alert",
+    "papa-edge",
+    "quebec-bound",
+    "romeo-ghost",
+    "romeo-overlay",
+    "sierra-abi-bait",
+    "tango-strict",
+    "uniform-overlay",
+    "victor-thresh",
+    "whiskey-loop",
+    "xray-loop",
+    "yankee-self",
+    "zulu-chain"
+  ]
+}

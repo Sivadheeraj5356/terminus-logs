@@ -1,0 +1,4 @@
+# partition_id=part-0003 cursor_start=s=18;b=boot-b cursor_end=s=25;b=boot-b boot_id=boot-b
+2026-07-14T02:02:11Z rotlogd[301]: replayed beta tail after reload
+2026-07-14T02:17:43Z rotlogd[301]: wrote audit candidate gamma
+2026-07-14T02:22:08Z rotlogd[301]: rollback requested for gamma window

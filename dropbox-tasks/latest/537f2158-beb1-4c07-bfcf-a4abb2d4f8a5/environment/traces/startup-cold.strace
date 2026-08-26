@@ -1,0 +1,86 @@
+# Captured 2024-09-03 during cold-start smoke test on prod-render-07
+# strace -f -o startup-cold.strace -e trace=all -p $(pgrep -x launcher)
+execve("/usr/local/bin/finchrender-coordinator", ["/usr/local/bin/finchrender-coordinator", "--config", "/etc/finchrender/coordinator.yaml", "--system", "/etc/finchrender/system.toml"], ["FINCHRENDER_TILE_WORKERS=8", "FINCHRENDER_FRAME_BUFFER_MB=512", "FINCHRENDER_SOCKET_TIMEOUT=30", "FINCHRENDER_LOG_LEVEL=info", "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", "HOME=/var/lib/finchrender", "USER=root", "LOGNAME=root"]) = 0
+brk(NULL)                               = 0x55f2a3c000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffce2f3f990) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9d42e000
+access("/etc/ld.so.preload", R_OK)     = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=37820, ...}) = 0
+mmap(NULL, 37820, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9d42d000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=163024, ...}) = 0
+mmap(NULL, 163024, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9d428000
+mprotect(0x7f9d429000, 126976, PROT_NONE) = 0
+mmap(0x7f9d429000, 106496, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f9d429000
+mmap(0x7f9d443000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b000) = 0x7f9d443000
+mmap(0x7f9d447000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e000) = 0x7f9d447000
+mmap(0x7f9d449000, 13392, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9d449000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\37\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029592, ...}) = 0
+mmap(NULL, 2029592, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9d226000
+mmap(0x7f9d248000, 1527808, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x22000) = 0x7f9d248000
+mmap(0x7f9d3c0000, 311296, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19a000) = 0x7f9d3c0000
+mmap(0x7f9d40d000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e6000) = 0x7f9d40d000
+mmap(0x7f9d413000, 31832, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9d413000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9d223000
+arch_prctl(ARCH_SET_FS, 0x7f9d223840)  = 0
+set_tid_address(0x7f9d223b10)           = 4821
+set_robust_list(0x7f9d223b20, 24)       = 0
+rseq(0x7f9d223f60, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f9d40d000, 16384, PROT_READ) = 0
+mprotect(0x7f9d447000, 4096, PROT_READ) = 0
+mprotect(0x55f2804000, 4096, PROT_READ) = 0
+mprotect(0x7f9d44d000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f9d42d000, 37820)             = 0
+openat(AT_FDCWD, "/etc/finchrender/coordinator.yaml", O_RDONLY|O_CLOEXEC) = 3
+read(3, "service:\n  user: finchrender\n  g"..., 4096) = 421
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/finchrender/system.toml", O_RDONLY|O_CLOEXEC) = 3
+read(3, "[system]\ntile_workers = 8\nframe_"..., 4096) = 234
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1987, ...}) = 0
+lseek(3, 0, SEEK_SET)                  = 0
+read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1987
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/group", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=867, ...}) = 0
+read(3, "root:x:0:\ndaemon:x:1:\n...\nrender"..., 4096) = 867
+close(3)                                = 0
+capget({version=_LINUX_CAPABILITY_VERSION_3, pid=0}, NULL) = 0
+capget({version=_LINUX_CAPABILITY_VERSION_3, pid=0}, {effective=CAP_CHOWN|CAP_DAC_OVERRIDE|CAP_SETGID|CAP_SETUID|CAP_SYS_NICE|CAP_NET_BIND_SERVICE, permitted=CAP_CHOWN|CAP_DAC_OVERRIDE|CAP_SETGID|CAP_SETUID|CAP_SYS_NICE|CAP_NET_BIND_SERVICE, inheritable=0x0}) = 0
+setgid(2001)                            = 0
+setuid(2771)                            = 0
+capset({version=_LINUX_CAPABILITY_VERSION_3, pid=0}, {effective=CAP_SYS_NICE|CAP_NET_BIND_SERVICE, permitted=CAP_SYS_NICE|CAP_NET_BIND_SERVICE, inheritable=0x0}) = 0
+prctl(PR_SET_SECUREBITS, SECBIT_NOROOT|SECBIT_NOROOT_LOCKED, 0, 0, 0) = 0
+prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_SYS_NICE, 0, 0) = 0
+prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, CAP_NET_BIND_SERVICE, 0, 0) = 0
+getuid()                                = 2771
+getgid()                                = 2001
+openat(AT_FDCWD, "/proc/sys/kernel/shmmax", O_RDONLY) = 3
+read(3, "33554432\n", 64)              = 9
+close(3)                                = 0
+socket(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC, 0) = 5
+bind(5, {sa_family=AF_UNIX, sun_path="/run/finchrender/coordinator.sock"}, 48) = 0
+listen(5, 128)                          = 0
+openat(AT_FDCWD, "/dev/dri/renderD128", O_RDWR|O_CLOEXEC) = 6
+close(6)                                = 0
+openat(AT_FDCWD, "/sys/class/drm", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 6
+getdents64(6, /* 8 entries */, 32768)   = 232
+close(6)                                = 0
+openat(AT_FDCWD, "/var/cache/finchrender/tiles", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 6
+openat(AT_FDCWD, "/var/cache/finchrender/frames", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 7
+openat(AT_FDCWD, "/var/cache/finchrender/shaders", O_RDONLY|O_DIRECTORY|O_CLOEXEC) = 8
+epoll_create1(EPOLL_CLOEXEC)            = 9
+epoll_ctl(9, EPOLL_CTL_ADD, 5, {events=EPOLLIN, data={u32=5, u64=5}}) = 0
+write(1, "[INFO] finchrender-coordinator s"..., 64) = 64
+rt_sigaction(SIGTERM, {sa_handler=0x55f28012a0, sa_flags=SA_RESTART, sa_mask=[]}, NULL, 8) = 0
+rt_sigaction(SIGHUP, {sa_handler=0x55f28015f0, sa_flags=SA_RESTART, sa_mask=[]}, NULL, 8) = 0
+epoll_wait(9, [], 1, -1)               = 0

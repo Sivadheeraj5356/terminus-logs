@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0009
+signal: SIGSEGV (fault)
+#0  0x5555301dde4a in ec_p256_verify (a=0x555566c8a6d7) at vaultseal.c:280
+#1  0x55555e0ed486 in sa (a=0x5555d147f4ca) at vaultseal.c:300
+#2  0x55553373a176 in sb (a=0x5555a183fe73) at vaultseal.c:307
+#3  0x5555e9f6ea6e in main (a=0x555582960fe2) at vaultseal.c:512

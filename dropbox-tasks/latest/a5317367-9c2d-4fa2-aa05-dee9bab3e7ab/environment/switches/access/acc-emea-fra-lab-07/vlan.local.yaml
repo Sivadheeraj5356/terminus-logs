@@ -1,0 +1,6 @@
+hostname: acc-emea-fra-lab-07
+migration_state: legacy
+canonical_vlan: 2038
+configured_vlan: 139
+legacy_vlan: 139
+duplicate_vlan_conflict: false

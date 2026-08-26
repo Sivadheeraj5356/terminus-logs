@@ -1,0 +1,11 @@
+#!/usr/bin/env lua5.1
+-- Entry point for atlas-promote CLI.
+
+package.path = "/usr/local/share/lua/5.1/?.lua;"
+    .. "/usr/local/share/lua/5.1/?/init.lua;"
+    .. "/usr/local/lib/lua/5.1/?.so;"
+    .. "/app/src/?.lua;"
+    .. package.path
+
+local cli = require("cli")
+os.exit(cli.main(arg))

@@ -1,0 +1,9 @@
+# Cryptographic witness-MAC / SIEM forensic chain-of-custody attestation contract
+contract_revision: 2026-06-audit-chain-v4
+finish_state: complete
+schema_version: 1
+pack_integrity_sha256: c7a71ed33fea60623fea78536186be98daa4e01e9e108230c5bf3cb831896b26
+min_scenario_count: 20
+min_total_events: 35
+exact_total_events: 69
+max_compact_depth: 3

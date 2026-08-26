@@ -1,0 +1,28 @@
+{
+  "image_tag": "beta/svc:rel",
+  "targets_gen": 2,
+  "expiry": 1893456000,
+  "proxy_required": 1,
+  "walk_mode": 1,
+  "pull_mode": 1,
+  "admission_snap": "node",
+  "replica_flip": false,
+  "steps": [
+    {
+      "idx": 0,
+      "label": "inspect",
+      "mirror_tier": 2,
+      "targets_gen": 1,
+      "expiry": 1893455900,
+      "admission_snap": "inspect"
+    },
+    {
+      "idx": 1,
+      "label": "steady",
+      "mirror_tier": 2,
+      "targets_gen": 2,
+      "expiry": 1893456000,
+      "admission_snap": "node"
+    }
+  ]
+}

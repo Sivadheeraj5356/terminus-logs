@@ -1,0 +1,27 @@
+{
+  "case_id": "granite-short-baseline-42",
+  "protons_per_spill": 1.15,
+  "spill_count": 5,
+  "cooldown_reserve_mj": 4.5,
+  "max_window_heat_mj": 64.0,
+  "max_horn_temp_k": 338.0,
+  "max_current_delta_ka": 38.0,
+  "max_shield_dose": 37.0,
+  "horns": [
+    {"id": "H1", "base_temp_k": 292.0, "thermal_capacity_mj_per_k": 7.8, "cool_rate_k": 2.2, "current_limit_ka": 245.0},
+    {"id": "H2", "base_temp_k": 291.0, "thermal_capacity_mj_per_k": 8.4, "cool_rate_k": 1.9, "current_limit_ka": 220.0},
+    {"id": "H3", "base_temp_k": 293.0, "thermal_capacity_mj_per_k": 7.1, "cool_rate_k": 2.0, "current_limit_ka": 205.0}
+  ],
+  "bins": [
+    {"id": "low", "response": 0.92, "min_flux": 26.0},
+    {"id": "mid", "response": 1.00, "min_flux": 30.0},
+    {"id": "high", "response": 0.86, "min_flux": 19.0}
+  ],
+  "profiles": [
+    {"id": "idle", "currents_ka": {"H1": 0.0, "H2": 0.0, "H3": 0.0}, "flux": {"low": 0.0, "mid": 0.0, "high": 0.0}, "heat_mj": {"H1": 0.0, "H2": 0.0, "H3": 0.0}, "shield_dose": 0.0},
+    {"id": "wide", "currents_ka": {"H1": 178.0, "H2": 154.0, "H3": 121.0}, "flux": {"low": 7.8, "mid": 5.2, "high": 2.5}, "heat_mj": {"H1": 18.0, "H2": 14.5, "H3": 10.0}, "shield_dose": 5.2},
+    {"id": "focus", "currents_ka": {"H1": 210.0, "H2": 185.0, "H3": 160.0}, "flux": {"low": 4.5, "mid": 8.1, "high": 4.4}, "heat_mj": {"H1": 21.0, "H2": 17.0, "H3": 13.0}, "shield_dose": 6.4},
+    {"id": "hard", "currents_ka": {"H1": 232.0, "H2": 202.0, "H3": 188.0}, "flux": {"low": 2.2, "mid": 6.4, "high": 7.6}, "heat_mj": {"H1": 24.0, "H2": 19.0, "H3": 16.5}, "shield_dose": 7.7},
+    {"id": "trim", "currents_ka": {"H1": 190.0, "H2": 172.0, "H3": 142.0}, "flux": {"low": 5.4, "mid": 6.7, "high": 3.8}, "heat_mj": {"H1": 19.0, "H2": 15.5, "H3": 11.5}, "shield_dose": 5.8}
+  ]
+}

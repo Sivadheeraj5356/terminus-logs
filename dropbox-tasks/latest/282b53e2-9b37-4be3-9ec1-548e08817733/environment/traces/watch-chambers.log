@@ -1,0 +1,6 @@
+Watch ledger note, capture batch nine.
+=bkpt={number="8",room="heap",kind="watch",requires="seal",primed="false"}
+=bkpt={primed="true",kind="watch",room="heap",number="8b"}
+=bkpt={number="9",room="canary",kind="watch",requires="seal",primed="false"}
+The canary room is watched, requires a seal, and was not primed.
+The vault room appears in the same capture only after key priming, so it is not an entry hazard.

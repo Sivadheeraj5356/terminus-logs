@@ -1,0 +1,55 @@
+# Task configuration schema version
+version = "2.0"
+
+# Task Proposal Pipeline (copy fields from environment/task_proposal.md into Snorkel platform before submit)
+[proposal]
+idea_summary = """
+Finance rejected the March commitment chargeback run from /app/bin/commitment-chargeback. The agent repairs the Go carrydown_engine billing pipeline—rate scope first-match, half-open pledge windows, per-event commitment carrydown burn, config-driven discount precedence, largest-remainder pool splits, and SHA-256 ledger digest—then writes only /app/output/ledger.json from locked /app/pledge_inputs and /app/billing_contracts. Domain focus is commitment pledge carrydown chargeback, not minimum-spend trueup, ingest backfill, or cloud metering settlement.
+"""
+idea_category = "data-processing"
+associated_skills = [
+    "go-multi-file-billing-repair",
+    "half-open-rate-scope-precedence",
+    "commitment-carrydown-burn",
+    "largest-remainder-pool-allocation",
+    "deterministic-ledger-digest",
+    "offline-stdlib-go-build",
+]
+proposal_tags = [
+    "chargeback",
+    "commitment-carrydown",
+    "billing-repair",
+    "go",
+    "determinism",
+    "data-processing",
+]
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+category = "data-processing"
+subcategories = ["tool_specific"]
+difficulty = "hard"
+codebase_size = "small"
+number_of_milestones = 0
+languages = ["go"]
+tags = ["chargeback", "billing", "commitment", "carrydown", "determinism", "go"]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 480
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 600.0
+docker_flags = []
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+gpu_types = []
+allow_internet = false
+workdir = "/app"

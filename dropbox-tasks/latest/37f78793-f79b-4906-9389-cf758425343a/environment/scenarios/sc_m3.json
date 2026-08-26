@@ -1,0 +1,12 @@
+{
+  "combo": true,
+  "codename": "sc_m3",
+  "ev_bin": "sc_m3.evb",
+  "band_lo": 10,
+  "band_hi": 240,
+  "mag_seed": 19,
+  "dur_seed": 27,
+  "combo_depth": 5,
+  "entity_a": 8,
+  "entity_b": 18
+}

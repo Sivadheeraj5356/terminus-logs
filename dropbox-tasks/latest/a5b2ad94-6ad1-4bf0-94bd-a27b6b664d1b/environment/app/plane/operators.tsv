@@ -1,0 +1,7 @@
+eharlow	curator	idx-sys;idx-app	w114
+pnoor	curator	idx-web;idx-svc;idx-trace;idx-tmp	w207
+rknott	curator	idx-app;idx-web	w093
+jflint	curator	-	w341
+tbray	operator	rx-app;rx-web	k512
+mvoss	operator	rx-audit;rx-web	k618
+dwyatt	operator	rx-app	k733

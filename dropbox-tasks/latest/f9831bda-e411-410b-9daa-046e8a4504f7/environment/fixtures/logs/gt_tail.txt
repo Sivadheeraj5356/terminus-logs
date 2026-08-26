@@ -1,0 +1,2 @@
+resolution tail vendor v20260101 sum v20260315 flag 1 picked unknown
+cache tail slot example.com/alpha|v1.2.1 gen 2

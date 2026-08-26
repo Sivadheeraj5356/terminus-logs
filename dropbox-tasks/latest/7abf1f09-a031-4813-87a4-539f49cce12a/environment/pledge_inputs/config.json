@@ -1,0 +1,15 @@
+{
+  "billing_period": {
+    "period_id": "2027-03",
+    "start_inclusive": "2027-03-01T00:00:00Z",
+    "end_exclusive": "2027-04-01T00:00:00Z"
+  },
+  "currency": "USD",
+  "micro_cents_per_usd": 1000000,
+  "precedence": ["credit", "commitment", "on_demand"],
+  "remainder_tie_break": "tenant_id_asc",
+  "ledger_sort": ["total_charge_microcents_desc", "tenant_id_asc"],
+  "line_item_order": ["compute", "storage", "egress"],
+  "digest_algorithm": "sha256",
+  "schema_version": 3
+}

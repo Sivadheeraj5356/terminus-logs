@@ -1,0 +1,9 @@
+{
+  "court_id": "rink-probe-b",
+  "lanes": [
+    {"id": "P1", "band": "slow", "mutex_group": "X"},
+    {"id": "P2", "band": "slow", "mutex_group": "Y"},
+    {"id": "P3", "band": "medium", "mutex_group": "X"},
+    {"id": "P4", "band": "fast", "mutex_group": "Z"}
+  ]
+}

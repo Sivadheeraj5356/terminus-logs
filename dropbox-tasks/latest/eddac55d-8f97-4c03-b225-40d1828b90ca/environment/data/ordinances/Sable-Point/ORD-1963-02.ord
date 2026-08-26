@@ -1,0 +1,9 @@
+ordinance: ORD-1963-02
+jurisdiction: Sable-Point
+enacted: 1963-11-21
+effective: 1964-01-01T00:00:00 universal
+standard-offset: basis ORD-1955-01
+standard-label: PST
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label PDT
+  end: Oct lastSun 03:00:00 standard

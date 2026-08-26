@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-104
+ISSUER: REGULATOR
+ISSUED: 1767132000
+EFFECTIVE: 1767139200
+
+Members are reminded that figures quoted in the annexes of earlier circulars are indicative only and carry no operative force.
+
+DIRECTIVES:
+BANDS ALL 0:11 120:21 240:29
+END DIRECTIVES
+
+Revenue protection staff report that estimate-sourced reads remain the most common vector for class understatement.

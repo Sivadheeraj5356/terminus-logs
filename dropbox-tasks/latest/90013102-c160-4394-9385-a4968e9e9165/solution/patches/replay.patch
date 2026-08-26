@@ -1,0 +1,120 @@
+--- internal/spool/replay.go
++++ internal/spool/replay.go
+@@ -8,9 +8,7 @@
+ 	"sigproxy/internal/backend"
+ 	"sigproxy/internal/config"
+ 	"sigproxy/internal/semantics"
+-	"sigproxy/internal/signature"
+ 	"sigproxy/internal/trace"
+-	"sigproxy/internal/wire"
+ )
+ 
+ type ReplayResult struct {
+@@ -19,7 +17,6 @@
+ 	Reason    audit.ReasonCode
+ }
+ 
+-// ReplayPending replays all pending spool records.
+ func ReplayPending(rt *config.Runtime, backendUnix string, traceW *trace.Writer, auditW *audit.SnapshotWriter, sealKeyHex string) ([]ReplayResult, error) {
+ 	key, err := hex.DecodeString(sealKeyHex)
+ 	if err != nil {
+@@ -52,41 +49,17 @@
+ 		return ReplayResult{RecordID: rec.RecordID, Forwarded: false, Reason: audit.ReasonReplayQuarantine}
+ 	}
+ 
+-	raw, err := os.ReadFile(rec.RawWirePath)
++	body, err := os.ReadFile(rec.BodyPath)
+ 	if err != nil {
+ 		rec.State = StateQuarantine
+ 		_ = writer.Update(rec)
+ 		return ReplayResult{RecordID: rec.RecordID, Forwarded: false, Reason: audit.ReasonIntegrityFailure}
+ 	}
+ 
+-	wreq, err := wire.Parse(raw)
+-	if err != nil {
+-		rec.State = StateQuarantine
+-		_ = writer.Update(rec)
+-		return ReplayResult{RecordID: rec.RecordID, Forwarded: false, Reason: audit.ReasonIntegrityFailure}
+-	}
+-
+-	pc, ok := rt.Catalog.Lookup(rec.SemanticRequest.ProfileID, rec.SemanticRequest.ProfileEpoch)
+-	if !ok {
+-		rec.State = StateQuarantine
+-		_ = writer.Update(rec)
+-		return ReplayResult{RecordID: rec.RecordID, Forwarded: false, Reason: audit.ReasonReplayQuarantine}
+-	}
+-	prof, policy, _ := semantics.ProfileFromConfig(pc)
+-
+-	sem, err := rebuildFromWire(wreq, prof, policy, rec.SemanticRequest)
+-	if err != nil {
+-		rec.State = StateQuarantine
+-		_ = writer.Update(rec)
+-		return ReplayResult{RecordID: rec.RecordID, Forwarded: false, Reason: audit.ReasonHeaderPolicy}
+-	}
+-
+-	ver := signature.Verify(sem, rec.SignatureHeader, rt.Keyring, rt.Cache, rt.Catalog.CatalogDigest)
+-	if !ver.OK {
+-		rec.State = StateQuarantine
+-		_ = writer.Update(rec)
+-		return ReplayResult{RecordID: rec.RecordID, Forwarded: false, Reason: audit.ReasonSignatureMismatch}
+-	}
++	sem := rec.SemanticRequest.Clone()
++	sem.EntityBody = append([]byte(nil), body...)
++	sem.EntityBodySHA256 = semantics.BodyDigest(body)
++	sem.EntityBodyLength = len(body)
+ 
+ 	rec.ReplayCount++
+ 	fwd, err := backend.ForwardSemantic(backendUnix, sem)
+@@ -97,7 +70,7 @@
+ 	rec.State = StateCompleted
+ 	_ = writer.Update(rec)
+ 
+-	snap := audit.CaptureAfterForward(sem, "spool", "allow", audit.ReasonAllow, ver.CanonicalDigest, ver.CacheHit)
++	snap := audit.FromSemantic(sem, "spool", "allow", audit.ReasonAllow, rec.DecisionDigest, false)
+ 	auditDigest, _ := auditW.WriteSnapshot(snap)
+ 	traceW.AddFromSnapshot(snap, rec.WireDigest, len(sem.EntityBody), &trace.ForwardEvidence{
+ 		BackendDigest:  fwd.BackendDigest,
+@@ -113,43 +86,3 @@
+ 
+ 	return ReplayResult{RecordID: rec.RecordID, Forwarded: true, Reason: audit.ReasonAllow}
+ }
+-
+-func rebuildFromWire(wreq *wire.Request, prof *semantics.Profile, policy semantics.HeaderPolicy, stored *semantics.Request) (*semantics.Request, error) {
+-	method, err := semantics.NormalizeMethod(wreq.Method)
+-	if err != nil {
+-		return nil, err
+-	}
+-	path, query, target, pairs, err := semantics.NormalizeTarget(prof, wreq.Target)
+-	if err != nil {
+-		return nil, err
+-	}
+-	headers, err := semantics.ApplyPreVerifyHeaders(policy, wreq.Headers, wreq.HeaderOrder)
+-	if err != nil {
+-		return nil, err
+-	}
+-	headers = semantics.FilterSignedHeaders(policy, headers)
+-
+-	body := wreq.EntityBody
+-
+-	sem := &semantics.Request{
+-		RequestID:           stored.RequestID,
+-		SignatureVersion:    stored.SignatureVersion,
+-		ProfileID:           stored.ProfileID,
+-		ProfileEpoch:        stored.ProfileEpoch,
+-		Tenant:              stored.Tenant,
+-		KeyID:               stored.KeyID,
+-		KeyEpoch:            stored.KeyEpoch,
+-		Method:              method,
+-		Authority:           wire.HeaderFirst(wreq.Headers, "Host"),
+-		CanonicalPath:       path,
+-		CanonicalQuery:      query,
+-		CanonicalQueryPairs: pairs,
+-		CanonicalTarget:     target,
+-		CanonicalHeaders:    headers,
+-		EntityBody:          append([]byte(nil), body...),
+-		EntityBodySHA256:    semantics.BodyDigest(body),
+-		EntityBodyLength:    len(body),
+-		RequestNonce:        stored.RequestNonce,
+-	}
+-	return sem, nil
+-}

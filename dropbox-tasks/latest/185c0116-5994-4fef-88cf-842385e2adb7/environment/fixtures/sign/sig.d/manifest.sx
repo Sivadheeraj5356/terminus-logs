@@ -1,0 +1,4 @@
+# counter-sign DAG: name|file|parent_or_-
+core|core.sx|-
+ring|ring.sx|core
+deep|deep.sx|-

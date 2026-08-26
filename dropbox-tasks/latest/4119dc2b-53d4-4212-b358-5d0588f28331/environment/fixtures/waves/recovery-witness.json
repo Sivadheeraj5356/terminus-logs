@@ -1,0 +1,9 @@
+{
+  "live_digest": "54a71c033f271ac3",
+  "replay_digest": "4ff821994cfc2c07",
+  "probes": {
+    "ledger_gap": "12",
+    "stale_token_count": "1",
+    "escalation_delta": "0"
+  }
+}

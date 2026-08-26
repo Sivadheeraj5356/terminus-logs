@@ -1,0 +1,276 @@
+{
+  "session_id": "session_06",
+  "rng_seed": 1,
+  "pity_threshold": 50,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 3,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 4,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 6,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 7,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 8,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 9,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 10,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 11,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 12,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 13,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 14,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 15,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 16,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 17,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 18,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 19,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 20,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 21,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 22,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 23,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 24,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 25,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 26,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 27,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 28,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 29,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 30,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 31,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 32,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 33,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 34,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 35,
+      "player_id": "d1",
+      "roll_value": 0.1,
+      "item_id": "coin",
+      "tier": "common"
+    }
+  ]
+}

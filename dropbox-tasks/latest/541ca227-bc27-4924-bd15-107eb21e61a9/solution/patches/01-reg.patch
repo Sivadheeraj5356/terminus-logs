@@ -1,0 +1,69 @@
+--- reg/m7_apply.go
++++ reg/m7_apply.go
+@@ -7,31 +7,53 @@
+ }
+ 
+ func reconcile_u(cur []RowRec, want []RowRec, tags map[string]uint8) ([]RowRec, error) {
+-	kept := make([]RowRec, 0, len(cur))
++	out := make([]RowRec, 0, len(cur)+len(want))
+ 	for _, r := range cur {
+ 		cls := tags[r.Key]
+ 		if cls == 0 {
+ 			cls = r.Class
+ 		}
+-		if cls == ClassCatch {
+-			kept = append(kept, r)
++		if cls == ClassInject {
++			out = append(out, r)
+ 		}
+ 	}
+-	wantByKey := map[string]RowRec{}
++	wantCatch := map[string]RowRec{}
++	var wantDyn []RowRec
+ 	for _, w := range want {
+-		wantByKey[w.Key] = w
++		cls := w.Class
++		if cls == 0 {
++			cls = ClassDyn
++		}
++		switch cls {
++		case ClassCatch:
++			row := w
++			row.Class = ClassCatch
++			wantCatch[row.Key] = row
++		default:
++			row := w
++			row.Class = ClassDyn
++			wantDyn = append(wantDyn, row)
++		}
+ 	}
+-	for _, w := range want {
+-		kept = append(kept, w)
++	for _, r := range cur {
++		if r.Class == ClassCatch {
++			if _, ok := wantCatch[r.Key]; ok {
++				continue
++			}
++			out = append(out, r)
++		}
++	}
++	for _, row := range wantCatch {
++		out = append(out, row)
+ 	}
+-	sort.Slice(kept, func(i, j int) bool {
+-		if kept[i].Prefix != kept[j].Prefix {
+-			return kept[i].Prefix < kept[j].Prefix
++	out = append(out, wantDyn...)
++	sort.Slice(out, func(i, j int) bool {
++		if out[i].Prefix != out[j].Prefix {
++			return out[i].Prefix < out[j].Prefix
+ 		}
+-		return kept[i].Via < kept[j].Via
++		return out[i].Via < out[j].Via
+ 	})
+-	_ = wantByKey
+-	return dedupeKeys(kept), nil
++	return dedupeKeys(out), nil
+ }
+ 
+ func dedupeKeys(rows []RowRec) []RowRec {

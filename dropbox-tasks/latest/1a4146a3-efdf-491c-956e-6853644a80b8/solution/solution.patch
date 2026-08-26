@@ -1,0 +1,322 @@
+diff -ruN a/lib/zone_publisher/app.rb b/lib/zone_publisher/app.rb
+--- a/lib/zone_publisher/app.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/app.rb	2026-07-08 20:16:13
+@@ -33,8 +33,6 @@
+         return 2
+       end
+ 
+-      Io::AtomicWriter.write(paths.report, "{\n  \"partial\": true\n}\n")
+-
+       begin
+         zone_rrs = Records::ZoneFile.load(paths.zone)
+         changes = Records::Journal.load(paths.journal)
+@@ -100,7 +98,6 @@
+ 
+       body = Report::CanonicalJson.dump(report)
+       Io::AtomicWriter.write(paths.report, body)
+-      puts "zone-publisher: report written"
+       _ = Decoy::AuditBanner.render(zone, changes.length)
+       blocked.empty? ? 0 : 1
+     end
+diff -ruN a/lib/zone_publisher/dns/serial.rb b/lib/zone_publisher/dns/serial.rb
+--- a/lib/zone_publisher/dns/serial.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/dns/serial.rb	2026-07-08 20:16:13
+@@ -3,18 +3,25 @@
+ module ZonePublisher
+   module Dns
+     module Serial
++      MOD = 2**32
+       MAX_STEP = 2_147_483_647
+ 
+       module_function
+ 
+       def parse(value)
+-        Integer(value)
++        Integer(value) % MOD
+       end
+ 
++      def serial_gt?(left, right)
++        a = parse(left)
++        b = parse(right)
++        return false if a == b
++
++        ((a - b) % MOD).between?(1, MAX_STEP)
++      end
++
+       def advanced?(original, candidate)
+-        c = parse(candidate)
+-        o = parse(original)
+-        (c > o) && ((c - o) <= MAX_STEP)
++        serial_gt?(candidate, original)
+       end
+     end
+   end
+diff -ruN a/lib/zone_publisher/dns/txt.rb b/lib/zone_publisher/dns/txt.rb
+--- a/lib/zone_publisher/dns/txt.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/dns/txt.rb	2026-07-08 20:16:13
+@@ -6,7 +6,43 @@
+       module_function
+ 
+       def canonicalize(rdata)
+-        rdata.to_s.gsub('"', "").gsub(/\s+/, " ").strip
++        s = rdata.to_s
++        out = +""
++        i = 0
++        pending_space = false
++        started = false
++        while i < s.length
++          ch = s[i]
++          if ch == '"'
++            out << " " if pending_space && started
++            pending_space = false
++            out << '"'
++            i += 1
++            while i < s.length
++              c2 = s[i]
++              if c2 == "\\" && i + 1 < s.length
++                out << c2
++                out << s[i + 1]
++                i += 2
++                next
++              end
++              out << c2
++              i += 1
++              break if c2 == '"'
++            end
++            started = true
++          elsif ch =~ /[[:space:]]/
++            pending_space = true
++            i += 1
++          else
++            out << " " if pending_space && started
++            pending_space = false
++            out << ch
++            started = true
++            i += 1
++          end
++        end
++        out
+       end
+ 
+       def canonical?(rdata)
+diff -ruN a/lib/zone_publisher/policy/cname_policy.rb b/lib/zone_publisher/policy/cname_policy.rb
+--- a/lib/zone_publisher/policy/cname_policy.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/policy/cname_policy.rb	2026-07-08 20:16:13
+@@ -1,6 +1,7 @@
+ # frozen_string_literal: true
+ 
+ require "zone_publisher/dns/name"
++require "zone_publisher/records/rr"
+ require "zone_publisher/report/evidence"
+ require "zone_publisher/report/model"
+ 
+@@ -14,7 +15,7 @@
+         by_owner = records.group_by { |rr| rr.owner.downcase }
+         by_owner.each do |owner, rrs|
+           types = rrs.map(&:type).uniq
+-          if Dns::Name.equal?(owner, zone) && types.include?("CNAME") && !types.include?("SOA")
++          if Dns::Name.equal?(owner, zone) && types.include?("CNAME")
+             findings << Report::Finding.new(
+               zone: zone, owner: owner, record_type: "CNAME", code: "APEX_CNAME",
+               severity: "blocking", evidence: Report::Evidence.for_code("APEX_CNAME")
+@@ -23,7 +24,7 @@
+           next unless types.include?("CNAME")
+ 
+           others = types - ["CNAME"]
+-          conflict = others - %w[MX TXT CAA RRSIG NSEC SOA NS]
++          conflict = others - Records::DNSSEC_SIDE
+           next if conflict.empty?
+ 
+           findings << Report::Finding.new(
+diff -ruN a/lib/zone_publisher/policy/delegation_policy.rb b/lib/zone_publisher/policy/delegation_policy.rb
+--- a/lib/zone_publisher/policy/delegation_policy.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/policy/delegation_policy.rb	2026-07-08 20:16:13
+@@ -20,10 +20,7 @@
+ 
+           ns_rrs.each do |ns|
+             ns_name = Dns::Name.normalize(ns.rdata.split(/\s+/).first)
+-            # Broken inverted glue: skip in-zone, require out-of-zone
+-            if Dns::Name.inside_delegated_child?(ns_name, owner)
+-              next
+-            end
++            next unless Dns::Name.inside_delegated_child?(ns_name, owner)
+ 
+             has_glue = records.any? { |rr| Dns::Name.equal?(rr.owner, ns_name) && %w[A AAAA].include?(rr.type) }
+             next if has_glue
+diff -ruN a/lib/zone_publisher/policy/exception_policy.rb b/lib/zone_publisher/policy/exception_policy.rb
+--- a/lib/zone_publisher/policy/exception_policy.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/policy/exception_policy.rb	2026-07-08 20:16:13
+@@ -1,5 +1,6 @@
+ # frozen_string_literal: true
+ 
++require "zone_publisher/dns/name"
+ require "zone_publisher/report/model"
+ 
+ module ZonePublisher
+@@ -7,11 +8,12 @@
+     module ExceptionPolicy
+       module_function
+ 
+-      def partition(findings, exceptions, _changes)
++      def partition(findings, exceptions, changes)
+         blocked = []
+         suppressed = []
+         findings.each do |f|
+-          ex = exceptions.find { |e| e.code == f.code }
++          eff = matching_effective(f, changes)
++          ex = exceptions.find { |e| matches?(e, f, eff) }
+           if ex
+             suppressed << Report::Suppressed.new(
+               zone: f.zone, owner: f.owner, record_type: f.record_type, code: f.code,
+@@ -23,6 +25,28 @@
+         end
+         [blocked, suppressed]
+       end
++
++      def matches?(ex, f, eff)
++        return false unless Dns::Name.equal?(ex.zone, f.zone)
++        return false unless Dns::Name.matches_suffix?(f.owner, ex.owner_suffix)
++
++        type_ok = ex.record_type == "*" || ex.record_type == f.record_type
++        return false unless type_ok
++        return false unless ex.code == f.code
++        return false if eff.nil?
++        return false unless eff >= ex.start_utc && eff <= ex.end_utc
++
++        true
++      end
++
++      def matching_effective(finding, changes)
++        exact = changes.select { |c| c.owner == finding.owner && c.record_type == finding.record_type }
++        return exact.map(&:effective_utc).max unless exact.empty?
++        return changes.map(&:effective_utc).min unless changes.empty?
++
++        nil
++      end
++      private_class_method :matches?, :matching_effective
+     end
+   end
+ end
+diff -ruN a/lib/zone_publisher/policy/freeze_policy.rb b/lib/zone_publisher/policy/freeze_policy.rb
+--- a/lib/zone_publisher/policy/freeze_policy.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/policy/freeze_policy.rb	2026-07-08 20:16:13
+@@ -1,5 +1,6 @@
+ # frozen_string_literal: true
+ 
++require "zone_publisher/dns/name"
+ require "zone_publisher/report/evidence"
+ require "zone_publisher/report/model"
+ 
+@@ -12,8 +13,12 @@
+         findings = []
+         changes.each do |ch|
+           freezes.each do |fz|
++            next unless Dns::Name.equal?(fz.zone, ch.zone)
++            next unless Dns::Name.matches_suffix?(ch.owner, fz.owner_suffix)
++
+             type_ok = fz.record_type == "*" || fz.record_type == ch.record_type
+             next unless type_ok
++            next unless ch.effective_utc >= fz.start_utc && ch.effective_utc <= fz.end_utc
+ 
+             findings << Report::Finding.new(
+               zone: ch.zone, owner: ch.owner, record_type: ch.record_type, code: "FREEZE_WINDOW",
+diff -ruN a/lib/zone_publisher/policy/wildcard_policy.rb b/lib/zone_publisher/policy/wildcard_policy.rb
+--- a/lib/zone_publisher/policy/wildcard_policy.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/policy/wildcard_policy.rb	2026-07-08 20:16:13
+@@ -2,6 +2,8 @@
+ 
+ require "zone_publisher/dns/name"
+ require "zone_publisher/policy/delegation_policy"
++require "zone_publisher/report/evidence"
++require "zone_publisher/report/model"
+ 
+ module ZonePublisher
+   module Policy
+@@ -9,8 +11,18 @@
+       module_function
+ 
+       def evaluate(zone, records)
+-        _ = DelegationPolicy.delegation_owners(zone, records)
+-        []
++        findings = []
++        cuts = DelegationPolicy.delegation_owners(zone, records)
++        records.each do |rr|
++          next unless Dns::Name.wildcard?(rr.owner)
++          next unless cuts.any? { |cut| Dns::Name.matches_suffix?(rr.owner, cut) }
++
++          findings << Report::Finding.new(
++            zone: zone, owner: rr.owner, record_type: rr.type, code: "WILDCARD_BELOW_DELEGATION",
++            severity: "blocking", evidence: Report::Evidence.for_code("WILDCARD_BELOW_DELEGATION")
++          )
++        end
++        findings.uniq { |f| [f.owner, f.record_type, f.code] }
+       end
+     end
+   end
+diff -ruN a/lib/zone_publisher/records/journal.rb b/lib/zone_publisher/records/journal.rb
+--- a/lib/zone_publisher/records/journal.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/records/journal.rb	2026-07-08 20:16:13
+@@ -59,25 +59,32 @@
+       end
+ 
+       def resolve(rows)
+-        by_id = {}
++        best = {}
+         rows.each do |r|
+-          by_id[r.change_id] = r
++          cur = best[r.change_id]
++          if cur.nil?
++            best[r.change_id] = r
++          elsif r.seq > cur.seq
++            best[r.change_id] = r
++          elsif r.seq == cur.seq
++            raise Cli::FatalError, "duplicate change_id #{r.change_id} with identical seq #{r.seq}"
++          end
+         end
+-        # Apply corrections in file/row arrival order without seq comparison.
+-        ordered = rows
+-        ordered.each do |r|
+-          next if r.correction_of.empty?
+ 
+-          target = by_id[r.correction_of]
+-          next unless target
++        correctors = best.values.select { |r| !r.correction_of.empty? }.sort_by(&:seq)
++        correctors.each do |r|
++          target = best[r.correction_of]
++          raise Cli::FatalError, "correction references unknown change_id #{r.correction_of}" if target.nil?
++          next if r.seq <= target.seq
+ 
+-          repl = r.dup
+-          repl.change_id = target.change_id
+-          repl.correction_of = ""
+-          by_id[target.change_id] = repl
+-          by_id.delete(r.change_id) if r.change_id != target.change_id
++          merged = r.dup
++          merged.change_id = target.change_id
++          merged.correction_of = ""
++          best[target.change_id] = merged
++          best.delete(r.change_id) if r.change_id != target.change_id
+         end
+-        by_id.values
++
++        best.values.sort_by(&:change_id)
+       end
+     end
+   end
+diff -ruN a/lib/zone_publisher/report/sort.rb b/lib/zone_publisher/report/sort.rb
+--- a/lib/zone_publisher/report/sort.rb	2026-07-08 20:17:02
++++ b/lib/zone_publisher/report/sort.rb	2026-07-08 20:16:13
+@@ -6,11 +6,11 @@
+       module_function
+ 
+       def findings(list)
+-        list.sort_by(&:owner)
++        list.sort_by { |f| [f.zone, f.owner, f.record_type, f.code] }
+       end
+ 
+       def suppressed(list)
+-        list.sort_by(&:owner)
++        list.sort_by { |f| [f.zone, f.owner, f.record_type, f.code, f.exception_id] }
+       end
+     end
+   end

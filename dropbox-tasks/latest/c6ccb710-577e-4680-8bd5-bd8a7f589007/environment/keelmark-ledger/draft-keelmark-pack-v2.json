@@ -1,0 +1,38 @@
+{
+  "specification_metadata": {
+    "authoritative_status": "DRAFT_PROPOSED_DO_NOT_SHIP",
+    "title": "Keelmark pack ledger v2 proposal (unratified)",
+    "revision": "pack-ledger-2026.01-draft"
+  },
+  "calibration": {
+    "eff_max_kN": "round_half_even_1dp(max_kN) * gain applied after classification",
+    "brace_uplift": "proposal: recursive uplift using post-uplift partner values, iterated to fixpoint",
+    "note": "proposal: classify on raw kN and report calibrated values informationally"
+  },
+  "event_pipeline": {
+    "order": ["parse", "dedup"],
+    "note": "proposal drops the audit-window filter in favour of shard rotation"
+  },
+  "alerts": {
+    "mute_rule": "proposal: muted blocks leave the inventory entirely"
+  },
+  "summary": {
+    "coverage_pct": "integer percentage, banker's rounding, emitted as a quoted string for locale safety",
+    "inventory_sig": "proposal: SHA-256 truncated to 8 hex chars"
+  },
+  "amendments": {
+    "proposal": "apply every amendment row in file order including drafts; supersedes lists to be retired"
+  },
+  "brace_cycles": {
+    "proposal": "measure cycle members normally with uplift forced to zero"
+  },
+  "zone_overrides": {
+    "proposal": "deprecate zone overrides; the amended global warn threshold governs every zone"
+  },
+  "overlay_shards": {
+    "proposal": "retract rows to apply after the window filter and to strike later lines too"
+  },
+  "packaging_build": {
+    "proposal": "keep cabal.project.local -UKEELMARK_GATE_V2 on bookworm dual-stack hosts; wire compat ahead of src; leave core/report at 1.3.x while the executable tracks the edition pin"
+  }
+}

@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"StrictModes\":\"yes\",\"PubkeyAuthentication\":\"yes\",\"AllowUsers\":\"alice bob\",\"PasswordAuthentication\":\"no\"}}"
+}

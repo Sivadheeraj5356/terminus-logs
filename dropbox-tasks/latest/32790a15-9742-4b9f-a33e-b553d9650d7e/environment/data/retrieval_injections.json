@@ -1,0 +1,36 @@
+{
+  "retrievals": [
+    {
+      "retrieval_id": "r1",
+      "session_id": "sess_alpha",
+      "turn_id": "t_a1",
+      "query_key": "policy_refund",
+      "content_hash": "hash_old",
+      "retrieved_at": "2024-02-01T00:00:00Z"
+    },
+    {
+      "retrieval_id": "r2",
+      "session_id": "sess_alpha",
+      "turn_id": "t_a3",
+      "query_key": "policy_refund",
+      "content_hash": "hash_new",
+      "retrieved_at": "2024-03-01T00:00:00Z"
+    },
+    {
+      "retrieval_id": "r3",
+      "session_id": "sess_beta",
+      "turn_id": "t_b1",
+      "query_key": "api_docs",
+      "content_hash": "hash_api",
+      "retrieved_at": "2024-02-10T00:00:00Z"
+    },
+    {
+      "retrieval_id": "r4",
+      "session_id": "sess_beta",
+      "turn_id": "t_b3",
+      "query_key": "api_docs",
+      "content_hash": "hash_api",
+      "retrieved_at": "2024-04-01T00:00:00Z"
+    }
+  ]
+}

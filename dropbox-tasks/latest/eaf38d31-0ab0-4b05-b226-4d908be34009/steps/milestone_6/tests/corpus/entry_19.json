@@ -1,0 +1,15 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 514456,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "api.initech.io",
+    "API.INITECH.IO",
+    "b.umbrella.net"
+  ],
+  "issued_at": "2026-05-09T08:49:01Z",
+  "payload": "cert:Dz3LDRC/73AqFDfHJKerdvV3OFARzjk2wf1JxU2U0M8=",
+  "received_at": "2026-05-15T11:26:57Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 29
+}

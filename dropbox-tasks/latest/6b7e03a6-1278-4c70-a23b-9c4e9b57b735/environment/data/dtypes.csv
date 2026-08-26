@@ -1,0 +1,20 @@
+column,role
+row_id,int key
+Administrative,float feature
+Administrative_Duration,float feature
+Informational,float feature
+Informational_Duration,float feature
+ProductRelated,float feature
+ProductRelated_Duration,float feature
+BounceRates,float feature
+ExitRates,float feature
+PageValues,float feature
+SpecialDay,float feature
+OperatingSystems,categorical feature
+Browser,categorical feature
+Region,categorical feature
+TrafficType,categorical feature
+VisitorType,categorical feature
+Weekend,categorical feature
+domain,split indicator (source/target)
+target,binary target (blank when unscored)

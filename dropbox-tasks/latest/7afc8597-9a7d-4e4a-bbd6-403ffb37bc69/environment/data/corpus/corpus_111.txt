@@ -1,0 +1,5 @@
+IP 255.255.255.0 mask
+no color delta bird quux foobar
+world dog grey
+delta beta beta dog banana colour
+addr 42.20.179.225 hex 0x472f token tok_24

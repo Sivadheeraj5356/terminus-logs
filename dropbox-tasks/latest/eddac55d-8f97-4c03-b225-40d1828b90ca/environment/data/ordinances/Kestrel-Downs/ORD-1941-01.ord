@@ -1,0 +1,9 @@
+ordinance: ORD-1941-01
+jurisdiction: Kestrel-Downs
+enacted: 1941-04-09
+effective: 1941-05-04T01:00:00 universal
+standard-offset: +00:00:00
+standard-label: GMT
+observance:
+  begin: May Sun>=1 01:00:00 universal save +02:00:00 label BDST
+  end: Aug Sun>=8 01:00:00 universal

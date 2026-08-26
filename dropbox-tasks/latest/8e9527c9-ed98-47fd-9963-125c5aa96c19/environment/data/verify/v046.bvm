@@ -1,0 +1,20 @@
+type A { x: int }
+type B extends A { y: int }
+type C extends B { }
+type D extends B { }
+func main() -> int {
+b0:
+  iconst 0
+  iconst 2
+  icmp
+  br_if b2
+b1:
+  new C
+  br b3
+b2:
+  new D
+  br b3
+b3:
+  getfield B y
+  ret
+}

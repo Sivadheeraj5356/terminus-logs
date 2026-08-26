@@ -1,0 +1,18 @@
+# Storing a Dog element into an array of Animal. astore accepts a value that is a
+# subtype of the element type, so a Dog goes into an arr Animal. Inspect with
+#   opcheck --module data/demo/array_store.bvm --func main
+type Animal { age: int }
+type Dog extends Animal { bark: int }
+func main() -> int {
+  locals 1
+b0:
+  iconst 1
+  newarray ref Animal
+  store 0
+  load 0
+  iconst 0
+  new Dog
+  astore
+  iconst 0
+  ret
+}

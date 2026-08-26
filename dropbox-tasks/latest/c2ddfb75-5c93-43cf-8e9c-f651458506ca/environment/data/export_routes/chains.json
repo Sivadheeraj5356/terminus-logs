@@ -1,0 +1,31 @@
+{
+  "panel_mandarin_cloud_suzhou": [
+    {"owner_id": "own_hart", "from_year": 1910, "to_year": 1948},
+    {"owner_id": "own_muse", "from_year": 1949, "to_year": 2020}
+  ],
+  "panel_lotus_brocade_suzhou": [
+    {"owner_id": "own_kent", "from_year": 1922, "to_year": 2024}
+  ],
+  "panel_nishijin_karaori_kyoto": [
+    {"owner_id": "own_pazzi", "from_year": 1905, "to_year": 1962},
+    {"owner_id": "own_serra", "from_year": 1963, "to_year": 2022}
+  ],
+  "panel_banarasi_jangla_varanasi": [
+    {"owner_id": "own_north", "from_year": 1898, "to_year": 1955},
+    {"owner_id": "exp_kyoto_school", "from_year": 1956, "to_year": 2008},
+    {"owner_id": "exp_isfahan_caravan", "from_year": 2009, "to_year": 2024}
+  ],
+  "panel_lyon_velours_exchange": [
+    {"owner_id": "exp_suzhou_guild", "from_year": 1788, "to_year": 1809, "export_eligible": true},
+    {"owner_id": "exp_varanasi_house", "from_year": 1810, "to_year": 1835, "export_eligible": false},
+    {"owner_id": "exp_lyon_merchant", "from_year": 1836, "to_year": 2020, "export_eligible": true}
+  ],
+  "panel_isfahan_khata_persian": [
+    {"owner_id": "exp_isfahan_atelier", "from_year": 1900, "to_year": 1955},
+    {"owner_id": "exp_persian_guild", "from_year": 1956, "to_year": 2024}
+  ],
+  "panel_genoa_brocade_merchant": [
+    {"owner_id": "exp_genoa_society", "from_year": 1940, "to_year": 1988},
+    {"owner_id": "exp_genoa_deposit", "from_year": 1989, "to_year": 2024}
+  ]
+}

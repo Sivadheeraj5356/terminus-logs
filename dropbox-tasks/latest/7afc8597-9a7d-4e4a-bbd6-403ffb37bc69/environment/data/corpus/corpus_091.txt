@@ -1,0 +1,10 @@
+no true dog color
+gray alpha
+mixed Foo123Bar baz_42
+maybe end world
+addr 209.136.186.166 hex 0x1ef6 token tok_613
+name_1 foo_bar Baz99 __x
+hex 0xabc 0xABCDEF zzz
+addr 47.2.167.15 hex 0x41bc token tok_564
+IP 255.255.255.0 mask
+tabs	and spaces here

@@ -1,0 +1,24 @@
+# perm seeds for replay arms
+[[seed]]
+0
+peer_a = 0.100
+peer_b = 0.200
+route_mark = 42
+
+[[seed]]
+1
+peer_a = 0.150
+peer_b = 0.250
+route_mark = 42
+
+[[seed]]
+2
+peer_a = 0.120
+peer_b = 0.220
+route_mark = 99
+
+[[seed]]
+3
+peer_a = 0.180
+peer_b = 0.280
+route_mark = 42

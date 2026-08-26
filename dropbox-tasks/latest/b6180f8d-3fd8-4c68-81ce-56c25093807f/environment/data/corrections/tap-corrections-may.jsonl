@@ -1,0 +1,12 @@
+{"correction_id":"C-004-A","tap_id":"t004","field":"route_id","value":"R2","approved":true}
+{"correction_id":"C-004-Z","tap_id":"t004","field":"route_id","value":"E1","approved":true}
+{"correction_id":"C-016-SVC-A","tap_id":"t016","field":"service_date","value":"2026-05-15","approved":true}
+{"correction_id":"C-016-SVC-Z","tap_id":"t016","field":"service_date","value":"2026-05-16","approved":true}
+{"correction_id":"C-012-A","tap_id":"t012","field":"station_id","value":"S102","approved":true}
+{"correction_id":"C-020-DRAFT","tap_id":"t020","field":"route_id","value":"E1","approved":false}
+{"correction_id":"C-020-A","tap_id":"t020","field":"device_status","value":"accepted","approved":true}
+{"correction_id":"C-021-A","tap_id":"t021","field":"device_status","value":"accepted","approved":true}
+{"correction_id":"C-026-A","tap_id":"t026","field":"tapped_at","value":"2026-05-16T12:20:00-04:00","approved":true}
+{"correction_id":"C-028-A","tap_id":"t028","field":"rider_id","value":"R106","approved":true}
+{"correction_id":"C-025-IGN","tap_id":"t025","field":"direction","value":"south","approved":true}
+{"correction_id":"C-999-A","tap_id":"t999","field":"route_id","value":"R1","approved":true}

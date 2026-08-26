@@ -1,0 +1,16 @@
+{
+  "WK1": {
+    "US": {
+      "distributor": 80000,
+      "producer": 30000,
+      "participant": 10000
+    }
+  },
+  "WK2": {
+    "UK": {
+      "distributor": 5000,
+      "producer": 2000,
+      "participant": 1000
+    }
+  }
+}

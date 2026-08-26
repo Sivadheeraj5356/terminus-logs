@@ -1,0 +1,4 @@
+schema = "offhours_window_v1"
+start_hhmm = "22:00"
+end_hhmm = "06:00"
+boundary_note = "start is exclusive at second granularity, end is inclusive"

@@ -1,0 +1,5 @@
+CMake release build for the demo_engine driver. Sources live under driver/, kernels/, wrap/, vault/, and measure/.
+
+Integrator semantics: docs/integrator_semantics.md
+Verifier contract summary: docs/runtime_contract.txt
+Agent scripts: scripts/emit_matrix.sh (matrix emit), demo_engine trace <QTOKEN> (step ledger trace)

@@ -1,0 +1,13 @@
+{
+  "id": "c6",
+  "mode": "r1",
+  "observers": [{"oid": 40, "cx": 1, "cy": 0, "reach": 2}],
+  "observer_phases": [
+    {"until_tick": 50, "observers": [{"oid": 40, "cx": 1, "cy": 0, "reach": 2}]},
+    {"until_tick": 120, "observers": [{"oid": 40, "cx": 2, "cy": 2, "reach": 1}]}
+  ],
+  "ally_groups": [],
+  "slots": 16,
+  "grid_width": 4,
+  "grid_height": 4
+}

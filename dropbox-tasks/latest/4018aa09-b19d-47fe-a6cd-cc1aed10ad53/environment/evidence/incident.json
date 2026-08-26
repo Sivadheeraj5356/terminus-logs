@@ -1,0 +1,45 @@
+{
+  "incident_id": "INC-8821",
+  "assessment_at": "2026-06-18T12:00:00Z",
+  "policy_revision": "2026.06",
+  "severity": "HIGH",
+  "evidence_root": "root-8821-a",
+  "objects": [
+    {"id":"R_BLUE","kind":"root","disableable":true,"compromised_at":null},
+    {"id":"R_RED","kind":"root","disableable":true,"compromised_at":null},
+    {"id":"I_RED","kind":"intermediate","disableable":true,"compromised_at":"2026-06-10T10:00:00Z"},
+    {"id":"I_BLUE","kind":"intermediate","disableable":true,"compromised_at":null},
+    {"id":"B_PAY_RED","kind":"binding","disableable":true,"compromised_at":null},
+    {"id":"C_PAY","kind":"certificate","disableable":true,"issued_at":"2026-06-09T08:00:00Z"},
+    {"id":"C_ADMIN","kind":"certificate","disableable":true,"issued_at":"2026-06-12T08:00:00Z"},
+    {"id":"C_SETTLE","kind":"certificate","disableable":true,"issued_at":"2026-06-08T08:00:00Z"},
+    {"id":"C_EMERG","kind":"certificate","disableable":true,"issued_at":"2026-06-11T08:00:00Z"}
+  ],
+  "paths": [
+    {"id":"P_PAY_RED","service":"payments_ingress","objects":["R_RED","I_RED","B_PAY_RED","C_PAY"]},
+    {"id":"P_PAY_BLUE","service":"payments_ingress","objects":["R_BLUE","I_BLUE","C_PAY"]},
+    {"id":"P_ADMIN","service":"admin_console","objects":["R_RED","I_RED","C_ADMIN"]},
+    {"id":"P_SETTLE","service":"settlement_api","objects":["R_RED","I_RED","C_SETTLE"]},
+    {"id":"P_EMERG","service":"emergency_capture","objects":["R_RED","I_RED","C_EMERG"]}
+  ],
+  "services": [
+    {"id":"payments_ingress","critical":true,"mandatory_emergency":false,"disruption_weight":9},
+    {"id":"admin_console","critical":false,"mandatory_emergency":false,"disruption_weight":2},
+    {"id":"settlement_api","critical":true,"mandatory_emergency":false,"disruption_weight":8},
+    {"id":"emergency_capture","critical":true,"mandatory_emergency":true,"disruption_weight":12}
+  ],
+  "witnesses": [
+    {"id":"W17","authority":"audit-east","independence_parent":"audit","signed_at":"2026-06-10T09:00:00Z","valid_from":"2026-01-01T00:00:00Z","valid_until":"2027-01-01T00:00:00Z","incident":"INC-8821","root":"root-8821-a"},
+    {"id":"W18","authority":"audit-west","independence_parent":"audit","signed_at":"2026-06-10T09:01:00Z","valid_from":"2026-01-01T00:00:00Z","valid_until":"2027-01-01T00:00:00Z","incident":"INC-8821","root":"root-8821-a"},
+    {"id":"W31","authority":"risk-board","independence_parent":"risk","signed_at":"2026-06-10T09:02:00Z","valid_from":"2026-01-01T00:00:00Z","valid_until":"2027-01-01T00:00:00Z","incident":"INC-8821","root":"root-8821-a"},
+    {"id":"W44","authority":"external-ca","independence_parent":"external","signed_at":"2026-06-10T09:03:00Z","valid_from":"2026-01-01T00:00:00Z","valid_until":"2027-01-01T00:00:00Z","incident":"INC-8821","root":"wrong-root"}
+  ],
+  "revocations": [{"id":"RV-C-SETTLE","object":"C_SETTLE","published_at":"2026-06-15T00:00:00Z","effective_at":"2026-06-07T00:00:00Z","retroactive":false,"evidence":"evidence/incident.json#RV-C-SETTLE"}],
+  "exceptions": [{"id":"EX-EMERG","service":"emergency_capture","path":"P_EMERG","incident":"INC-8821","approved_at":"2026-06-10T11:00:00Z","valid_from":"2026-06-10T10:30:00Z","valid_until":"2026-06-20T00:00:00Z","retrospective":false,"evidence":"evidence/incident.json#EX-EMERG"}],
+  "conflicts": [
+    {"id":"CF-1","left":{"source":"ratified_standard","scope":"all","time":"2026-01-01"},"right":{"source":"operator_note","scope":"all","time":"2026-06-11"},"evidence":["authorities/trust_policy.md#ratified","evidence/incident.json#CF-1"]},
+    {"id":"CF-2","left":{"source":"release_note","scope":"payments_ingress","time":"2026-06-01"},"right":{"source":"release_note","scope":"admin_console","time":"2026-06-01"},"evidence":["evidence/incident.json#CF-2"]},
+    {"id":"CF-3","left":{"source":"signed_amendment","scope":"all","time":"2026-05-01"},"right":{"source":"signed_amendment","scope":"all","time":"2026-06-01"},"evidence":["evidence/incident.json#CF-3"]},
+    {"id":"CF-4","left":{"source":"incident_directive","scope":"settlement_api","time":"2026-06-12"},"right":{"source":"incident_directive","scope":"settlement_api","time":"2026-06-12"},"evidence":["evidence/incident.json#CF-4"],"affects":["P_SETTLE"]}
+  ]
+}

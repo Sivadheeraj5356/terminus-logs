@@ -1,0 +1,7 @@
+# local span locator table
+c01|pool-a.blob|2|18
+c02|pool-a.blob|20|22
+c03|pool-old.blob|0|25
+c03dup|pool-b.blob|6|25
+c04|pool-a.blob|42|13
+c05|pool-a.blob|55|21

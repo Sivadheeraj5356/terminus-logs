@@ -1,0 +1,194 @@
+{
+  "conflicts": [
+    [
+      "reports_compact",
+      "reports_replicate"
+    ],
+    [
+      "profiles_compact",
+      "profiles_replicate"
+    ],
+    [
+      "search_compact",
+      "search_replicate"
+    ]
+  ],
+  "datasets": [
+    {
+      "dataset": "ledger",
+      "target_time": 360,
+      "weight": 2.0
+    },
+    {
+      "dataset": "payments",
+      "target_time": 385,
+      "weight": 2.0
+    },
+    {
+      "dataset": "identity",
+      "target_time": 410,
+      "weight": 2.0
+    },
+    {
+      "dataset": "search",
+      "target_time": 435,
+      "weight": 2.0
+    },
+    {
+      "dataset": "events",
+      "target_time": 460,
+      "weight": 1.2
+    },
+    {
+      "dataset": "billing",
+      "target_time": 485,
+      "weight": 1.2
+    },
+    {
+      "dataset": "profiles",
+      "target_time": 510,
+      "weight": 1.2
+    },
+    {
+      "dataset": "reports",
+      "target_time": 535,
+      "weight": 1.2
+    }
+  ],
+  "dependencies": [
+    {
+      "after": "ledger_validate",
+      "before": "ledger_snapshot"
+    },
+    {
+      "after": "ledger_replicate",
+      "before": "ledger_validate"
+    },
+    {
+      "after": "ledger_compact",
+      "before": "ledger_snapshot"
+    },
+    {
+      "after": "payments_validate",
+      "before": "payments_snapshot"
+    },
+    {
+      "after": "payments_replicate",
+      "before": "payments_validate"
+    },
+    {
+      "after": "payments_compact",
+      "before": "payments_snapshot"
+    },
+    {
+      "after": "identity_validate",
+      "before": "identity_snapshot"
+    },
+    {
+      "after": "identity_replicate",
+      "before": "identity_validate"
+    },
+    {
+      "after": "identity_compact",
+      "before": "identity_snapshot"
+    },
+    {
+      "after": "search_validate",
+      "before": "search_snapshot"
+    },
+    {
+      "after": "search_replicate",
+      "before": "search_validate"
+    },
+    {
+      "after": "search_compact",
+      "before": "search_snapshot"
+    },
+    {
+      "after": "events_validate",
+      "before": "events_snapshot"
+    },
+    {
+      "after": "events_replicate",
+      "before": "events_validate"
+    },
+    {
+      "after": "events_compact",
+      "before": "events_snapshot"
+    },
+    {
+      "after": "billing_validate",
+      "before": "billing_snapshot"
+    },
+    {
+      "after": "billing_replicate",
+      "before": "billing_validate"
+    },
+    {
+      "after": "billing_compact",
+      "before": "billing_snapshot"
+    },
+    {
+      "after": "profiles_validate",
+      "before": "profiles_snapshot"
+    },
+    {
+      "after": "profiles_replicate",
+      "before": "profiles_validate"
+    },
+    {
+      "after": "profiles_compact",
+      "before": "profiles_snapshot"
+    },
+    {
+      "after": "reports_validate",
+      "before": "reports_snapshot"
+    },
+    {
+      "after": "reports_replicate",
+      "before": "reports_validate"
+    },
+    {
+      "after": "reports_compact",
+      "before": "reports_snapshot"
+    },
+    {
+      "after": "billing_replicate",
+      "before": "ledger_validate"
+    },
+    {
+      "after": "profiles_replicate",
+      "before": "identity_validate"
+    },
+    {
+      "after": "reports_replicate",
+      "before": "events_validate"
+    }
+  ],
+  "network_capacity": 720,
+  "planning_end": 780,
+  "planning_start": 0,
+  "scratch_capacity_gb": 2300,
+  "workers": [
+    {
+      "cpu": 8,
+      "id": "w1"
+    },
+    {
+      "cpu": 8,
+      "id": "w2"
+    },
+    {
+      "cpu": 8,
+      "id": "w3"
+    },
+    {
+      "cpu": 8,
+      "id": "w4"
+    },
+    {
+      "cpu": 8,
+      "id": "w5"
+    }
+  ]
+}

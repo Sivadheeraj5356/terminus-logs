@@ -1,0 +1,9 @@
+HARVEST1 orchard metrology numerical mass-balance settlement toolchain
+
+The pick-balance settlement engine evaluates HARVEST1 orchard capture feeds under the gram-conservation metrology model in harvest_rules.txt and emits per-zone mass accounting and grade-band reports with deterministic checkpoint-resume equivalence to cold replay.
+
+Driver build: make -C /app
+Driver binary: /app/bin/pick-balance
+Driver flags: --input, --out, --checkpoint-in, --checkpoint-out
+Container roots: ORCHARD_APP_ROOT and TB_APP_ROOT both default to /app.
+Rust toolchain: channel 1.85.0 (see rust-toolchain.toml).

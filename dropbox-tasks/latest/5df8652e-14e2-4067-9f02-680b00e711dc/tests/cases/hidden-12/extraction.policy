@@ -1,0 +1,4 @@
+OCI-POLICY-1
+trusted_layers 2
+protect etc/secret
+protect usr/bin

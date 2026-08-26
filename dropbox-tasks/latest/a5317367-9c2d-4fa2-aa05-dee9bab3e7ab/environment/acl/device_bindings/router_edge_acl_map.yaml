@@ -1,0 +1,6 @@
+schema_version: apexora-edge-acl-bind-1
+bindings:
+  rtr-hq-dal-edge-01:
+    GigabitEthernet0/0/1: SEG-DMZ-IN
+  rtr-apac-tyo-edge-01:
+    GigabitEthernet0/0/0: ACL-EDGE-LEGACY

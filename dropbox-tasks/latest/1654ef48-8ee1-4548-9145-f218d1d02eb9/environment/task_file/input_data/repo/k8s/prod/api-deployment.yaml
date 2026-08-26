@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: perimeter-api
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: perimeter-api
+  template:
+    metadata:
+      labels:
+        app: perimeter-api
+    spec:
+      hostNetwork: true
+      containers:
+        - name: api
+          image: registry.internal/perimeter-api:2026.07
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+          volumeMounts:
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket

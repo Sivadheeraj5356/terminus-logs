@@ -1,0 +1,9 @@
+ordinance: ORD-1971-01
+jurisdiction: Talveny-Reach
+enacted: 1971-09-27
+effective: 1972-01-10T00:00:00 universal
+standard-offset: +10:00:00
+standard-label: TST
+observance:
+  begin: Oct lastSun 02:00:00 standard save +01:00:00 label TDT
+  end: Mar Sun>=1 03:00:00 standard

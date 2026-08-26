@@ -1,0 +1,7 @@
+{"reversal_id":"REV-CO-106-A","target_kind":"carryover","rider_id":"R106","carryover_id":"CO-002","amount_cents":60,"approved":true}
+{"reversal_id":"REV-CO-106-B","target_kind":"carryover","rider_id":"R106","carryover_id":"CO-003","amount_cents":20,"approved":true}
+{"reversal_id":"REV-CO-DELTA","target_kind":"carryover","rider_id":"R,109","carryover_id":"CO-006","amount_cents":100,"approved":true}
+{"reversal_id":"REV-AC-BETA","target_kind":"account_credit","account_id":"FAM-BETA","credit_id":"AC-BETA-001","amount_cents":1100,"approved":true}
+{"reversal_id":"REV-AC-DELTA","target_kind":"account_credit","account_id":"FAM,DELTA","credit_id":"AC-DELTA-001","amount_cents":40,"approved":true}
+{"reversal_id":"REV-DRAFT","target_kind":"account_credit","account_id":"FAM-BETA","credit_id":"AC-BETA-002","amount_cents":999,"approved":false}
+{"reversal_id":"REV-MISSING","target_kind":"carryover","rider_id":"R101","carryover_id":"CO-MISSING","amount_cents":500,"approved":true}

@@ -1,0 +1,388 @@
+{
+  "session_id": "session_13",
+  "rng_seed": 13,
+  "pity_threshold": 8,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "p1",
+      "roll_value": 0.0,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "p1",
+      "roll_value": 0.68025757622,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 3,
+      "player_id": "p1",
+      "roll_value": 0.422772911771,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 4,
+      "player_id": "p1",
+      "roll_value": 0.35468611713,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "p1",
+      "roll_value": 0.849421674245,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 3,
+      "player_id": "p1",
+      "roll_value": 0.5,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 6,
+      "player_id": "p1",
+      "roll_value": 0.037934507279,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 7,
+      "player_id": "p1",
+      "roll_value": 0.033661915952,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 8,
+      "player_id": "p1",
+      "roll_value": 0.252998443556,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 9,
+      "player_id": "p1",
+      "roll_value": 0.713950010681,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 10,
+      "player_id": "p1",
+      "roll_value": 0.992614520707,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 11,
+      "player_id": "p1",
+      "roll_value": 0.541367839595,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 12,
+      "player_id": "p1",
+      "roll_value": 0.600512710959,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 13,
+      "player_id": "p1",
+      "roll_value": 0.15839106418,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 14,
+      "player_id": "p1",
+      "roll_value": 0.531296731468,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 15,
+      "player_id": "p1",
+      "roll_value": 0.211157567064,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 16,
+      "player_id": "p1",
+      "roll_value": 0.062288277841,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 17,
+      "player_id": "p1",
+      "roll_value": 0.484328745384,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 18,
+      "player_id": "p1",
+      "roll_value": 0.100131229591,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 19,
+      "player_id": "p1",
+      "roll_value": 0.79729606006,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 20,
+      "player_id": "p1",
+      "roll_value": 0.401715140233,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 21,
+      "player_id": "p1",
+      "roll_value": 0.675099948119,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 22,
+      "player_id": "p1",
+      "roll_value": 0.192449720756,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 23,
+      "player_id": "p1",
+      "roll_value": 0.975218970305,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 24,
+      "player_id": "p1",
+      "roll_value": 0.684560686056,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 25,
+      "player_id": "p1",
+      "roll_value": 0.495498519852,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 26,
+      "player_id": "p1",
+      "roll_value": 0.755516220588,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 27,
+      "player_id": "p1",
+      "roll_value": 0.975402081362,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 28,
+      "player_id": "p1",
+      "roll_value": 0.411389507736,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 29,
+      "player_id": "p1",
+      "roll_value": 0.714194158757,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 30,
+      "player_id": "p1",
+      "roll_value": 0.009094515824,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 31,
+      "player_id": "p1",
+      "roll_value": 0.136875515,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 32,
+      "player_id": "p1",
+      "roll_value": 0.92135380108,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 33,
+      "player_id": "p1",
+      "roll_value": 0.918057802057,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 34,
+      "player_id": "p1",
+      "roll_value": 0.770348216193,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 35,
+      "player_id": "p1",
+      "roll_value": 0.599566637165,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 36,
+      "player_id": "p1",
+      "roll_value": 0.910855433821,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 37,
+      "player_id": "p1",
+      "roll_value": 0.887081514939,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 38,
+      "player_id": "p1",
+      "roll_value": 0.877590258492,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 39,
+      "player_id": "p1",
+      "roll_value": 0.853846858119,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 40,
+      "player_id": "p1",
+      "roll_value": 0.411603137303,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 41,
+      "player_id": "p1",
+      "roll_value": 0.998565630055,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 42,
+      "player_id": "p1",
+      "roll_value": 0.808221686453,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 43,
+      "player_id": "p1",
+      "roll_value": 0.366466261788,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 44,
+      "player_id": "p1",
+      "roll_value": 0.071352275155,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 45,
+      "player_id": "p1",
+      "roll_value": 0.629291665395,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 46,
+      "player_id": "p1",
+      "roll_value": 0.083162938322,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 47,
+      "player_id": "p1",
+      "roll_value": 0.001373332926,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 48,
+      "player_id": "p1",
+      "roll_value": 0.080813013092,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 49,
+      "player_id": "p1",
+      "roll_value": 0.024536881619,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 50,
+      "player_id": "p1",
+      "roll_value": 0.552568132572,
+      "item_id": "relic",
+      "tier": "epic"
+    }
+  ]
+}

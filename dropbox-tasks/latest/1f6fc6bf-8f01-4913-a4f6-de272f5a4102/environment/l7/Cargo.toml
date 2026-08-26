@@ -1,0 +1,9 @@
+[package]
+name = "prlg_l7"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+libc = { workspace = true }
+mio = { workspace = true }
+thiserror = { workspace = true }

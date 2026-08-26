@@ -1,0 +1,13 @@
+[package]
+name = "booth"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "arena_cli"
+path = "src/main.rs"
+
+[dependencies]
+k3 = { path = "../k3" }
+v7 = { path = "../v7" }
+s2 = { path = "../s2" }

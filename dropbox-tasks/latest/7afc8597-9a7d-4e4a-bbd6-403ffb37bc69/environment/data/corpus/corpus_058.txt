@@ -1,0 +1,9 @@
+name_1 foo_bar Baz99 __x
+addr 198.73.253.203 hex 0xc5d6 token tok_307
+punct marks here
+tabs	and spaces here
+world baz line
+end baz
+addr 65.98.214.32 hex 0xe5b7 token tok_519
+the quick brown fox
+punct marks here

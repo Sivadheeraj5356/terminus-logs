@@ -1,0 +1,1 @@
+{"job_id": "job-007", "priority": 12, "spec_path": "/app/specs/legacy-ready.yaml", "profile_ref": "production", "rules_ref": "gpu_edge", "rules_profile_stack": ["default"], "defer": false}

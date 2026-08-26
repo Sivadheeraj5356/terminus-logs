@@ -1,0 +1,11 @@
+{
+  "wave_id": "b",
+  "parent": "a",
+  "carry_token": "WAVE_B",
+  "objects": [
+    {
+      "name": "mod_disk",
+      "lane": "O"
+    }
+  ]
+}

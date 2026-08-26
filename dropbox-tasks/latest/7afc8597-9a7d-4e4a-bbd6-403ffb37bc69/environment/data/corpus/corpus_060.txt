@@ -1,0 +1,6 @@
+addr 220.7.66.152 hex 0x3501 token tok_572
+banana bird maybe
+IP 255.255.255.0 mask
+value = 0xDEADbeef and 0x1234
+foobar true hello dog delta foo
+line dog color foo

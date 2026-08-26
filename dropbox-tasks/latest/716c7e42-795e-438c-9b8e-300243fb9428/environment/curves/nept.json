@@ -1,0 +1,20 @@
+{
+  "pack": "nept",
+  "bins": 4,
+  "active_stride": 6,
+  "half_w": 1,
+  "width_b": 1,
+  "snapshot": 3,
+  "total": 8,
+  "burst": false,
+  "samples": [
+    690,
+    757,
+    408,
+    386,
+    412,
+    330,
+    522,
+    187
+  ]
+}

@@ -1,0 +1,5 @@
+# Destructive recovery drills — restore durable snapshot then rerun workflow.
+[[drill]]
+name = "witness_reset"
+wipe = ["w8g/staged/w8_chain.bin"]
+restore_from = "w8g/durable/w8_snapshot.bin"

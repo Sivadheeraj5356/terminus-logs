@@ -1,0 +1,24 @@
+{
+  "cells": [
+    {"id": "c00", "x": 0, "y": 0, "neighbors": ["c01", "c10"]},
+    {"id": "c01", "x": 1, "y": 0, "neighbors": ["c00", "c02", "c11"]},
+    {"id": "c02", "x": 2, "y": 0, "neighbors": ["c01", "c12"]},
+    {"id": "c10", "x": 0, "y": 1, "neighbors": ["c00", "c11", "c20"]},
+    {"id": "c11", "x": 1, "y": 1, "neighbors": ["c01", "c10", "c12", "c21"]},
+    {"id": "c12", "x": 2, "y": 1, "neighbors": ["c02", "c11", "c22"]},
+    {"id": "c20", "x": 0, "y": 2, "neighbors": ["c10", "c21"]},
+    {"id": "c21", "x": 1, "y": 2, "neighbors": ["c11", "c20", "c22"]},
+    {"id": "c22", "x": 2, "y": 2, "neighbors": ["c12", "c21"]}
+  ],
+  "solution": {
+    "c00": "sun",
+    "c01": "moon",
+    "c02": "sun",
+    "c10": "moon",
+    "c11": "star",
+    "c12": "moon",
+    "c20": "sun",
+    "c21": "star",
+    "c22": "sun"
+  }
+}

@@ -1,0 +1,21 @@
+ATTRACT SEQUENCE INDEX
+
+The ROM holds ten demonstration replays. The cabinet plays them in order while
+it waits for a coin. Every one of them is a single lane racked from the ball
+dial's home face with the throw latch clear, which is the state the cabinet
+resets to when it powers on, and every one of them was recorded on this board.
+
+  demo_01.log   5 pins
+  demo_02.log   6 pins
+  demo_03.log   8 pins
+  demo_04.log   9 pins
+  demo_05.log  11 pins
+  demo_06.log  13 pins
+  demo_07.log  14 pins
+  demo_08.log  16 pins
+  demo_09.log  18 pins
+  demo_10.log  19 pins
+
+A replay line reading THROW names the side that threw, the lane, the pins the
+ball took and the split. A replay line reading STATE reports the dial, the
+latch and the pins left standing.

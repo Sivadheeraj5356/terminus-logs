@@ -1,0 +1,249 @@
+diff -ruN a/src/epoch.rs b/src/epoch.rs
+--- a/src/epoch.rs	2026-07-08 11:03:05
++++ b/src/epoch.rs	2026-07-08 11:03:05
+@@ -1,7 +1,6 @@
+ use crate::fence;
+ use crate::parser::{self, Slot};
+ 
+-/// Rows at each resource's minimum epoch only (survivor selection).
+ pub fn max_epoch_rows(slots: &[Slot]) -> Vec<Slot> {
+     fence::survivors(slots)
+ }
+@@ -14,14 +13,13 @@
+     seen.values().any(|&c| c > 1)
+ }
+ 
+-/// Epoch regression within each file independently.
+ pub fn has_epoch_regression(dir: &str) -> Result<bool, String> {
+     let paths = parser::list_slot_files(dir)?;
+     if paths.is_empty() {
+         return Err("no slots".to_string());
+     }
++    let mut max_seen: std::collections::HashMap<String, u64> = std::collections::HashMap::new();
+     for path in &paths {
+-        let mut max_seen: std::collections::HashMap<String, u64> = std::collections::HashMap::new();
+         for row in parser::read_file(std::path::Path::new(path))? {
+             let key = parser::canonical_resource(&row.resource);
+             if let Some(&m) = max_seen.get(&key) {
+diff -ruN a/src/fence.rs b/src/fence.rs
+--- a/src/fence.rs	2026-07-08 11:03:05
++++ b/src/fence.rs	2026-07-08 11:03:05
+@@ -2,13 +2,12 @@
+ 
+ use crate::parser::{self, Slot};
+ 
+-/// Keep only rows whose epoch equals the per-resource minimum seen in `slots`.
+ pub fn survivors(slots: &[Slot]) -> Vec<Slot> {
+-    let mut min_by_resource: HashMap<String, u64> = HashMap::new();
++    let mut max_by_resource: HashMap<String, u64> = HashMap::new();
+     for s in slots {
+         let key = parser::canonical_resource(&s.resource);
+-        let e = min_by_resource.entry(key).or_insert(u64::MAX);
+-        if s.epoch < *e {
++        let e = max_by_resource.entry(key).or_insert(0);
++        if s.epoch > *e {
+             *e = s.epoch;
+         }
+     }
+@@ -16,7 +15,7 @@
+         .iter()
+         .filter(|s| {
+             let key = parser::canonical_resource(&s.resource);
+-            s.epoch == *min_by_resource.get(&key).unwrap_or(&0)
++            s.epoch == *max_by_resource.get(&key).unwrap_or(&0)
+         })
+         .cloned()
+         .collect()
+diff -ruN a/src/gaps.rs b/src/gaps.rs
+--- a/src/gaps.rs	2026-07-08 11:03:05
++++ b/src/gaps.rs	2026-07-08 11:03:05
+@@ -1,14 +1,10 @@
+-use std::collections::BTreeMap;
+-
+-use crate::epoch;
++use crate::merger;
+ use crate::parser::{self, Slot};
+ 
+ pub fn gap_lines(dir: &str) -> Result<Vec<String>, String> {
+-    let all = parser::load_all(dir)?;
+-    let current = epoch::max_epoch_rows(&all);
+-
+-    let mut by_resource: BTreeMap<String, Vec<Slot>> = BTreeMap::new();
+-    for row in current {
++    let merged = merger::merge_directory(dir)?;
++    let mut by_resource: std::collections::BTreeMap<String, Vec<Slot>> = std::collections::BTreeMap::new();
++    for row in merged {
+         by_resource
+             .entry(parser::canonical_resource(&row.resource))
+             .or_default()
+@@ -21,9 +17,9 @@
+         for w in slots.windows(2) {
+             let prev = &w[0];
+             let next = &w[1];
+-            let gap_start = prev.end_ms;
+-            let gap_end = next.start_ms;
+-            if gap_start < gap_end {
++            let gap_start = prev.end_ms + 1;
++            let gap_end = next.start_ms.saturating_sub(1);
++            if gap_start <= gap_end {
+                 lines.push(format!(
+                     "resource={} start={} end={}",
+                     resource, gap_start, gap_end
+diff -ruN a/src/merger.rs b/src/merger.rs
+--- a/src/merger.rs	2026-07-08 11:03:05
++++ b/src/merger.rs	2026-07-08 11:03:05
+@@ -62,31 +62,21 @@
+ }
+ 
+ pub fn merge_directory(dir: &str) -> Result<Vec<Slot>, String> {
+-    let paths = parser::list_slot_files(dir)?;
+-    if paths.is_empty() {
+-        return Err("no slots".to_string());
+-    }
++    let all = parser::load_all(dir)?;
++    let current = epoch::max_epoch_rows(&all);
+ 
+     let mut by_resource: HashMap<String, Vec<Slot>> = HashMap::new();
+-    for path in &paths {
+-        let mut per_file: HashMap<String, Vec<Slot>> = HashMap::new();
+-        for row in parser::read_file(Path::new(path))? {
+-            per_file
+-                .entry(row.resource.clone())
+-                .or_default()
+-                .push(row);
+-        }
+-        for (resource, mut slots) in per_file {
+-            let current: Vec<Slot> = epoch::max_epoch_rows(&slots);
+-            let merged: Vec<Slot> = merge_intervals(&mut current.clone())
+-                .into_iter()
+-                .map(Slot::from)
+-                .collect();
+-            by_resource.entry(resource).or_default().extend(merged);
+-        }
++    for row in current {
++        by_resource
++            .entry(parser::canonical_resource(&row.resource))
++            .or_default()
++            .push(row);
+     }
+ 
+-    let mut out: Vec<Slot> = by_resource.into_values().flatten().collect();
++    let mut out: Vec<Slot> = Vec::new();
++    for (_resource, mut slots) in by_resource {
++        out.extend(merge_intervals(&mut slots).into_iter().map(Slot::from));
++    }
+     ordering::sort_slots(&mut out);
+     Ok(out)
+ }
+diff -ruN a/src/ordering.rs b/src/ordering.rs
+--- a/src/ordering.rs	2026-07-08 11:03:05
++++ b/src/ordering.rs	2026-07-08 11:03:05
+@@ -4,6 +4,6 @@
+     slots.sort_by(|a, b| {
+         parser::canonical_resource(&a.resource)
+             .cmp(&parser::canonical_resource(&b.resource))
+-            .then(b.start_ms.cmp(&a.start_ms))
++            .then(a.start_ms.cmp(&b.start_ms))
+     });
+ }
+diff -ruN a/src/overlap.rs b/src/overlap.rs
+--- a/src/overlap.rs	2026-07-08 11:03:05
++++ b/src/overlap.rs	2026-07-08 11:03:05
+@@ -2,5 +2,5 @@
+ 
+ /// True when `right` begins at or before the inclusive end of `left`.
+ pub fn slots_connect(left_end: u64, right_start: u64) -> bool {
+-    right_start < timezone::exclusive_end(left_end)
++    right_start <= timezone::exclusive_end(left_end)
+ }
+diff -ruN a/src/report.rs b/src/report.rs
+--- a/src/report.rs	2026-07-08 11:03:05
++++ b/src/report.rs	2026-07-08 11:03:05
+@@ -49,7 +49,7 @@
+             (resource, agg.slots, agg.holders.len() as u64, span)
+         })
+         .collect();
+-    rows.sort_by(|a, b| a.3.cmp(&b.3).then_with(|| a.0.cmp(&b.0)));
++    rows.sort_by(|a, b| b.3.cmp(&a.3).then_with(|| a.0.cmp(&b.0)));
+ 
+     let total_slots: u64 = rows.iter().map(|r| r.1).sum();
+     let total_holders: u64 = rows.iter().map(|r| r.2).sum();
+@@ -75,14 +75,15 @@
+     });
+ 
+     let lpad = |s: &str, w: usize| format!("{}{}", s, " ".repeat(w - s.len()));
++    let rpad = |s: &str, w: usize| format!("{}{}", " ".repeat(w - s.len()), s);
+ 
+     let mut out = Vec::new();
+     out.push(format!(
+         "{}  {}  {}  {}",
+         lpad("RESOURCE", rw),
+-        lpad("SLOTS", sw),
+-        lpad("HOLDERS", hw),
+-        lpad("SPAN", pw)
++        rpad("SLOTS", sw),
++        rpad("HOLDERS", hw),
++        rpad("SPAN", pw)
+     ));
+     let sep = format!(
+         "{}  {}  {}  {}",
+@@ -96,18 +97,18 @@
+         out.push(format!(
+             "{}  {}  {}  {}",
+             lpad(resource, rw),
+-            lpad(&slots.to_string(), sw),
+-            lpad(&holders.to_string(), hw),
+-            lpad(&span.to_string(), pw)
++            rpad(&slots.to_string(), sw),
++            rpad(&holders.to_string(), hw),
++            rpad(&span.to_string(), pw)
+         ));
+     }
+     out.push(sep);
+     out.push(format!(
+         "{}  {}  {}  {}",
+         lpad("TOTAL", rw),
+-        lpad(&total_slots.to_string(), sw),
+-        lpad(&total_holders.to_string(), hw),
+-        lpad(&total_span.to_string(), pw)
++        rpad(&total_slots.to_string(), sw),
++        rpad(&total_holders.to_string(), hw),
++        rpad(&total_span.to_string(), pw)
+     ));
+     Ok(out)
+ }
+diff -ruN a/src/resolve.rs b/src/resolve.rs
+--- a/src/resolve.rs	2026-07-08 11:03:05
++++ b/src/resolve.rs	2026-07-08 11:03:05
+@@ -5,7 +5,7 @@
+     right_holder: &str,
+     right_file: &str,
+ ) -> (String, String) {
+-    if right_holder > left_holder {
++    if right_file > left_file {
+         (right_holder.to_string(), right_file.to_string())
+     } else {
+         (left_holder.to_string(), left_file.to_string())
+diff -ruN a/src/span.rs b/src/span.rs
+--- a/src/span.rs	2026-07-08 11:03:05
++++ b/src/span.rs	2026-07-08 11:03:05
+@@ -1,8 +1,7 @@
+-/// Merged span length in milliseconds for a resource's max-epoch rows.
+ pub fn resource_span(min_start: u64, max_end: u64, empty: bool) -> u64 {
+     if empty {
+         0
+     } else {
+-        max_end.saturating_sub(min_start).saturating_add(1)
++        max_end.saturating_sub(min_start)
+     }
+ }
+diff -ruN a/src/timezone.rs b/src/timezone.rs
+--- a/src/timezone.rs	2026-07-08 11:03:05
++++ b/src/timezone.rs	2026-07-08 11:03:05
+@@ -1,5 +1,5 @@
+ /// Inclusive end timestamps are stored in venue-local epoch milliseconds.
+ /// Convert to an exclusive upper bound for interval geometry.
+ pub fn exclusive_end(inclusive_end: u64) -> u64 {
+-    inclusive_end.saturating_sub(1)
++    inclusive_end
+ }

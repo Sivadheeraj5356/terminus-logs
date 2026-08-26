@@ -1,0 +1,9 @@
+ordinance: ORD-1968-03
+jurisdiction: Ossary-Bight
+enacted: 1968-05-30
+effective: 1968-08-04T03:00:00 standard
+standard-offset: +08:30:00
+standard-label: OST
+observance:
+  begin: Aug Sun>=1 03:00:00 standard save +01:00:00 label ODT
+  end: Apr Sun>=1 02:00:00 standard

@@ -1,0 +1,7 @@
+# Four interior finite-difference nodes with the zero solution at lambda zero.
+kind=bratu
+dimension=4
+start_lambda=0
+start_x=0,0,0,0
+orientation=0,0,0,0,1
+scale=1

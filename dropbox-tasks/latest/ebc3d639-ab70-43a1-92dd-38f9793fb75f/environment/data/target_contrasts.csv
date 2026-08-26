@@ -1,0 +1,11 @@
+target_id,term,coefficient
+wear_slope,elapsed,1.0
+wear_slope,wear_stage,-0.45
+wear_slope,acoustic_spindle,0.18
+load_response,depth,0.65
+load_response,feed,0.35
+load_response,depth_feed,0.28
+load_response,current_dc,0.16
+sensor_balance,steel,0.5
+sensor_balance,vibration_table,-0.3
+sensor_balance,acoustic_spindle,0.32

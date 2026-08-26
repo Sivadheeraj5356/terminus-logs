@@ -1,0 +1,3 @@
+/app/environment/k4m/build_wrap.sh /app/environment /app/bin/cg_xmit
+/app/bin/cg_xmit run --pin 49 --env /app/environment --out /app/output/protocol_transcript.json
+/app/bin/cg_xmit gauge --env /app/environment

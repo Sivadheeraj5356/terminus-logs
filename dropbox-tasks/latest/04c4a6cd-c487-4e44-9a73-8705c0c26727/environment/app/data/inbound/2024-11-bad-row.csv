@@ -1,0 +1,2 @@
+batch_id,source_system,employee_id,full_name,department,title,manager_id,location,annual_salary,status,attrs_json,valid_from,recorded_at,operation,correction_id
+WD-2024-11,workday,E401,Pat West,Engineering,Engineer,M010,NYC,not-a-number,active,"{""level"":3}",2024-11-01,2024-11-02T10:00:00Z,UPSERT,ORIG

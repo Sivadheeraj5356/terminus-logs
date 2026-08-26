@@ -1,0 +1,5 @@
+d001	LOAD	alpha	3	
+d002	LOAD	alpha	2	
+d003	SEAL	alpha		
+d004	UNLOAD	alpha	1	
+d005	HOLD	alpha		

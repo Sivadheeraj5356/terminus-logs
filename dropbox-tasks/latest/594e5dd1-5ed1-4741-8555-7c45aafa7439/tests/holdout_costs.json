@@ -1,0 +1,98 @@
+{
+  "hz-01": {
+    "stock_cost": 0.895,
+    "extra_cost": 2.497
+  },
+  "hz-02": {
+    "stock_cost": 0.764,
+    "extra_cost": 3.043
+  },
+  "hz-03": {
+    "stock_cost": 0.725,
+    "extra_cost": 2.594
+  },
+  "hz-04": {
+    "stock_cost": 0.911,
+    "extra_cost": 3.653
+  },
+  "hz-05": {
+    "stock_cost": 0.65,
+    "extra_cost": 2.611
+  },
+  "hz-06": {
+    "stock_cost": 0.967,
+    "extra_cost": 2.937
+  },
+  "hz-07": {
+    "stock_cost": 0.729,
+    "extra_cost": 2.368
+  },
+  "hz-08": {
+    "stock_cost": 1.067,
+    "extra_cost": 3.095
+  },
+  "hz-09": {
+    "stock_cost": 0.675,
+    "extra_cost": 2.477
+  },
+  "hz-10": {
+    "stock_cost": 1.036,
+    "extra_cost": 3.418
+  },
+  "hz-11": {
+    "stock_cost": 0.699,
+    "extra_cost": 2.504
+  },
+  "hz-12": {
+    "stock_cost": 0.683,
+    "extra_cost": 2.723
+  },
+  "hz-13": {
+    "stock_cost": 0.989,
+    "extra_cost": 2.917
+  },
+  "hz-14": {
+    "stock_cost": 0.828,
+    "extra_cost": 2.336
+  },
+  "hz-15": {
+    "stock_cost": 0.837,
+    "extra_cost": 2.561
+  },
+  "hz-16": {
+    "stock_cost": 0.75,
+    "extra_cost": 2.378
+  },
+  "hz-17": {
+    "stock_cost": 1.003,
+    "extra_cost": 3.317
+  },
+  "hz-18": {
+    "stock_cost": 0.961,
+    "extra_cost": 3.76
+  },
+  "hz-19": {
+    "stock_cost": 0.832,
+    "extra_cost": 2.503
+  },
+  "hz-20": {
+    "stock_cost": 0.619,
+    "extra_cost": 2.135
+  },
+  "hz-21": {
+    "stock_cost": 1.004,
+    "extra_cost": 3.407
+  },
+  "hz-22": {
+    "stock_cost": 0.936,
+    "extra_cost": 3.124
+  },
+  "hz-23": {
+    "stock_cost": 0.995,
+    "extra_cost": 2.916
+  },
+  "hz-24": {
+    "stock_cost": 0.846,
+    "extra_cost": 2.509
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "pack": "graze",
+  "bins": 4,
+  "active_stride": 4,
+  "half_w": 1,
+  "width_b": 2,
+  "snapshot": 3,
+  "total": 9,
+  "burst": false,
+  "samples": [
+    282,
+    573,
+    596,
+    518,
+    325,
+    308,
+    186,
+    643,
+    535
+  ]
+}

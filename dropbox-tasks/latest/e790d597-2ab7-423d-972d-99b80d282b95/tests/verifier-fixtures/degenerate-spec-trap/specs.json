@@ -1,0 +1,12 @@
+{
+  "specifications": [
+    {
+      "spec_id": "SPEC-DEG",
+      "priority": 100,
+      "bands": {
+        "analyte_x": {"lower": 14.0, "upper": 14.0},
+        "analyte_y": {"lower": 16.0, "upper": 16.0}
+      }
+    }
+  ]
+}

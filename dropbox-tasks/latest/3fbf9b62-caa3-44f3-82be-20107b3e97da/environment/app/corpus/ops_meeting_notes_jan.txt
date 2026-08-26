@@ -1,0 +1,7 @@
+EDGE go module cut sync notes (unsigned)
+--------------------------------------
+People asked whether local vendor mirrors could replace proxy lookups for quiet pins.
+Release engineering said vendor trees are fine for offline laptops but are not the
+signed integrity gate for production track batches. Another thread asked about keying
+advisory rows on pin ids; that draft never left the wiki. No decisions in this note
+change the signed annex.

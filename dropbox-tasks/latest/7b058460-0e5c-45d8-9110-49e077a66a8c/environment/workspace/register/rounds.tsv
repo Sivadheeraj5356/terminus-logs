@@ -1,0 +1,7 @@
+game_id	round	board	black	white	record	result	reason	black_points	white_points
+G01	1	1	Ada	Ben	records/current/G01.sgf	W+1	score	0	1
+G02	1	2	Cy	Dax	records/current/G02.sgf	0	score	0	0
+G03	2	1	Ada	Cy	records/current/G03.sgf	W+R	resignation	0	1
+G04	2	2	Dax	Ben	records/current/G04.sgf	B+1	score	1	0
+G05	3	1	Ada	Dax	records/current/G05.sgf	Void	adjourned	0	0
+G06	3	2	Ben	Cy	records/current/G06.sgf	B+1	score	1	0

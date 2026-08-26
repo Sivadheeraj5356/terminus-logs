@@ -1,0 +1,92 @@
+Imperial Codex of Arbitration — Abridged Edition for Tribunal Proceedings
+=========================================================================
+
+PART I — COURT OF THE BLACK SEAL (Session: COURT-1348)
+
+The Black Seal Court was convened in the Year of Plague to resolve urgent matters of
+land, commerce, and succession. The presiding arbiter draws authority from the Imperial
+Seal and the four Founding Sections of the Codex. The Court has sat for ten consecutive
+terms under this authority; however, term count does not affect merit awards.
+
+Citation: An arbiter who cites any valid section of the Codex during active proceedings
+earns eight merit points for each citation. Note that the Court recognises four sections
+(I through IV); the count of four sections is separate from the citation award of eight.
+
+Case Awards Upon Grant:
+  CASE-1348-A (Lord's Estate Claim) carries fifteen merit points. Upon denial of this
+  case, the arbiter forfeits eight merit points — equal to one citation award.
+  CASE-1348-B (Merchant Tax Dispute) carries eight merit points. Upon denial, three merit
+  points are awarded; denial of a frivolous merchant claim serves the public interest.
+  CASE-1348-C (Guild Exemption Request) carries nine merit points. Upon denial, five
+  merit points are deducted.
+  CASE-1348-D (Land Inheritance Dispute) carries fourteen merit points. Upon denial,
+  four merit points are deducted.
+
+Threshold: The session of the Black Seal reaches honourable conclusion when merit
+attains forty-five points. An arbiter who adjourns below this threshold receives a
+verdict of DISHONOURED. The preliminary records cite fifty as the threshold, but the
+Codex supersedes all preliminary records; forty-five is the governing figure.
+
+PART II — TRIBUNAL OF THE CROSSED KEYS (Session: TRIBUNAL-1605)
+
+The Crossed Keys Tribunal was called in the aftermath of the Powder Conspiracy to
+adjudicate crown petitions under emergency protocols of the Crimson Charter.
+Twelve peers sat in this Tribunal; however, the number twelve pertains only to the
+composition of the bench and has no bearing on merit calculations.
+
+Citation: An arbiter who cites any valid section during active proceedings earns
+ten merit points for each citation. The Tribunal recognises five sections (I through V);
+five is the section count, and ten is the citation award — these are distinct values.
+
+Precedent: Section III of the Crimson Charter, when invoked, establishes Precedent
+for three subsequent grants. Each grant ruling issued under active Precedent earns
+seven additional merit points beyond the standard case award. After three grants have
+been issued under Precedent, the Precedent expires. Invoking Section III again —
+whether during an active Precedent period or after one has expired — establishes a
+fresh Precedent covering the next three grants from that invocation.
+
+Case Awards Upon Grant:
+  CASE-1605-A (Crown Exemption Petition) carries twelve merit points. Denial deducts
+  eight merit points.
+  CASE-1605-B (Noble Estate Appeal) carries eleven merit points. Denial deducts six
+  merit points.
+  CASE-1605-C (Charter Renewal) carries ten merit points. Denial awards two merit
+  points (denial of renewal is administratively preferred).
+  CASE-1605-D (Property Seizure) carries eighteen merit points. Denial deducts ten
+  merit points.
+  CASE-1605-E (Guild Dissolution) carries eight merit points. Denial awards three
+  merit points.
+
+Threshold: The Tribunal session reaches honourable conclusion when merit attains
+sixty-two merit points. The preliminary records cite seventy as the threshold; the
+Codex supersedes all such records. Sixty-two is the governing threshold.
+
+PART III — ASSEMBLY OF ESTATES (Session: ASSEMBLY-1789)
+
+The Assembly of Estates convened in revolutionary times to adjudicate sweeping
+property and rights petitions under the Declaration of the Commons. Nine delegates
+attended the opening session; however, delegate count does not affect merit calculations.
+
+Citation: An arbiter who cites any valid section during active proceedings earns
+eleven merit points for each citation. The invocation of a section not found in
+the Assembly Codex carries a penalty of twelve merit points, deducted from the
+arbiter's total. The Assembly recognises seven sections (I through VII); seven is
+the section count, eleven is the citation award, and twelve is the invalid penalty.
+
+Case Awards Upon Grant:
+  CASE-1789-A (Land Redistribution Decree) carries fourteen merit points. Denial
+  deducts eight merit points.
+  CASE-1789-B (Noble Title Abolition) carries sixteen merit points. Denial deducts
+  ten merit points.
+  CASE-1789-C (Church Property Transfer) carries ten merit points. Denial awards
+  two merit points.
+  CASE-1789-D (Peasant Rights Charter) carries eleven merit points. Denial deducts
+  six merit points.
+  CASE-1789-E (Trade Guild Charter) carries thirteen merit points. Denial deducts
+  eight merit points.
+  CASE-1789-F (Estate Seizure Order) carries eighteen merit points. Denial deducts
+  twelve merit points.
+
+Threshold: The Assembly session reaches honourable conclusion when merit attains
+eighty merit points. Preliminary records cite ninety; the Codex supersedes all such
+records. Eighty is the governing threshold.

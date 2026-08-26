@@ -1,0 +1,22 @@
+[
+  {
+    "from": "dev",
+    "to": "role-read"
+  },
+  {
+    "from": "role-read",
+    "to": "role-write"
+  },
+  {
+    "from": "role-write",
+    "to": "role-super"
+  },
+  {
+    "from": "auditor",
+    "to": "role-read"
+  },
+  {
+    "from": "runner",
+    "to": "role-batch"
+  }
+]

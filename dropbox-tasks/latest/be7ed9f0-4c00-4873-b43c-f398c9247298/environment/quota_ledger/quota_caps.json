@@ -1,0 +1,15 @@
+{
+  "cap_set_version": "ksw-quota-2026-01",
+  "caps": [
+    {"service_id": "gateway-prod", "month": "M01", "admit_cap": 10},
+    {"service_id": "gateway-prod", "month": "M02", "admit_cap": 2},
+    {"service_id": "ledger-api", "month": "M01", "admit_cap": 10},
+    {"service_id": "ledger-api", "month": "M02", "admit_cap": 10},
+    {"service_id": "cdn-edge", "month": "M01", "admit_cap": 10},
+    {"service_id": "cdn-edge", "month": "M02", "admit_cap": 10},
+    {"service_id": "billing-rpc", "month": "M01", "admit_cap": 10},
+    {"service_id": "billing-rpc", "month": "M02", "admit_cap": 10},
+    {"service_id": "legacy-proxy", "month": "M01", "admit_cap": 10},
+    {"service_id": "legacy-proxy", "month": "M02", "admit_cap": 10}
+  ]
+}

@@ -1,0 +1,74 @@
+--- a/q7/SepH.java
++++ b/q7/SepH.java
+@@ -19,25 +19,23 @@
+ 
+   public static List<CutRow> sepH(Path annexRoot, Path bandPath) throws Exception {
+     List<CutRow> rows = new ArrayList<>();
+-    int arrival = 0;
+     for (Path ip : SepAux.instancePaths(annexRoot)) {
+       String body = Io.read(ip);
+       String iid = Io.jqString(body, "id");
+       String pin = Io.jqString(body, "client_pin");
+-            int idx = 0;
+-      while (true) {
+-        int fpos = body.indexOf("\"lane_id\"", idx);
+-        if (fpos < 0) break;
+-        String lane = Io.jqString(body.substring(fpos), "lane_id");
+-        double tick = Io.jqNumber(body.substring(fpos), "tick_cost");
+-        double dens = Io.jqNumber(body.substring(fpos), "density_hint");
+-        String phex = Io.jqString(body.substring(fpos), "pin_hex");
+-        String memoKey = lane;
++      List<Map<String, Object>> frames = parseFrames(body);
++      frames.sort(Comparator.comparing(m -> (String) m.get("lane_id")));
++      for (Map<String, Object> fr : frames) {
++        String lane = (String) fr.get("lane_id");
++        double tick = (Double) fr.get("tick_cost");
++        double dens = (Double) fr.get("density_hint");
++        String phex = (String) fr.get("pin_hex");
++        String memoKey = lane + "|" + pin;
+         String span;
+         if (MEMO.containsKey(memoKey)) {
+           span = MEMO.get(memoKey);
+         } else {
+-          span = Io.sha16(lane + "|" + pin + "|" + phex + "|" + Io.fmt6(tick) + "|arr" + arrival);
++          span = Io.sha16(lane + "|" + pin + "|" + phex + "|" + Io.fmt6(tick));
+           MEMO.put(memoKey, span);
+         }
+         CutRow row = new CutRow();
+@@ -47,11 +45,27 @@
+         row.tickCost = tick;
+         row.densityHint = dens;
+         rows.add(row);
+-        arrival++;
+-        idx = fpos + 8;
+       }
+     }
++    rows.sort(Comparator.comparing((CutRow r) -> r.instanceId).thenComparing(r -> r.laneId));
+     return rows;
++  }
++
++  static List<Map<String, Object>> parseFrames(String body) {
++    List<Map<String, Object>> frames = new ArrayList<>();
++    int idx = 0;
++    while (true) {
++      int fpos = body.indexOf("\"lane_id\"", idx);
++      if (fpos < 0) break;
++      Map<String, Object> m = new HashMap<>();
++      m.put("lane_id", Io.jqString(body.substring(fpos), "lane_id"));
++      m.put("tick_cost", Io.jqNumber(body.substring(fpos), "tick_cost"));
++      m.put("density_hint", Io.jqNumber(body.substring(fpos), "density_hint"));
++      m.put("pin_hex", Io.jqString(body.substring(fpos), "pin_hex"));
++      frames.add(m);
++      idx = fpos + 8;
++    }
++    return frames;
+   }
+ 
+   public static void writeCut(Path out, List<CutRow> rows) throws Exception {
+--- a/q7/sep_h_api.sh
++++ b/q7/sep_h_api.sh
+@@ -1,3 +1,4 @@
+ #!/bin/bash
+ # Desk binder for compile inventory.
+ sepH() { :; }
++# bound

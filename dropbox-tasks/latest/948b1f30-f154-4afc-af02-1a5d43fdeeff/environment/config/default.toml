@@ -1,0 +1,3 @@
+report_path = "/app/output/report.json"
+spectrum_path = "/app/data/raman_spectrum.json"
+confidence_level = 0.95

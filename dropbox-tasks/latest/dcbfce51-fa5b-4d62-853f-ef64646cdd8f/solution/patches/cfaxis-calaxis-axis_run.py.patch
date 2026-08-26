@@ -1,0 +1,183 @@
+--- a/app/cfaxis/calaxis/axis_run.py
++++ b/app/cfaxis/calaxis/axis_run.py
+@@ -1,4 +1,4 @@
+-"""Run climate-member calendar-axis incorporation and publish outputs."""
++"""Climate-member calendar-axis incorporation."""
+ 
+ from __future__ import annotations
+ 
+@@ -7,20 +7,16 @@
+ from pathlib import Path
+ 
+ from cfaxis.calaxis.manifest import load_manifest
+-from cfaxis.calaxis.axis_types import (
+-    Checkpoint,
+-    JournalEvent,
+-    LineageRecord,
+-)
++from cfaxis.calaxis.axis_types import Checkpoint, JournalEvent, LineageRecord
+ from cfaxis.calaxis.member_plan import plan_members
+ from cfaxis.calaxis.calendar_merge import merge_datasets
+ from cfaxis.calaxis.axis_report import build_axis_report, write_report
+ from cfaxis.calaxis import working_state
+-from cfaxis.error import ClimError, IncompatibleAppendError, ValidationError
++from cfaxis.error import ClimError, CalendarAxisConflictError, IncompatibleAppendError, ValidationError
+ from cfaxis.formats import read_dataset, write_ccf
+ from cfaxis.formats.io import FormatArg, FreqArg
+-from cfaxis.resample import bins as resample_bins
+ from cfaxis.resample import agg as resample_agg
++from cfaxis.resample import bins as resample_bins
+ from cfaxis.resample import cache as resample_cache
+ 
+ 
+@@ -28,17 +24,12 @@
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+ 
+ 
+-def _rollup_cache_key(archive_path: Path, ds) -> str:
+-    hasher = hashlib.sha256()
+-    hasher.update(str(archive_path).encode())
+-    hasher.update(str(ds.time_axis.start_unix()).encode())
+-    hasher.update(str(ds.time_axis.end_unix()).encode())
+-    hasher.update(ds.header.calendar.encode())
+-    return hasher.hexdigest()
++def _rollup_cache_key(ds) -> str:
++    return resample_cache.cache_key(ds, FreqArg.MON)
+ 
+ 
+-def _build_monthly(ds, cache_dir: Path, archive_path: Path, use_cache: bool):
+-    key = _rollup_cache_key(archive_path, ds)
++def _build_monthly(ds, cache_dir: Path, use_cache: bool):
++    key = _rollup_cache_key(ds)
+     if use_cache:
+         cached = resample_cache.load_cached(cache_dir, key)
+         if cached is not None:
+@@ -58,9 +49,31 @@
+     report_path = Path(manifest.report_path)
+     cache_dir = Path(manifest.cache_dir)
+ 
++    prior_checkpoint = working_state.load_checkpoint(state_dir)
++    prior_lineage = working_state.load_lineage(state_dir)
++    prior_archive = archive_path.read_bytes() if archive_path.exists() else None
++    prior_rollup = rollup_path.read_bytes() if rollup_path.exists() else None
++    prior_report = report_path.read_bytes() if report_path.exists() else None
++
+     plan = plan_members(manifest)
+-    checkpoint = working_state.load_checkpoint(state_dir)
+-    lineage = working_state.load_lineage(state_dir)
++
++    if not plan.remaining_sources and archive_path.exists():
++        # Idempotent no-op: refresh report from committed artifacts only.
++        ds = read_dataset(archive_path, FormatArg.AUTO)
++        lineage = working_state.load_lineage(state_dir)
++        report = build_axis_report(
++            manifest=manifest,
++            plan=plan,
++            archive=ds,
++            archive_path=archive_path,
++            rollup_path=rollup_path,
++            lineage=lineage,
++            recovery_outcome="idempotent",
++            conflict=False,
++            committed_generation_id=plan.committed_generation_id,
++        )
++        write_report(report_path, report)
++        return
+ 
+     base_ds = None
+     if plan.use_committed_archive and archive_path.exists():
+@@ -75,9 +88,8 @@
+ 
+     try:
+         merged = merge_datasets(base_ds, shards)
+-    except IncompatibleAppendError:
+-        raise
+-    except ClimError:
++    except (CalendarAxisConflictError, IncompatibleAppendError, ClimError):
++        # Leave prior committed outputs intact.
+         raise
+ 
+     stage = working_state.stage_dir(state_dir)
+@@ -86,10 +98,10 @@
+     staged_report = stage / "climate-axis-report.json"
+ 
+     write_ccf(staged_archive, merged)
+-    monthly = _build_monthly(merged, cache_dir, archive_path, use_cache)
++    monthly = _build_monthly(merged, cache_dir, use_cache)
+     write_ccf(staged_rollup, monthly)
+ 
+-    new_lineage = list(lineage)
++    new_lineage = list(prior_lineage)
+     known = {r.path for r in new_lineage}
+     for src in plan.remaining_sources:
+         dig = _digest_file(Path(src.path))
+@@ -110,26 +122,32 @@
+                 )
+             )
+ 
++    working_state.append_journal(
++        state_dir,
++        JournalEvent(event="stage_ready", generation_id=plan.generation_id),
++    )
++
++    # Publish artifacts first, then advance durable committed state.
++    archive_path.parent.mkdir(parents=True, exist_ok=True)
++    shutil.copy2(staged_archive, archive_path)
++    shutil.copy2(staged_rollup, rollup_path)
++
+     report = build_axis_report(
+         manifest=manifest,
+         plan=plan,
+         archive=merged,
+-        archive_path=staged_archive,
+-        rollup_path=staged_rollup,
++        archive_path=archive_path,
++        rollup_path=rollup_path,
+         lineage=new_lineage,
+         recovery_outcome="resumed",
+         conflict=False,
++        committed_generation_id=plan.generation_id,
+     )
+-    write_report(staged_report, report)
+-
+-    working_state.append_journal(
+-        state_dir,
+-        JournalEvent(event="stage_ready", generation_id=plan.generation_id),
+-    )
++    write_report(report_path, report)
+ 
+     completed_paths = []
+-    if checkpoint is not None:
+-        completed_paths = list(checkpoint.completed_source_paths)
++    if prior_checkpoint is not None:
++        completed_paths = list(prior_checkpoint.completed_source_paths)
+     for src in plan.remaining_sources:
+         if src.path not in completed_paths:
+             completed_paths.append(src.path)
+@@ -142,18 +160,8 @@
+         rollup_path=str(rollup_path),
+         report_path=str(report_path),
+     )
+-    working_state.save_checkpoint(state_dir, new_checkpoint)
+     working_state.save_lineage(state_dir, new_lineage)
+-    working_state.append_journal(
+-        state_dir,
+-        JournalEvent(event="checkpoint_advanced", generation_id=plan.generation_id),
+-    )
+-
+-    archive_path.parent.mkdir(parents=True, exist_ok=True)
+-    shutil.copy2(staged_archive, archive_path)
+-    shutil.copy2(staged_rollup, rollup_path)
+-    shutil.copy2(staged_report, report_path)
+-
++    working_state.save_checkpoint(state_dir, new_checkpoint)
+     working_state.append_journal(
+         state_dir,
+         JournalEvent(event="published", generation_id=plan.generation_id),
+@@ -162,3 +170,6 @@
+     for p in (staged_archive, staged_rollup, staged_report):
+         if p.exists():
+             p.unlink()
++
++    # Silence unused prior snapshot vars (kept for clarity / future rollback).
++    _ = (prior_archive, prior_rollup, prior_report)

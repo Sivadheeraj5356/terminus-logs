@@ -1,0 +1,24 @@
+# Two branches build a C and a D; at the join their reference types are merged to
+# their nearest common ancestor, B, on which the field `y` is defined. So the
+# join reads `getfield B y` cleanly and the module verifies.
+#   verify --module data/demo/join_common_type.bvm
+type A { x: int }
+type B extends A { y: int }
+type C extends B { }
+type D extends B { }
+func main() -> int {
+b0:
+  iconst 0
+  iconst 1
+  icmp
+  br_if b2
+b1:
+  new C
+  br b3
+b2:
+  new D
+  br b3
+b3:
+  getfield B y
+  ret
+}

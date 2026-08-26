@@ -1,0 +1,56 @@
+{
+  "archive_id": "archive_17",
+  "objects": [
+    {
+      "id": "O1",
+      "key_id": "K1",
+      "cipher": "AES-256-GCM",
+      "content_digest": "d17",
+      "declared_digest": "d17"
+    }
+  ],
+  "keys": [
+    {
+      "id": "K1",
+      "role": "data",
+      "algorithm": "RSA-1024",
+      "state": "active",
+      "rewrap_needed": false,
+      "rewrap_token": "",
+      "threshold": 2,
+      "shares": []
+    }
+  ],
+  "escrow": {
+    "registered_fingerprints": {}
+  },
+  "manifest": {
+    "signed_digests": ["d17"]
+  },
+  "recovery": {
+    "path_count": 2,
+    "requires_online_hsm": false,
+    "offline_cold_share": false,
+    "geographic_split": false
+  },
+  "retention": {
+    "declared_days": 90,
+    "enforced_days": 30,
+    "immutable": true,
+    "legal_hold": false
+  },
+  "restore": {
+    "chain_ok": true,
+    "signer": "vault-root-a",
+    "nonce_reuse": true
+  },
+  "shards": [
+    {
+      "id": "P1",
+      "declared_crc": "c1",
+      "payload_crc": "c1"
+    }
+  ],
+  "expected_shards": 1,
+  "adversary_tests": []
+}

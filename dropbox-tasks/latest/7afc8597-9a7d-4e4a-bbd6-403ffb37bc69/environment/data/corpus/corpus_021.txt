@@ -1,0 +1,7 @@
+true cat false hello quux line
+yes bird baz hello
+consonants rhythm myth
+baz yes delta beta yes
+foo foobar foobarbaz
+addr 71.77.86.171 hex 0xcf5 token tok_783
+addr 180.114.215.12 hex 0x4ccd token tok_675

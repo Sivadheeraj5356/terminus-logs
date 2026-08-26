@@ -1,0 +1,27 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "A",
+      "pages": 0,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 2
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "verify_bad"
+}

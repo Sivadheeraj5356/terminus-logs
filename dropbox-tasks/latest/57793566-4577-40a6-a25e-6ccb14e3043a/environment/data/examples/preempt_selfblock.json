@@ -1,0 +1,29 @@
+{
+  "budgets": {
+    "A": 5
+  },
+  "events": [
+    {
+      "job": "lo",
+      "op": "submit",
+      "owner": "A",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "job": "hi",
+      "op": "submit",
+      "owner": "A",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 9,
+      "seq": 2
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "preempt_selfblock"
+}

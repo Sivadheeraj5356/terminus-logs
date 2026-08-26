@@ -1,0 +1,16 @@
+{
+  "root_module": "corp.example/replace-root",
+  "root_version": "v1.0.0",
+  "replaces": [
+    {
+      "old_path": "corp.example/fork",
+      "new_path": "corp.example/fork-beta",
+      "new_version": "v1.1.0-beta"
+    },
+    {
+      "old_path": "corp.example/fork",
+      "new_path": "corp.example/fork-alpha",
+      "new_version": "v1.1.0-alpha"
+    }
+  ]
+}

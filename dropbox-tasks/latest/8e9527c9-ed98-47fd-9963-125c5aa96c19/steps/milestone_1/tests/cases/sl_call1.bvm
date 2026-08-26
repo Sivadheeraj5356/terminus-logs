@@ -1,0 +1,14 @@
+type Animal { age: int }
+type Dog extends Animal { bark: int }
+func take(ref Animal) -> int {
+b0:
+  load 0
+  getfield Animal age
+  ret
+}
+func main() -> int {
+b0:
+  new Dog
+  call take
+  ret
+}

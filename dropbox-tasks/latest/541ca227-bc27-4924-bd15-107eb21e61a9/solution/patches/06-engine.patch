@@ -1,0 +1,77 @@
+--- engine/run.go
++++ engine/run.go
+@@ -169,7 +169,7 @@
+ }
+ 
+ func (s *Store) promotedInject() []reg.RowRec {
+-	return s.Qtn.Promote(s.Feed.Epoch, s.Feed.Fence)
++	return s.Qtn.Promote(s.Feed.Fence)
+ }
+ 
+ func (s *Store) buildColdRegistry(prof *Profile) {
+@@ -192,14 +192,14 @@
+ 		return err
+ 	}
+ 	_ = emit.AppendJournal(outDir, emit.MakeJournalLine("plan", s.Gen, s.Gen-1, prof.Name))
++	pub.CommitPlanned(s.Tx, s.Gen)
++	_ = wal.SealLatest(s.Root, s.Gen)
+ 	view, err := pub.SealTx(s.Tx, s.Gen)
+ 	if err != nil {
+ 		return err
+ 	}
+ 	s.Registry = view.Rows
+ 	s.Tags = tagMap(s.Registry)
+-	s.Tx.Committed[s.Gen] = append([]reg.RowRec{}, s.Registry...)
+-	_ = wal.SealLatest(s.Root, s.Gen)
+ 	_ = emit.AppendJournal(outDir, emit.MakeJournalLine("commit", s.Gen, s.Gen, prof.Name))
+ 	return nil
+ }
+@@ -239,12 +239,7 @@
+ 	if err != nil {
+ 		return err
+ 	}
+-	for _, ev := range events {
+-		if ev.Seq > prof.ChurnSeq {
+-			continue
+-		}
+-		lse.BumpFeed(s.Feed, ev)
+-	}
++	lse.ReplayFeed(s.Feed, events, prof.ChurnSeq)
+ 	if err := s.admitForeign(foreignPath); err != nil {
+ 		return err
+ 	}
+@@ -271,7 +266,7 @@
+ 	if err := s.persist(); err != nil {
+ 		return err
+ 	}
+-	return s.writeObs(prof, outDir, s.Gen, s.Gen-1)
++	return s.writeObs(prof, outDir, s.Gen, s.Gen)
+ }
+ 
+ func (s *Store) Recover(outDir, profileName string) error {
+@@ -289,12 +284,12 @@
+ 	if s.Qtn == nil {
+ 		s.Qtn = qtn.NewLedger()
+ 	}
+-	tip := rcv.LoadSealedTip(s.Root, s.Tx)
+-	if tip.Gen == 0 {
++	fr, ok := wal.RecoverSealed(s.Root)
++	if !ok || fr.Gen == 0 {
+ 		return os.ErrNotExist
+ 	}
+-	s.Gen = tip.Gen
+-	s.Registry = append([]reg.RowRec{}, tip.Rows...)
++	s.Gen = fr.Gen
++	s.Registry = append([]reg.RowRec{}, fr.Rows...)
+ 	s.Tags = rcv.TagMap(s.Registry)
+ 	if s.Tx.Committed == nil {
+ 		s.Tx.Committed = map[uint64][]reg.RowRec{}
+@@ -322,7 +317,7 @@
+ 		probes = append(probes, emit.LinkSlot{
+ 			SlotID:    slot,
+ 			CarrierUp: lse.ProbeCarrier(slot),
+-			MirrorGen: planned,
++			MirrorGen: committed,
+ 		})
+ 	}
+ 	return emit.WriteLinkStatus(outDir, probes)

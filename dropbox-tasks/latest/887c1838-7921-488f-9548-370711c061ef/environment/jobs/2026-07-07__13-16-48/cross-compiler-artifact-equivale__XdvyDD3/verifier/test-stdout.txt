@@ -1,0 +1,30 @@
+go build -trimpath -ldflags "-s -w" -o /app/bin/artifact-equivalence-checker ./toolchain-cli
+============================= test session starts ==============================
+platform linux -- Python 3.11.2, pytest-8.4.1, pluggy-1.6.0
+cachedir: /tmp/pytest_cache
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 17 items
+
+../tests/test_outputs.py .................                               [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_verifier_harness_prepared_artifacts
+PASSED ../tests/test_outputs.py::test_bundled_session_checksums_unchanged
+PASSED ../tests/test_outputs.py::test_immutable_environment_files_unchanged
+PASSED ../tests/test_outputs.py::test_binary_built_and_stub_removed
+PASSED ../tests/test_outputs.py::test_report_schema_and_key_order
+PASSED ../tests/test_outputs.py::test_oracle_equivalent_flags_all_sessions
+PASSED ../tests/test_outputs.py::test_summary_reconciles_with_sessions
+PASSED ../tests/test_outputs.py::test_report_structural_fingerprint
+PASSED ../tests/test_outputs.py::test_deterministic_report_bytes
+PASSED ../tests/test_outputs.py::test_clean_sessions_use_empty_arrays_not_null
+PASSED ../tests/test_outputs.py::test_divergences_sorted_lexicographically
+PASSED ../tests/test_outputs.py::test_stress_prefix_vs_full_schedule_validation
+PASSED ../tests/test_outputs.py::test_build_01_reports_artifact_mismatch
+PASSED ../tests/test_outputs.py::test_build_09_flags_optimization_divergence
+PASSED ../tests/test_outputs.py::test_equiv_session_dir_swap_fixture
+PASSED ../tests/test_outputs.py::test_equiv_session_dir_probe_fixture
+PASSED ../tests/test_outputs.py::test_policy_yaml_required_keys
+============================== 17 passed in 0.03s ==============================

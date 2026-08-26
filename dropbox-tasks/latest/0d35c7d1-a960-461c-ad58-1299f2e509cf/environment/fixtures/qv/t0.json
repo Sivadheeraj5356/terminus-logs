@@ -1,0 +1,17 @@
+{
+  "arm": "dense",
+  "phase": "normal",
+  "row_cap": 12,
+  "group_cap": 3,
+  "cells": [
+    {"id": "d01", "kind": "host", "match": "alpha.lab", "target": "be_alpha", "want": "route"},
+    {"id": "d02", "kind": "host", "match": "bravo.lab", "target": "be_alpha", "want": "route"},
+    {"id": "d03", "kind": "host", "match": "charlie.lab", "target": "be_alpha", "want": "route"},
+    {"id": "d04", "kind": "host", "match": "delta.lab", "target": "be_beta", "want": "route"},
+    {"id": "d05", "kind": "host", "match": "echo.lab", "target": "be_beta", "want": "route"},
+    {"id": "d06", "kind": "path", "match": "/api/v1", "target": "be_gamma", "want": "route"},
+    {"id": "d07", "kind": "path", "match": "/api/v2", "target": "be_gamma", "want": "route"},
+    {"id": "d08", "kind": "path", "match": "/health", "target": "be_gamma", "want": "route"},
+    {"id": "d09", "kind": "host", "match": "foxtrot.lab", "target": "be_beta", "want": "route"}
+  ]
+}

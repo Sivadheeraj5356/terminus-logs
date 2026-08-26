@@ -1,0 +1,33 @@
+{
+  "panel_mandarin_cloud_suzhou": [
+    {"year": 1924, "severity": 2},
+    {"year": 1950, "severity": 0, "reset_drift": true},
+    {"year": 1968, "severity": 4}
+  ],
+  "panel_lotus_brocade_suzhou": [
+    {"year": 1975, "severity": 1}
+  ],
+  "panel_nishijin_karaori_kyoto": [
+    {"year": 1931, "severity": 3},
+    {"year": 1999, "severity": 2}
+  ],
+  "panel_banarasi_jangla_varanasi": [
+    {"year": 1945, "severity": 5},
+    {"year": 1982, "severity": 1},
+    {"year": 2010, "severity": 2}
+  ],
+  "panel_lyon_velours_exchange": [
+    {"year": 1800, "severity": 4},
+    {"year": 1820, "severity": 3},
+    {"year": 1845, "severity": 1}
+  ],
+  "panel_isfahan_khata_persian": [
+    {"year": 1945, "severity": 2},
+    {"year": 1982, "severity": 4},
+    {"year": 2010, "severity": 1}
+  ],
+  "panel_genoa_brocade_merchant": [
+    {"year": 1972, "severity": 3},
+    {"year": 2001, "severity": 2}
+  ]
+}

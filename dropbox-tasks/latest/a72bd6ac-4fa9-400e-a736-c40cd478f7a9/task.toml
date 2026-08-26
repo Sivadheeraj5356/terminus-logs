@@ -1,0 +1,43 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+category = "system-administration"
+subcategories = []
+difficulty = "hard"
+codebase_size = "minimal"
+number_of_milestones = 0
+languages = ["rust", "bash"]
+tags = ["prometheus", "monitoring", "rule-validation", "config-parsing"]
+expert_time_estimate_min = 60.0
+junior_time_estimate_min = 120.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 900
+
+[rubric]
+text = """
+Agent +10 All 4 rule groups present in report
+Agent +10 Rule names correctly validated (reject digit-starting names)
+Agent +10 Label matchers correctly validated (accept underscore-starting labels)
+Agent +10 Offset syntax correctly validated (brackets not required)
+Agent +10 Duration units correctly parsed (m=60s, h=3600s, d=86400s)
+Agent +10 Template variables correctly validated (accept spaces)
+Agent +10 Duplicate detection compares name AND expression
+Agent +10 Binary respects APP_CONFIG_PATH/APP_DATA_PATH/APP_OUTPUT_PATH env vars
+Agent +10 Top-level errors field is empty
+Agent -10 Modifies or corrupts the data file
+Agent -10 Adds false-positive PromQL expression validation
+Agent -10 Propagates per-rule errors into top-level errors array
+"""

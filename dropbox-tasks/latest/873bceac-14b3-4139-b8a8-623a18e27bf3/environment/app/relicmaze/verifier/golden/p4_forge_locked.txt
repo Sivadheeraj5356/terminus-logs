@@ -1,0 +1,15 @@
+== Emberforge Hollow [volcanic] ==
+Omen: Fire keeps no secrets.
+Light: 12.5 lumens
+Relics:
+  - Ember Heart <legendary> 500g (sealed)
+  - Slag Idol <uncommon> 200g (cursed)
+Freshest: Slag Idol @ 04:00 KST
+Exits:
+  - north: sealed gate (torch 1.0)
+  - east: Mercury Spring (torch 1.5)
+Torch: 3.0 units
+Inventory: (empty)
+Route: east (torch 1.5)
+---ACTIONS---
+inspect slag-idol

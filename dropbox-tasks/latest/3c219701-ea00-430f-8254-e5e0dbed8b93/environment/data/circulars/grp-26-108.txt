@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-108
+ISSUER: REGULATOR
+ISSUED: 1767134200
+EFFECTIVE: 1767139200
+
+The board notes that field inspections in the northern district recovered 41 tapped service heads last quarter, at an estimated 250 cents per kWh of unbilled energy.
+
+DIRECTIVES:
+STANDING industrial 1:400 2:460 3:520 4:600
+END DIRECTIVES
+
+A working group will report on whether the 3000 kWh threshold discussed in committee should be adopted; no change is made by this circular.

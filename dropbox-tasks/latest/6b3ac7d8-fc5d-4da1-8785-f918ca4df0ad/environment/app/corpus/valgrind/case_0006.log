@@ -1,0 +1,6 @@
+==90805== Memcheck, a memory error detector
+==90805== case: case_0006
+==90805== Conditional jump or move depends on uninitialised value(s)
+==90805==    at 0x5555dd2a8781: rsa2048_verify (vaultseal.c:250)
+==90805==    by 0x5555c62f416d: seal_record (vaultseal.c:400)
+==90805==  Uninitialised value was created by a heap allocation

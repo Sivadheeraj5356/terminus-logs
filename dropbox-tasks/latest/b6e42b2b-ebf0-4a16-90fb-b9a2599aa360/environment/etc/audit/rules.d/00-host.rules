@@ -1,0 +1,5 @@
+## Host audit rules.d flavor (augenrules-style include surface).
+## Live profile inputs are under /app/environment/fixtures/; operators use arctl reload.
+-D
+-b 8192
+-f 1

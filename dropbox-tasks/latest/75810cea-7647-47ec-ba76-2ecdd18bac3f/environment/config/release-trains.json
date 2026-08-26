@@ -1,0 +1,29 @@
+{
+  "trains": [
+    {
+      "id": "train-north",
+      "epoch": 3,
+      "status": "closed",
+      "channels": [
+        "stable"
+      ]
+    },
+    {
+      "id": "train-west",
+      "epoch": 4,
+      "status": "open",
+      "channels": [
+        "stable"
+      ]
+    },
+    {
+      "id": "train-east",
+      "epoch": 5,
+      "status": "open",
+      "channels": [
+        "stable",
+        "canary"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+== Gallery of Whispers [cavern] ==
+Omen: The maze breathes.
+Light: 9.0 lumens
+Relics:
+  - Astrolabe Shard <epic> 60g
+  - Echo Lens <rare> 80g
+  - Whisper Coin <common> 15g
+Freshest: Echo Lens @ 12:00 KST
+Exits:
+  - north: Petrified Garden (torch 1.0)
+  - east: sealed gate (torch 2.5)
+Torch: 6.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take whisper-coin
+go north

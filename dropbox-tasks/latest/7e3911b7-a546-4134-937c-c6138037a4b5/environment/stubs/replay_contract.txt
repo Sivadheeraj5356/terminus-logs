@@ -1,0 +1,2 @@
+Parity fields compared between continuous and pause_resume rows for the same scenario_id:
+polygon_count, border_weld_count, nav_digest, portal_count, link_digest, link_ok, area_overlay_ok, seam_open_count

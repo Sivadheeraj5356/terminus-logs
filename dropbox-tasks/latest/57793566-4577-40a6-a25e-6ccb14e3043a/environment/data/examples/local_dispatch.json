@@ -1,0 +1,35 @@
+{
+  "budgets": {
+    "o": 10
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "o",
+      "pages": 8,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "o",
+      "pages": 8,
+      "printer": "p2",
+      "priority": 5,
+      "seq": 2
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 3
+    }
+  ],
+  "printers": [
+    "p1",
+    "p2"
+  ],
+  "spool": "local_dispatch"
+}

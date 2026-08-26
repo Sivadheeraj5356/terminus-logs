@@ -1,0 +1,7 @@
+{"src":"10.1.2.3","dst":"192.168.1.5","port":50,"protocol":"tcp","direction":"inbound"}
+{"src":"10.5.5.5","dst":"192.168.1.1","port":443,"protocol":"tcp","direction":"inbound"}
+{"src":"10.2.3.4","dst":"192.168.2.5","port":80,"protocol":"tcp","direction":"inbound"}
+{"src":"10.3.1.1","dst":"192.168.3.9","port":100,"protocol":"tcp","direction":"inbound"}
+{"src":"10.3.1.1","dst":"192.168.3.9","port":200,"protocol":"tcp","direction":"inbound"}
+{"src":"10.3.1.1","dst":"192.168.3.9","port":201,"protocol":"tcp","direction":"inbound"}
+{"src":"10.3.1.1","dst":"192.168.3.9","port":99,"protocol":"tcp","direction":"inbound"}

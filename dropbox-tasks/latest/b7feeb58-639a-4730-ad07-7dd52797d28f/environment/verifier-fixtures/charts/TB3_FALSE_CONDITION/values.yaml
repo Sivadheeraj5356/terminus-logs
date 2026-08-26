@@ -1,0 +1,3 @@
+metrics:
+  enabled: false
+replicas: 2

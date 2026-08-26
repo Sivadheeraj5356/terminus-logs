@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export PYTHONPATH=/app/src:/app
+exec python3 -m restore.restore_main "$@"

@@ -1,0 +1,17 @@
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+**/.DS_Store
+**/solution
+**/tests
+state/*
+!state/.gitkeep
+output/*
+!output/.gitkeep
+cache/*
+!cache/.gitkeep

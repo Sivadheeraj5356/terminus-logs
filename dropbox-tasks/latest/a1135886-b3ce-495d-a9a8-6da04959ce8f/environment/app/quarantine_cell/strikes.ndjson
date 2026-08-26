@@ -1,0 +1,3 @@
+{"tenant_id":"TEN_Q","cycle":"C-202605","strike_count":3,"first_strike_ns":1749999960000000000,"last_strike_ns":1750000000000000000}
+{"tenant_id":"TEN_A","cycle":"C-202604","strike_count":1,"first_strike_ns":1749999500000000000,"last_strike_ns":1749999500000000000}
+{"tenant_id":"TEN_B","cycle":"C-202603","strike_count":0,"first_strike_ns":0,"last_strike_ns":0}

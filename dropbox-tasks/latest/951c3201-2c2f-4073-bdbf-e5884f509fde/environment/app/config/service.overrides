@@ -1,0 +1,4 @@
+# Per-host overrides for the dispatch service. Any key set here wins over the
+# matching value in service.json (see src/config.js). Left over from the old
+# docker-compose deployment.
+DISPATCH_REDIS_URL=redis://dispatch-redis:6390

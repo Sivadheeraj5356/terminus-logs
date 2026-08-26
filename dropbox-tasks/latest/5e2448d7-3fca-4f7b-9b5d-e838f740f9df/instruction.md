@@ -1,0 +1,5 @@
+East and west crystallization arms disagree with rake surveys on multi-day brine campaigns. Single-day simulation traces look fine. Continues from mid-tape checkpoints and pack swaps without a cold restart leave routing and front advances out of line with field measurements.
+
+`/app/bin/pond_ctl` is the pond simulation driver. It loads the field scenario under `/app/data/active/` and writes `/app/output/front_report.json`. Rebuild with `/app/scripts/build.sh` and invoke with `TB_POND_FIXTURE=1`. The mixed Go/Rust pipeline under `/app` must produce deterministic reports for pond_alpha, pond_beta, pond_gamma, pond_delta, and pond_epsilon with each staged as the active pack. The report includes schema_version, pond_id, mast_epoch, arms, daily_fronts, calm_latch_events, survey_mismatch, front_sum, and digest_hex as named in the comment above main in `/app/cmd/pond_ctl/main.go`.
+
+Grading requires running the rebuilt driver against each staged pack. Hardcoding report fields or bypassing the simulation is insufficient. Signal completion once the active-pack contract holds for the bundled scenarios.

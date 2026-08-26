@@ -1,0 +1,31 @@
+{
+  "project_id":"project_03",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"fmt-lib",
+        "version":"1.2.3"
+      },
+      {
+        "name":"cli-tool",
+        "version":"0.9.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"cli-tool",
+        "provider":"fmt-lib",
+        "constraint":"~1.2.3",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"fmt-lib",
+        "target":"1.3.0",
+        "release_date":"2026-02-15"
+      }
+    ]
+  }
+}

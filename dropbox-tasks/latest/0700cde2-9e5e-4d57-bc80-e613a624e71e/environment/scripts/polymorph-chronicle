@@ -1,0 +1,137 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use FindBin;
+use lib "/app/lib";
+use JSON::PP qw(decode_json encode_json);
+
+sub usage {
+    die "usage: polymorph-chronicle <inventory|bind|emit|fuse> [flags]\n"
+      . "  inventory --lattice-invariant-catalog PATH [--output PATH]\n"
+      . "  bind --lattice-invariant-catalog PATH --conching-window PATH --kiln-traces DIR\n"
+      . "  emit --lattice-invariant-catalog PATH --output PATH [--conching-window PATH]\n"
+      . "  fuse --lattice-invariant-catalog PATH --conching-window PATH --kiln-traces DIR --output PATH\n";
+}
+
+sub require_closure {
+    my @need = @_;
+    for my $mod (@need) {
+        eval "require $mod; 1" or die
+          "Closure kernel missing: $mod. Implement numerical DSC-torque kernels loaded by bind/emit per /app/docs/scientific-computing-workflow.md ($@)";
+    }
+}
+
+my $cmd = shift @ARGV // usage();
+
+my (%opt, $k);
+while (@ARGV) {
+    my $a = shift @ARGV;
+    if ($a =~ /^--/) { $k = $a; next }
+    $opt{$k} = $a if defined $k;
+}
+
+if ($cmd eq 'inventory') {
+    for my $need (qw(--lattice-invariant-catalog)) {
+        die "missing $need\n" unless defined $opt{$need};
+    }
+    require LabAssay::CatalogInventory;
+    my $out = $opt{'--output'} // '/app/output/catalog-inventory.json';
+    my $summary = LabAssay::CatalogInventory::write_summary(
+        $opt{'--lattice-invariant-catalog'}, $out
+    );
+    print "formulation_count=", $summary->{formulation_count}, "\n";
+    exit 0;
+}
+
+if ($cmd eq 'bind') {
+    for my $need (qw(--lattice-invariant-catalog --conching-window --kiln-traces)) {
+        die "missing $need\n" unless defined $opt{$need};
+    }
+    require_closure(
+        'ConchingAssay::WalkMath::TraceBatch',
+        'ConchingAssay::WalkMath::PeakCapture',
+        'ConchingAssay::WalkMath::LatticeResidual',
+        'ConchingAssay::WalkMath::BindManifest',
+        'ConchingAssay::WalkMath::HoldSpine',
+        'ConchingAssay::WalkMath::HoldAdjacency',
+        'ConchingAssay::WalkMath::CrossBatchConcordance',
+        'ConchingAssay::WalkMath::ConcordanceCycle',
+    );
+    my $traces = $ENV{TB3_KILN_TRACES} // $opt{'--kiln-traces'};
+    my $window_path = $ENV{TB3_CONCHING_WINDOW} // $opt{'--conching-window'};
+    open my $wfh, '<', $window_path or die $!;
+    my $tw = decode_json(do { local $/; <$wfh> });
+    close $wfh;
+
+    open my $cfh, '<', $opt{'--lattice-invariant-catalog'} or die $!;
+    my $catalog = decode_json(do { local $/; <$cfh> });
+    close $cfh;
+
+    my $events = ConchingAssay::WalkMath::TraceBatch::load_batches($traces);
+    my $staging = ConchingAssay::WalkMath::PeakCapture::build(
+        $events, $tw->{windows}, $tw->{shear_bonus_hz} // 4.0
+    );
+    my $gap_c = ConchingAssay::WalkMath::HoldAdjacency::gap_c_from_window($tw);
+    my $pair_w = ConchingAssay::WalkMath::HoldAdjacency::pair_weight_from_window($tw);
+    my $adjacency = ConchingAssay::WalkMath::HoldAdjacency::write(
+        '/app/state/hold-adjacency-ledger.json', $staging, $gap_c, $pair_w
+    );
+    my $adj_map = ConchingAssay::WalkMath::HoldAdjacency::batch_contrib_map($adjacency);
+    my $residual = ConchingAssay::WalkMath::LatticeResidual::build(
+        $staging, $tw->{windows}, $catalog, $adj_map
+    );
+
+    {
+        open my $sfh, '>', '/app/state/dsc-peak-capture.json' or die $!;
+        print {$sfh} encode_json($staging), "\n";
+        close $sfh;
+    }
+    {
+        open my $rfh, '>', '/app/state/torque-residual-snapshot.json' or die $!;
+        print {$rfh} encode_json($residual), "\n";
+        close $rfh;
+    }
+    my $concordance = ConchingAssay::WalkMath::CrossBatchConcordance::write(
+        '/app/state/cross-batch-concordance.json', $staging, $residual
+    );
+    ConchingAssay::WalkMath::ConcordanceCycle::write(
+        '/app/state/concordance-cycle-basis.json', $staging, $concordance
+    );
+    ConchingAssay::WalkMath::HoldSpine::write(
+        '/app/state/hold-spine-ledger.json', $staging
+    );
+    ConchingAssay::WalkMath::BindManifest::write(
+        '/app/state/chronicle-bind-manifest.json',
+        $traces,
+        $window_path,
+        $tw->{shear_bonus_hz} // 4.0,
+    );
+    exit 0;
+}
+
+if ($cmd eq 'emit') {
+    for my $need (qw(--lattice-invariant-catalog --output)) {
+        die "missing $need\n" unless defined $opt{$need};
+    }
+    require_closure('ConchingAssay::WalkMath::EmitLane');
+    my $atlas = ConchingAssay::WalkMath::EmitLane::run(%opt);
+    print "chronicle_digest=", $atlas->{chronicle_digest}, "\n";
+    exit 0;
+}
+
+if ($cmd eq 'fuse') {
+    for my $need (qw(--lattice-invariant-catalog --conching-window --kiln-traces --output)) {
+        die "missing $need\n" unless defined $opt{$need};
+    }
+    system($0, 'bind',
+        '--lattice-invariant-catalog', $opt{'--lattice-invariant-catalog'},
+        '--conching-window', $opt{'--conching-window'},
+        '--kiln-traces', $opt{'--kiln-traces'},
+    ) == 0 or exit 1;
+    require_closure('ConchingAssay::WalkMath::EmitLane');
+    my $atlas = ConchingAssay::WalkMath::EmitLane::run(%opt);
+    print "chronicle_digest=", $atlas->{chronicle_digest}, "\n";
+    exit 0;
+}
+
+usage();

@@ -1,0 +1,12 @@
+{
+  "greenhouse_id": "gh-north-1",
+  "target_ec_mS": 2.0,
+  "ph_min": 5.5,
+  "ph_max": 6.5,
+  "max_batch_volume_ml": 5000,
+  "max_daily_volume_ml_per_zone": 8000,
+  "min_dose_count": 2,
+  "max_ec_drift_integral": 5000,
+  "greenhouse_timezone": "America/Chicago",
+  "zone_ids": ["zone-a", "zone-b", "zone-c"]
+}

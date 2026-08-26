@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "seq_id": 1,
+      "datum_len": 1234,
+      "checksum": 6720,
+      "status_nibble": 3,
+      "revision_tag": 5,
+      "label": null
+    }
+  ],
+  "compatibility_trace": [
+    {
+      "seq_id": 1,
+      "state": "compatible",
+      "diverged_fields": []
+    }
+  ],
+  "error_classification": [],
+  "artifacts": [],
+  "_note": "interim snapshot only \u2014 not the graded bundle"
+}

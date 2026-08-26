@@ -1,0 +1,20 @@
+# Local 1 is assigned on one branch but not the other; at the join it is only
+# definitely assigned if assigned on EVERY incoming path, so it is not, and the
+# later `load 1` must be rejected. Contrast `verify` with the contract.
+func main(int) -> int {
+  locals 1
+b0:
+  load 0
+  iconst 0
+  icmp
+  br_if b2
+b1:
+  iconst 7
+  store 1
+  br b3
+b2:
+  br b3
+b3:
+  load 1
+  ret
+}

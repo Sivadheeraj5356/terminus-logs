@@ -1,0 +1,5 @@
+==36729== Memcheck, a memory error detector
+==36729== case: case_0005
+==36729== Invalid read of size 8
+==36729==    at 0x555578be17e1: hmac_sha256 (vaultseal.c:310)
+==36729==    by 0x555522025d8b: seal_record (vaultseal.c:400)

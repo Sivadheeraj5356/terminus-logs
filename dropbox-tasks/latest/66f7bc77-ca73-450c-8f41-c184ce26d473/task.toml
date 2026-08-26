@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "Anonymous"
+author_email = "Anonymous"
+category = "data-processing"
+subcategories = ["db_interaction"]
+difficulty = "medium"
+codebase_size = "small"
+number_of_milestones = 0
+languages = ["lua", "sql"]
+tags = ["sqlite", "docker-compose", "model-promotion", "scikit-learn"]
+expert_time_estimate_min = 150.0
+junior_time_estimate_min = 360.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 1800.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 420.0

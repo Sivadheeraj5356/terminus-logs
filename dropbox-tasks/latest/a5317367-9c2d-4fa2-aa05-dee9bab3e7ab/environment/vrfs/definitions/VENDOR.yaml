@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: VENDOR
+description: Apexora VENDOR macro-segment
+rd: "65022:1022"
+rt_export: "65022:1022"
+rt_import:
+  - "65022:1022"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

@@ -1,0 +1,3 @@
+KidAllow+=admin
+RotatePort=9090
+StaleKid!

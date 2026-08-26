@@ -1,0 +1,25 @@
+{
+  "verdicts_in_severity_order": [
+    "VOIDED",
+    "REJECTED_CONTRADICTORY",
+    "INVALID",
+    "REJECTED_TYPE",
+    "REJECTED_SEAL",
+    "REJECTED_REPLAY",
+    "SCHEMA_DRIFT_QUARANTINED",
+    "QUARANTINED_TENANT",
+    "REJECTED_COLLISION",
+    "REJECTED_WEAK_HASH",
+    "REJECTED_DUPLICATE",
+    "DEFERRED_STALE",
+    "DEFERRED_COOLDOWN",
+    "DEFERRED_REHASH",
+    "DEFERRED_HOT",
+    "DEFERRED_BANDWIDTH",
+    "DEFERRED_RESERVED_OUT",
+    "DEHYDRATED",
+    "KEPT_CANONICAL"
+  ],
+  "sort_keys": ["verdict:severity_desc", "chunk_id:asc"],
+  "histogram_zero_fill": true
+}

@@ -1,0 +1,4 @@
+target_id,target_weight
+wear_slope,1.0
+load_response,0.75
+sensor_balance,0.55

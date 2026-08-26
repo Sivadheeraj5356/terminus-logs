@@ -1,0 +1,7 @@
+STORE app
+CACHE fast
+NAR_HASH happ
+NAR_SIZE 5
+SIGS f1
+REFERENCES dep
+DERIVER app.drv

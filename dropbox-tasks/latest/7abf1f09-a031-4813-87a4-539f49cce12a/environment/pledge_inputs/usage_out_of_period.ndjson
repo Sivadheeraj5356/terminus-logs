@@ -1,0 +1,2 @@
+{"event_id": "ev-oop-1", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-02-28T23:59:00Z", "units": 40}
+{"event_id": "ev-oop-2", "tenant_id": "tn-bor", "service": "storage", "timestamp": "2027-04-01T00:00:00Z", "units": 50}

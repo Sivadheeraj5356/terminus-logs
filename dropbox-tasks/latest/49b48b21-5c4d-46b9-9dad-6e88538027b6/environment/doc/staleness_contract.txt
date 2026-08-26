@@ -1,0 +1,28 @@
+Lineage staleness frontier audit for /app/output/lineage_frontier.json.
+
+Rebuild entry points: /app/scripts/frontier.sh, /app/launcher/lf_align
+Manifest source: /app/data/manifest.json
+Runtime config: /app/cfg/lineage.toml
+Schema mark stub: /app/stubs/schema_level.txt
+Fixture roots: /app/data/graphs, /app/data/ledgers, /app/data/consumers
+
+Do not edit shipped graph, ledger, or consumer fixture bytes under /app/data.
+
+Per-consumer field semantics: /app/doc/frontier_fields.txt
+Digest row keys: /app/eng/constants.py DIGEST_ROW_KEYS
+
+Each rebuild reloads `/app/cfg/lineage.toml` and `/app/data/manifest.json` from disk and walks every manifest consumer. Cached lineage settings and cached manifest rows must not survive across in-process build_report calls or consecutive rechecks.
+
+Ledger projection keeps finish events whose gen is greater than or equal to the effective generation floor for that consumer (inclusive floor). Per-consumer manifest `generation_floor` overrides apply by key presence, including zero. The effective floor used for projection is the resolved per-consumer floor, not a forced fallback to the runtime default when they differ.
+
+When multiple finish events exist for one node, the projected latest map keeps the finish with the highest seq.
+
+Gate nodes in the graph gates table become eligible when the watched node's rows count is at or above min_rows.
+
+When fan_in_require_all is true, a subscribed node stays out of stale_inputs until every declared parent dependency has a finish event in the projected latest map.
+
+rebuild_required is true exactly when stale_inputs is non-empty. Both fields must stay paired even when some stale node ids have no finish row in the projected latest map.
+
+Digest body row ordering for frontier_digest_hex: reverse Kahn forward topological order on the stale subgraph per `/app/doc/frontier_fields.txt` (not alphabetical stale_inputs). Serialize each row with DIGEST_ROW_KEYS field order; do not alphabetize JSON object keys. Join rows with newlines and hash once; do not append a trailing newline after the final row. When stale_inputs is empty, or when no stale node contributes a finish row, hash the zero-length UTF-8 body.
+
+Rebuild probes may reference transient graph, ledger, or consumer paths; restore shipped fixtures afterward.

@@ -1,0 +1,20 @@
+options {
+    directory "/var/cache/bind";
+    listen-on port 15353 { 127.0.0.1; };
+    recursion no;
+    dnssec-validation yes;
+};
+
+key "anchor" {
+    algorithm ED25519;
+    public-key "REPLACE_ANCHOR";
+};
+
+trust-anchors {
+    "example.test." static-key anchor;
+};
+
+zone "example.test." {
+    type master;
+    file "/output/example.test.signed";
+};

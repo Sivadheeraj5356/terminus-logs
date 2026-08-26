@@ -1,0 +1,18 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 8450061,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "WWW.ACME.NET",
+    "www.acme.net",
+    "mail.umbrella.org",
+    "a.globex.dev",
+    "*.umbrella.org"
+  ],
+  "issued_at": "2026-12-11T00:46:11Z",
+  "payload": "cert:gLoCtvuJuQ7NuIva6Bh1y8QQO9bZp6ACY+7PoWAqNEw=",
+  "received_at": "2026-12-21T03:29:52Z",
+  "x_shard": 21,
+  "x_ingest_host": "frontend-1",
+  "x_origin": "shard-west-3"
+}

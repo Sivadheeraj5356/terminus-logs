@@ -1,0 +1,7 @@
+addr 91.239.110.115 hex 0x2863 token tok_423
+value = 0xDEADbeef and 0x1234
+value = 0xDEADbeef and 0x1234
+addr 248.173.97.122 hex 0x30e9 token tok_51
+addr 54.97.247.195 hex 0xaaa0 token tok_917
+addr 206.236.131.107 hex 0xd07 token tok_666
+a "quoted string" and "another"

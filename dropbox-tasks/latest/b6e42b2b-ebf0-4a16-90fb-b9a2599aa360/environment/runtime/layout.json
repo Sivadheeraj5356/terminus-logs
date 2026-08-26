@@ -1,0 +1,9 @@
+{
+  "tiers": {
+    "operator": { "rank": 0 },
+    "runtime": { "rank": 1 },
+    "vendor": { "rank": 2 }
+  },
+  "digest_joiner": ";",
+  "digest_pair": ":"
+}

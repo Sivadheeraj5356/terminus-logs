@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-ff17c305267c": {
+      "alg": "ed25519",
+      "public": "fb7f944bd0e83bf24cfbf3440622190faa9f3be8d8f4286518b5943131e6f4ea"
+    }
+  },
+  "message": {
+    "authority": "svc1.example.com",
+    "body": "{\"n\": 116, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:RNfRI4RYONqcLJ8zxqRElAtiM28Tbm0ONgWWMhnTpWM=:",
+      "content-type": "application/json",
+      "signature": "sig1=:0ExW66pHeYE5sUFE/2JwveH5ccin51U65aBnb7xDzW4zbZqp+7nh/jERYlcrl7RQZulU7J3nqH88pOqUbiv9CQ==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\" \"content-digest\" \"@query-param\";name=\"role\");created=1700000056;expires=1700000416;keyid=\"k-ff17c305267c\";alg=\"ed25519\""
+    },
+    "method": "GET",
+    "path": "/api/v2/resource/116",
+    "query": "user=bob&role=superadmin&id=116"
+  },
+  "now": 1700000116
+}

@@ -1,0 +1,11 @@
+--- internal/route/tie.go
++++ internal/route/tie.go
+@@ -27,7 +27,7 @@
+ 	bestKey := pathKey(cands[0])
+ 	for i := 1; i < len(cands); i++ {
+ 		key := pathKey(cands[i])
+-		if key > bestKey {
++		if key < bestKey {
+ 			bestIdx = i
+ 			bestKey = key
+ 		}

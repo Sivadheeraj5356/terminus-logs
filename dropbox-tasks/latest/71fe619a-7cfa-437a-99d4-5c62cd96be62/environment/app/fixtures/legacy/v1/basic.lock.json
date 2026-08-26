@@ -1,0 +1,28 @@
+{
+  "schema_version": "modpolicy/v1",
+  "goos": "linux",
+  "goarch": "amd64",
+  "modules": [
+    {
+      "path": "corp.example/sample",
+      "version": "v1.0.0",
+      "source": "mirror",
+      "policy_code": "P"
+    },
+    {
+      "path": "corp.example/ws-sample",
+      "version": "v2.0.0",
+      "source": "workspace",
+      "policy_code": "W"
+    },
+    {
+      "path": "corp.example/rep-sample",
+      "version": "v3.0.0",
+      "source": "replace",
+      "policy_code": "R",
+      "replace_old": "corp.example/rep-sample",
+      "replace_new": "corp.example/rep-target",
+      "replace_version": "v3.1.0"
+    }
+  ]
+}

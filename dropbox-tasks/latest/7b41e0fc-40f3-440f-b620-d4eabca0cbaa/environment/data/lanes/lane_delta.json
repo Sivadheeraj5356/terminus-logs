@@ -1,0 +1,11 @@
+{
+  "lane_id": "lane_delta",
+  "source_chain": ["m0", "m1"],
+  "receiver_chain": ["m0", "m1"],
+  "metadata_edges": [["m1", "m1"]],
+  "candidate_parents": ["m1", "m9"],
+  "interrupted": false,
+  "retry_overwrite": false,
+  "content_match": true,
+  "wrap_epoch": 1
+}

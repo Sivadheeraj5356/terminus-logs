@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-51703c23fe9d": {
+      "alg": "ed25519",
+      "public": "003feed0f740c61c8bd6488419d5c31c5f8786332c03d4abf86e6f153b7aa0bf"
+    }
+  },
+  "message": {
+    "authority": "svc1.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "sig1=:C96IWotwyokH3mssHFIRX452XB+RMwZtg1jNL0qlTUiCxoIx8nEgoixDVkWpPEbsFumxZZOFyon6HHa2KQGgBQ==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000116;expires=1700000366;keyid=\"k-51703c23fe9d\";alg=\"ed25519\""
+    },
+    "method": "PUT",
+    "path": "/api/v0/resource/66",
+    "query": "page=66&sort=asc"
+  },
+  "now": 1700000066
+}

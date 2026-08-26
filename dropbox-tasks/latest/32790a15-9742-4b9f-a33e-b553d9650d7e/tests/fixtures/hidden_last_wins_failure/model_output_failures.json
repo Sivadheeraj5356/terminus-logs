@@ -1,0 +1,16 @@
+{
+  "failures": [
+    {
+      "failure_id": "f_dup",
+      "session_id": "sess_alpha",
+      "turn_id": "t_a2",
+      "observed_at": "2024-02-02T00:00:00Z"
+    },
+    {
+      "failure_id": "f_dup",
+      "session_id": "sess_alpha",
+      "turn_id": "t_a4",
+      "observed_at": "2024-03-02T00:00:00Z"
+    }
+  ]
+}

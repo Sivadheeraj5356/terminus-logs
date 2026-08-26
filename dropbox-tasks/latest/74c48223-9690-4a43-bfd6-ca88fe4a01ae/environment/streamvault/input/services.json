@@ -1,0 +1,17 @@
+{
+  "services": {
+    "admin-ui": {
+      "bind": "0.0.0.0",
+      "ports": ["8080:8080/tcp"]
+    },
+    "camera-ingest": {
+      "bind": "0.0.0.0",
+      "ports": ["554:554/tcp", "8554:8554/tcp"]
+    },
+    "metrics": {
+      "bind": "0.0.0.0",
+      "ports": ["9090:9090/tcp"]
+    }
+  },
+  "version": 1
+}

@@ -1,0 +1,11 @@
+[[perm]]
+id = 0
+swap = ["bind", "upper"]
+
+[[perm]]
+id = 1
+swap = ["worker", "bind_echo"]
+
+[[perm]]
+id = 2
+swap = ["upper_echo", "worker_echo"]

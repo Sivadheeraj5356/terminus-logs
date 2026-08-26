@@ -1,0 +1,5 @@
+{
+  "principal": "operator-c",
+  "password": "s3cret-trunc",
+  "bad_rounds": 3
+}

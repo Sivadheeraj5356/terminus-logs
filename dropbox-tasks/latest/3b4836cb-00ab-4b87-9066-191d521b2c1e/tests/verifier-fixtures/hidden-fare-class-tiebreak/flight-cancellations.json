@@ -1,0 +1,11 @@
+{
+  "cancellations": [
+    {
+      "event_id": "CAN-FC1",
+      "flight_id": "UA950",
+      "revision": 1,
+      "recorded_utc": "2026-08-31T09:00:00Z",
+      "replacement_pool": []
+    }
+  ]
+}

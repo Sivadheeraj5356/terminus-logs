@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0008
+signal: SIGSEGV (fault)
+#0  0x55557a01d375 in hkdf_derive (a=0x55556439504b) at vaultseal.c:190
+#1  0x55552ea4c287 in ra (a=0x5555bcece88f) at vaultseal.c:300
+#2  0x5555cf665894 in rb (a=0x55556c40034b) at vaultseal.c:307
+#3  0x555570a8da80 in main (a=0x5555e61041f4) at vaultseal.c:512

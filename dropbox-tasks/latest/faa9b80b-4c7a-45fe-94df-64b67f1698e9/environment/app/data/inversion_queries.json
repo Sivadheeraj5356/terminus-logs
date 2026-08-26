@@ -1,0 +1,70 @@
+{
+  "fits": [
+    {
+      "fit_id": "fit_cond",
+      "case_id": "case_diurnal",
+      "parameter_names": [
+        "conductivity_scale"
+      ],
+      "lower_bounds": [
+        0.7
+      ],
+      "upper_bounds": [
+        1.3
+      ],
+      "initial_values": [
+        1.0
+      ],
+      "observation_ids": [
+        "obs_d_noon",
+        "obs_d_dusk"
+      ],
+      "target_brightness_temperatures_k": [
+        306.6537205784698,
+        297.7187387878075
+      ],
+      "observation_weights": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "fit_id": "fit_two",
+      "case_id": "case_gradient",
+      "parameter_names": [
+        "conductivity_scale",
+        "albedo_offset"
+      ],
+      "lower_bounds": [
+        0.95,
+        0.0
+      ],
+      "upper_bounds": [
+        1.2,
+        0.04
+      ],
+      "initial_values": [
+        1.0,
+        0.0
+      ],
+      "observation_ids": [
+        "obs_g_morning",
+        "obs_g_noon",
+        "obs_g_dusk",
+        "obs_g_night"
+      ],
+      "target_brightness_temperatures_k": [
+        294.62822080458864,
+        304.31066742603434,
+        295.5546115175821,
+        292.4552177079022
+      ],
+      "observation_weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ]
+}

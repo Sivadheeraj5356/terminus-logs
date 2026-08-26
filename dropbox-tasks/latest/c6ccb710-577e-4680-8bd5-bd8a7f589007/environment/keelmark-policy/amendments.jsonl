@@ -1,0 +1,9 @@
+{"seq":7,"status":"ratified","target":"warn_kN","value":402.0,"supersedes":[]}
+{"seq":2,"status":"ratified","target":"class_gains.spare","value":1.2,"supersedes":[]}
+{"seq":13,"status":"revoked","target":"critical_kN","value":550.0,"supersedes":[]}
+{"seq":5,"status":"draft","target":"warn_kN","value":350.0,"supersedes":[]}
+{"seq":11,"status":"ratified","target":"class_gains.spare","value":1.15,"supersedes":[2]}
+{"seq":4,"status":"ratified","target":"warn_kN","value":415.0,"supersedes":[]}
+{"seq":10,"status":"ratified","target":"alert_mute_add","value":"uniform-roster-only","supersedes":[6]}
+{"seq":6,"status":"ratified","target":"class_gains.trial","value":1.05,"supersedes":[]}
+{"seq":8,"status":"ratified","target":"alert_mute_add","value":"victor-thresh","supersedes":[]}

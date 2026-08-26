@@ -1,0 +1,6 @@
+RULE AUTOMOUNT_TRIGGER
+IN keys
+OUT value,reason
+TABLE
+start_automount -> wait_trigger|automount
+END

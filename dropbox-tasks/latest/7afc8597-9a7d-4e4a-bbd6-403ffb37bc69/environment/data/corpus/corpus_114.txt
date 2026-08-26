@@ -1,0 +1,10 @@
+world foobar bar
+addr 26.170.238.249 hex 0x198d token tok_158
+addr 12.251.91.207 hex 0x3719 token tok_137
+bird alpha grey dog
+addr 79.120.116.84 hex 0x2d48 token tok_886
+the quick brown fox
+banana bananana ba na
+bird hello
+value = 0xDEADbeef and 0x1234
+true quux

@@ -1,0 +1,14 @@
+== Petrified Garden [fungal] ==
+Omen: Fire answers fire.
+Light: 9.5 lumens
+Relics:
+  - Spore Lantern <uncommon> 70g
+  - Petrified Rose <common> 25g
+Freshest: Petrified Rose @ 11:30 KST
+Exits:
+  - up: sealed gate (torch 2.0)
+Torch: 5.9 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take petrified-rose

@@ -1,0 +1,108 @@
+{
+  "session_id": "session_16",
+  "rng_seed": 1600,
+  "pity_threshold": 5,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "quinn",
+      "roll_value": 0.0,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "quinn",
+      "roll_value": 0.182927945799,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 3,
+      "player_id": "quinn",
+      "roll_value": 0.594775231178,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 4,
+      "player_id": "quinn",
+      "roll_value": 0.444318979461,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "quinn",
+      "roll_value": 0.992187261574,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 6,
+      "player_id": "quinn",
+      "roll_value": 0.481887264626,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 7,
+      "player_id": "quinn",
+      "roll_value": 0.775536362804,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 8,
+      "player_id": "quinn",
+      "roll_value": 0.593401898251,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 9,
+      "player_id": "quinn",
+      "roll_value": 0.936063722648,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 10,
+      "player_id": "quinn",
+      "roll_value": 0.079836420789,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 11,
+      "player_id": "quinn",
+      "roll_value": 0.141880550554,
+      "item_id": "relic",
+      "tier": "epic"
+    }
+  ]
+}

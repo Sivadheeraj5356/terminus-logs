@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "revision": "cutover-draft-a",
+  "deny": 5,
+  "count_modules": ["pam_unix"],
+  "carryover": {
+    "ian": 0,
+    "bob": 2,
+    "dave": 1,
+    "henry": 1
+  },
+  "notes": ["unix_only_rollforward", "legacy_threshold"]
+}

@@ -1,0 +1,14 @@
+{
+  "embedserve-default": {
+    "api_version": "2025-07",
+    "inventory_path": "/app/data/embedserve_inventory.db",
+    "ops_bundle_path": "/app/docs/embedserve-operations-bundle.md",
+    "ops_section": 11,
+    "operative_amendment": "A-2025-07",
+    "lockfile_path": "/app/environment/sidecar/tokenizer/Cargo.lock",
+    "manifest_path": "/app/environment/sidecar/tokenizer/Cargo.toml",
+    "advisory_db_path": "/app/environment/fixtures/rustsec-advisory-db",
+    "sidecar_role": "tokenizer",
+    "static_denylist_path": "/app/environment/config/static_cargo_denylist.json"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "exclude": [
+    "*.tmp",
+    "*.log"
+  ],
+  "gzip_level": 6
+}

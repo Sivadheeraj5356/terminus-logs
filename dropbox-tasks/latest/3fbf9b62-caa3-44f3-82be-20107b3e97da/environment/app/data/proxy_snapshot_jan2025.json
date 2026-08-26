@@ -1,0 +1,80 @@
+{
+  "pack": "JAN_2025",
+  "entries": {
+    "MOD-001": {
+      "retracted": false,
+      "zip_hash": "h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=",
+      "block_reason": ""
+    },
+    "MOD-002": {
+      "retracted": false,
+      "zip_hash": "h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=",
+      "block_reason": ""
+    },
+    "MOD-003": {
+      "retracted": false,
+      "zip_hash": "h1:3NFvSEYkUoMifnESzZl15y791HH1qU2xm6eCJU5ZPXQ=",
+      "block_reason": ""
+    },
+    "MOD-004": {
+      "retracted": false,
+      "zip_hash": "h1:e5/vxKd/rZsfSJMUX1agtjeTDf+qv1/JdBF8gg5k9ZM=",
+      "block_reason": ""
+    },
+    "MOD-005": {
+      "retracted": false,
+      "zip_hash": "h1:aJMhYGrd5QSmlpLMr2MftRKl7t8J8PTZPA732ud/XR8=",
+      "block_reason": ""
+    },
+    "MOD-006": {
+      "retracted": false,
+      "zip_hash": "h1:acVI1TYaD+hhedDJ3r54HyA6sExp3HfXq7QWEEY/xMw=",
+      "block_reason": ""
+    },
+    "MOD-007": {
+      "retracted": false,
+      "zip_hash": "h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=",
+      "block_reason": ""
+    },
+    "MOD-008": {
+      "retracted": false,
+      "zip_hash": "h1:YmeHyLY8mFWbdkNWwpr+qIL2bEqT0o95WSdkNHvL12M=",
+      "block_reason": ""
+    },
+    "MOD-009": {
+      "retracted": false,
+      "zip_hash": "h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=",
+      "block_reason": ""
+    },
+    "MOD-010": {
+      "retracted": false,
+      "zip_hash": "h1:IwnfBzgyc2ITA0JMbIlRUYE6udQuxD/886HM5r7hUds=",
+      "block_reason": ""
+    },
+    "MOD-011": {
+      "retracted": false,
+      "zip_hash": "h1:bcSGx7UbpBqMChDtsF28Lw6v/G94LPrrbMbdC3JH2co=",
+      "block_reason": ""
+    },
+    "MOD-012": {
+      "retracted": false,
+      "zip_hash": "h1:PSGhv13dJyrTCw1+55H0pIKM3WFov7HuUrKUmInGL0o=",
+      "block_reason": ""
+    },
+    "MOD-013": {
+      "retracted": false,
+      "zip_hash": "h1:EmVIxB5jzbllGIjiCV5JG4VylbK3KE400tLGLI1cdfU=",
+      "block_reason": ""
+    },
+    "MOD-014": {
+      "retracted": false,
+      "zip_hash": "h1:IcX6PY5gwPvDP04WKWiAaMK6aqxhuhJQ1td9cUT6spI=",
+      "block_reason": ""
+    },
+    "MOD-015": {
+      "retracted": false,
+      "zip_hash": "h1:WRONGHASH00000000000000000000000000000000000=",
+      "block_reason": ""
+    }
+  }
+}

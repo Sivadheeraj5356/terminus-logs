@@ -1,0 +1,34 @@
+{
+  "description": "Held-back structural causal model for the workplace-wellbeing enrollment ATE task. Enrollment is driven by a strong administrative process count (outreach_contacts) that has no direct effect on the wellbeing index, by several linear baseline covariates, by tenure_years, and by two mean-zero three-way products of sines among disjoint baseline covariate triples that also enter the outcome and therefore confound. outreach_contacts is a near-instrument: conditioning on it amplifies the residual bias left when the oscillatory confounders are not modeled. The treatment effect is heterogeneous in tenure_years, whose mean is well away from zero, so the population average effect equals tau + tau_het*mean(tenure_years). Recovering it needs both oscillatory terms reconstructed from the baseline covariates at their own frequencies, the eight linear baselines and tenure adjusted for, outreach_contacts left out, and the enrolled-minus-not contrast averaged over every employee. All confounding is through measured covariates, so the effect is point identified.",
+  "base_covariates": ["age_index", "bmi_index", "activity_index", "chronic_index", "diet_index", "sleep_index", "stress_index", "income_index"],
+  "effect_modifier": "tenure_years",
+  "instrument_decoy": "outreach_contacts",
+  "confounder_triple_a": ["diet_index", "sleep_index", "stress_index"],
+  "confounder_triple_b": ["activity_index", "chronic_index", "income_index"],
+  "cg_ya": 3.2,
+  "cg_yb": 3.2,
+  "cg_aa": 3.4,
+  "cg_ab": 3.4,
+  "cout": 1.6,
+  "cten": 1.0,
+  "n": 6000,
+  "rel_tol": 0.10,
+  "near_min_rel": 0.15,
+  "gross_min_rel": 0.30,
+  "committed": {
+    "seed": 20260709,
+    "tau": 0.6,
+    "tau_het": 0.16,
+    "w_a": 1.4,
+    "w_b": 1.25,
+    "true_ate": 1.240451
+  },
+  "hidden_instances": [
+    {"seed": 1001, "tau": 0.55, "tau_het": 0.15, "w_a": 1.6, "w_b": 1.3},
+    {"seed": 1002, "tau": 0.48, "tau_het": 0.18, "w_a": 1.3, "w_b": 1.7},
+    {"seed": 1003, "tau": 0.68, "tau_het": 0.14, "w_a": 1.75, "w_b": 1.2},
+    {"seed": 1004, "tau": 0.5, "tau_het": 0.19, "w_a": 1.2, "w_b": 1.55},
+    {"seed": 1005, "tau": 0.62, "tau_het": 0.16, "w_a": 1.45, "w_b": 1.4},
+    {"seed": 1006, "tau": 0.7, "tau_het": 0.17, "w_a": 1.55, "w_b": 1.65}
+  ]
+}

@@ -1,0 +1,6 @@
+hostname: acc-emea-fra-ot-yard-03
+migration_state: legacy
+canonical_vlan: 2034
+configured_vlan: 135
+legacy_vlan: 135
+duplicate_vlan_conflict: false

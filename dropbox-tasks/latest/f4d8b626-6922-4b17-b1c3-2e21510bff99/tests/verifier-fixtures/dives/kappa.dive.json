@@ -1,0 +1,42 @@
+{
+  "expedition_id": "expedition-kappa",
+  "reports": [
+    {
+      "report_id": "kp-main",
+      "dive_lane": "vent_lane",
+      "confidence_rank": 1,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    }
+  ],
+  "observations": [
+    {
+      "obs_id": "obs-k1",
+      "dive_lane": "vent_lane",
+      "timestamp_utc": "2024-07-01T10:00:00Z",
+      "obs_type": "HYDROTHERMAL_VENT",
+      "depth_m": 2200,
+      "feature_code": "VENT-LATE",
+      "instrument_id": "temp-k1"
+    },
+    {
+      "obs_id": "obs-k2",
+      "dive_lane": "vent_lane",
+      "timestamp_utc": "2024-07-01T09:00:00Z",
+      "obs_type": "HYDROTHERMAL_VENT",
+      "depth_m": 2100,
+      "feature_code": "VENT-EARLY",
+      "instrument_id": "temp-k2"
+    },
+    {
+      "obs_id": "obs-k3",
+      "dive_lane": "unmapped_rift",
+      "timestamp_utc": "2024-07-01T11:00:00Z",
+      "obs_type": "SEAFLOOR_SAMPLE",
+      "depth_m": 1800,
+      "feature_code": "ORPHAN",
+      "instrument_id": "cam-k3"
+    }
+  ]
+}

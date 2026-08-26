@@ -1,0 +1,20 @@
+[workspace]
+members = [
+  "manifest",
+  "catalog",
+  "algebra",
+  "store",
+  "eval",
+  "replay",
+  "publish",
+]
+resolver = "2"
+
+[package]
+name = "lora-gate"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+manifest = { package = "m0", path = "manifest" }
+publish = { package = "p6", path = "publish" }

@@ -1,0 +1,8 @@
+[package]
+name = "embedserve-tokenizer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rsa = "=0.9.6"
+serde_json = "1.0.140"

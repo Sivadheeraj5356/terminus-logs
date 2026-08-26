@@ -1,0 +1,14 @@
+[
+  {
+    "from": "k8s-agg",
+    "to": "crown-store"
+  },
+  {
+    "from": "mesh-entry",
+    "to": "grp-shared"
+  },
+  {
+    "from": "grp-shared",
+    "to": "k8s-agg"
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "turns": [
+    {
+      "turn_id": "t_b1",
+      "session_id": "sess_beta",
+      "role": "user",
+      "completed_at": "2024-02-10T00:00:00Z"
+    },
+    {
+      "turn_id": "t_b2",
+      "session_id": "sess_beta",
+      "role": "assistant",
+      "completed_at": "2024-02-11T00:00:00Z"
+    },
+    {
+      "turn_id": "t_b3",
+      "session_id": "sess_beta",
+      "role": "user",
+      "completed_at": "2024-04-01T00:00:00Z"
+    },
+    {
+      "turn_id": "t_b4",
+      "session_id": "sess_beta",
+      "role": "assistant",
+      "completed_at": "2024-04-02T00:00:00Z"
+    }
+  ]
+}

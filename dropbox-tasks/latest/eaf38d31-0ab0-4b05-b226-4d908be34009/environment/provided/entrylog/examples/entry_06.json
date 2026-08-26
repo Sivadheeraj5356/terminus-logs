@@ -1,0 +1,17 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 64,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "api.acme.com",
+    "*.acme.com",
+    "WWW.ACME.COM",
+    "www.acme.com",
+    "a.sub.acme.com",
+    "sub.acme.com"
+  ],
+  "issued_at": "2026-06-06T06:06:06.123Z",
+  "payload": "cert:FFFFconstantpayloadSIX",
+  "received_at": "2026-06-06T06:06:10Z",
+  "x_shard": 2
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "case_id": "lab-bench-a",
+  "requested_levels": 10,
+  "max_levels": 8
+}

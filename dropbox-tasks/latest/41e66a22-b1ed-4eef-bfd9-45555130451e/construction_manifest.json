@@ -1,0 +1,128 @@
+{
+  "task_name": "session-freshness-formal-spec",
+  "symbol_table": [
+    {
+      "path": "environment/core/kz/ring.cpp",
+      "symbol": "seal_ring_v",
+      "kind": "function",
+      "signature": "int seal_ring_v(struct kz_ctx *ctx, uint64_t gen, const uint8_t *cred, size_t n)",
+      "purpose": "Commits refresh circulation seal for the active principal generation."
+    },
+    {
+      "path": "environment/lane/ep/latch.cpp",
+      "symbol": "latch_dur_q",
+      "kind": "function",
+      "signature": "int latch_dur_q(struct ep_ctx *ctx, uint64_t gen, uint64_t abs_deadline, uint64_t idle_base)",
+      "purpose": "Latches durable deadline state composing absolute and idle clocks."
+    },
+    {
+      "path": "environment/lane/nx/quota.cpp",
+      "symbol": "fold_cap_m",
+      "kind": "function",
+      "signature": "int fold_cap_m(struct nx_ctx *ctx, uint32_t principal_id, int delta, uint64_t fence)",
+      "purpose": "Folds occupancy budget changes under a fencing counter."
+    },
+    {
+      "path": "environment/tools/sf_verify/pack.cpp",
+      "symbol": "pack_blob_w",
+      "kind": "function",
+      "signature": "int pack_blob_w(const struct run_matrix *mx, struct journal_blob *out)",
+      "purpose": "Packs terminal witness rows and canonical binary digests for grading."
+    }
+  ],
+  "flipping_point_contract": {
+    "locations": [
+      {
+        "id": "A",
+        "path": "environment/core/kz/ring.cpp",
+        "controls_tests": [
+          "test_k01",
+          "test_k02",
+          "test_k03"
+        ]
+      },
+      {
+        "id": "B",
+        "path": "environment/lane/ep/latch.cpp",
+        "controls_tests": [
+          "test_k04",
+          "test_k05",
+          "test_k06"
+        ]
+      },
+      {
+        "id": "C",
+        "path": "environment/lane/nx/quota.cpp",
+        "controls_tests": [
+          "test_k07",
+          "test_k08",
+          "test_k09"
+        ]
+      },
+      {
+        "id": "D",
+        "path": "environment/tools/sf_verify/pack.cpp",
+        "controls_tests": [
+          "test_k10",
+          "test_k11",
+          "test_k12"
+        ]
+      }
+    ],
+    "no_single_location_flips_majority": true,
+    "concentration_cap": 0.5
+  },
+  "decoy_manifest": [
+    {
+      "path": "environment/core/kz/legacy_ring.cpp",
+      "kind": "module",
+      "rhymes_with": "seal_ring_v",
+      "non_fix_purpose": "Deprecated circulation path used only by offline benchmarks."
+    },
+    {
+      "path": "environment/lane/nx/stub_quota.cpp",
+      "kind": "helper",
+      "rhymes_with": "fold_cap_m",
+      "non_fix_purpose": "No-op occupancy stubs for simulator builds."
+    },
+    {
+      "path": "environment/tools/evt_pull/collector.cpp",
+      "kind": "helper",
+      "rhymes_with": "pack_blob_w",
+      "non_fix_purpose": "Collects payload metadata without mutating policy state."
+    }
+  ],
+  "code_forbidden_tokens": [
+    "auth",
+    "session",
+    "policy",
+    "checker",
+    "refresh",
+    "circulation",
+    "durable",
+    "ledger",
+    "scenario",
+    "profiles",
+    "idle",
+    "inactivity",
+    "absolute",
+    "lifetime",
+    "clocks",
+    "occupancy",
+    "caps",
+    "login",
+    "surge",
+    "principal",
+    "budget",
+    "witness",
+    "freshness",
+    "rotation",
+    "migration",
+    "recovery",
+    "verification",
+    "fixtures",
+    "reuse",
+    "timeout",
+    "store"
+  ]
+}

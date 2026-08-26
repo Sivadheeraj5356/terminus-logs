@@ -1,0 +1,6 @@
+func main() -> int {
+  locals 1
+b0:
+  load 0
+  ret
+}

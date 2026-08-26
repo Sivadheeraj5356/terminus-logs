@@ -1,0 +1,17 @@
+{
+  "name": "warm_lane",
+  "label_pick": "stale-label",
+  "label_epoch": 0,
+  "pre_id": 0,
+  "post_id": 0,
+  "wal_cursor": 0,
+  "scope_visible": 0,
+  "provenance": [
+    "seed"
+  ],
+  "ledger_epoch": 1,
+  "ledger_gen": 1,
+  "handoff_gen": 1,
+  "anchor_epoch": 10,
+  "row_tag": "bad"
+}

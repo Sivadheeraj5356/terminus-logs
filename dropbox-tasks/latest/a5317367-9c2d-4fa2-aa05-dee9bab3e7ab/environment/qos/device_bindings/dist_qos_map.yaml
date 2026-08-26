@@ -1,0 +1,6 @@
+schema_version: apexora-qos-dist-bind-1
+bindings:
+  dist-hq-dal-main-01:
+    TenGigabitEthernet1/1/1: PM-CORP_IT
+  dist-emea-fra-main-01:
+    TenGigabitEthernet1/1/1: PM-LEGACY-BE

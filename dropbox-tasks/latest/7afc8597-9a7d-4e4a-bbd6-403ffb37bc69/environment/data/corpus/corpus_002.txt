@@ -1,0 +1,6 @@
+this is the end
+addr 232.36.41.161 hex 0x267c token tok_500
+beta alpha end cat colour gamma
+beta world yes yes
+foo foobar foobarbaz
+color foo gamma beta baz beta colour

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["slice_id", "profile", "rows"],
+  "properties": {
+    "slice_id": { "type": "integer", "const": 759 },
+    "profile": { "type": "integer" },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "instance_uid",
+          "mesh_id",
+          "class_code",
+          "labels",
+          "weights",
+          "o8_score",
+          "lattice_label",
+          "row_digest"
+        ],
+        "properties": {
+          "instance_uid": { "type": "string" },
+          "mesh_id": { "type": "integer" },
+          "class_code": { "type": "integer" },
+          "labels": { "type": "array", "items": { "type": "integer" } },
+          "weights": { "type": "array", "items": { "type": "number" } },
+          "o8_score": { "type": "integer" },
+          "lattice_label": { "type": "string" },
+          "row_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

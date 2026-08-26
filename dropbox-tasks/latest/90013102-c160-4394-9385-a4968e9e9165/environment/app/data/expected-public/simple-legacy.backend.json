@@ -1,0 +1,9 @@
+{
+  "method": "GET",
+  "target": "/health",
+  "headers": {
+    "Host": "legacy.local",
+    "Content-Length": "0"
+  },
+  "body": ""
+}

@@ -1,0 +1,8 @@
+{
+  "id": "https://api.weather.gov/stations/KLAS",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KLAS",
+    "name": "Harry Reid International Airport",
+    "timeZone": "America/Los_Angeles"
+  }

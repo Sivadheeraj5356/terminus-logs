@@ -1,0 +1,49 @@
+package hz.w1;
+
+import cx.SchedRow;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
+
+public final class VmS8 {
+    private VmS8() {}
+
+    public static String vm_s8(List<SchedRow> rows, byte[] salt) {
+        List<SchedRow> ordered = new ArrayList<>(rows);
+        ordered.sort(Comparator
+                .comparing((SchedRow r) -> r.mid)
+                .thenComparingInt(r -> r.idx)
+                .thenComparing(r -> r.src));
+        StringBuilder body = new StringBuilder();
+        for (SchedRow r : ordered) {
+            body.append(r.mid).append('|')
+                    .append(r.idx).append('|')
+                    .append(r.src).append('|')
+                    .append(fmt(r.press)).append('|')
+                    .append(fmt(r.left)).append('|')
+                    .append(fmt(r.leak)).append('\n');
+        }
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(salt);
+            md.update("\n".getBytes(StandardCharsets.UTF_8));
+            md.update(body.toString().getBytes(StandardCharsets.UTF_8));
+            byte[] dig = md.digest();
+            StringBuilder hex = new StringBuilder();
+            for (byte b : dig) {
+                hex.append(String.format("%02x", b));
+            }
+            return hex.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private static String fmt(double v) {
+        return String.format(Locale.US, "%.4f", v);
+    }
+}

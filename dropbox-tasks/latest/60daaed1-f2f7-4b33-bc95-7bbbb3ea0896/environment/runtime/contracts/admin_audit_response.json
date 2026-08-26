@@ -1,0 +1,4 @@
+{
+  "actor": "admin",
+  "events": ["login", "read_config", "rotate_key"]
+}

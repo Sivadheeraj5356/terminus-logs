@@ -1,0 +1,7 @@
+strict_mode = false
+max_for_duration_seconds = 86400
+allow_digit_starting_names = false
+validate_templates = true
+label_regex_pattern = "^[a-zA-Z_][a-zA-Z0-9_]*=.+$"
+offset_bracket_required = false
+max_alert_duration_seconds = 86400

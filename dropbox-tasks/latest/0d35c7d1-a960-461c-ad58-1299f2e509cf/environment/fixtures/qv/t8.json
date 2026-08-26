@@ -1,0 +1,11 @@
+{
+  "arm": "side_stl",
+  "phase": "stale",
+  "row_cap": 6,
+  "group_cap": 3,
+  "cells": [
+    {"id": "x01", "kind": "host", "match": "stl.lab", "target": "be_stl", "want": "route"},
+    {"id": "x02", "kind": "path", "match": "/stl", "target": "be_stlp", "want": "route"},
+    {"id": "x03", "kind": "host", "match": "ghost.lab", "target": "", "want": "deny"}
+  ]
+}

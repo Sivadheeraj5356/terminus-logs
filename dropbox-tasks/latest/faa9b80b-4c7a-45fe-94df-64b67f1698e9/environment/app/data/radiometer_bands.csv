@@ -1,0 +1,11 @@
+band_id,sample_index,wavelength_um,response
+band_8um,0,7.0,0.2
+band_8um,1,8.0,0.9
+band_8um,2,9.0,1.0
+band_8um,3,10.0,0.7
+band_8um,4,11.0,0.1
+band_25um,0,20.0,0.3
+band_25um,1,22.0,0.8
+band_25um,2,25.0,1.0
+band_25um,3,28.0,0.6
+band_25um,4,30.0,0.2

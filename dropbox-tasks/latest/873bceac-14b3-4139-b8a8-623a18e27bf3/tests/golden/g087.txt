@@ -1,0 +1,15 @@
+== Emberforge Hollow [volcanic] ==
+Omen: The bone-count is short.
+Light: 12.5 lumens
+Relics:
+  - Ember Heart <legendary> 500g
+  - Slag Idol <uncommon> 200g (cursed) (sealed)
+Freshest: Ember Heart @ 07:20 KST
+Exits:
+  - north: sealed gate (torch 1.5)
+  - east: Mercury Spring (torch 2.0)
+Torch: 8.0 units
+Inventory: (empty)
+Route: east (torch 2.0)
+---ACTIONS---
+go east

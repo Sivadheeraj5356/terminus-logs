@@ -1,0 +1,9 @@
+addr 12.147.104.127 hex 0x2c35 token tok_967
+hello end end foobar true
+bird gamma yes line
+gray baz end false start end colour
+the quick brown fox
+addr 25.110.79.195 hex 0x5ca4 token tok_333
+addr 96.158.34.184 hex 0xf823 token tok_831
+quux quux
+addr 186.163.246.46 hex 0xc1b0 token tok_117

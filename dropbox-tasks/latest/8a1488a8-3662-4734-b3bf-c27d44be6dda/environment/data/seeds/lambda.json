@@ -1,0 +1,4 @@
+{
+  "nested": {"kind": "map", "value": {"leaf": {"inner": "lambda-target"}}},
+  "deep_alias": {"kind": "scalar", "value": "$ref:nested.leaf.inner"}
+}

@@ -1,0 +1,6 @@
+public_id = "kite"
+tree_prefix = "/stage/kite"
+epoch = 2
+backend = "bk_b"
+size_ceiling = 2560
+seed = 3101

@@ -1,0 +1,8 @@
+{
+  "revoked_ids": [
+    "root-gamma"
+  ],
+  "revoked_subjects": [
+    "acct:delta"
+  ]
+}

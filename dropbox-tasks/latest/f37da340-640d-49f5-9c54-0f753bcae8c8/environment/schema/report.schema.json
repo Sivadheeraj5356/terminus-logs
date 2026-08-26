@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sitefab_report",
+  "type": "object",
+  "required": [
+    "run_id",
+    "steps",
+    "entries",
+    "refreshes",
+    "consumer_refs",
+    "durable_digest",
+    "journal_seq",
+    "barrier_rev",
+    "violation",
+    "maintenance_latch"
+  ],
+  "properties": {
+    "run_id": { "type": "string", "format": "uuid" },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase", "target"],
+        "properties": {
+          "phase": { "type": "string" },
+          "target": { "type": "string" }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["arm", "opts", "order_key"],
+        "properties": {
+          "arm": { "type": "string" },
+          "opts": { "type": "string" },
+          "order_key": { "type": "integer" }
+        }
+      }
+    },
+    "refreshes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase", "target", "tick"],
+        "properties": {
+          "phase": { "type": "string" },
+          "target": { "type": "string" },
+          "tick": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "consumer_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["arm", "epoch"],
+        "properties": {
+          "arm": { "type": "string" },
+          "epoch": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "durable_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "journal_seq": { "type": "integer", "minimum": 0 },
+    "barrier_rev": { "type": "integer", "minimum": 0 },
+    "violation": { "type": "boolean" },
+    "maintenance_latch": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

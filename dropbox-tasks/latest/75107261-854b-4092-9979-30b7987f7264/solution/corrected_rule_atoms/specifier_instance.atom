@@ -1,0 +1,7 @@
+RULE SPECIFIER_INSTANCE
+IN keys
+OUT value,reason
+TABLE
+form|escaped -> %i|inst-escape
+form|unescaped -> %I|inst-escape
+END

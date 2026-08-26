@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-8534df040364": {
+      "alg": "ed25519",
+      "public": "232e12b11b3ede2f7804bb580066ba5ad0e13ebbaca29afab4d090c933f3df3d"
+    }
+  },
+  "message": {
+    "authority": "evil.example.net",
+    "body": "{\"n\": 56, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:S2D3P0+n/nd0CdnWE/WgCxHl1fyRePjvAcyJgKDc1D0=:",
+      "content-type": "application/json",
+      "signature": "sig1=:D/3qP4IPUFiWe+m+mjxwmteh8nkAOXNzV6lDjl2I8mPm4wJf2ow+MCFeCu8ZEhQUc+Dc05K9JBUR3g7PKLwSDg==:",
+      "signature-input": "sig1=(\"@method\" \"@path\" \"@query\" \"content-digest\");created=1699999996;expires=1700000356;keyid=\"k-8534df040364\";alg=\"ed25519\""
+    },
+    "method": "GET",
+    "path": "/api/v2/resource/56",
+    "query": "page=56&sort=asc"
+  },
+  "now": 1700000056
+}

@@ -1,0 +1,7 @@
+# spring step-forward: civil hour 02 never occurs on the local wall clock.
+# A second absent-hour fragment on 20240312 seeds the commit log so later
+# resume catch-up must promote that day's civil_key to the finest hour key.
+20240310|0|1|0
+2024031002|0|1|0
+20240312|0|2|0
+2024031202|0|2|0

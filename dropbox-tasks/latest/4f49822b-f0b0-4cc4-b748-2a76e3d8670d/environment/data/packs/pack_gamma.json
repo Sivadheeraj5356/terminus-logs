@@ -1,0 +1,15 @@
+{
+  "pack_id": "pack_gamma",
+  "profile": "broadcast-window",
+  "tickets": [
+    {
+      "principal": "acct:gamma",
+      "ticket_id": "child-gamma",
+      "parent_id": "root-gamma",
+      "ticket_epoch": 5,
+      "scope_mask": 6,
+      "action_mask": 2,
+      "ticket_hex": "8a8d926e8fe10d8d57d4c7b692f7cbf945221017092be57173a561dc785e6e3f"
+    }
+  ]
+}

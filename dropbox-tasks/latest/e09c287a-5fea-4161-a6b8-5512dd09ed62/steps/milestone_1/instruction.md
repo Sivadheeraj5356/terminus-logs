@@ -1,0 +1,11 @@
+# Claim ingestion normalizer
+
+Please finish the Go CLI in `/workspace` for this first step. The command I need is:
+
+`go run /workspace/cmd/claimtower ingest --claims-root <dir> --as-of YYYY-MM-DD --claims-out <json> --issues-out <tsv>`
+
+The command should recursively read plain `.claim.jsonl` and gzip `.claim.jsonl.gz` claim files, tolerate recoverable bad rows, and write deterministic normalized claim and issue outputs. Use the format contract in `/workspace/docs/claimtower-contract.md`, especially the Milestone 1 section and its canonical issue-detail table, as the visible local schema reference.
+
+For this milestone, support field aliases `claim_id`/`id`, `revision`/`rev`, `product`/`line`, `loss_date`/`lossOn`, and `status`/`state`. Required fields are claim id, revision, product, loss date, status, reserve, paid, and severity. Reserve and paid must be non-negative integers, severity must be 1 through 5, loss dates must be valid `YYYY-MM-DD` values not after `--as-of`, and closed/cancelled/canceled claims should be ignored after validation. For duplicate open claims, keep the highest revision; if revisions tie, keep the row from the lexicographically smaller absolute source path and then the lower source line.
+
+`--claims-out` must be 2-space indented JSON with a final newline containing `as_of`, `claim_count`, `claims`, and `totals`. Each claim must include `claim_id`, `product`, `loss_date`, `status`, `reserve`, `paid`, `severity`, `handler`, `county`, `revision`, `age_days`, `source_file`, and `source_line`, with claims sorted by `claim_id`. `totals` must include `open_claims`, `reserve`, and `paid`. `--issues-out` must be a TSV with header `source_file\tsource_line\tkind\tentity\tdetail`; use issue kind `invalid_claim` for malformed JSON, non-object rows, missing fields, bad types, negative money, out-of-range severity, or future loss dates, using the exact `detail` tokens listed in the contract table such as `bad_json`, `not_object`, field names, and `loss_date_after_as_of`. Issue rows sort by source file, source line, kind, entity, and detail. Create parent directories for both outputs, end files with a newline, and use only the Go standard library with no network, subprocess, CGO, plugin, or third-party module use.

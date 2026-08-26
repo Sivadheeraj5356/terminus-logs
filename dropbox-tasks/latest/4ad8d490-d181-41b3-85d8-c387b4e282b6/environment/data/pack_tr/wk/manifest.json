@@ -1,0 +1,10 @@
+{
+  "pack_id": "pack_tr",
+  "pair": "CA|OR",
+  "rot": 11,
+  "nets": [
+    "net_a.json",
+    "net_b.json"
+  ],
+  "active": "OR"
+}

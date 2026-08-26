@@ -1,0 +1,12 @@
+{
+  "fold_id": "fold_d",
+  "watermark_ms": 5000,
+  "lag_ms": 0,
+  "event_pack": "ev_s",
+  "feature_packs": [
+    "pk_d",
+    "pk_d_overlay",
+    "pk_z"
+  ],
+  "remap_pack": "main"
+}

@@ -1,0 +1,26 @@
+{
+  "keys": {
+    "k-44b02fb52cb4": {
+      "alg": "hmac-sha256",
+      "secret": "fcb115a6784e34bc499a42900dc941a58f376648922e446645d4b4b48bfb1e88"
+    },
+    "k-6be7832c5f6c": {
+      "alg": "ed25519",
+      "public": "02e6c87bce8179e4cd58a29ac1081630374d55af52a8bf43e4a84371f119f5a6"
+    }
+  },
+  "message": {
+    "authority": "svc1.example.com",
+    "body": "{\"n\": 121, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:rd1xROq3H4l7vPpp3FKPteKwyHI59+BCHsd6v204zg4=:",
+      "content-type": "application/json",
+      "signature": "zzz=:z1jIIKVPo0KZDoQIFhiP6LMlUsZtjo9j38XibUrqHoI=:, mmm=:Gp0p6G3DJW2JN7pUysQ1AKXXBNAPcrwa34GCmUNXK/s=:",
+      "signature-input": "zzz=(\"@method\" \"@authority\" \"@path\" \"content-digest\");created=1700000061;expires=1700000111;keyid=\"k-44b02fb52cb4\";alg=\"hmac-sha256\", mmm=(\"@method\" \"@authority\" \"@path\" \"content-digest\");created=1700000061;expires=1700000421;keyid=\"k-6be7832c5f6c\";alg=\"hmac-sha256\""
+    },
+    "method": "POST",
+    "path": "/api/v1/resource/121",
+    "query": ""
+  },
+  "now": 1700000121
+}

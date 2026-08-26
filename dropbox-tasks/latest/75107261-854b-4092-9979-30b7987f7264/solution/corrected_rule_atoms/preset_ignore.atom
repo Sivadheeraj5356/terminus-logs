@@ -1,0 +1,6 @@
+RULE PRESET_IGNORE
+IN keys
+OUT value,reason
+TABLE
+ignore -> retain|preset-ignore
+END

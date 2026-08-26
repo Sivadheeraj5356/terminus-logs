@@ -1,0 +1,36 @@
+{
+  "rows": [
+    {
+      "run_label": "c01",
+      "era": 3,
+      "attach_id": "aid_c01_r3_partial",
+      "track": 7,
+      "hard_limit": 4096,
+      "retired": false
+    },
+    {
+      "run_label": "c02",
+      "era": 1,
+      "attach_id": "aid_c02_r1_stale",
+      "track": 4,
+      "hard_limit": 8192,
+      "retired": false
+    },
+    {
+      "run_label": "c03",
+      "era": 1,
+      "attach_id": "aid_c03_r1_stale",
+      "track": 11,
+      "hard_limit": 0,
+      "retired": true
+    },
+    {
+      "run_label": "c04",
+      "era": 5,
+      "attach_id": "aid_c04_r5_scratch",
+      "track": 2,
+      "hard_limit": 0,
+      "retired": true
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "version": "ksw-tenant-2026-01",
+  "overrides": [
+    {"client_id": "client-uu34", "override_policy_tier": "pq_mandatory"}
+  ]
+}

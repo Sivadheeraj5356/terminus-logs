@@ -1,0 +1,25 @@
+--- a/environment/internal/warm/warm.go	2026-07-20 11:30:51.628543182 +0530
++++ b/environment/internal/warm/warm.go	2026-07-20 11:26:33.381825790 +0530
+@@ -28,8 +28,11 @@
+ 	return s.Status == "coherent"
+ }
+ 
+-// ReadCachedDigest loads a previously staged digest_hex when present.
+-func ReadCachedDigest(cachePath, _fp, _seal string) (string, bool) {
++// ReadCachedDigest reuses a cache entry only when fp and seal match live values.
++func ReadCachedDigest(cachePath, fp, seal string) (string, bool) {
++	if fp == "" || seal == "" {
++		return "", false
++	}
+ 	raw, err := os.ReadFile(cachePath)
+ 	if err != nil {
+ 		return "", false
+@@ -38,5 +41,8 @@
+ 	if json.Unmarshal(raw, &c) != nil || c.DigestHex == "" {
+ 		return "", false
+ 	}
++	if c.FP != fp || c.Seal != seal {
++		return "", false
++	}
+ 	return c.DigestHex, true
+ }

@@ -1,0 +1,30 @@
+[
+  {
+    "region_id": "east",
+    "equity_floor": 60,
+    "demand_dose1": 90,
+    "demand_dose2": 60,
+    "storage_temp": "-20C"
+  },
+  {
+    "region_id": "north",
+    "equity_floor": 90,
+    "demand_dose1": 220,
+    "demand_dose2": 80,
+    "storage_temp": "2-8C"
+  },
+  {
+    "region_id": "south",
+    "equity_floor": 70,
+    "demand_dose1": 100,
+    "demand_dose2": 70,
+    "storage_temp": "2-8C"
+  },
+  {
+    "region_id": "west",
+    "equity_floor": 50,
+    "demand_dose1": 80,
+    "demand_dose2": 50,
+    "storage_temp": "-20C"
+  }
+]

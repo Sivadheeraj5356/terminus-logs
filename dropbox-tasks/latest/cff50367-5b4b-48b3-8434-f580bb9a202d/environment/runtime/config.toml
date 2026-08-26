@@ -1,0 +1,6 @@
+[runtime]
+workdir = "/app"
+state_root = "/app/output/state"
+
+[inspect]
+trace_path = "/app/output/freshness-report.json"

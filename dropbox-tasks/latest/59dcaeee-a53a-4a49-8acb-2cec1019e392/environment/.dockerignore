@@ -1,0 +1,16 @@
+tests/
+solution/
+output_contract.toml
+.step2b-checksum
+.step2b-metrics.jsonl
+.git/
+.github/
+.cursor/
+.claude/
+.aider/
+.continue/
+__pycache__/
+.pytest_cache/
+*.pyc
+output/
+bin/

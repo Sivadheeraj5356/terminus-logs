@@ -1,0 +1,98 @@
+{
+  "hb-01": {
+    "probe_cost": 0.848,
+    "lab_cost": 3.501
+  },
+  "hb-02": {
+    "probe_cost": 0.867,
+    "lab_cost": 2.786
+  },
+  "hb-03": {
+    "probe_cost": 0.967,
+    "lab_cost": 4.083
+  },
+  "hb-04": {
+    "probe_cost": 0.758,
+    "lab_cost": 2.8
+  },
+  "hb-05": {
+    "probe_cost": 0.868,
+    "lab_cost": 3.476
+  },
+  "hb-06": {
+    "probe_cost": 1.143,
+    "lab_cost": 4.003
+  },
+  "hb-07": {
+    "probe_cost": 1.02,
+    "lab_cost": 3.709
+  },
+  "hb-08": {
+    "probe_cost": 0.934,
+    "lab_cost": 2.739
+  },
+  "hb-09": {
+    "probe_cost": 0.904,
+    "lab_cost": 3.252
+  },
+  "hb-10": {
+    "probe_cost": 0.981,
+    "lab_cost": 4.024
+  },
+  "hb-11": {
+    "probe_cost": 0.846,
+    "lab_cost": 2.934
+  },
+  "hb-12": {
+    "probe_cost": 0.816,
+    "lab_cost": 2.812
+  },
+  "hb-13": {
+    "probe_cost": 1.021,
+    "lab_cost": 3.438
+  },
+  "hb-14": {
+    "probe_cost": 1.033,
+    "lab_cost": 2.904
+  },
+  "hb-15": {
+    "probe_cost": 1.076,
+    "lab_cost": 3.286
+  },
+  "hb-16": {
+    "probe_cost": 0.881,
+    "lab_cost": 2.816
+  },
+  "hb-17": {
+    "probe_cost": 1.179,
+    "lab_cost": 4.871
+  },
+  "hb-18": {
+    "probe_cost": 1.172,
+    "lab_cost": 3.518
+  },
+  "hb-19": {
+    "probe_cost": 0.868,
+    "lab_cost": 3.621
+  },
+  "hb-20": {
+    "probe_cost": 1.008,
+    "lab_cost": 3.048
+  },
+  "hb-21": {
+    "probe_cost": 0.785,
+    "lab_cost": 2.702
+  },
+  "hb-22": {
+    "probe_cost": 0.933,
+    "lab_cost": 3.375
+  },
+  "hb-23": {
+    "probe_cost": 0.851,
+    "lab_cost": 3.275
+  },
+  "hb-24": {
+    "probe_cost": 0.891,
+    "lab_cost": 3.157
+  }
+}

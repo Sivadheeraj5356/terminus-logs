@@ -1,0 +1,14 @@
+<!-- Maven reactor snippet: classifier + toolchain profiles (reference layout) -->
+<project>
+  <artifactId>ffm-native-reactor</artifactId>
+  <profiles>
+    <profile>
+      <id>linux-x86_64</id>
+      <properties><native.classifier>linux-x86_64</native.classifier></properties>
+    </profile>
+    <profile>
+      <id>linux-aarch64</id>
+      <properties><native.classifier>linux-aarch64</native.classifier></properties>
+    </profile>
+  </profiles>
+</project>

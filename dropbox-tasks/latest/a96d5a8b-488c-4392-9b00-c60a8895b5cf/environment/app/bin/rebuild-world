@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+mkdir -p /app/state /app/artifacts /app/.build
+rm -f /app/state/world.db /app/artifacts/world.dump /app/artifacts/keeper.circuit /app/artifacts/*.sha256
+
+lua5.4 /app/game/migrate.lua /app/state/world.db
+/app/tools/canonical_dump.sh /app/state/world.db > /app/artifacts/world.dump
+sha256sum /app/artifacts/world.dump | awk '{print $1}' > /app/artifacts/world.sha256
+sha256sum /app/state/world.db | awk '{print $1}' > /app/artifacts/database_file.sha256
+
+lua5.4 /app/game/keeper_circuit.lua /app/state/world.db vestibule keeper > /app/artifacts/keeper.circuit
+sha256sum /app/artifacts/keeper.circuit | awk '{print $1}' > /app/artifacts/keeper.circuit.sha256
+
+/app/tools/build_atlas.sh /app/state/world.db /app/artifacts
+convert /app/artifacts/clue_atlas.png rgba:- | sha256sum | awk '{print $1}' > /app/artifacts/atlas.rgba.sha256
+
+echo "world $(cat /app/artifacts/world.sha256)"
+echo "atlas $(cat /app/artifacts/atlas.rgba.sha256)"
+echo "circuit $(cat /app/artifacts/keeper.circuit.sha256)"

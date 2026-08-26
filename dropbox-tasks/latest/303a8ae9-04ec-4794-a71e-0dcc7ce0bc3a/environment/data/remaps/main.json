@@ -1,0 +1,77 @@
+[
+  {
+    "alias": "alias_z9",
+    "canonical": "hop_z1",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z1",
+    "canonical": "hop_z2",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z2",
+    "canonical": "hop_z3",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z3",
+    "canonical": "hop_z4",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z4",
+    "canonical": "hop_z5",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z5",
+    "canonical": "hop_z6",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z6",
+    "canonical": "hop_z7",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_z7",
+    "canonical": "ent_u4",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "alias_q2",
+    "canonical": "hop_q1",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_q1",
+    "canonical": "hop_q2",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "hop_q2",
+    "canonical": "ent_u4",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "cycle_a",
+    "canonical": "cycle_b",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "cycle_b",
+    "canonical": "cycle_a",
+    "active_from_ms": 0
+  },
+  {
+    "alias": "alias_z9",
+    "canonical": "poison_z9",
+    "active_from_ms": 100000
+  },
+  {
+    "alias": "hop_z4",
+    "canonical": "dead_end_z",
+    "active_from_ms": 100000
+  }
+]

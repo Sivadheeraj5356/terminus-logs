@@ -1,0 +1,29 @@
+{
+  "scenario_id": "eq_pacific",
+  "cool_factor": 0.25,
+  "mw_per_channel": 5.0,
+  "nodes": [
+    {"id": "NY", "regen": false},
+    {"id": "MD", "regen": false},
+    {"id": "LS", "regen": true},
+    {"id": "LD", "regen": false},
+    {"id": "FR", "regen": true},
+    {"id": "TK", "regen": false}
+  ],
+  "spans": [
+    {"id": "s_ny_md", "a": "NY", "b": "MD", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_md_ld", "a": "MD", "b": "LD", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_ny_ls", "a": "NY", "b": "LS", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_ls_ld", "a": "LS", "b": "LD", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_ny_fr", "a": "NY", "b": "FR", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_fr_tk", "a": "FR", "b": "TK", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_ld_tk", "a": "LD", "b": "TK", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]},
+    {"id": "s_ny_tk", "a": "NY", "b": "TK", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3, 4, 5, 6, 7, 8]}
+  ],
+  "cuts": ["s_ny_tk", "s_ny_ls", "s_ls_ld"],
+  "demands": [
+    {"id": "d_hold", "src": "NY", "dst": "MD", "gbps": 5, "priority": 1, "peer_a": "AS1", "peer_b": "AS2"},
+    {"id": "d_main", "src": "NY", "dst": "LD", "gbps": 10, "priority": 2, "peer_a": "AS1", "peer_b": "AS3"},
+    {"id": "d_east", "src": "LD", "dst": "TK", "gbps": 5, "priority": 3, "peer_a": "AS3", "peer_b": "AS4"}
+  ]
+}

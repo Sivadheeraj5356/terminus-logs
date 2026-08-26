@@ -1,0 +1,10 @@
+bar line hello
+addr 250.248.58.187 hex 0x94b3 token tok_985
+ip 192.168.0.1 and 10.0.0.255 here
+punct marks here
+symbols here
+addr 217.123.242.102 hex 0x687f token tok_646
+delta no world colour foo
+addr 23.8.108.244 hex 0x8f79 token tok_142
+addr 80.2.67.193 hex 0x345a token tok_432
+addr 154.245.245.170 hex 0x4d6d token tok_472

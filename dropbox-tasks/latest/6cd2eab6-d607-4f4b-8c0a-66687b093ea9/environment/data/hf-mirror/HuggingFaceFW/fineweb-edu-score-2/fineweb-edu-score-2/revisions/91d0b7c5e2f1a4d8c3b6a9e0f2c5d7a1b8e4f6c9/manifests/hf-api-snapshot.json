@@ -1,0 +1,40 @@
+{
+  "revision": "91d0b7c5e2f1a4d8c3b6a9e0f2c5d7a1b8e4f6c9",
+  "files": [
+    {
+      "rfilename": "README.md",
+      "size": 33,
+      "sha256": "acd32811195e8ced0554d8fa3f8e9805320946dcf5d9be2c110023e51c6f197b"
+    },
+    {
+      "rfilename": "rejected-adult-filter.jsonl",
+      "size": 104,
+      "sha256": "bca7d2f1b0294eeace816d66e14e447e2b80ec3003f711b81bb9d5d88d4e2751"
+    },
+    {
+      "rfilename": "route-embeddings-preview.jsonl",
+      "size": 93,
+      "sha256": "22434336d1028bbc29d59ea0d4b530623554ed8d72c9c9ace9332730dd32c69b"
+    },
+    {
+      "rfilename": "synonym-expansion-dev.jsonl",
+      "size": 74,
+      "sha256": "cddb8531524809e912e2ef6e0e8a420084851f1bef9544e06f2e92aad7346aa5"
+    },
+    {
+      "rfilename": "synonym-expansion-eval.jsonl",
+      "size": 96,
+      "sha256": "4a4175b51bed7dfcd299af7bc6fa4ff3f0cfe029406ade83a0ab8dc1a787f26f"
+    },
+    {
+      "rfilename": "synonym-expansion-train.jsonl",
+      "size": 166,
+      "sha256": "dce06bb2a3dec39238137abf655058802ce0856b783fa56d5b3e2b12a467698a"
+    },
+    {
+      "rfilename": "terminology-aliases.parquet.meta.json",
+      "size": 141,
+      "sha256": "c172fcd148453955fd448a966e05cdbad4129d91999f2fb67230c42bddb4721c"
+    }
+  ]
+}

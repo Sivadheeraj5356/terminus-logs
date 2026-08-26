@@ -1,0 +1,7 @@
+schema_version: apexora-qos-policy-entry-1
+policy_id: QOS-POLICY-015
+policy_map: PM-POLICY-15
+class_map: CM-POLICY-15
+description: Campus segmentation QoS policy 15
+trust_dscp: true
+queue_limit_packets: 8192

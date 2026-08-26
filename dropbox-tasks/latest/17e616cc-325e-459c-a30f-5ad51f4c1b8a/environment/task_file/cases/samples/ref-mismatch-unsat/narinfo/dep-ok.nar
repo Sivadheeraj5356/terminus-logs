@@ -1,0 +1,7 @@
+STORE dep
+CACHE cacheA
+NAR_HASH ndep
+NAR_SIZE 3
+SIGS a
+REFERENCES -
+DERIVER dep.drv

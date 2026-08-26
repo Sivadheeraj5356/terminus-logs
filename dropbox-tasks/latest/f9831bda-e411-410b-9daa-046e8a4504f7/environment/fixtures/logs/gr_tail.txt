@@ -1,0 +1,2 @@
+slot tail path example.com/beta|v2.0.0 missing issuer stamp
+anchor path /app/state/cache_anchor.bin

@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: DMZ
+description: Apexora DMZ macro-segment
+rd: "65009:1009"
+rt_export: "65009:1009"
+rt_import:
+  - "65009:1009"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

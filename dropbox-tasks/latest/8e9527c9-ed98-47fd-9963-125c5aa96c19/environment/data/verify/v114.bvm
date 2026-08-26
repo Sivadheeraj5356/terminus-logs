@@ -1,0 +1,8 @@
+func main() -> int {
+b0:
+  iconst 7
+  ret
+b1:
+  iconst 9
+  ret
+}

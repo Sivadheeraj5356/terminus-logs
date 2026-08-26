@@ -1,0 +1,80 @@
+package hlsdrv
+
+import (
+	"crypto/rand"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
+
+	"reelseal/internal/digestutil"
+	"reelseal/internal/mediain"
+)
+
+func Run(fetchPath, hlsDir string) error {
+	raw, err := os.ReadFile(fetchPath)
+	if err != nil {
+		return err
+	}
+	var rec mediain.Receipt
+	if err := json.Unmarshal(raw, &rec); err != nil {
+		return err
+	}
+	if err := os.MkdirAll(hlsDir, 0o755); err != nil {
+		return err
+	}
+	keyPath := filepath.Join(hlsDir, "key.bin")
+	key := make([]byte, 16)
+	if _, err := rand.Read(key); err != nil {
+		return err
+	}
+	if err := os.WriteFile(keyPath, key, 0o600); err != nil {
+		return err
+	}
+	iv := make([]byte, 16)
+	if _, err := rand.Read(iv); err != nil {
+		return err
+	}
+	ivHex := hex.EncodeToString(iv)
+	keyURI := "http:\x2f\x2fkeys.decoy.invalid/hls/aes.key"
+	keyinfo := filepath.Join(hlsDir, "keyinfo.txt")
+	if err := os.WriteFile(keyinfo, []byte(keyURI+"\n"+keyPath+"\n"+ivHex+"\n"), 0o644); err != nil {
+		return err
+	}
+	playlist := filepath.Join(hlsDir, "index.m3u8")
+	segPattern := filepath.Join(hlsDir, "segment%03d.ts")
+	cmd := exec.Command("ffmpeg", "-y", "-i", rec.SourcePath,
+		"-c:v", "libx264", "-c:a", "aac", "-f", "hls",
+		"-hls_time", "2", "-hls_list_size", "0", "-hls_playlist_type", "vod",
+		"-hls_segment_filename", segPattern,
+		"-hls_key_info_file", keyinfo,
+		playlist,
+	)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("ffmpeg: %w", err)
+	}
+		meta := map[string]string{"iv_hex": ivHex, "key_uri": keyURI, "media_digest": rec.MediaDigest}
+	mb, _ := json.MarshalIndent(meta, "", "  ")
+	return os.WriteFile(filepath.Join(hlsDir, "segment-meta.json"), append(mb, '\n'), 0o644)
+}
+
+func PlaylistHasAES128(playlist string) bool {
+	b, err := os.ReadFile(playlist)
+	if err != nil {
+		return false
+	}
+	return strings.Contains(string(b), "METHOD=AES-128")
+}
+
+func HexPlaylist(playlist string) (string, error) {
+	return digestutil.HexFile(playlist)
+}
+
+func RewriteKeyURN(playlist, keyID string) error {
+	return nil
+}

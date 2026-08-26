@@ -1,0 +1,25 @@
+{
+  "seed_id": "neg_wrap",
+  "width": 9,
+  "height": 9,
+  "orient": "pointy",
+  "wet_window": 0,
+  "start": [
+    0,
+    0
+  ],
+  "goal": [
+    8,
+    8
+  ],
+  "terrain": {
+    "0,0": 1,
+    "8,8": 1,
+    "8,0": 1
+  },
+  "portals": [],
+  "steps": [
+    3,
+    2
+  ]
+}

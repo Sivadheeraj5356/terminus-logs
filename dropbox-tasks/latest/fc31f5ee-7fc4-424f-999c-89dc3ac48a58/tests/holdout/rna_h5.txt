@@ -1,0 +1,52 @@
+sequence H5 GUGGCCAAUCGUGGCCAAUCGGGGAACCGUACGUAGCUAGCGGGGCAUACGGGGCAUACGUGGCCAAUCGUUGGCCAAUCGC
+react SH 0 5Q
+react CM 1 1I
+react DM 5 5L
+react SH 6 2Q
+react DM 9 46
+react SH 12 G
+react CM 12 1W
+react DM 16 R
+react SH 18 56
+react DM 19 6M
+react CM 20 69
+react SH 24 1K
+react DM 26 2G
+react CM 28 1H
+react SH 30 4P
+react DM 30 62
+react CM 33 6G
+react SH 36 2G
+react DM 40 V
+react CM 41 16
+react SH 42 5R
+react CM 44 6E
+react SH 48 1V
+react CM 52 1V
+react SH 54 6U
+react DM 54 1B
+react DM 58 5H
+react SH 60 2J
+react CM 60 6H
+react DM 65 3D
+react SH 66 L
+react DM 68 1I
+react SH 72 52
+react CM 73 5O
+react DM 75 54
+react SH 78 5
+react DM 79 3E
+guide WC 0 81 4H
+guide GC 2 42 5J
+guide WB 5 31 6A
+guide RL 11 47 3V
+guide WC 17 39 60
+guide WB 24 52 2J
+probe 0 81
+probe 0 92
+probe 2 74
+probe 5 41
+probe 27 54
+probe 41 78
+probe 8 42
+probe 57 81

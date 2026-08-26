@@ -1,0 +1,17 @@
+[
+  {
+    "from": "dev",
+    "to": "grp-eng",
+    "active": true
+  },
+  {
+    "from": "auditor",
+    "to": "grp-audit",
+    "active": true
+  },
+  {
+    "from": "dev",
+    "to": "grp-retired",
+    "active": false
+  }
+]

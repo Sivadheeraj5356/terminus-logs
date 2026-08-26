@@ -1,0 +1,9 @@
+[blend]
+p7 = 0.58
+p8 = 0.42
+
+[replay]
+dt = 0.1
+bias_term = 0.48
+m7_scale = 0.012
+regen = true

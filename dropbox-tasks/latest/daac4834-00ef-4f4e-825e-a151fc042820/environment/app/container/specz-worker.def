@@ -1,0 +1,31 @@
+Bootstrap: docker
+From: debian:bookworm-slim
+
+%labels
+    org.obs.specz.build.date="2024-11-18"
+    org.obs.specz.format.revision="2"
+    org.obs.specz.reference.SPC07="656.281230"
+    org.obs.specz.reference.SPC12="656.281230"
+    org.obs.specz.calibration.SPC07.11="650.102341,0.023100120,-0.000000012,4.750,20.00"
+    org.obs.specz.calibration.SPC07.17="650.098115,0.023114880,-0.000000015,4.625,20.00"
+    org.obs.specz.calibration.SPC12.11="648.550200,0.022980000,-0.000000010,5.100,20.00"
+    org.obs.specz.calibration.SPC12.17="648.544880,0.022995500,-0.000000013,4.900,20.00"
+    org.obs.specz.peak_window_nm="655.70,656.90"
+    org.obs.specz.baseline_windows_px="0:31,224:255"
+
+%environment
+    export SPECZ_APP=/app
+    export SPECZ_CONFIG=/app/config/site.conf
+    export PATH=/app/bin:$PATH
+
+%files
+    bin/specz-worker /app/bin/specz-worker
+    lib /app/lib
+    config /app/config
+
+%post
+    chmod +x /app/bin/specz-worker
+
+%runscript
+    # Legacy prototype (2023-04-02, revision-1 raw12 only — superseded)
+    exec /app/bin/specz-worker "$@"

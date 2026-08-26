@@ -1,0 +1,24 @@
+{
+  "pack_id": "pack_delta",
+  "profile": "floor-priority",
+  "tickets": [
+    {
+      "principal": "acct:delta",
+      "ticket_id": "child-delta",
+      "parent_id": "root-delta",
+      "ticket_epoch": 4,
+      "scope_mask": 5,
+      "action_mask": 1,
+      "ticket_hex": "6814f1e22d1dd2a6d854c16e578d6739e2fbc263b58cf9ed810f16af1de0b4c5"
+    },
+    {
+      "principal": "acct:epsilon",
+      "ticket_id": "root-epsilon",
+      "parent_id": "",
+      "ticket_epoch": 4,
+      "scope_mask": 1,
+      "action_mask": 1,
+      "ticket_hex": "be8ee9ac839fa4989b48d3c1d16e54b2dc8d8f2d6e1a5d53aca405a3fabcf3b1"
+    }
+  ]
+}

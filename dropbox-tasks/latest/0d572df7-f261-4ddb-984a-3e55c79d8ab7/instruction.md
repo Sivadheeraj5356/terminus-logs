@@ -1,0 +1,5 @@
+Our offline Conan builds need a small planner before the next CI image refresh. The planner has to preserve earlier lock decisions, account for feature or option growth across ordered stages, and decide whether existing artifacts can be reused.
+
+Create an executable CLI at `/app/bin/conanplan`. The verifier runs it as `/app/bin/conanplan /app/input /app/output/plan.json` and also reruns the same executable against other compatible input directories. The command must accept exactly two positional arguments: an input directory and an output JSON path.
+
+The input directory contains `profile-requests.json`, `recipe-index.json`, `conan-lock.json`, and `package-cache.json`. The complete schema, state rules, precedence rules, tie-breaks, cache matching rules, and output schema are documented in `/app/docs/conan-plan-spec.md`, including that locked packages start stage one with their recipe default features already active. Write the required JSON to the requested output path; empty arrays are valid and must be written as arrays, not `null`.

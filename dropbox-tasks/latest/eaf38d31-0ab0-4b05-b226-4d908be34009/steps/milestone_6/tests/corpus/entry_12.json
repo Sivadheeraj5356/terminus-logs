@@ -1,0 +1,19 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 8943330,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "shop.example.com",
+    "*.globex.io",
+    "*.initech.org",
+    "münchen.initech.io",
+    "SHOP.EXAMPLE.COM"
+  ],
+  "issued_at": "2026-02-13T04:11:50.729Z",
+  "payload": "cert:m0N4nay2NDxmqXyyK0V9yArhgqRKIR1BzgpeDT4Q95c=",
+  "received_at": "2026-12-04T08:10:19.771Z",
+  "issuer_id": "CA-shard-9",
+  "x_shard": 5,
+  "x_ingest_host": "edge-9",
+  "x_origin": "shard-eu-2"
+}

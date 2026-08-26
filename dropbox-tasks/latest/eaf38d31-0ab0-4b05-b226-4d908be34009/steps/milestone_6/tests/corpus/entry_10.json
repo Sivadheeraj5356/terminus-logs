@@ -1,0 +1,17 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 5616163,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "shop.example.dev",
+    "api.umbrella.io",
+    "SHOP.EXAMPLE.DEV",
+    "shop.acme.net",
+    "initech.com"
+  ],
+  "issued_at": "2026-06-28T01:44:28.605Z",
+  "payload": "cert:Urh5wkh2vNN/k2FwOG9/QLTwmvnFWIb8tmeRhvLC/jc=",
+  "received_at": "2026-05-27T07:47:42Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 31
+}

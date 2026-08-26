@@ -1,0 +1,10 @@
+{"seq": 1, "kind": "HOLD", "actor": "afox", "source": "svc-b"}
+{"seq": 2, "kind": "DETACH", "actor": "afox", "channel": "c1-01"}
+{"seq": 3, "kind": "HOLD", "actor": "afox", "channel": "c2-01"}
+{"seq": 4, "kind": "ROUTE", "actor": "afox", "channel": "c2-03", "source": "svc-d"}
+{"seq": 5, "kind": "PIN", "actor": "blyn", "channel": "c3-01"}
+{"seq": 6, "kind": "QUIESCE", "actor": "carr", "index": "ix-03"}
+{"seq": 7, "kind": "RETUNE", "actor": "carr", "index": "ix-04", "budget": 4}
+{"seq": 8, "kind": "FLUSH", "actor": "dodd", "channel": "c1-02"}
+{"seq": 50, "kind": "COMPACT", "actor": "afox", "channel": "c1-03"}
+{"seq": 9, "kind": "DECOMMISSION", "actor": "carr", "collector": "cx-cold"}

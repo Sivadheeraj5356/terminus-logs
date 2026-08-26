@@ -1,0 +1,20 @@
+[Unit]
+Description=Reconcile Blender portable profile %i
+After=local-fs.target
+ConditionPathIsFile=/etc/blender-profiles/%i.json
+
+[Service]
+Type=oneshot
+User=blender-profile
+Group=blender-profile
+UMask=0027
+ExecStart=/usr/local/bin/blendprofile create --manifest /etc/blender-profiles/%i.json --root /var/lib/blender-profiles --profile %i --out /run/blendprofile/%i.json
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadOnlyPaths=/etc/blender-profiles
+ReadWritePaths=/var/lib/blender-profiles /run/blendprofile
+
+[Install]
+WantedBy=multi-user.target

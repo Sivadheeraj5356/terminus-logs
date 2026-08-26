@@ -1,0 +1,54 @@
+{
+ "until": 19,
+ "sensors": [
+  {
+   "name": "enclosure-temp",
+   "low": 4,
+   "high": 10,
+   "enterDwell": 1,
+   "exitDwell": 6
+  }
+ ],
+ "events": [
+  {
+   "at": 1,
+   "op": "hold_start",
+   "sensor": "enclosure-temp"
+  },
+  {
+   "at": 5,
+   "op": "hold_end",
+   "sensor": "enclosure-temp"
+  },
+  {
+   "at": 8,
+   "op": "reading",
+   "sensor": "enclosure-temp",
+   "value": 3.43
+  },
+  {
+   "at": 8,
+   "op": "reading",
+   "sensor": "enclosure-temp",
+   "value": 10.19
+  },
+  {
+   "at": 9,
+   "op": "reading",
+   "sensor": "enclosure-temp",
+   "value": 5.14
+  },
+  {
+   "at": 10,
+   "op": "reading",
+   "sensor": "enclosure-temp",
+   "value": 9.42
+  },
+  {
+   "at": 11,
+   "op": "reading",
+   "sensor": "enclosure-temp",
+   "value": 6.67
+  }
+ ]
+}

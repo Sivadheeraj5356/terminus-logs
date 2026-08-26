@@ -1,0 +1,2 @@
+{"adjustment_id":"A-100-1","rider_id":"R100","service_date":"2026-05-14","amount_cents":-50,"reason":"tap correction","approved":true}
+{"adjustment_id":"A-100-2","rider_id":"R100","service_date":"2026-05-15","amount_cents":-999,"reason":"draft credit","approved":false}

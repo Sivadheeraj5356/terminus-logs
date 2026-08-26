@@ -1,0 +1,83 @@
+{
+  "budgets": {
+    "B": 7
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 2
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 3
+    },
+    {
+      "op": "resume",
+      "printer": "p1",
+      "seq": 4
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 5
+    },
+    {
+      "op": "resume",
+      "printer": "p1",
+      "seq": 6
+    },
+    {
+      "op": "resume",
+      "printer": "p2",
+      "seq": 7
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 8
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 9
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 10
+    },
+    {
+      "job": "j3",
+      "op": "cancel",
+      "seq": 11
+    }
+  ],
+  "printers": [
+    "p1",
+    "p2"
+  ],
+  "spool": "sched_23"
+}

@@ -1,0 +1,7 @@
+[timing]
+snapshot_fraction = 0.33
+cadence_note = "millimag quantized fluxes"
+
+[authorities]
+scenarios_win = true
+plan_bait_ignored = true

@@ -1,0 +1,3 @@
+# three-run journal chain — seed ro latch
+profile alpha
+step ro target=data

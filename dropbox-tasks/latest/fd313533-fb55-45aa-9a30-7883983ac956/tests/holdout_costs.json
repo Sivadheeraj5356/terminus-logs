@@ -1,0 +1,98 @@
+{
+  "ch-01": {
+    "cost_line": 1.0,
+    "cost_shop": 2.951
+  },
+  "ch-02": {
+    "cost_line": 0.958,
+    "cost_shop": 3.154
+  },
+  "ch-03": {
+    "cost_line": 1.0,
+    "cost_shop": 2.951
+  },
+  "ch-04": {
+    "cost_line": 0.859,
+    "cost_shop": 3.087
+  },
+  "ch-05": {
+    "cost_line": 0.717,
+    "cost_shop": 2.9
+  },
+  "ch-06": {
+    "cost_line": 0.96,
+    "cost_shop": 3.655
+  },
+  "ch-07": {
+    "cost_line": 0.817,
+    "cost_shop": 3.119
+  },
+  "ch-08": {
+    "cost_line": 0.791,
+    "cost_shop": 2.739
+  },
+  "ch-09": {
+    "cost_line": 0.781,
+    "cost_shop": 2.934
+  },
+  "ch-10": {
+    "cost_line": 0.8,
+    "cost_shop": 3.486
+  },
+  "ch-11": {
+    "cost_line": 1.003,
+    "cost_shop": 3.376
+  },
+  "ch-12": {
+    "cost_line": 0.874,
+    "cost_shop": 3.012
+  },
+  "ch-13": {
+    "cost_line": 0.985,
+    "cost_shop": 4.428
+  },
+  "ch-14": {
+    "cost_line": 1.048,
+    "cost_shop": 3.712
+  },
+  "ch-15": {
+    "cost_line": 0.985,
+    "cost_shop": 4.145
+  },
+  "ch-16": {
+    "cost_line": 0.836,
+    "cost_shop": 3.014
+  },
+  "ch-17": {
+    "cost_line": 0.759,
+    "cost_shop": 3.1
+  },
+  "ch-18": {
+    "cost_line": 1.045,
+    "cost_shop": 4.344
+  },
+  "ch-19": {
+    "cost_line": 0.996,
+    "cost_shop": 3.903
+  },
+  "ch-20": {
+    "cost_line": 1.091,
+    "cost_shop": 3.058
+  },
+  "ch-21": {
+    "cost_line": 0.803,
+    "cost_shop": 3.409
+  },
+  "ch-22": {
+    "cost_line": 0.745,
+    "cost_shop": 2.692
+  },
+  "ch-23": {
+    "cost_line": 1.095,
+    "cost_shop": 4.651
+  },
+  "ch-24": {
+    "cost_line": 1.119,
+    "cost_shop": 3.687
+  }
+}

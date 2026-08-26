@@ -1,0 +1,9 @@
+{
+  "profile_name": "LineB-TSN",
+  "standard": "IEEE 802.1Qbv Time-Aware Shaper",
+  "cycle_time_ns": 1000000,
+  "queue_count": 8,
+  "gate_open_value": 1,
+  "gate_closed_value": 0,
+  "notes": "Gate schedules and validation_policy.json are authoritative when this overview disagrees."
+}

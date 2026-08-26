@@ -1,0 +1,4 @@
+stack common-auth
+module faillock success=ok ignore=ignore maxtries=die user_unknown=bad default=bad
+module password success=done auth_err=bad ignore=ignore user_unknown=bad default=bad
+end

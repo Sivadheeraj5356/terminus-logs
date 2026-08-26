@@ -1,0 +1,30 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "security"
+tags = ["wireguard", "vpn", "psk", "security", "authority-split", "cpp"]
+languages = ["cpp", "bash"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = []
+expert_time_estimate_min = 90
+junior_time_estimate_min = 240
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 1200
+
+[environment]
+allow_internet = false
+build_timeout_sec = 900
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[reference_pattern]
+justification_if_none = "No promoted reference matches a security-category offline tunnel-rotation repair with dual-key window propagation, route-mark selection, overlap reconciliation, and handshake audit invariants."

@@ -1,0 +1,4 @@
+paths:
+  /api/v1/recoveries/9:
+    get:
+      summary: Recovery endpoint 9

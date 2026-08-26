@@ -1,0 +1,1 @@
+{ "op": "verify", "models": ["join_common_type.bvm", "definite_assignment.bvm", "loop_backedge.bvm"] }

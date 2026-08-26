@@ -1,0 +1,9 @@
+ordinance: ORD-1948-01
+jurisdiction: Kestrel-Downs
+enacted: 1948-01-27
+effective: 1948-03-14T02:00:00 wall
+standard-offset: basis ORD-1901-03
+standard-label: GMT
+observance:
+  begin: Mar Sun>=8 02:00:00 wall save +01:00:00 label BST
+  end: Oct lastSun 03:00:00 wall

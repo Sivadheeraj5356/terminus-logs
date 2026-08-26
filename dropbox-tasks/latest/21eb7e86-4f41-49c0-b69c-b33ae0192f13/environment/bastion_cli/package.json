@@ -1,0 +1,13 @@
+{
+  "name": "bastion-audit-cli",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "bastion-audit": "./src/cli.mjs"
+  },
+  "dependencies": {
+    "ioredis": "5.6.1",
+    "tar": "7.4.3"
+  }
+}

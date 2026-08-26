@@ -1,0 +1,5 @@
+module_id,version,depends_on
+root-unit,1.0.0,
+left-unit,1.0.0,root-unit
+right-unit,1.0.0,root-unit
+merge-unit,1.0.0,"left-unit,right-unit"

@@ -1,0 +1,9 @@
+{
+  "probe": "egress_lane_wave_sequence",
+  "lane_path": "/app/state/egress-lane-midpipe.json",
+  "manifest_field": "capture_sequence",
+  "lane_field": "capture_sequence",
+  "plan_hash_field": "plan_hash",
+  "digest_field": "wave_step_sequence_digest",
+  "incident_id": "inc-4429"
+}

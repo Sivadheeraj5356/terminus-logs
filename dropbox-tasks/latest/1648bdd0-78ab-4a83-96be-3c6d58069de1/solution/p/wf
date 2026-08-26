@@ -1,0 +1,28 @@
+#!/bin/bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=lib/shared_paths.sh
+source "$ROOT/lib/shared_paths.sh"
+
+command="${1:-}"
+if [[ -z "$command" || "$command" == "--help" || "$command" == "-h" ]]; then
+  print_help
+  exit 0
+fi
+
+case "$command" in
+  train)
+    shift
+    exec "$ROOT/lib/clf_fit.sh" "$@"
+    ;;
+  run-drift)
+    shift
+    exec "$ROOT/lib/score_run.sh" "$@"
+    ;;
+  *)
+    echo "unknown command: $command" >&2
+    print_help >&2
+    exit 1
+    ;;
+esac

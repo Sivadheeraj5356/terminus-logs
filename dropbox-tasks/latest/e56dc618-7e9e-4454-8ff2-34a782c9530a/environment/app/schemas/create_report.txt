@@ -1,0 +1,23 @@
+generated_by: string, exactly "blendprofile"
+profile: string
+profile_root: absolute path string
+directories: sorted array of absolute path strings
+wrapper_path: absolute path string
+bootstrap_path: absolute path string
+blender_version: string
+manifest_sha256: lowercase SHA-256 string
+dry_run: boolean
+addon_count: integer
+addon_file_count: integer
+enabled_addons: sorted array of module strings
+addon_load_order: array of module strings
+dependency_edges: sorted array of FROM->TO strings
+addon_manifests: sorted array of absolute path strings
+addon_lock_path: absolute path string
+managed_files_path: absolute path string
+managed_file_count: integer
+profile_audit_path: absolute path string, committed create only
+generation_ledger_path: absolute path string, committed create only
+generation_state_path: absolute path string, committed create only
+generation: integer
+generation_hash: lowercase SHA-256 string

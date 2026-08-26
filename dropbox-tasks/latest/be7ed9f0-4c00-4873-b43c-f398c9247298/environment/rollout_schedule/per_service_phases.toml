@@ -1,0 +1,19 @@
+[gateway-prod]
+rollout_start_ns = 1700000000000000000
+rollout_end_ns = 1700001000000000000
+
+[ledger-api]
+rollout_start_ns = 1700000500000000000
+rollout_end_ns = 1700001500000000000
+
+[cdn-edge]
+rollout_start_ns = 1700002000000000000
+rollout_end_ns = 1700002500000000000
+
+[billing-rpc]
+rollout_start_ns = 1700003000000000000
+rollout_end_ns = 1700004000000000000
+
+[legacy-proxy]
+rollout_start_ns = 1700005000000000000
+rollout_end_ns = 1700006000000000000

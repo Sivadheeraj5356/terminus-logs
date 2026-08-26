@@ -1,0 +1,11 @@
+{
+  "scenario_id": "eq_empty_demands",
+  "cool_factor": 0.25,
+  "mw_per_channel": 5.0,
+  "nodes": [{"id": "NY", "regen": false}, {"id": "LD", "regen": false}],
+  "spans": [
+    {"id": "s_ny_ld", "a": "NY", "b": "LD", "cap_gbps": 40, "pump_mw": 40, "lambdas": [1, 2, 3]}
+  ],
+  "cuts": [],
+  "demands": []
+}

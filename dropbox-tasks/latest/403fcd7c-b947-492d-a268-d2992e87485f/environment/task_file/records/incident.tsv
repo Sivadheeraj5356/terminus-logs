@@ -1,0 +1,5 @@
+key	value
+incident_epoch	1700
+root_service	api
+old_active_host	node-a
+quorum_threshold	2

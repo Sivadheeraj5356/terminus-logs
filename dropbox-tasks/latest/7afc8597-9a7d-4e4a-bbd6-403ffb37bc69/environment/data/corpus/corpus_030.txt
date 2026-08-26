@@ -1,0 +1,8 @@
+UPPER lower MiXeD
+UPPER lower MiXeD
+a "quoted string" and "another"
+gray cat
+value = 0xDEADbeef and 0x1234
+this is the end
+addr 22.41.97.252 hex 0x5383 token tok_489
+mixed Foo123Bar baz_42

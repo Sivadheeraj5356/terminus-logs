@@ -1,0 +1,25 @@
+[package]
+name = "bridge"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[lib]
+name = "vellum"
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+docmodel = { path = "../docmodel" }
+engine = { path = "../engine" }
+canonfmt_current = { package = "canonfmt", path = "../../vendor/cargo/canonfmt-0.4.0" }
+canonfmt_legacy = { package = "canonfmt", path = "../../vendor/cargo/canonfmt-0.3.1", optional = true }
+
+[build-dependencies]
+docmodel = { path = "../docmodel" }
+
+[features]
+default = ["detached"]
+detached = []
+strict = []
+legacy_fmt = ["dep:canonfmt_legacy"]

@@ -1,0 +1,51 @@
+version = 1
+gauge_ceiling = 48.0
+snapshot_after_admits = 3
+
+[[batch]]
+slot = 0
+values = [1.0, 0.5]
+
+[[batch]]
+slot = 1
+values = [2.0, 0.25]
+
+[[batch]]
+slot = 2
+values = [0.5, 1.5]
+
+[[batch]]
+slot = 3
+values = [1.25, 0.75]
+
+[[batch]]
+slot = 4
+values = [0.75, 1.25]
+
+[[batch]]
+slot = 5
+values = [1.5, 0.5]
+
+[[batch]]
+slot = 6
+values = [2.5, 0.1]
+
+[[batch]]
+slot = 7
+values = [0.25, 2.0]
+
+[[batch]]
+slot = 8
+values = [1.1, 0.9]
+
+[[batch]]
+slot = 9
+values = [0.9, 1.1]
+
+[[batch]]
+slot = 10
+values = [1.75, 0.35]
+
+[[batch]]
+slot = 11
+values = [0.35, 1.75]

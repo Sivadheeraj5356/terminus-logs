@@ -1,0 +1,11 @@
+[package]
+name = "drv"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "cg_xmit"
+path = "cg_xmit.rs"
+
+[dependencies]
+engine = { path = "../engine" }

@@ -1,0 +1,6 @@
+RULE DISABLE_SCOPE
+IN keys
+OUT value,reason
+TABLE
+mode -> attributable_only|disable-scope
+END

@@ -1,0 +1,9 @@
+.git
+.env
+__pycache__
+node_modules
+target
+.cargo-target
+*.pyc
+solution
+tests

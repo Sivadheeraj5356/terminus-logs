@@ -1,0 +1,9 @@
+mixed Foo123Bar baz_42
+addr 211.44.123.62 hex 0x25dd token tok_997
+no gray world foo cat
+addr 90.181.116.36 hex 0xa762 token tok_399
+delta bar
+this is the end
+addr 142.244.161.67 hex 0xc6e7 token tok_997
+UPPER lower MiXeD
+delta gamma end line maybe bird

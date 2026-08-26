@@ -1,0 +1,101 @@
+{
+  "batch_id": "batch_10",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "com.google.common",
+      "to_prefix": "shaded.com.google.common",
+      "priority": 10
+    },
+    {
+      "seq": 2,
+      "from_prefix": "com.never.used",
+      "to_prefix": "shaded.never",
+      "priority": 20
+    }
+  ],
+  "units": [
+    {
+      "path": "lib/core.jar",
+      "root": "dep-a",
+      "symbols": [
+        {
+          "fqn": "com.google.common.Base",
+          "pkg_path": "com/google/common"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "com.google.common.Base",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": []
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "replay": {
+    "schedules": [
+      {
+        "schedule_id": "empty",
+        "mapping_seq_order": []
+      },
+      {
+        "schedule_id": "s1",
+        "mapping_seq_order": [
+          1,
+          99
+        ]
+      },
+      {
+        "schedule_id": "s2",
+        "mapping_seq_order": [
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  "observed": {
+    "symbols": [
+      {
+        "original": "com.google.common.Base",
+        "fqn": "shaded.com.google.common.Base",
+        "pkg_path": "shaded/com/google/common"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "shaded.com.google.common.Base"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "aa939df9ea9df6bd79e01e2f252c635f9e1b786f35c7c856e7c912149acf8372",
+    "nested_applied": false,
+    "nested": []
+  }
+}

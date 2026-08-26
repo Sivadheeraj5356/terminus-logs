@@ -1,0 +1,10 @@
+{
+  "workstation_id": "ws-002",
+  "actions": [
+    "sysctl:kernel.yama.ptrace_scope=0",
+    "sysctl:kernel.core_pattern=core",
+    "systemd:/etc/systemd/coredump.conf.d/media.conf",
+    "ulimit:core:unlimited",
+    "fixture-perms:/app/fixtures/png/sample.png:0644"
+  ]
+}

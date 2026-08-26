@@ -1,0 +1,17 @@
+[package]
+name = "grti_matrix_k9"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "grti_matrix_k9"
+path = "src/main.rs"
+
+[dependencies]
+h7_p3 = { path = "../../h7_p3" }
+j2_m8 = { path = "../../j2_m8" }
+k5_n6 = { path = "../../k5_n6" }
+w4_q2 = { path = "../../w4_q2" }
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.138"
+sha2 = "0.10.8"

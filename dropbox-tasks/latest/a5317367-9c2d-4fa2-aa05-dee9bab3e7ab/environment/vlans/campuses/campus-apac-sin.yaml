@@ -1,0 +1,35 @@
+schema_version: apexora-vlan-campus-1
+campus: campus-apac-sin
+allowed_vlan_range: 2001-2180
+local_vlan_count: 30
+vlans:
+  - id: 2121
+  - id: 2122
+  - id: 2123
+  - id: 2124
+  - id: 2125
+  - id: 2126
+  - id: 2127
+  - id: 2128
+  - id: 2129
+  - id: 2130
+  - id: 2131
+  - id: 2132
+  - id: 2133
+  - id: 2134
+  - id: 2135
+  - id: 2136
+  - id: 2137
+  - id: 2138
+  - id: 2139
+  - id: 2140
+  - id: 2141
+  - id: 2142
+  - id: 2143
+  - id: 2144
+  - id: 2145
+  - id: 2146
+  - id: 2147
+  - id: 2148
+  - id: 2149
+  - id: 2150

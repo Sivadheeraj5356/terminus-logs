@@ -1,0 +1,8 @@
+{
+  "reference_blend_grade": 64.5,
+  "rate_min": 0.01,
+  "rate_max": 0.95,
+  "burn_floor": 0.95,
+  "line_capacity": 600,
+  "cost_ceiling": 1177.92
+}

@@ -1,0 +1,16 @@
+{
+  "module_batch_id": "EDGE-GO-MOD-Q1",
+  "snapshot_pack": "JAN_2025",
+  "policy_track": "PRODUCTION",
+  "pin_count": 15,
+  "toolchain_declared": "1.21.0",
+  "proxy_api_base": "https://proxy.golang.org/",
+  "sumdb_api_base": "https://sum.golang.org/",
+  "module_lock_path": "data/module_lock.json",
+  "snapshot_path": "data/proxy_snapshot_jan2025.json",
+  "conflict_report_path": "data/conflict_report.json",
+  "exclude_overlay_path": "data/exclude_overlay.json",
+  "corpus_annex_path": "corpus/policy_pack",
+  "retractmatch_bin": "bin/retractmatch",
+  "gofloor_bin": "bin/gofloor"
+}

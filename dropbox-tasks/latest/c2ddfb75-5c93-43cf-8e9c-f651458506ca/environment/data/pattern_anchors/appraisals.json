@@ -1,0 +1,23 @@
+{
+  "panel_mandarin_cloud_suzhou": {
+    "base_appraisal": 2800000.0
+  },
+  "panel_lotus_brocade_suzhou": {
+    "base_appraisal": 1900000.0
+  },
+  "panel_nishijin_karaori_kyoto": {
+    "base_appraisal": 420000.0
+  },
+  "panel_banarasi_jangla_varanasi": {
+    "base_appraisal": 950000.0
+  },
+  "panel_lyon_velours_exchange": {
+    "base_appraisal": 820000.0
+  },
+  "panel_isfahan_khata_persian": {
+    "base_appraisal": 310000.0
+  },
+  "panel_genoa_brocade_merchant": {
+    "base_appraisal": 680000.0
+  }
+}

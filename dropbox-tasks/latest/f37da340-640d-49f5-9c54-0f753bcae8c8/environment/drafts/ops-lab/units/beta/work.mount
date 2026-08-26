@@ -1,0 +1,10 @@
+[Unit]
+Description=sitefab work arm
+
+[Mount]
+What=/srv/backing/work
+Where=/srv/arms/work
+Type=none
+Options=rw
+X-Sitefab-Remote=no
+X-Sitefab-OrderHint=15

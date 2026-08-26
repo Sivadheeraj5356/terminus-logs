@@ -1,0 +1,78 @@
+[
+ {
+  "registry": {
+   "pkgone": [
+    {
+     "version": "1.0.0"
+    },
+    {
+     "version": "1.2.0"
+    },
+    {
+     "version": "2.0.0"
+    }
+   ]
+  },
+  "requirements": {
+   "pkgone": "^1.0.0"
+  }
+ },
+ {
+  "registry": {
+   "widget": [
+    {
+     "version": "3.1.0",
+     "deps": {
+      "gizmo": "~2.4.0"
+     }
+    }
+   ],
+   "gizmo": [
+    {
+     "version": "2.4.0"
+    },
+    {
+     "version": "2.4.7"
+    },
+    {
+     "version": "2.5.0"
+    }
+   ]
+  },
+  "requirements": {
+   "widget": "*"
+  }
+ },
+ {
+  "registry": {
+   "alpha": [
+    {
+     "version": "1.0.0",
+     "deps": {
+      "shared": "^1.0.0"
+     }
+    }
+   ],
+   "beta": [
+    {
+     "version": "1.0.0",
+     "deps": {
+      "shared": "^2.0.0"
+     }
+    }
+   ],
+   "shared": [
+    {
+     "version": "1.9.0"
+    },
+    {
+     "version": "2.2.0"
+    }
+   ]
+  },
+  "requirements": {
+   "alpha": "=1.0.0",
+   "beta": "=1.0.0"
+  }
+ }
+]

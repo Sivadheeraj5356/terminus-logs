@@ -1,0 +1,75 @@
+{
+  "current_time": "2026-07-04T10:00:00Z",
+  "reason_order": [
+    "unknown_service",
+    "unknown_env",
+    "not_newer_version",
+    "already_active_digest",
+    "stale_build",
+    "untrusted_signer",
+    "weak_slsa",
+    "attestation_mismatch",
+    "critical_vuln",
+    "forbidden_license",
+    "missing_required_exception",
+    "outside_window"
+  ],
+  "trusted_signers": {
+    "sigstore-root": {"active": true},
+    "payments-ca": {"active": true},
+    "legacy-ci": {"active": false},
+    "labs-ca": {"active": true}
+  },
+  "envs": {
+    "prod": {"max_approvals": 3},
+    "stage": {"max_approvals": 2}
+  },
+  "windows": [
+    {"id": "prod-early", "env": "prod", "starts_at": "2026-07-04T12:00:00Z", "capacity": 2, "risk_budget": 132, "max_db_migrations": 1},
+    {"id": "prod-late", "env": "prod", "starts_at": "2026-07-04T20:00:00Z", "capacity": 2, "risk_budget": 95, "max_db_migrations": 1},
+    {"id": "stage-afternoon", "env": "stage", "starts_at": "2026-07-04T15:00:00Z", "capacity": 2, "risk_budget": 140, "max_db_migrations": 2}
+  ],
+  "services": {
+    "payments": {
+      "priority": 120,
+      "min_slsa": 3,
+      "max_age_hours": 72,
+      "min_coverage": 88,
+      "allowed_signers": ["sigstore-root", "payments-ca"],
+      "forbidden_licenses": ["AGPL-3.0", "SSPL-1.0"],
+      "exception_required_for": ["privileged"]
+    },
+    "catalog": {
+      "priority": 82,
+      "min_slsa": 2,
+      "max_age_hours": 96,
+      "min_coverage": 80,
+      "allowed_signers": ["sigstore-root"],
+      "forbidden_licenses": ["SSPL-1.0"],
+      "exception_required_for": ["public_api"]
+    },
+    "identity": {
+      "priority": 105,
+      "min_slsa": 3,
+      "max_age_hours": 80,
+      "min_coverage": 90,
+      "allowed_signers": ["sigstore-root"],
+      "forbidden_licenses": ["AGPL-3.0", "SSPL-1.0"],
+      "exception_required_for": []
+    },
+    "search": {
+      "priority": 64,
+      "min_slsa": 2,
+      "max_age_hours": 120,
+      "min_coverage": 75,
+      "allowed_signers": ["sigstore-root", "labs-ca"],
+      "forbidden_licenses": ["SSPL-1.0"],
+      "exception_required_for": []
+    }
+  },
+  "risk_weights": {
+    "vulnerabilities": {"high": 30, "medium": 10, "low": 2},
+    "features": {"privileged": 25, "db_migration": 15, "public_api": 10},
+    "waivers": {"stale_build": 8, "forbidden_license": 20, "missing_required_exception": 18}
+  }
+}

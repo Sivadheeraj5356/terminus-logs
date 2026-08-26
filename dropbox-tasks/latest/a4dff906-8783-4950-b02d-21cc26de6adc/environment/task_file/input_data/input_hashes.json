@@ -1,0 +1,10 @@
+{
+  "crews.jsonl": "f76326fe81e1e2e7165ceddd09c171cd56d9ac59a567818f910a22cd7ae5eeed",
+  "precedence_edges.jsonl": "433e6e19fad6ee1d5014094721000b33422db0a217172460b2344a5a3636c60f",
+  "recovery_windows.json": "aa65876ddfdc7ff247f225470e10437502a57bedd1c34e8c284246aa3115152a",
+  "relief_terminals.jsonl": "038a23fca4d04b73b8bf5b6164f72ffdcc3dfffc3267bb7c32c1e0b83009b169",
+  "route_targets.json": "de7d5cd97ab2711d9fd269f49fa46c6b5de0e7f0047a7f9dbe35817c8a167028",
+  "sailings.jsonl": "e2ba1e87d0209e9c04da6a2893a719ddb701d7096c1d5ae065266943a89cf5fe",
+  "task_config.json": "755c9049ebd7e29263c51b1eb52e01c7724d8f3b2c8b3a202d7ae2169bd1c8b8",
+  "vessel_capacity.json": "002067322158ae6fd77e5b847728d9c271d423bedf1bc40a92d9b4c2a38340aa"
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 4,
+  "case_id": "north-lock-transient",
+  "start_time_s": 0,
+  "end_time_s": 3600,
+  "output_interval_s": 600,
+  "topology_path": "/app/environment/data/topology_demo.json",
+  "forcing_path": "/app/environment/data/forcing_demo.jsonl",
+  "solver": {
+    "initial_step_s": 30.0,
+    "minimum_step_s": 0.46875,
+    "maximum_step_s": 120.0,
+    "volume_abs_tolerance_m3": 1e-7,
+    "volume_rel_tolerance": 1e-8,
+    "newton_abs_tolerance_m3": 1e-9,
+    "newton_rel_tolerance": 1e-10,
+    "maximum_newton_iterations": 12
+  }
+}

@@ -1,0 +1,1290 @@
+[
+ {
+  "id": "verify_arith0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/arith0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_arith0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/arith0.bvm"
+  ]
+ },
+ {
+  "id": "report_arith0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/arith0.bvm"
+  ]
+ },
+ {
+  "id": "dom_arith0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/arith0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_arith1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/arith1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_arith1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/arith1.bvm"
+  ]
+ },
+ {
+  "id": "report_arith1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/arith1.bvm"
+  ]
+ },
+ {
+  "id": "dom_arith1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/arith1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_diamond0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/diamond0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_diamond0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/diamond0.bvm"
+  ]
+ },
+ {
+  "id": "report_diamond0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/diamond0.bvm"
+  ]
+ },
+ {
+  "id": "dom_diamond0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/diamond0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_diamond1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/diamond1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_diamond1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/diamond1.bvm"
+  ]
+ },
+ {
+  "id": "report_diamond1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/diamond1.bvm"
+  ]
+ },
+ {
+  "id": "dom_diamond1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/diamond1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_hier0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/hier0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_hier0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/hier0.bvm"
+  ]
+ },
+ {
+  "id": "report_hier0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/hier0.bvm"
+  ]
+ },
+ {
+  "id": "dom_hier0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/hier0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_hier1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/hier1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_hier1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/hier1.bvm"
+  ]
+ },
+ {
+  "id": "report_hier1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/hier1.bvm"
+  ]
+ },
+ {
+  "id": "dom_hier1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/hier1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_loop0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/loop0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_loop0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/loop0.bvm"
+  ]
+ },
+ {
+  "id": "report_loop0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/loop0.bvm"
+  ]
+ },
+ {
+  "id": "dom_loop0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/loop0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_loop1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/loop1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_loop1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/loop1.bvm"
+  ]
+ },
+ {
+  "id": "report_loop1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/loop1.bvm"
+  ]
+ },
+ {
+  "id": "dom_loop1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/loop1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_nest0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/nest0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_nest0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/nest0.bvm"
+  ]
+ },
+ {
+  "id": "report_nest0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/nest0.bvm"
+  ]
+ },
+ {
+  "id": "dom_nest0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/nest0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_nest1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/nest1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_nest1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/nest1.bvm"
+  ]
+ },
+ {
+  "id": "report_nest1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/nest1.bvm"
+  ]
+ },
+ {
+  "id": "dom_nest1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/nest1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_arr0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/arr0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_arr0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/arr0.bvm"
+  ]
+ },
+ {
+  "id": "report_arr0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/arr0.bvm"
+  ]
+ },
+ {
+  "id": "dom_arr0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/arr0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_arr1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/arr1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_arr1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/arr1.bvm"
+  ]
+ },
+ {
+  "id": "report_arr1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/arr1.bvm"
+  ]
+ },
+ {
+  "id": "dom_arr1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/arr1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_call0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/call0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_call0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/call0.bvm"
+  ]
+ },
+ {
+  "id": "report_call0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/call0.bvm"
+  ]
+ },
+ {
+  "id": "dom_call0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/call0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_call1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/call1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_call1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/call1.bvm"
+  ]
+ },
+ {
+  "id": "report_call1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/call1.bvm"
+  ]
+ },
+ {
+  "id": "dom_call1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/call1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_rbw0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/rbw0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_rbw0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/rbw0.bvm"
+  ]
+ },
+ {
+  "id": "report_rbw0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/rbw0.bvm"
+  ]
+ },
+ {
+  "id": "dom_rbw0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/rbw0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_rbw1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/rbw1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_rbw1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/rbw1.bvm"
+  ]
+ },
+ {
+  "id": "report_rbw1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/rbw1.bvm"
+  ]
+ },
+ {
+  "id": "dom_rbw1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/rbw1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_height0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/height0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_height0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/height0.bvm"
+  ]
+ },
+ {
+  "id": "report_height0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/height0.bvm"
+  ]
+ },
+ {
+  "id": "dom_height0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/height0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_height1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/height1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_height1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/height1.bvm"
+  ]
+ },
+ {
+  "id": "report_height1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/height1.bvm"
+  ]
+ },
+ {
+  "id": "dom_height1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/height1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_rtype0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/rtype0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_rtype0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/rtype0.bvm"
+  ]
+ },
+ {
+  "id": "report_rtype0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/rtype0.bvm"
+  ]
+ },
+ {
+  "id": "dom_rtype0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/rtype0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_rtype1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/rtype1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_rtype1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/rtype1.bvm"
+  ]
+ },
+ {
+  "id": "report_rtype1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/rtype1.bvm"
+  ]
+ },
+ {
+  "id": "dom_rtype1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/rtype1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_incompat0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/incompat0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_incompat0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/incompat0.bvm"
+  ]
+ },
+ {
+  "id": "report_incompat0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/incompat0.bvm"
+  ]
+ },
+ {
+  "id": "dom_incompat0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/incompat0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_incompat1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/incompat1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_incompat1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/incompat1.bvm"
+  ]
+ },
+ {
+  "id": "report_incompat1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/incompat1.bvm"
+  ]
+ },
+ {
+  "id": "dom_incompat1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/incompat1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_maxs0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/maxs0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_maxs0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/maxs0.bvm"
+  ]
+ },
+ {
+  "id": "report_maxs0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/maxs0.bvm"
+  ]
+ },
+ {
+  "id": "dom_maxs0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/maxs0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_maxs1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/maxs1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_maxs1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/maxs1.bvm"
+  ]
+ },
+ {
+  "id": "report_maxs1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/maxs1.bvm"
+  ]
+ },
+ {
+  "id": "dom_maxs1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/maxs1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_dead0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/dead0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_dead0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/dead0.bvm"
+  ]
+ },
+ {
+  "id": "report_dead0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/dead0.bvm"
+  ]
+ },
+ {
+  "id": "dom_dead0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/dead0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_dead1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/dead1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_dead1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/dead1.bvm"
+  ]
+ },
+ {
+  "id": "report_dead1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/dead1.bvm"
+  ]
+ },
+ {
+  "id": "dom_dead1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/dead1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_backwiden0",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/backwiden0.bvm"
+  ]
+ },
+ {
+  "id": "analyze_backwiden0",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/backwiden0.bvm"
+  ]
+ },
+ {
+  "id": "report_backwiden0",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/backwiden0.bvm"
+  ]
+ },
+ {
+  "id": "dom_backwiden0",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/backwiden0.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "verify_backwiden1",
+  "args": [
+   "verify",
+   "--module",
+   "{DIR}/backwiden1.bvm"
+  ]
+ },
+ {
+  "id": "analyze_backwiden1",
+  "args": [
+   "analyze",
+   "--module",
+   "{DIR}/backwiden1.bvm"
+  ]
+ },
+ {
+  "id": "report_backwiden1",
+  "args": [
+   "report",
+   "--module",
+   "{DIR}/backwiden1.bvm"
+  ]
+ },
+ {
+  "id": "dom_backwiden1",
+  "args": [
+   "dom",
+   "--module",
+   "{DIR}/backwiden1.bvm",
+   "--func",
+   "main"
+  ]
+ },
+ {
+  "id": "run_arith0",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_arith0.bvm"
+  ]
+ },
+ {
+  "id": "trace_arith0",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_arith0.bvm"
+  ]
+ },
+ {
+  "id": "run_arith1",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_arith1.bvm"
+  ]
+ },
+ {
+  "id": "trace_arith1",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_arith1.bvm"
+  ]
+ },
+ {
+  "id": "run_arith2",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_arith2.bvm"
+  ]
+ },
+ {
+  "id": "trace_arith2",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_arith2.bvm"
+  ]
+ },
+ {
+  "id": "run_diamond0",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_diamond0.bvm"
+  ]
+ },
+ {
+  "id": "trace_diamond0",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_diamond0.bvm"
+  ]
+ },
+ {
+  "id": "run_diamond1",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_diamond1.bvm"
+  ]
+ },
+ {
+  "id": "trace_diamond1",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_diamond1.bvm"
+  ]
+ },
+ {
+  "id": "run_diamond2",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_diamond2.bvm"
+  ]
+ },
+ {
+  "id": "trace_diamond2",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_diamond2.bvm"
+  ]
+ },
+ {
+  "id": "run_hier0",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_hier0.bvm"
+  ]
+ },
+ {
+  "id": "trace_hier0",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_hier0.bvm"
+  ]
+ },
+ {
+  "id": "run_hier1",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_hier1.bvm"
+  ]
+ },
+ {
+  "id": "trace_hier1",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_hier1.bvm"
+  ]
+ },
+ {
+  "id": "run_hier2",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_hier2.bvm"
+  ]
+ },
+ {
+  "id": "trace_hier2",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_hier2.bvm"
+  ]
+ },
+ {
+  "id": "run_loop0",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_loop0.bvm"
+  ]
+ },
+ {
+  "id": "trace_loop0",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_loop0.bvm"
+  ]
+ },
+ {
+  "id": "run_loop1",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_loop1.bvm"
+  ]
+ },
+ {
+  "id": "trace_loop1",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_loop1.bvm"
+  ]
+ },
+ {
+  "id": "run_loop2",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_loop2.bvm"
+  ]
+ },
+ {
+  "id": "trace_loop2",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_loop2.bvm"
+  ]
+ },
+ {
+  "id": "run_arr0",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_arr0.bvm"
+  ]
+ },
+ {
+  "id": "trace_arr0",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_arr0.bvm"
+  ]
+ },
+ {
+  "id": "run_arr1",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_arr1.bvm"
+  ]
+ },
+ {
+  "id": "trace_arr1",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_arr1.bvm"
+  ]
+ },
+ {
+  "id": "run_arr2",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_arr2.bvm"
+  ]
+ },
+ {
+  "id": "trace_arr2",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_arr2.bvm"
+  ]
+ },
+ {
+  "id": "run_call0",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_call0.bvm"
+  ]
+ },
+ {
+  "id": "trace_call0",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_call0.bvm"
+  ]
+ },
+ {
+  "id": "run_call1",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_call1.bvm"
+  ]
+ },
+ {
+  "id": "trace_call1",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_call1.bvm"
+  ]
+ },
+ {
+  "id": "run_call2",
+  "args": [
+   "run",
+   "--module",
+   "{DIR}/run_call2.bvm"
+  ]
+ },
+ {
+  "id": "trace_call2",
+  "args": [
+   "trace",
+   "--module",
+   "{DIR}/run_call2.bvm"
+  ]
+ },
+ {
+  "id": "batch_run0",
+  "args": [
+   "batch",
+   "--manifest",
+   "{DIR}/manifest_run0.json"
+  ]
+ },
+ {
+  "id": "batch_verify0",
+  "args": [
+   "batch",
+   "--manifest",
+   "{DIR}/manifest_verify0.json"
+  ]
+ },
+ {
+  "id": "batch_run1",
+  "args": [
+   "batch",
+   "--manifest",
+   "{DIR}/manifest_run1.json"
+  ]
+ },
+ {
+  "id": "batch_verify1",
+  "args": [
+   "batch",
+   "--manifest",
+   "{DIR}/manifest_verify1.json"
+  ]
+ },
+ {
+  "id": "batch_run2",
+  "args": [
+   "batch",
+   "--manifest",
+   "{DIR}/manifest_run2.json"
+  ]
+ },
+ {
+  "id": "batch_verify2",
+  "args": [
+   "batch",
+   "--manifest",
+   "{DIR}/manifest_verify2.json"
+  ]
+ }
+]

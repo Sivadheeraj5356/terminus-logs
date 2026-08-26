@@ -1,0 +1,110 @@
+[
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M1",
+    "locale": "L19A",
+    "omega_obs": 15.846886,
+    "omega_ref": 15.2,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M1",
+    "locale": "L19B",
+    "omega_obs": 16.08824,
+    "omega_ref": 15.6,
+    "excit": 1.0
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M1",
+    "locale": "L19C",
+    "omega_obs": 16.281952,
+    "omega_ref": 16.0,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M2",
+    "locale": "L19A",
+    "omega_obs": 15.777782,
+    "omega_ref": 15.2,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M2",
+    "locale": "L19B",
+    "omega_obs": 16.10605,
+    "omega_ref": 15.6,
+    "excit": 1.0
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M2",
+    "locale": "L19C",
+    "omega_obs": 16.22454,
+    "omega_ref": 16.0,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M3",
+    "locale": "L19A",
+    "omega_obs": 15.868629,
+    "omega_ref": 15.2,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M3",
+    "locale": "L19B",
+    "omega_obs": 16.11486,
+    "omega_ref": 15.6,
+    "excit": 1.0
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M3",
+    "locale": "L19C",
+    "omega_obs": 16.287528,
+    "omega_ref": 16.0,
+    "excit": 0.9
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M4",
+    "locale": "L19A",
+    "omega_obs": 15.740114,
+    "omega_ref": 15.2,
+    "excit": 0.95
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M4",
+    "locale": "L19B",
+    "omega_obs": 16.08276,
+    "omega_ref": 15.6,
+    "excit": 1.0
+  },
+  {
+    "panel_id": "P-CASCADE",
+    "family": "heldout_cascade",
+    "mode": "M4",
+    "locale": "L19C",
+    "omega_obs": 16.216048,
+    "omega_ref": 16.0,
+    "excit": 0.9
+  }
+]

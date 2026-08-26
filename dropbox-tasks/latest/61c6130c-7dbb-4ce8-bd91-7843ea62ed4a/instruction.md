@@ -1,0 +1,5 @@
+Challenge-split margins and npm alias hashes drifted after the last scorer pass on the r01 moderation bundle. Eval rows can look stable while group metrics and provenance nodes do not.
+
+Fix the C++ sources under `/app/environment` so rebuilding that tree and running `r01_score` against `/app/environment/r01` regenerates `/app/output/moderation_ledger.json` from the bundled inputs. Hand-written JSON or skipping the built binary is not enough.
+
+Public report identity is schema_version `moderation-audit-v1` with seed 314159. Fields: schema_version, seed, split_counts, metric_names, records, groups, provenance_nodes, estimator, and trace. metric_names order is margin, mean_margin_milli, variant_count, deficit_count. Train rows are counted only; eval and challenge rows are scored. Scoring, labels (allow, review, block), CycloneDX hashes, npm aliases, estimator obligation 42, and base-131 trace_digest rules live in `/app/environment/r01/docs/c1.txt`. Build and CLI notes are in `/app/environment/r01/docs/c2.txt`. Equivalent input ordering must keep the same groups and digest; changing the data root must change the report. Stay offline.

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: edge
+version: "1.0.0"
+dependencies:
+  - name: worker
+    version: "1.0.0"

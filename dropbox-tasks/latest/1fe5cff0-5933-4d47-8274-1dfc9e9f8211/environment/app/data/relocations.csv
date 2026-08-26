@@ -1,0 +1,3 @@
+from_coord,to_coord,reason
+org.legacy:bad-json,org.demo:json,rebrand
+org.legacy:core,org.alpha:core,consolidation

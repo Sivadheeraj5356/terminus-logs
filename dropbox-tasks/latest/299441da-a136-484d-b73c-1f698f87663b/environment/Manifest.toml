@@ -1,0 +1,5 @@
+# This file is machine-generated - edit Project.toml instead
+julia_version = "1.11.0"
+manifest_format = "2.0"
+
+[deps]

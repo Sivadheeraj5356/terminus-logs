@@ -1,0 +1,12 @@
+{
+  "combo": true,
+  "codename": "sc_m5",
+  "ev_bin": "sc_m5.evb",
+  "band_lo": 5,
+  "band_hi": 250,
+  "mag_seed": 15,
+  "dur_seed": 18,
+  "combo_depth": 5,
+  "entity_a": 25,
+  "entity_b": 7
+}

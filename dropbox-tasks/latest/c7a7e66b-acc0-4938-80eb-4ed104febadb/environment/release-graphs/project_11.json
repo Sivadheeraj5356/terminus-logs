@@ -1,0 +1,32 @@
+{
+  "project_id":"project_11",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"eslint",
+        "version":"8.50.0"
+      },
+      {
+        "name":"eslint-plugin",
+        "version":"1.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"eslint-plugin",
+        "provider":"eslint",
+        "constraint":"^8.0.0",
+        "required":true,
+        "edge_type":"peer"
+      }
+    ],
+    "proposed":[
+      {
+        "package":"eslint",
+        "target":"9.0.0",
+        "release_date":"2026-03-20"
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0011",
+  "category": "point_mutation",
+  "label_ciphertext": "5TQWNFW8DFevGQ==",
+  "label_nonce": "QGOWTVpxQYN5qxdg",
+  "label_tag": "YVot8Kea46Jo1FdxR5Ckiw==",
+  "signature": "MEYCIQC7THvh++BcLVTtResTuNDtyoP4WVvKwjgj60JDbRp1+wIhAIZkBeRACuERW9X6a1yHxIo2eE4inFYy3Vyyou9PRSxE",
+  "patient_ref": "PT-LAMBDA-997"
+}

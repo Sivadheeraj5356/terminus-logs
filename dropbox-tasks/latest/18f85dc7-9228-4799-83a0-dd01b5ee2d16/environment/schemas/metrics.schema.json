@@ -1,0 +1,21 @@
+{
+  "digest_chain": {
+    "algorithm": "sha256",
+    "trace_tail_fields": [
+      "pack_id",
+      "spill_total",
+      "scratch_peak",
+      "edge_mode",
+      "lane_width",
+      "divisors"
+    ],
+    "concatenation": "canonical_json(trace_tail) + utf8(kernel_source)"
+  },
+  "required_metrics_fields": [
+    "spill_total",
+    "max_scratch_bytes",
+    "lane_width_summary",
+    "compile_epoch",
+    "digest_chain"
+  ]
+}

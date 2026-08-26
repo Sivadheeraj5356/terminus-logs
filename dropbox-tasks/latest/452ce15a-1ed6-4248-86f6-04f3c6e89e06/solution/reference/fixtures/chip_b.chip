@@ -1,0 +1,8 @@
+family_id=FAM-PZ-B
+chip_id=PZ-B07
+profile_id=CAL-STD
+nominal_hz=16384000
+readings:
+segment: main
+1 25.0 16384000.0
+2 40.0 16384623.92

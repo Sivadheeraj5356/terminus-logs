@@ -1,0 +1,8 @@
+family_id=FAM-GOLD-A
+chip_id=GOLD-A1
+profile_id=CAL-STD
+nominal_hz=8000000
+readings:
+segment: core
+1 25.0 8000000.0
+2 30.0 8001400.0

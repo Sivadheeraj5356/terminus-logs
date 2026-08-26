@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0007",
+  "category": "translocation",
+  "label_ciphertext": "tVkc//wbqXY=",
+  "label_nonce": "OzW554K3+e7qtQ1f",
+  "label_tag": "gps+YhJMNfliJMCQ5UdOaw==",
+  "signature": "MEUCIEoxyrgGop8OILtY4CHvVarBfnHq4gAI6mlYBejmBPhNAiEAgWk1VaaeP3zpmui7WTmMy1+mdCB0wWyUQJqfyR8Pn0k=",
+  "patient_ref": "PT-ETA-553"
+}

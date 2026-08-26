@@ -1,0 +1,4 @@
+overlay scope notes
+
+veil_fuse.py, patch_stack.py, closure_lane.py, and overlay_lane.py are retained
+for offline fragment tooling and are not on the wired compile path.

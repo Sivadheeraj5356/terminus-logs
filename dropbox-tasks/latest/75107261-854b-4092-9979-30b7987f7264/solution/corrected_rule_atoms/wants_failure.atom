@@ -1,0 +1,6 @@
+RULE WANTS_FAILURE
+IN keys
+OUT value,reason
+TABLE
+Wants|peer_failed -> owner_ok|wants-fail
+END

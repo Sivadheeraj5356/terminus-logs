@@ -1,0 +1,6 @@
+RULE MASK_OVERRIDE
+IN keys
+OUT value,reason
+TABLE
+low_tier_mask|high_tier_file -> mask_wins|mask-precedence
+END

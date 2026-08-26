@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lockctl.local/schemas/restart_snapshot.schema.json",
+  "title": "restart_snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_digest_hex",
+    "forcing_cursor",
+    "simulated_until_s",
+    "storage_state",
+    "boundary_levels",
+    "link_controls",
+    "external_inflows",
+    "active_curves",
+    "prior_samples",
+    "solver_state",
+    "conservation_state",
+    "snapshot_digest_hex"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 4 },
+    "case_digest_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "forcing_cursor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["processed_bytes", "prefix_sha256", "maximum_source_seq"],
+      "properties": {
+        "processed_bytes": { "type": "integer", "minimum": 0 },
+        "prefix_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "maximum_source_seq": { "type": "integer" }
+      }
+    },
+    "simulated_until_s": { "type": "integer" },
+    "storage_state": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "volume_m3"],
+        "properties": {
+          "node_id": { "type": "string" },
+          "volume_m3": { "type": "number" }
+        }
+      }
+    },
+    "boundary_levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "level_m"],
+        "properties": {
+          "node_id": { "type": "string" },
+          "level_m": { "type": "number" }
+        }
+      }
+    },
+    "link_controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["link_id", "control"],
+        "properties": {
+          "link_id": { "type": "string" },
+          "control": { "type": "number" }
+        }
+      }
+    },
+    "external_inflows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "flow_m3_s"],
+        "properties": {
+          "node_id": { "type": "string" },
+          "flow_m3_s": { "type": "number" }
+        }
+      }
+    },
+    "active_curves": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "revision", "storage_curve"],
+        "properties": {
+          "node_id": { "type": "string" },
+          "revision": { "type": "integer" },
+          "storage_curve": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["level_m", "volume_m3"],
+              "properties": {
+                "level_m": { "type": "number" },
+                "volume_m3": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "prior_samples": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "solver_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "next_step_s",
+        "accepted_substeps",
+        "rejected_attempts",
+        "newton_iterations",
+        "minimum_accepted_step_s",
+        "maximum_accepted_step_s",
+        "maximum_abs_mass_residual_m3"
+      ],
+      "properties": {
+        "next_step_s": { "type": "number" },
+        "accepted_substeps": { "type": "integer" },
+        "rejected_attempts": { "type": "integer" },
+        "newton_iterations": { "type": "integer" },
+        "minimum_accepted_step_s": { "type": "number" },
+        "maximum_accepted_step_s": { "type": "number" },
+        "maximum_abs_mass_residual_m3": { "type": "number" }
+      }
+    },
+    "conservation_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["initial_total_storage_m3", "cumulative_external_volume_m3"],
+      "properties": {
+        "initial_total_storage_m3": { "type": "number" },
+        "cumulative_external_volume_m3": { "type": "number" }
+      }
+    },
+    "snapshot_digest_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

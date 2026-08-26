@@ -1,0 +1,48 @@
+[[arm]]
+key = "vis_sh_a"
+held = false
+gate_first = true
+lane_ref = 0
+family = "shallow"
+
+[[arm]]
+key = "vis_sh_b"
+held = false
+gate_first = false
+lane_ref = 1
+family = "shallow"
+
+[[arm]]
+key = "vis_dp_a"
+held = false
+gate_first = true
+lane_ref = 2
+family = "deep"
+
+[[arm]]
+key = "vis_nr_a"
+held = false
+gate_first = false
+lane_ref = 3
+family = "rebind"
+
+[[arm]]
+key = "hold_lp_x"
+held = true
+gate_first = true
+lane_ref = 0
+family = "leftover"
+
+[[arm]]
+key = "hold_nr_y"
+held = true
+gate_first = false
+lane_ref = 2
+family = "rebind"
+
+[[arm]]
+key = "hold_sd_z"
+held = true
+gate_first = true
+lane_ref = 4
+family = "swap"

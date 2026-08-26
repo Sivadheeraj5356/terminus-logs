@@ -1,0 +1,8 @@
+{
+  "bundle_id": "kyoto_nishijin_salon",
+  "policy_family": "salon",
+  "genealogy_snapshot": {"as_of_year": 1995},
+  "panels": [
+    {"panel_id": "panel_nishijin_karaori_kyoto"}
+  ]
+}

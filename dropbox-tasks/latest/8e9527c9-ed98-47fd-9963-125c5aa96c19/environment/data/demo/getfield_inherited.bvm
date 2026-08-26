@@ -1,0 +1,12 @@
+# A field declared on a base type, read through a derived reference. The spec's
+# getfield rule looks a field up on the named type INCLUDING inherited fields, so
+# reading `age` (declared on Animal) via a Dog is well typed. Try:
+#   opcheck --module data/demo/getfield_inherited.bvm --func main
+type Animal { age: int }
+type Dog extends Animal { bark: int }
+func main() -> int {
+b0:
+  new Dog
+  getfield Dog age
+  ret
+}

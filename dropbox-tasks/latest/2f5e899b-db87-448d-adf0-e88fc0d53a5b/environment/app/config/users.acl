@@ -1,0 +1,3 @@
+user default on nopass ~* &* +@all
+user ingest on >ingest-temporary-password ~* &* +@all
+user auditor on >auditor-temporary-password ~* &* +@all

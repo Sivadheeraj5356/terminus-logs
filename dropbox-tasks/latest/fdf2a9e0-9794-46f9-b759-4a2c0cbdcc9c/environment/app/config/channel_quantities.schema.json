@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "required": ["reach_id", "peak_cms", "time_to_peak_h", "outflow_cms"],
+      "additionalProperties": false,
+      "properties": {
+        "reach_id": { "type": "string", "minLength": 1 },
+        "peak_cms": { "type": "number" },
+        "time_to_peak_h": { "type": "number" },
+        "outflow_cms": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 1
+        }
+      }
+    }
+  }
+}

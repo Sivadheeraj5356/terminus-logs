@@ -1,0 +1,8 @@
+# hidden_case_05: temporary directed route is anchored, consumed, and scored
+reroute bay-b2 tank-t4
+reroute bay-a1 reefer-r7
+move reefer-r7
+move bay-a1
+reroute reefer-r7 bay-a1
+move bay-a1
+move deck-hold

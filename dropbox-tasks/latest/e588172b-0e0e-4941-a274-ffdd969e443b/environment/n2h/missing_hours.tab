@@ -1,0 +1,4 @@
+# local wall-clock hour availability: "<hour> <exists>" (1 = present, 0 = absent)
+02 0
+03 1
+04 1

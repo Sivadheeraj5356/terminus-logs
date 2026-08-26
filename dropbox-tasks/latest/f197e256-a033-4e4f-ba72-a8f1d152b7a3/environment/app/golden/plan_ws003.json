@@ -1,0 +1,7 @@
+{
+  "workstation_id": "ws-003",
+  "actions": [
+    "sysctl:fs.suid_dumpable=2",
+    "fixture-perms:/app/fixtures/mp4/sample.mp4:0644"
+  ]
+}

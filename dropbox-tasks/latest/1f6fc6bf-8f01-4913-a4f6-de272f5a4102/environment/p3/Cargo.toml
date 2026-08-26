@@ -1,0 +1,8 @@
+[package]
+name = "prlg_p3"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+prlg_c8 = { path = "../c8" }
+thiserror = { workspace = true }

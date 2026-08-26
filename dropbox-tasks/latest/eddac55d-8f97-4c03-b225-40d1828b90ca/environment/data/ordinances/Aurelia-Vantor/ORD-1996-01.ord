@@ -1,0 +1,9 @@
+ordinance: ORD-1996-01
+jurisdiction: Aurelia-Vantor
+enacted: 1996-01-14
+effective: 1996-03-31T02:00:00 wall
+standard-offset: +07:00:00
+standard-label: WAT
+observance:
+  begin: Mar lastSun 02:00:00 wall save +01:00:00 label WAST
+  end: Oct lastSun 03:00:00 standard

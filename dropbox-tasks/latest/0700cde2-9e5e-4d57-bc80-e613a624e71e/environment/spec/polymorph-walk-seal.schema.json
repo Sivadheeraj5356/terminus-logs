@@ -1,0 +1,15 @@
+{
+  "schema": "phase-stabilization-seal-v2",
+  "epoch": 1,
+  "capture_digest": "64_hex_char_sha256",
+  "snapshot_digest": "64_hex_char_sha256",
+  "spine_digest": "64_hex_char_sha256",
+  "adjacency_digest": "64_hex_char_sha256",
+  "concordance_digest": "64_hex_char_sha256",
+  "cycle_digest": "64_hex_char_sha256",
+  "audit_commitment": "64_hex_char_sha256",
+  "ledger_triad_digest": "64_hex_char_sha256",
+  "topology_bundle_digest": "64_hex_char_sha256",
+  "closure_bundle_digest": "64_hex_char_sha256",
+  "phase_seal": "64_hex_char_sha256"
+}

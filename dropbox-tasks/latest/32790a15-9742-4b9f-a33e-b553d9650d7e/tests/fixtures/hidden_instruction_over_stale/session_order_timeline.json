@@ -1,0 +1,16 @@
+{
+  "timelines": [
+    {
+      "domain": "support",
+      "ordered_session_ids": [
+        "sess_alpha"
+      ]
+    },
+    {
+      "domain": "coding",
+      "ordered_session_ids": [
+        "sess_beta"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "model-cohort-release-ledger",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "bin": {
+    "model-release": "bin/model-release.js"
+  },
+  "scripts": {
+    "check": "node --check bin/model-release.js && node --check src/release.js"
+  }
+}

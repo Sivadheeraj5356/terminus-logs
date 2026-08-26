@@ -1,0 +1,6 @@
+{"seq":1,"epoch":0,"kind":"link_open","link":"gamma>delta","source":"maintenance"}
+{"seq":2,"epoch":0,"kind":"link_close","link":"gamma>delta","source":"maintenance"}
+{"seq":3,"epoch":0,"kind":"link_close","link":"gamma>delta","source":"maintenance"}
+{"seq":1,"epoch":20,"kind":"hop","link":"alpha>bravo","ms":10,"source":"maintenance","cancel":true,"op_id":"cancel-hop"}
+{"seq":2,"epoch":20,"kind":"checkpoint","tag":"phase-two","source":"maintenance"}
+{"seq":1,"epoch":100,"kind":"link_open","link":"alpha>bravo","source":"maintenance"}

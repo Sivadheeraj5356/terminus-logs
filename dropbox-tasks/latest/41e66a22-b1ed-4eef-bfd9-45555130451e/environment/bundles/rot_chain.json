@@ -1,0 +1,18 @@
+{
+  "name": "rot_chain",
+  "steps": [
+    { "op": "seal", "gen": 1, "cred": "r1" },
+    { "op": "latch", "gen": 1 },
+    { "op": "admit", "delta": 1 },
+    { "op": "seal", "gen": 2, "cred": "r2" },
+    { "op": "latch", "gen": 2 },
+    { "op": "admit", "delta": 1 },
+    { "op": "seal", "gen": 3, "cred": "r3" },
+    { "op": "latch", "gen": 3 },
+    { "op": "stale_admit", "delta": 2, "fence": 1 },
+    { "op": "admit", "delta": 1 }
+  ],
+  "principal_id": 9,
+  "digest_key": "circ_b.bin",
+  "alt_digest_key": "circ_a.bin"
+}

@@ -1,0 +1,16 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 4255203,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "köln.initech.org",
+    "api.acme.net",
+    "cdn.globex.org",
+    "cdn.umbrella.io"
+  ],
+  "issued_at": "2026-05-03T17:32:16.267Z",
+  "payload": "cert:FfTMN2hVNHBBiGcOblDca4VLC6w/UqC83AT0YpYQswE=",
+  "received_at": "2026-12-11T22:59:10Z",
+  "issuer_id": "root-CA-eu",
+  "x_origin": "ingest-0"
+}

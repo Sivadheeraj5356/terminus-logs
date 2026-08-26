@@ -1,0 +1,17 @@
+{
+  "objects": {
+    "manifests/acme/app:v3": {"tier": 1, "bytes_ref": "m_acme", "immutable": true},
+    "manifests/beta/svc:rel": {"tier": 1, "bytes_ref": "m_beta", "immutable": true},
+    "manifests/gamma/img:prod": {"tier": 1, "bytes_ref": "m_gamma", "immutable": true},
+    "meta/targets.v2.json": {"tier": 2, "bytes_ref": "t2", "immutable": true},
+    "meta/signatures": {"tier": 2, "bytes_ref": "sig", "immutable": true}
+  },
+  "tags": {
+    "acme/app:v3": "manifests/acme/app:v3",
+    "beta/svc:rel": "manifests/beta/svc:rel",
+    "gamma/img:prod": "manifests/gamma/img:prod"
+  },
+  "replicas": {
+    "gamma/img:prod": "manifests/gamma/img:prod-alt"
+  }
+}

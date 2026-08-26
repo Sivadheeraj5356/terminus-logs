@@ -1,0 +1,9 @@
+ordinance: ORD-2004-02
+jurisdiction: Aurelia-Corrin
+enacted: 2004-01-19
+effective: 2004-03-28T24:00:00 wall
+standard-offset: +08:00:00
+standard-label: numeric
+observance:
+  begin: Mar lastSun 24:00:00 wall save +01:00:00 label numeric
+  end: Oct lastSun 24:00:00 wall

@@ -1,0 +1,24 @@
+{
+  "batch_generation": 21,
+  "target_volume_ml": 100.0,
+  "lots": [
+    {
+      "lot_id": "UP-HIGH",
+      "cost_per_ml": 0.70,
+      "available_ml": 200.0,
+      "assays": {"IgG": 50.0, "IgM": 12.0}
+    },
+    {
+      "lot_id": "UP-MID",
+      "cost_per_ml": 1.05,
+      "available_ml": 200.0,
+      "assays": {"IgG": 43.5, "IgM": 11.5}
+    },
+    {
+      "lot_id": "UP-LOW",
+      "cost_per_ml": 1.40,
+      "available_ml": 200.0,
+      "assays": {"IgG": 39.0, "IgM": 10.5}
+    }
+  ]
+}

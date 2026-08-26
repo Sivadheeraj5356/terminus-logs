@@ -1,0 +1,9 @@
+ordinance: ORD-2019-02
+jurisdiction: Kestrel-Downs
+enacted: 2019-02-27
+effective: 2019-03-31T01:00:00 universal
+standard-offset: +01:00:00
+standard-label: IST
+observance:
+  begin: Oct lastSun 01:00:00 universal save -01:00:00 label GMT
+  end: Mar lastSun 01:00:00 universal

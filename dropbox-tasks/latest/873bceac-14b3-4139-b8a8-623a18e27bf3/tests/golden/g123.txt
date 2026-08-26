@@ -1,0 +1,15 @@
+== Emberforge Hollow [volcanic] ==
+Omen: Salt and silence.
+Light: 12.5 lumens
+Relics:
+  - Ember Heart <legendary> 500g
+  - Slag Idol <uncommon> 200g (cursed) (sealed)
+Freshest: Ember Heart @ 15:50 KST
+Exits:
+  - north: sealed gate (torch 2.0)
+  - east: Mercury Spring (torch 2.5)
+Torch: 8.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+go east

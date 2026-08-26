@@ -1,0 +1,8 @@
+{
+  "entries": [
+    {"hash": "h_existing_X", "canonical_chunk_id": "c-pre-001", "owner_tenant": "TEN_A", "content_fingerprint": "fp_X", "size_bytes": 1024, "first_seen_ts_ns": 1749999000000000000},
+    {"hash": "h_existing_Y", "canonical_chunk_id": "c-pre-002", "owner_tenant": "TEN_A", "content_fingerprint": "fp_Y", "size_bytes": 2048, "first_seen_ts_ns": 1749999100000000000},
+    {"hash": "h_existing_Z", "canonical_chunk_id": "c-pre-003", "owner_tenant": "TEN_B", "content_fingerprint": "fp_Z", "size_bytes": 4096, "first_seen_ts_ns": 1749999200000000000},
+    {"hash": "h_shared_001", "canonical_chunk_id": "c-pre-004", "owner_tenant": "TEN_A", "content_fingerprint": "fp_shared_001", "size_bytes": 4096, "first_seen_ts_ns": 1749999300000000000}
+  ]
+}

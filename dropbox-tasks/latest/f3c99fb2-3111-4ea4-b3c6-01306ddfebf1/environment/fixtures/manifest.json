@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "fixtures": [
+    { "id": "fixture-01", "index": 0, "file": "fixture-01.png" },
+    { "id": "fixture-02", "index": 1, "file": "fixture-02.png" },
+    { "id": "fixture-03", "index": 2, "file": "fixture-03.png" },
+    { "id": "fixture-04", "index": 3, "file": "fixture-04.png" },
+    { "id": "fixture-05", "index": 4, "file": "fixture-05.png" },
+    { "id": "fixture-06", "index": 5, "file": "fixture-06.png" },
+    { "id": "fixture-07", "index": 6, "file": "fixture-07.png" },
+    { "id": "fixture-08", "index": 7, "file": "fixture-08.png" }
+  ]
+}

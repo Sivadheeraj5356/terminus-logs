@@ -1,0 +1,6 @@
+{
+  "unit_id": "c01",
+  "query": "mode=strict",
+  "uri": "prv://blob-alpha",
+  "alg": "dig-a"
+}

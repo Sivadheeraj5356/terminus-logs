@@ -1,0 +1,7 @@
+Finish the inference path; keep milestone 1–2 behavior intact. Follow `/app/docs/cache_policy.md` — every rule there is mandatory and tested.
+
+Implement `/app/lib/cache_validator.rb`, repair `/app/app/services/inference_service.rb` (`predict` with `image_id` and `user_id`, default `default`), and `/app/lib/prediction_audit.rb`. `InferenceService.predict` must return `class`, `confidence`, `feature_version` (`v2`), and `cache` (`hit`/`miss`). On lookup, if a v2 entry has a mismatched `checksum` or `mean_rgb` vs a fresh extractor run, discard it, count an invalid removal, and regenerate as a miss. Track Redis audit counters for hits, misses, and invalid removals — after removing a stale entry, `invalid_entries_removed` in the audit report must increase. `PredictionAudit.generate_report` writes `/app/output/inference_audit.json` with `total_predictions`, `cache_hits`, `cache_misses`, `invalid_entries_removed`, `feature_version` (`v2`), and `users_seen` (sorted unique user ids).
+
+`POST /api/v1/predict` request JSON: `{"image_id":"<id>","user_id":"<user>"}` (`user_id` defaults to `default`). Response JSON maps service fields: `{"prediction":"<string>","confidence":<number with two decimal places>,"cache_status":"hit"|"miss"}` (`prediction` ← `class`, `cache_status` ← `cache`). Never return stale entries that fail validation.
+
+Check with `ruby /app/bin/rails test`, `bundle exec ruby /app/scripts/test_api_prediction.rb`, and `bundle exec ruby /app/scripts/test_audit_report.rb`.

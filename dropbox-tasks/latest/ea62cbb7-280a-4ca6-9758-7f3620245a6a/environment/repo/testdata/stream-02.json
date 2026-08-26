@@ -1,0 +1,72 @@
+{
+ "until": 37,
+ "packages": [
+  {
+   "name": "ceremony-1804",
+   "readyQuorum": 1,
+   "quiet": 1,
+   "cooldown": 1
+  }
+ ],
+ "events": [
+  {
+   "at": 3,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": false
+  },
+  {
+   "at": 4,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": false
+  },
+  {
+   "at": 7,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": false
+  },
+  {
+   "at": 11,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": false
+  },
+  {
+   "at": 14,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": true
+  },
+  {
+   "at": 17,
+   "op": "invalidate",
+   "package": "ceremony-1804"
+  },
+  {
+   "at": 18,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev2",
+   "ready": true
+  },
+  {
+   "at": 22,
+   "op": "invalidate",
+   "package": "ceremony-1804"
+  },
+  {
+   "at": 22,
+   "op": "artifact",
+   "package": "ceremony-1804",
+   "dep": "rev1",
+   "ready": true
+  }
+ ]
+}

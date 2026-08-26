@@ -1,0 +1,51 @@
+{
+  "scenario_id": "scenario_06",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "foo",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    },
+    {
+      "crate": "svc",
+      "version": "0.1.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [
+    {
+      "parent": "svc:0.1.0",
+      "child": "bar",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s06e1",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "bar:1.0.0",
+      "child": "foo",
+      "version": "2.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s06e2",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

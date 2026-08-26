@@ -1,0 +1,277 @@
+--- a/internal/engine/engine.go	2026-07-08 23:14:57.623715693 +0700
++++ b/internal/engine/engine.go	2026-07-08 23:15:24.110244120 +0700
+@@ -219,6 +219,156 @@
+ 	return nil
+ }
+ 
++// State-machine modes for the per-endpoint alarm simulation.
++const (
++	smIdle = iota
++	smArming
++	smActive
++	smReseting
++)
++
++// sim is the per-endpoint alarm state machine over its (sample|service)
++// timeline. A service window freezes the arm/reset dwell and the over-time
++// budget clock; time spent frozen does not advance any of them.
++type sim struct {
++	limit, arm, reset, budget int
++	horizon                   int
++	mode                      int
++	frozen                    bool
++	haveLatency                  bool
++	curLatency                   int
++	curStart                  int
++	resetFrom                 int
++	remain                    int // non-frozen dwell seconds until the pending boundary; -1 = none
++	cum                       int
++	locked                   bool
++	lockedAt                 int
++	lastEnd                   int
++	excs                      []Alarm
++}
++
++func (s *sim) over() bool { return s.haveLatency && s.curLatency > s.limit }
++
++func (s *sim) finalize(end int) {
++	if s.curStart < end {
++		s.excs = append(s.excs, Alarm{Start: s.curStart, End: end})
++	}
++	s.lastEnd = end
++}
++
++func (s *sim) accrueTo(frm, to int) bool {
++	if s.locked || to <= frm {
++		return false
++	}
++	dur := to - frm
++	if s.cum+dur >= s.budget {
++		s.lockedAt = frm + (s.budget - s.cum)
++		s.cum = s.budget
++		s.locked = true
++		s.finalize(s.lockedAt)
++		return true
++	}
++	s.cum += dur
++	return false
++}
++
++func (s *sim) fireBoundary(b int) {
++	if s.mode == smArming {
++		if s.over() {
++			s.mode = smActive
++			s.remain = -1
++			if s.budget == 0 {
++				s.lockedAt = b
++				s.cum = 0
++				s.locked = true
++				s.finalize(b)
++			}
++		} else {
++			s.mode = smIdle
++			s.remain = -1
++		}
++	} else if s.mode == smReseting {
++		if !s.over() {
++			s.finalize(s.resetFrom)
++			s.mode = smIdle
++			s.remain = -1
++		} else {
++			s.remain = -1
++		}
++	}
++}
++
++func (s *sim) step(frm, to int) {
++	for frm < to && !s.locked {
++		nxt := to
++		fireAt := -1
++		if s.remain >= 0 && !s.frozen {
++			b := frm + s.remain
++			if b < to {
++				nxt = b
++				fireAt = b
++			}
++		}
++		if s.mode == smActive && s.over() && !s.frozen {
++			if s.accrueTo(frm, nxt) {
++				return
++			}
++		}
++		if s.remain >= 0 && !s.frozen {
++			s.remain -= nxt - frm
++		}
++		frm = nxt
++		if fireAt >= 0 {
++			s.fireBoundary(fireAt)
++		}
++	}
++}
++
++func (s *sim) evaluate(t int) {
++	if s.frozen {
++		return
++	}
++	over := s.over()
++	switch s.mode {
++	case smIdle:
++		if over {
++			s.mode = smArming
++			s.curStart = t
++			s.remain = s.arm
++			if s.arm == 0 {
++				s.fireBoundary(t)
++			}
++		}
++	case smArming:
++		if !over {
++			s.mode = smIdle
++			s.remain = -1
++		}
++	case smActive:
++		if !over {
++			s.mode = smReseting
++			s.resetFrom = t
++			s.remain = s.reset
++			if s.reset == 0 {
++				s.fireBoundary(t)
++			}
++		}
++	case smReseting:
++		if over {
++			s.mode = smActive
++			s.remain = -1
++		}
++	}
++}
++
++func (s *sim) onSample(t, latency int) {
++	s.curLatency = latency
++	s.haveLatency = true
++	if !s.frozen {
++		s.evaluate(t)
++	}
++}
++
+ // computeEndpoint evaluates one endpoint's alarm ledger from its timeline.
+ //
+ // It processes the endpoint's event timeline against the configured limits
+@@ -228,55 +378,79 @@
+ 	if err := validateTimeline(name, evs); err != nil {
+ 		return OutEndpoint{}, err
+ 	}
+-	excs := []Alarm{}
+ 	if len(evs) == 0 || !hasHorizon {
+ 		return OutEndpoint{
+-			Name: name, Alarms: excs, OverSeconds: 0, LockedAt: nil,
++			Name: name, Alarms: []Alarm{}, OverSeconds: 0, LockedAt: nil,
+ 			Final: Final{State: "ok", Since: 0},
+ 		}, nil
+ 	}
+ 
+-	sort.SliceStable(evs, func(i, j int) bool { return evs[i].t < evs[j].t })
+-	samples := [][2]int{}
+-	for _, e := range evs {
+-		if e.kind == evSample {
+-			samples = append(samples, [2]int{e.t, e.latency})
++	ordered := make([]event, len(evs))
++	copy(ordered, evs)
++	sort.SliceStable(ordered, func(i, j int) bool { return ordered[i].t < ordered[j].t })
++
++	s := &sim{
++		limit: c.limit, arm: c.arm, reset: c.reset, budget: c.budget,
++		horizon: horizon, mode: smIdle, remain: -1, excs: []Alarm{},
++	}
++
++	clock := ordered[0].t
++	for _, e := range ordered {
++		s.step(clock, e.t)
++		clock = e.t
++		if s.locked {
++			break
++		}
++		// A boundary coinciding with this event resolves BEFORE the event.
++		if s.remain == 0 && !s.frozen {
++			s.remain = -1
++			s.fireBoundary(e.t)
++			if s.locked {
++				break
++			}
++		}
++		switch e.kind {
++		case evSample:
++			s.onSample(e.t, e.latency)
++		case evService:
++			s.frozen = true
++		case evEndService:
++			s.frozen = false
++			s.evaluate(e.t)
++		}
++		if s.locked {
++			break
+ 		}
+ 	}
+ 
+-	cum := 0
+-	var lockedAt *int
+-	lastOver := false
+-	lastEnd := 0
+-	for i := 0; i < len(samples); i++ {
+-		a := samples[i][0]
+-		b := horizon
+-		if i+1 < len(samples) {
+-			b = samples[i+1][0]
+-		}
+-		if b <= a {
+-			continue
+-		}
+-		over := samples[i][1] > c.limit
+-		lastOver = over
+-		if over && lockedAt == nil {
+-			excs = append(excs, Alarm{Start: a, End: b})
+-			cum += b - a
+-			lastEnd = b
+-			if cum > c.budget {
+-				v := b
+-				lockedAt = &v
+-			}
+-		} else if !over {
+-			lastEnd = b
++	if !s.locked {
++		s.step(clock, horizon)
++		if !s.locked && s.remain == 0 && !s.frozen {
++			s.remain = -1
++			s.fireBoundary(horizon)
++		}
++	}
++	if !s.locked {
++		if s.mode == smActive {
++			s.finalize(horizon)
++		} else if s.mode == smReseting {
++			s.finalize(s.resetFrom)
+ 		}
+ 	}
+ 
+-	final := Final{State: "ok", Since: lastEnd}
+-	if lockedAt != nil {
+-		final = Final{State: "locked", Since: *lockedAt}
+-	} else if lastOver {
+-		final = Final{State: "active", Since: lastEnd}
++	var lockedAt *int
++	var final Final
++	if s.locked {
++		v := s.lockedAt
++		lockedAt = &v
++		final = Final{State: "locked", Since: s.lockedAt}
++	} else if s.mode == smActive {
++		final = Final{State: "active", Since: s.curStart}
++	} else if s.mode == smReseting {
++		final = Final{State: "ok", Since: s.resetFrom}
++	} else {
++		final = Final{State: "ok", Since: s.lastEnd}
+ 	}
+-	return OutEndpoint{Name: name, Alarms: excs, OverSeconds: cum, LockedAt: lockedAt, Final: final}, nil
++
++	return OutEndpoint{Name: name, Alarms: s.excs, OverSeconds: s.cum, LockedAt: lockedAt, Final: final}, nil
+ }

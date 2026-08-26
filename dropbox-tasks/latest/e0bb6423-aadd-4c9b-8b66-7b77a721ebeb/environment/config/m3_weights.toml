@@ -1,0 +1,8 @@
+count_modules = ["pam_unix"]
+weight_common_auth = 0
+weight_unix = 1
+weight_otp = 0
+weight_wheel = 0
+include_missing = true
+rollup_service = sshd
+ignore_portal = true

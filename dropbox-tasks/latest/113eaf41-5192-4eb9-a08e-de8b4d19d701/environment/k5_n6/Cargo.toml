@@ -1,0 +1,10 @@
+[package]
+name = "k5_n6"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "k5_n6"
+path = "src/repeat_store.rs"
+
+[dependencies]

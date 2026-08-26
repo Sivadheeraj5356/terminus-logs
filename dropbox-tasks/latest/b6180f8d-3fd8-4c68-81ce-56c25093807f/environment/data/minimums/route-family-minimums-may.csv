@@ -1,0 +1,7 @@
+minimum_id,service_date,rider_id,route_family,min_base_cents,min_express_cents,status
+MIN-001,2026-05-17,R106,ferry,120,95,active
+MIN-001-DRAFT,2026-05-17,R106,ferry,999,999,draft
+MIN-002,2026-05-16,R103,express,0,80,active
+MIN-003-A,2026-05-18,"R,109",express,390,145,active
+MIN-003-Z,2026-05-18,"R,109",express,420,160,active
+MIN-004,2026-05-14,R101,night,999,999,active

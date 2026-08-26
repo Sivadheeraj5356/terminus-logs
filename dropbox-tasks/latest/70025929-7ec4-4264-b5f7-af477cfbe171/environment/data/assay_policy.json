@@ -1,0 +1,8 @@
+{
+  "schema": "qpcr-policy-v2",
+  "nonstress_tolerance_c": 0.01,
+  "stress_assays": [
+    "A17",
+    "B04"
+  ]
+}

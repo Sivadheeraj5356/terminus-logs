@@ -1,0 +1,31 @@
+version = "2.0"
+
+[metadata]
+name = "dns-zone-freeze-journal-publisher"
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["ruby"]
+tags = ["dns", "zone-publishing", "freeze-windows", "operations"]
+expert_time_estimate_min = 180
+junior_time_estimate_min = 360
+
+[verifier]
+timeout_sec = 900.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+build_timeout_sec = 600.0
+docker_flags = []
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+gpu_types = []
+allow_internet = false

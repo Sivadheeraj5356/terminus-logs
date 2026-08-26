@@ -1,0 +1,5 @@
+transfer_id,patient_id,event_time,event_seq,event_id,from_ward,to_ward,status
+XFR-001,P002,2024-06-18T10:30:00Z,1,XFR-E020,MED,SURG,partial
+XFR-002,P001,2024-06-18T11:00:00Z,1,XFR-E021,ICU,MED,completed
+XFR-003,P003,2024-06-18T12:00:00Z,1,XFR-E022,MED,SURG,partial
+XFR-004,P002,2024-06-18T14:00:00Z,1,XFR-E023,MED,ICU,completed

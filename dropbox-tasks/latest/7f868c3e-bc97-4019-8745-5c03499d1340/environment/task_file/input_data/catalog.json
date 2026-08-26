@@ -1,0 +1,341 @@
+{
+  "bundles": [
+    {
+      "id": "kb-core-a",
+      "family": "core-verifier",
+      "version": "4.2.0",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "north-ca",
+      "footprint_kb": 40,
+      "risk": 5,
+      "slot": "core",
+      "claims": [
+        {
+          "name": "verify-core",
+          "strength": 6
+        },
+        {
+          "name": "provenance",
+          "strength": 1
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "clock-sync",
+          "min_strength": 2
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-core-b",
+      "family": "core-verifier",
+      "version": "4.1.3",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "east-ca",
+      "footprint_kb": 28,
+      "risk": 9,
+      "slot": "core",
+      "claims": [
+        {
+          "name": "verify-core",
+          "strength": 5
+        },
+        {
+          "name": "provenance",
+          "strength": 4
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "clock-sync",
+          "min_strength": 2
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-tsa-a",
+      "family": "tsa-chain",
+      "version": "3.0.0",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "north-ca",
+      "footprint_kb": 26,
+      "risk": 4,
+      "slot": "tsa",
+      "claims": [
+        {
+          "name": "tsa",
+          "strength": 5
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 5
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-tsa-b",
+      "family": "tsa-chain",
+      "version": "2.9.1",
+      "runtime": "linux-amd64",
+      "track": "canary",
+      "issuer": "south-ca",
+      "footprint_kb": 20,
+      "risk": 7,
+      "slot": "tsa",
+      "claims": [
+        {
+          "name": "tsa",
+          "strength": 4
+        },
+        {
+          "name": "revocation",
+          "strength": 2
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 6
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-revoke-a",
+      "family": "crl-pack",
+      "version": "5.4.0",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "north-ca",
+      "footprint_kb": 20,
+      "risk": 4,
+      "slot": "revoke",
+      "claims": [
+        {
+          "name": "revocation",
+          "strength": 5
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 5
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-revoke-b",
+      "family": "crl-pack",
+      "version": "5.1.2",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "south-ca",
+      "footprint_kb": 14,
+      "risk": 8,
+      "slot": "revoke",
+      "claims": [
+        {
+          "name": "revocation",
+          "strength": 4
+        },
+        {
+          "name": "audit-log",
+          "strength": 2
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 6
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-legacy-a",
+      "family": "legacy-bridge",
+      "version": "1.8.0",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "south-ca",
+      "footprint_kb": 22,
+      "risk": 6,
+      "slot": "legacy",
+      "claims": [
+        {
+          "name": "legacy-jar",
+          "strength": 3
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 5
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-legacy-b",
+      "family": "legacy-bridge",
+      "version": "1.7.4",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "north-ca",
+      "footprint_kb": 16,
+      "risk": 2,
+      "slot": "legacy",
+      "claims": [
+        {
+          "name": "legacy-jar",
+          "strength": 2
+        },
+        {
+          "name": "audit-log",
+          "strength": 2
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 6
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-prov-a",
+      "family": "prov-pack",
+      "version": "2.3.0",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "east-ca",
+      "footprint_kb": 24,
+      "risk": 3,
+      "slot": "prov",
+      "claims": [
+        {
+          "name": "provenance",
+          "strength": 4
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "tsa",
+          "min_strength": 5
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-prov-b",
+      "family": "prov-pack",
+      "version": "2.2.5",
+      "runtime": "linux-amd64",
+      "track": "canary",
+      "issuer": "south-ca",
+      "footprint_kb": 14,
+      "risk": 1,
+      "slot": "prov",
+      "claims": [
+        {
+          "name": "provenance",
+          "strength": 3
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "tsa",
+          "min_strength": 4
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-combo-a",
+      "family": "combo-pack",
+      "version": "1.1.0",
+      "runtime": "linux-amd64",
+      "track": "stable",
+      "issuer": "south-ca",
+      "footprint_kb": 32,
+      "risk": 6,
+      "slot": "combo",
+      "claims": [
+        {
+          "name": "legacy-jar",
+          "strength": 3
+        },
+        {
+          "name": "provenance",
+          "strength": 4
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 6
+        },
+        {
+          "name": "tsa",
+          "min_strength": 5
+        }
+      ],
+      "excludes": [
+        "crl-pack"
+      ]
+    },
+    {
+      "id": "kb-shadow-a",
+      "family": "shadow-pack",
+      "version": "0.9.0",
+      "runtime": "linux-amd64",
+      "track": "canary",
+      "issuer": "revoked-ca",
+      "footprint_kb": 18,
+      "risk": 2,
+      "slot": null,
+      "claims": [
+        {
+          "name": "revocation",
+          "strength": 6
+        }
+      ],
+      "prerequisites": [
+        {
+          "name": "verify-core",
+          "min_strength": 5
+        }
+      ],
+      "excludes": []
+    },
+    {
+      "id": "kb-alt-runtime",
+      "family": "edge-pack",
+      "version": "1.0.0",
+      "runtime": "linux-arm64",
+      "track": "stable",
+      "issuer": "south-ca",
+      "footprint_kb": 12,
+      "risk": 1,
+      "slot": null,
+      "claims": [
+        {
+          "name": "tsa",
+          "strength": 5
+        }
+      ],
+      "prerequisites": [],
+      "excludes": []
+    }
+  ]
+}

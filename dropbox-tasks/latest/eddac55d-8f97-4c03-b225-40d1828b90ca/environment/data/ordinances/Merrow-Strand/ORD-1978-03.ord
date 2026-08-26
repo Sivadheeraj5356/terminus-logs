@@ -1,0 +1,9 @@
+ordinance: ORD-1978-03
+jurisdiction: Merrow-Strand
+enacted: 1978-05-09
+effective: 1978-08-01T00:00:00 universal
+standard-offset: +05:45:00
+standard-label: RST
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label RDT
+  end: Oct lastSun 03:00:00 standard

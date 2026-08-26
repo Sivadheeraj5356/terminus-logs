@@ -1,0 +1,5 @@
+quux maybe end
+digits 123 4567 89
+delta gamma
+value = 0xDEADbeef and 0x1234
+ip 192.168.0.1 and 10.0.0.255 here

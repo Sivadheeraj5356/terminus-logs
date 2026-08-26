@@ -1,0 +1,29 @@
+--- qtn/gate.go
++++ qtn/gate.go
+@@ -21,16 +21,19 @@
+ 	l.Pending = append(l.Pending, Entry{Row: row, AdmitFence: fence})
+ }
+ 
+-func (l *Ledger) Promote(epoch, fence uint64) []reg.RowRec {
+-	_ = epoch
+-	_ = fence
++func (l *Ledger) Promote(fence uint64) []reg.RowRec {
++	var kept []Entry
+ 	var out []reg.RowRec
+ 	for _, e := range l.Pending {
+-		row := e.Row
+-		row.Class = reg.ClassInject
+-		out = append(out, row)
++		if fence >= e.AdmitFence {
++			row := e.Row
++			row.Class = reg.ClassInject
++			out = append(out, row)
++		} else {
++			kept = append(kept, e)
++		}
+ 	}
+-	l.Pending = nil
++	l.Pending = kept
+ 	return out
+ }
+ 

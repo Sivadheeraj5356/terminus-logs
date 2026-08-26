@@ -1,0 +1,16 @@
+solution/
+tests/
+.git/
+.github/
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+**/*.pyc
+**/*.pyo
+target/
+build/
+dist/
+node_modules/
+*.zip
+*.tar
+*.tar.gz

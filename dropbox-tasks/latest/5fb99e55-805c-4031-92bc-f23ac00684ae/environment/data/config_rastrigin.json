@@ -1,0 +1,14 @@
+{
+  "function": "rastrigin",
+  "dimensions": 2,
+  "min_bound": -5.12,
+  "max_bound": 5.12,
+  "swarm_size": 20,
+  "max_iterations": 30,
+  "w_start": 0.9,
+  "w_end": 0.4,
+  "c1": 2.0,
+  "c2": 2.0,
+  "v_max": 2.0,
+  "seed": 42
+}

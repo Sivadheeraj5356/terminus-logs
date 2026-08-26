@@ -1,0 +1,33 @@
+format: mlflow-maze-board-v1
+level_id: obsidian-switchyard
+experiment_name: maze/obsidian-switchyard
+start_room: atrium
+goal_room: vault
+direction_order: [north, east, south, west]
+rooms:
+  - id: atrium
+    title: Arrival Atrium
+    prompt_id: null
+    exits:
+      north: null
+      east: null
+  - id: gallery
+    title: null
+    prompt_id: lens
+    exits:
+      east: null
+      south: null
+  - id: archive
+    title: Dust Archive
+    prompt_id: null
+    exits:
+      east: null
+  - id: workshop
+    title: Relay Workshop
+    prompt_id: gears
+    exits:
+      south: null
+  - id: vault
+    title: null
+    prompt_id: null
+    exits: {}

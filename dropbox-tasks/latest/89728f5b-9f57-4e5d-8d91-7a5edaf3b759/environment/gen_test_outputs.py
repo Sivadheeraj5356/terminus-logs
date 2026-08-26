@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""Regenerate ORIGINAL_PROTECTED_SHA256 in tests/test_outputs.py from environment tree."""
+
+from __future__ import annotations
+
+import hashlib
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+TESTS = ROOT.parent / "tests" / "test_outputs.py"
+APP = ROOT
+
+
+def _sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _protected_paths() -> list[str]:
+    out: list[str] = ["Makefile", "go.mod", "go.sum"]
+    for subdir in ("provenance_charters", "delegation_federation_slices"):
+        for path in sorted((APP / subdir).rglob("*")):
+            if path.is_file():
+                out.append(path.relative_to(APP).as_posix())
+    return out
+
+
+def main() -> None:
+    lines = ["ORIGINAL_PROTECTED_SHA256: dict[str, str] = {"]
+    for rel in _protected_paths():
+        lines.append(f'    "{rel}": "{_sha256_file(APP / rel)}",')
+    lines.append("}")
+    block = "\n".join(lines)
+    text = TESTS.read_text(encoding="utf-8")
+    text = re.sub(
+        r"ORIGINAL_PROTECTED_SHA256: dict\[str, str\] = \{.*?\n\}",
+        block,
+        text,
+        count=1,
+        flags=re.S,
+    )
+    text = re.sub(
+        r"IMMUTABLE_SHA256: dict\[str, str\] = \{.*?\n\}",
+        block,
+        text,
+        count=1,
+        flags=re.S,
+    )
+    TESTS.write_text(text, encoding="utf-8")
+    print(f"Updated {TESTS} ({len(_protected_paths())} protected paths)")
+
+
+if __name__ == "__main__":
+    main()

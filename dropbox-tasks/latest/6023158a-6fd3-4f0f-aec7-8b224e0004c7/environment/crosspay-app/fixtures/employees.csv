@@ -1,0 +1,4 @@
+name,rate_micros_per_hour
+alice,7500000
+bob,12250000
+carol,4333333

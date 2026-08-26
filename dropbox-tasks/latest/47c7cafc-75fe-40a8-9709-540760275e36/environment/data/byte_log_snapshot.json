@@ -1,0 +1,8 @@
+{
+  "segments": [
+    {"arm": 0, "bytes": "a1b2c3d4"},
+    {"arm": 1, "bytes": "e5f60718"},
+    {"arm": 0, "bytes": "9abcde01"}
+  ],
+  "witness": "0000001b"
+}

@@ -1,0 +1,6 @@
+hostname: acc-emea-lon-tower-b-08
+migration_state: segmented
+canonical_vlan: 2029
+configured_vlan: 2029
+legacy_vlan: 130
+duplicate_vlan_conflict: false

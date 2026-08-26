@@ -1,0 +1,24 @@
+[[scenarios]]
+name = "warm_lane"
+trace = "traces/warm_lane.trace"
+ledger = "ledgers/gen-001.snapshot.json"
+
+[[scenarios]]
+name = "clock_step"
+trace = "traces/clock_step.trace"
+ledger = "ledgers/gen-002.snapshot.json"
+
+[[scenarios]]
+name = "catalog_c"
+trace = "traces/catalog_c.trace"
+ledger = "ledgers/gen-003.snapshot.json"
+
+[[scenarios]]
+name = "journal_batch"
+trace = "traces/journal_batch.trace"
+ledger = "ledgers/gen-004.snapshot.json"
+
+[[scenarios]]
+name = "bind_mount"
+trace = "traces/bind_mount.trace"
+ledger = "ledgers/gen-005.snapshot.json"

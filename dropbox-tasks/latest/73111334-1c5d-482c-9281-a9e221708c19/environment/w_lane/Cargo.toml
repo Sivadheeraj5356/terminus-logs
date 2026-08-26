@@ -1,0 +1,13 @@
+[package]
+name = "w_lane"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/local_w.rs"
+
+[dependencies]
+core_k = { path = "../core_k" }
+blk_a = { path = "../blk_a" }
+blk_b = { path = "../blk_b" }
+blk_c = { path = "../blk_c" }

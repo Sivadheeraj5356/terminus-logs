@@ -1,0 +1,108 @@
+{
+  "session_id": "session_03",
+  "rng_seed": 12345,
+  "pity_threshold": 10,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "alice",
+      "roll_value": 0.0,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "alice",
+      "roll_value": 0.655171361431,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 3,
+      "player_id": "alice",
+      "roll_value": 0.304818872646,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 4,
+      "player_id": "alice",
+      "roll_value": 0.674977874081,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "alice",
+      "roll_value": 0.106753746147,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 6,
+      "player_id": "alice",
+      "roll_value": 0.5165868099,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 7,
+      "player_id": "alice",
+      "roll_value": 0.489669484542,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 8,
+      "player_id": "alice",
+      "roll_value": 0.602465895566,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 9,
+      "player_id": "alice",
+      "roll_value": 0.369945371868,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 10,
+      "player_id": "alice",
+      "roll_value": 0.256660664693,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 11,
+      "player_id": "alice",
+      "roll_value": 0.374187444685,
+      "item_id": "coin",
+      "tier": "common"
+    }
+  ]
+}

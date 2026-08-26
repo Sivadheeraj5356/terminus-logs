@@ -1,0 +1,10 @@
+{
+  "serial": "SER-LEGACY",
+  "leaf_index": 0,
+  "tree_size": 8,
+  "path": [
+    "56a86db6b49a82d511434d12f1cccdd53cc232e5d3ec80f2895255dcabbe6d2a",
+    "d74d3920146956f48b6a3e7b30f78f6c1e6bb97e99e42140f297fa968a1e09b3",
+    "6fe2f973abc865e2a3a90ac0afb426f35c1faa4821302c648ace66bcf051d15a"
+  ]
+}

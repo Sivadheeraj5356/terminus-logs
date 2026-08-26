@@ -1,0 +1,4 @@
+# propagation refresh ticks
+profile alpha
+step prp target=share mode=private
+step prp target=share mode=shared

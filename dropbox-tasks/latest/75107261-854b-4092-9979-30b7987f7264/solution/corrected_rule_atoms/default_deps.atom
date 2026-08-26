@@ -1,0 +1,7 @@
+RULE DEFAULT_DEPS
+IN keys
+OUT value,reason
+TABLE
+DefaultDependencies|yes -> synthesize|defdeps
+DefaultDependencies|no -> omit|defdeps
+END

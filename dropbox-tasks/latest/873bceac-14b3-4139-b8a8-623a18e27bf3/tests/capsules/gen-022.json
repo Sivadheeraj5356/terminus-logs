@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "gallery",
+      "relicmaze.torch": "0.0",
+      "relicmaze.keeper_tz_offset_minutes": "330",
+      "relicmaze.carry_capacity": "90",
+      "relicmaze.goal_room": "catacomb",
+      "org.opencontainers.image.title": "gen-022"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:f7ca7e1dd3c2999b08aface01ed033215de7faebeb317b0cfea26102b38d9195"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "LABEL omen=\"Fire answers fire.\""
+    },
+    {
+      "created_by": "RUN keeper seal tide-pearl"
+    },
+    {
+      "created_by": "ENV torch_tax=0.0"
+    },
+    {
+      "created_by": "RUN keeper seal drowned-crown noted"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "LABEL omen=\"Salt and silence.\""
+    }
+  ]
+}

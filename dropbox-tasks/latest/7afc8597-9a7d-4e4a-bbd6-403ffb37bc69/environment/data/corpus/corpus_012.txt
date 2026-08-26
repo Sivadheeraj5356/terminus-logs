@@ -1,0 +1,3 @@
+addr 233.179.52.143 hex 0xcfbe token tok_18
+addr 200.131.125.116 hex 0xc1ca token tok_778
+aeiou bcdfg xyzzy

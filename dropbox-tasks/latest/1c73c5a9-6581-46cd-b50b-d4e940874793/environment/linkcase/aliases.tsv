@@ -1,0 +1,7 @@
+alias	target
+entry	alpha_alias
+alpha_alias	alpha
+beta_alias	beta
+gamma_alias	gamma
+bonus_alias	bonus
+optional_alias	optional

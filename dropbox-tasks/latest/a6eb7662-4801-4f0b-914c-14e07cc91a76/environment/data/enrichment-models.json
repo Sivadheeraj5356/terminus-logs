@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "models": [
+    {
+      "model_id": "burial_short",
+      "burial_years": 50.0,
+      "rate_per_year": 0.0004,
+      "enrichment_cap": 0.08
+    },
+    {
+      "model_id": "burial_long",
+      "burial_years": 800.0,
+      "rate_per_year": 0.0004,
+      "enrichment_cap": 0.25
+    }
+  ]
+}

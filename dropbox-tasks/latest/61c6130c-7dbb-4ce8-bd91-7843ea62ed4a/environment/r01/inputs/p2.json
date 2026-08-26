@@ -1,0 +1,8 @@
+{
+  "nodes": [
+    {"package": "@safe/mod-core", "canonical": "@safe/mod-core", "component": "mod-core"},
+    {"package": "@safe/mod-core-legacy", "canonical": "@safe/mod-core", "component": "mod-core"},
+    {"package": "@safe/lex-bridge", "canonical": "@safe/lex-bridge", "component": "lex-bridge"},
+    {"package": "@safe/lex-alias", "canonical": "@safe/lex-bridge", "component": "lex-bridge"}
+  ]
+}

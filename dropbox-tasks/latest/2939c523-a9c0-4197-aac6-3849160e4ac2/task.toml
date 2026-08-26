@@ -1,0 +1,28 @@
+version = "2.0"
+
+[metadata]
+author_name = "Jay"
+author_email = "jay@example.com"
+difficulty = "hard"
+languages = ["rust"]
+codebase_size = "minimal"
+category = "debugging"
+subcategories = []
+tags = ["rust", "booking", "intervals", "merge", "scheduling", "overlap"]
+number_of_milestones = 0
+expert_time_estimate_min = 45
+junior_time_estimate_min = 120
+
+[environment]
+workdir = "/app"
+allow_internet = false
+build_timeout_sec = 300
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+
+[verifier]
+timeout_sec = 60
+
+[agent]
+timeout_sec = 600

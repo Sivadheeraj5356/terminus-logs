@@ -1,0 +1,4 @@
+{
+  "alice": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCAliceKey alice@corp",
+  "bob": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCBobKey bob@corp"
+}

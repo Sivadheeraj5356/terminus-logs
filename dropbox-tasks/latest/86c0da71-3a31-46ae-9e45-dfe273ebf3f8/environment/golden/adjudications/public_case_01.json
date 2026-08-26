@@ -1,0 +1,25 @@
+{
+  "finalRoom": "bay-b2",
+  "visitedRooms": [
+    "bay-a1",
+    "bay-b2"
+  ],
+  "transitions": [
+    {
+      "from": "bay-a1",
+      "to": "bay-b2",
+      "command": "move bay-b2"
+    }
+  ],
+  "brokenSeals": [
+    "seal-brass-12"
+  ],
+  "rejectedActions": [],
+  "hazardsTriggered": [],
+  "score": 40,
+  "scoreBreakdown": {
+    "roomsVisited": 20,
+    "sealsBroken": 25,
+    "stackMovePenalty": -5
+  }
+}

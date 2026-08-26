@@ -1,0 +1,6 @@
+# hidden_case_06: pathfind emits multiple transitions and applies stepwise effects
+scan cryogenic
+pathfind reefer-r7
+reroute reefer-r7 tank-t4
+pathfind tank-t4
+pathfind deck-hold

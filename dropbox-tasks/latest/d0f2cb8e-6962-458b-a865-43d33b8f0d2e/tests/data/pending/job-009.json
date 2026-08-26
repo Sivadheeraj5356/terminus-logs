@@ -1,0 +1,1 @@
+{"job_id": "job-009", "priority": 28, "spec_path": "/app/specs/edge-canary.yaml", "profile_ref": "production", "rules_profile_stack": ["roll_ceil", "default"], "defer": false}

@@ -1,0 +1,5 @@
+{
+  "hop_a": {"kind": "scalar", "value": "$ref:hop_b"},
+  "hop_b": {"kind": "scalar", "value": "$ref:hop_c"},
+  "hop_c": {"kind": "scalar", "value": "kappa-final"}
+}

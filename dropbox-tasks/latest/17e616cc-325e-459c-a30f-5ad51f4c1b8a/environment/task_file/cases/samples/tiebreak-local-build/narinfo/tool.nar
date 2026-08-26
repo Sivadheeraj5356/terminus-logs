@@ -1,0 +1,7 @@
+STORE tool
+CACHE cacheA
+NAR_HASH htool
+NAR_SIZE 2
+SIGS a
+REFERENCES -
+DERIVER tool.drv

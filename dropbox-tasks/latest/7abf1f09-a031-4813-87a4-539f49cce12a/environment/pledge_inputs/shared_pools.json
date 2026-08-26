@@ -1,0 +1,16 @@
+{
+  "pools": [
+    {
+      "pool_id": "sp-network-core",
+      "period_id": "2027-03",
+      "total_cost_microcents": 1000000,
+      "participants": ["tn-arc", "tn-bor", "tn-cir", "tn-delt", "tn-echo", "tn-flux"]
+    },
+    {
+      "pool_id": "sp-observability",
+      "period_id": "2027-03",
+      "total_cost_microcents": 300007,
+      "participants": ["tn-arc", "tn-cir", "tn-echo", "tn-flux"]
+    }
+  ]
+}

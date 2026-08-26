@@ -1,0 +1,17 @@
+implementation_roots = ["rack_o", "loom_p", "spool_q", "vault_r", "weave_u", "shard_k"]
+frozen_bins = ["/app/bin/plan_matrix"]
+frozen_sources = [
+  "bracket/exec_main.c",
+  "engine/plan_drive.c",
+  "engine/full_scan.c",
+  "parser/key_fold.c",
+  "lib/digest_fold.c",
+  "opt/cost_model.c",
+  "opt/live_meter.c",
+  "decoy/heap_rank.c",
+  "extras/y_rank.c",
+  "include/plan_types.h",
+  "include/digest_fold.h",
+  "ci/build_and_load.sh",
+  "data/scenarios/manifest.tsv",
+]

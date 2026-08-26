@@ -1,0 +1,13 @@
+{
+  "report_path": "/app/out/fairness_report.json",
+  "catalog_path": "/app/dropvault/catalog.json",
+  "session_path_pattern": "/app/dropvault/{session_id}.json",
+  "rule_files": [
+    "/app/dropvault/rules/semantics.md",
+    "/app/dropvault/rules/interactions.json",
+    "/app/dropvault/rules/output.json",
+    "/app/dropvault/rules/replay.json",
+    "/app/dropvault/rules/gates.json",
+    "/app/dropvault/rules/stats.json"
+  ]
+}

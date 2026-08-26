@@ -1,0 +1,35 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "medium"
+empirical_status = "not_run"
+category = "machine-learning"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "minimal"
+languages = ["rust"]
+tags = [
+    "shape-classification",
+    "topological-data-analysis",
+    "persistent-homology",
+    "scalar-field",
+    "fold-recognition",
+    "nearest-neighbor",
+]
+expert_time_estimate_min = 240
+junior_time_estimate_min = 540
+
+[verifier]
+timeout_sec = 1200.0
+
+[agent]
+timeout_sec = 1200.0
+
+[environment]
+build_timeout_sec = 1200.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

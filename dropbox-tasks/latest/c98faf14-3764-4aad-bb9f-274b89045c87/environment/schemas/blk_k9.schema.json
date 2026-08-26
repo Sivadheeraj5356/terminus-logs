@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "blk_k9 scorecard",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "catalog_label",
+    "cover_digest",
+    "merge_digest",
+    "block_digest",
+    "parity_fp",
+    "under_tally",
+    "blocks",
+    "coverage"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "catalog_label": { "type": "string" },
+    "cover_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "merge_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "block_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "parity_fp": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "under_tally": { "type": "integer", "minimum": 0 },
+    "blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["block_id", "block_hash", "lane"],
+        "properties": {
+          "block_id": { "type": "string" },
+          "block_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "lane": { "type": "string" }
+        }
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["lane", "ratio", "eligible"],
+        "properties": {
+          "lane": { "type": "string" },
+          "ratio": { "type": "string" },
+          "eligible": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

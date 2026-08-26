@@ -1,0 +1,14 @@
+== Whisperbone Catacomb [ossuary] ==
+Omen: The tide remembers your name.
+Light: 1.0 lumens
+Relics:
+  - Grave Ember <rare> 45g (cursed)
+  - Bone Flute <common> 30g
+Freshest: Bone Flute @ 03:10 KST
+Exits:
+  - east: Mercury Spring (torch 1.0)
+Torch: 1.5 units
+Inventory: crystal-eye, silver-sigil
+Route: east north north (torch 3.0)
+---ACTIONS---
+inspect grave-ember

@@ -1,0 +1,11 @@
+{"rate_id": "rc-cmp-g1", "service": "compute", "scope": "global", "scope_key": "", "effective_from": "2027-01-01T00:00:00Z", "effective_until": "2027-03-15T00:00:00Z", "unit_rate_microcents": 4200}
+{"rate_id": "rc-cmp-g2", "service": "compute", "scope": "global", "scope_key": "", "effective_from": "2027-03-15T00:00:00Z", "effective_until": "2027-06-01T00:00:00Z", "unit_rate_microcents": 4500}
+{"rate_id": "rc-cmp-reast", "service": "compute", "scope": "region", "scope_key": "us-east", "effective_from": "2027-02-01T00:00:00Z", "effective_until": "2027-05-01T00:00:00Z", "unit_rate_microcents": 4000}
+{"rate_id": "rc-aaa-cheaper", "service": "compute", "scope": "region", "scope_key": "us-east", "effective_from": "2027-02-01T00:00:00Z", "effective_until": "2027-05-01T00:00:00Z", "unit_rate_microcents": 3900}
+{"rate_id": "rc-cmp-reast-b", "service": "compute", "scope": "region", "scope_key": "us-east", "effective_from": "2027-02-15T00:00:00Z", "effective_until": "2027-05-01T00:00:00Z", "unit_rate_microcents": 3900}
+{"rate_id": "rc-cmp-tnarc", "service": "compute", "scope": "tenant", "scope_key": "tn-arc", "effective_from": "2027-03-10T00:00:00Z", "effective_until": "2027-04-10T00:00:00Z", "unit_rate_microcents": 3700}
+{"rate_id": "rc-stg-g1", "service": "storage", "scope": "global", "scope_key": "", "effective_from": "2027-01-01T00:00:00Z", "effective_until": "2027-12-01T00:00:00Z", "unit_rate_microcents": 250}
+{"rate_id": "rc-stg-rweu", "service": "storage", "scope": "region", "scope_key": "eu-west", "effective_from": "2027-03-01T00:00:00Z", "effective_until": "2027-04-01T00:00:00Z", "unit_rate_microcents": 230}
+{"rate_id": "rc-egr-g1", "service": "egress", "scope": "global", "scope_key": "", "effective_from": "2027-01-01T00:00:00Z", "effective_until": "2027-12-01T00:00:00Z", "unit_rate_microcents": 900}
+{"rate_id": "rc-egr-rap", "service": "egress", "scope": "region", "scope_key": "ap-south", "effective_from": "2027-03-05T00:00:00Z", "effective_until": "2027-03-25T00:00:00Z", "unit_rate_microcents": 1100}
+{"rate_id": "rc-egr-tnecho", "service": "egress", "scope": "tenant", "scope_key": "tn-echo", "effective_from": "2027-03-12T00:00:00Z", "effective_until": "2027-03-20T00:00:00Z", "unit_rate_microcents": 700}

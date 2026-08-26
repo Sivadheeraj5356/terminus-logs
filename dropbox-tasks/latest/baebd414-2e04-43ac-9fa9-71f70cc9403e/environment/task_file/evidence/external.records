@@ -1,0 +1,16 @@
+# owner | ttl | type | rdata
+harbor.test. | 300 | NS | ns1.harbor.test.
+ns1.harbor.test. | 300 | A | 192.0.2.53
+harbor.test. | 300 | MX | 10 mail.harbor.test.
+mail.harbor.test. | 300 | A | 192.0.2.25
+www.harbor.test. | 120 | A | 192.0.2.80
+www.harbor.test. | 120 | AAAA | 2001:db8:0:80::1
+api.harbor.test. | 120 | CNAME | www.harbor.test.
+status.harbor.test. | 60 | TXT | "public green"
+*.preview.harbor.test. | 60 | A | 192.0.2.90
+apps.harbor.test. | 300 | NS | ns.apps.harbor.test.
+ns.apps.harbor.test. | 300 | A | 192.0.2.54
+53.2.0.192.in-addr.arpa. | 300 | PTR | ns1.harbor.test.
+25.2.0.192.in-addr.arpa. | 300 | PTR | mail.harbor.test.
+80.2.0.192.in-addr.arpa. | 120 | PTR | www.harbor.test.
+54.2.0.192.in-addr.arpa. | 300 | PTR | ns.apps.harbor.test.

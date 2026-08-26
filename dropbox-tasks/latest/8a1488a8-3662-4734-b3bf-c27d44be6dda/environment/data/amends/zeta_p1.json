@@ -1,0 +1,4 @@
+{
+  "tags": {"kind": "list", "value": ["patch-zeta-only"]},
+  "zeta_lane": {"kind": "scalar", "value": "patch-zeta"}
+}

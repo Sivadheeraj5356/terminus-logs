@@ -1,0 +1,10 @@
+addr 250.108.4.94 hex 0x3ed4 token tok_466
+addr 138.158.171.212 hex 0xc0c9 token tok_94
+IP 255.255.255.0 mask
+yes quux colour line hello bird world
+foo baz bar
+dog dog foo world baz end cat
+addr 151.52.205.44 hex 0x4354 token tok_466
+aeiou bcdfg xyzzy
+line one
+start end

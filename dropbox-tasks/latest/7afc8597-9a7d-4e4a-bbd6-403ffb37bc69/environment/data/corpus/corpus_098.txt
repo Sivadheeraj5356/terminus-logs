@@ -1,0 +1,6 @@
+addr 246.217.129.126 hex 0x295b token tok_828
+gray line banana world start world
+end banana
+mixed Foo123Bar baz_42
+end true banana foo end
+addr 181.213.222.101 hex 0x3a3d token tok_689

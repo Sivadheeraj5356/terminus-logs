@@ -1,0 +1,30 @@
+{
+  "scenario_id": "scenario_19",
+  "build_profile": "release",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "mix",
+      "version": "1.0.0",
+      "features": [
+        "prod",
+        "dev_only"
+      ],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {
+    "mix": {
+      "dev_only_features": [
+        "dev_only"
+      ]
+    }
+  },
+  "edges": [],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

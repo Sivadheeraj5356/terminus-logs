@@ -1,0 +1,3 @@
+group_name,iana_codepoint,phase_out_reason
+ffdhe2048,0x0100,classical_dh_low_margin
+ffdhe3072,0x0101,classical_dh_low_margin

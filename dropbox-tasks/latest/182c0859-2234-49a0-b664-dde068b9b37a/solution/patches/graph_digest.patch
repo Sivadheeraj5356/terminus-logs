@@ -1,0 +1,34 @@
+--- lto/graph_digest.py	2026-07-10 11:56:08
++++ lto/graph_digest.py	2026-07-10 12:04:35
+@@ -5,10 +5,12 @@
+ import hashlib
+ from pathlib import Path
+ 
+-from lto.module_index import source_name
++from lto.module_index import GEN_SENSITIVE, source_name
+ from lto import transitive_closure
+ 
++PROFILE_PATH = Path("/app/environment/gen/abi_profile.json")
+ 
++
+ def _digest(paths: list[Path]) -> str:
+     hasher = hashlib.sha256()
+     for path in sorted(paths, key=lambda p: str(p)):
+@@ -22,8 +24,16 @@
+         paths = [work_root / "gen" / "gate_abi.cpp", work_root / "gen" / "gate_abi.h"]
+     else:
+         paths = [src_root / source_name(module)]
+-    if module == "main":
++    if module in GEN_SENSITIVE:
+         paths.extend(transitive_closure.resolve_paths(module, src_root, work_root))
++        header = work_root / "gen" / "gate_abi.h"
++        stamp = work_root / "gen" / "abi_stamp.txt"
++        if header.is_file() and header not in paths:
++            paths.append(header)
++        if stamp.is_file():
++            paths.append(stamp)
++        if PROFILE_PATH.is_file():
++            paths.append(PROFILE_PATH)
+     return paths
+ 
+ 

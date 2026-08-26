@@ -1,0 +1,6 @@
+{"seq":1,"op":"cycle_arm","cycle_epoch":1,"scenario_tag":"beta"}
+{"seq":2,"op":"ram_seat","ram_block_id":"seat_beta_x","scenario_tag":"beta","cycle_epoch":1}
+{"seq":3,"op":"ram_seat","ram_block_id":"seat_beta_x","scenario_tag":"beta","cycle_epoch":1}
+{"seq":4,"op":"ram_seat","ram_block_id":"seat_beta_y","scenario_tag":"beta","cycle_epoch":1}
+{"seq":5,"op":"guide_mark","cycle_epoch":1,"scenario_tag":"beta"}
+{"seq":6,"op":"guide_clear","scenario_tag":"beta","cycle_epoch":1}

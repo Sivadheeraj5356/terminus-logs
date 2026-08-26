@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "mission_label": "surge-trap-992",
+  "primary_lane": "standard",
+  "rov_lead_min": 2,
+  "berth_gap_min": 1,
+  "psi_gap": 50,
+  "berths": [
+    {
+      "berth_id": "north-dock",
+      "psi_min": 350,
+      "psi_max": 900
+    },
+    {
+      "berth_id": "south-bay",
+      "psi_min": 150,
+      "psi_max": 400
+    }
+  ],
+  "rov_bays": 3,
+  "rov_turn_min": 1,
+  "cold_cap_m3": 4.5,
+  "witness_salt": "abyss-mission-4471",
+  "surge_cargo_id": "uh-s04"
+}

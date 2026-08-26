@@ -1,0 +1,12 @@
+# Exclude build-context clutter; never ignore files the Dockerfile COPYs
+# (RABBITMQ_ACCESS_POLICY.md, PERMISSION_CHANGELOG.md,
+# DOWNSTREAM_CONSUMERS.md, PROTECTED_SERVICE_ACCOUNTS.md,
+# INCIDENT_ACCESS.md, rabbitmq_definitions.seed.json stay included).
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/

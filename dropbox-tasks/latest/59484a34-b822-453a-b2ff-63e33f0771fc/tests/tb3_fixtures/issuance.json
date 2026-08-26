@@ -1,0 +1,24 @@
+{
+  "issuance": [
+    {
+      "serial": "TB3-A",
+      "filename": "tb3-a.json",
+      "issued_at": "2025-07-01T09:00:00Z"
+    },
+    {
+      "serial": "TB3-REV",
+      "filename": "tb3-rev.json",
+      "issued_at": "2025-07-01T09:00:00Z"
+    },
+    {
+      "serial": "TB3-OK",
+      "filename": "tb3-ok.json",
+      "issued_at": "2025-07-01T09:00:00Z"
+    },
+    {
+      "serial": "TB3-NOROOT",
+      "filename": "tb3-noroot.json",
+      "issued_at": "2025-07-01T09:00:00Z"
+    }
+  ]
+}

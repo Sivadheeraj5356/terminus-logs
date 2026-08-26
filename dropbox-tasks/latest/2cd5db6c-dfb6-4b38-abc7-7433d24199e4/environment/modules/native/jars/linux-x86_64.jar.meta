@@ -1,0 +1,5 @@
+artifactId=ffm-native
+classifier=linux-x86_64
+kind=real
+arch=1
+soname=libffm.so.1

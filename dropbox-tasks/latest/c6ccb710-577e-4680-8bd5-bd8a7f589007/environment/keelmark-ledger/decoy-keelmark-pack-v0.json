@@ -1,0 +1,12 @@
+{
+  "specification_metadata": {
+    "authoritative_status": "DRAFT_RETIRED_DO_NOT_USE",
+    "title": "Legacy keel thresholds"
+  },
+  "skip_precedence": ["empty_shard", "suppress_hit"],
+  "classification": {
+    "CRITICAL": "max kN > 900",
+    "WARN": "max kN > 700"
+  },
+  "timestamp_padding": "pad all of hour minute second"
+}

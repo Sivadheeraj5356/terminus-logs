@@ -1,0 +1,2 @@
+Ridge models use the lambda grid in config.
+For multiclass runs, fit one closed-form ridge score model against one-hot class targets by solving the ridge normal equations. The intercept is unpenalized, and softmax is applied only to the fitted linear scores for prediction and loss calculation. This is not multinomial logistic regression or an iterative likelihood fit.

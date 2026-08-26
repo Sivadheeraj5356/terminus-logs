@@ -1,0 +1,103 @@
+--- a/audit/audit.go
++++ b/audit/audit.go
+@@ -1,16 +1,95 @@
+ package audit
+ 
+-import "encoding/json"
++import (
++	"bytes"
++	"crypto"
++	"crypto/rsa"
++	"crypto/sha256"
++	"encoding/base64"
++	"encoding/binary"
++	"encoding/hex"
++	"encoding/json"
++	"errors"
++	"io"
++	"math/big"
++	"sort"
++	"strings"
++)
+ 
+ type Result struct {
+ 	Admit   bool     `json:"admit"`
+ 	Reasons []string `json:"reasons"`
+ }
+ 
++type bundle struct {
++	Now      uint64   `json:"now"`
++	Zone     string   `json:"zone"`
++	ParentDS []ds     `json:"parent_ds"`
++	DNSKeys  []dnskey `json:"dnskeys"`
++	RRSets   []rrset  `json:"rrsets"`
++}
++type ds struct { KeyTag uint16 `json:"key_tag"`; Algorithm uint8 `json:"algorithm"`; DigestType uint8 `json:"digest_type"`; Digest string `json:"digest"` }
++type dnskey struct { Flags uint16 `json:"flags"`; Protocol uint8 `json:"protocol"`; Algorithm uint8 `json:"algorithm"`; PublicKey string `json:"public_key"` }
++type rrset struct { Owner string `json:"owner"`; Type uint16 `json:"type"`; TTL uint32 `json:"ttl"`; Records []string `json:"records"`; Signatures []rrsig `json:"signatures"` }
++type rrsig struct { TypeCovered uint16 `json:"type_covered"`; Algorithm uint8 `json:"algorithm"`; Labels uint8 `json:"labels"`; OriginalTTL uint32 `json:"original_ttl"`; Expiration uint64 `json:"expiration"`; Inception uint64 `json:"inception"`; KeyTag uint16 `json:"key_tag"`; Signer string `json:"signer"`; Signature string `json:"signature"` }
++type keyInfo struct { tag uint16; pub *rsa.PublicKey; rdata []byte }
++
++func nameWire(s string) ([]byte, []string, error) {
++	if s == "." { return []byte{0}, nil, nil }
++	if !strings.HasSuffix(s, ".") || strings.Contains(s, "..") { return nil, nil, errors.New("name") }
++	parts := strings.Split(s[:len(s)-1], ".")
++	out := make([]byte, 0, len(s)+1)
++	for _, p := range parts {
++		if len(p) == 0 || len(p) > 63 { return nil, nil, errors.New("name") }
++		out = append(out, byte(len(p)))
++		for i := range len(p) {
++			c := p[i]; if c >= 'A' && c <= 'Z' { c += 'a'-'A' }; if c > 127 { return nil, nil, errors.New("name") }; out = append(out, c)
++		}
++	}
++	out = append(out, 0); if len(out) > 255 { return nil, nil, errors.New("name") }
++	return out, parts, nil
++}
++func canonicalName(s string) (string, error) { w, _, e := nameWire(s); if e != nil { return "", e }; if len(w)==1 { return ".", nil }; return strings.ToLower(s), nil }
++func keyTag(r []byte) uint16 { var ac uint32; for i,b := range r { if i&1==0 { ac += uint32(b)<<8 } else { ac += uint32(b) } }; ac += (ac>>16)&0xffff; return uint16(ac&0xffff) }
++func keyRData(k dnskey) ([]byte, error) { p,e:=base64.StdEncoding.DecodeString(k.PublicKey); if e!=nil{return nil,e}; r:=make([]byte,4+len(p)); binary.BigEndian.PutUint16(r,k.Flags); r[2]=k.Protocol;r[3]=k.Algorithm;copy(r[4:],p);return r,nil }
++func rsaPub(raw []byte) (*rsa.PublicKey,error) { if len(raw)<3{return nil,errors.New("rsa")}; n:=int(raw[0]);off:=1;if n==0 {if len(raw)<4{return nil,errors.New("rsa")};n=int(binary.BigEndian.Uint16(raw[1:3]));off=3};if n<1||off+n>=len(raw){return nil,errors.New("rsa")}; eb:=new(big.Int).SetBytes(raw[off:off+n]);if !eb.IsInt64(){return nil,errors.New("rsa")};e:=eb.Int64();if e<3||e%2==0||e>int64(^uint(0)>>1){return nil,errors.New("rsa")};mod:=new(big.Int).SetBytes(raw[off+n:]);if mod.Sign()==0{return nil,errors.New("rsa")};return &rsa.PublicKey{N:mod,E:int(e)},nil }
++func add(m map[string]bool,s string){m[s]=true}
++func below(owner,zone string) bool { if zone=="." {return true}; return owner==zone || strings.HasSuffix(owner,"."+zone) }
++func uniqueValue(dec *json.Decoder) error {
++	tok, err := dec.Token(); if err != nil { return err }
++	d, ok := tok.(json.Delim); if !ok { if tok == nil { return errors.New("null") }; return nil }
++	switch d {
++	case '{':
++		seen := map[string]bool{}
++		for dec.More() { k, err := dec.Token(); if err != nil { return err }; key, ok := k.(string); if !ok || seen[key] { return errors.New("duplicate") }; seen[key] = true; if err := uniqueValue(dec); err != nil { return err } }
++		end, err := dec.Token(); if err != nil || end != json.Delim('}') { return errors.New("object") }
++	case '[':
++		for dec.More() { if err := uniqueValue(dec); err != nil { return err } }
++		end, err := dec.Token(); if err != nil || end != json.Delim(']') { return errors.New("array") }
++	default: return errors.New("delimiter")
++	}
++	return nil
++}
++func validJSON(raw []byte) bool { d:=json.NewDecoder(bytes.NewReader(raw)); if uniqueValue(d)!=nil { return false }; _,err:=d.Token(); return err==io.EOF }
++func signedData(set rrset,s rrsig,ownerWire,signerWire []byte,labels int,records [][]byte)([]byte,error){
++	var b bytes.Buffer; for _,v:=range []any{s.TypeCovered,s.Algorithm,s.Labels,s.OriginalTTL,uint32(s.Expiration),uint32(s.Inception),s.KeyTag}{binary.Write(&b,binary.BigEndian,v)};b.Write(signerWire)
++	signedOwner:=ownerWire
++	if int(s.Labels)==labels-1 { _,parts,e:=nameWire(set.Owner);if e!=nil{return nil,e}; wildcard:="*."+strings.Join(parts[1:],".")+".";signedOwner,_,e=nameWire(wildcard);if e!=nil{return nil,e} } else if int(s.Labels)!=labels {return nil,errors.New("labels")}
++	rrs:=make([][]byte,0,len(records));for _,r:=range records{var x bytes.Buffer;x.Write(signedOwner);binary.Write(&x,binary.BigEndian,set.Type);binary.Write(&x,binary.BigEndian,uint16(1));binary.Write(&x,binary.BigEndian,s.OriginalTTL);binary.Write(&x,binary.BigEndian,uint16(len(r)));x.Write(r);rrs=append(rrs,x.Bytes())};sort.Slice(rrs,func(i,j int)bool{return bytes.Compare(rrs[i],rrs[j])<0});for _,x:=range rrs{b.Write(x)};return b.Bytes(),nil
++}
++
+ func Evaluate(raw []byte) Result {
+-	var v map[string]any
+-	if json.Unmarshal(raw, &v) != nil {
+-		return Result{Admit: false, Reasons: []string{"invalid_input"}}
++	if !validJSON(raw) { return Result{false,[]string{"invalid_input"}} }
++	var members map[string]json.RawMessage; if json.Unmarshal(raw,&members)!=nil { return Result{false,[]string{"invalid_input"}} }; for _,key:=range []string{"now","zone","parent_ds","dnskeys","rrsets"}{if _,ok:=members[key];!ok{return Result{false,[]string{"invalid_input"}}}}
++	dec:=json.NewDecoder(bytes.NewReader(raw));dec.DisallowUnknownFields();var in bundle
++	if dec.Decode(&in)!=nil || in.Now>0xffffffff { return Result{false,[]string{"invalid_input"}} }
++	reasons:=map[string]bool{};zone,ze:=canonicalName(in.Zone);if ze!=nil||zone=="."{add(reasons,"bad_name")}
++	keys:=[]keyInfo{};for _,k:=range in.DNSKeys{r,e:=keyRData(k);if e!=nil{add(reasons,"malformed_key");continue};if k.Algorithm!=8||k.Flags!=257||k.Protocol!=3{continue};p,e:=rsaPub(r[4:]);if e!=nil{add(reasons,"malformed_key");continue};keys=append(keys,keyInfo{keyTag(r),p,r})}
++	auth:=map[uint16][]*rsa.PublicKey{};if ze==nil{zw,_,_:=nameWire(zone);for _,d:=range in.ParentDS{if d.Algorithm!=8||d.DigestType!=2{continue};want,e:=hex.DecodeString(d.Digest);if e!=nil||len(want)!=32{add(reasons,"malformed_key");continue};for _,k:=range keys{if k.tag!=d.KeyTag{continue};h:=sha256.Sum256(append(append([]byte{},zw...),k.rdata...));if bytes.Equal(want,h[:]){auth[k.tag]=append(auth[k.tag],k.pub)}}}}
++	if len(auth)==0{add(reasons,"no_ds_match")}
++	for _,set:=range in.RRSets{owner,oe:=canonicalName(set.Owner);ow,parts,_:=nameWire(set.Owner);structOK:=oe==nil&&set.Type!=0&&len(set.Records)>0&&ze==nil&&below(owner,zone);if oe!=nil{add(reasons,"bad_name")};if !structOK{add(reasons,"bad_rrset")};records:=[][]byte{};for _,x:=range set.Records{r,e:=base64.StdEncoding.DecodeString(x);if e!=nil||len(r)>65535{add(reasons,"malformed_key");structOK=false}else{records=append(records,r)}};accepted:=false
++		if structOK{for _,s:=range set.Signatures{if s.TypeCovered!=set.Type||s.Algorithm!=8||s.OriginalTTL!=set.TTL||s.Inception>in.Now||in.Now>s.Expiration||s.Expiration>0xffffffff||s.Inception>0xffffffff{continue};signer,e:=canonicalName(s.Signer);if e!=nil{add(reasons,"bad_name");continue};if signer!=zone{continue};sw,_,_:=nameWire(signer);data,e:=signedData(set,s,ow,sw,len(parts),records);if e!=nil{continue};sig,e:=base64.StdEncoding.DecodeString(s.Signature);if e!=nil{add(reasons,"malformed_key");continue};h:=sha256.Sum256(data);for _,p:=range auth[s.KeyTag]{if rsa.VerifyPKCS1v15(p,crypto.SHA256,h[:],sig)==nil{accepted=true;break}};if accepted{break}}}
++		if !accepted{add(reasons,"bad_signature")}
+ 	}
+-	return Result{Admit: false, Reasons: []string{"no_ds_match"}}
++	out:=make([]string,0,len(reasons));for r:=range reasons{out=append(out,r)};sort.Strings(out);return Result{len(out)==0,out}
+ }

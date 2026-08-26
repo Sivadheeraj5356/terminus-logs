@@ -1,0 +1,5 @@
+The navmesh tile baker under `/app` turns gridded walk tapes into stitched tile polygons with border portal links. Continuous matrix legs look healthy on quick inspection, but pause-resume legs on the same scenario drift: parity checks fail, border weld counts change, link digests diverge, and area overlays at tile seams disagree with their cold twin. Pad-weighted tapes can also corrupt continuous digests when pad / resume state leaks into the weld.
+
+Rebuild through `/app/ci/build_and_load.sh` and emit `/app/output/nav_audit.json` matching `/app/doc/nav_audit_contract.txt`. Copy `schema_anchor` from `/app/stubs/schema_anchor.txt`. Pause-resume parity fields are in `/app/stubs/replay_contract.txt`. Tape grammar is in `/app/doc/semantics.txt`.
+
+Every continuous and pause_resume row must match a correct bake for that tape: pair_ok alone is not enough. Editable sources live under `implementation_roots` in `/app/cfg/runtime.toml`. Do not modify `/app/data/`, frozen harness paths in `/app/doc/frozen_sources.txt`, or anything pinned in `/app/doc/input_checksums.txt`. Repeated hook runs on an unchanged tree must emit byte-identical `/app/output/nav_audit.json`.

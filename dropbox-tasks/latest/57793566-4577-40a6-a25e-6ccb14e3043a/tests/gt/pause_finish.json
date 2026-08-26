@@ -1,0 +1,42 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 2
+    },
+    {
+      "op": "pause",
+      "printer": "p1",
+      "seq": 3
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 4
+    },
+    {
+      "op": "resume",
+      "printer": "p1",
+      "seq": 5
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "pause_finish"
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "forge",
+      "relicmaze.torch": "1.5",
+      "relicmaze.keeper_tz_offset_minutes": "540",
+      "relicmaze.carry_capacity": "60",
+      "relicmaze.goal_room": "vault",
+      "org.opencontainers.image.title": "gen-039"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:eae476cfeaed42788a551bd59e191028cc551419c7569423ab4b49f3c1f3ab3e"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "ENV torch_tax=0.0"
+    },
+    {
+      "created_by": "RUN keeper seal drowned-crown noted"
+    },
+    {
+      "created_by": "LABEL omen=\"Fire answers fire.\""
+    },
+    {
+      "created_by": "RUN keeper seal petrified-rose"
+    },
+    {
+      "created_by": "LABEL note=\"aside\""
+    },
+    {
+      "created_by": "COMMENT the tide is patient"
+    },
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "LABEL omen=\"Nothing waits forever.\""
+    }
+  ]
+}

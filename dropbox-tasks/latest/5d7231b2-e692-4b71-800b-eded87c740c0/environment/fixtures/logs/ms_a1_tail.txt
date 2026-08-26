@@ -1,0 +1,3 @@
+tick 15 loss 0.0412
+tick 16 loss 0.0398
+tick 17 loss 0.0381

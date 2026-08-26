@@ -1,0 +1,31 @@
+#!/bin/bash
+# Hash every model artifact pinned in the dependency ledger with OpenSSL and
+# write the report the policy input embeds.
+set -euo pipefail
+
+LEDGER=/app/ledger/dependency_ledger.csv
+MODELS_ROOT=/app/models
+OUT=/app/out/hash_report.json
+
+mkdir -p /app/out
+
+paths=$(awk -F',' 'NR > 1 && $11 != "" {
+    n = split($11, pairs, ";")
+    for (i = 1; i <= n; i++) {
+        split(pairs[i], kv, "=")
+        print kv[1]
+    }
+}' "$LEDGER" | sort -u)
+
+report="{}"
+while IFS= read -r rel; do
+    [ -z "$rel" ] && continue
+    file="$MODELS_ROOT/$rel"
+    if [ -f "$file" ]; then
+        digest=$(openssl dgst -sha256 -r "$file" | cut -d' ' -f1)
+        report=$(jq --arg p "$rel" --arg d "$digest" '. + {($p): $d}' <<<"$report")
+    fi
+done <<<"$paths"
+
+jq -S . <<<"$report" > "$OUT"
+echo "hash-artifacts: wrote $(jq 'length' "$OUT") digests to $OUT"

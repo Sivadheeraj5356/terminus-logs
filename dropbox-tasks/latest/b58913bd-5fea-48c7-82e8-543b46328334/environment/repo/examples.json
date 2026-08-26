@@ -1,0 +1,22 @@
+{
+  "description": "Reference orderings for the formula catalog. Each pair records how the catalog ranks two versions: result -1 means the first version is older than the second, 1 means it is newer, and 0 means they are equal. These illustrate the decorated-version conventions (pre-release, letter, patch/post-release, numeric revision, separator and leading-zero handling); they are a sample, not the full ordering.",
+  "pairs": [
+    {"a": "1.2alpha1", "b": "1.2beta1", "result": -1},
+    {"a": "1.2beta", "b": "1.2pre", "result": -1},
+    {"a": "1.2pre1", "b": "1.2rc1", "result": -1},
+    {"a": "1.2rc2", "b": "1.2", "result": -1},
+    {"a": "1.2", "b": "1.2a", "result": -1},
+    {"a": "1.2a", "b": "1.2alpha1", "result": -1},
+    {"a": "1.2", "b": "1.2p1", "result": -1},
+    {"a": "1.2beta2", "b": "1.2beta10", "result": -1},
+    {"a": "1.2.0", "b": "1.2", "result": 0},
+    {"a": "1.2.3", "b": "1-2-3", "result": 0},
+    {"a": "1.007", "b": "1.7", "result": 0},
+    {"a": "1.2rc", "b": "1.2rc1", "result": -1},
+    {"a": "2.0", "b": "1.9", "result": 1},
+    {"a": "1.5.1", "b": "1.5.1a", "result": -1},
+    {"a": "3.0alpha", "b": "3.0", "result": -1},
+    {"a": "1.2post1", "b": "1.2", "result": -1},
+    {"a": "1.2.post1", "b": "1.2post1", "result": 1}
+  ]
+}

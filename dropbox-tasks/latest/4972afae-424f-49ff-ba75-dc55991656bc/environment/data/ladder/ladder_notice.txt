@@ -1,0 +1,17 @@
+BROADWATER TOURNAMENT LADDER - NOTICE TO ENTRANTS
+
+The ladder is bowled on the tournament rig, not on the practice cabinet. The
+rig racks alleys of a size no site cabinet ever sets up, it sets the ball dial
+to any face and the throw latch to any code before the first ball is thrown,
+and it racks one lane or two. The rig's house bowls the alley out and it does
+not miss a winning line.
+
+An entrant is dealt each alley once. It calls the alley before it bowls: an
+alley that cannot be taken from the entrant's side of the table is conceded,
+and an alley that can be taken is called and then bowled out against the house.
+Calling an alley that cannot be taken is a lost match, conceding an alley that
+could have been taken is a lost match, and a throw the rig will not accept ends
+the match on the spot.
+
+The entrant is the program at /app/entry. The rig speaks to it over the link
+written up in entry_link.txt.

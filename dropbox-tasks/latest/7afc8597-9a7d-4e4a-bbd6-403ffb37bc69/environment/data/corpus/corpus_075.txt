@@ -1,0 +1,6 @@
+addr 68.146.43.211 hex 0xe858 token tok_881
+the quick brown fox
+a "quoted string" and "another"
+addr 87.130.10.244 hex 0x66cf token tok_270
+false false beta alpha gamma no no
+IP 255.255.255.0 mask

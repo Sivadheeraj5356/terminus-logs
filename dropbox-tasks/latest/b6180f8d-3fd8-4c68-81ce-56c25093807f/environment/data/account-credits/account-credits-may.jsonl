@@ -1,0 +1,6 @@
+{"credit_id":"AC-ALPHA-001","account_id":"FAM-ALPHA","earned_service_date":"2026-05-13","expires_service_date":"2026-05-14","scope":"base","amount_cents":100,"approved":true}
+{"credit_id":"AC-BETA-001","account_id":"FAM-BETA","earned_service_date":"2026-05-15","expires_service_date":"2026-05-17","scope":"both","amount_cents":1500,"daily_limit_cents":300,"service_zone":"core","approved":true}
+{"credit_id":"AC-BETA-002","account_id":"FAM-BETA","earned_service_date":"2026-05-16","expires_service_date":"2026-05-17","scope":"surcharge","amount_cents":120,"daily_limit_cents":100,"rider_id":"R106","route_family":"express","service_zone":"regional","approved":true}
+{"credit_id":"AC-BETA-DRAFT","account_id":"FAM-BETA","earned_service_date":"2026-05-15","expires_service_date":"2026-05-17","scope":"base","amount_cents":999,"approved":false}
+{"credit_id":"AC-DELTA-001","account_id":"FAM,DELTA","earned_service_date":"2026-05-17","expires_service_date":"2026-05-18","scope":"surcharge","amount_cents":70,"service_zone":"regional","approved":true}
+{"credit_id":"AC-GAMMA-OLD","account_id":"FAM-GAMMA","earned_service_date":"2026-05-10","expires_service_date":"2026-05-14","scope":"both","amount_cents":500,"approved":true}

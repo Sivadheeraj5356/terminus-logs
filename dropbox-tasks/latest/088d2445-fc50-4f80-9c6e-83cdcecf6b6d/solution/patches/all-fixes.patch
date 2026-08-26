@@ -1,0 +1,244 @@
+--- a/environment/internal/arms/arms.go	2026-07-20 11:30:46.793178585 +0530
++++ b/environment/internal/arms/arms.go	2026-07-20 11:26:12.653592105 +0530
+@@ -44,7 +44,7 @@
+ 	return rows, ids, nil
+ }
+ 
+-// Remap applies rotation arms from rot_d.toml onto the start algebra set.
++// Remap walks rotation arms to a fixpoint.
+ func Remap(start []string, rows []Row) []string {
+ 	m := map[string]string{}
+ 	for _, r := range rows {
+@@ -53,9 +53,16 @@
+ 		}
+ 	}
+ 	out := append([]string{}, start...)
+-	for i, k := range out {
+-		if v, ok := m[k]; ok {
+-			out[i] = v
++	for range 64 {
++		changed := false
++		for i, k := range out {
++			if v, ok := m[k]; ok && v != k {
++				out[i] = v
++				changed = true
++			}
++		}
++		if !changed {
++			break
+ 		}
+ 	}
+ 	return out
+--- a/environment/internal/emit/emit.go	2026-07-20 11:30:48.113177908 +0530
++++ b/environment/internal/emit/emit.go	2026-07-20 11:28:24.264900806 +0530
+@@ -3,7 +3,6 @@
+ import (
+ 	"fmt"
+ 	"hsdrive/internal/digest"
+-	"strconv"
+ )
+ 
+ type Row struct {
+@@ -12,13 +11,13 @@
+ 	RowID   int64  `json:"row_id"`
+ }
+ 
+-// Script emits one ledger-bound script_rows record.
++// Script seals a ledger row to sha256(bind_ref)[:8].
+ func Script(rowID uint64, binds map[uint64]string) (Row, error) {
+ 	br, ok := binds[rowID]
+ 	if !ok {
+ 		return Row{}, fmt.Errorf("missing bind %d", rowID)
+ 	}
+-	hx := digest.HexStr(strconv.FormatUint(rowID, 10))
++	hx := digest.HexStr(br)
+ 	if len(hx) < 8 {
+ 		return Row{}, fmt.Errorf("short digest")
+ 	}
+--- a/environment/internal/fold/fold.go	2026-07-20 11:30:43.071010309 +0530
++++ b/environment/internal/fold/fold.go	2026-07-20 11:26:10.017593458 +0530
+@@ -13,15 +13,16 @@
+ 	Seal      string `json:"seal"`
+ }
+ 
+-// Digest folds materialized segments against ledger keys into digest_hex.
++// Digest folds segments and reuses cache only on exact fp+seal match.
+ func Digest(segs map[int][]byte, keys []uint64, fp, seal, cacheDir string) (string, error) {
+-	if len(keys) == 0 || fp == "" {
+-		return "", errBad("empty keys or fp")
++	if len(keys) == 0 || fp == "" || seal == "" {
++		return "", errBad("empty keys, fp, or seal")
+ 	}
+ 	cachePath := filepath.Join(cacheDir, "digest_cache.json")
+ 	if raw, err := os.ReadFile(cachePath); err == nil {
+ 		var stored cacheShape
+-		if json.Unmarshal(raw, &stored) == nil && stored.FP == fp && stored.DigestHex != "" {
++		if json.Unmarshal(raw, &stored) == nil &&
++			stored.FP == fp && stored.Seal == seal && stored.DigestHex != "" {
+ 			return stored.DigestHex, nil
+ 		}
+ 	}
+@@ -40,7 +41,7 @@
+ 	}
+ 	buf = append(buf, []byte(fp)...)
+ 	buf = append(buf, '|')
+-	_ = seal // dropped from preimage
++	buf = append(buf, []byte(seal)...)
+ 	dig := digest.Hex(buf)
+ 
+ 	_ = os.MkdirAll(cacheDir, 0o755)
+--- a/environment/internal/journal/journal.go	2026-07-20 11:30:41.923010898 +0530
++++ b/environment/internal/journal/journal.go	2026-07-20 11:26:05.313332827 +0530
+@@ -3,7 +3,6 @@
+ import (
+ 	"fmt"
+ 	"hsdrive/internal/digest"
+-	"hsdrive/internal/idx"
+ 	"os"
+ 	"path/filepath"
+ 	"strconv"
+@@ -15,8 +14,10 @@
+ 	Seal string
+ }
+ 
+-// Materialize applies journal overlays onto annex segment shells.
++// Materialize applies journal overlays under WATERMARK eligibility.
++// Compaction index echoes are ignored.
+ func Materialize(annexDir, walPath, idxPath string) (Hold, error) {
++	_ = idxPath
+ 	names := []string{"seg_a.bin", "seg_b.bin", "seg_c.bin"}
+ 	out := map[int][]byte{}
+ 	for i, n := range names {
+@@ -39,24 +40,31 @@
+ 		}
+ 	}
+ 
+-	winIdx := -1
+-	if ep, ok := idx.PreferredEpoch(idxPath); ok {
+-		for i, ln := range lines {
+-			if strings.HasPrefix(ln, "CHK|") {
+-				v, err := strconv.ParseInt(strings.TrimPrefix(ln, "CHK|"), 10, 64)
+-				if err == nil && v == ep {
+-					winIdx = i
+-					break
+-				}
++	watermark := int64(^uint64(0) >> 1)
++	type marker struct{ idx int; ep int64 }
++	var markers []marker
++	for i, ln := range lines {
++		if strings.HasPrefix(ln, "WATERMARK|") {
++			v, err := strconv.ParseInt(strings.TrimPrefix(ln, "WATERMARK|"), 10, 64)
++			if err != nil {
++				return Hold{}, err
++			}
++			watermark = v
++		} else if strings.HasPrefix(ln, "CHK|") {
++			v, err := strconv.ParseInt(strings.TrimPrefix(ln, "CHK|"), 10, 64)
++			if err != nil {
++				return Hold{}, err
+ 			}
++			markers = append(markers, marker{i, v})
+ 		}
+ 	}
+-	if winIdx < 0 {
+-		for i, ln := range lines {
+-			if strings.HasPrefix(ln, "CHK|") {
+-				winIdx = i
+-				break
+-			}
++
++	winIdx := -1
++	var maxEp int64 = -1
++	for _, m := range markers {
++		if m.ep <= watermark && (m.ep > maxEp || (m.ep == maxEp && m.idx > winIdx)) {
++			maxEp = m.ep
++			winIdx = m.idx
+ 		}
+ 	}
+ 	if winIdx < 0 {
+@@ -72,12 +80,12 @@
+ 		}
+ 	}
+ 
+-	seal := digest.HexStr(lines[winIdx])
+-
++	sealParts := []string{lines[winIdx]}
+ 	for _, ln := range lines[start:end] {
+ 		if !strings.HasPrefix(ln, "XOR|") {
+ 			continue
+ 		}
++		sealParts = append(sealParts, ln)
+ 		parts := strings.Split(ln, "|")
+ 		if len(parts) != 4 {
+ 			continue
+@@ -91,10 +99,15 @@
+ 		if err != nil {
+ 			return Hold{}, err
+ 		}
+-		buf := out[seg]
+-		if off < len(buf) {
+-			buf[off] ^= byte(v)
++		buf, ok := out[seg]
++		if !ok {
++			return Hold{}, fmt.Errorf("missing seg %d", seg)
++		}
++		if off >= len(buf) {
++			return Hold{}, fmt.Errorf("oob xor")
+ 		}
++		buf[off] ^= byte(v)
+ 	}
++	seal := digest.HexStr(strings.Join(sealParts, "\n"))
+ 	return Hold{Segs: out, Seal: seal}, nil
+ }
+--- a/environment/internal/nest/nest.go	2026-07-20 11:30:47.709178116 +0530
++++ b/environment/internal/nest/nest.go	2026-07-20 11:26:30.005827524 +0530
+@@ -1,19 +1,19 @@
+ package nest
+ 
+-// Reduce builds the zonotope nest_span vector for graded lanes.
+-func Reduce(gens [][]float64, depth int, ord []int, keyN int, _fpLen int) ([]float64, error) {
+-	if len(gens) == 0 || depth <= 0 || len(ord) == 0 || keyN <= 0 {
++// Reduce builds nest_span with dimension-indexed span_order and fingerprint-length bias.
++func Reduce(gens [][]float64, depth int, ord []int, _keyN int, fpLen int) ([]float64, error) {
++	if len(gens) == 0 || depth <= 0 || len(ord) == 0 || fpLen <= 0 {
+ 		return nil, errBad("bad nest args")
+ 	}
+ 	dim := len(gens[0])
+ 	out := make([]float64, dim)
+ 	for L := 0; L < depth; L++ {
+-		g := gens[ord[L%len(ord)]]
+ 		for t := 0; t < dim; t++ {
++			g := gens[ord[t%len(ord)]]
+ 			out[t] += g[t] * float64(L+1)
+ 		}
+ 	}
+-	bias := 0.01 * float64(depth) * float64(keyN)
++	bias := 0.01 * float64(depth) * float64(fpLen)
+ 	for t := 0; t < dim; t++ {
+ 		out[t] += bias
+ 	}
+--- a/environment/internal/warm/warm.go	2026-07-20 11:30:51.628543182 +0530
++++ b/environment/internal/warm/warm.go	2026-07-20 11:26:33.381825790 +0530
+@@ -28,8 +28,11 @@
+ 	return s.Status == "coherent"
+ }
+ 
+-// ReadCachedDigest loads a previously staged digest_hex when present.
+-func ReadCachedDigest(cachePath, _fp, _seal string) (string, bool) {
++// ReadCachedDigest reuses a cache entry only when fp and seal match live values.
++func ReadCachedDigest(cachePath, fp, seal string) (string, bool) {
++	if fp == "" || seal == "" {
++		return "", false
++	}
+ 	raw, err := os.ReadFile(cachePath)
+ 	if err != nil {
+ 		return "", false
+@@ -38,5 +41,8 @@
+ 	if json.Unmarshal(raw, &c) != nil || c.DigestHex == "" {
+ 		return "", false
+ 	}
++	if c.FP != fp || c.Seal != seal {
++		return "", false
++	}
+ 	return c.DigestHex, true
+ }

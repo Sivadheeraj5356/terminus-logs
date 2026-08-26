@@ -1,0 +1,9 @@
+ordinance: ORD-1987-02
+jurisdiction: Kestrel-Marrow
+enacted: 1987-03-02
+effective: 1987-09-06T02:00:00 wall
+standard-offset: +09:00:00
+standard-label: KEST
+observance:
+  begin: Sep Sun>=1 02:00:00 wall save +01:00:00 label KEDT
+  end: Apr Sun>=1 03:00:00 standard

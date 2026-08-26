@@ -1,0 +1,62 @@
+--- a/app/cfaxis/calaxis/calendar_merge.py
++++ b/app/cfaxis/calaxis/calendar_merge.py
+@@ -1,10 +1,10 @@
+-"""Merge climate members onto one CF calendar-qualified axis."""
++"""Merge climate members onto one CF calendar axis."""
+ 
+ from __future__ import annotations
+ 
+ import struct
+ 
+-from cfaxis.error import IncompatibleAppendError, ValidationError
++from cfaxis.error import CalendarAxisConflictError, IncompatibleAppendError, ValidationError
+ from cfaxis.formats.common import (
+     CcfHeader,
+     Dataset,
+@@ -31,11 +31,6 @@
+     )
+ 
+ 
+-def _ordinal(ds: Dataset, encoded: float) -> int:
+-    y, m, d = _canonical_ymd(ds, encoded)
+-    return ds.time_axis.calendar.canonical_ordinal(y, m, d)
+-
+-
+ def _row_payload(ds: Dataset, idx: int) -> tuple[tuple[float, ...], tuple[float, float] | None]:
+     vals = tuple(_read_f64(v.bytes, idx) for v in ds.variables)
+     bounds = None
+@@ -84,11 +79,16 @@
+     rows.sort(key=lambda r: (r[0], r[4]))
+ 
+     merged: list[tuple[int, float, tuple[float, ...], tuple[float, float] | None]] = []
+-    seen: set[int] = set()
++    by_ord: dict[int, tuple[float, tuple[float, ...], tuple[float, float] | None]] = {}
+     for ord_, enc, payload, bounds, _tag in rows:
+-        if ord_ in seen:
++        if ord_ in by_ord:
++            prev_enc, prev_payload, prev_bounds = by_ord[ord_]
++            if prev_payload != payload or prev_bounds != bounds or prev_enc != enc:
++                raise CalendarAxisConflictError(
++                    f"conflicting observations at canonical ordinal {ord_}"
++                )
+             continue
+-        seen.add(ord_)
++        by_ord[ord_] = (enc, payload, bounds)
+         merged.append((ord_, enc, payload, bounds))
+ 
+     time_vals = [enc for _, enc, _, _ in merged]
+@@ -129,14 +129,3 @@
+         variables=variables,
+         global_attrs=dict(base.global_attrs),
+     )
+-
+-
+-def datasets_equal_at_instant(a: Dataset, ai: int, b: Dataset, bi: int) -> bool:
+-    """Compare two observations for semantic equality."""
+-    if _ordinal(a, a.time_axis.instants[ai].encoded_value) != _ordinal(
+-        b, b.time_axis.instants[bi].encoded_value
+-    ):
+-        return False
+-    pa, ba = _row_payload(a, ai)
+-    pb, bb = _row_payload(b, bi)
+-    return pa == pb and ba == bb

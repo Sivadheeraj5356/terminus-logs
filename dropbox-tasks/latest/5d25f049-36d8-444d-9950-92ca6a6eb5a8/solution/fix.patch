@@ -1,0 +1,543 @@
+diff -ruN a/pkg/c02/src/adjunct.rs b/pkg/c02/src/adjunct.rs
+--- a/pkg/c02/src/adjunct.rs	2026-07-19 20:53:48.654340712 +0530
++++ b/pkg/c02/src/adjunct.rs	2026-07-19 21:26:08.152234933 +0530
+@@ -1,23 +1,34 @@
+-use indexmap::IndexMap;
+-use hx01::model::{PolicyIntent, RuntimeOverrides, RuleAction, RuleSpec};
+-use hx01::Result;
++use hx01::model::{PolicyIntent, RuntimeOverrides, RuleSpec};
++use hx01::{PolicyError, Result};
+ 
+ pub fn apply_runtime_adjuncts(intent: PolicyIntent, overrides: &RuntimeOverrides) -> Result<PolicyIntent> {
++    if let Some(msg) = protected_override_violation(overrides) {
++        return Err(PolicyError::Validation(msg));
++    }
+     let mut out = intent;
+     for (rule_id, ov) in &overrides.rules {
+         for tenant in out.tenants.values_mut() {
+             if let Some(rule) = tenant.rules.get_mut(rule_id) {
+-                if ov.tenant.is_some() {
+-                    rule.tenant = ov.tenant.clone().unwrap();
+-                }
+-                if ov.ownership_scope.is_some() {
+-                    rule.tenant = ov.ownership_scope.clone().unwrap();
+-                }
+-                if let Some(action) = &ov.action {
+-                    rule.action = action.clone();
+-                }
++                *rule = merge_rule_override(rule, ov);
+             }
+         }
+     }
+     Ok(out)
+ }
++
++pub fn protected_override_violation(overrides: &RuntimeOverrides) -> Option<String> {
++    for (rule_id, ov) in &overrides.rules {
++        if ov.tenant.is_some() || ov.ownership_scope.is_some() {
++            return Some(format!("protected field override on rule {rule_id}"));
++        }
++    }
++    None
++}
++
++pub fn merge_rule_override(rule: &RuleSpec, ov: &hx01::model::RuntimeOverride) -> RuleSpec {
++    let mut out = rule.clone();
++    if let Some(action) = &ov.action {
++        out.action = action.clone();
++    }
++    out
++}
+diff -ruN a/pkg/c02/src/blend.rs b/pkg/c02/src/blend.rs
+--- a/pkg/c02/src/blend.rs	2026-07-19 20:53:48.663911076 +0530
++++ b/pkg/c02/src/blend.rs	2026-07-19 21:26:08.152234933 +0530
+@@ -39,15 +39,9 @@
+             chains: Default::default(),
+             rules: Default::default(),
+         });
+-        for (k, v) in overlay_tenant.sets {
+-            entry.sets.insert(k, v);
+-        }
+-        for (k, v) in overlay_tenant.rules {
+-            entry.rules.insert(k, v);
+-        }
+-        for (k, v) in overlay_tenant.chains {
+-            entry.chains.insert(k, v);
+-        }
++        for (k, v) in overlay_tenant.sets { entry.sets.insert(k, v); }
++        for (k, v) in overlay_tenant.rules { entry.rules.insert(k, v); }
++        for (k, v) in overlay_tenant.chains { entry.chains.insert(k, v); }
+     }
+     base
+ }
+diff -ruN a/pkg/c02/src/rank.rs b/pkg/c02/src/rank.rs
+--- a/pkg/c02/src/rank.rs	2026-07-19 20:53:48.673481443 +0530
++++ b/pkg/c02/src/rank.rs	2026-07-19 21:26:08.152234933 +0530
+@@ -3,13 +3,15 @@
+ }
+ 
+ pub fn sort_dropin_entries<T>(entries: &mut [(i32, String, T)]) {
+-    entries.sort_by(|a, b| a.1.cmp(&b.1));
++    entries.sort_by(|a, b| match b.0.cmp(&a.0) {
++        std::cmp::Ordering::Equal => a.1.cmp(&b.1),
++        other => other,
++    });
+ }
+ 
+ pub fn sort_dropin_sources(sources: &mut [hx01::model::DropInMeta]) {
+-    sources.sort_by(|a, b| {
+-        let ka = dropin_rank_key(a.priority, &a.path);
+-        let kb = dropin_rank_key(b.priority, &b.path);
+-        ka.cmp(&kb)
++    sources.sort_by(|a, b| match b.priority.cmp(&a.priority) {
++        std::cmp::Ordering::Equal => a.path.cmp(&b.path),
++        other => other,
+     });
+ }
+diff -ruN a/pkg/c03/src/stable.rs b/pkg/c03/src/stable.rs
+--- a/pkg/c03/src/stable.rs	2026-07-19 21:04:50.399479032 +0530
++++ b/pkg/c03/src/stable.rs	2026-07-19 21:26:29.694361471 +0530
+@@ -11,7 +11,9 @@
+     let mut objects = Vec::new();
+     let mut chain_order = Vec::new();
+     for (tenant_name, tenant) in &intent.tenants {
+-        for (set_id, set) in &tenant.sets {
++        let mut set_pairs: Vec<_> = tenant.sets.iter().collect();
++        set_pairs.sort_by_key(|(id, _)| id.as_str());
++        for (set_id, set) in set_pairs {
+             let rev = format!("{:x}", Sha256::digest(serde_json::to_string(set)?.as_bytes()));
+             objects.push(CompiledObject {
+                 visible_name: visible_name("set", set_id, &rev),
+@@ -55,34 +57,8 @@
+ pub fn canonical_digest(objects: &[CompiledObject]) -> String {
+     let mut parts: Vec<String> = objects
+         .iter()
+-        .map(|o| format!("{}:{}:{}", o.logical_id.0, format!("{:?}", o.kind), o.semantic_revision))
++        .map(|o| format!("{}:{:?}:{}", o.logical_id.0, o.kind, o.semantic_revision))
+         .collect();
+     parts.sort();
+     format!("{:x}", Sha256::digest(parts.join("|").as_bytes()))
+ }
+-
+-pub fn canonicalize_objects(objects: &mut [CompiledObject]) {
+-    let set_idxs: Vec<usize> = objects
+-        .iter()
+-        .enumerate()
+-        .filter(|(_, o)| o.kind == ObjectKind::Set)
+-        .map(|(i, _)| i)
+-        .collect();
+-    let mut set_keys: Vec<(String, usize)> = set_idxs
+-        .into_iter()
+-        .map(|i| (objects[i].logical_id.0.clone(), i))
+-        .collect();
+-    set_keys.sort_by(|a, b| a.0.cmp(&b.0));
+-    // reorder only set objects in-place by stable swap logic
+-    let mut sorted_sets = Vec::new();
+-    for (_, idx) in &set_keys {
+-        sorted_sets.push(objects[*idx].clone());
+-    }
+-    let mut si = 0;
+-    for obj in objects.iter_mut() {
+-        if obj.kind == ObjectKind::Set {
+-            *obj = sorted_sets[si].clone();
+-            si += 1;
+-        }
+-    }
+-}
+diff -ruN a/pkg/c05/src/enact.rs b/pkg/c05/src/enact.rs
+--- a/pkg/c05/src/enact.rs	2026-07-19 21:04:53.376991753 +0530
++++ b/pkg/c05/src/enact.rs	2026-07-19 21:26:30.982433323 +0530
+@@ -48,18 +48,15 @@
+ /// Apply the effective policy to durable controller state.
+ pub fn enact_ruleset(paths: &StatePaths) -> Result<StatusReport> {
+     let build = build_effective(&paths.base, &paths.dropins, &paths.overrides)?;
++    validate_effective(&build)?;
++    let compiled = compile_intent(&build.intent)?;
+     let mut backend = BackendStore::open(&paths.backend)?;
+     let old_state = backend.state.clone();
+     let mut manifest = load_roster(&paths.manifest)?;
+ 
+-    let compiled = compile_intent(&build.intent)?;
+     stage_sets(&mut backend.state, &compiled, &mut manifest)?;
+     failpoints::check_failpoint(AFTER_STAGE_SETS)?;
+ 
+-    if let Err(e) = validate_effective(&build) {
+-        return Err(e);
+-    }
+-
+     stage_chains(&mut backend.state, &compiled, &mut manifest)?;
+     failpoints::check_failpoint(AFTER_STAGE_CHAINS)?;
+ 
+@@ -150,8 +147,22 @@
+     compiled: &hx01::model::CompiledIntent,
+     generation: u64,
+ ) -> Result<()> {
+-    state.rules.clear();
+-    state.chains.clear();
++    let foreign_rules: Vec<_> = state
++        .rules
++        .iter()
++        .filter(|(_, r)| r.annotation.as_ref().map(|a| !a.managed).unwrap_or(true))
++        .map(|(h, r)| (*h, r.clone()))
++        .collect();
++    let foreign_chains: indexmap::IndexMap<String, Vec<u64>> = state
++        .chains
++        .iter()
++        .filter(|(name, _)| !name.starts_with("chain-"))
++        .map(|(k, v)| (k.clone(), v.clone()))
++        .collect();
++
++    state.rules.retain(|_, r| r.annotation.as_ref().map(|a| !a.managed).unwrap_or(true));
++    state.chains.retain(|name, _| !name.starts_with("chain-"));
++
+     for (tenant_name, tenant) in &intent.tenants {
+         let chain_name = format!("chain-{tenant_name}");
+         let mut handles = Vec::new();
+@@ -209,6 +220,13 @@
+             state.sets.insert(visible, set.members.clone());
+         }
+     }
++
++    for (handle, rule) in foreign_rules {
++        state.rules.insert(handle, rule);
++    }
++    for (name, handles) in foreign_chains {
++        state.chains.insert(name, handles);
++    }
+     Ok(())
+ }
+ 
+diff -ruN a/pkg/c05/src/mend.rs b/pkg/c05/src/mend.rs
+--- a/pkg/c05/src/mend.rs	2026-07-19 21:04:53.558962213 +0530
++++ b/pkg/c05/src/mend.rs	2026-07-19 21:26:34.722612340 +0530
+@@ -1,25 +1,42 @@
+ use hx04::objects::referenced_handles;
+ use hx04::simulator::BackendStore;
+ use hx03::compile_intent;
+-use hx02::validate::build_effective;
+-use hx01::model::{BackendRule, OwnershipManifest};
+-use hx01::status::StatusReport;
+-use hx01::{PolicyError, Result};
++use hx02::validate::{build_effective, validate_effective};
++use hx01::model::CompiledIntent;
++use hx01::model::OwnershipManifest;
++use hx01::Result;
+ 
+ use crate::enact::{enact_ruleset, status_from, StatePaths};
+ use crate::purge::purge_obsolete;
+ use crate::tally::transfer_counters;
+-use crate::roster::load_roster;
++use crate::vintage::upgrade_legacy_manifest;
++use crate::roster::{load_roster, save_roster};
+ use crate::tenure::{classify_rule, OwnershipClass};
+ 
+ /// Recover an interrupted reconciliation.
+-pub fn mend_ruleset(paths: &StatePaths) -> Result<StatusReport> {
++fn manifest_matches_compiled(manifest: &OwnershipManifest, compiled: &CompiledIntent) -> bool {
++    if manifest.pending.is_some() {
++        return false;
++    }
++    if manifest.committed.entries.len() != compiled.objects.len() {
++        return false;
++    }
++    manifest.committed.entries.iter().all(|entry| {
++        compiled.objects.iter().any(|obj| {
++            obj.logical_id.0 == entry.logical_id.0 && obj.semantic_revision == entry.semantic_revision
++        })
++    })
++}
++
++pub fn mend_ruleset(paths: &StatePaths) -> Result<hx01::status::StatusReport> {
+     let build = build_effective(&paths.base, &paths.dropins, &paths.overrides)?;
++    validate_effective(&build)?;
+     let compiled = compile_intent(&build.intent)?;
++    let mut manifest = upgrade_legacy_manifest(load_roster(&paths.manifest)?);
++    save_roster(&paths.manifest, &manifest)?;
+     let mut backend = BackendStore::open(&paths.backend)?;
+-    let manifest = load_roster(&paths.manifest)?;
+-    let referenced = referenced_handles(&backend.state);
+     let old = backend.state.clone();
++    let referenced = referenced_handles(&backend.state);
+ 
+     let mut to_delete = Vec::new();
+     for (handle, rule) in backend.state.rules.clone() {
+@@ -27,7 +44,15 @@
+         let referenced_ok = referenced.contains(&handle);
+         match class {
+             OwnershipClass::Foreign => {}
+-            OwnershipClass::Managed | OwnershipClass::PendingManaged | OwnershipClass::ObsoleteManaged => {
++            OwnershipClass::PendingManaged => {
++                if !referenced_ok
++                    && manifest.pending.as_ref().map(|p| p.phase.as_str()) != Some("after-stage-chains")
++                {
++                    to_delete.push(handle);
++                }
++            }
++            OwnershipClass::ObsoleteManaged => to_delete.push(handle),
++            OwnershipClass::Managed => {
+                 if !referenced_ok {
+                     to_delete.push(handle);
+                 }
+@@ -35,10 +60,15 @@
+         }
+     }
+     for handle in to_delete {
+-        backend.state.rules.remove(&handle);
++        backend.state.rules.shift_remove(&handle);
++    }
++    backend.save()?;
++
++    if manifest_matches_compiled(&manifest, &compiled) {
++        purge_obsolete(paths)?;
++        return Ok(status_from(&backend.state, &manifest));
+     }
+ 
+-    drop(backend);
+     let report = enact_ruleset(paths)?;
+     let mut backend = BackendStore::open(&paths.backend)?;
+     transfer_counters(&old, &mut backend.state);
+@@ -46,12 +76,3 @@
+     purge_obsolete(paths)?;
+     Ok(report)
+ }
+-
+-pub fn inspect_foreign(state: &hx01::model::BackendState) -> Vec<u64> {
+-    state
+-        .rules
+-        .iter()
+-        .filter(|(_, r)| classify_rule(r, &OwnershipManifest::default()) == OwnershipClass::Foreign)
+-        .map(|(h, _)| *h)
+-        .collect()
+-}
+diff -ruN a/pkg/c05/src/purge.rs b/pkg/c05/src/purge.rs
+--- a/pkg/c05/src/purge.rs	2026-07-19 21:04:52.052651181 +0530
++++ b/pkg/c05/src/purge.rs	2026-07-19 21:26:35.266464902 +0530
+@@ -14,23 +14,12 @@
+     let mut backend = BackendStore::open(&paths.backend)?;
+     let mut remove = Vec::new();
+     for (handle, rule) in backend.state.rules.clone() {
+-        match classify_rule(&rule, &manifest) {
+-            OwnershipClass::ObsoleteManaged => remove.push(handle),
+-            OwnershipClass::Managed => {
+-                if rule.visible_name.starts_with("pol-rule-obsolete") {
+-                    remove.push(handle);
+-                }
+-            }
+-            OwnershipClass::Foreign => {
+-                if rule.visible_name.starts_with("pol-") {
+-                    remove.push(handle);
+-                }
+-            }
+-            _ => {}
++        if classify_rule(&rule, &manifest) == OwnershipClass::ObsoleteManaged {
++            remove.push(handle);
+         }
+     }
+     for handle in remove {
+-        backend.state.rules.remove(&handle);
++        backend.state.rules.shift_remove(&handle);
+     }
+     backend.save()?;
+     Ok(())
+diff -ruN a/pkg/c05/src/roster.rs b/pkg/c05/src/roster.rs
+--- a/pkg/c05/src/roster.rs	2026-07-19 20:53:48.817036923 +0530
++++ b/pkg/c05/src/roster.rs	2026-07-19 21:26:40.425528536 +0530
+@@ -3,11 +3,16 @@
+ use hx01::model::OwnershipManifest;
+ use hx01::Result;
+ 
++use crate::vintage::decode_legacy_v1;
++
+ pub fn load_roster(path: &Path) -> Result<OwnershipManifest> {
+     if !path.exists() {
+         return Ok(OwnershipManifest::default());
+     }
+     let text = std::fs::read_to_string(path)?;
++    if text.contains("\"schema_version\": 1") || text.contains("\"schema_version\":1") {
++        return Ok(decode_legacy_v1(&text));
++    }
+     let manifest: OwnershipManifest = serde_json::from_str(&text)?;
+     Ok(manifest)
+ }
+diff -ruN a/pkg/c05/src/tally.rs b/pkg/c05/src/tally.rs
+--- a/pkg/c05/src/tally.rs	2026-07-19 20:53:48.817036923 +0530
++++ b/pkg/c05/src/tally.rs	2026-07-19 21:26:40.721049526 +0530
+@@ -3,13 +3,32 @@
+ use hx01::model::BackendState;
+ 
+ pub fn transfer_counters(old: &BackendState, new: &mut BackendState) {
+-    let mut by_handle: HashMap<u64, u64> = HashMap::new();
+-    for (handle, rule) in &old.rules {
+-        by_handle.insert(*handle, rule.counter);
++    transfer_counters_by_lineage(old, new, counter_lineage);
++}
++
++pub fn transfer_counters_by_lineage(
++    old: &BackendState,
++    new: &mut BackendState,
++    lineage_of: impl Fn(&hx01::model::BackendRule) -> Option<String>,
++) {
++    let mut by_lineage: HashMap<String, u64> = HashMap::new();
++    for rule in old.rules.values() {
++        if let Some(lineage) = lineage_of(rule) {
++            by_lineage.insert(lineage, rule.counter);
++        }
+     }
+-    for (handle, rule) in new.rules.iter_mut() {
+-        if let Some(count) = by_handle.get(handle) {
+-            rule.counter = *count;
++    for rule in new.rules.values_mut() {
++        if let Some(lineage) = lineage_of(rule) {
++            if let Some(count) = by_lineage.get(&lineage) {
++                rule.counter = *count;
++            }
+         }
+     }
+ }
++
++pub fn counter_lineage(rule: &hx01::model::BackendRule) -> Option<String> {
++    rule.annotation
++        .as_ref()
++        .and_then(|a| a.counter_lineage.clone())
++        .or_else(|| rule.annotation.as_ref().map(|a| a.logical_id.0.clone()))
++}
+diff -ruN a/pkg/c05/src/tenure.rs b/pkg/c05/src/tenure.rs
+--- a/pkg/c05/src/tenure.rs	2026-07-19 21:04:52.153745881 +0530
++++ b/pkg/c05/src/tenure.rs	2026-07-19 21:26:42.265385012 +0530
+@@ -4,15 +4,17 @@
+ /// Classify backend object ownership.
+ pub fn classify_rule(rule: &BackendRule, manifest: &OwnershipManifest) -> OwnershipClass {
+     if let Some(ann) = &rule.annotation {
+-        if ann.managed {
+-            return OwnershipClass::Managed;
+-        }
+-        return OwnershipClass::Foreign;
+-    }
+-    if manifest_lookup(manifest, &rule.visible_name).is_some() {
+-        return OwnershipClass::Managed;
++        return if ann.managed {
++            if ann.phase.starts_with("after-") {
++                OwnershipClass::PendingManaged
++            } else {
++                OwnershipClass::Managed
++            }
++        } else {
++            OwnershipClass::Foreign
++        };
+     }
+-    if rule.visible_name.starts_with("pol-") {
++    if entry_for_logical(manifest, &logical_id_from_name(&rule.visible_name).0).is_some() {
+         return OwnershipClass::Managed;
+     }
+     OwnershipClass::Foreign
+@@ -41,15 +43,11 @@
+     if let Some(entry) = manifest_lookup(manifest, &rule.visible_name) {
+         return entry.logical_id.clone();
+     }
+-    LogicalId::new(truncate_name(&rule.visible_name))
++    logical_id_from_name(&rule.visible_name)
+ }
+ 
+-fn truncate_name(name: &str) -> String {
+-    if name.len() > 24 {
+-        name[..24].to_string()
+-    } else {
+-        name.to_string()
+-    }
++fn logical_id_from_name(name: &str) -> LogicalId {
++    LogicalId::new(name.to_string())
+ }
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+diff -ruN a/pkg/c05/src/vintage.rs b/pkg/c05/src/vintage.rs
+--- a/pkg/c05/src/vintage.rs	2026-07-19 21:04:52.871518252 +0530
++++ b/pkg/c05/src/vintage.rs	2026-07-19 21:26:43.428403095 +0530
+@@ -1,19 +1,12 @@
+ use hx01::model::{ManifestEntry, OwnershipManifest};
+ 
+ /// Upgrade supported legacy manifest representations.
+-pub fn upgrade_legacy_manifest(mut manifest: OwnershipManifest) -> OwnershipManifest {
+-    if manifest.schema_version == 1 {
+-        manifest.schema_version = 2;
+-        for entry in &mut manifest.committed.entries {
+-            entry.counter_lineage = None;
+-        }
+-        if let Some(pending) = manifest.pending.as_mut() {
+-            for entry in &mut pending.entries {
+-                entry.counter_lineage = None;
+-            }
+-        }
++pub fn upgrade_legacy_manifest(manifest: OwnershipManifest) -> OwnershipManifest {
++    let mut out = manifest;
++    if out.schema_version == 1 {
++        out.schema_version = 2;
+     }
+-    manifest
++    out
+ }
+ 
+ pub fn decode_legacy_v1(text: &str) -> OwnershipManifest {
+@@ -61,7 +54,7 @@
+         counter_lineage: e.counter_lineage,
+     };
+     OwnershipManifest {
+-        schema_version: doc.schema_version,
++        schema_version: 2,
+         committed: hx01::model::ManifestGeneration {
+             generation: doc.committed.generation,
+             phase: doc.committed.phase,
+diff -ruN a/pkg/c06/src/invoke.rs b/pkg/c06/src/invoke.rs
+--- a/pkg/c06/src/invoke.rs	2026-07-19 20:53:48.788325827 +0530
++++ b/pkg/c06/src/invoke.rs	2026-07-19 21:26:08.152234933 +0530
+@@ -1,7 +1,7 @@
+ use hx02::validate::{build_effective, validate_effective};
+ use hx01::status::StatusReport;
+ use hx01::Result;
+-use hx05::enact::{enact_ruleset, simulate_packet, status_from, StatePaths};
++use hx05::enact::{enact_ruleset, status_from, StatePaths};
+ use hx05::purge::purge_obsolete;
+ use hx05::roster::load_roster;
+ use hx05::mend::mend_ruleset;
+@@ -60,25 +60,18 @@
+ }
+ 
+ pub fn simulate(paths: &StatePaths, packet_path: &std::path::Path, repeat: u64, json: bool) -> Result<()> {
+-    let backend = hx04::simulator::BackendStore::open(&paths.backend)?;
++    let mut backend = hx04::simulator::BackendStore::open(&paths.backend)?;
+     let packet: hx01::model::Packet = serde_json::from_slice(&std::fs::read(packet_path)?)?;
+-    let mut result = simulate_packet(&backend.state, &packet);
+-    for handle in backend.state.rules.keys() {
+-        if let Some(rule) = backend.state.rules.get(handle) {
+-            if result.matched_rule.as_ref().map(|id| &id.0) == rule.annotation.as_ref().map(|a| &a.logical_id.0) {
+-                if let Some(r) = backend.state.rules.get(handle) {
+-                    let _ = r;
+-                }
++    let result = hx05::enact::simulate_packet(&backend.state, &packet);
++    if let Some(logical) = &result.matched_rule {
++        for rule in backend.state.rules.values_mut() {
++            if rule.annotation.as_ref().map(|a| &a.logical_id) == Some(logical) {
++                rule.counter += repeat;
++                break;
+             }
+         }
+     }
+-    let mut store = backend;
+-    for _ in 0..repeat {
+-        if let Some(handle) = store.state.rules.keys().next().copied() {
+-            store.bump_counter(handle, 1);
+-        }
+-    }
+-  store.save()?;
++    backend.save()?;
+     if json {
+         println!("{}", serde_json::to_string_pretty(&result)?);
+     } else {
+@@ -88,7 +81,7 @@
+ }
+ 
+ pub fn reset_demo(paths: &StatePaths, _json: bool) -> Result<()> {
+-    std::fs::create_dir_all(paths.backend.parent().unwrap())?;
++    std::fs::create_dir_all(&paths.backend.parent().unwrap())?;
+     let empty_backend = hx01::model::BackendState::default();
+     std::fs::write(&paths.backend, serde_json::to_string_pretty(&empty_backend)?)?;
+     std::fs::write(

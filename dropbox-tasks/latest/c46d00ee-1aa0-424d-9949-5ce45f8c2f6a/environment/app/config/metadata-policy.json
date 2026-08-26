@@ -1,0 +1,7 @@
+{
+  "sourceDateEpoch": 1700000000,
+  "vendorRoot": "vendor",
+  "distRoot": "dist",
+  "toolVersion": "metacycle 0.4.0",
+  "policyKind": "metadata-release"
+}

@@ -1,0 +1,160 @@
+NIGHTLY FRAUD RISK SCORING POLICY MANUAL
+Revision: 2025-06-20 | Classification: INTERNAL USE ONLY
+Owner: Card Risk Engineering | On-call: fraud-ops-nightly@internal
+
+Document Control
+----------------
+This manual governs the overnight card-ledger verification pipeline, feature
+materialization job, and logistic scoring worker deployed on the ops batch host.
+Changes require sign-off from Card Risk Engineering and a same-day ops bulletin.
+Prior revisions are archived in the internal wiki under Fraud/NightlyWorker.
+
+Purpose
+-------
+Each night the card processor delivers signed ledger CSV batches. Before any
+account features or model scores are written, the worker must prove ledger
+provenance via an OpenSSL HMAC-SHA256 chain. Verified batches feed a SQLite
+feature store; queued scoring jobs consume those features and emit signed
+predictions back into the operations database at /var/lib/ops/ops.db.
+
+On-Call Responsibilities
+------------------------
+Primary: confirm batch arrival, run verify-ledger, monitor scoring_jobs queue.
+Secondary: page treasury if batch identifiers disagree with the intake manifest.
+During an open Sev-2, do not hand-edit ledger_verifications, feature_store, or
+scoring_predictions — re-run worker subcommands after upstream data is corrected.
+All timestamps in worker output and database columns use UTC ISO-8601 ending in Z.
+
+Nightly Workflow
+----------------
+1. Treasury publishes the batch manifest (batch_id, row count, file path).
+2. On-call runs verify-ledger against the manifest batch_id and ledger path.
+3. After chain_ok=1, run populate-features for that batch_id.
+4. Drain queued scoring_jobs rows whose batch_id matches a verified batch.
+5. Attach worker stdout captures to the nightly workbook ticket.
+
+Batch Inventory and File Naming
+-------------------------------
+Ledger files live under /app/data/ledger/. Production naming convention is
+batch_<nnn>.csv (e.g. batch_001.csv for BATCH-001). Each file contains columns:
+batch_id, sequence, pan_hash, amount_cents, merchant_code, country, hmac.
+The pending production batch for 2025-06-20 is BATCH-001 at
+/app/data/ledger/batch_001.csv with job JOB-20250620-001 queued in scoring_jobs.
+
+Database Inventory
+------------------
+/var/lib/ops/ops.db holds four worker-managed tables:
+  ledger_verifications — batch_id, row_count, chain_ok, verified_at
+  feature_store — per-account aggregates keyed by (batch_id, account_id)
+  scoring_jobs — job queue with batch_id reference and status lifecycle
+  scoring_predictions — signed risk scores keyed by (job_id, account_id)
+Shared secrets: /app/config/hmac_secret.txt (ledger chain),
+/app/config/predict_secret.txt (prediction signing). Trim trailing whitespace
+when reading either secret file.
+
+Merchant Category Reference
+---------------------------
+Merchant codes in ledger CSVs map to MCC groups for analyst triage only; the
+worker passes merchant_code through verbatim for HMAC payloads.
+  M010-M099 — retail and grocery
+  M100-M199 — travel and entertainment
+  M800-M899 — high-risk jurisdictions (elevated manual review rate)
+The worker does not re-derive MCC groups during feature aggregation.
+
+Regional Authorization Notes
+----------------------------
+Country codes are ISO-style two-letter values from the processor feed. Feature
+aggregation treats only US as domestic; all other country codes count as
+foreign for foreign_ratio. This matches treasury's cross-border reporting.
+
+Scoring Job Queue
+-----------------
+Jobs are inserted by the scheduler with status queued. run-scoring processes a
+single job id, loads the job's batch_id, reads feature_store rows for that
+batch, writes scoring_predictions, then marks the job completed with
+completed_at. Jobs must reference a batch that already has chain_ok=1.
+
+Incident Response
+-----------------
+Sev-2: verify-ledger fails twice on a production batch — page Card Risk on-call.
+Sev-3: populate-features row counts disagree with manifest — hold scoring queue.
+Capture stdout from each subcommand in the incident ticket. Do not disable HMAC
+verification as a workaround.
+
+Glossary
+--------
+chain_ok — ledger_verifications flag; 1 means HMAC chain validated.
+genesis row — sequence 0 anchor with pan_hash GENESIS anchoring the HMAC chain.
+pan_hash — pseudonymous account identifier aggregated into feature_store.account_id.
+
+Ledger Provenance Requirements
+------------------------------
+Card-ledger batches require a valid HMAC-SHA256 chain before enrichment or
+scoring. Read the shared secret from /app/config/hmac_secret.txt and trim
+trailing whitespace.
+
+Row zero anchors the chain: compute HMAC-SHA256(secret, "GENESIS|<batch_id>").
+Each later row signs
+"<prev_hmac>|<pan_hash>|<amount_cents>|<merchant_code>|<country>" and stores
+the lowercase hex digest in the hmac column.
+
+The verify-ledger --batch argument must match the batch_id column on every CSV
+row; genesis anchoring must use that --batch value, not an inferred value from
+the file. Sequences must begin at zero and increase by one through N-1 without
+gaps. Row zero must be the genesis anchor with pan_hash GENESIS.
+
+On chain failure exit non-zero, write no ledger_verifications row, and do not
+overwrite an existing row for that batch_id that already has chain_ok=1. On
+success insert or replace a ledger_verifications row with row_count (every CSV
+row including genesis), chain_ok=1, and verified_at as UTC ISO-8601 ending in Z.
+
+Feature Store Requirements
+--------------------------
+After verification succeeds, aggregate non-genesis rows by pan_hash into table
+feature_store (batch_id, account_id, tx_count, total_amount, avg_amount,
+foreign_ratio, max_amount, populated_at). Skip any row where sequence is zero
+or pan_hash is GENESIS. avg_amount equals total_amount divided by tx_count,
+stored rounded to six decimal places before INSERT. foreign_ratio counts rows
+whose country is not US divided by tx_count, also stored rounded to six decimal
+places before INSERT. populated_at uses UTC ISO-8601 timestamps ending in Z.
+Re-running populate-features for the same batch must replace existing rows (no
+duplicate account rows). populate-features must refuse unverified batches and
+must reject ledgers whose batch_id column does not match --batch on every row.
+
+CLI Contract
+------------
+Build /app/risk_worker via Makefile with .c/.h sources directly under /app/.
+Subcommands and stdout (exactly one line each on success):
+  verify-ledger --batch <id> [--ledger <path>]
+    -> VERIFY batch=<id> rows=<n> chain=OK  (<n> includes genesis row)
+  populate-features --batch <id> [--ledger <path>]
+    -> FEATURES batch=<id> accounts=<n>
+  run-scoring --job <id>
+    -> SCORE job=<id> accounts=<n> status=completed
+When --ledger is omitted, populate-features defaults to
+/app/data/ledger/batch_001.csv.
+
+Model Calibration
+-----------------
+Overnight logistic regression for production nightly scoring:
+  z = intercept + w_tx*tx_count + w_amt*total_amount + w_fr*foreign_ratio
+      + w_max*max_amount
+  risk_score = 1 / (1 + exp(-z)), rounded to six decimals before storage.
+
+Approved coefficients: intercept -2.5; tx_count 0.15; total_amount 1e-05;
+foreign_ratio 1.8; max_amount 5e-05.
+
+Prediction Signing
+------------------
+Persist prediction_hmac as HMAC-SHA256(predict_secret, message) where
+predict_secret comes from /app/config/predict_secret.txt (trim trailing
+whitespace) and message is "<job_id>|<account_id>|<risk_score>" with six
+fractional digits. Write signed_at in UTC ISO-8601. When all accounts for a
+job are scored, set scoring_jobs.status to completed and write completed_at in
+UTC ISO-8601.
+
+Change Log
+----------
+2025-06-20 — Initial worker contract for BATCH-001 nightly replay.
+2025-06-18 — Added foreign_ratio domestic rule (US-only domestic).
+2025-06-15 — Migrated ledger HMAC from SHA-1 legacy to HMAC-SHA256.

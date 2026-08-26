@@ -1,0 +1,4 @@
+schema_version: apexora-trunk-pol-1
+policy: dist_to_core
+allowed_mode: selective
+native_vlan: 999

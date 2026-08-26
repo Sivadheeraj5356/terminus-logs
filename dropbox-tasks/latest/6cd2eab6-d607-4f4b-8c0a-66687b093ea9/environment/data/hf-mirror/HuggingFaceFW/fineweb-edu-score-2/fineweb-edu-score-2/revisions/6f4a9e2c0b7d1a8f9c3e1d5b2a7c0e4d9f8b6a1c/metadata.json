@@ -1,0 +1,40 @@
+{
+  "cardData": {
+    "dataset_revision": "6f4a9e2c0b7d1a8f9c3e1d5b2a7c0e4d9f8b6a1c",
+    "license": "odc-by"
+  },
+  "repo": "HuggingFaceFW/fineweb-edu-score-2",
+  "revision": "6f4a9e2c0b7d1a8f9c3e1d5b2a7c0e4d9f8b6a1c",
+  "siblings": [
+    {
+      "rfilename": "README.md",
+      "sha256": "acd32811195e8ced0554d8fa3f8e9805320946dcf5d9be2c110023e51c6f197b",
+      "size": 33
+    },
+    {
+      "rfilename": "rejected-adult-filter.jsonl",
+      "sha256": "bca7d2f1b0294eeace816d66e14e447e2b80ec3003f711b81bb9d5d88d4e2751",
+      "size": 104
+    },
+    {
+      "rfilename": "route-embeddings-preview.jsonl",
+      "sha256": "22434336d1028bbc29d59ea0d4b530623554ed8d72c9c9ace9332730dd32c69b",
+      "size": 93
+    },
+    {
+      "rfilename": "synonym-expansion-dev.jsonl",
+      "sha256": "cddb8531524809e912e2ef6e0e8a420084851f1bef9544e06f2e92aad7346aa5",
+      "size": 74
+    },
+    {
+      "rfilename": "synonym-expansion-train.jsonl",
+      "sha256": "dce06bb2a3dec39238137abf655058802ce0856b783fa56d5b3e2b12a467698a",
+      "size": 166
+    },
+    {
+      "rfilename": "terminology-aliases.parquet.meta.json",
+      "sha256": "c172fcd148453955fd448a966e05cdbad4129d91999f2fb67230c42bddb4721c",
+      "size": 141
+    }
+  ]
+}

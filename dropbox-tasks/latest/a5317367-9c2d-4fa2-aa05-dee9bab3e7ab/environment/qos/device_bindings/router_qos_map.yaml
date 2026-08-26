@@ -1,0 +1,4 @@
+schema_version: apexora-qos-router-bind-1
+bindings:
+  rtr-hq-dal-edge-01:
+    GigabitEthernet0/0/0: PM-WAN_EDGE

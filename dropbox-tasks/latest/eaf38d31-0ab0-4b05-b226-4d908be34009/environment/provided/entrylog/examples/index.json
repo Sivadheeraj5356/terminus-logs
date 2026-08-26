@@ -1,0 +1,36 @@
+{
+  "format": "ct-log entry worked examples",
+  "note": "Each entry_NN.json is paired with golden_NN.json holding the exact canonical bytes (base64), leaf hash, the signed_input the log key signs, and a valid Ed25519 signature. log_public_key.json carries the raw base64 verifying key.",
+  "entries": [
+    {
+      "id": "01",
+      "entry": "entry_01.json",
+      "golden": "golden_01.json"
+    },
+    {
+      "id": "02",
+      "entry": "entry_02.json",
+      "golden": "golden_02.json"
+    },
+    {
+      "id": "03",
+      "entry": "entry_03.json",
+      "golden": "golden_03.json"
+    },
+    {
+      "id": "04",
+      "entry": "entry_04.json",
+      "golden": "golden_04.json"
+    },
+    {
+      "id": "05",
+      "entry": "entry_05.json",
+      "golden": "golden_05.json"
+    },
+    {
+      "id": "06",
+      "entry": "entry_06.json",
+      "golden": "golden_06.json"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "hmac_key": "desk-fallback-weekend-key",
+  "pity_threshold": 999,
+  "pity_gap_sec": 0
+}

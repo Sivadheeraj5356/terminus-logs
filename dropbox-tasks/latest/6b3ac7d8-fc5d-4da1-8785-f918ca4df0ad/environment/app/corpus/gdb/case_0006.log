@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0006
+signal: SIGSEGV (fault)
+#0  0x55552fc56bdf in rsa2048_verify (a=0x555552131581) at vaultseal.c:250
+#1  0x5555739f40bd in za (a=0x55552b25f87b) at vaultseal.c:300
+#2  0x55550f5d1dcd in zb (a=0x555503fd7c00) at vaultseal.c:307
+#3  0x5555b773d53a in main (a=0x5555f3693052) at vaultseal.c:512

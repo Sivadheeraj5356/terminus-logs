@@ -1,0 +1,28 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+tags = ["rust", "state-machine", "journal-replay", "operator-tooling", "regression"]
+languages = ["rust", "bash"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = []
+expert_time_estimate_min = 120
+junior_time_estimate_min = 300
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 1200
+
+[environment]
+workdir = "/app"
+build_timeout_sec = 900
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

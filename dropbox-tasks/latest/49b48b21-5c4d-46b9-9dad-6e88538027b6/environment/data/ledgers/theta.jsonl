@@ -1,0 +1,5 @@
+{"kind":"finish","node":"A","gen":1,"seq":1,"hash":"ha_old","rows":1}
+{"kind":"finish","node":"B","gen":2,"seq":2,"hash":"hb_theta","rows":2}
+{"kind":"finish","node":"C","gen":2,"seq":3,"hash":"hc_theta","rows":12}
+{"kind":"finish","node":"D","gen":2,"seq":4,"hash":"hd_theta","rows":3}
+{"kind":"finish","node":"E","gen":2,"seq":5,"hash":"he_theta","rows":1}

@@ -1,0 +1,66 @@
+{
+  "model_version": "risk-rf-v6",
+  "classifier": "RandomForestClassifier",
+  "positive_class": 1,
+  "cv_folds": 4,
+  "cv_repeats": 2,
+  "random_state": 1729,
+  "repeat_seed_stride": 1009,
+  "candidates": [
+    {
+      "name": "balanced-shallow",
+      "n_estimators": 47,
+      "max_depth": 5,
+      "min_samples_leaf": 2,
+      "class_weight": "balanced_subsample"
+    },
+    {
+      "name": "plain-deep",
+      "n_estimators": 67,
+      "max_depth": 8,
+      "min_samples_leaf": 1,
+      "class_weight": null
+    },
+    {
+      "name": "balanced-leaf",
+      "n_estimators": 59,
+      "max_depth": 6,
+      "min_samples_leaf": 3,
+      "class_weight": "balanced"
+    }
+  ],
+  "calibration_method": "sigmoid",
+  "calibration_c": 0.8,
+  "threshold_metric": "f1",
+  "threshold_tie_break": "highest",
+  "champion_tie_break": [
+    "oof_f1",
+    "lower_calibrated_brier",
+    "worst_repeat_f1",
+    "worst_fold_f1",
+    "lower_complexity",
+    "name"
+  ],
+  "profile_quantiles": [
+    0.2,
+    0.4,
+    0.6,
+    0.8
+  ],
+  "profile_ddof": 0,
+  "psi_epsilon": 1e-06,
+  "drift_ks_threshold": 0.25,
+  "drift_psi_threshold": 0.2,
+  "prediction_drift_psi_threshold": 0.25,
+  "disagreement_drift_psi_threshold": 0.35,
+  "correlation_drift_threshold": 0.4,
+  "drift_feature_quorum": 2,
+  "inference_page_size": 17,
+  "leaf_js_epsilon": 1e-09,
+  "leaf_drift_quantile": 0.8,
+  "leaf_drift_threshold": 0.15,
+  "path_sketch_buckets": 23,
+  "path_sketch_salt": "risk-rf-v6-path-sketch",
+  "path_sketch_epsilon": 1e-09,
+  "path_sketch_drift_threshold": 0.2
+}

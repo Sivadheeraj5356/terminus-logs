@@ -1,0 +1,13 @@
+{"seq": 1, "kind": "HOLD", "actor": "pnoor", "source": "router"}
+{"seq": 2, "kind": "HOLD", "actor": "pnoor", "channel": "web-02"}
+{"seq": 3, "kind": "FLUSH", "actor": "mvoss", "channel": "web-03"}
+{"seq": 4, "kind": "ROUTE", "actor": "eharlow", "channel": "app-03", "source": "kafka"}
+{"seq": 5, "kind": "ROUTE", "actor": "pnoor", "channel": "trace-01", "source": "trainer"}
+{"seq": 6, "kind": "RETUNE", "actor": "mvoss", "index": "idx-trace", "budget": 3}
+{"seq": 7, "kind": "PIN", "actor": "pnoor", "channel": "svc-01"}
+{"seq": 8, "kind": "QUIESCE", "actor": "mvoss", "index": "idx-svc"}
+{"seq": 9, "kind": "QUIESCE", "actor": "mvoss", "index": "idx-tmp"}
+{"seq": 10, "kind": "ARCHIVE", "actor": "eharlow", "channel": "app-05"}
+{"seq": 11, "kind": "ROUTE", "actor": "jflint", "channel": "sys-04", "source": "cron"}
+{"seq":13,"kind":
+{"seq": 8, "kind": "PIN", "actor": "eharlow", "channel": "app-05"}

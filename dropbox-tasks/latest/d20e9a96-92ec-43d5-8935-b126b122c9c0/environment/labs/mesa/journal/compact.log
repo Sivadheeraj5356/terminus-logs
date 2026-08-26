@@ -1,0 +1,5 @@
+2026-06-17T21:15:00Z mesa federation: scan path extended for disaster recovery reserve
+2026-06-17T21:20:00Z mesa compaction: pool-a shelf masked; radio span fragments placed in pool-b
+2026-06-17T21:25:00Z mesa key-rotation: mask_key cycled to 42 per scheduled rotation
+2026-06-17T21:30:00Z mesa verification: mask_key=42 validated against pool-a sentinel
+2026-06-17T21:35:00Z mesa rebalance: fragment assembly order adjusted for m02 split span

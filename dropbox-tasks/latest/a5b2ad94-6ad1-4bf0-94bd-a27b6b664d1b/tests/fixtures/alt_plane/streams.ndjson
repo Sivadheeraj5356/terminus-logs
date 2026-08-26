@@ -1,0 +1,9 @@
+{"channel": "c1-01", "source": "svc-b", "opened": 0}
+{"channel": "c1-02", "source": "svc-g", "opened": 0}
+{"channel": "c2-01", "source": "svc-f", "opened": 0}
+{"channel": "c2-02", "source": "svc-c", "opened": 0}
+{"channel": "c3-01", "source": "svc-i", "opened": 0}
+{"channel": "c3-02", "source": "svc-j", "opened": 0}
+{"channel": "c4-01", "source": "svc-h", "opened": 0}
+{"channel": "c4-02", "source": "svc-m", "opened": 0}
+{"channel": "c5-01", "source": "svc-a", "opened": 0}

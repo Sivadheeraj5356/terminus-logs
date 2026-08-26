@@ -1,0 +1,12 @@
+column,type,modeling_role,notes
+ticket_id,string,identifier,ticket key; excluded from the model and may repeat across duplicate rows
+service_month,integer,split_key,service month oldest to newest; the newest month is the open batch to score
+equipment_class,string,categorical_feature,equipment class the ticket covers; the newest month adds a class with no labeled history
+job_complexity,numeric,feature,job-complexity score of the ticket
+parts_replaced,integer,feature,number of parts replaced on the first visit
+tech_experience_years,numeric,feature,years of experience of the assigned technician
+prior_tickets_90d,integer,feature,prior tickets on the asset in the last 90 days; -1 encodes a never-captured value treated as missing
+dispatch_channel,string,categorical_feature,dispatch route (phone, portal, auto); occasional junk tokens appear
+record_type,string,cohort_filter,live for real tickets; qa_audit rows are internal audits excluded from the cohort
+qa_signoff_code,numeric,feature,quality sign-off score in [0,1] associated with the ticket
+repeat_visit,integer,target,1 if a repeat truck-roll was needed within thirty days, 0 if resolved first time, blank on open tickets

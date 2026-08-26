@@ -1,0 +1,6 @@
+tag = "b"
+lane_a_win = 4
+lane_b_win = 6
+ticket = 5
+warm = 1
+phase_base = 2

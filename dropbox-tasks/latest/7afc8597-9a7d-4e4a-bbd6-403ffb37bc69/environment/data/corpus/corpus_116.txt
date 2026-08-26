@@ -1,0 +1,3 @@
+yes delta quux foobar no
+addr 166.204.185.18 hex 0x7964 token tok_981
+addr 173.242.147.201 hex 0x7ec2 token tok_312

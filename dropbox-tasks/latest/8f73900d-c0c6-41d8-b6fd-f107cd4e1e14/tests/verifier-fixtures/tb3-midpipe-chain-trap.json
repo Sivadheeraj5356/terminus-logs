@@ -1,0 +1,7 @@
+{
+  "probe": "midpipe_chain_digest",
+  "lane_path": "/app/state/egress-lane-midpipe.json",
+  "snapshot_path": "/app/state/wave-midpipe-snapshot.json",
+  "chain_field": "midpipe_chain_digest",
+  "release_field": "manifest_release_digest"
+}

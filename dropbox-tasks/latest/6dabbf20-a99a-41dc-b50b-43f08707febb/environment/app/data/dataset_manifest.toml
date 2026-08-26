@@ -1,0 +1,15 @@
+# Synthetic training set for the tape-engine replay harness.
+# The .bin blobs alongside this file are the ground-truth data; regenerating them
+# is neither needed nor supported. Sample count is intentionally not a multiple of
+# batch_size, so every epoch ends on a ragged batch.
+name = "synth-mlp-8x4"
+num_samples = 50
+input_dim = 8
+num_classes = 4
+batch_size = 16
+
+# byte layout of the blobs
+input_file = "train_inputs.bin"
+target_file = "train_targets.bin"
+input_dtype = "f64_le"     # num_samples * input_dim little-endian float64
+target_dtype = "i64_le"    # num_samples little-endian int64 class labels

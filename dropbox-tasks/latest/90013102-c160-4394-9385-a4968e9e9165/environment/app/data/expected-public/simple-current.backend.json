@@ -1,0 +1,10 @@
+{
+  "method": "POST",
+  "target": "/v1/items",
+  "headers": {
+    "Host": "api.local",
+    "Content-Type": "application/json",
+    "Content-Length": "10"
+  },
+  "body": "{\"item\":1}"
+}

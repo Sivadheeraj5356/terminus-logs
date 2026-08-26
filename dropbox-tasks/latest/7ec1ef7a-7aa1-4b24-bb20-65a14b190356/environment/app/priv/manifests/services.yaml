@@ -1,0 +1,8 @@
+version: "1"
+dependencies:
+  - name: phoenix
+    pin: "1.7.14"
+  - name: myxql
+    pin: "0.7.1"
+  - name: ecto_sql
+    pin: "3.11.3"

@@ -1,0 +1,9 @@
+{
+  "schema": "gate_zones_v1",
+  "zones": [
+    {"code": "A_NORTH", "monthly_cap_cents": 90000, "offhours_pct_bps": 1800},
+    {"code": "B_MAIN", "monthly_cap_cents": 220000, "offhours_pct_bps": 1500},
+    {"code": "C_REGIONAL", "monthly_cap_cents": 70000, "offhours_pct_bps": 2200},
+    {"code": "D_SOUTH", "monthly_cap_cents": 160000, "offhours_pct_bps": 1700}
+  ]
+}

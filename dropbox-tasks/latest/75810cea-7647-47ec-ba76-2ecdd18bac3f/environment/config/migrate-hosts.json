@@ -1,0 +1,26 @@
+{
+  "hosts": [
+    {
+      "importer": "apps/console",
+      "bindings": {
+        "@harbor/runtime": {
+          "channelHint": "canary"
+        },
+        "@harbor/adapter": {
+          "channelHint": "canary"
+        }
+      }
+    },
+    {
+      "importer": "apps/worker",
+      "bindings": {
+        "@harbor/runtime": {
+          "channelHint": "stable"
+        },
+        "@harbor/plugin": {
+          "channelHint": "canary"
+        }
+      }
+    }
+  ]
+}

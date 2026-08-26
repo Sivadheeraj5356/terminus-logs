@@ -1,0 +1,15 @@
+== Emberforge Hollow [volcanic] ==
+Omen: Fire answers fire.
+Light: 12.5 lumens
+Relics:
+  - Ember Heart <legendary> 500g
+  - Slag Idol <uncommon> 200g (cursed)
+Freshest: Ember Heart @ 01:20 KST
+Exits:
+  - north: sealed gate (torch 0.1)
+  - east: Mercury Spring (torch 0.5)
+Torch: 2.5 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+inspect slag-idol

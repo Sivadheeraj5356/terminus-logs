@@ -1,0 +1,7 @@
+{
+  "name": "tiny-pde-solver",
+  "version": "1.0.0",
+  "description": "2D wave equation solver",
+  "main": "run_entry.js",
+  "dependencies": {}
+}

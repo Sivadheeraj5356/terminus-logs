@@ -1,0 +1,47 @@
+--- internal/keyring/cache.go
++++ internal/keyring/cache.go
+@@ -8,7 +8,6 @@
+ 	catalogDigest   string
+ }
+ 
+-// AuthorityCache caches verification secrets by key identity.
+ type AuthorityCache struct {
+ 	mu      sync.RWMutex
+ 	entries map[string]*cacheEntry
+@@ -18,8 +17,8 @@
+ 	return &AuthorityCache{entries: make(map[string]*cacheEntry)}
+ }
+ 
+-func cacheKey(tenant, keyID string, keyEpoch int) string {
+-	return tenant + "|" + keyID + "|" + itoa(keyEpoch)
++func cacheKey(tenant, keyID string, keyEpoch int, profileID string, profileEpoch int, catalogDigest string) string {
++	return tenant + "|" + keyID + "|" + itoa(keyEpoch) + "|" + profileID + "|" + itoa(profileEpoch) + "|" + catalogDigest
+ }
+ 
+ func itoa(n int) string {
+@@ -36,21 +35,21 @@
+ 	return string(buf[i:])
+ }
+ 
+-func (c *AuthorityCache) Get(tenant, keyID string, keyEpoch int) ([]byte, bool) {
++func (c *AuthorityCache) Get(tenant, keyID string, keyEpoch int, profileID string, profileEpoch int, catalogDigest string) ([]byte, bool) {
+ 	c.mu.RLock()
+ 	defer c.mu.RUnlock()
+-	e, ok := c.entries[cacheKey(tenant, keyID, keyEpoch)]
++	e, ok := c.entries[cacheKey(tenant, keyID, keyEpoch, profileID, profileEpoch, catalogDigest)]
+ 	if !ok {
+ 		return nil, false
+ 	}
+ 	return e.secret, true
+ }
+ 
+-func (c *AuthorityCache) Put(tenant, keyID string, keyEpoch int, secret []byte, versions []int, catalogDigest string) {
++func (c *AuthorityCache) Put(tenant, keyID string, keyEpoch int, profileID string, profileEpoch int, secret []byte, versions []int, catalogDigest string) {
+ 	c.mu.Lock()
+ 	defer c.mu.Unlock()
+ 	cp := append([]byte(nil), secret...)
+-	c.entries[cacheKey(tenant, keyID, keyEpoch)] = &cacheEntry{
++	c.entries[cacheKey(tenant, keyID, keyEpoch, profileID, profileEpoch, catalogDigest)] = &cacheEntry{
+ 		secret:          cp,
+ 		allowedVersions: append([]int(nil), versions...),
+ 		catalogDigest:   catalogDigest,

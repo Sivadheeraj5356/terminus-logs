@@ -1,0 +1,28 @@
+{
+  "models": [
+    {
+      "model_id": "HX-50-LN2",
+      "cryogen_class": "LN2",
+      "gross_capacity_l": 55.0,
+      "usable_capacity_l": 48.0,
+      "mawp_psia": 26.0,
+      "setpoint_k": 77.35,
+      "boil_off_l_per_day": 1.1,
+      "min_fill_fraction": 0.18,
+      "max_fill_fraction": 0.96,
+      "hold_reserve_fraction": 0.08
+    },
+    {
+      "model_id": "HX-40-LHe",
+      "cryogen_class": "LHe",
+      "gross_capacity_l": 42.0,
+      "usable_capacity_l": 36.0,
+      "mawp_psia": 20.0,
+      "setpoint_k": 4.2,
+      "boil_off_l_per_day": 0.55,
+      "min_fill_fraction": 0.2,
+      "max_fill_fraction": 0.9,
+      "hold_reserve_fraction": 0.15
+    }
+  ]
+}

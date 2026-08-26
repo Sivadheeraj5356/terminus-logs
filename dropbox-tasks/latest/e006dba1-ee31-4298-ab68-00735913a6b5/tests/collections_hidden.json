@@ -1,0 +1,110 @@
+{
+  "tranches": [
+    {
+      "id": "H-A",
+      "class": "A",
+      "balance": 3000000.0,
+      "coupon_rate": 0.04
+    },
+    {
+      "id": "H-B",
+      "class": "B",
+      "balance": 1500000.0,
+      "coupon_rate": 0.06
+    },
+    {
+      "id": "H-C",
+      "class": "C",
+      "balance": 800000.0,
+      "coupon_rate": 0.08
+    },
+    {
+      "id": "H-R",
+      "class": "residual",
+      "balance": 400000.0,
+      "coupon_rate": 0.0
+    }
+  ],
+  "periods": [
+    {
+      "period": 1,
+      "collections": 350000,
+      "defaults": 3000,
+      "prepayments": 40000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 2,
+      "collections": 340000,
+      "defaults": 4000,
+      "prepayments": 45000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 3,
+      "collections": 400000,
+      "defaults": 5000,
+      "prepayments": 60000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 4,
+      "collections": 420000,
+      "defaults": 6000,
+      "prepayments": 70000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 5,
+      "collections": 450000,
+      "defaults": 160000,
+      "prepayments": 50000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 6,
+      "collections": 500000,
+      "defaults": 8000,
+      "prepayments": 100000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 7,
+      "collections": 600000,
+      "defaults": 5000,
+      "prepayments": 150000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 8,
+      "collections": 700000,
+      "defaults": 5000,
+      "prepayments": 200000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 9,
+      "collections": 800000,
+      "defaults": 3000,
+      "prepayments": 1500000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    },
+    {
+      "period": 10,
+      "collections": 500000,
+      "defaults": 2000,
+      "prepayments": 100000,
+      "senior_fee": 4000,
+      "servicer_fee": 2500
+    }
+  ]
+}

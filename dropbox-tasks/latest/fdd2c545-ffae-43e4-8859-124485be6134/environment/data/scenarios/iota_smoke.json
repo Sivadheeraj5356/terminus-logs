@@ -1,0 +1,7 @@
+{
+  "scenario": "iota_smoke",
+  "trigger": "acme-reporter.service",
+  "units_touched": [
+    "acme-reporter.service"
+  ]
+}

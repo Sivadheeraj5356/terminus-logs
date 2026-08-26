@@ -1,0 +1,4 @@
+foo maybe yes world
+UPPER lower MiXeD
+addr 202.179.242.74 hex 0xdf07 token tok_390
+addr 64.171.155.208 hex 0x3a3d token tok_70

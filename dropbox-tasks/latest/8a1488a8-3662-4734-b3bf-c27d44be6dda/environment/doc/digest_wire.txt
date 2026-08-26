@@ -1,0 +1,11 @@
+Join digest wire for effective_digest_hex and pre-drift snapshots.
+
+Each top-level map entry becomes one compact JSON object with fields key, kind, value in that order.
+Emit rows in ascending sorted order by top-level key name only.
+Join row JSON strings with a single newline between rows (no trailing newline required on the last row).
+Hash the UTF-8 joined body once with SHA-256; emit lowercase hex.
+
+Nested map keys inside each row value payload keep fragment insertion order through overlay fuse and patch merges.
+Do not re-sort nested keys when serializing value payloads for digest rows.
+
+Scalar-kind fragment values may coerce YAML-like string tokens to bool during load; map and list payload leaves stay as authored.

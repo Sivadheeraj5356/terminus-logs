@@ -1,0 +1,22 @@
+{
+  "pack": "quiet",
+  "bins": 5,
+  "active_stride": 5,
+  "half_w": 1,
+  "width_b": 2,
+  "snapshot": 3,
+  "total": 10,
+  "burst": false,
+  "samples": [
+    347,
+    605,
+    699,
+    664,
+    444,
+    776,
+    93,
+    181,
+    115,
+    303
+  ]
+}

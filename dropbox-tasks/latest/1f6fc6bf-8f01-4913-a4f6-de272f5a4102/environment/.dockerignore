@@ -1,0 +1,5 @@
+.git
+**/target/
+**/*.rs.bk
+solution/
+tests/

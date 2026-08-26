@@ -1,0 +1,12 @@
+{
+  "rams": {
+    "ram_gamma_base": {
+      "ram_id": "ram_gamma_base",
+      "checksum": 1769,
+      "tonnage_kg": 1547,
+      "cycle_epoch": 0
+    }
+  },
+  "cycle_epoch": 0,
+  "journal_revision": 0
+}

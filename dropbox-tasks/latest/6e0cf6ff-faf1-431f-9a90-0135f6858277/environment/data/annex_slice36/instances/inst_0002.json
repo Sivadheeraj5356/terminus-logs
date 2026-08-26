@@ -1,0 +1,18 @@
+{
+  "id": "inst_0002",
+  "client_pin": "pinB7",
+  "frames": [
+    {
+      "lane_id": "lane_b",
+      "tick_cost": 0.9,
+      "density_hint": 1.9,
+      "pin_hex": "dd04"
+    },
+    {
+      "lane_id": "lane_a",
+      "tick_cost": 1.1,
+      "density_hint": 2.2,
+      "pin_hex": "ee05"
+    }
+  ]
+}

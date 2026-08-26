@@ -1,0 +1,6 @@
+RULE PRESET_MATCH
+IN keys
+OUT value,reason
+TABLE
+mode -> first|preset-match
+END

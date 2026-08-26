@@ -1,0 +1,15 @@
+# Annex segment shells
+
+Feature shells `seg_a.bin`, `seg_b.bin`, `seg_c.bin` hold per-segment base
+bytes. Ledger keys come from `store_q.sqlite` `pair_tab.row_id` in ascending
+order and expand to an 8-byte little-endian key buffer. Per-byte folding XORs
+materialized segment bytes with the cycling key bytes and the segment ordinal
+masked to one byte. Concatenate folded segment buffers in ordinal order, then
+append the UTF-8 remapped algebra fingerprint, ASCII `|`, then the UTF-8
+win_seal. Terminal `digest_hex` is lowercase sha256 over that sealed buffer.
+
+Symptoms of a bad fold:
+- Annex-only bytes are hashed without journal overlays.
+- Seal is dropped from the digest preimage or from the cache key.
+- Big-endian key interpretation changes lane digests.
+- Stage digest cache hits survive when fingerprint or seal drift.

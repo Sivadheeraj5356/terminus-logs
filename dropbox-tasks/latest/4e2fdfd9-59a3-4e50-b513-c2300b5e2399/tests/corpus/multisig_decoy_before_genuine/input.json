@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-ca17dead0461": {
+      "alg": "hmac-sha256",
+      "secret": "8dd33f31dd9b82a47458be573dab05dcb17cd43df1287b2fe245854ff0be8be1"
+    }
+  },
+  "message": {
+    "authority": "svc4.example.com",
+    "body": "{\"n\": 119, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:d54x0PrcNhHQqXE4uhUFzhnxOp0JR8oCc3PYZiMPEmE=:",
+      "content-type": "application/json",
+      "signature": "decoy=:7tk1Ygkyg6q6ZG/Wr6oBn45A8MHvhzh0GhrcFL1bIeM=:, real=:ac8eISLuGYMedzLQC0nHggL5ykw4uKKowbBDUry3jdU=:",
+      "signature-input": "decoy=(\"@method\" \"@authority\" \"@path\" \"content-digest\");created=1700000059;expires=1700000419;keyid=\"k-missing-000000\";alg=\"hmac-sha256\", real=(\"@method\" \"@authority\" \"@path\" \"content-digest\");created=1700000059;expires=1700000419;keyid=\"k-ca17dead0461\";alg=\"hmac-sha256\""
+    },
+    "method": "DELETE",
+    "path": "/api/v2/resource/119",
+    "query": ""
+  },
+  "now": 1700000119
+}

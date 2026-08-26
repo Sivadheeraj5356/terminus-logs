@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+__pycache__
+**/__pycache__/
+**/*.pyc
+.pytest_cache
+**/.pytest_cache/
+.mypy_cache
+**/.mypy_cache/
+.ruff_cache
+**/.ruff_cache/
+node_modules
+**/node_modules/
+target/
+bin/
+**/*.rs.bk

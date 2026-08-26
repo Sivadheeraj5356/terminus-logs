@@ -1,0 +1,21 @@
+# Operator commands for m6_ctl
+# m6_ctl is the matrix runner binary installed under /app/bin/.
+
+# Full matrix witness (primary verifier entrypoint)
+m6_ctl matrix-all
+
+# Rebuild after source repair
+cargo build --release --locked
+cp /app/target/release/m6_ctl /app/bin/m6_ctl
+
+# Inspect generated report
+cat /app/output/bw_emit.json
+
+# Inspect binary witness stream
+xxd /app/output/stream_sidecar.bin | head
+
+# Clear lane cache between experiments
+rm -rf /app/var/lane_cache/*
+
+# Reset runtime state to image defaults
+cp /app/var/journal_tail.json.bak /app/var/journal_tail.json 2>/dev/null || true

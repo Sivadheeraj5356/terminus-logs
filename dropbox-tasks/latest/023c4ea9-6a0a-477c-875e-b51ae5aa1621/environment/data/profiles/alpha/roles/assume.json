@@ -1,0 +1,14 @@
+[
+  {
+    "from": "contractor",
+    "to": "role-viewer"
+  },
+  {
+    "from": "role-viewer",
+    "to": "role-admin"
+  },
+  {
+    "from": "bob",
+    "to": "role-ops"
+  }
+]

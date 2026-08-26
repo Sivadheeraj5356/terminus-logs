@@ -1,0 +1,12 @@
+schema_version: apexora-hsrp-1
+profiles:
+  finance_dist:
+    group: 101
+    priority_primary: 110
+    priority_secondary: 100
+    preempt: true
+  hr_dist:
+    group: 102
+    priority_primary: 110
+    priority_secondary: 100
+    preempt: true

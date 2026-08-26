@@ -1,0 +1,6 @@
+failures=4
+last_fail=9100
+source=aborted-cutover
+shift=night-phantom
+failures=9
+last_fail=9200

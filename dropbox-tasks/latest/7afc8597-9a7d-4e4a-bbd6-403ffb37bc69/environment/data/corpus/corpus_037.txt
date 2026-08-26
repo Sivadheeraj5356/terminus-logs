@@ -1,0 +1,7 @@
+cat end no beta no dog foo
+addr 26.246.24.216 hex 0x3e0a token tok_360
+addr 185.150.92.189 hex 0xeaab token tok_151
+false maybe hello
+addr 223.17.102.148 hex 0xe2f token tok_932
+quux end gray false hello
+foo foobar foobarbaz

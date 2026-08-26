@@ -1,0 +1,3 @@
+switchport trunk allowed vlan {{VLAN_LIST}}
+switchport mode trunk
+switchport trunk native vlan 999

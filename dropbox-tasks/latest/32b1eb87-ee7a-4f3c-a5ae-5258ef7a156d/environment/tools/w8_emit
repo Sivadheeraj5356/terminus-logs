@@ -1,0 +1,3 @@
+#!/bin/bash
+set -euo pipefail
+exec /app/environment/build/bin/n8_host emit

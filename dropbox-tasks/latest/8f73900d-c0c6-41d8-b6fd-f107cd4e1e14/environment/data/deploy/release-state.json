@@ -1,0 +1,27 @@
+{
+  "release": "rel-8821",
+  "incident_id": "inc-4429",
+  "services": {
+    "ledger-db": {
+      "status": "updated",
+      "version": "v44",
+      "previous": "v43"
+    },
+    "identity-gate": {
+      "status": "updated",
+      "version": "v12",
+      "previous": "v11"
+    },
+    "billing-core": {
+      "status": "failed",
+      "version": "v28",
+      "previous": "v28",
+      "target": "v30"
+    },
+    "alert-dispatch": {
+      "status": "updated",
+      "version": "v8",
+      "previous": "v7"
+    }
+  }
+}

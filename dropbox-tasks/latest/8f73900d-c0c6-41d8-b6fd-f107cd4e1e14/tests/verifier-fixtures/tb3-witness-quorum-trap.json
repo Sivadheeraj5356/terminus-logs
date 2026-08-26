@@ -1,0 +1,8 @@
+{
+  "probe": "zone_quorum_token",
+  "bundle_path": "/app/state/rollback-witness-bundle.json",
+  "lane_path": "/app/state/egress-lane-midpipe.json",
+  "chain_field": "midpipe_chain_digest",
+  "token_field": "zone_quorum_token",
+  "zone": "primary"
+}

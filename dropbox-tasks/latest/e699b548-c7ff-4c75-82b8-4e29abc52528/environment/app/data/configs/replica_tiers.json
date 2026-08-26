@@ -1,0 +1,8 @@
+{
+  "tiers": {
+    "primary": 1,
+    "secondary": 2,
+    "tertiary": 4
+  },
+  "required_mask": 7
+}

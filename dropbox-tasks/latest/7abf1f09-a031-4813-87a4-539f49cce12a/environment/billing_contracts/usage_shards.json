@@ -1,0 +1,18 @@
+{
+  "usage_shard_files": [
+    "usage_compute_01.ndjson",
+    "usage_compute_02.ndjson",
+    "usage_compute_03.ndjson",
+    "usage_compute_04.ndjson",
+    "usage_storage_01.ndjson",
+    "usage_storage_02.ndjson",
+    "usage_egress_01.ndjson",
+    "usage_egress_02.ndjson",
+    "usage_carrydown_tie.ndjson",
+    "usage_out_of_period.ndjson",
+    "usage_inactive_tenant.ndjson",
+    "usage_micro_burst.ndjson",
+    "usage_seam_probe.ndjson",
+    "usage_credit_stress.ndjson"
+  ]
+}

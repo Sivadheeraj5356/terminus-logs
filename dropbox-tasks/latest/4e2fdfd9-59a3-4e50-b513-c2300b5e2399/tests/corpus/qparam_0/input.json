@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-2b0e463780d8": {
+      "alg": "ed25519",
+      "public": "9e6e1d081c0fa541e993ce94a34a8e3078bd9d3341c8b961842905c302ec2b95"
+    }
+  },
+  "message": {
+    "authority": "svc2.example.com",
+    "body": "{\"n\": 112, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:fJTMmCwtZdha+DAk8wdLkeQ4xEN0XDWDDoTTdZXd01U=:",
+      "content-type": "application/json",
+      "signature": "sig1=:1MBqL2f2wumRCdzjvLbc48IQks++yfv+n40g7V0sIZ1edfO08pAgQBtrhAlEPy7veZb32tSbhIjxBeOac0T7Cg==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\" \"content-digest\" \"@query-param\";name=\"user\" \"@query-param\";name=\"role\");created=1700000052;expires=1700000412;keyid=\"k-2b0e463780d8\";alg=\"ed25519\""
+    },
+    "method": "GET",
+    "path": "/api/v1/resource/112",
+    "query": "user=alice%20smith&role=admin&id=112"
+  },
+  "now": 1700000112
+}

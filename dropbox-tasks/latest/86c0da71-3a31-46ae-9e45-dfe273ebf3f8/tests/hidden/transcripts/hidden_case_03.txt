@@ -1,0 +1,9 @@
+# hidden_case_03: one-shot scans suppress matching hazards only
+scan cryogenic
+move bay-b2
+move reefer-r7
+move bay-b2
+scan corrosive
+move bay-a1
+move deck-hold
+move tank-t4

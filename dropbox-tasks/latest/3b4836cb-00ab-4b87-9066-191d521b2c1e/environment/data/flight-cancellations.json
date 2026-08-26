@@ -1,0 +1,33 @@
+{
+  "cancellations": [
+    {
+      "event_id": "CAN-001",
+      "flight_id": "UA101",
+      "revision": 1,
+      "recorded_utc": "2026-06-14T08:00:00Z",
+      "replacement_pool": [
+        {"flight_id": "UA299", "carrier": "UA", "fare_class": "Y"}
+      ]
+    },
+    {
+      "event_id": "CAN-002",
+      "flight_id": "UA101",
+      "revision": 2,
+      "recorded_utc": "2026-06-14T10:00:00Z",
+      "replacement_pool": [
+        {"flight_id": "UA201", "carrier": "UA", "fare_class": "J"},
+        {"flight_id": "UA202", "carrier": "UA", "fare_class": "Y"}
+      ]
+    },
+    {
+      "event_id": "CAN-003",
+      "flight_id": "UA310",
+      "revision": 1,
+      "recorded_utc": "2026-06-14T11:00:00Z",
+      "replacement_pool": [
+        {"flight_id": "UA311", "carrier": "UA", "fare_class": "Y"},
+        {"flight_id": "UA312", "carrier": "UA", "fare_class": "Y"}
+      ]
+    }
+  ]
+}

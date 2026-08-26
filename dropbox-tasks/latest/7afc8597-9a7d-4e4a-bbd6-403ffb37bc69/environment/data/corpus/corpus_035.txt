@@ -1,0 +1,5 @@
+addr 176.175.200.234 hex 0x2363 token tok_197
+addr 74.189.141.242 hex 0x75e1 token tok_494
+start beta gray world grey
+mixed Foo123Bar baz_42
+UPPER lower MiXeD

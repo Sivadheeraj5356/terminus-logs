@@ -1,0 +1,4 @@
+addr 253.126.112.145 hex 0xb68e token tok_217
+value = 0xDEADbeef and 0x1234
+foobar foobar alpha world hello
+addr 196.218.6.154 hex 0x9f50 token tok_599

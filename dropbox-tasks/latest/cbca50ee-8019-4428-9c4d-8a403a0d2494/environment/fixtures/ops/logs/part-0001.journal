@@ -1,0 +1,4 @@
+# partition_id=part-0001 cursor_start=s=0;b=boot-a cursor_end=s=8;b=boot-a boot_id=boot-a
+2026-07-14T00:00:03Z rotlogd[217]: accepted session alpha
+2026-07-14T00:06:19Z rotlogd[217]: sealed segment alpha-1
+2026-07-14T00:12:44Z rotlogd[217]: checkpoint cursor s=8;b=boot-a

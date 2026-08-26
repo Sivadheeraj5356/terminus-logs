@@ -1,0 +1,8 @@
+CHAN/1
+win C nondealer stock thong
+uu 3s
+hand 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v 6v
+layout ca(3s,3n);ca(7v,7n);chan(3v,3v);ca(9v,9s);chan(9n,9n);ca(4s,4n);ca(6n,6v);chan(8v,8v);chan(2n,2n);ca(8s,8n)
+log
+toss B 9v 1
+toss B 6n 2

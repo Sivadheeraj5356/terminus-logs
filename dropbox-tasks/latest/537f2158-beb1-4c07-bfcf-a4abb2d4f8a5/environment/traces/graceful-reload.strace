@@ -1,0 +1,11 @@
+# Captured 2024-09-03 during SIGHUP-triggered graceful reload on prod-render-07
+# strace -p 4821 -e trace=signal,process -o graceful-reload.strace
+--- SIGHUP {si_signo=SIGHUP, si_code=SI_USER, si_pid=1, si_uid=0} ---
+rt_sigreturn({mask=[]})                 = -1 EINTR (Interrupted system call)
+write(1, "[INFO] SIGHUP received, initiati"..., 56) = 56
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f9d223b10) = 4902
+write(1, "[INFO] new coordinator process s"..., 48) = 48
+waitpid(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], WNOHANG) = 4902
+write(1, "[INFO] handover complete, exiting", 33) = 33
+exit_group(0)                           = ?
++++ exited with 0 +++

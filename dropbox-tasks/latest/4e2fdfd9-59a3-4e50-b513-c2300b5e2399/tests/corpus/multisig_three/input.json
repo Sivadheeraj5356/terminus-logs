@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-6be7832c5f6c": {
+      "alg": "ed25519",
+      "public": "02e6c87bce8179e4cd58a29ac1081630374d55af52a8bf43e4a84371f119f5a6"
+    }
+  },
+  "message": {
+    "authority": "svc2.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "beta=:1C7gjArejGu5RKJ0DgQz1gQo0RyhTiZqD19pQKhayTfrw9b8i2fcwE5OF37TmxsCt5uGnr6SQyXfZBkKjImNDA==:, alpha=:1C7gjArejGu5RKJ0DgQz1gQo0RyhTiZqD19pQKhayTfrw9b8i2fcwE5OF37TmxsCt5uGnr6SQyXfZBkKjImNDA==:, gamma=:xALzNqNDzIl9uE/cS1f8EKNBIwnyif1gyJf6WuggLqSUnSXpC0oIWKhctkgKpeANjMewbOz++oiYgIrM8e2RCg==:",
+      "signature-input": "beta=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000062;expires=1700000422;keyid=\"k-6be7832c5f6c\";alg=\"ed25519\", alpha=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000062;expires=1700000422;keyid=\"k-6be7832c5f6c\";alg=\"ed25519\", gamma=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000062;expires=1700000117;keyid=\"k-6be7832c5f6c\";alg=\"ed25519\""
+    },
+    "method": "PUT",
+    "path": "/api/v2/resource/122",
+    "query": "x=9"
+  },
+  "now": 1700000122
+}

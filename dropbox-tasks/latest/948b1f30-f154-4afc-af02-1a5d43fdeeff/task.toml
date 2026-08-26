@@ -1,0 +1,32 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+category = "scientific-computing"
+subcategories = []
+difficulty = "hard"
+codebase_size = "minimal"
+number_of_milestones = 0
+languages = ["go", "bash"]
+tags = ["raman-spectroscopy", "stokes-anti-stokes", "bose-einstein", "thermometry", "optical-spectroscopy"]
+expert_time_estimate_min = 60.0
+junior_time_estimate_min = 120.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 900
+
+[submission]
+difficulty_explanation = "The task requires fixing multiple interacting bugs across a Go codebase implementing Raman spectroscopy thermometry. Bugs span config, spectrum processing, and report generation — fixing one without the others still yields wrong temperatures. The agent must understand Bose-Einstein statistics and Stokes/anti-Stokes Raman scattering to identify which plausible-looking formulas and parameter values are incorrect. A key challenge is recognizing that the reported shift is signed and negative, while temperature uses its magnitude."
+solution_explanation = "Four fixes are required: (1) In calibration.toml, set bose_model to 'exact' and temperature_offset to 0.0. (2) In pkg/spectrum/loader.go, replace the approximate Bose-Einstein factor (exp(-x)) with the exact population factor 1/(exp(x)-1), removing the model-switching branch. (3) In the same file, fix TemperatureFromRatio: divide the ratio by the frequency prefactor (not multiply), use the absolute shift, and remove the temperature offset. (4) In pkg/results/report.go, compute the detected shift as (stokes_center - anti_stokes_center)/2 from peak detection and pass it through to raman_shift_cm and the temperature calculation, instead of using the hardcoded calibration constant. The shift is negative because Stokes wavenumber is lower than anti-Stokes."
+verification_explanation = "Tests independently load the spectrum JSON, detect peaks as the single max-intensity point within ±15 cm⁻¹, compute the exact Bose-Einstein temperature, and compare against the binary's report. They verify: peak positions within 1 cm⁻¹, ratio within 5% of the detected intensity ratio, temperature within 2 K of the value derived from the detected shift and ratio, correct JSON structure and field values (bose_model='exact', temperature_offset=0.0, frequency_exponent=4), raman_shift_cm and peak_shift match the signed detected shift, exit code 0, deterministic output, and the input spectrum file is unmodified."

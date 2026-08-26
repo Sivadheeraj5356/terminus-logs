@@ -1,0 +1,24 @@
+Counters, member rollups, and digests (signed)
+----------------------------------------------
+live_refreshes counts conflict pins. waiver_hits counts in-scope waivers. retract_hits
+counts retracted true. checksum_failures counts checksum_ok false. toolchain_blocks
+counts policy_basis toolchain_block. exclude_skips counts policy_basis exclude_skip.
+transitive_warns counts policy_basis retract_warn_transitive.
+
+stale_overrides counts conflict pins where snapshot-derived violation disagrees with
+live effective_violation. Snapshot-derived violation is true when snapshot retracted is
+true, declared_hash differs from snapshot zip_hash, or the pin floor fails against
+toolchain_declared.
+
+member_rollups are sorted by member. Each member lists pin_count and gate_status using
+the same block/warn/pass rollup as the batch gate_status but only over that member's pins.
+
+chain_digest: SHA-256 over report order concatenation of mod_id, member, linkage,
+retracted, checksum_ok, go_floor_ok, excluded, gate_action, policy_basis as UTF-8 with
+booleans as true/false and no delimiters.
+
+row_digest: SHA-256 over mod_id, member, linkage, retracted, checksum_ok, go_floor_ok,
+gate_action, policy_basis, live_hash as UTF-8 with booleans as true/false and no
+delimiters.
+
+export_digest: SHA-256 over each pin_digests.row_digest in mod_id ascending order.

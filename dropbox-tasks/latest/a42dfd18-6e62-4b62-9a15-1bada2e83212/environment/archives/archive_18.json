@@ -1,0 +1,62 @@
+{
+  "archive_id": "archive_18",
+  "objects": [
+    {
+      "id": "O1",
+      "key_id": "K1",
+      "cipher": "none",
+      "content_digest": "d18x",
+      "declared_digest": "d18y"
+    }
+  ],
+  "keys": [
+    {
+      "id": "K1",
+      "role": "escrow",
+      "algorithm": "AES-256-GCM",
+      "state": "active",
+      "rewrap_needed": false,
+      "rewrap_token": "",
+      "threshold": 3,
+      "shares": [
+        {"id": "S1", "fingerprint": "fp1", "revoked": false}
+      ]
+    }
+  ],
+  "escrow": {
+    "registered_fingerprints": {
+      "K1": ["fp1", "fp2"]
+    }
+  },
+  "manifest": {
+    "signed_digests": ["d18x"]
+  },
+  "recovery": {
+    "path_count": 2,
+    "requires_online_hsm": false,
+    "offline_cold_share": false,
+    "geographic_split": false
+  },
+  "retention": {
+    "declared_days": 90,
+    "enforced_days": 90,
+    "immutable": true,
+    "legal_hold": false
+  },
+  "restore": {
+    "chain_ok": true,
+    "signer": "vault-root-a",
+    "nonce_reuse": false
+  },
+  "shards": [
+    {
+      "id": "P1",
+      "declared_crc": "c1",
+      "payload_crc": "c2"
+    }
+  ],
+  "expected_shards": 1,
+  "adversary_tests": [
+    {"id": "T9", "surviving": false}
+  ]
+}

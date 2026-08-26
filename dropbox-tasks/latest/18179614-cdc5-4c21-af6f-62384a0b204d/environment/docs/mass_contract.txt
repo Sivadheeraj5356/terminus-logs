@@ -1,0 +1,158 @@
+Entropic mass-transfer (log-domain Sinkhorn) contract
+=====================================================
+
+Build
+-----
+Executables:
+  /app/environment/build/otctl-run
+  /app/environment/build/otctl-probe
+  /app/environment/build/otctl-audit
+  /app/environment/build/otctl-inspect
+Rust helper: /app/environment/build/ot7-core (stdin JSON kernel)
+
+Entrypoints
+-----------
+otctl-run
+  Reads manifest + policy, evaluates each profile, writes
+  /app/output/mass_report.json, /app/output/plan_trace.csv,
+  /app/var/massxfer/dual_cache.json, /app/var/massxfer/run_ledger.json.
+otctl-run --reset
+  Clears /app/var/massxfer/ then runs at generation=1.
+otctl-run without --reset
+  Preserves /app/var/massxfer/ and increments generation by 1 on each invocation.
+
+Bundled manifest profiles (see /app/environment/data/manifest.toml)
+  soft — soft.json (2x2, generous epsilon)
+  spike — spike.json (3x3, small epsilon; adversarial for naive scaling)
+  ridge — ridge.json (4x4, small epsilon; adversarial for naive scaling)
+  anneal — anneal.json (3x3 with epsilon annealing schedule)
+  badmass — badmass.json (supply/demand mass mismatch; rejected)
+  badshape — badshape.json (dimension mismatch; rejected)
+
+Environment overrides
+---------------------
+MASS_MANIFEST — alternate manifest path
+MASS_INSTANCE_DIR — alternate instance directory (default /app/environment/data/instances)
+MASS_POLICY_EPOCH — integer overriding policy policy_epoch for cache invalidation
+
+Instance JSON
+-------------
+{"instance_id":"<id>",
+ "cost":[[...], ...],          # n x m non-negative floats
+ "supply":[...],               # length n, each > 0
+ "demand":[...],               # length m, each > 0
+ "epsilon":<float>,            # target regularization epsilon > 0
+ "anneal":{"start_epsilon":<float>,"factor":<float>,"stages":<int>}  # optional
+}
+n = len(supply), m = len(demand). cost must be n x m.
+Let As = sum(supply), Bd = sum(demand). Require |As - Bd| <= 1e-9 and As > 0.
+Reject (accepted=false) when shape mismatches, any supply/demand entry <= 0,
+epsilon <= 0, mass mismatch, or the solver returns non-finite values.
+
+Entropic transport (log-domain Sinkhorn–Knopp)
+----------------------------------------------
+Let C be the cost matrix, a=supply, b=demand, eps the active epsilon.
+Work exclusively in the log domain (no elementwise exp(-C/eps) Gibbs matrix
+materialization that can overflow for small eps):
+
+  logK_ij = -C_ij / eps
+  Dual potentials f (length n) and g (length m), initialized to 0 unless a
+  warm-start is provided.
+  Iterate up to max_iters (from policy.toml; default 8000):
+    f_i <- log(a_i) - logsumexp_j (logK_ij + g_j)
+    g_j <- log(b_j) - logsumexp_i (logK_ij + f_i)
+  Stop early when the infinity-norm marginal residual of the implied plan is
+  <= tol (from policy.toml; default 1e-9).
+Bundled policy.toml ships max_iters = 8000 and tol = 1e-9.
+
+Transport plan:
+  P_ij = exp(f_i + logK_ij + g_j)
+Wasserstein (transport cost):
+  W = sum_ij P_ij * C_ij
+
+logsumexp must be computed with the usual max-subtraction stabilization.
+Naive primal scaling of K_ij = exp(-C_ij/eps) that overflows or collapses to
+NaN/Inf for the bundled small-epsilon instances is not compliant.
+
+Epsilon annealing (when instance.anneal is present)
+---------------------------------------------------
+Let eps_t = start_epsilon * factor^(t) for t = 0..stages-1, then finish at the
+instance target epsilon if it is strictly smaller than the last stage value.
+At each stage, run Sinkhorn with the stage epsilon, warm-starting f,g from the
+previous stage's duals. The final plan and W use the target epsilon.
+When anneal is absent, run a single Sinkhorn at the target epsilon from zero duals.
+
+Digests
+-------
+plan_digest_hex: sha256 hex of semicolon-joined strings i,j:<P_ij:.17e> for every
+entry in row-major order (i from 0..n-1, j from 0..m-1).
+instance_digest_hex: sha256 hex of the exact UTF-8 bytes of the instance JSON file
+as loaded (no re-serialization).
+report_digest_hex: sha256 hex of the ASCII line
+  generation=<g>|policy_epoch=<e>|digests=<comma-joined plan digests of accepted
+  profiles in manifest order>
+If there are no accepted profiles, digests= is empty (still include the key).
+
+Persistence
+-----------
+/app/var/massxfer/dual_cache.json
+  JSON object {"entries": { <cache_key>: {instance_digest_hex, plan_digest_hex,
+  wasserstein, rows, cols, f, g}, ... }}
+cache_key = instance_digest_hex + "|" + policy_epoch
+policy_epoch comes from /app/environment/data/policy.toml unless MASS_POLICY_EPOCH is set.
+Bundled policy.toml ships policy_epoch = 4.
+Cache stores the final dual vectors f and g for accepted profiles.
+
+/app/var/massxfer/run_ledger.json
+  generation, policy_epoch, entries map label -> {plan_digest_hex, stable_runs, last_generation}
+stable_runs starts at 1 when a label is first recorded for an accepted profile.
+On each non-reset run, if plan_digest_hex matches the prior value for that label,
+stable_runs increments by 1; otherwise it resets to 1.
+Rejected profiles do not create or update ledger or cache entries.
+
+Outputs
+-------
+/app/output/mass_report.json
+  generation, policy_epoch, report_digest_hex, profiles[]
+profile fields: label, instance_id, accepted, rows, cols, plan_digest_hex, wasserstein
+Rejected profiles still appear in profiles[] with accepted=false,
+plan_digest_hex="", and wasserstein=0. They contribute no CSV rows and no
+cache/ledger entries.
+
+/app/output/plan_trace.csv
+  Header: label,i,j,p_ij,c_ij
+  One row per plan entry for accepted profiles only, in manifest order then
+  row-major (i,j). Format floats with %.17g.
+
+Cross-surface consistency
+-------------------------
+otctl-probe <label> prints plan_digest_hex for an accepted label (exit 2 if missing/rejected).
+otctl-probe wasserstein <label> prints wasserstein with %.17g for an accepted label.
+otctl-audit prints the literal line aligned when report_digest_hex matches the digest
+line formula; otherwise prints drift and exits 1.
+otctl-inspect <label> prints instance_id for any profile label in the latest report
+(exit 2 if unknown).
+CSV row count for an accepted label equals rows*cols.
+plan_digest_hex and wasserstein must match probe, cache, and ledger for that label.
+
+Rust kernel stdin JSON
+----------------------
+Request:
+  {"cost":[[...]],"supply":[...],"demand":[...],"epsilon":...,
+   "max_iters":...,"tol":...,
+   "anneal":null|{"start_epsilon":...,"factor":...,"stages":...},
+   "warm_f":null|[...], "warm_g":null|[...]}
+Response on success:
+  {"ok":true,"accepted":true|false,"plan":[[...]],"wasserstein":...,
+   "f":[...],"g":[...],"iters":...}
+When accepted=false due to validation, ok may still be true with empty plan and
+wasserstein=0, or ok=false with "error".
+Response on hard failure:
+  {"ok":false,"error":"<short>"}
+
+Policy file
+-----------
+/app/environment/data/policy.toml contains:
+  policy_epoch = <int>
+  max_iters = <int>
+  tol = <float>

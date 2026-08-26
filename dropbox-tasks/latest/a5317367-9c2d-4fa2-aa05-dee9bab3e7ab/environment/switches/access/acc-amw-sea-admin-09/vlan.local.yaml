@@ -1,0 +1,6 @@
+hostname: acc-amw-sea-admin-09
+migration_state: legacy
+canonical_vlan: 2020
+configured_vlan: 121
+legacy_vlan: 121
+duplicate_vlan_conflict: false

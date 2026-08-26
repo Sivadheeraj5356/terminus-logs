@@ -1,0 +1,29 @@
+--- a/app/cfaxis/calaxis/axis_report.py
++++ b/app/cfaxis/calaxis/axis_report.py
+@@ -1,4 +1,4 @@
+-"""Build the climate-axis provenance report."""
++"""Climate-axis provenance report."""
+ 
+ from __future__ import annotations
+ 
+@@ -54,10 +54,10 @@
+             )
+         )
+ 
+-    _ = committed_generation_id
++    gen_id = committed_generation_id or plan.generation_id
+     return {
+         "report_format_version": REPORT_FORMAT_VERSION,
+-        "committed_generation_id": plan.generation_id,
++        "committed_generation_id": gen_id,
+         "run_id": manifest.run_id,
+         "archive_path": str(archive_path),
+         "archive_digest": _file_digest(archive_path),
+@@ -77,7 +77,6 @@
+             }
+             for r in lineage
+         ],
+-        "planned_remaining": [s.path for s in plan.remaining_sources],
+     }
+ 
+ 

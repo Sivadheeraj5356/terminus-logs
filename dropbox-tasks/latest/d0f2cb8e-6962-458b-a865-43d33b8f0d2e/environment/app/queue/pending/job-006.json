@@ -1,0 +1,1 @@
+{"job_id": "job-006", "priority": 5, "spec_path": "/app/specs/canary-hold.yaml", "profile_ref": "staging", "rules_ref": "default", "defer": true}

@@ -1,0 +1,4 @@
+component	rows	cols	dtype	initializer
+dense_projection	384	128	float32	orthogonal
+layer_norm_gain	128	1	float32	ones
+layer_norm_bias	128	1	float32	zeros

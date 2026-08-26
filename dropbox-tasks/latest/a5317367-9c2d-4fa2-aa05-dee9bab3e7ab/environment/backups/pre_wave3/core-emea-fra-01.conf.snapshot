@@ -1,0 +1,24 @@
+! apexora-pre-wave3-boundary snapshot — do not overwrite after migration edits
+! core-emea-fra-01 — Cisco IOS-XE core switch
+! migration_state: legacy
+version 17.9
+hostname core-emea-fra-01
+!
+ip routing
+!
+interface TenGigabitEthernet1/1/1
+ description Core fabric link
+ switchport trunk allowed vlan 2001-2180
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/1/2
+ description To distribution
+ switchport trunk allowed vlan 2001-2180
+ switchport mode trunk
+!
+interface Loopback0
+ ip address 10.255.3.1 255.255.255.255
+!
+router ospf 1
+ network 10.255.3.0.0 0.0.255.255 area 0
+!

@@ -1,0 +1,14 @@
+# swap exchanges the top two operand-stack slots. With an int under a bool, the
+# state after swap is [bool, int]; local 0 then receives the int and local 1 the
+# bool. Watch the ordering with `stackmap --func main`.
+func main() -> int {
+  locals 2
+b0:
+  iconst 7
+  bconst 1
+  swap
+  store 0
+  store 1
+  iconst 0
+  ret
+}

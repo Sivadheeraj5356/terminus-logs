@@ -1,0 +1,5 @@
+Unsigned vendor mirror note (non-binding)
+-----------------------------------------
+Local vendor trees may help laptop builds. They are not a substitute for the signed
+dependency integrity gate on PRODUCTION track batches. Drafts that keyed waivers on
+mod_id were never signed.

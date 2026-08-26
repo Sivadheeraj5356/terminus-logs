@@ -1,0 +1,17 @@
+{
+  "scenario_id": "eq_priority",
+  "cool_factor": 0.0,
+  "mw_per_channel": 5.0,
+  "nodes": [
+    {"id": "NY", "regen": false},
+    {"id": "LD", "regen": false}
+  ],
+  "spans": [
+    {"id": "s_ny_ld", "a": "NY", "b": "LD", "cap_gbps": 15, "pump_mw": 100, "lambdas": [1, 2, 3, 4]}
+  ],
+  "cuts": [],
+  "demands": [
+    {"id": "d_alpha", "src": "NY", "dst": "LD", "gbps": 10, "priority": 5, "peer_a": "AS1", "peer_b": "AS2"},
+    {"id": "d_beta", "src": "NY", "dst": "LD", "gbps": 10, "priority": 1, "peer_a": "AS1", "peer_b": "AS2"}
+  ]
+}

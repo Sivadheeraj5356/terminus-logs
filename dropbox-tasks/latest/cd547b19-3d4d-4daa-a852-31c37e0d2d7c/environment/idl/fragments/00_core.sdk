@@ -1,0 +1,7 @@
+# Core identity fragment. Frozen legacy v1 slots begin here.
+# columns: field_name  ctype
+abi_version   uint32_t
+name          cstr
+checksum      uint64_t
+dispatch      ptr
+reserved      uint32_t

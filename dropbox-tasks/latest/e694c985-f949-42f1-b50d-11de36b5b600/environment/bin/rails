@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Minimal Rails-compatible CLI for FlowerVision (server + test runner).
+require "optparse"
+
+command = ARGV.shift
+
+case command
+when "server", "s"
+  port = ENV.fetch("PORT", "3000")
+  exec "bundle", "exec", "rackup", "-o", "0.0.0.0", "-p", port, "-s", "webrick", "config.ru"
+when "test"
+  Dir.chdir(File.expand_path("..", __dir__)) do
+    status = 0
+    Dir.glob("test/**/*_test.rb").sort.each do |path|
+      ok = system("bundle", "exec", "ruby", path)
+      status = 1 unless ok
+    end
+    exit status
+  end
+else
+  warn "Usage: rails server | rails test"
+  exit 1
+end

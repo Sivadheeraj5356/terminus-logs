@@ -1,0 +1,14 @@
+{
+  "listing_totals": {
+    "silt": 3100,
+    "kite": 3101,
+    "rune": 3102,
+    "dale": 3103
+  },
+  "handoff_cols": {
+    "silt": 41,
+    "kite": 43,
+    "rune": 47,
+    "dale": 49
+  }
+}

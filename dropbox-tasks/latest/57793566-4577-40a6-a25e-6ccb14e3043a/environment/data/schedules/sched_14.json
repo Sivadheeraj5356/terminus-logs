@@ -1,0 +1,179 @@
+{
+  "budgets": {
+    "A": 12
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p3",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "job": "j1",
+      "op": "hold",
+      "seq": 2
+    },
+    {
+      "op": "fault",
+      "printer": "p3",
+      "seq": 3
+    },
+    {
+      "op": "fault",
+      "printer": "p3",
+      "seq": 4
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "A",
+      "pages": 3,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 5
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "A",
+      "pages": 3,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 6
+    },
+    {
+      "op": "pause",
+      "printer": "p3",
+      "seq": 7
+    },
+    {
+      "op": "resume",
+      "printer": "p2",
+      "seq": 8
+    },
+    {
+      "job": "j2",
+      "op": "cancel",
+      "seq": 9
+    },
+    {
+      "op": "pause",
+      "printer": "p2",
+      "seq": 10
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p3",
+      "priority": 1,
+      "seq": 11
+    },
+    {
+      "op": "pause",
+      "printer": "p1",
+      "seq": 12
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "B",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 13
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "C",
+      "pages": 1,
+      "printer": "p3",
+      "priority": 3,
+      "seq": 14
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p3",
+      "priority": 2,
+      "seq": 15
+    },
+    {
+      "op": "fault",
+      "printer": "p3",
+      "seq": 16
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 17
+    },
+    {
+      "op": "finish",
+      "printer": "p3",
+      "seq": 18
+    },
+    {
+      "job": "j7",
+      "op": "cancel",
+      "seq": 19
+    },
+    {
+      "op": "pause",
+      "printer": "p3",
+      "seq": 20
+    },
+    {
+      "job": "j8",
+      "op": "submit",
+      "owner": "B",
+      "pages": 3,
+      "printer": "p1",
+      "priority": 2,
+      "seq": 21
+    },
+    {
+      "op": "resume",
+      "printer": "p2",
+      "seq": 22
+    },
+    {
+      "op": "pause",
+      "printer": "p1",
+      "seq": 23
+    },
+    {
+      "job": "j9",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 24
+    },
+    {
+      "job": "j10",
+      "op": "submit",
+      "owner": "B",
+      "pages": 4,
+      "printer": "p3",
+      "priority": 3,
+      "seq": 25
+    }
+  ],
+  "max_faults": 3,
+  "printers": [
+    "p1",
+    "p2",
+    "p3"
+  ],
+  "spool": "sched_14"
+}

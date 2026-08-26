@@ -1,0 +1,80 @@
+OIDC_EXCHANGE_AUDIT 3
+NOW 1200
+ISSUERS 2
+ISSUER corp 30
+ISSUER partner 10
+KEYS 4
+KEY k_old corp RS256 900 1120 retired
+KEY k1 corp RS256 1000 2000 active
+KEY k2 corp ES256 1200 1800 active
+KEY pk partner RS256 1000 1600 active
+CLIENTS 4
+CLIENT web corp active 2 600 yes yes authorization_code,exchange api,admin
+CLIENT batch corp active 1 1200 no no client_credentials,exchange api
+CLIENT legacy corp disabled 0 300 no no password api
+CLIENT partner-app partner active 1 500 yes no authorization_code partner-api
+RESOURCES 3
+RESOURCE api 1 read,write,profile
+RESOURCE admin 2 read,write,admin
+RESOURCE partner-api 1 read,export
+POLICY 2 480
+EVENTS 21
+EVENT e08 1020 b 1 web alice MINT t3 k1 RS256 authorization_code api read,write 500 yes yes n1
+EVENT e02 1010 a 2 web alice MINT t1 k1 RS256 authorization_code api read,profile 550 yes yes n0
+EVENT e03 1015 a 3 web alice MINT tdup k1 RS256 authorization_code api read 550 yes yes n0
+EVENT e04 1030 a 4 web alice EXCHANGE t2 t1 k2 ES256 admin read,admin 300 yes n2
+EVENT e17 1045 a 5 web alice EXCHANGE t10 t2 k2 ES256 admin read 200 yes n10
+EVENT e18 1055 a 6 web alice EXCHANGE t11 t10 k2 ES256 api read 180 yes n11
+EVENT e19 1065 a 7 web alice EXCHANGE t12 t2 k2 ES256 api read 460 yes n12
+EVENT e05 1040 a 8 web bob EXCHANGE tbad t1 k2 ES256 api read 100 yes n3
+EVENT e06 1050 a 9 legacy mallory MINT l1 k1 RS256 password api read 100 no no n4
+EVENT e07 1060 a 10 batch svc MINT b1 k_old RS256 client_credentials api read 800 no no -
+EVENT e20 1068 a 11 batch svc MINT b3 k1 RS256 client_credentials api read,profile 500 no no -
+EVENT e21 1072 a 12 batch svc EXCHANGE b4 b3 k1 RS256 api read 200 no -
+EVENT e09 1070 a 13 web alice REVOKE t1
+EVENT e10 1080 a 14 web alice EXCHANGE t4 t1 k2 ES256 api read 100 yes n5
+EVENT e11 1090 a 15 web alice MINT t5 k1 RS256 authorization_code admin read,admin 700 yes yes n6
+EVENT e12 1100 a 16 batch svc MINT b2 k1 RS256 client_credentials admin read 300 no no -
+EVENT e13 1110 a 17 partner-app carol MINT p1 pk RS256 authorization_code partner-api read,export 450 yes no pn1
+EVENT e14 1115 a 18 web alice MINT t6 missing RS256 authorization_code api delete 700 no no n2
+EVENT e15 1120 a 19 web alice MINT t7 k1 ES256 authorization_code unknown read 700 yes no n7
+EVENT e16 1150 a 20 web alice MINT t9 k1 RS256 authorization_code api read 500 yes yes n9
+EVENT e02 1130 z 1 web alice MINT t8 k1 RS256 authorization_code api read 100 yes yes n8
+RETRACTIONS 1
+RETRACT e08
+REMEDIATION 3 9 60
+ACTIONS 13
+ACTION a_disable_partner DISABLE_CLIENT partner-app 3 85
+ACTION a_disable_web DISABLE_CLIENT web 7 70
+ACTION a_limit_api LIMIT_AUDIENCE api 4 75
+ACTION a_low_conf RETIRE_KEY pk 2 40
+ACTION a_missing_token REVOKE_TOKEN missing 1 99
+ACTION a_quarantine_alice QUARANTINE_SUBJECT alice 6 90
+ACTION a_retire_k1 RETIRE_KEY k1 5 65
+ACTION a_revoke_t2 REVOKE_TOKEN t2 2 95
+ACTION a_revoke_t9 REVOKE_TOKEN t9 2 80
+ACTION a_stale_t1 REVOKE_TOKEN t1 1 95
+ACTION a_lineage_t1 REVOKE_LINEAGE t1 5 92
+ACTION a_lineage_b3 REVOKE_LINEAGE b3 3 78
+ACTION a_unknown_type ROTATE_SECRET web 1 99
+ACTION_CONFLICTS 4
+ACTION_CONFLICT a_quarantine_alice a_disable_partner
+ACTION_CONFLICT a_disable_web a_limit_api
+ACTION_CONFLICT a_retire_k1 a_revoke_t9
+ACTION_CONFLICT a_lineage_t1 a_retire_k1
+ACTION_PREREQUISITES 3
+ACTION_PREREQ a_lineage_t1 a_quarantine_alice
+ACTION_PREREQ a_retire_k1 a_disable_web
+ACTION_PREREQ a_lineage_b3 a_limit_api
+ACTION_TYPE_LIMITS 4
+ACTION_TYPE_LIMIT DISABLE_CLIENT 1
+ACTION_TYPE_LIMIT LIMIT_AUDIENCE 1
+ACTION_TYPE_LIMIT REVOKE_LINEAGE 1
+ACTION_TYPE_LIMIT REVOKE_TOKEN 2
+PLAN_TUNING 28 75
+ACTION_BONUSES 4
+ACTION_BONUS a_lineage_t1 a_revoke_t9 60
+ACTION_BONUS a_disable_partner a_limit_api -55
+ACTION_BONUS a_disable_web a_retire_k1 35
+ACTION_BONUS a_revoke_t2 a_lineage_t1 -20
+END

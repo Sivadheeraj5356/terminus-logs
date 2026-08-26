@@ -1,0 +1,59 @@
+--- a/m3/fold_core.go
++++ b/m3/fold_core.go
+@@ -13,18 +13,19 @@
+ 		cur = cloneTable(sidecar)
+ 	}
+ 	if len(inline) == 0 {
+-		return cur
++		return normalizeAuthority(cur)
+ 	}
+-	reset := &model.IndexTable{
++	retainedSeed := cur.CrossSeed
++	retainedBase := append([]int(nil), cur.AadBase...)
++	if len(retainedBase) == 0 {
++		retainedBase = []int{1, 2, 3, 4}
++	}
++	merged := &model.IndexTable{
+ 		Lanes:     append([]model.Lane(nil), inline...),
+-		AadBase:   []int{1, 2, 3, 4},
+-		CrossSeed: 0,
++		AadBase:   retainedBase,
++		CrossSeed: retainedSeed,
+ 	}
+-	if len(cur.Lanes) > 0 {
+-		_ = cur.CrossSeed
+-		_ = cur.AadBase
+-	}
+-	return reset
++	return normalizeAuthority(merged)
+ }
+ 
+ func cloneTable(t *model.IndexTable) *model.IndexTable {
+@@ -41,3 +42,27 @@
+ 	}
+ 	return out
+ }
++
++func normalizeAuthority(t *model.IndexTable) *model.IndexTable {
++	if t == nil {
++		return &model.IndexTable{AadBase: []int{1, 2, 3, 4}}
++	}
++	if len(t.AadBase) == 0 {
++		t.AadBase = []int{1, 2, 3, 4}
++	}
++	if t.Lanes == nil {
++		t.Lanes = []model.Lane{}
++	}
++	dedup := make([]model.Lane, 0, len(t.Lanes))
++	seen := map[uint32]bool{}
++	for i := len(t.Lanes) - 1; i >= 0; i-- {
++		lane := t.Lanes[i]
++		if seen[lane.Grp] {
++			continue
++		}
++		seen[lane.Grp] = true
++		dedup = append([]model.Lane{lane}, dedup...)
++	}
++	t.Lanes = dedup
++	return t
++}

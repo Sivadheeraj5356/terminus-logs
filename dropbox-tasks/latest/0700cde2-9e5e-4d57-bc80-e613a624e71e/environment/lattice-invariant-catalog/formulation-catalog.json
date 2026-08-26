@@ -1,0 +1,20 @@
+{
+  "formulations": [
+    {
+      "formulation_id": "CPPM-ALPHA",
+      "display_name": "Alpha couverture base",
+      "cocoa_solids_pct": 72.5,
+      "fat_pct": 31.0,
+      "seed_polymorph": "V",
+      "quench_scale": 1.25
+    },
+    {
+      "formulation_id": "CPPM-BETA",
+      "display_name": "Beta dark roast blend",
+      "cocoa_solids_pct": 68.0,
+      "fat_pct": 28.5,
+      "seed_polymorph": "II",
+      "quench_scale": 0.8
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "arm": "side_rcv",
+  "phase": "recover",
+  "row_cap": 6,
+  "group_cap": 3,
+  "cells": [
+    {"id": "r01", "kind": "host", "match": "rcv.lab", "target": "be_rcv", "want": "route"},
+    {"id": "r02", "kind": "path", "match": "/rcv", "target": "be_rcvp", "want": "route"}
+  ]
+}

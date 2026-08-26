@@ -1,0 +1,13 @@
+{
+  "name": "sealed-turn-lattice",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "play": "node dist/src/cli_main.js"
+  },
+  "devDependencies": {
+    "typescript": "5.7.3",
+    "@types/node": "22.10.5"
+  }
+}

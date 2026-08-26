@@ -1,0 +1,51 @@
+schema_version: apexora-trunk-assign-1
+campus: campus-amw-sea
+trunk_links:
+  - id: TRK-0018
+    a: acc-amw-sea-bldg1-01
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0019
+    a: acc-amw-sea-bldg1-02
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0020
+    a: acc-amw-sea-bldg1-03
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0021
+    a: acc-amw-sea-bldg1-04
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0022
+    a: acc-amw-sea-bldg1-05
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0023
+    a: acc-amw-sea-bldg1-06
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0024
+    a: acc-amw-sea-bldg1-07
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0025
+    a: acc-amw-sea-bldg1-08
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0026
+    a: acc-amw-sea-bldg1-09
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0027
+    a: acc-amw-sea-bldg1-10
+    b: dist-amw-sea-main-01
+    allowed: selective
+  - id: TRK-0028
+    a: dist-amw-sea-main-01
+    b: core-amw-sea-01
+    allowed: selective
+  - id: TRK-0029
+    a: dist-amw-sea-main-02
+    b: core-amw-sea-01
+    allowed: selective

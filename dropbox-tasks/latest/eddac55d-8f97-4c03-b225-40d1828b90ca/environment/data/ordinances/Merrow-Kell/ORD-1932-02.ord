@@ -1,0 +1,9 @@
+ordinance: ORD-1932-02
+jurisdiction: Merrow-Kell
+enacted: 1932-02-15
+effective: 1932-04-17T02:00:00 wall
+standard-offset: +05:30:00
+standard-label: MST
+observance:
+  begin: Apr Sun<=25 02:00:00 wall save +01:00:00 label MDT
+  end: Oct Sun<=25 03:00:00 wall

@@ -1,0 +1,52 @@
+{
+  "members": [
+    {
+      "profile": "/app/environment/profiles/diamond_mesh.json",
+      "run_mode": "checkpoint_chain",
+      "boundary_ticks": [3, 7],
+      "seed": 42
+    },
+    {
+      "profile": "/app/environment/profiles/fan_in.json",
+      "run_mode": "checkpoint_resume",
+      "boundary_tick": 5,
+      "seed": 7
+    },
+    {
+      "profile": "/app/environment/profiles/cascade_wave.json",
+      "run_mode": "checkpoint_chain",
+      "boundary_ticks": [4, 9, 14, 19],
+      "seed": 9001
+    },
+    {
+      "profile": "/app/environment/profiles/gradual_mesh.json",
+      "run_mode": "checkpoint_resume",
+      "boundary_tick": 4,
+      "seed": 1337
+    },
+    {
+      "profile": "/app/environment/profiles/default.json",
+      "run_mode": "checkpoint_chain",
+      "boundary_ticks": [2, 5, 9],
+      "seed": 2024
+    },
+    {
+      "profile": "/app/environment/profiles/cascade_wave.json",
+      "run_mode": "checkpoint_resume",
+      "boundary_tick": 11,
+      "seed": 31415
+    },
+    {
+      "profile": "/app/environment/profiles/diamond_mesh.json",
+      "run_mode": "checkpoint_resume",
+      "boundary_tick": 4,
+      "seed": 271828
+    },
+    {
+      "profile": "/app/environment/profiles/fan_in.json",
+      "run_mode": "checkpoint_chain",
+      "boundary_ticks": [2, 5, 7],
+      "seed": 161803
+    }
+  ]
+}

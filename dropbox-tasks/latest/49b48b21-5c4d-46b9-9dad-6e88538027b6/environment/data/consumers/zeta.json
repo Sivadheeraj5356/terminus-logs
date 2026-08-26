@@ -1,0 +1,4 @@
+{
+  "subscribes": ["B", "C", "D"],
+  "last_materialized": {"B": "hb_new", "C": "hc_new", "D": "hd_new"}
+}

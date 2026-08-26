@@ -1,0 +1,5 @@
+# health cache vs durable digest divergence
+profile alpha
+step ro target=data
+step rw target=data
+step rw target=share

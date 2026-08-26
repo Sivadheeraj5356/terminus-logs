@@ -1,0 +1,8 @@
+[package]
+name = "prlg_k4"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+rusqlite = { workspace = true }
+thiserror = { workspace = true }

@@ -1,0 +1,19 @@
+SKITTLE ALLEY HIGH SCORE CARD
+
+The card that ships in the cabinet, printed with the factory names.
+
+  RANK   NAME   RACK   RESULT
+     1   BRW      19   PLAYER
+     2   ACE      18   PLAYER
+     3   TOM      16   PLAYER
+     4   JAN      14   PLAYER
+     5   KIT      13   PLAYER
+     6   BRW      11   PLAYER
+     7   SAM       9   PLAYER
+     8   ROY       8   PLAYER
+     9   LOU       6   PLAYER
+    10   PAT       5   PLAYER
+
+Every factory score on the card was set on a single row bowled from the ball
+dial's home face with the throw latch clear, the state the cabinet resets to,
+and the flyer's line on the game holds for all ten of them.

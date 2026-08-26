@@ -1,0 +1,5 @@
+tank_id,terminal_id,insulation_class,diameter_m,max_liquid_height_m
+TANK-A,TERM-1,standard,42.0,25.0
+TANK-B,TERM-1,premium,38.0,22.0
+TANK-C,TERM-2,standard,45.0,28.0
+TANK-D,TERM-2,economy,36.0,20.0

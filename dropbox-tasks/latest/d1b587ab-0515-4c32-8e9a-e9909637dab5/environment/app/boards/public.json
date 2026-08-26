@@ -1,0 +1,576 @@
+{
+  "schema_version": "phaseglass.board.v3",
+  "board_id": "public-veil-quadrants-01",
+  "period": 2,
+  "max_turns": 7,
+  "phase_charges": 1,
+  "charge_cap": 1,
+  "boost_surcharge": 4,
+  "blocked_cost": 2,
+  "tether_limit": 1,
+  "tone_modulus": 3,
+  "rooms": [
+    "A0",
+    "AX",
+    "AY",
+    "AG",
+    "C0",
+    "CX",
+    "CY",
+    "CG"
+  ],
+  "start": {
+    "amber": "A0",
+    "cobalt": "C0"
+  },
+  "goals": {
+    "amber": "AG",
+    "cobalt": "CG"
+  },
+  "edges": [
+    {
+      "id": "a-route-1",
+      "actor": "amber",
+      "from": "A0",
+      "to": "AX",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g1",
+      "tone": 1
+    },
+    {
+      "id": "c-route-1",
+      "actor": "cobalt",
+      "from": "C0",
+      "to": "CX",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g1",
+      "tone": 0
+    },
+    {
+      "id": "a-route-2",
+      "actor": "amber",
+      "from": "A0",
+      "to": "AX",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g2",
+      "tone": 1
+    },
+    {
+      "id": "c-route-2",
+      "actor": "cobalt",
+      "from": "C0",
+      "to": "CX",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g2",
+      "tone": 0
+    },
+    {
+      "id": "a-route-3",
+      "actor": "amber",
+      "from": "A0",
+      "to": "AY",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g3",
+      "tone": 1
+    },
+    {
+      "id": "c-route-3",
+      "actor": "cobalt",
+      "from": "C0",
+      "to": "CY",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g3",
+      "tone": 0
+    },
+    {
+      "id": "a-route-4",
+      "actor": "amber",
+      "from": "A0",
+      "to": "AY",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g4",
+      "tone": 1
+    },
+    {
+      "id": "c-route-4",
+      "actor": "cobalt",
+      "from": "C0",
+      "to": "CY",
+      "cost": 1,
+      "phase_mask": "01",
+      "boostable": false,
+      "gate": "g4",
+      "tone": 0
+    },
+    {
+      "id": "a-exit-x",
+      "actor": "amber",
+      "from": "AX",
+      "to": "AG",
+      "cost": 1,
+      "phase_mask": "10",
+      "boostable": false,
+      "gate": "",
+      "tone": 2
+    },
+    {
+      "id": "c-exit-x",
+      "actor": "cobalt",
+      "from": "CX",
+      "to": "CG",
+      "cost": 1,
+      "phase_mask": "10",
+      "boostable": false,
+      "gate": "",
+      "tone": 0
+    },
+    {
+      "id": "a-exit-y",
+      "actor": "amber",
+      "from": "AY",
+      "to": "AG",
+      "cost": 1,
+      "phase_mask": "10",
+      "boostable": false,
+      "gate": "",
+      "tone": 2
+    },
+    {
+      "id": "c-exit-y",
+      "actor": "cobalt",
+      "from": "CY",
+      "to": "CG",
+      "cost": 1,
+      "phase_mask": "10",
+      "boostable": false,
+      "gate": "",
+      "tone": 0
+    }
+  ],
+  "tether_links": [
+    [
+      "A0",
+      "C0"
+    ],
+    [
+      "AX",
+      "CX"
+    ],
+    [
+      "AY",
+      "CY"
+    ],
+    [
+      "AG",
+      "CG"
+    ]
+  ],
+  "beacons": [
+    {
+      "id": "alpha",
+      "room": "A0",
+      "listen_cost": 1,
+      "tone": 0
+    },
+    {
+      "id": "beta",
+      "room": "C0",
+      "listen_cost": 1,
+      "tone": 0
+    }
+  ],
+  "hidden_states": [
+    {
+      "id": "w1-0",
+      "world": "w1",
+      "open_gates": [
+        "g1"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "warm",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w1-0"
+        ],
+        "1": [
+          "w1-a",
+          "w1-b"
+        ],
+        "2": [
+          "w1-0"
+        ]
+      }
+    },
+    {
+      "id": "w1-a",
+      "world": "w1",
+      "open_gates": [
+        "g1"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "warm",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w1-a"
+        ],
+        "1": [
+          "w1-a"
+        ],
+        "2": [
+          "w1-final"
+        ]
+      }
+    },
+    {
+      "id": "w1-b",
+      "world": "w1",
+      "open_gates": [
+        "g1"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "warm",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w1-b"
+        ],
+        "1": [
+          "w1-b"
+        ],
+        "2": [
+          "w1-final"
+        ]
+      }
+    },
+    {
+      "id": "w1-final",
+      "world": "w1",
+      "open_gates": [
+        "g1"
+      ],
+      "accepting": true,
+      "signals": {
+        "alpha": "warm",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w1-final"
+        ],
+        "1": [
+          "w1-final"
+        ],
+        "2": [
+          "w1-final"
+        ]
+      }
+    },
+    {
+      "id": "w2-0",
+      "world": "w2",
+      "open_gates": [
+        "g2"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "warm",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w2-0"
+        ],
+        "1": [
+          "w2-a",
+          "w2-b"
+        ],
+        "2": [
+          "w2-0"
+        ]
+      }
+    },
+    {
+      "id": "w2-a",
+      "world": "w2",
+      "open_gates": [
+        "g2"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "warm",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w2-a"
+        ],
+        "1": [
+          "w2-a"
+        ],
+        "2": [
+          "w2-final"
+        ]
+      }
+    },
+    {
+      "id": "w2-b",
+      "world": "w2",
+      "open_gates": [
+        "g2"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "warm",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w2-b"
+        ],
+        "1": [
+          "w2-b"
+        ],
+        "2": [
+          "w2-final"
+        ]
+      }
+    },
+    {
+      "id": "w2-final",
+      "world": "w2",
+      "open_gates": [
+        "g2"
+      ],
+      "accepting": true,
+      "signals": {
+        "alpha": "warm",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w2-final"
+        ],
+        "1": [
+          "w2-final"
+        ],
+        "2": [
+          "w2-final"
+        ]
+      }
+    },
+    {
+      "id": "w3-0",
+      "world": "w3",
+      "open_gates": [
+        "g3"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "cold",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w3-0"
+        ],
+        "1": [
+          "w3-a",
+          "w3-b"
+        ],
+        "2": [
+          "w3-0"
+        ]
+      }
+    },
+    {
+      "id": "w3-a",
+      "world": "w3",
+      "open_gates": [
+        "g3"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "cold",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w3-a"
+        ],
+        "1": [
+          "w3-a"
+        ],
+        "2": [
+          "w3-final"
+        ]
+      }
+    },
+    {
+      "id": "w3-b",
+      "world": "w3",
+      "open_gates": [
+        "g3"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "cold",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w3-b"
+        ],
+        "1": [
+          "w3-b"
+        ],
+        "2": [
+          "w3-final"
+        ]
+      }
+    },
+    {
+      "id": "w3-final",
+      "world": "w3",
+      "open_gates": [
+        "g3"
+      ],
+      "accepting": true,
+      "signals": {
+        "alpha": "cold",
+        "beta": "left"
+      },
+      "next_by_tone": {
+        "0": [
+          "w3-final"
+        ],
+        "1": [
+          "w3-final"
+        ],
+        "2": [
+          "w3-final"
+        ]
+      }
+    },
+    {
+      "id": "w4-0",
+      "world": "w4",
+      "open_gates": [
+        "g4"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "cold",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w4-0"
+        ],
+        "1": [
+          "w4-a",
+          "w4-b"
+        ],
+        "2": [
+          "w4-0"
+        ]
+      }
+    },
+    {
+      "id": "w4-a",
+      "world": "w4",
+      "open_gates": [
+        "g4"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "cold",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w4-a"
+        ],
+        "1": [
+          "w4-a"
+        ],
+        "2": [
+          "w4-final"
+        ]
+      }
+    },
+    {
+      "id": "w4-b",
+      "world": "w4",
+      "open_gates": [
+        "g4"
+      ],
+      "accepting": false,
+      "signals": {
+        "alpha": "cold",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w4-b"
+        ],
+        "1": [
+          "w4-b"
+        ],
+        "2": [
+          "w4-final"
+        ]
+      }
+    },
+    {
+      "id": "w4-final",
+      "world": "w4",
+      "open_gates": [
+        "g4"
+      ],
+      "accepting": true,
+      "signals": {
+        "alpha": "cold",
+        "beta": "right"
+      },
+      "next_by_tone": {
+        "0": [
+          "w4-final"
+        ],
+        "1": [
+          "w4-final"
+        ],
+        "2": [
+          "w4-final"
+        ]
+      }
+    }
+  ],
+  "initial_states": [
+    "w1-0",
+    "w2-0",
+    "w3-0",
+    "w4-0"
+  ]
+}

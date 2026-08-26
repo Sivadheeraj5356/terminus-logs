@@ -1,0 +1,7 @@
+# RNPX-9 motif records: motif NAME seed encoded hex
+motif M1 5 UGU 32
+motif M2 11 GGU E2
+motif M3 7 AAA CD
+motif M4 13 CAG F5
+motif M5 3 CUAA C0
+motif M6 17 AGAG AF

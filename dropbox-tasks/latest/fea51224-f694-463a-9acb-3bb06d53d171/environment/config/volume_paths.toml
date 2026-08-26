@@ -1,0 +1,3 @@
+logical_path = "/dev/mapper/vg-data"
+field_path = "/sys/block/vg-data"
+session = "trim-7a2"

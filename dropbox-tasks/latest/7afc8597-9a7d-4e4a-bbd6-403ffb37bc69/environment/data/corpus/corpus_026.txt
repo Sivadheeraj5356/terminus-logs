@@ -1,0 +1,10 @@
+false bar gray delta end maybe
+addr 36.219.158.13 hex 0x6c2b token tok_266
+addr 93.177.39.94 hex 0xbba1 token tok_890
+start bar
+name_1 foo_bar Baz99 __x
+consonants rhythm myth
+addr 85.41.39.1 hex 0x16f4 token tok_899
+value = 0xDEADbeef and 0x1234
+addr 56.160.55.57 hex 0xdcbd token tok_528
+ip 192.168.0.1 and 10.0.0.255 here

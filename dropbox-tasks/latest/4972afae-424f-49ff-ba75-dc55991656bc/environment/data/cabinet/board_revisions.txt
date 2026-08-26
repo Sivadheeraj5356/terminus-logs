@@ -1,0 +1,17 @@
+BROADWATER AMUSEMENT CO - SKITTLE ALLEY BOARD REVISIONS
+
+SKAL-0001-A
+  The production board. Roughly four thousand were built between the autumn of
+  1981 and the spring of 1982. The game program is the one described in the
+  operator flyer.
+
+SKAL-0001-B
+  Built from the spring of 1982 until the line closed. The board carries a
+  larger scratch memory, a ball dial and a throw latch that the A board does
+  not have, and a revised game program that reads them. Cabinet art, marquee,
+  attract sequence, high score card and operator flyer were not changed, and
+  the flyer shipped with the B cabinets is the flyer written for the A board.
+  Collectors report that the two boards do not always play alike once a game
+  moves off the opening rack, and the factory never issued a note.
+
+The board in this cabinet is a SKAL-0001-B.

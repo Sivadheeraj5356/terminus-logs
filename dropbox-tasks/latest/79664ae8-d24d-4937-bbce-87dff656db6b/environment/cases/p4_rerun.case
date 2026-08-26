@@ -1,0 +1,3 @@
+DRIFT_PROFILE=cold
+DRIFT_WAVE=bundles/waves/wave_a.json
+DRIFT_RERUN=1

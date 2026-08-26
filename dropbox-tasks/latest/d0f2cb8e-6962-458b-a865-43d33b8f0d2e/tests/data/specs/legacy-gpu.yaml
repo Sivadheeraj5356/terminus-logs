@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legacy-gpu
+  annotations:
+    serving.mlp.io/framework: tensorflow-serving
+    model.mlp.io/artifact-sha256: sha256:112233445566
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: legacy-gpu
+  template:
+    metadata:
+      labels:
+        app: legacy-gpu
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: tensorflow-serving
+        model.mlp.io/artifact-sha256: sha256:112233445566
+    spec:
+      containers:
+        - name: model-server
+          image: tensorflow/serving:2.10.0
+          resources:
+            requests:
+              cpu: "1000m"
+              memory: "2048Mi"
+            limits:
+              nvidia.com/gpu: "1"
+          livenessProbe:
+            httpGet:
+              path: /v1/models/default
+              port: 8501
+            initialDelaySeconds: 20

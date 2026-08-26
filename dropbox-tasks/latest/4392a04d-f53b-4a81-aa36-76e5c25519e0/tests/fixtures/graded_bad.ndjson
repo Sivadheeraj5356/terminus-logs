@@ -1,0 +1,2 @@
+{"src":"10.1.1.1","dst":"192.168.1.1","port":22,"protocol":"tcp","direction":"inbound"}
+{"src":"10.1.1.1","dst":"8.8.8.8","port":80,"protocol":"tcp","direction":"inbound"}

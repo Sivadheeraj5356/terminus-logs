@@ -1,0 +1,12 @@
+[
+  {
+    "patch_id": "1.0.0",
+    "headline": "Striker damage tune",
+    "stat_delta": 0
+  },
+  {
+    "patch_id": "1.1.0",
+    "headline": "Warden shield nerf headline",
+    "stat_delta": -1
+  }
+]

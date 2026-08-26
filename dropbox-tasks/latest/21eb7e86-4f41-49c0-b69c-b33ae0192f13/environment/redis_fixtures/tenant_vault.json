@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"MaxSessions\":\"4\",\"AllowAgentForwarding\":\"no\",\"AllowUsers\":\"alice\",\"PasswordAuthentication\":\"no\"}}"
+}

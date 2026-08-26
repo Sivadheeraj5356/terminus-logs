@@ -1,0 +1,14 @@
+Operator notes for local report generation
+
+Confirm the source tree is present with `test -d /app/environment` before configuring cmake. Rebuild the scorer from that tree before trusting a regenerated ledger. From `/app/environment`, a typical configure and build is:
+
+  cmake -S /app/environment -B /app/build
+  cmake --build /app/build
+
+Then run:
+
+  /app/build/r01_score --data-root /app/environment/r01
+
+The default seed is 314159 and the default output path is `/app/output/moderation_ledger.json`. Report fields must reflect the selected data root on each run rather than a previously cached artifact. Equivalent source row ordering should yield the same records.
+
+The executable accepts --seed to set the deterministic seed and --out to choose the report path when you need a non-default destination.

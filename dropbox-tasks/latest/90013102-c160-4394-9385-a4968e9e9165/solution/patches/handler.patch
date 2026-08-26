@@ -1,0 +1,121 @@
+--- internal/proxy/handler.go
++++ internal/proxy/handler.go
+@@ -16,11 +16,11 @@
+ )
+ 
+ type Handler struct {
+-	Runtime  *config.Runtime
+-	TraceW   *trace.Writer
+-	AuditW   *audit.SnapshotWriter
+-	SpoolW   *spool.Writer
+-	Mode     string
++	Runtime *config.Runtime
++	TraceW  *trace.Writer
++	AuditW  *audit.SnapshotWriter
++	SpoolW  *spool.Writer
++	Mode    string
+ }
+ 
+ func (h *Handler) HandleConn(conn net.Conn) {
+@@ -37,7 +37,6 @@
+ 	if len(buf) < 4 {
+ 		return false
+ 	}
+-	// crude: headers ended
+ 	for i := 0; i+3 < len(buf); i++ {
+ 		if buf[i] == '\r' && buf[i+1] == '\n' && buf[i+2] == '\r' && buf[i+3] == '\n' {
+ 			return true
+@@ -84,13 +83,13 @@
+ 		requestID = newRequestID()
+ 	}
+ 
+-	verifyHeaders, err := semantics.ApplyPreVerifyHeaders(policy, wreq.Headers, wreq.HeaderOrder)
++	forwardHeaders, err := semantics.ApplyHeaderPolicy(policy, wreq.Headers, wreq.HeaderOrder)
+ 	if err != nil {
+ 		return RejectResponse("header_policy_violation")
+ 	}
+-	verifyHeaders = semantics.FilterSignedHeaders(policy, verifyHeaders)
++	forwardHeaders = semantics.FilterSignedHeaders(policy, forwardHeaders)
+ 
+-	verifySem := &semantics.Request{
++	sem := &semantics.Request{
+ 		RequestID:           requestID,
+ 		SignatureVersion:    pc.SignatureVersion,
+ 		ProfileID:           pc.ID,
+@@ -104,27 +103,19 @@
+ 		CanonicalQuery:      query,
+ 		CanonicalQueryPairs: pairs,
+ 		CanonicalTarget:     target,
+-		CanonicalHeaders:    verifyHeaders,
++		CanonicalHeaders:    forwardHeaders,
+ 		EntityBody:          append([]byte(nil), wreq.EntityBody...),
+ 		EntityBodySHA256:    semantics.BodyDigest(wreq.EntityBody),
+ 		EntityBodyLength:    len(wreq.EntityBody),
+ 		RequestNonce:        nonce,
+ 	}
+ 
+-	ver := signature.Verify(verifySem, sigHeader, h.Runtime.Keyring, h.Runtime.Cache, h.Runtime.Catalog.CatalogDigest)
++	ver := signature.Verify(sem, sigHeader, h.Runtime.Keyring, h.Runtime.Cache, h.Runtime.Catalog.CatalogDigest)
+ 	if !ver.OK {
+ 		return RejectResponse(ver.Reason)
+ 	}
+ 
+-	// Forward path uses post-filter headers
+-	forwardHeaders, err := semantics.ApplyHeaderPolicy(policy, wreq.Headers, wreq.HeaderOrder)
+-	if err != nil {
+-		return RejectResponse("header_policy_violation")
+-	}
+-	forwardHeaders = semantics.FilterSignedHeaders(policy, forwardHeaders)
+-
+-	forwardSem := verifySem.Clone()
+-	forwardSem.CanonicalHeaders = forwardHeaders
++	snap := audit.FromSemantic(sem, "live", "allow", audit.ReasonAllow, ver.CanonicalDigest, ver.CacheHit)
+ 
+ 	decision := DecideRetry(h.Runtime.Config.BackendUnix, true)
+ 	var resp []byte
+@@ -132,22 +123,20 @@
+ 	var sp *trace.SpoolEvidence
+ 
+ 	if decision.Queue {
+-		rec := spool.NewRecord(requestID, 0, wreq.WireDigest(), forwardSem.Clone(), sigHeader, ver.CanonicalDigest)
++		rec := spool.NewRecord(requestID, 0, wreq.WireDigest(), sem.Clone(), sigHeader, ver.CanonicalDigest)
+ 		if err := h.SpoolW.Write(rec, raw, wreq.EntityBody); err != nil {
+ 			return ErrorResponse(500, "spool_write_failed")
+ 		}
+ 		sp = &trace.SpoolEvidence{RecordID: rec.RecordID, State: string(spool.StatePending), ReplayCount: 0, SealValid: true}
+ 		resp = RetryResponse()
+ 	} else {
+-		out, err := ForwardSemantic(h.Runtime.Config.BackendUnix, forwardSem)
++		out, err := ForwardSemantic(h.Runtime.Config.BackendUnix, sem)
+ 		if err != nil {
+-			rec := spool.NewRecord(requestID, 0, wreq.WireDigest(), forwardSem.Clone(), sigHeader, ver.CanonicalDigest)
++			rec := spool.NewRecord(requestID, 0, wreq.WireDigest(), sem.Clone(), sigHeader, ver.CanonicalDigest)
+ 			_ = h.SpoolW.Write(rec, raw, wreq.EntityBody)
+ 			sp = &trace.SpoolEvidence{RecordID: rec.RecordID, State: string(spool.StatePending), ReplayCount: 0, SealValid: true}
+ 			resp = RetryResponse()
+ 		} else {
+-			// mutate forwardSem after forward for audit bug demonstration
+-			forwardSem.CanonicalTarget = stringsToUpperPath(forwardSem.CanonicalTarget)
+ 			fwd = &trace.ForwardEvidence{
+ 				BackendDigest:  out.BackendDigest,
+ 				BackendLength:  out.BackendLength,
+@@ -161,7 +150,6 @@
+ 		}
+ 	}
+ 
+-	snap := audit.CaptureAfterForward(forwardSem, "live", "allow", audit.ReasonAllow, ver.CanonicalDigest, ver.CacheHit)
+ 	auditDigest, _ := h.AuditW.WriteSnapshot(snap)
+ 	h.TraceW.AddFromSnapshot(snap, wreq.WireDigest(), len(wreq.EntityBody), fwd, sp, auditDigest)
+ 	_ = h.TraceW.Flush()
+@@ -183,11 +171,3 @@
+ 	_, _ = rand.Read(b)
+ 	return hex.EncodeToString(b)
+ }
+-
+-func stringsToUpperPath(p string) string {
+-	// cosmetic mutation for audit mismatch on some requests
+-	if p == "" {
+-		return p
+-	}
+-	return p
+-}

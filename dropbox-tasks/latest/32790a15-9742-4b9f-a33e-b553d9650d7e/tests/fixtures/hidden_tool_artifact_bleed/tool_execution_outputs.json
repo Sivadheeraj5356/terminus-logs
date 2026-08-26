@@ -1,0 +1,11 @@
+{
+  "tools": [
+    {
+      "tool_id": "tool_calc",
+      "session_id": "sess_beta",
+      "turn_id": "t_b3",
+      "artifact_hash": "art1",
+      "executed_at": "2024-04-01T00:00:00Z"
+    }
+  ]
+}

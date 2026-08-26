@@ -1,0 +1,11 @@
+[
+  {"id": "log-web",      "action": "log",   "src": "0.0.0.0/0",     "dst": "0.0.0.0/0",       "port_min": 443,  "port_max": 443,   "protocol": "tcp",  "direction": "inbound",  "priority": 950},
+  {"id": "log-web-2",    "action": "log",   "src": "0.0.0.0/0",     "dst": "0.0.0.0/0",       "port_min": 443,  "port_max": 443,   "protocol": "tcp",  "direction": "inbound",  "priority": 950},
+  {"id": "allow-web",    "action": "allow", "src": "172.16.0.0/12", "dst": "10.10.0.0/16",    "port_min": 443,  "port_max": 443,   "protocol": "tcp",  "direction": "inbound",  "priority": 400},
+  {"id": "deny-web-lab", "action": "deny",  "src": "172.20.0.0/16", "dst": "10.10.0.0/16",    "port_min": 443,  "port_max": 443,   "protocol": "tcp",  "direction": "inbound",  "priority": 700},
+  {"id": "allow-http",   "action": "allow", "src": "0.0.0.0/0",     "dst": "10.10.1.0/24",    "port_min": 8080, "port_max": 8080,  "protocol": "tcp",  "direction": "inbound",  "priority": 600},
+  {"id": "deny-http-sub","action": "deny",  "src": "0.0.0.0/0",     "dst": "10.10.1.192/26",  "port_min": 8080, "port_max": 8080,  "protocol": "tcp",  "direction": "inbound",  "priority": 500},
+  {"id": "allow-dns",    "action": "allow", "src": "172.16.0.0/12", "dst": "10.10.0.53/32",   "port_min": 53,   "port_max": 53,    "protocol": "udp",  "direction": "any",      "priority": 600},
+  {"id": "allow-egress", "action": "allow", "src": "172.16.9.9/12", "dst": "10.10.0.0/16",    "port_min": 22,   "port_max": 22,    "protocol": "tcp",  "direction": "outbound", "priority": 600},
+  {"id": "allow-icmp",   "action": "allow", "src": "172.16.0.0/12", "dst": "10.10.0.0/16",    "port_min": 0,    "port_max": 65535, "protocol": "icmp", "direction": "any",      "priority": 100}
+]

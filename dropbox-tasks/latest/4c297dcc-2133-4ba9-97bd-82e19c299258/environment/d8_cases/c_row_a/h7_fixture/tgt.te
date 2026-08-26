@@ -1,0 +1,4 @@
+ROW:elev_u
+ROWBITS:0x03
+LIST:elev_u
+CAPMAX:0x03

@@ -1,0 +1,85 @@
+MANIFEST
+blender_version: string
+python_expr: string
+env: object mapping strings to strings
+profile_settings: object
+addons: optional array of ADDON
+
+ADDON
+id: string
+module: string
+enabled: boolean
+version: string
+files: object mapping relative path strings to UTF-8 content strings
+preferences: object
+requires: optional array of objects with module and min_version strings
+load_after: optional array of module strings
+load_before: optional array of module strings
+conflicts: optional array of module strings
+
+ADDON_MANIFEST
+id, module, version, enabled: copied scalar ADDON fields
+files: sorted array of declared file path strings
+preferences: copied object
+install_path: absolute module installation path
+requires: array of objects containing exactly module and min_version strings, sorted by module then min_version
+load_after, load_before, conflicts: sorted arrays of module strings
+
+ENABLED_ADDONS
+generated_by: string, exactly "blendprofile"
+profile: string
+enabled_modules: sorted array of module strings
+addon_load_order: topological-order array
+dependency_edges: sorted array of FROM->TO strings
+addons: sorted array of enabled ADDON_MANIFEST metadata
+
+ADDONS_LOCK
+generated_by: string, exactly "blendprofile"
+profile: string
+manifest_sha256: lowercase SHA-256
+addon_count: integer
+addon_file_count: integer
+addon_load_order: array
+dependency_edges: array
+addons: sorted array of LOCK_ROW
+
+LOCK_ROW
+id, module, version: strings
+enabled: boolean
+file_count: integer
+content_sha256: lowercase SHA-256
+preferences_sha256: lowercase SHA-256
+
+MANAGED_FILES
+generated_by: string, exactly "blendprofile"
+profile: string
+manifest_sha256: lowercase SHA-256
+file_count: integer
+files: array sorted by path of MANAGED_ROW
+
+MANAGED_ROW
+path: profile-relative POSIX string
+kind: wrapper | bootstrap | enabled_metadata | addon_lock | addon_manifest | addon_file
+sha256: lowercase SHA-256 of current file bytes
+
+PROFILE_AUDIT
+generated_by: string, exactly "blendprofile"
+profile, manifest_sha256, wrapper_sha256, bootstrap_sha256: strings
+enabled_addons_sha256, addons_lock_sha256, managed_files_sha256: strings
+addon_manifest_sha256: object mapping module to SHA-256 of exact addon_manifest.json file bytes
+addon_content_sha256: object mapping module to the filename-NUL-content-NUL digest defined in /app/docs/blendprofile_contract.txt
+addon_load_order: array
+dependency_edges: array
+
+GENERATION_RECORD
+generation: integer
+profile: string
+manifest_sha256, managed_files_sha256, profile_audit_sha256: SHA-256 of the exact corresponding file bytes
+previous_hash, record_hash: lowercase SHA-256 strings
+
+GENERATION_STATE
+generated_by: string, exactly "blendprofile"
+profile: string
+generation: integer
+head_hash: lowercase SHA-256 string
+manifest_sha256, managed_files_sha256, profile_audit_sha256: SHA-256 of the exact corresponding file bytes

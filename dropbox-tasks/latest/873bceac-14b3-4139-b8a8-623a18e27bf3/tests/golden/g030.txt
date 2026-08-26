@@ -1,0 +1,16 @@
+== Gallery of Whispers [cavern] ==
+Omen: Fire answers fire.
+Light: 6.5 lumens
+Relics:
+  - Astrolabe Shard <epic> 60g (cursed)
+  - Echo Lens <rare> 80g
+  - Whisper Coin <common> 15g
+Freshest: Echo Lens @ 13:00 KST
+Exits:
+  - north: Petrified Garden (torch 1.5)
+  - east: sealed gate (torch 3.0)
+Torch: 10.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+inspect astrolabe-shard

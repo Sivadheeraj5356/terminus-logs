@@ -1,0 +1,6 @@
+{
+  "nx": 8,
+  "ny": 8,
+  "nz": 8,
+  "boundary_fraction": 0.12
+}

@@ -1,0 +1,32 @@
+version = "2.0"
+name = "latent-stabilizer-burst-coset-inference"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous@example.com"
+category = "scientific-computing"
+subcategories = []
+difficulty = "hard"
+codebase_size = "minimal"
+number_of_milestones = 0
+languages = ["go"]
+tags = ["experimental-quantum-physics", "stabilizer-measurements", "latent-burst-noise", "logical-cosets", "exact-rational-likelihood"]
+expert_time_estimate_min = 720
+junior_time_estimate_min = 1800
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 300
+
+[environment]
+workdir = "/workspace"
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 2048
+storage_mb = 4096
+allow_internet = false
+docker_flags = []
+gpus = 0
+gpu_types = []

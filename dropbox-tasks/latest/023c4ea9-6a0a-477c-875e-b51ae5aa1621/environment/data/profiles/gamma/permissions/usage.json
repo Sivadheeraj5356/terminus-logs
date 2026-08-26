@@ -1,0 +1,17 @@
+[
+  {
+    "from": "u1",
+    "to": "grp-alpha",
+    "hits": 3
+  },
+  {
+    "from": "sa-mesh",
+    "to": "k8s-bind",
+    "hits": 10
+  },
+  {
+    "from": "k8s-agg",
+    "to": "crown-store",
+    "hits": 14
+  }
+]

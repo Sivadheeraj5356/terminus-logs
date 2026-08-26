@@ -1,0 +1,6 @@
+ANNEX_PREFIX=q46.
+ORDER=annex_before_labels
+SEAL=k9m2
+SEAL_TABLE=k9m2,w3xp,n7qq
+WINDOW_MOD=3
+STAGE_ROOT=/app/output/stage

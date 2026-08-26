@@ -1,0 +1,44 @@
+{
+  "finalRoom": "deck-hold",
+  "visitedRooms": [
+    "bay-a1",
+    "bay-b2",
+    "reefer-r7",
+    "tank-t4",
+    "deck-hold"
+  ],
+  "transitions": [
+    {
+      "from": "bay-a1",
+      "to": "bay-b2",
+      "command": "pathfind reefer-r7"
+    },
+    {
+      "from": "bay-b2",
+      "to": "reefer-r7",
+      "command": "pathfind reefer-r7"
+    },
+    {
+      "from": "reefer-r7",
+      "to": "tank-t4",
+      "command": "pathfind tank-t4"
+    },
+    {
+      "from": "tank-t4",
+      "to": "deck-hold",
+      "command": "pathfind deck-hold"
+    }
+  ],
+  "brokenSeals": [],
+  "rejectedActions": [],
+  "hazardsTriggered": [
+    "corrosive"
+  ],
+  "score": 29,
+  "scoreBreakdown": {
+    "roomsVisited": 50,
+    "hazardPenalty": -15,
+    "stackMovePenalty": -10,
+    "temporaryRoutesUsed": 4
+  }
+}

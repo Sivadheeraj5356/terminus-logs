@@ -1,0 +1,1 @@
+{"sheets":[{"name":"Main","cells":{"A1":5,"A2":7,"A3":"=SUM(A1:A2)","B1":"=IF(A3>10,A3,0)","B2":"=MAX(Total)","C1":"=B2/0"}},{"name":"Aux","cells":{"A1":"=Main!A3+1","A2":"=COUNT(Total)"}}],"names":{"Total":"Main!A1:A3"},"edits":[{"id":"e1","cell":"Main!A1","value":10},{"id":"e2","cell":"Main!C2","value":"=Main!C2+1"}]}

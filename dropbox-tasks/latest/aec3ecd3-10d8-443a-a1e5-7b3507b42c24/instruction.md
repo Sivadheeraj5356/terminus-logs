@@ -1,0 +1,7 @@
+Fix the JavaScript sources under /app/environment so CSR SpMV stays under the nonzero cap in /app/environment/docs/nlim.toml, and residual norms for every pack under /app/environment/suite land inside the absolute and relative bands published there (and in each pack meta.toml).
+
+Run this probe command
+
+`node /app/environment/tools/drive_a.mjs --pack <id>`
+
+Emit /app/output/slot_map.json, /app/output/band_tbl.json, and /app/output/run_log.jsonl from the live probe. slot_map carries pack_id, dim, nz_live, nz_cap, and view_digest. band_tbl carries pack_id, r_abs, r_rel, abs_band, rel_band, and trace_digest. run_log.jsonl rows carry pack_id, nz_live, r_abs, r_rel, trace_digest, and ts_mono. Digests are 64-character lowercase hex. Symmetric packs keep the upper triangle only; the expanded product must match full-storage semantics within the published tolerance. Reordering may change layout, but pointer integrity and numeric results must hold. Blocking is allowed only while results stay inside bands. Hand-written JSON under /app/output is not enough; the driver must regenerate the artifacts. Residual and ledger field definitions live in /app/environment/docs/nform.md. JSON schemas live at /app/environment/schemas/slot_map.schema.json, /app/environment/schemas/band_tbl.schema.json, and /app/environment/schemas/run_log.schema.json. Argv patterns live in /app/environment/docs/operator_cmds.txt.

@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-105
+ISSUER: NOR
+ISSUED: 1767119200
+EFFECTIVE: 1767139200
+
+Revenue protection staff report that estimate-sourced reads remain the most common vector for class understatement.
+
+DIRECTIVES:
+BANDS NOR-100 0:40 50:60 100:90
+END DIRECTIVES
+
+The board notes that field inspections in the northern district recovered 41 tapped service heads last quarter, at an estimated 250 cents per kWh of unbilled energy.

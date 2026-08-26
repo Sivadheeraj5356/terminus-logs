@@ -1,0 +1,11 @@
+# delayed carry corpus
+PAIR:worker_u
+CAP:0xff
+LANE:5
+TAG:16
+ROLE:worker_u
+PAIR:worker_u
+CAP:0x02
+LANE:2
+TAG:16
+ROLE:worker_u

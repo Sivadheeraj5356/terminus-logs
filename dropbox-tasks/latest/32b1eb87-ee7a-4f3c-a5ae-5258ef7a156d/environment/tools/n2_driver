@@ -1,0 +1,30 @@
+#!/bin/bash
+set -euo pipefail
+HOST="/app/environment/build/bin/n8_host"
+RESET=0
+BATCH=""
+FIXTURE=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --batch) BATCH="$2"; shift 2 ;;
+    --fixture) FIXTURE="$2"; shift 2 ;;
+    --reset) RESET=1; shift ;;
+    *) echo "unknown flag: $1" >&2; exit 2 ;;
+  esac
+done
+
+if [[ -z "$BATCH" ]]; then
+  echo "usage: n2_driver --batch NAME [--fixture DIR] [--reset]" >&2
+  exit 2
+fi
+
+mkdir -p /app/state /app/output
+ARGS=(replay --batch "$BATCH")
+if [[ "$RESET" -eq 1 ]]; then
+  ARGS+=(--reset)
+fi
+if [[ -n "$FIXTURE" ]]; then
+  ARGS+=(--fixture "$FIXTURE")
+fi
+exec "$HOST" "${ARGS[@]}"

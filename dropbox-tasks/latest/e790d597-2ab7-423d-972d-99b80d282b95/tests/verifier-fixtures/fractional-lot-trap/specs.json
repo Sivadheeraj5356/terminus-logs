@@ -1,0 +1,11 @@
+{
+  "specifications": [
+    {
+      "spec_id": "SPEC-FRAC",
+      "priority": 100,
+      "bands": {
+        "marker": {"lower": 45.0, "upper": 50.0}
+      }
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lockctl.local/schemas/transient_report.schema.json",
+  "title": "transient_report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "case_digest_hex",
+    "completed",
+    "simulated_until_s",
+    "samples",
+    "diagnostics",
+    "audit_digest_hex"
+  ],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 4 },
+    "case_id": { "type": "string", "minLength": 1 },
+    "case_digest_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "completed": { "type": "boolean" },
+    "simulated_until_s": { "type": "integer" },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["time_s", "nodes", "links", "conservation"],
+        "properties": {
+          "time_s": { "type": "integer" },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["node_id", "node_type", "level_m"],
+              "properties": {
+                "node_id": { "type": "string" },
+                "node_type": { "type": "string", "enum": ["storage", "boundary"] },
+                "curve_revision": { "type": "integer" },
+                "level_m": { "type": "number" },
+                "volume_m3": { "type": "number" }
+              }
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["link_id", "link_type", "flow_m3_s", "control"],
+              "properties": {
+                "link_id": { "type": "string" },
+                "link_type": { "type": "string", "enum": ["gate", "weir", "pump"] },
+                "flow_m3_s": { "type": "number" },
+                "control": { "type": "number" }
+              }
+            }
+          },
+          "conservation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "current_total_storage_m3",
+              "cumulative_external_volume_m3",
+              "mass_residual_m3"
+            ],
+            "properties": {
+              "current_total_storage_m3": { "type": "number" },
+              "cumulative_external_volume_m3": { "type": "number" },
+              "mass_residual_m3": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted_substeps",
+        "rejected_attempts",
+        "newton_iterations",
+        "minimum_accepted_step_s",
+        "maximum_accepted_step_s",
+        "maximum_abs_mass_residual_m3"
+      ],
+      "properties": {
+        "accepted_substeps": { "type": "integer" },
+        "rejected_attempts": { "type": "integer" },
+        "newton_iterations": { "type": "integer" },
+        "minimum_accepted_step_s": { "type": "number" },
+        "maximum_accepted_step_s": { "type": "number" },
+        "maximum_abs_mass_residual_m3": { "type": "number" }
+      }
+    },
+    "audit_digest_hex": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

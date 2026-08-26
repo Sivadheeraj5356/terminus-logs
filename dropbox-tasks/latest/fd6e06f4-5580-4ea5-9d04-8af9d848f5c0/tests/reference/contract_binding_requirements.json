@@ -1,0 +1,14 @@
+{
+  "description": "training_compliance_contract.md must contain each required token as a verbatim substring.",
+  "required_filenames": [
+    "governance_manifest.json",
+    "training_compliance_annex.md",
+    "graph_emission.prod.json"
+  ],
+  "required_ledger_tokens": ["0091", "0093"],
+  "required_violation_literals": ["leaking_feature", "unapproved_model"],
+  "required_freshness_column_from": "graph_emission.prod.json:production_binding.ledger_timestamp_column",
+  "required_digraph_from": "graph_emission.prod.json:production_binding.digraph_name",
+  "required_binding_marker_from_manifest_field": "binding_marker",
+  "committed_at_must_be_informational_only": true
+}

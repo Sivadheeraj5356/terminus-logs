@@ -1,0 +1,33 @@
+{
+  "name": "beta",
+  "arms": [
+    {
+      "name": "data",
+      "opts": "ro",
+      "remote": false,
+      "order_hint": 10,
+      "what": "/srv/backing/beta/data",
+      "where": "/srv/arms/beta/data"
+    },
+    {
+      "name": "work",
+      "opts": "rw",
+      "remote": false,
+      "order_hint": 15,
+      "what": "/srv/backing/beta/work",
+      "where": "/srv/arms/beta/work"
+    },
+    {
+      "name": "spill",
+      "opts": "rw",
+      "remote": false,
+      "order_hint": 25,
+      "depends_on": ["work"],
+      "what": "/srv/backing/beta/spill",
+      "where": "/srv/arms/beta/spill"
+    }
+  ],
+  "units": [
+    {"gen_opts": "rw,bs=spill", "hand_opts": "rw,bs=work"}
+  ]
+}

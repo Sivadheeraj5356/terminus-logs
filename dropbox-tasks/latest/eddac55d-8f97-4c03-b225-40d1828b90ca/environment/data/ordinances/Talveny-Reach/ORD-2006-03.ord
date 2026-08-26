@@ -1,0 +1,9 @@
+ordinance: ORD-2006-03
+jurisdiction: Talveny-Reach
+enacted: 2006-06-12
+effective: 2006-10-29T02:00:00 standard
+standard-offset: +10:00:00
+standard-label: TST
+observance:
+  begin: Oct Sun>=1 02:00:00 standard save +01:00:00 label TDT
+  end: Apr Sun>=1 03:00:00 standard

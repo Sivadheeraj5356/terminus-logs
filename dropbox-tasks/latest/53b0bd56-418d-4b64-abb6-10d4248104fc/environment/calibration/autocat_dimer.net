@@ -1,0 +1,11 @@
+network	autocat_dimer
+species	A	B	C
+initial	A	1
+initial	B	0
+initial	C	0
+reaction	0.040000000000000001	A -> B
+reaction	30000000	B + B -> C + B
+reaction	10000	B + C -> A + C
+horizon	0	40
+rtol	9.9999999999999995e-07
+atol	1.0000000000000001e-09

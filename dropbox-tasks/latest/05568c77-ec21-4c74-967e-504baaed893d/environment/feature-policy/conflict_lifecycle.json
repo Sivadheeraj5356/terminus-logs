@@ -1,0 +1,15 @@
+{
+  "conflict_key": ["crate", "selected_version"],
+  "purge_on_winner_version_change": true,
+  "purge_scope": "delete every feature_conflicts row for the crate where selected_version != new_winner_version",
+  "purge_when_resolved_crate_key_changes": true,
+  "do_not_purge_on_feature_union_only": true,
+  "do_not_purge_when_same_depth_same_parent_same_version": true,
+  "purge_before_recording_new_rejections_for_replacement_winner": true,
+  "resolution_reason_unified": "see walk_order.json same_depth_version_conflict",
+  "resolution_reason_nearest": "depth winner or parent_key lexicographic winner at equal depth",
+  "resolution_reason_workspace": "crate appears in workspace_pins after conflict recording",
+  "wire_reserved": 0,
+  "partial_feature_literals_field": "partial_feature_literals",
+  "partial_feature_literal_pattern": "feat:"
+}

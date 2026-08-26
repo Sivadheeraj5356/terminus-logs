@@ -1,0 +1,7 @@
+IP 255.255.255.0 mask
+this is the end
+consonants rhythm myth
+banana dog beta colour
+cat baz quux
+addr 145.135.199.178 hex 0xdcf0 token tok_684
+hello quux false colour delta maybe

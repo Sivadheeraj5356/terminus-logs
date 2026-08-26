@@ -1,0 +1,6 @@
+[
+  { "tier": 1, "verb": "log", "bind": { "root": "/usr/bin", "alias": "/opt/bin" } },
+  { "tier": 1, "verb": "check_hmac", "bind": { "root": "/usr/bin" } },
+  { "tier": 1, "verb": "log", "bind": { "root": "/lib" } },
+  { "tier": 1, "verb": "check_sig", "bind": { "root": "/lib" } }
+]

@@ -1,0 +1,11 @@
+[package]
+name = "inventory-tool"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+docmodel = { path = "../../crates/docmodel" }
+
+[[bin]]
+name = "inventory"
+path = "src/main.rs"

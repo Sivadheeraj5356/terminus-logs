@@ -1,0 +1,15 @@
+# FinchRender job queue configuration
+[queue]
+max_depth = 1000
+priority_levels = 3
+dispatch_interval_ms = 100
+
+[retry]
+max_attempts = 3
+backoff_base_sec = 5
+backoff_max_sec = 120
+
+[checkpointing]
+enabled = true
+interval_frames = 50
+checkpoint_dir = "/var/lib/finchrender/checkpoints"

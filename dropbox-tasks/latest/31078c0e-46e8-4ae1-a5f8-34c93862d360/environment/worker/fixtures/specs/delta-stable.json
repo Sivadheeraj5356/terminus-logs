@@ -1,0 +1,28 @@
+{
+  "apiVersion": "diffusion.ops/v1",
+  "kind": "DiffusionExperiment",
+  "metadata": {
+    "name": "delta-stable",
+    "revision": 1
+  },
+  "container": {
+    "image": "registry.local/payments/delta:2.0.0",
+    "digest": "sha256:d333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "spec": {
+    "seed": 4311,
+    "walkers": 10,
+    "steps": 4,
+    "drift": 0.002,
+    "volatility": 0.04,
+    "calibrationRef": "stable-prod",
+    "dimensions": [
+      {
+        "name": "axial",
+        "weight": 0.25,
+        "lower": -5.0,
+        "upper": 5.0
+      }
+    ]
+  }
+}

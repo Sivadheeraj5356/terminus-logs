@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "root_module",
+    "root_version",
+    "modules",
+    "edges",
+    "replace_rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "root_module": {
+      "type": "string"
+    },
+    "root_version": {
+      "type": "string"
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "module_path",
+          "version",
+          "checksum_sha256",
+          "go_version",
+          "is_root"
+        ],
+        "properties": {
+          "module_path": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "checksum_sha256": {
+            "type": "string"
+          },
+          "go_version": {
+            "type": "string"
+          },
+          "is_root": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "parent_path",
+          "parent_version",
+          "child_path",
+          "child_version",
+          "edge_kind"
+        ],
+        "properties": {
+          "parent_path": {
+            "type": "string"
+          },
+          "parent_version": {
+            "type": "string"
+          },
+          "child_path": {
+            "type": "string"
+          },
+          "child_version": {
+            "type": "string"
+          },
+          "edge_kind": {
+            "type": "string",
+            "enum": [
+              "require",
+              "replace"
+            ]
+          }
+        }
+      }
+    },
+    "replace_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "scope_path",
+          "scope_version",
+          "old_path",
+          "old_version",
+          "new_path",
+          "new_version"
+        ],
+        "properties": {
+          "scope_path": {
+            "type": "string"
+          },
+          "scope_version": {
+            "type": "string"
+          },
+          "old_path": {
+            "type": "string"
+          },
+          "old_version": {
+            "type": "string"
+          },
+          "new_path": {
+            "type": "string"
+          },
+          "new_version": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

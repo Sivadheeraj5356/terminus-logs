@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TOF mass-axis reconcile report",
+  "x-tofmass-report-version": 2,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "producer",
+    "run_id",
+    "api_base",
+    "schema_digest",
+    "axis",
+    "provenance",
+    "peaks",
+    "summary",
+    "ledger_digest"
+  ],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "producer": { "const": "tofmass" },
+    "run_id": { "type": "string", "minLength": 1 },
+    "api_base": { "type": "string", "minLength": 1 },
+    "schema_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "axis": {
+      "type": "object",
+      "required": [
+        "k",
+        "t0",
+        "q",
+        "covariance_order",
+        "covariance",
+        "source",
+        "monotonic_interval_us"
+      ],
+      "properties": {
+        "k": { "type": "number" },
+        "t0": { "type": "number" },
+        "q": { "type": "number" },
+        "covariance_order": {
+          "const": ["k", "t0", "q"]
+        },
+        "covariance": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "source": {
+          "enum": [
+            "api_only",
+            "api_lock",
+            "robust_gls",
+            "api_only_after_rejection"
+          ]
+        },
+        "monotonic_interval_us": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["used_candidate_keys", "rejected_candidates"]
+    },
+    "peaks": {
+      "type": "array"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "matched",
+        "accepted",
+        "rejected",
+        "no_match",
+        "outlier",
+        "weighted_rms_z",
+        "max_abs_z"
+      ]
+    },
+    "ledger_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

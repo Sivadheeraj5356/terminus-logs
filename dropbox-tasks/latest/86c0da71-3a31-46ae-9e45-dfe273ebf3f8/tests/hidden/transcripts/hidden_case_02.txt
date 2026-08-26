@@ -1,0 +1,11 @@
+# hidden_case_02: seal-not-present rejection, ventilated room, and repeated hazard room
+move deck-hold
+unlock seal-iron-04
+break-seal seal-iron-04
+unlock seal-lead-09
+move tank-t4
+unlock seal-lead-09
+break-seal seal-lead-09
+move deck-hold
+move bay-a1
+move reefer-r7

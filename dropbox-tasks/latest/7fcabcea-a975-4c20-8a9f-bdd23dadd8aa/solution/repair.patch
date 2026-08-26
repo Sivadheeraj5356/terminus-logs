@@ -1,0 +1,149 @@
+--- a/rxa/body.rs
++++ b/rxa/body.rs
+@@ -1,13 +1,24 @@
+ pub fn phase_c(x: &Entry, y: &Registry) -> Result<SpanKey, MapError> {
+-    let raw = y
++    let unit = y
+         .aliases
+         .get(&x.raw)
+         .cloned()
+-        .unwrap_or_else(|| x.raw.clone());
+-    let unit = raw.chars().next().unwrap_or('_').to_string();
+-    Ok(SpanKey {
+-        unit,
+-        lo: x.lo,
+-        hi: x.hi,
+-    })
++        .unwrap_or_else(|| x.unit.clone())
++        .trim()
++        .to_ascii_lowercase();
++    if unit.is_empty() {
++        return Err(MapError("empty catalog unit".into()));
++    }
++    if x.orient != 1 && x.orient != -1 {
++        return Err(MapError("unsupported orientation".into()));
++    }
++    if x.lo == x.hi {
++        return Err(MapError("zero-width span".into()));
++    }
++    let (lo, hi) = if x.lo < x.hi {
++        (x.lo, x.hi)
++    } else {
++        (x.hi, x.lo)
++    };
++    Ok(SpanKey { unit, lo, hi })
+ }
+--- a/rxb/body.rs
++++ b/rxb/body.rs
+@@ -2,18 +2,29 @@
+     if xs.is_empty() {
+         return Err(FoldError("empty collection".into()));
+     }
+-    let keys: Vec<String> = xs.iter().map(|x| x.key.text()).collect();
+-    let labels: Vec<String> = xs.iter().map(|x| x.label.clone()).collect();
+-    let mut score = 0;
+-    for pair in xs.windows(2) {
+-        score = score.max((pair[0].weight * pair[1].weight).abs());
++    if g.limit < 0 {
++        return Err(FoldError("negative geometry limit".into()));
+     }
+-    if xs.len() == 2 && keys[0] == keys[1] {
+-        score = xs.iter().map(|x| x.weight.abs()).sum::<i32>().pow(2);
++    let mut totals = std::collections::BTreeMap::<String, i64>::new();
++    let mut labels = Vec::with_capacity(xs.len());
++    for x in xs {
++        let key = x.key.text();
++        let slot = totals.entry(key).or_insert(0);
++        *slot = slot
++            .checked_add(i64::from(x.weight))
++            .ok_or_else(|| FoldError("weight accumulation overflow".into()))?;
++        labels.push(x.label.clone());
+     }
+-    if keys.iter().collect::<std::collections::BTreeSet<_>>().len() == xs.len() {
+-        score = xs.iter().map(|x| x.weight.abs()).sum::<i32>().pow(2);
++    let mut score64 = 0_i64;
++    for total in totals.values() {
++        let energy = total
++            .checked_mul(*total)
++            .ok_or_else(|| FoldError("interaction overflow".into()))?;
++        score64 = score64.max(energy);
+     }
++    let score = i32::try_from(score64)
++        .map_err(|_| FoldError("interaction outside supported range".into()))?;
++    let keys = totals.into_keys().collect();
+     Ok(StateA {
+         keys,
+         score,
+--- a/rxc/body.rs
++++ b/rxc/body.rs
+@@ -1,7 +1,39 @@
+-pub fn seal_q(a: &StateA, _b: &InputsB, _c: &ScopeC) -> Stamp {
++pub fn seal_q(a: &StateA, b: &InputsB, c: &ScopeC) -> Stamp {
++    let mut parts = c.parts.clone();
++    parts.sort();
++    parts.dedup();
++    let mut keys = a.keys.clone();
++    keys.sort();
++    keys.dedup();
+     let mut labels = a.labels.clone();
+     labels.sort();
++    let fields = [
++        b.base.as_str(),
++        b.revision.as_str(),
++        if a.ready { "1" } else { "0" },
++    ];
++    let mut value = 0xcbf29ce484222325_u64;
++    for field in fields {
++        for byte in field.as_bytes() {
++            value ^= u64::from(*byte);
++            value = value.wrapping_mul(0x100000001b3);
++        }
++        value ^= 0xff;
++        value = value.wrapping_mul(0x100000001b3);
++    }
++    for field in keys.iter().chain(labels.iter()).chain(parts.iter()) {
++        for byte in field.as_bytes() {
++            value ^= u64::from(*byte);
++            value = value.wrapping_mul(0x100000001b3);
++        }
++        value ^= 0xfe;
++        value = value.wrapping_mul(0x100000001b3);
++    }
++    for byte in a.score.to_le_bytes() {
++        value ^= u64::from(byte);
++        value = value.wrapping_mul(0x100000001b3);
++    }
+     Stamp {
+-        value: labels.join("+"),
++        value: format!("{value:016x}"),
+     }
+ }
+--- a/rxd/body.rs
++++ b/rxd/body.rs
+@@ -1,11 +1,22 @@
+ pub fn route_n(p: &Snapshot, q: &BookE) -> Result<FrameD, ReplayError> {
+-    let source = q.latest.as_ref().unwrap_or(p);
++    if p.token.trim().is_empty() {
++        return Err(ReplayError("empty snapshot token".into()));
++    }
++    if q.parts.is_empty() {
++        return Err(ReplayError("empty partition book".into()));
++    }
++    let mut parts = q.parts.clone();
++    parts.sort();
++    parts.dedup();
+     let frame = FrameD {
+         token: p.token.clone(),
+-        state: source.state.clone(),
++        state: p.state.clone(),
+         request_id: p.request_id.clone(),
+-        parts: q.parts.clone(),
++        parts,
+     };
+-    eval::scan_v(&frame, q).map_err(|e| ReplayError(e.to_string()))?;
++    let measured = eval::scan_v(&frame, q).map_err(|e| ReplayError(e.to_string()))?;
++    if measured.score != frame.state.score || measured.ready != frame.state.ready {
++        return Err(ReplayError("frame measurement mismatch".into()));
++    }
+     Ok(frame)
+ }

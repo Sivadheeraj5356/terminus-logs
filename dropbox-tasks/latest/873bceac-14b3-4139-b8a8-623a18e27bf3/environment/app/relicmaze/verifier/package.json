@@ -1,0 +1,9 @@
+{
+  "name": "relicmaze-verifier",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample-scenario self-test harness for the RelicMaze resolver",
+  "scripts": {
+    "test": "node run.js"
+  }
+}

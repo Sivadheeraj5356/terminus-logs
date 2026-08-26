@@ -1,0 +1,3 @@
+{"id": "P1", "class": "program_cancel", "direct_units": ["U_PROG"], "window": {"start": 0, "end": 50}, "exclusive": true, "flags": []}
+{"id": "P2", "class": "program_cancel", "direct_units": ["U_PROG"], "window": {"start": 25, "end": 75}, "exclusive": true, "flags": []}
+{"id": "P3", "class": "budget_realloc", "direct_units": ["U_PROG", "U_FIN2"], "window": {"start": 80, "end": 100}, "exclusive": false, "flags": []}

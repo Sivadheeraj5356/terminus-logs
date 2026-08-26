@@ -1,0 +1,3 @@
+schema_version: apexora-port-profile-1
+profile: core_interconnect
+switchport_mode: trunk

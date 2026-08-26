@@ -1,0 +1,112 @@
+{
+  "cycle_time_ns": 1000000,
+  "schedules": [
+    {
+      "switch_id": "sw1",
+      "port": "eth1",
+      "gate_control_list": [
+        {"interval_ns": 200000, "gate_states": [0, 0, 0, 1, 0, 0, 0, 1]},
+        {"interval_ns": 200000, "gate_states": [0, 0, 0, 0, 0, 0, 1, 0]},
+        {"interval_ns": 200000, "gate_states": [0, 0, 0, 0, 0, 1, 0, 0]},
+        {"interval_ns": 200000, "gate_states": [0, 0, 0, 0, 1, 0, 0, 0]},
+        {"interval_ns": 200000, "gate_states": [0, 0, 0, 0, 0, 0, 0, 0]}
+      ],
+      "queue_guard_bands_us": {"6": 12, "7": 8},
+      "reserved_windows": [
+        {
+          "window_id": "rw-safety-a",
+          "start_ns": 600000,
+          "duration_ns": 200000,
+          "traffic_classes": ["TC7-safety"],
+          "exclusive": true
+        },
+        {
+          "window_id": "rw-control-b",
+          "start_ns": 700000,
+          "duration_ns": 200000,
+          "traffic_classes": ["TC6-control"],
+          "exclusive": true
+        },
+        {
+          "window_id": "rw-sync-c",
+          "start_ns": 800000,
+          "duration_ns": 100000,
+          "traffic_classes": ["TC4-sync"],
+          "exclusive": false
+        }
+      ]
+    },
+    {
+      "switch_id": "sw1",
+      "port": "eth0",
+      "gate_control_list": [
+        {"interval_ns": 400000, "gate_states": [0, 0, 0, 0, 0, 1, 0, 0]},
+        {"interval_ns": 300000, "gate_states": [0, 0, 0, 0, 0, 0, 0, 1]},
+        {"interval_ns": 300000, "gate_states": [0, 0, 0, 0, 0, 0, 0, 0]}
+      ],
+      "reserved_windows": [
+        {
+          "window_id": "rw-monitor-x",
+          "start_ns": 450000,
+          "duration_ns": 150000,
+          "traffic_classes": ["TC5-monitor"],
+          "exclusive": true
+        },
+        {
+          "window_id": "rw-monitor-y",
+          "start_ns": 500000,
+          "duration_ns": 150000,
+          "traffic_classes": ["TC5-monitor"],
+          "exclusive": true
+        }
+      ]
+    },
+    {
+      "switch_id": "sw2",
+      "port": "eth0",
+      "gate_control_list": [
+        {"interval_ns": 350000, "gate_states": [0, 0, 0, 1, 0, 0, 1, 1]},
+        {"interval_ns": 350000, "gate_states": [0, 0, 0, 0, 0, 1, 0, 0]},
+        {"interval_ns": 300000, "gate_states": [0, 0, 0, 0, 1, 0, 0, 0]}
+      ],
+      "queue_guard_bands_us": {"3": 18, "5": 10},
+      "reserved_windows": []
+    },
+    {
+      "switch_id": "sw2",
+      "port": "eth1",
+      "gate_control_list": [
+        {"interval_ns": 500000, "gate_states": [0, 0, 0, 0, 0, 0, 1, 1]},
+        {"interval_ns": 500000, "gate_states": [0, 0, 0, 0, 0, 1, 0, 0]}
+      ],
+      "queue_guard_bands_us": {"2": 6},
+      "reserved_windows": [
+        {
+          "window_id": "rw-diag-p",
+          "start_ns": 100000,
+          "duration_ns": 250000,
+          "traffic_classes": ["TC2-diag"],
+          "exclusive": true
+        },
+        {
+          "window_id": "rw-diag-q",
+          "start_ns": 300000,
+          "duration_ns": 250000,
+          "traffic_classes": ["TC2-diag"],
+          "exclusive": true
+        }
+      ]
+    },
+    {
+      "switch_id": "sw3",
+      "port": "eth1",
+      "gate_control_list": [
+        {"interval_ns": 250000, "gate_states": [0, 0, 0, 0, 0, 1, 1, 0]},
+        {"interval_ns": 250000, "gate_states": [0, 0, 0, 0, 0, 0, 0, 1]},
+        {"interval_ns": 250000, "gate_states": [0, 0, 0, 0, 1, 0, 0, 0]},
+        {"interval_ns": 250000, "gate_states": [0, 0, 0, 0, 0, 0, 0, 0]}
+      ],
+      "reserved_windows": []
+    }
+  ]
+}

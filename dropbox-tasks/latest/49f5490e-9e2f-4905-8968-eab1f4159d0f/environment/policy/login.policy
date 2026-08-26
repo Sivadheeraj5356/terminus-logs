@@ -1,0 +1,5 @@
+stack login
+substack common-auth success=done auth_err=ignore ignore=continue maxtries=die user_unknown=bad default=bad
+module recovery success=done auth_err=bad ignore=ignore user_unknown=bad default=bad
+module deny auth_err=bad default=bad
+end

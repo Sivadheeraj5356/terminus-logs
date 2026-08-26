@@ -1,0 +1,28 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+tags = ["initramfs", "depmod", "incremental-rebuild", "early-boot", "bash", "offline"]
+languages = ["bash"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = []
+expert_time_estimate_min = 90
+junior_time_estimate_min = 240
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 1800
+
+[environment]
+allow_internet = false
+build_timeout_sec = 300
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+workdir = "/app"

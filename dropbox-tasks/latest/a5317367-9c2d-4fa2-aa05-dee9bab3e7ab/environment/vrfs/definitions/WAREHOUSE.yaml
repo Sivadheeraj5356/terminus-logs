@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: WAREHOUSE
+description: Apexora WAREHOUSE macro-segment
+rd: "65025:1025"
+rt_export: "65025:1025"
+rt_import:
+  - "65025:1025"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

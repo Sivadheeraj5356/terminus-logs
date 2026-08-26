@@ -1,0 +1,8 @@
+session 1048576 5
+stream 1
+add_header 1 h0 v0
+add_header 1 h1 v1
+add_header 1 h2 v2
+add_header 1 h3 v3
+add_header 1 h4 v4
+add_header 1 h5 v5

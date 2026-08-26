@@ -1,0 +1,12 @@
+[package]
+name = "arena"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+duel_core = { path = "../duel_core" }
+lin = { path = "../lin" }
+exch = { path = "../exch" }

@@ -1,0 +1,7 @@
+CELL/3
+run_id=epsilon
+observation_id,peptide,retention_time,confidence
+e01,PEPTIDE_A,51.0,0.90
+e02,PEPTIDE_D,51.0,0.92
+e03,PEPTIDE_B,73.0,0.94
+e04,PEPTIDE_C,88.0,0.96

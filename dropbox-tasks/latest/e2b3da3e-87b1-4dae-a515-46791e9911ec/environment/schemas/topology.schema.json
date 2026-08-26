@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lockctl.local/schemas/topology.schema.json",
+  "title": "topology",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "gravity_m_s2", "nodes", "links", "initial_inflows"],
+  "properties": {
+    "schema_version": { "type": "integer", "const": 4 },
+    "gravity_m_s2": { "type": "number", "exclusiveMinimum": 0 },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "node_type", "initial_level_m"],
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "node_type": { "type": "string", "enum": ["storage", "boundary"] },
+          "initial_level_m": { "type": "number" },
+          "storage_curve_revision": { "type": "integer", "exclusiveMinimum": 0 },
+          "storage_curve": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["level_m", "volume_m3"],
+              "properties": {
+                "level_m": { "type": "number" },
+                "volume_m3": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "link_id",
+          "link_type",
+          "from_node",
+          "to_node",
+          "initial_control",
+          "maximum_abs_flow_m3_s"
+        ],
+        "properties": {
+          "link_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "link_type": { "type": "string", "enum": ["gate", "weir", "pump"] },
+          "from_node": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "to_node": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "discharge_coefficient": { "type": "number" },
+          "area_m2": { "type": "number" },
+          "width_m": { "type": "number" },
+          "crest_level_m": { "type": "number" },
+          "initial_control": { "type": "number" },
+          "maximum_abs_flow_m3_s": { "type": "number" }
+        }
+      }
+    },
+    "initial_inflows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "flow_m3_s"],
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_-]{0,63}$"
+          },
+          "flow_m3_s": { "type": "number" }
+        }
+      }
+    }
+  }
+}

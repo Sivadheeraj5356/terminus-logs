@@ -1,0 +1,38 @@
+{
+  "seed_id": "wrap_portal",
+  "width": 10,
+  "height": 6,
+  "orient": "pointy",
+  "wet_window": 0,
+  "start": [
+    0,
+    1
+  ],
+  "goal": [
+    4,
+    4
+  ],
+  "terrain": {
+    "0,1": 1,
+    "9,1": 1,
+    "4,4": 2
+  },
+  "portals": [
+    {
+      "from": [
+        9,
+        1
+      ],
+      "to": [
+        4,
+        4
+      ],
+      "arms": [
+        3
+      ]
+    }
+  ],
+  "steps": [
+    3
+  ]
+}

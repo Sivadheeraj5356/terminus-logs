@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0008",
+  "category": "translocation",
+  "label_ciphertext": "OfoOto8WUss=",
+  "label_nonce": "6oqm/yzchFCF6BfC",
+  "label_tag": "ge2bt73EQ8JeWafjnJcXQg==",
+  "signature": "MEYCIQCJCvfsijrL0FXQeAE0PKfeMROyEN8RemsBqLPW3EEL3AIhAIuhQPlM4fA5z3HAlvG2ZXlm6YM4SfyeybDQoDF/C3m2",
+  "patient_ref": "PT-THETA-664"
+}

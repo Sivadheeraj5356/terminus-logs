@@ -1,0 +1,3 @@
+discharge_id,patient_id,event_time,event_seq,event_id,disposition
+DIS-001,P001,2024-06-19T16:00:00Z,1,DIS-E030,home
+DIS-002,P002,2024-06-20T08:00:00Z,1,DIS-E031,home

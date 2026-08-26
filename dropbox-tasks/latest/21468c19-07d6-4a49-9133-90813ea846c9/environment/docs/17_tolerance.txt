@@ -1,0 +1,1 @@
+Numeric artifacts should preserve enough precision for 1e-5 agreement.

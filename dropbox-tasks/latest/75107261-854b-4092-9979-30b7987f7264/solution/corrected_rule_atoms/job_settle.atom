@@ -1,0 +1,6 @@
+RULE JOB_SETTLE
+IN keys
+OUT value,reason
+TABLE
+mode -> after_stops_preds|settle
+END

@@ -1,0 +1,9 @@
+ordinance: ORD-1944-01
+jurisdiction: Ossary-Bight
+enacted: 1944-02-08
+effective: 1944-03-19T02:00:00 wall
+standard-offset: +08:30:00
+standard-label: OST
+observance:
+  begin: Mar Sun>=15 02:00:00 wall save +01:00:00 label ODT
+  end: Oct lastSun 03:00:00 standard

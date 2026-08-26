@@ -1,0 +1,10 @@
+{
+  "signed": {
+    "_type": "targets",
+    "version": 1,
+    "expires": "2099-06-01T00:00:00Z",
+    "targets": {
+      "acme/app:v3": {"length": 12}
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "facility_id": "bay-gamma",
+  "assessment_epoch_unix": 1730000100,
+  "vessels": [
+    {
+      "vessel_id": "V-1",
+      "model_id": "HX-50-LN2",
+      "cryogen": "LN2",
+      "level_liters": 36.0,
+      "pressure_psig": 7.0,
+      "sensor_calibrated_until_unix": 1735000000
+    },
+    {
+      "vessel_id": "V-2",
+      "model_id": "HX-50-LN2",
+      "cryogen": "LN2",
+      "level_liters": 40.0,
+      "pressure_psig": 12.0,
+      "sensor_calibrated_until_unix": 1734000000
+    },
+    {
+      "vessel_id": "V-3",
+      "model_id": "HX-40-LHe",
+      "cryogen": "LHe",
+      "level_liters": 28.0,
+      "pressure_psig": 3.0,
+      "sensor_calibrated_until_unix": 1736000000
+    }
+  ],
+  "placement_requests": [
+    {
+      "request_id": "G-LN2",
+      "specimen_class": "LN2",
+      "min_hold_hours": 36.0,
+      "preferred_vessel_id": "V-2"
+    },
+    {
+      "request_id": "G-LHe",
+      "specimen_class": "LHe",
+      "min_hold_hours": 48.0,
+      "preferred_vessel_id": "V-3"
+    }
+  ]
+}

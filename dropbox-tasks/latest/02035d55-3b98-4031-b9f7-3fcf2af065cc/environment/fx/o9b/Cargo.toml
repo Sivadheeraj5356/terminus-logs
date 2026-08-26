@@ -1,0 +1,18 @@
+[package]
+name = "o9b"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+o0m = { path = "../../hv/o0m" }
+o1p = { path = "../../hv/o1p" }
+o3z = { path = "../../st/o3z" }
+o4b = { path = "../../st/o4b" }
+o5r = { path = "../o5r" }
+o6t = { path = "../../hv/o6t" }
+o7x = { path = "../../st/o7x" }
+o8w = { path = "../../st/o8w" }
+
+[[bin]]
+name = "pick-balance"
+path = "src/main.rs"

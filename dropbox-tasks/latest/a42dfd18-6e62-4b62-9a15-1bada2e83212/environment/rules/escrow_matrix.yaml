@@ -1,0 +1,51 @@
+ciphers:
+  approved:
+    - AES-256-GCM
+    - ChaCha20-Poly1305
+  stale:
+    - AES-128-CBC
+    - 3DES-CBC
+    - Blowfish
+
+algorithms:
+  stale:
+    - RSA-1024
+    - SHA1-HMAC
+
+escrow:
+  min_quorum: 2
+
+restore:
+  trusted_signers:
+    - vault-root-a
+    - vault-root-b
+
+retention:
+  requires_immutable: true
+
+scoring:
+  coverage_gap: 12
+  unauthorized_mutation: 15
+  escrow_break: 18
+  recovery_weakness: 10
+  retention_tamper: 14
+  recovery_guarantee_fail: 16
+  stale_dependency: 11
+  restore_forgery: 13
+  silent_corruption: 20
+  resilience_fail: 9
+  cap: 100
+
+tiers:
+  low:
+    min: 0
+    max: 19
+  medium:
+    min: 20
+    max: 49
+  high:
+    min: 50
+    max: 79
+  critical:
+    min: 80
+    max: 100

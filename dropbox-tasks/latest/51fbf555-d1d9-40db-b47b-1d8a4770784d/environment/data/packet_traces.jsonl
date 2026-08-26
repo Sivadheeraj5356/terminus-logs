@@ -1,0 +1,23 @@
+{"trace_id": "tr-001", "flow_id": "flow-control-01", "cycle": 2, "egress_node": "sw1", "egress_port": "eth1", "queue": 6, "release_us": 0, "transmit_us": 120, "arrival_us": 980, "jitter_us": 8, "validate": true}
+{"trace_id": "tr-002", "flow_id": "flow-safety-01", "cycle": 3, "egress_node": "sw1", "egress_port": "eth1", "queue": 7, "release_us": 200, "transmit_us": 320, "arrival_us": 350, "validate": true}
+{"trace_id": "tr-003", "flow_id": "flow-control-01", "cycle": 3, "egress_node": "sw1", "egress_port": "eth1", "queue": 6, "release_us": 250, "transmit_us": 280, "arrival_us": 310, "validate": true}
+{"trace_id": "tr-004", "flow_id": "flow-monitor-01", "cycle": 1, "egress_node": "sw2", "egress_port": "eth0", "queue": 5, "release_us": 100, "transmit_us": 150, "arrival_us": 220, "validate": true}
+{"trace_id": "tr-005", "flow_id": "flow-bulk-01", "cycle": 0, "egress_node": "sw1", "egress_port": "eth1", "queue": 3, "release_us": 50, "transmit_us": 80, "arrival_us": 200, "validate": true}
+{"trace_id": "tr-006", "flow_id": "flow-safety-02", "cycle": 1, "egress_node": "sw3", "egress_port": "eth1", "queue": 7, "release_us": 80, "transmit_us": 140, "arrival_us": 420, "jitter_us": 8, "validate": true}
+{"trace_id": "tr-007", "flow_id": "flow-control-02", "cycle": 4, "egress_node": "sw2", "egress_port": "eth1", "queue": 6, "release_us": 10, "transmit_us": 60, "arrival_us": 950, "validate": true}
+{"trace_id": "tr-008", "flow_id": "flow-diag-01", "cycle": 2, "egress_node": "sw3", "egress_port": "eth1", "queue": 2, "release_us": 30, "transmit_us": 90, "arrival_us": 250, "validate": true}
+{"trace_id": "tr-009", "flow_id": "flow-monitor-02", "cycle": 0, "egress_node": "sw1", "egress_port": "eth0", "queue": 5, "release_us": 400, "transmit_us": 480, "arrival_us": 3200, "validate": true}
+{"trace_id": "tr-010", "flow_id": "flow-sync-01", "cycle": 1, "egress_node": "sw1", "egress_port": "eth1", "queue": 4, "release_us": 500, "transmit_us": 620, "arrival_us": 1100, "validate": true}
+{"trace_id": "tr-011", "flow_id": "flow-safety-01", "cycle": 5, "egress_node": "sw2", "egress_port": "eth0", "queue": 7, "release_us": 100, "transmit_us": 180, "arrival_us": 390, "validate": true}
+{"trace_id": "tr-012", "flow_id": "flow-control-01", "cycle": 1, "egress_node": "sw2", "egress_port": "eth0", "queue": 6, "release_us": "300", "transmit_us": 350, "arrival_us": "880", "validate": true}
+{"trace_id": "tr-013", "flow_id": "flow-safety-02", "cycle": 3, "egress_node": "sw2", "egress_port": "eth1", "queue": 7, "release_us": 50, "transmit_us": 110, "arrival_us": 380, "validate": true}
+{"trace_id": "tr-014", "flow_id": "flow-diag-01", "cycle": 5, "egress_node": "sw2", "egress_port": "eth1", "queue": 2, "release_us": 20, "transmit_us": 70, "arrival_us": 210, "validate": true}
+{"trace_id": "tr-015", "flow_id": "flow-monitor-01", "cycle": 2, "egress_node": "sw1", "egress_port": "eth1", "queue": 5, "release_us": 600, "transmit_us": 700, "arrival_us": 2400, "validate": true}
+{"trace_id": "tr-016", "flow_id": "flow-bulk-01", "cycle": 1, "egress_node": "sw2", "egress_port": "eth0", "queue": 3, "release_us": 100, "transmit_us": 200, "arrival_us": 1500, "validate": true}
+{"trace_id": "tr-017", "flow_id": "flow-control-02", "cycle": 2, "egress_node": "sw3", "egress_port": "eth1", "queue": 6, "release_us": 150, "transmit_us": 200, "arrival_us": 850, "validate": true}
+{"trace_id": "tr-018", "flow_id": "flow-safety-01", "cycle": 0, "egress_node": "sw1", "egress_port": "eth1", "queue": 7, "release_us": 0, "transmit_us": 50, "arrival_us": 320, "validate": false}
+{"trace_id": "tr-019", "flow_id": "flow-sync-01", "cycle": 2, "egress_node": "sw2", "egress_port": "eth0", "queue": 4, "release_us": 800, "transmit_us": 900, "arrival_us": 1600, "validate": true}
+{"trace_id": "tr-020", "flow_id": "flow-monitor-02", "cycle": 1, "egress_node": "sw3", "egress_port": "eth1", "queue": 5, "release_us": 900, "transmit_us": 980, "arrival_us": 3400, "validate": true}
+{"trace_id": "tr-021", "flow_id": "flow-bulk-01", "cycle": 2, "egress_node": "sw2", "egress_port": "eth0", "queue": 3, "release_us": 40, "transmit_us": 80, "arrival_us": 500, "validate": true}
+{"trace_id": "tr-022", "flow_id": "flow-monitor-01", "cycle": 2, "egress_node": "sw2", "egress_port": "eth0", "queue": 5, "release_us": 50, "transmit_us": 120, "arrival_us": 280, "validate": true}
+{"trace_id": "tr-023", "flow_id": "flow-emergency-01", "cycle": 1, "egress_node": "sw3", "egress_port": "eth1", "queue": 7, "release_us": 60, "transmit_us": 110, "arrival_us": 310, "jitter_us": 5, "validate": true}

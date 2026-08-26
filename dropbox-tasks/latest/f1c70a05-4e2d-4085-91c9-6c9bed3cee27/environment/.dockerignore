@@ -1,0 +1,16 @@
+**/.git
+**/__pycache__/
+**/*.pyc
+**/node_modules/
+**/target/
+**/build/classes/
+**/dist/
+**/.venv/
+.env
+*.log
+solution/
+tests/
+Explanations/
+*.zip
+.DS_Store
+._*

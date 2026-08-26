@@ -1,0 +1,35 @@
+schema_version: apexora-vlan-campus-1
+campus: campus-amw-sea
+allowed_vlan_range: 2001-2180
+local_vlan_count: 30
+vlans:
+  - id: 2031
+  - id: 2032
+  - id: 2033
+  - id: 2034
+  - id: 2035
+  - id: 2036
+  - id: 2037
+  - id: 2038
+  - id: 2039
+  - id: 2040
+  - id: 2041
+  - id: 2042
+  - id: 2043
+  - id: 2044
+  - id: 2045
+  - id: 2046
+  - id: 2047
+  - id: 2048
+  - id: 2049
+  - id: 2050
+  - id: 2051
+  - id: 2052
+  - id: 2053
+  - id: 2054
+  - id: 2055
+  - id: 2056
+  - id: 2057
+  - id: 2058
+  - id: 2059
+  - id: 2060

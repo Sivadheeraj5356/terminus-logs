@@ -1,0 +1,4 @@
+{
+  "ref_target": {"kind": "scalar", "value": "epsilon-ref-value"},
+  "epsilon_lane": {"kind": "scalar", "value": "env-epsilon"}
+}

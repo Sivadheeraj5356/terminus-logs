@@ -1,0 +1,581 @@
+{
+  "finish_state": "complete",
+  "schema_version": 1,
+  "baseline_rows": [
+    "quiet_baseline"
+  ],
+  "compact_rows": [
+    "compact_pair_merge",
+    "dual_compact_chain",
+    "mixed_offset_compact",
+    "triple_compact_stack",
+    "wide_base_compact",
+    "offset_compact_tie",
+    "skew_nsec_compact",
+    "polar_triple_cross"
+  ],
+  "offset_rows": [
+    "offset_lane_cross",
+    "negative_offset_window",
+    "offset_subsec_combo",
+    "polar_offset_pair",
+    "offset_compact_tie"
+  ],
+  "norm_lane_rows": [
+    "offset_lane_cross",
+    "negative_offset_window",
+    "offset_subsec_combo",
+    "polar_offset_pair",
+    "mixed_offset_compact",
+    "nsec_boundary_span",
+    "offset_compact_tie"
+  ],
+  "anchor_lane_rows": [
+    "compact_pair_merge",
+    "dual_compact_chain",
+    "triple_compact_stack",
+    "wide_base_compact",
+    "mixed_offset_compact",
+    "offset_compact_tie",
+    "skew_nsec_compact",
+    "polar_triple_cross"
+  ],
+  "tie_lane_rows": [
+    "wall_clock_tie",
+    "interleaved_tie_quad",
+    "dense_replay_lane",
+    "mega_dense_lane",
+    "subsecond_flip",
+    "cascade_tie_storm",
+    "offset_compact_tie"
+  ],
+  "flip_sensitive_rows": [
+    "wall_clock_tie",
+    "interleaved_tie_quad",
+    "dense_replay_lane",
+    "mega_dense_lane",
+    "subsecond_flip",
+    "cascade_tie_storm"
+  ],
+  "overlap_lane_rows": [
+    "mixed_offset_compact",
+    "offset_compact_tie"
+  ],
+  "dual_lane_rows": [
+    "mixed_offset_compact"
+  ],
+  "head_hex_must_differ_pairs": [
+    [
+      "quiet_baseline",
+      "offset_lane_cross"
+    ],
+    [
+      "compact_pair_merge",
+      "wall_clock_tie"
+    ],
+    [
+      "triple_compact_stack",
+      "mega_dense_lane"
+    ],
+    [
+      "negative_offset_window",
+      "polar_offset_pair"
+    ],
+    [
+      "interleaved_tie_quad",
+      "wide_base_compact"
+    ],
+    [
+      "nsec_boundary_span",
+      "offset_subsec_combo"
+    ],
+    [
+      "subsecond_flip",
+      "dense_replay_lane"
+    ],
+    [
+      "dual_compact_chain",
+      "interleaved_tie_quad"
+    ],
+    [
+      "cascade_tie_storm",
+      "triple_compact_stack"
+    ],
+    [
+      "offset_compact_tie",
+      "skew_nsec_compact"
+    ],
+    [
+      "polar_triple_cross",
+      "mega_dense_lane"
+    ]
+  ],
+  "min_event_rows": {
+    "triple_compact_stack": 5,
+    "mega_dense_lane": 8,
+    "dual_compact_chain": 4,
+    "interleaved_tie_quad": 4,
+    "cascade_tie_storm": 6
+  },
+  "high_event_rows": [
+    "mega_dense_lane",
+    "triple_compact_stack",
+    "dense_replay_lane",
+    "dual_compact_chain",
+    "cascade_tie_storm"
+  ],
+  "max_events_row": "mega_dense_lane",
+  "events_replay_ranking": [
+    "mega_dense_lane",
+    "cascade_tie_storm",
+    "triple_compact_stack",
+    "dual_compact_chain",
+    "dense_replay_lane",
+    "interleaved_tie_quad",
+    "skew_nsec_compact",
+    "polar_triple_cross",
+    "compact_pair_merge",
+    "mixed_offset_compact",
+    "negative_offset_window",
+    "offset_subsec_combo",
+    "wide_base_compact",
+    "offset_compact_tie",
+    "quiet_baseline",
+    "offset_lane_cross",
+    "subsecond_flip",
+    "wall_clock_tie",
+    "nsec_boundary_span",
+    "polar_offset_pair"
+  ],
+  "witness_replay_ranking": [
+    "mega_dense_lane",
+    "cascade_tie_storm",
+    "triple_compact_stack",
+    "dual_compact_chain",
+    "dense_replay_lane",
+    "interleaved_tie_quad",
+    "skew_nsec_compact",
+    "polar_triple_cross",
+    "compact_pair_merge",
+    "mixed_offset_compact",
+    "negative_offset_window",
+    "offset_subsec_combo",
+    "wide_base_compact",
+    "offset_compact_tie",
+    "quiet_baseline",
+    "offset_lane_cross",
+    "subsecond_flip",
+    "wall_clock_tie",
+    "nsec_boundary_span",
+    "polar_offset_pair"
+  ],
+  "comparative_checks": [
+    {
+      "left": "mega_dense_lane",
+      "right": "dense_replay_lane",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "triple_compact_stack",
+      "right": "compact_pair_merge",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "wide_base_compact",
+      "right": "quiet_baseline",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "interleaved_tie_quad",
+      "right": "wall_clock_tie",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "mega_dense_lane",
+      "right": "triple_compact_stack",
+      "field": "witness_ok_count",
+      "op": "gt"
+    },
+    {
+      "left": "dual_compact_chain",
+      "right": "wall_clock_tie",
+      "field": "witness_ok_count",
+      "op": "gt"
+    },
+    {
+      "left": "negative_offset_window",
+      "right": "quiet_baseline",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "triple_compact_stack",
+      "right": "dual_compact_chain",
+      "field": "witness_ok_count",
+      "op": "gt"
+    },
+    {
+      "left": "mega_dense_lane",
+      "right": "quiet_baseline",
+      "field": "active_session_epoch",
+      "op": "gt"
+    },
+    {
+      "left": "interleaved_tie_quad",
+      "right": "compact_pair_merge",
+      "field": "contradiction_count",
+      "op": "eq"
+    },
+    {
+      "left": "cascade_tie_storm",
+      "right": "interleaved_tie_quad",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "polar_triple_cross",
+      "right": "polar_offset_pair",
+      "field": "events_replayed",
+      "op": "gt"
+    },
+    {
+      "left": "skew_nsec_compact",
+      "right": "nsec_boundary_span",
+      "field": "witness_ok_count",
+      "op": "gt"
+    },
+    {
+      "left": "offset_compact_tie",
+      "right": "offset_lane_cross",
+      "field": "events_replayed",
+      "op": "gt"
+    }
+  ],
+  "cross_field_checks": [
+    {
+      "name": "mega_dense_lane",
+      "events_replayed": 8,
+      "witness_ok_count": 8,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "triple_compact_stack",
+      "events_replayed": 5,
+      "witness_ok_count": 5,
+      "chain_intact": 1,
+      "order_drift_count": 0
+    },
+    {
+      "name": "interleaved_tie_quad",
+      "events_replayed": 4,
+      "witness_ok_count": 4,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "mixed_offset_compact",
+      "events_replayed": 3,
+      "witness_ok_count": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "wall_clock_tie",
+      "events_replayed": 2,
+      "contradiction_count": 0,
+      "order_drift_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "subsecond_flip",
+      "events_replayed": 2,
+      "contradiction_count": 0,
+      "order_drift_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "cascade_tie_storm",
+      "events_replayed": 6,
+      "witness_ok_count": 6,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "offset_compact_tie",
+      "events_replayed": 3,
+      "witness_ok_count": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "skew_nsec_compact",
+      "events_replayed": 4,
+      "witness_ok_count": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "polar_triple_cross",
+      "events_replayed": 4,
+      "witness_ok_count": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    }
+  ],
+  "sector_rows": [
+    [
+      "quiet_baseline",
+      "offset_lane_cross",
+      "subsecond_flip",
+      "negative_offset_window"
+    ],
+    [
+      "compact_pair_merge",
+      "dual_compact_chain",
+      "triple_compact_stack",
+      "wide_base_compact"
+    ],
+    [
+      "wall_clock_tie",
+      "interleaved_tie_quad",
+      "dense_replay_lane",
+      "mega_dense_lane"
+    ],
+    [
+      "mixed_offset_compact",
+      "offset_subsec_combo",
+      "nsec_boundary_span",
+      "polar_offset_pair"
+    ],
+    [
+      "offset_compact_tie",
+      "skew_nsec_compact",
+      "cascade_tie_storm",
+      "polar_triple_cross"
+    ]
+  ],
+  "sector_event_floors": [
+    9,
+    12,
+    15,
+    8,
+    17
+  ],
+  "sector_exact_totals": [
+    9,
+    15,
+    18,
+    10,
+    17
+  ],
+  "sector_witness_totals": [
+    9,
+    15,
+    18,
+    10,
+    17
+  ],
+  "report_row_keys": [
+    "name",
+    "finish",
+    "active_session_epoch",
+    "events_replayed",
+    "chain_intact",
+    "order_drift_count",
+    "contradiction_count",
+    "witness_ok_count",
+    "timeline_head_hex"
+  ],
+  "report_top_keys": [
+    "schema_version",
+    "scenarios"
+  ],
+  "exact_two_event_rows": [
+    "quiet_baseline",
+    "offset_lane_cross",
+    "subsecond_flip",
+    "wall_clock_tie",
+    "nsec_boundary_span",
+    "polar_offset_pair"
+  ],
+  "nsec_boundary_rows": [
+    "nsec_boundary_span",
+    "skew_nsec_compact"
+  ],
+  "negative_offset_rows": [
+    "negative_offset_window"
+  ],
+  "polar_offset_rows": [
+    "polar_offset_pair",
+    "polar_triple_cross"
+  ],
+  "offset_subsec_rows": [
+    "offset_subsec_combo"
+  ],
+  "deep_compact_rows": [
+    "triple_compact_stack"
+  ],
+  "dual_compact_rows": [
+    "dual_compact_chain"
+  ],
+  "same_second_tie_rows": [
+    "wall_clock_tie",
+    "subsecond_flip",
+    "interleaved_tie_quad",
+    "cascade_tie_storm"
+  ],
+  "subsecond_nano_rows": [
+    "subsecond_flip",
+    "dense_replay_lane",
+    "mega_dense_lane",
+    "offset_compact_tie",
+    "cascade_tie_storm",
+    "skew_nsec_compact"
+  ],
+  "pack_endpoint_rows": [
+    "quiet_baseline",
+    "polar_triple_cross"
+  ],
+  "mega_density_row": "mega_dense_lane",
+  "edge_recompute_rows": [
+    "nsec_boundary_span",
+    "negative_offset_window",
+    "polar_offset_pair",
+    "offset_subsec_combo",
+    "triple_compact_stack",
+    "dual_compact_chain",
+    "subsecond_flip",
+    "wall_clock_tie",
+    "mega_dense_lane",
+    "offset_compact_tie",
+    "skew_nsec_compact",
+    "cascade_tie_storm",
+    "polar_triple_cross"
+  ],
+  "edge_cross_field_checks": [
+    {
+      "name": "nsec_boundary_span",
+      "events_replayed": 2,
+      "witness_ok_count": 2,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "negative_offset_window",
+      "events_replayed": 3,
+      "witness_ok_count": 3,
+      "order_drift_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "polar_offset_pair",
+      "events_replayed": 2,
+      "witness_ok_count": 2,
+      "order_drift_count": 0,
+      "contradiction_count": 0
+    },
+    {
+      "name": "offset_subsec_combo",
+      "events_replayed": 3,
+      "witness_ok_count": 3,
+      "order_drift_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "triple_compact_stack",
+      "events_replayed": 5,
+      "witness_ok_count": 5,
+      "order_drift_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "dual_compact_chain",
+      "events_replayed": 4,
+      "witness_ok_count": 4,
+      "order_drift_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "subsecond_flip",
+      "events_replayed": 2,
+      "contradiction_count": 0,
+      "order_drift_count": 0,
+      "witness_ok_count": 2
+    },
+    {
+      "name": "wall_clock_tie",
+      "events_replayed": 2,
+      "contradiction_count": 0,
+      "order_drift_count": 0,
+      "witness_ok_count": 2
+    },
+    {
+      "name": "offset_compact_tie",
+      "events_replayed": 3,
+      "witness_ok_count": 3,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "skew_nsec_compact",
+      "events_replayed": 4,
+      "witness_ok_count": 4,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "cascade_tie_storm",
+      "events_replayed": 6,
+      "witness_ok_count": 6,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "chain_intact": 1
+    },
+    {
+      "name": "polar_triple_cross",
+      "events_replayed": 4,
+      "witness_ok_count": 4,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "chain_intact": 1
+    }
+  ],
+  "compact_depth_expectations": {
+    "triple_compact_stack": 3,
+    "dual_compact_chain": 2,
+    "compact_pair_merge": 1,
+    "polar_triple_cross": 3,
+    "cascade_tie_storm": 2,
+    "offset_compact_tie": 1,
+    "skew_nsec_compact": 1
+  },
+  "hard_edge_rows": [
+    "offset_compact_tie",
+    "skew_nsec_compact",
+    "cascade_tie_storm",
+    "polar_triple_cross"
+  ],
+  "triple_lane_overlap_rows": [
+    "offset_compact_tie"
+  ],
+  "hard_edge_sector": [
+    "offset_compact_tie",
+    "skew_nsec_compact",
+    "cascade_tie_storm",
+    "polar_triple_cross"
+  ]
+}

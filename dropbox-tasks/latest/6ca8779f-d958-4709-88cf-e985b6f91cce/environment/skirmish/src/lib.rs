@@ -1,0 +1,22 @@
+mod beacon;
+mod board;
+mod catalog;
+mod combat;
+mod constants;
+mod digest;
+mod engine;
+mod error;
+mod hex;
+mod initiative;
+mod los;
+mod model;
+mod morale;
+mod overwatch;
+mod parse;
+mod report;
+mod telemetry;
+mod traits_mod;
+mod validate;
+mod vision;
+
+pub use engine::run_adjudicate;

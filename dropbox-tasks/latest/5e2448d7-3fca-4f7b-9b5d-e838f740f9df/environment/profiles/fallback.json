@@ -1,0 +1,14 @@
+{
+  "mast_bearing_offset": 0.0,
+  "sector_table": {
+    "0": "L1",
+    "1": "L2",
+    "2": "L3",
+    "3": "L4",
+    "4": "L1",
+    "5": "L2",
+    "6": "L3",
+    "7": "L4"
+  },
+  "survey_layer": "lidar"
+}

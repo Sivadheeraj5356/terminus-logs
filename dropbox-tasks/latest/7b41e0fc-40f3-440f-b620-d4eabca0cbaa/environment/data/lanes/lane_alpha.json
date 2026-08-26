@@ -1,0 +1,11 @@
+{
+  "lane_id": "lane_alpha",
+  "source_chain": ["a0", "a1", "a2"],
+  "receiver_chain": ["a0", "a1", "a2"],
+  "metadata_edges": [["a2", "a2"]],
+  "candidate_parents": ["a2"],
+  "interrupted": false,
+  "retry_overwrite": false,
+  "content_match": true,
+  "wrap_epoch": 1
+}

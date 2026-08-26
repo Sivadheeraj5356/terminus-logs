@@ -1,0 +1,2 @@
+batch_id,source_system,employee_id,full_name,department,title,manager_id,location,annual_salary,status,attrs_json,valid_from,recorded_at,operation,correction_id
+WD-2024-05,workday,E101,Jon Bell,People,Coordinator,M022,DEN,73000,active,"{""cost_center"":""PPL1"",""level"":2}",2024-05-01,2024-05-02T10:00:00Z,UPSERT,ORIG

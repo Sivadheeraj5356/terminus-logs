@@ -1,0 +1,2 @@
+mode restart
+nodes 5

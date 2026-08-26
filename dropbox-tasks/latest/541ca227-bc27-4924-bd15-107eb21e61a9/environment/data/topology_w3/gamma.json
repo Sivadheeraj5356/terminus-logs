@@ -1,0 +1,11 @@
+{
+  "name": "gamma",
+  "slots": ["lc0"],
+  "churn_seq": 8,
+  "manager_rows": [
+    {"key": "m-gamma-1", "prefix": "10.64.0.0/24", "via": "10.0.2.1"}
+  ],
+  "catch_rows": [
+    {"key": "k-catch-2", "prefix": "0.0.0.0/0", "via": "10.255.0.2"}
+  ]
+}

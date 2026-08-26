@@ -1,0 +1,98 @@
+diff -ruN a/dyn/sweep.go b/dyn/sweep.go
+--- a/dyn/sweep.go	2026-07-18 06:24:14.238051559 +0000
++++ b/dyn/sweep.go	2026-07-18 06:16:21.766249760 +0000
+@@ -3,6 +3,16 @@
+ import "rfimhyst/internal/contract"
+ 
+ func nextTrigger(model *contract.RuntimeModel, states []int, current, target int64, direction int) (int64, bool) {
++	forces := localForces(model, states, current)
++	for i, state := range states {
++		if direction == 1 && state == -1 && forces[i] >= 0 {
++			return current, true
++		}
++		if direction == -1 && state == 1 && forces[i] <= 0 {
++			return current, true
++		}
++	}
++
+ 	var selected int64
+ 	found := false
+ 	for i, spin := range model.Spins {
+@@ -25,7 +35,7 @@
+ 			if threshold <= current || threshold > target {
+ 				continue
+ 			}
+-			if !found || threshold > selected {
++			if !found || threshold < selected {
+ 				selected = threshold
+ 				found = true
+ 			}
+@@ -33,7 +43,7 @@
+ 			if threshold >= current || threshold < target {
+ 				continue
+ 			}
+-			if !found || threshold < selected {
++			if !found || threshold > selected {
+ 				selected = threshold
+ 				found = true
+ 			}
+diff -ruN a/internal/input/load.go b/internal/input/load.go
+--- a/internal/input/load.go	2026-07-18 06:24:15.885347565 +0000
++++ b/internal/input/load.go	2026-07-18 06:17:28.207603138 +0000
+@@ -167,12 +167,7 @@
+ 	if len(out) == 0 {
+ 		return nil, "", fmt.Errorf("field must contain at least one sample")
+ 	}
+-	var digestInput strings.Builder
+-	digestInput.WriteString("sample\texternal_milli\n")
+-	for i := 0; i+1 < len(out); i++ {
+-		fmt.Fprintf(&digestInput, "%d\t%d\n", out[i].Sample, out[i].ExternalMilli)
+-	}
+-	sum := sha256.Sum256([]byte(digestInput.String()))
++	sum := sha256.Sum256([]byte(canonical.String()))
+ 	return out, hex.EncodeToString(sum[:]), nil
+ }
+ 
+diff -ruN a/session/run.go b/session/run.go
+--- a/session/run.go	2026-07-18 06:24:15.886186213 +0000
++++ b/session/run.go	2026-07-18 06:17:28.219618891 +0000
+@@ -38,6 +38,9 @@
+ 	if cp.ModelDigest != model.Digest {
+ 		return nil, fmt.Errorf("checkpoint model_digest does not match model")
+ 	}
++	if cp.FieldDigest != fieldDigest {
++		return nil, fmt.Errorf("checkpoint field_digest does not match complete field history")
++	}
+ 	if cp.NextSample < 0 || cp.NextSample > len(field) {
+ 		return nil, fmt.Errorf("checkpoint next_sample is out of range")
+ 	}
+@@ -90,7 +93,6 @@
+ 	if *stopAfter < 0 {
+ 		return fmt.Errorf("--stop-after must be non-negative")
+ 	}
+-	artifact.Cleanup(*outputDir)
+ 	model, initialStates, err := input.LoadModel(*modelPath)
+ 	if err != nil {
+ 		return err
+@@ -115,10 +117,11 @@
+ 		}
+ 		nextSample = cp.NextSample
+ 		previousExternal = cp.LastExternalMilli
+-		previousDirection = model.InitialDirection
+-		previousChain = zeroChain
++		previousDirection = cp.LastDirection
++		previousChain = cp.ChainDigest
+ 	}
+ 
++	artifact.Cleanup(*outputDir)
+ 	end := len(field)
+ 	if *stopAfter > 0 && nextSample+*stopAfter < end {
+ 		end = nextSample + *stopAfter
+@@ -162,6 +165,7 @@
+ 		hasher := sha256.New()
+ 		hasher.Write([]byte(previousChain))
+ 		hasher.Write([]byte("\n"))
++		hasher.Write(sampleAvalanches)
+ 		hasher.Write([]byte(prefix))
+ 		hasher.Write([]byte("\n"))
+ 		previousChain = hex.EncodeToString(hasher.Sum(nil))

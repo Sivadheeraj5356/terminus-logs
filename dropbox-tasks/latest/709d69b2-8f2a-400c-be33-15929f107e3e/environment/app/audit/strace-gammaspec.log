@@ -1,0 +1,23 @@
+24011 execve("/usr/local/bin/node", ["node", "dist/server.js"], 0x7ffe2c1a6d20 /* 18 vars */) = 0
+24011 openat(AT_FDCWD, "/app/data/calibration.gamma.json", O_RDONLY|O_CLOEXEC) = 18
+24011 read(18, "{\n  \"detectorId\": \"GS-ORION-17\"", 4096) = 1047
+24011 close(18) = 0
+24011 socket(AF_INET, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, IPPROTO_TCP) = 19
+24011 bind(19, {sa_family=AF_INET, sin_port=htons(3000), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+24011 listen(19, 511) = 0
+24011 accept4(19, {sa_family=AF_INET, sin_port=htons(42018), sin_addr=inet_addr("127.0.0.1")}, [16], SOCK_CLOEXEC|SOCK_NONBLOCK) = 20
+24011 read(20, "POST /fit HTTP/1.1\r\ncontent-type: application/json", 8192) = 1862
+24011 write(20, "HTTP/1.1 200 OK\r\nContent-Type: application/json", 4096) = 1634
+24011 close(20) = 0
+24011 accept4(19, {sa_family=AF_INET, sin_port=htons(42024), sin_addr=inet_addr("127.0.0.1")}, [16], SOCK_CLOEXEC|SOCK_NONBLOCK) = 20
+24011 read(20, "POST /batch-fit HTTP/1.1\r\ncontent-type: application/json", 8192) = 3910
+24011 write(20, "HTTP/1.1 200 OK\r\nContent-Type: application/json", 4096) = 2759
+24011 close(20) = 0
+24011 accept4(19, {sa_family=AF_INET, sin_port=htons(42030), sin_addr=inet_addr("127.0.0.1")}, [16], SOCK_CLOEXEC|SOCK_NONBLOCK) = 20
+24011 read(20, "POST /diagnostics HTTP/1.1\r\ncontent-type: application/json", 8192) = 1894
+24011 write(20, "HTTP/1.1 200 OK\r\nContent-Type: application/json", 4096) = 1912
+24011 close(20) = 0
+24011 openat(AT_FDCWD, "/app/data/calibration.gamma.json", O_RDONLY) = 21
+24011 read(21, "{\n  \"detectorId\": \"GS-ORION-17\"", 4096) = 1047
+24011 --- SIGTERM {si_signo=SIGTERM, si_code=SI_USER, si_pid=24002, si_uid=1000} ---
+24011 +++ exited with 0 +++

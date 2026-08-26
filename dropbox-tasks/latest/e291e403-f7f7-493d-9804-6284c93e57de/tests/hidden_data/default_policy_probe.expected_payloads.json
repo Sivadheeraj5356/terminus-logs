@@ -1,0 +1,23 @@
+[
+  [
+    "h1",
+    {
+      "nested": [
+        {
+          "href": null
+        },
+        {
+          "SRC": "/ok/path"
+        },
+        {
+          "label": "LM"
+        }
+      ],
+      "plain": "AB"
+    }
+  ],
+  [
+    "h4",
+    "ZZ"
+  ]
+]

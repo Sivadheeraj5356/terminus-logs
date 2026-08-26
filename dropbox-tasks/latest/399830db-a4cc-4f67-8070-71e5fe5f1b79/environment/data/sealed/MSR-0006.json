@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0006",
+  "category": "copy_number_alteration",
+  "label_ciphertext": "q+7QCpZqfkYcoA==",
+  "label_nonce": "LYqGXn9epfH/e8ss",
+  "label_tag": "dq4Abmd/qetY2VTUesvs8A==",
+  "signature": "MEUCIQChLBgwiWXyIhnLU3PQTK2gHlRiFrhYtliqaUUezRW4DAIgT8skuEyr6nNMt5FL5oYaksBJu9tVacJgl1ufKNG0VpQ=",
+  "patient_ref": "PT-ZETA-442"
+}

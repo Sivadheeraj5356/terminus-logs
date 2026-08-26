@@ -1,0 +1,15 @@
+== Mercury Spring [toxic] ==
+Omen: The maze breathes.
+Light: 11.5 lumens
+Relics:
+  - Mercury Mirror <epic> 130g
+  - Quicksilver Vial <uncommon> 55g
+Freshest: Mercury Mirror @ 15:45 KST
+Exits:
+  - north: Emberforge Hollow (torch 1.0)
+Torch: 5.0 units
+Inventory: (empty)
+Route: you stand at the goal
+---ACTIONS---
+take mercury-mirror
+go north

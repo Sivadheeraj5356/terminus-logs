@@ -1,0 +1,672 @@
+--- a/main.cpp	2026-07-15 16:57:19.280972200 +0700
++++ b/main.cpp	2026-07-15 16:57:19.312154700 +0700
+@@ -1,19 +1,11 @@
+-// Render-pipeline plugin resolver (starter).
++// Render-pipeline plugin resolver (full reference implementation).
+ //
+ // Reads a JSON array of resolution cases from standard input and writes a JSON
+ // array of install-set results to standard output, one per case in order. Each
+ // case is {"registry": {name: [{version, yanked?, deps?}, ...]}, "requirements":
+-// {name: constraint}} and a result is {"install": [{name, version}, ...],
+-// "conflicts": [{packages, dependency}, ...]}. See README.md for the resolution
+-// contract this program must follow.
+-//
+-// TODO: this starter only resolves the top-level requirements of a case using a
+-// naive reading of the `=`, `>=` and `*` operators, always skipping yanked and
+-// pre-release versions. It does NOT expand transitive dependency constraints, it
+-// mishandles the caret/tilde and other comparator operators, it does not apply
+-// the yanked-exact-pin or pre-release inclusion rules, and it never emits a
+-// conflict record.
+-
++// {name: constraint}}. A result is {"install": [{name, version}, ...],
++// "conflicts": [{packages, dependency}, ...]}. See README.md for the full
++// resolution contract.
+ #include <algorithm>
+ #include <cstdlib>
+ #include <iostream>
+@@ -408,82 +400,584 @@
+     return out;
+ }
+ 
+-// ==== resolver (starter, naive) ==============================================
++// ==== resolver (full reference implementation) ==============================
+ 
+-// naiveVer parses "maj.min.patch" ignoring any pre-release tag; the return value
+-// is false when the string carries a pre-release tag or is otherwise malformed.
+-static bool naiveVer(const std::string &s, int out[3]) {
+-    out[0] = out[1] = out[2] = 0;
+-    if (s.find('-') != std::string::npos)
+-        return false;
+-    std::vector<std::string> parts = splitStr(s, '.');
+-    if (parts.size() != 3)
++// ---- version model ----
++
++struct Ver {
++    int maj = 0, min = 0, pat = 0;
++    bool hasPre = false;
++    std::vector<std::string> pre;
++};
++
++static Ver parseVersion(const std::string &s) {
++    Ver v;
++    std::string core = s;
++    size_t dash = s.find('-');
++    if (dash != std::string::npos) {
++        core = s.substr(0, dash);
++        v.hasPre = true;
++        v.pre = splitStr(s.substr(dash + 1), '.');
++    }
++    std::vector<std::string> parts = splitStr(core, '.');
++    if (parts.size() > 0)
++        v.maj = toInt(parts[0]);
++    if (parts.size() > 1)
++        v.min = toInt(parts[1]);
++    if (parts.size() > 2)
++        v.pat = toInt(parts[2]);
++    return v;
++}
++
++static int cmpPre(const std::vector<std::string> &a, const std::vector<std::string> &b) {
++    size_t n = std::max(a.size(), b.size());
++    for (size_t i = 0; i < n; i++) {
++        if (i >= a.size())
++            return -1;
++        if (i >= b.size())
++            return 1;
++        const std::string &x = a[i];
++        const std::string &y = b[i];
++        bool xn = isNum(x), yn = isNum(y);
++        if (xn && yn) {
++            int xi = std::atoi(x.c_str()), yi = std::atoi(y.c_str());
++            if (xi != yi)
++                return xi < yi ? -1 : 1;
++        } else if (xn && !yn) {
++            return -1;
++        } else if (yn && !xn) {
++            return 1;
++        } else {
++            if (x != y)
++                return x < y ? -1 : 1;
++        }
++    }
++    return 0;
++}
++
++static int cmpVersion(const Ver &a, const Ver &b) {
++    if (a.maj != b.maj)
++        return a.maj < b.maj ? -1 : 1;
++    if (a.min != b.min)
++        return a.min < b.min ? -1 : 1;
++    if (a.pat != b.pat)
++        return a.pat < b.pat ? -1 : 1;
++    if (!a.hasPre && !b.hasPre)
++        return 0;
++    if (!a.hasPre)
++        return 1;
++    if (!b.hasPre)
++        return -1;
++    return cmpPre(a.pre, b.pre);
++}
++
++static bool coreEq(const Ver &a, const Ver &b) {
++    return a.maj == b.maj && a.min == b.min && a.pat == b.pat;
++}
++
++// ---- constraints ----
++
++struct Prim {
++    std::string op; // GTE GT LTE LT EQ
++    Ver v;
++};
++
++// fill parses 1-3 numeric components with an optional pre-release suffix and
++// reports how many components were written explicitly (the arity).
++static std::pair<Ver, int> fill(std::string raw) {
++    Ver v;
++    size_t dash = raw.find('-');
++    if (dash != std::string::npos) {
++        v.hasPre = true;
++        v.pre = splitStr(raw.substr(dash + 1), '.');
++        raw = raw.substr(0, dash);
++    }
++    std::vector<std::string> parts = splitStr(raw, '.');
++    std::vector<int> nums;
++    for (const auto &p : parts)
++        nums.push_back(toInt(p));
++    int arity = (int)nums.size();
++    while (nums.size() < 3)
++        nums.push_back(0);
++    v.maj = nums[0];
++    v.min = nums[1];
++    v.pat = nums[2];
++    return {v, arity};
++}
++
++static std::vector<Prim> parseConstraint(std::string s) {
++    s = trim(s);
++    if (s == "*" || s == "" || s == "x") {
++        Ver z;
++        return {{"GTE", z}};
++    }
++    if (s[0] == '^') {
++        auto pr = fill(s.substr(1));
++        Ver lo = pr.first;
++        int arity = pr.second;
++        Ver hi;
++        if (arity == 1) {
++            hi.maj = lo.maj + 1;
++        } else if (arity == 2) {
++            if (lo.maj == 0)
++                hi.min = lo.min + 1;
++            else
++                hi.maj = lo.maj + 1;
++        } else {
++            if (lo.maj == 0) {
++                if (lo.min == 0)
++                    hi.pat = lo.pat + 1;
++                else
++                    hi.min = lo.min + 1;
++            } else {
++                hi.maj = lo.maj + 1;
++            }
++        }
++        return {{"GTE", lo}, {"LT", hi}};
++    }
++    if (s[0] == '~') {
++        auto pr = fill(s.substr(1));
++        Ver lo = pr.first;
++        int arity = pr.second;
++        Ver hi;
++        if (arity == 1) {
++            hi.maj = lo.maj + 1;
++        } else {
++            hi.maj = lo.maj;
++            hi.min = lo.min + 1;
++        }
++        return {{"GTE", lo}, {"LT", hi}};
++    }
++    std::string op, rest;
++    if (s.rfind(">=", 0) == 0) {
++        op = "GTE";
++        rest = s.substr(2);
++    } else if (s.rfind("<=", 0) == 0) {
++        op = "LTE";
++        rest = s.substr(2);
++    } else if (s.rfind(">", 0) == 0) {
++        op = "GT";
++        rest = s.substr(1);
++    } else if (s.rfind("<", 0) == 0) {
++        op = "LT";
++        rest = s.substr(1);
++    } else if (s.rfind("=", 0) == 0) {
++        op = "EQ";
++        rest = s.substr(1);
++    } else {
++        throw std::runtime_error("bad constraint " + s);
++    }
++    auto pr = fill(trim(rest));
++    return {{op, pr.first}};
++}
++
++static bool rangeNamesCore(const std::vector<Prim> &rng, const Ver &v) {
++    for (const auto &p : rng)
++        if (p.v.hasPre && coreEq(p.v, v))
++            return true;
++    return false;
++}
++
++static bool satPrim(const Ver &v, const Prim &p) {
++    int c = cmpVersion(v, p.v);
++    if (p.op == "GTE")
++        return c >= 0;
++    if (p.op == "GT")
++        return c > 0;
++    if (p.op == "LTE")
++        return c <= 0;
++    if (p.op == "LT")
++        return c < 0;
++    return c == 0;
++}
++
++static bool satRange(const Ver &v, const std::vector<Prim> &rng) {
++    if (v.hasPre && !rangeNamesCore(rng, v))
+         return false;
+-    for (int i = 0; i < 3; i++) {
+-        if (!isNum(parts[i]))
++    for (const auto &p : rng)
++        if (!satPrim(v, p))
+             return false;
+-        out[i] = std::atoi(parts[i].c_str());
+-    }
+     return true;
+ }
+ 
+-static int cmp3(const int a[3], const int b[3]) {
+-    for (int i = 0; i < 3; i++)
+-        if (a[i] != b[i])
+-            return a[i] < b[i] ? -1 : 1;
+-    return 0;
++static bool isExactPin(const std::vector<Prim> &rng, const Ver &v) {
++    return rng.size() == 1 && rng[0].op == "EQ" && cmpVersion(rng[0].v, v) == 0;
+ }
+ 
+-// naiveSat only understands "*", "=x.y.z" and ">=x.y.z".
+-static bool naiveSat(const int v[3], const std::string &constraint) {
+-    std::string c = trim(constraint);
+-    if (c.empty() || c == "*")
+-        return true;
+-    if (c.rfind(">=", 0) == 0) {
+-        int b[3];
+-        if (naiveVer(trim(c.substr(2)), b))
+-            return cmp3(v, b) >= 0;
+-        return true;
+-    }
+-    if (c.rfind("=", 0) == 0) {
+-        int b[3];
+-        if (naiveVer(trim(c.substr(1)), b))
+-            return cmp3(v, b) == 0;
+-        return true;
++// ---- selection ----
++
++using Registry = std::map<std::string, std::vector<Entry>>;
++using StrMap = std::map<std::string, std::string>;
++
++static std::pair<std::string, bool> selectVersion(const std::string &pkg,
++                                                   const std::vector<std::vector<Prim>> &ranges,
++                                                   const Registry &reg) {
++    Ver best;
++    std::string bestVer;
++    bool have = false;
++    auto it = reg.find(pkg);
++    if (it != reg.end())
++        for (const auto &e : it->second) {
++            Ver v = parseVersion(e.version);
++            bool ok = true;
++            for (const auto &r : ranges)
++                if (!satRange(v, r)) {
++                    ok = false;
++                    break;
++                }
++            if (!ok)
++                continue;
++            if (e.yanked) {
++                bool pinned = false;
++                for (const auto &r : ranges)
++                    if (isExactPin(r, v)) {
++                        pinned = true;
++                        break;
++                    }
++                if (!pinned)
++                    continue;
++            }
++            if (!have || cmpVersion(v, best) > 0) {
++                best = v;
++                bestVer = e.version;
++                have = true;
++            }
++        }
++    return {bestVer, have};
++}
++
++// ---- resolution ----
++
++struct SrcRange {
++    std::string src;
++    bool isTop;
++    std::vector<Prim> rng;
++};
++
++static std::map<std::string, std::string> depsOf(const std::string &pkg, const std::string &version,
++                                                 const Registry &reg) {
++    auto it = reg.find(pkg);
++    if (it != reg.end())
++        for (const auto &e : it->second)
++            if (e.version == version)
++                return e.deps;
++    return {};
++}
++
++static std::vector<SrcRange> active(const std::string &pkg, const StrMap &assignment,
++                                    const StrMap &requirements, const Registry &reg) {
++    std::vector<SrcRange> out;
++    if (auto it = requirements.find(pkg); it != requirements.end())
++        out.push_back({"", true, parseConstraint(it->second)});
++    for (const auto &q : assignment) {
++        auto deps = depsOf(q.first, q.second, reg);
++        for (const auto &dp : deps)
++            if (dp.first == pkg)
++                out.push_back({q.first, false, parseConstraint(dp.second)});
+     }
++    return out;
++}
++
++static std::vector<std::vector<Prim>> rangesOf(const std::vector<SrcRange> &acts) {
++    std::vector<std::vector<Prim>> out;
++    for (const auto &a : acts)
++        out.push_back(a.rng);
++    return out;
++}
++
++static std::vector<std::string> requiredSet(const StrMap &assignment,
++                                            const std::set<std::string> &conflicted,
++                                            const StrMap &requirements, const Registry &reg) {
++    std::set<std::string> set;
++    for (const auto &k : requirements)
++        set.insert(k.first);
++    for (const auto &q : assignment)
++        for (const auto &dp : depsOf(q.first, q.second, reg))
++            set.insert(dp.first);
++    std::vector<std::string> out;
++    for (const auto &k : set)
++        if (!conflicted.count(k))
++            out.push_back(k);
++    return out;
++}
++
++static bool validAssigned(const std::string &pkg, const std::string &version,
++                          const std::vector<std::vector<Prim>> &ranges, const Registry &reg) {
++    Ver v = parseVersion(version);
++    for (const auto &r : ranges)
++        if (!satRange(v, r))
++            return false;
++    auto it = reg.find(pkg);
++    if (it != reg.end())
++        for (const auto &e : it->second)
++            if (e.version == version && e.yanked) {
++                for (const auto &r : ranges)
++                    if (isExactPin(r, v))
++                        return true;
++                return false;
++            }
+     return true;
+ }
+ 
+-static Result resolve(const ResCase &c) {
+-    Result r;
+-    for (const auto &kv : c.requirements) {
+-        const std::string &name = kv.first;
+-        const std::string &constraint = kv.second;
+-        int best[3] = {0, 0, 0};
+-        bool have = false;
+-        std::string bestVer;
+-        auto it = c.registry.find(name);
+-        if (it != c.registry.end()) {
+-            for (const auto &e : it->second) {
+-                if (e.yanked)
+-                    continue;
+-                int v[3];
+-                if (!naiveVer(e.version, v))
+-                    continue;
+-                if (!naiveSat(v, constraint))
+-                    continue;
+-                if (!have || cmp3(v, best) > 0) {
+-                    for (int i = 0; i < 3; i++)
+-                        best[i] = v[i];
+-                    bestVer = e.version;
+-                    have = true;
++static std::vector<std::string> candidates(const std::string &pkg,
++                                           const std::vector<std::vector<Prim>> &ranges,
++                                           const Registry &reg) {
++    std::vector<std::string> cs;
++    auto it = reg.find(pkg);
++    if (it != reg.end())
++        for (const auto &e : it->second) {
++            Ver v = parseVersion(e.version);
++            bool ok = true;
++            for (const auto &r : ranges)
++                if (!satRange(v, r)) {
++                    ok = false;
++                    break;
+                 }
++            if (!ok)
++                continue;
++            if (e.yanked) {
++                bool pinned = false;
++                for (const auto &r : ranges)
++                    if (isExactPin(r, v)) {
++                        pinned = true;
++                        break;
++                    }
++                if (!pinned)
++                    continue;
+             }
++            cs.push_back(e.version);
+         }
+-        if (have)
+-            r.install.push_back({name, bestVer});
+-    }
+-    return r;
++    std::sort(cs.begin(), cs.end(), [](const std::string &a, const std::string &b) {
++        return cmpVersion(parseVersion(a), parseVersion(b)) > 0;
++    });
++    return cs;
++}
++
++struct Outcome {
++    StrMap assignment;
++    std::set<std::string> conflicted;
++};
++
++// dfs looks for a fully consistent assignment (no conflicts). It returns the
++// first complete assignment found under highest-version-first ordering, i.e. the
++// max-version consistent install set, or nullopt when no conflict-free assignment
++// exists.
++static std::optional<Outcome> dfs(StrMap assignment, const std::set<std::string> &conflicted,
++                                  const StrMap &requirements, const Registry &reg, int &budget) {
++    budget--;
++    if (budget < 0)
++        throw std::runtime_error("resolution budget exhausted");
++    std::vector<std::string> req = requiredSet(assignment, conflicted, requirements, reg);
++    std::string frontier;
++    std::vector<std::vector<Prim>> frRanges;
++    bool found = false;
++    for (const auto &p : req) {
++        std::vector<std::vector<Prim>> ranges = rangesOf(active(p, assignment, requirements, reg));
++        auto it = assignment.find(p);
++        if (it != assignment.end() && validAssigned(p, it->second, ranges, reg))
++            continue;
++        frontier = p;
++        frRanges = ranges;
++        found = true;
++        break;
++    }
++    if (!found)
++        return Outcome{assignment, conflicted};
++    std::vector<std::string> cs = candidates(frontier, frRanges, reg);
++    StrMap base = assignment;
++    base.erase(frontier);
++    for (const auto &cv : cs) {
++        StrMap na = base;
++        na[frontier] = cv;
++        auto res = dfs(na, conflicted, requirements, reg, budget);
++        if (res)
++            return res;
++    }
++    return std::nullopt;
++}
++
++// dfsMin runs only when no conflict-free assignment exists. It searches the whole
++// space of assignments, marking a package conflicted exactly when it has no
++// admissible satisfying version under its currently active constraints, and keeps
++// the outcome with the FEWEST conflicts. A greedy higher version of an earlier
++// package can introduce an avoidable second conflict that a lower version of that
++// same package would remove; because this explores every version choice instead
++// of returning at the first branch that marks something conflicted, it backtracks
++// those earlier choices and reports only the conflicts that are truly unavoidable,
++// yielding the maximal valid install set. Among equally-minimal outcomes it keeps
++// the first found under highest-version-first ordering, so free choices still
++// prefer higher versions.
++static void dfsMin(StrMap assignment, std::set<std::string> conflicted,
++                   const StrMap &requirements, const Registry &reg, int &budget,
++                   std::optional<Outcome> &best) {
++    budget--;
++    if (budget < 0)
++        throw std::runtime_error("resolution budget exhausted");
++    // The conflict set only grows as the search descends, so a branch that has
++    // already accumulated at least as many conflicts as the best complete outcome
++    // can never improve on it.
++    if (best && conflicted.size() >= best->conflicted.size())
++        return;
++    std::vector<std::string> req = requiredSet(assignment, conflicted, requirements, reg);
++    std::string frontier;
++    std::vector<std::vector<Prim>> frRanges;
++    bool found = false;
++    for (const auto &p : req) {
++        std::vector<std::vector<Prim>> ranges = rangesOf(active(p, assignment, requirements, reg));
++        auto it = assignment.find(p);
++        if (it != assignment.end() && validAssigned(p, it->second, ranges, reg))
++            continue;
++        frontier = p;
++        frRanges = ranges;
++        found = true;
++        break;
++    }
++    if (!found) {
++        if (!best || conflicted.size() < best->conflicted.size())
++            best = Outcome{assignment, conflicted};
++        return;
++    }
++    std::vector<std::string> cs = candidates(frontier, frRanges, reg);
++    StrMap base = assignment;
++    base.erase(frontier);
++    for (const auto &cv : cs) {
++        StrMap na = base;
++        na[frontier] = cv;
++        dfsMin(na, conflicted, requirements, reg, budget, best);
++    }
++    if (cs.empty()) {
++        std::set<std::string> nc = conflicted;
++        nc.insert(frontier);
++        dfsMin(base, nc, requirements, reg, budget, best);
++    }
++}
++
++// reachableClosure returns the set of packages that must actually be installed:
++// starting from the top-level requirements and following the deps declared by
++// each chosen version transitively. A conflicted dependency is not installed and
++// does not activate its own deps, so it stops the traversal. Packages assigned by
++// an abandoned search branch are never reached and are therefore dropped.
++static std::set<std::string> reachableClosure(const StrMap &assignment, const StrMap &requirements,
++                                              const Registry &reg,
++                                              const std::set<std::string> &conflicted) {
++    std::set<std::string> reachable;
++    std::vector<std::string> stack;
++    for (const auto &k : requirements)
++        stack.push_back(k.first);
++    while (!stack.empty()) {
++        std::string p = stack.back();
++        stack.pop_back();
++        if (reachable.count(p) || conflicted.count(p))
++            continue;
++        auto it = assignment.find(p);
++        if (it == assignment.end())
++            continue;
++        reachable.insert(p);
++        for (const auto &dp : depsOf(p, it->second, reg))
++            if (!reachable.count(dp.first))
++                stack.push_back(dp.first);
++    }
++    return reachable;
++}
++
++static std::vector<std::string> conflictPair(const std::string &dep,
++                                             const std::set<std::string> &reachable,
++                                             const StrMap &assignment, const Registry &reg) {
++    std::map<std::string, std::vector<std::vector<Prim>>> bySrc;
++    std::vector<std::string> srcs;
++    // assignment is a std::map, so iteration is already sorted by package name.
++    for (const auto &q : assignment) {
++        if (!reachable.count(q.first))
++            continue;
++        auto deps = depsOf(q.first, q.second, reg);
++        auto dit = deps.find(dep);
++        if (dit != deps.end()) {
++            if (!bySrc.count(q.first))
++                srcs.push_back(q.first);
++            bySrc[q.first].push_back(parseConstraint(dit->second));
++        }
++    }
++    std::sort(srcs.begin(), srcs.end());
++    // A lone requiring package whose own constraint admits no version is itself the
++    // jointly-unsatisfiable set: the conflict names just that one package.
++    if (srcs.size() == 1) {
++        if (!selectVersion(dep, bySrc[srcs[0]], reg).second)
++            return {srcs[0]};
++        return {};
++    }
++    for (size_t i = 0; i < srcs.size(); i++)
++        for (size_t j = i + 1; j < srcs.size(); j++) {
++            std::vector<std::vector<Prim>> combined = bySrc[srcs[i]];
++            for (const auto &r : bySrc[srcs[j]])
++                combined.push_back(r);
++            if (!selectVersion(dep, combined, reg).second)
++                return {srcs[i], srcs[j]};
++        }
++    if (srcs.size() >= 2)
++        return {srcs[0], srcs[1]};
++    return srcs;
++}
++
++static Result resolve(const ResCase &c) {
++    int budget = 200000;
++    std::optional<Outcome> res =
++        dfs(StrMap{}, std::set<std::string>{}, c.requirements, c.registry, budget);
++    Result out;
++    StrMap assignment;
++    std::set<std::string> conflicted;
++    if (!res) {
++        budget = 200000;
++        std::optional<Outcome> best;
++        dfsMin(StrMap{}, std::set<std::string>{}, c.requirements, c.registry, budget, best);
++        assignment = best->assignment;
++        conflicted = best->conflicted;
++    } else {
++        assignment = res->assignment;
++    }
++
++    // The install set is the reachable dependency closure of the requirements,
++    // not every key that lingers in the final assignment map. Orphans left by an
++    // abandoned search branch are excluded here.
++    std::set<std::string> reachable =
++        reachableClosure(assignment, c.requirements, c.registry, conflicted);
++    std::vector<std::string> names(reachable.begin(), reachable.end());
++    std::sort(names.begin(), names.end());
++    for (const auto &n : names) {
++        auto it = assignment.find(n);
++        out.install.push_back({n, it != assignment.end() ? it->second : std::string()});
++    }
++
++    // A conflict record is emitted for each still-reachable dependency that cannot
++    // be satisfied: its packages list names the requiring packages whose declared
++    // constraints cannot be jointly satisfied (one when a lone requirer's own
++    // constraint is unsatisfiable, two when two requirers conflict).
++    std::vector<std::string> deps(conflicted.begin(), conflicted.end());
++    std::sort(deps.begin(), deps.end());
++    for (const auto &d : deps) {
++        std::vector<std::string> pair = conflictPair(d, reachable, assignment, c.registry);
++        if (pair.size() < 1)
++            continue;
++        std::sort(pair.begin(), pair.end());
++        out.conflicts.push_back({pair, d});
++    }
++    std::sort(out.conflicts.begin(), out.conflicts.end(),
++              [](const ConflictItem &a, const ConflictItem &b) {
++                  if (a.dependency != b.dependency)
++                      return a.dependency < b.dependency;
++                  std::string ja, jb;
++                  for (size_t k = 0; k < a.packages.size(); k++) {
++                      if (k)
++                          ja.push_back(',');
++                      ja += a.packages[k];
++                  }
++                  for (size_t k = 0; k < b.packages.size(); k++) {
++                      if (k)
++                          jb.push_back(',');
++                      jb += b.packages[k];
++                  }
++                  return ja < jb;
++              });
++    return out;
+ }
+ 
+ // ============================================================================

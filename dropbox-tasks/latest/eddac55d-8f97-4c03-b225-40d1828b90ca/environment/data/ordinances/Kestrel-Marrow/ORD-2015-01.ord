@@ -1,0 +1,9 @@
+ordinance: ORD-2015-01
+jurisdiction: Kestrel-Marrow
+enacted: 2015-01-19
+effective: 2015-03-29T02:00:00 wall
+standard-offset: +08:00:00
+standard-label: KST
+observance:
+  begin: Mar lastSun 02:00:00 wall save +01:00:00 label KDT
+  end: Oct lastSun 03:00:00 universal

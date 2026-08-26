@@ -1,0 +1,6 @@
+hostname: acc-emea-lon-tower-a-07
+migration_state: partial
+canonical_vlan: 2028
+configured_vlan: 129
+legacy_vlan: 129
+duplicate_vlan_conflict: false

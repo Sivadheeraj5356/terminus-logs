@@ -1,0 +1,13 @@
+{"fee_id":"R1","lending_batch_id":"B1","borrower_id":"E1","accrued_at":"2026-01-01T10:00:00Z","loan_sequence":2,"fee_type":"accrual","fee_cents":100,"rebates_fee_id":""}
+{"fee_id":"R2","lending_batch_id":"B1","borrower_id":"E1","accrued_at":"2026-01-01T09:00:00Z","loan_sequence":1,"fee_type":"accrual","fee_cents":50,"rebates_fee_id":""}
+{"fee_id":"R3","lending_batch_id":"B2","borrower_id":"E1","accrued_at":"2026-01-04T00:00:00Z","loan_sequence":1,"fee_type":"rebate","fee_cents":0,"rebates_fee_id":"R2"}
+{"fee_id":"R4","lending_batch_id":"B2","borrower_id":"E2","accrued_at":"bad-time","loan_sequence":1,"fee_type":"accrual","fee_cents":20,"rebates_fee_id":""}
+{"fee_id":"R1","lending_batch_id":"B2","borrower_id":"E2","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":3,"fee_type":"accrual","fee_cents":30,"rebates_fee_id":""}
+{"fee_id":"R5","lending_batch_id":"BX","borrower_id":"E2","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":4,"fee_type":"accrual","fee_cents":30,"rebates_fee_id":""}
+{"fee_id":"R6","lending_batch_id":"B1","borrower_id":"E2","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":5,"fee_type":"accrual","fee_cents":30,"rebates_fee_id":""}
+{"fee_id":"R7","lending_batch_id":"B2","borrower_id":"EX","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":6,"fee_type":"accrual","fee_cents":30,"rebates_fee_id":""}
+{"fee_id":"R8","lending_batch_id":"B2","borrower_id":"E2","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":7,"fee_type":"noop","fee_cents":30,"rebates_fee_id":""}
+{"fee_id":"R9","lending_batch_id":"B2","borrower_id":"E2","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":8,"fee_type":"accrual","fee_cents":-1,"rebates_fee_id":""}
+{"fee_id":"R10","lending_batch_id":"B2","borrower_id":"E2","accrued_at":"2026-01-04T01:00:00Z","loan_sequence":9,"fee_type":"rebate","fee_cents":0,"rebates_fee_id":"MISSING"}
+{"fee_id":"R11","lending_batch_id":"B2","borrower_id":"E3","accrued_at":"2026-01-05T00:00:00Z","loan_sequence":1,"fee_type":"accrual","fee_cents":75,"rebates_fee_id":""}
+{"fee_id":"R12","lending_batch_id":"B2","borrower_id":"E3","accrued_at":"2026-01-05T00:01:00Z","loan_sequence":2,"fee_type":"accrual","fee_cents":20,"rebates_fee_id":""}

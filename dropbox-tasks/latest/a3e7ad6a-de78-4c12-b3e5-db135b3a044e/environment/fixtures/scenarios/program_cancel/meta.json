@@ -1,0 +1,6 @@
+{
+  "scenario_id": "program_cancel",
+  "required_clearance": "",
+  "rollout_epoch": 50,
+  "topology_revision": "topo-rev-program"
+}

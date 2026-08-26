@@ -1,0 +1,14 @@
+{"seq": 1, "K_n2": 2.0e-6, "K_he": 3.0e-7, "n_sites": 0.07, "universal": true}
+{"seq": 2, "K_n2": 2.4e-6, "K_he": 3.8e-7, "n_sites": 0.085, "universal": true}
+{"seq": 3, "K_n2": 3.2e-6, "K_he": 5.5e-7, "n_sites": 0.10, "t_min": 85.0, "t_max": 320.0}
+{"seq": 4, "K_n2": 2.8e-6, "K_he": 4.5e-7, "n_sites": 0.09, "t_min": 40.0, "t_max": 75.0}
+{"seq": 5, "K_n2": -1.0, "K_he": 1.0e-6, "n_sites": 0.50, "t_min": 40.0, "t_max": 75.0, "leg": "descend"}
+{"seq": 6, "K_n2": 4.1e-6, "K_he": 6.2e-7, "n_sites": 0.25, "t_min": 200.0, "t_max": 350.0}
+{"seq": 7, "K_n2": 5.0e-6, "K_he": 1.0e-6, "n_sites": 0.25, "t_min": 400.0, "t_max": 500.0}
+{"seq": 10, "K_n2": 3.5e-6, "K_he": 5.0e-7, "n_sites": 0.22, "t_min": 55.0, "t_max": 70.0, "leg": "descend", "requires_prev_seq": 8}
+{"seq": 11, "K_n2": 6.0e-6, "K_he": 1.2e-6, "n_sites": 0.40, "t_min": 55.0, "t_max": 70.0, "leg": "descend", "requires_prev_seq": 6}
+{"seq": 9, "K_n2": 2.2e-6, "K_he": 3.0e-7, "n_sites": 0.03, "t_min": 55.0, "t_max": 70.0, "leg": "ascend"}
+{"seq": 8, "K_n2": 3.0e-6, "K_he": 4.0e-7, "n_sites": 0.15, "t_min": 50.0, "t_max": 80.0, "leg": "descend"}
+{"seq": 8, "K_n2": 2.9e-6, "K_he": 4.1e-7, "n_sites": 0.12, "t_min": 45.0, "t_max": 90.0, "leg": "descend"}
+{"seq": 12, "K_n2": 4.8e-6, "K_he": 7.0e-7, "n_sites": 0.28, "t_min": 95.0, "t_max": 110.0}
+{"seq": 13, "K_n2": 4.5e-6, "K_he": 6.5e-7, "n_sites": 0.26, "t_min": 145.0, "t_max": 155.0, "leg": "ascend"}

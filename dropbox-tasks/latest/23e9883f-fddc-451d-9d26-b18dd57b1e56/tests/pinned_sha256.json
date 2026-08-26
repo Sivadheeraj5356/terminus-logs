@@ -1,0 +1,16 @@
+{
+  "data/bands_live/L19A.json": "286272d74567ef86b8f1a3760dac8d7c3a537ee072123c4ef570875cd7eb8a44",
+  "data/bands_live/L19B.json": "4d2277ebfb6db43b2f2261eb3be7a401ab7c460dcd88f4b73a66b1f8a3fdb29d",
+  "data/bands_live/L19C.json": "86844f9c9904ab99cae4bb602a8b4353d16d3595a2901046edcccedbeb822c23",
+  "data/bands_live/index.json": "abc8a709aeec58a3b5138b0685f359483a1efb3297a27aad9f0503cec51af524",
+  "data/bands_shadow/L19A.json": "05aa601a6fc76ea812076960a7696cd93bab3487b3a0894970334f1d7f2357bc",
+  "data/bands_shadow/L19B.json": "52ae349929fab806cbdfde556ddbbfd74443e6065ce2fc471c88acfab93e526e",
+  "data/bands_shadow/L19C.json": "4a26c299ffce22455e82dc6c25756edcc352e7a53fe45d43d5e26d843c55be72",
+  "data/bands_shadow/index.json": "0f0bf4caa35ab20190b66b982f3a3decca420934afb6855a60febd70a8969ea1",
+  "data/fixtures/P-CASCADE.modes.json": "e75407c5b46aa3dcbae958d576c65a60a8da498f9c2f8d6cff21a01ef265e7d8",
+  "data/fixtures/P-CORE.modes.json": "c28463154f44bfa029c0981adeea6f3f6339c526c299b54cf2e0d632be075a72",
+  "data/fixtures/P-EDGE.modes.json": "45ac8f0d77e3414feb796f9dbd159f6d4b6f08703f3c31fd0a42eb338c83fdd3",
+  "data/fixtures/P-SMOKE.modes.json": "c5bdab27cf91ced482feff5fc5c2ef8996dac15dcc9b3024c3b284a19288045f",
+  "data/fixtures/manifest.json": "6c1ca9ad395550eafc81048a1142e0382905ac92b7433ae55e6b5cd7593caa49",
+  "data/num_auth/family_intervals.json": "b89b122e98bc1ff5e1bb2be31bf9be39766296882a8ffaf5b158c77403eb6c08"
+}

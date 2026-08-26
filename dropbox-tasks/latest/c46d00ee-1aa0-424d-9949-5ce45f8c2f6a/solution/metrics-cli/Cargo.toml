@@ -1,0 +1,13 @@
+[package]
+name = "metrics-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "metrics-cli"
+path = "src/main.rs"
+
+[dependencies]
+metrics-core = { path = "../metrics-core" }
+serde_json = { workspace = true }

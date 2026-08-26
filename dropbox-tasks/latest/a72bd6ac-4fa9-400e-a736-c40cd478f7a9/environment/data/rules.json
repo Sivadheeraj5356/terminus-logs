@@ -1,0 +1,112 @@
+{
+  "groups": [
+    {
+      "name": "node_rules",
+      "interval": "15s",
+      "rules": [
+        {
+          "type": "recording",
+          "record": "ok_metric",
+          "expr": "rate(node_cpu_seconds_total[5m])"
+        },
+        {
+          "type": "alert",
+          "alert": "ServerUp",
+          "expr": "up == 0",
+          "for_duration": "5m"
+        },
+        {
+          "type": "alert",
+          "alert": "DiskOK",
+          "expr": "df_usage{fs=\"/\"} < 0.9",
+          "for_duration": "10m",
+          "annotations": {
+            "summary": "Disk {{$value}} ok"
+          }
+        }
+      ]
+    },
+    {
+      "name": "app_rules",
+      "rules": [
+        {
+          "type": "recording",
+          "record": "dup_name",
+          "expr": "sum(http_requests_total)"
+        },
+        {
+          "type": "recording",
+          "record": "dup_name",
+          "expr": "sum(http_errors_total)"
+        },
+        {
+          "type": "alert",
+          "alert": "HighLatency",
+          "expr": "latency_seconds > 0.5{job=\"api\"}",
+          "for_duration": "30m"
+        },
+        {
+          "type": "alert",
+          "alert": "1BadAlert",
+          "expr": "some_metric > 0"
+        },
+        {
+          "type": "recording",
+          "record": "p99_latency",
+          "expr": "histogram_quantile(0.99, rate(duration_bucket[5m] offset 5m))"
+        },
+        {
+          "type": "alert",
+          "alert": "MemoryWarning",
+          "expr": "mem_usage > 0.8{_host=\"db-1\"}"
+        },
+        {
+          "type": "alert",
+          "alert": "LongDuration",
+          "expr": "some_metric > threshold",
+          "for_duration": "48h"
+        }
+      ]
+    },
+    {
+      "name": "infra_rules",
+      "rules": [
+        {
+          "type": "recording",
+          "record": "infra_cpu",
+          "expr": "avg(rate(node_cpu_seconds_total[5m]))"
+        },
+        {
+          "type": "alert",
+          "alert": "2HighMem",
+          "expr": "mem_usage > 0.9"
+        }
+      ]
+    },
+    {
+      "name": "db_rules",
+      "rules": [
+        {
+          "type": "recording",
+          "record": "db_connections",
+          "expr": "sum(pg_stat_activity_count)"
+        },
+        {
+          "type": "alert",
+          "alert": "DBReplicaLag",
+          "expr": "pg_replication_lag > 10",
+          "for_duration": "1m"
+        },
+        {
+          "type": "alert",
+          "alert": "SlowQuery",
+          "expr": "pg_slow_queries > 5",
+          "for_duration": "15m",
+          "labels": {
+            "severity": "warning"
+          }
+        }
+      ]
+    }
+  ]
+}

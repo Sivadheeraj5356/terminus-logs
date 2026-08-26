@@ -1,0 +1,4 @@
+cryptography==44.0.2
+PyJWT==2.10.1
+pytest==8.4.1
+pytest-json-ctrf==0.3.5

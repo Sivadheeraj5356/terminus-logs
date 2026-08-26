@@ -1,0 +1,6 @@
+RULE GENERATION_TIMING
+IN keys
+OUT value,reason
+TABLE
+advance -> after_verify|gen-timing
+END

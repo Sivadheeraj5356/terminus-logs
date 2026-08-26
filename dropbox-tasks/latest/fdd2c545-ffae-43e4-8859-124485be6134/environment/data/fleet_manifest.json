@@ -1,0 +1,47 @@
+{
+  "services": {
+    "acme-worker.service": {
+      "restart": "on-failure",
+      "restart_sec": 30,
+      "after": [
+        "acme-cache.service"
+      ],
+      "requires": [
+        "acme-cache.service"
+      ],
+      "wants": [
+        "acme-collector.service"
+      ]
+    },
+    "acme-cache.service": {
+      "restart": "on-failure",
+      "restart_sec": 15,
+      "after": [
+        "acme-reporter.service"
+      ],
+      "requires": [
+        "acme-reporter.service"
+      ],
+      "wants": []
+    },
+    "acme-collector.service": {
+      "restart": "on-failure",
+      "restart_sec": 10,
+      "after": [],
+      "requires": [],
+      "wants": []
+    },
+    "acme-reporter.service": {
+      "restart": "on-failure",
+      "restart_sec": 5,
+      "after": [],
+      "requires": [
+        "acme-worker.service"
+      ],
+      "wants": []
+    }
+  },
+  "slices": {
+    "fleet.work.slice": {}
+  }
+}

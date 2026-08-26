@@ -1,0 +1,11 @@
+[package]
+name = "ffi-model"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+docmodel = { path = "../docmodel" }
+
+[lib]
+name = "ffi_model"
+path = "src/lib.rs"

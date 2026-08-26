@@ -1,0 +1,15 @@
+[[profile]]
+label = "alpha"
+pair = "alpha.json"
+
+[[profile]]
+label = "beta"
+pair = "beta.json"
+
+[[profile]]
+label = "gamma"
+pair = "gamma.json"
+
+[[profile]]
+label = "invalid"
+pair = "invalid.json"

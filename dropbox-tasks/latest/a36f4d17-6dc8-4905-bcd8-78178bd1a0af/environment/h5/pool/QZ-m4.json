@@ -1,0 +1,5 @@
+{
+  "case_id": "sage",
+  "mode_hint": "int8_strict",
+  "expect_isolated": true
+}

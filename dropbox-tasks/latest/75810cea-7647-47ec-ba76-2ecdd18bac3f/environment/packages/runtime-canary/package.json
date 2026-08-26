@@ -1,0 +1,6 @@
+{
+  "name": "runtime-canary",
+  "version": "1.5.0-rc.1",
+  "type": "module",
+  "main": "src/index.mjs"
+}

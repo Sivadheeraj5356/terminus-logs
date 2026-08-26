@@ -1,0 +1,17 @@
+# Rubric 1
+
+Agent corrects the Q-in-Q double-tagging detection by fixing the inverted 0x88A8 EtherType comparison in main.cpp, +5
+Agent corrects the native VLAN exploit detection by fixing the inverted outer_tag condition in main.cpp, +3
+Agent corrects the zone violation check to properly identify blocked destination zones instead of allowed ones, +3
+Agent corrects the ACL bypass detection to check for deny entries instead of permit entries, +3
+Agent corrects the DTP misconfiguration check by fixing the inverted comparison logic, +2
+Agent corrects the native VLAN consistency check by fixing the inverted mismatch comparison, +2
+Agent corrects the risk level ternary so critical severity is assigned to high-risk violations and low severity to minor ones, +2
+Agent rebuilds the project successfully using make clean && make with no compilation errors, +3
+Agent re-runs the compiled binary and produces correct violation detection output showing all segmentation issues identified, +2
+Agent leaves all input data files and configuration files unmodified during the fix process, +1
+Agent fails to detect and fix the Q-in-Q double-tagging logic error leaving double-tagged frames undetected, -5
+Agent fails to correct the zone violation or ACL bypass checks leaving lateral movement paths open, -3
+Agent introduces compilation errors or breaks the build so the binary cannot be produced, -3
+Agent modifies packet capture files or VLAN topology evidence files instead of fixing source code, -2
+Agent produces output with incorrect severity classifications where critical violations are labeled low risk, -2

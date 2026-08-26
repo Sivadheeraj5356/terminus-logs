@@ -1,0 +1,23 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "FullAccountEmergency",
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": "*"
+    },
+    {
+      "Sid": "PassAnyRuntimeRole",
+      "Effect": "Allow",
+      "Action": ["iam:PassRole", "ecs:RunTask"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadOnlyInventory",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "logs:GetLogEvents"],
+      "Resource": "*"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+OBJ main
+GROUP_BEGIN
+ARC libA
+NEED gamma_alias
+ARC libB
+GROUP_END
+WHOLE_BEGIN
+ARC libExtra
+WHOLE_END

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["workerId", "claimed", "succeeded", "failed", "rotations", "jobs"],
+  "additionalProperties": false,
+  "properties": {
+    "workerId": {"type": "string"},
+    "claimed": {"type": "integer", "minimum": 0},
+    "succeeded": {"type": "integer", "minimum": 0},
+    "failed": {"type": "integer", "minimum": 0},
+    "rotations": {"type": "integer", "minimum": 0},
+    "jobs": {"type": "array"}
+  }
+}

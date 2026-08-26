@@ -1,0 +1,8 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "components": [
+    {"name": "mod-core", "package": "@safe/mod-core", "hash": "sha256:8d5a1c9f42a0"},
+    {"name": "lex-bridge", "package": "@safe/lex-bridge", "hash": "sha256:22f0b6e3aa71"}
+  ]
+}

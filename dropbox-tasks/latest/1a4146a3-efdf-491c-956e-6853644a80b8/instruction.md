@@ -1,0 +1,3 @@
+DNS ops is holding tonight’s zone publication because `/app/bin/zone-publisher` is giving the wrong answer on a few reviewed change batches. The command takes `--zone`, `--journal`, `--freezes`, `--exceptions`, and `--report`; it should validate the candidate zone and write the publication report described in `/app/docs/`.
+
+Please repair the Ruby implementation under `/app` so valid batches return the right publish/block status, the report is deterministic, and fatal input problems exit cleanly without replacing an existing report. Keep stdout empty; stderr is only for fatal errors. The DNS and reporting contracts are already written in `/app/docs/`, and those docs should not be changed.

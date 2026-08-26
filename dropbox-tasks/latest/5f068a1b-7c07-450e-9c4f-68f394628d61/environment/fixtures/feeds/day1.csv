@@ -1,0 +1,7 @@
+epoch_sec,sensor_id,temp,quality,reading_id,rev
+1703980800,A1,5.0,OK,r-a1-pre,1
+1704067200,A1,5.0,OK,r-a1-d1,1
+1704070800,A1,5.0,OK,r-a1-d1b,1
+1704139200,B1,44.6,OK,r-b1-d1,1
+1704153500,C1,5.0,OK,r-c1-d1,1
+1704153600,C1,4.0,BAD,r-c1-bad,1

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-hold
+  annotations:
+    serving.mlp.io/framework: torchserve
+    model.mlp.io/artifact-sha256: sha256:canary000111
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: canary-hold
+  template:
+    metadata:
+      labels:
+        app: canary-hold
+        serving.k8s.io/role: model-server
+      annotations:
+        serving.mlp.io/framework: torchserve
+        model.mlp.io/artifact-sha256: sha256:canary000111
+    spec:
+      containers:
+        - name: model-server
+          image: pytorch/torchserve:0.9.0
+          resources:
+            requests:
+              cpu: "1200m"
+              memory: "2560Mi"
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8080

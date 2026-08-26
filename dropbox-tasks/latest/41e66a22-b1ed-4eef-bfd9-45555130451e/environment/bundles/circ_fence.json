@@ -1,0 +1,13 @@
+{
+  "name": "circ_fence",
+  "steps": [
+    { "op": "seal", "gen": 1, "cred": "c1" },
+    { "op": "seal", "gen": 2, "cred": "c2" },
+    { "op": "latch", "gen": 2 },
+    { "op": "seal", "gen": 4, "cred": "c4" },
+    { "op": "latch", "gen": 4 },
+    { "op": "probe_dual", "prior": 2, "current": 4 }
+  ],
+  "digest_key": "circ_a.bin",
+  "alt_digest_key": "circ_b.bin"
+}

@@ -1,0 +1,2 @@
+mode relife
+nodes 5

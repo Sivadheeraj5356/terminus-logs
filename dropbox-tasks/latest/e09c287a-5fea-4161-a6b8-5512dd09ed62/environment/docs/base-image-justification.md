@@ -1,0 +1,3 @@
+# Base image justification
+
+This task intentionally uses `public.ecr.aws/docker/library/golang:1.24-bookworm@sha256:1a6d4452c65dea36aac2e2d606b01b4a029ec90cc1ae53890540ce6173ea77ac` because the agent and verifier both need an offline Go toolchain for `go run` / `go build ./...`. The image is digest-pinned and comes from the public ECR Docker Library mirror. A smaller generic Linux image would require downloading Go during task execution, which is incompatible with `allow_internet = false`. The Dockerfile only installs runtime/verifier utilities (`python3`, `python3-pytest`, `tmux`, `asciinema`, `iproute2`, and `ca-certificates`) and copies only the environment source/docs/data; tests and solutions remain outside the image.

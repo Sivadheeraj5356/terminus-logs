@@ -1,0 +1,10 @@
+{"event_id": "ev-c01-001", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-03-02T04:10:00Z", "units": 30}
+{"event_id": "ev-c01-002", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-03-05T09:00:00Z", "units": 25}
+{"event_id": "ev-c01-003", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-03-09T23:30:00Z", "units": 20}
+{"event_id": "ev-c01-004", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-03-12T08:15:00Z", "units": 40}
+{"event_id": "ev-c01-005", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-03-20T17:45:00Z", "units": 35}
+{"event_id": "ev-c01-006", "tenant_id": "tn-bor", "service": "compute", "timestamp": "2027-03-03T01:00:00Z", "units": 12}
+{"event_id": "ev-c01-007", "tenant_id": "tn-bor", "service": "compute", "timestamp": "2027-03-10T14:20:00Z", "units": 18}
+{"event_id": "ev-boundary-rate", "tenant_id": "tn-bor", "service": "compute", "timestamp": "2027-03-15T00:00:00Z", "units": 10}
+{"event_id": "ev-c01-009", "tenant_id": "tn-bor", "service": "compute", "timestamp": "2027-03-22T11:11:00Z", "units": 14}
+{"event_id": "ev-c01-010", "tenant_id": "tn-arc", "service": "compute", "timestamp": "2027-03-28T06:00:00Z", "units": 8}

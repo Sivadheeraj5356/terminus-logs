@@ -1,0 +1,11 @@
+{
+  "name": "openssl-cert-rotation-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node /app/src/worker.js",
+    "smoke": "bash /app/checks/smoke.sh",
+    "format": "bash /app/checks/format.sh"
+  }
+}

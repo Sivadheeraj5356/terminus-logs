@@ -1,0 +1,3 @@
+{"segment_id":"z0","era":5,"attach_id":"aid_c04_r5_scratch","track":2,"kind":"sealed","hard_limit":0}
+broken-json-line
+{"segment_id":"z2","era":6,"attach_id":"aid_c04_r6","track":2,"kind":"commit","hard_limit":32768}

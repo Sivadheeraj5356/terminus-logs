@@ -1,0 +1,3 @@
+Canonical fixtures use geothermal fluxes of order 0.018–0.020 W/m^2 as basal boundary conditions.
+This is a compact synthetic assumption for identifiability, not a site-specific Apollo heat-flow reconstruction.
+Sign convention in the task: q_bottom_down = -geothermal_flux_w_m2 (positive geothermal flux is upward into the column).

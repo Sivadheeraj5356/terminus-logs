@@ -1,0 +1,74 @@
+{
+  "session_id": "build_12",
+  "cross_compile": false,
+  "toolchains": [
+    {
+      "id": "gcc-13",
+      "triple": "gcc-13-linux-gnu"
+    }
+  ],
+  "checkpoints": [
+    {
+      "seq": 1,
+      "stage": "preprocess",
+      "toolchain": "gcc-13",
+      "artifact_hash": "5e93847306a7e99f",
+      "symbol_digest": "6918a7408333c63c",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 2,
+      "stage": "compile",
+      "toolchain": "gcc-13",
+      "artifact_hash": "28912a62daff3a26",
+      "symbol_digest": "6db992119435dcd1",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 3,
+      "stage": "link",
+      "toolchain": "gcc-13",
+      "artifact_hash": "0145d28b0813ed2c",
+      "symbol_digest": "35d37c80fb19e2ea",
+      "compressed_size": 100,
+      "raw_size": 200
+    }
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "toolchain": "gcc-13",
+      "stage": "preprocess",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "",
+      "new_hash": "5e93847306a7e99f",
+      "symbol_digest": "6918a7408333c63c"
+    },
+    {
+      "seq": 2,
+      "toolchain": "gcc-13",
+      "stage": "compile",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "5e93847306a7e99f",
+      "new_hash": "28912a62daff3a26",
+      "symbol_digest": "6db992119435dcd1"
+    },
+    {
+      "seq": 3,
+      "toolchain": "gcc-13",
+      "stage": "link",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "28912a62daff3a26",
+      "new_hash": "0145d28b0813ed2c",
+      "symbol_digest": "35d37c80fb19e2ea"
+    }
+  ],
+  "rollbacks": [],
+  "shards": [],
+  "optimization_passes": []
+}

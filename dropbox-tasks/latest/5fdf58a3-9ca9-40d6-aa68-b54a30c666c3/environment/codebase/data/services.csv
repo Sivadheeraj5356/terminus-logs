@@ -1,0 +1,3 @@
+service,hostname,sans,key_algorithm,rotate_before_days
+api,api.internal.example,"DNS:api.internal.example,DNS:api",rsa,14
+worker,worker.internal.example,"DNS:worker.internal.example,DNS:worker",ec,30

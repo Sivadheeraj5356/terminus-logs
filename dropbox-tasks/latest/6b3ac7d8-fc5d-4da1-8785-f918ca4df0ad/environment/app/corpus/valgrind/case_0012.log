@@ -1,0 +1,5 @@
+==51857== Memcheck, a memory error detector
+==51857== case: case_0012
+==51857== Conditional jump or move depends on uninitialised value(s)
+==51857==    by 0x555515faf8ae: seal_record (vaultseal.c:400)
+==51857==  Uninitialised value was created by a heap allocation

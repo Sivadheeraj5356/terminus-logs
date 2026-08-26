@@ -1,0 +1,9 @@
+ordinance: ORD-1936-01
+jurisdiction: Aurelia-Corrin
+enacted: 1936-03-02
+effective: 1936-05-03T24:00:00 wall
+standard-offset: +07:30:00
+standard-label: numeric
+observance:
+  begin: May Sun>=1 24:00:00 wall save +01:00:00 label numeric
+  end: Oct lastSun 24:00:00 wall

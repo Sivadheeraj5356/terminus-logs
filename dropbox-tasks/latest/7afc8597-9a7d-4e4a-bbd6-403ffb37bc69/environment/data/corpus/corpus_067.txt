@@ -1,0 +1,10 @@
+hex 0xabc 0xABCDEF zzz
+name_1 foo_bar Baz99 __x
+yes dog maybe false bar beta
+addr 223.216.164.142 hex 0xb812 token tok_179
+yes cat hello
+CamelCase and snake_case
+cat no yes
+false line bar color bird
+addr 133.1.29.112 hex 0x7d0e token tok_924
+true line false foo

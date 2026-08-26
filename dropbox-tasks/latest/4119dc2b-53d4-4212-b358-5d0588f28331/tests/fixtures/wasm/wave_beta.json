@@ -1,0 +1,12 @@
+{
+  "modules": [],
+  "host_calls": [
+    {"cap": "c1", "op": "read", "fuel": 2},
+    {"cap": "c1", "op": "read", "fuel": 2}
+  ],
+  "fuel_budget": 30,
+  "capabilities": [
+    {"id": "c1", "ops": ["read"], "uses_left": 2}
+  ],
+  "expected_digest": "d7d81e5774fbb693"
+}

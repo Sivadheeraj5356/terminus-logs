@@ -1,0 +1,32 @@
+{
+  "expedition_id": "expedition-tie",
+  "reports": [
+    {
+      "report_id": "tie-002",
+      "dive_lane": "abyssal_plain",
+      "confidence_rank": 2,
+      "revision": 5,
+      "supersedes": null,
+      "calibration_valid": true
+    },
+    {
+      "report_id": "tie-001",
+      "dive_lane": "abyssal_plain",
+      "confidence_rank": 2,
+      "revision": 5,
+      "supersedes": null,
+      "calibration_valid": true
+    }
+  ],
+  "observations": [
+    {
+      "obs_id": "obs-t01",
+      "dive_lane": "abyssal_plain",
+      "timestamp_utc": "2024-08-01T08:00:00Z",
+      "obs_type": "BATHYMETRY",
+      "depth_m": 3000,
+      "feature_code": "ABY-A",
+      "instrument_id": "depth-t1"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+schema_version = 3
+
+[[scenarios]]
+name = "gregorian_roundtrip"
+seed = "0xGREG01"
+
+[[scenarios.steps]]
+op = "convert"
+input = "data/samples/gregorian_monthly.ccf"
+output = "greg_step1.cft"
+
+[[scenarios.steps]]
+op = "convert"
+input = "greg_step1.cft"
+output = "greg_step2.ccf"
+
+[[scenarios]]
+name = "proleptic_roundtrip"
+seed = "0xPROL01"
+
+[[scenarios.steps]]
+op = "convert"
+input = "data/samples/proleptic_decadal.ccf"
+output = "prol_step1.cft"
+
+[[scenarios.steps]]
+op = "convert"
+input = "prol_step1.cft"
+output = "prol_step2.ccf"
+
+[[scenarios]]
+name = "360day_roundtrip"
+seed = "0x360D01"
+
+[[scenarios.steps]]
+op = "convert"
+input = "data/samples/append_base_360day.ccf"
+output = "d360_step1.cft"
+
+[[scenarios.steps]]
+op = "convert"
+input = "d360_step1.cft"
+output = "d360_step2.ccf"
+
+[[scenarios]]
+name = "bounds_roundtrip"
+seed = "0xBNDS01"
+
+[[scenarios.steps]]
+op = "convert"
+input = "data/samples/bounds_interval.ccf"
+output = "bounds_step1.cft"
+
+[[scenarios.steps]]
+op = "convert"
+input = "bounds_step1.cft"
+output = "bounds_step2.ccf"
+
+[[scenarios]]
+name = "mixed_units_append"
+seed = "0xMIXU01"
+
+[[scenarios.steps]]
+op = "append"
+base = "data/samples/append_base_360day.ccf"
+append = "data/samples/append_tail_noleap.ccf"
+output = "mixed_append.ccf"
+
+[[scenarios]]
+name = "resample_monthly"
+seed = "0xRSMP01"
+
+[[scenarios.steps]]
+op = "convert"
+input = "data/samples/resample_tricalendar.ccf"
+output = "rsmp_prep.cft"
+
+[[scenarios.steps]]
+op = "convert"
+input = "rsmp_prep.cft"
+output = "rsmp_prep.ccf"
+
+[[scenarios.steps]]
+op = "resample"
+freq = "mon"
+output = "rsmp_mon.ccf"
+
+[[scenarios]]
+name = "double_roundtrip_chain"
+seed = "0xCHAIN01"
+
+[[scenarios.steps]]
+op = "append"
+base = "data/samples/append_base_360day.ccf"
+append = "data/samples/append_tail_noleap.ccf"
+output = "chain_append.ccf"
+
+[[scenarios.steps]]
+op = "resample"
+freq = "mon"
+output = "chain_mon.ccf"
+
+[[scenarios.steps]]
+op = "convert"
+input = "chain_mon.ccf"
+output = "chain_step1.cft"
+
+[[scenarios.steps]]
+op = "convert"
+input = "chain_step1.cft"
+output = "chain_step2.ccf"

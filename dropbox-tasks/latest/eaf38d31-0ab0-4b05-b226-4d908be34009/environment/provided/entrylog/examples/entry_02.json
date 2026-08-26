@@ -1,0 +1,16 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 128,
+  "leaf_type": "precert_entry",
+  "issuer_id": "intermediate-CA-7",
+  "subject": [
+    "www.acme.com",
+    "*.acme.com",
+    "acme.com",
+    "api.acme.com"
+  ],
+  "issued_at": "2026-02-01T08:30:15.500Z",
+  "payload": "cert:BBBBconstantpayloadTWO",
+  "received_at": "2026-02-01T08:30:20Z",
+  "x_ingest_host": "frontend-2"
+}

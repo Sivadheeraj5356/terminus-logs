@@ -1,0 +1,7 @@
+run_id,violation_type,detail
+both_flags,leaking_feature,feature rolling_balance_7d@v4 available after cutoff 2024-06-01 00:00:00
+both_flags,unapproved_model,model ranking_shadow failed registry approval
+dual_leak,leaking_feature,feature credit_utilization@v1 available after cutoff 2024-06-01 00:00:00
+dual_leak,leaking_feature,feature rolling_balance_7d@v4 available after cutoff 2024-06-01 00:00:00
+leaking,leaking_feature,feature rolling_balance_7d@v4 available after cutoff 2024-06-01 00:00:00
+unapproved_model,unapproved_model,model ranking_shadow failed registry approval

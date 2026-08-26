@@ -1,0 +1,10 @@
+TAKE torch
+MOVE buffer
+TAKE patch
+WAIT
+MOVE heap
+SEAL canary
+MOVE canary
+TAKE key
+MOVE vault
+EXIT

@@ -1,0 +1,13 @@
+# mediation.csv schema
+
+Header (exact order):
+
+```text
+coord,requested_versions,selected_version,selected_by,depth,scope,original_coords,reason_codes
+```
+
+- Rows sorted by ascending relocated `coord`
+- `requested_versions`: semicolon-joined sorted unique version/range requests
+- `selected_by`: root, nearest, bom, or highest
+- `original_coords`: semicolon-joined sorted coordinates before relocation
+- `reason_codes`: semicolon-joined sorted reportable reasons, or empty

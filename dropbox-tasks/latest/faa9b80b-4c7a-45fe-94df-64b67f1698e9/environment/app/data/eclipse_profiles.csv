@@ -1,0 +1,8 @@
+eclipse_profile_id,profile_time_s,transmission_fraction
+none,0.0,1.0
+none,3600.0,1.0
+partial_eclipse,0.0,1.0
+partial_eclipse,1200.0,0.35
+partial_eclipse,1800.0,0.35
+partial_eclipse,2400.0,1.0
+partial_eclipse,3600.0,1.0

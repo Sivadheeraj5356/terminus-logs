@@ -1,0 +1,9 @@
+{
+  "id": "https://api.weather.gov/stations/KMIA",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KMIA",
+    "name": "Miami International Airport",
+    "timeZone": "America/Atlantis"
+  }
+}

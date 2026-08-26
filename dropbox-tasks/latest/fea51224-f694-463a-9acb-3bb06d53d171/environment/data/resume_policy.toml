@@ -1,0 +1,4 @@
+# Resume and lane inheritance knobs for interrupted replay windows.
+
+mask_from_checkpoint_gen = false
+use_prior_lane = true

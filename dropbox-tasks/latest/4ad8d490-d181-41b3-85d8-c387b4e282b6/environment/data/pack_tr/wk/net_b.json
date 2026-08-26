@@ -1,0 +1,8 @@
+{
+  "net_id": "net_b",
+  "board": "OR",
+  "seed_cids": [
+    "or.d.01",
+    "or.u.01"
+  ]
+}

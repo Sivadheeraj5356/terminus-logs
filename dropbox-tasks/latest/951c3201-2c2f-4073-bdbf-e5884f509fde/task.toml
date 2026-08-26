@@ -1,0 +1,43 @@
+# Task configuration schema version
+version = "2.0"
+
+# Task metadata (author, difficulty, categorization)
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "medium"
+category = "system-administration"
+# Options for subcategories are: "long_context", "tool_specific", "api_integration", "db_interaction", "ui_building"
+subcategories = [ "db_interaction",]
+# The number of milestones in the task (can be zero if not a milestone task)
+number_of_milestones = 0
+# Size of the codebase: minimal -> 0-20 files, small -> 20+ files, large -> 200+ files
+codebase_size = "minimal"
+# Coding languages used in the oracle solution or required by the agent
+languages = [ "bash",]
+# For tool_specific, api_integration, and db_interaction subcategories, please include specific tool, api framework, or database software
+tags = [ "redis", "service-configuration", "provisioning", "reconciliation", "idempotency",]
+# Estimated time to complete (minutes)
+expert_time_estimate_min = 60
+junior_time_estimate_min = 150
+
+# Referenced files: the agent repairs the service under /app/src and
+# /app/scripts and produces /app/output/reconciliation-report.json from the
+# canonical /app/data/taxi_zone_lookup.csv, the seeded Redis keyspace, and the
+# operator overrides packed in /app/dispatch-config.tar.gz.
+
+# Verifier: runs the test script to check task completion
+[verifier]
+timeout_sec = 300.0
+
+# Agent: limits how long the agent can run when attempting the task
+[agent]
+timeout_sec = 1200.0
+
+# Sandbox environment limits
+[environment]
+allow_internet = false
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 2048
+storage_mb = 10240

@@ -1,0 +1,8 @@
+{
+  "name": "qpcr-attest-env",
+  "private": true,
+  "scripts": {
+    "certify": "node x7/m2/k81/dist/main.js",
+    "build": "cd x7/m2/k81 && npm run build"
+  }
+}

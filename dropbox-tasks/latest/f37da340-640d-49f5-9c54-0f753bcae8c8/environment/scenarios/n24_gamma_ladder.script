@@ -1,0 +1,5 @@
+profile gamma
+step ro target=root
+step rw target=root
+step prp target=stage mode=shared
+step bar

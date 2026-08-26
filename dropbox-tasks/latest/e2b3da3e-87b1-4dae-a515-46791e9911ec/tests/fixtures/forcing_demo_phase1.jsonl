@@ -1,0 +1,6 @@
+{"event_id":"ev_inflow_1","source_seq":1,"time_s":0,"event_type":"external_inflow","node_id":"upper_pool","flow_m3_s":0.01}
+{"event_id":"ev_gate_open","source_seq":2,"time_s":600,"event_type":"link_control","link_id":"gate_upper","control":0.1}
+{"event_id":"ev_boundary","source_seq":3,"time_s":900,"event_type":"boundary_stage","node_id":"river_upstream","level_m":12.1}
+{"event_id":"ev_pump","source_seq":4,"time_s":1200,"event_type":"link_control","link_id":"pump_aux","control":0.2}
+{"event_id":"ev_impulse","source_seq":5,"time_s":1500,"event_type":"volume_impulse","node_id":"lock_chamber","delta_volume_m3":10.0}
+{"event_id":"ev_inflow_2","source_seq":6,"time_s":1800,"event_type":"external_inflow","node_id":"lower_pool","flow_m3_s":0.01}

@@ -1,0 +1,3 @@
+# The build is fully offline; the crate uses only the standard library.
+[net]
+offline = true

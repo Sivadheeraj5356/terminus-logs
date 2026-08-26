@@ -1,0 +1,9 @@
+ordinance: ORD-2017-03
+jurisdiction: Ossary-Bight
+enacted: 2017-03-09
+effective: 2017-10-29T01:00:00 universal
+standard-offset: +08:00:00
+standard-label: OST
+observance:
+  begin: Mar lastSun 01:00:00 universal save +01:00:00 label ODT
+  end: Oct lastSun 01:00:00 universal

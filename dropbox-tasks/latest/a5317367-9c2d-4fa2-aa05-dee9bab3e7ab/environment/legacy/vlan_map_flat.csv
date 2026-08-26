@@ -1,0 +1,6 @@
+legacy_id,legacy_name,flat_segment
+110,FLAT-USERS,users
+120,FLAT-SERVERS,servers
+130,FLAT-VOICE,voice
+140,FLAT-GUEST,guest
+150,FLAT-OT,ot

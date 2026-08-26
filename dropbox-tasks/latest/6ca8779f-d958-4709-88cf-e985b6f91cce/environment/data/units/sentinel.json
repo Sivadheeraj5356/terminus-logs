@@ -1,0 +1,10 @@
+{
+  "id": "sentinel_template",
+  "team": "red",
+  "hp": 10,
+  "armor": 2,
+  "speed": 2,
+  "vision": 3,
+  "range": 2,
+  "traits": ["OVERWATCH"]
+}

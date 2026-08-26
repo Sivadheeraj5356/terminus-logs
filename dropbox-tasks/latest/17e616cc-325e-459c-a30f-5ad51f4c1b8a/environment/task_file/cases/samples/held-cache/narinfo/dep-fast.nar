@@ -1,0 +1,7 @@
+STORE dep
+CACHE fast
+NAR_HASH ndep
+NAR_SIZE 4
+SIGS f1
+REFERENCES -
+DERIVER dep.drv

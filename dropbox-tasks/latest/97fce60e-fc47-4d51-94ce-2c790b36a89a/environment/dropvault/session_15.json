@@ -1,0 +1,115 @@
+{
+  "session_id": "session_15",
+  "rng_seed": 15,
+  "pity_threshold": 10,
+  "pity_tier": "epic",
+  "loot_pool": [
+    {
+      "item_id": "coin",
+      "tier": "common",
+      "weight": 70,
+      "unique": false,
+      "cooldown": 0
+    },
+    {
+      "item_id": "gem",
+      "tier": "rare",
+      "weight": 25,
+      "unique": false,
+      "cooldown": 2
+    },
+    {
+      "item_id": "relic",
+      "tier": "epic",
+      "weight": 5,
+      "unique": true,
+      "cooldown": 0
+    }
+  ],
+  "rolls": [
+    {
+      "seq": 1,
+      "player_id": "p1",
+      "roll_value": 0.0,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 2,
+      "player_id": "p1",
+      "roll_value": 0.707968382824,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 3,
+      "player_id": "p1",
+      "roll_value": 0.463972899564,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 4,
+      "player_id": "p1",
+      "roll_value": 0.362376781518,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 5,
+      "player_id": "p1",
+      "roll_value": 0.568559831538,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 6,
+      "player_id": "p1",
+      "roll_value": 0.719656971953,
+      "item_id": "gem",
+      "tier": "rare"
+    },
+    {
+      "seq": 7,
+      "player_id": "p1",
+      "roll_value": 0.344004638813,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 8,
+      "player_id": "p1",
+      "roll_value": 0.678151799066,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 9,
+      "player_id": "p1",
+      "roll_value": 0.961851863155,
+      "item_id": "relic",
+      "tier": "epic"
+    },
+    {
+      "seq": 10,
+      "player_id": "p1",
+      "roll_value": 0.242225409711,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 11,
+      "player_id": "p1",
+      "roll_value": 0.297474288156,
+      "item_id": "coin",
+      "tier": "common"
+    },
+    {
+      "seq": 12,
+      "player_id": "p1",
+      "roll_value": 0.019928586688,
+      "item_id": "coin",
+      "tier": "common"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "scenario_id": "scenario_16",
+  "build_profile": "release",
+  "profile_mode": "host",
+  "workspace_members": [
+    "svc"
+  ],
+  "declared": [
+    {
+      "crate": "svc",
+      "version": "0.1.0",
+      "features": [
+        "json",
+        "dev_hook"
+      ],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {
+    "svc": {
+      "dev_only_features": [
+        "dev_hook"
+      ]
+    }
+  },
+  "edges": [
+    {
+      "parent": "svc:0.1.0",
+      "child": "hostlib",
+      "version": "1.0.0",
+      "features_requested": [
+        "hostfeat"
+      ],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s16e1",
+      "target_triple": "host",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

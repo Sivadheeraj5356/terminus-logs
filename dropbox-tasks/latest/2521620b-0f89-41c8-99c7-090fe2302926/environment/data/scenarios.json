@@ -1,0 +1,944 @@
+{
+  "scenarios": [
+    {
+      "name": "quiet_baseline",
+      "session_epoch": 901,
+      "witness_salt": "salt-quiet",
+      "segments": [
+        {
+          "id": 1,
+          "base_seq": 10,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000000,
+              "nsec": 100000000,
+              "action": "auth_ok"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000001,
+              "nsec": 0,
+              "action": "policy_read"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "offset_lane_cross",
+      "session_epoch": 902,
+      "witness_salt": "salt-offset",
+      "segments": [
+        {
+          "id": 1,
+          "base_seq": 50,
+          "offset_min": 120,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000100,
+              "nsec": 0,
+              "action": "gate_open"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "base_seq": 60,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000100,
+              "nsec": 0,
+              "action": "gate_close"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "subsecond_flip",
+      "session_epoch": 903,
+      "witness_salt": "salt-subsec",
+      "segments": [
+        {
+          "id": 3,
+          "base_seq": 100,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000200,
+              "nsec": 100000000,
+              "action": "token_issue"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000200,
+              "nsec": 900000000,
+              "action": "token_bind"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "compact_pair_merge",
+      "session_epoch": 904,
+      "witness_salt": "salt-compact",
+      "segments": [
+        {
+          "id": 4,
+          "base_seq": 300,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000300,
+              "nsec": 0,
+              "action": "seg_a_start"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000301,
+              "nsec": 0,
+              "action": "seg_a_end"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "base_seq": 800,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000302,
+              "nsec": 0,
+              "action": "seg_b_start"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 4,
+          "right": 5
+        }
+      ]
+    },
+    {
+      "name": "dual_compact_chain",
+      "session_epoch": 905,
+      "witness_salt": "salt-dual",
+      "segments": [
+        {
+          "id": 6,
+          "base_seq": 700,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000400,
+              "nsec": 0,
+              "action": "hop_a"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "base_seq": 710,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000401,
+              "nsec": 0,
+              "action": "hop_b"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000402,
+              "nsec": 0,
+              "action": "hop_c"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "base_seq": 900,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000403,
+              "nsec": 0,
+              "action": "hop_d"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 6,
+          "right": 7
+        },
+        {
+          "left": 7,
+          "right": 8
+        }
+      ]
+    },
+    {
+      "name": "wall_clock_tie",
+      "session_epoch": 906,
+      "witness_salt": "salt-tie",
+      "segments": [
+        {
+          "id": 10,
+          "base_seq": 1001,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000500,
+              "nsec": 0,
+              "action": "copy_secret"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "base_seq": 1000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000500,
+              "nsec": 0,
+              "action": "read_secret"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mixed_offset_compact",
+      "session_epoch": 907,
+      "witness_salt": "salt-mixed",
+      "segments": [
+        {
+          "id": 11,
+          "base_seq": 1200,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000600,
+              "nsec": 0,
+              "action": "vault_read"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000601,
+              "nsec": 0,
+              "action": "vault_seal"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "base_seq": 1300,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000602,
+              "nsec": 0,
+              "action": "vault_audit"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 11,
+          "right": 12
+        }
+      ]
+    },
+    {
+      "name": "dense_replay_lane",
+      "session_epoch": 908,
+      "witness_salt": "salt-dense",
+      "segments": [
+        {
+          "id": 13,
+          "base_seq": 2000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000700,
+              "nsec": 100000000,
+              "action": "step_1"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000700,
+              "nsec": 200000000,
+              "action": "step_2"
+            },
+            {
+              "seq": 3,
+              "sec": 1700000700,
+              "nsec": 300000000,
+              "action": "step_3"
+            },
+            {
+              "seq": 4,
+              "sec": 1700000700,
+              "nsec": 400000000,
+              "action": "step_4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "negative_offset_window",
+      "session_epoch": 909,
+      "witness_salt": "salt-neg",
+      "segments": [
+        {
+          "id": 14,
+          "base_seq": 2100,
+          "offset_min": -480,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000800,
+              "nsec": 100000000,
+              "action": "neg_open"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000800,
+              "nsec": 400000000,
+              "action": "neg_close"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "base_seq": 2102,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700029602,
+              "nsec": 0,
+              "action": "neg_audit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "triple_compact_stack",
+      "session_epoch": 910,
+      "witness_salt": "salt-triple",
+      "segments": [
+        {
+          "id": 21,
+          "base_seq": 4000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000900,
+              "nsec": 0,
+              "action": "stack_a"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "base_seq": 4500,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000901,
+              "nsec": 0,
+              "action": "stack_b"
+            },
+            {
+              "seq": 2,
+              "sec": 1700000902,
+              "nsec": 0,
+              "action": "stack_c"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "base_seq": 5000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000903,
+              "nsec": 0,
+              "action": "stack_d"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "base_seq": 8800,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700000904,
+              "nsec": 0,
+              "action": "stack_e"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 21,
+          "right": 22
+        },
+        {
+          "left": 22,
+          "right": 23
+        },
+        {
+          "left": 23,
+          "right": 24
+        }
+      ]
+    },
+    {
+      "name": "offset_subsec_combo",
+      "session_epoch": 911,
+      "witness_salt": "salt-combo",
+      "segments": [
+        {
+          "id": 31,
+          "base_seq": 6000,
+          "offset_min": 180,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001000,
+              "nsec": 100000000,
+              "action": "combo_a"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001000,
+              "nsec": 600000000,
+              "action": "combo_b"
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "base_seq": 6002,
+          "offset_min": -60,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001000,
+              "nsec": 800000000,
+              "action": "combo_c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "interleaved_tie_quad",
+      "session_epoch": 912,
+      "witness_salt": "salt-quad",
+      "segments": [
+        {
+          "id": 44,
+          "base_seq": 8043,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001100,
+              "nsec": 0,
+              "action": "quad_d"
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "base_seq": 8040,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001100,
+              "nsec": 0,
+              "action": "quad_a"
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "base_seq": 8042,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001100,
+              "nsec": 0,
+              "action": "quad_c"
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "base_seq": 8041,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001100,
+              "nsec": 0,
+              "action": "quad_b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nsec_boundary_span",
+      "session_epoch": 913,
+      "witness_salt": "salt-boundary",
+      "segments": [
+        {
+          "id": 51,
+          "base_seq": 9000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001200,
+              "nsec": 999999999,
+              "action": "bound_hi"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001201,
+              "nsec": 1,
+              "action": "bound_lo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wide_base_compact",
+      "session_epoch": 914,
+      "witness_salt": "salt-wide",
+      "segments": [
+        {
+          "id": 61,
+          "base_seq": 50,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001300,
+              "nsec": 0,
+              "action": "wide_left"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001301,
+              "nsec": 0,
+              "action": "wide_mid"
+            }
+          ]
+        },
+        {
+          "id": 62,
+          "base_seq": 9500,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001302,
+              "nsec": 0,
+              "action": "wide_right"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 61,
+          "right": 62
+        }
+      ]
+    },
+    {
+      "name": "polar_offset_pair",
+      "session_epoch": 915,
+      "witness_salt": "salt-polar",
+      "segments": [
+        {
+          "id": 71,
+          "base_seq": 10000,
+          "offset_min": 330,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001400,
+              "nsec": 0,
+              "action": "polar_east"
+            }
+          ]
+        },
+        {
+          "id": 72,
+          "base_seq": 10001,
+          "offset_min": -330,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001400,
+              "nsec": 500000000,
+              "action": "polar_west"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mega_dense_lane",
+      "session_epoch": 916,
+      "witness_salt": "salt-mega",
+      "segments": [
+        {
+          "id": 81,
+          "base_seq": 11000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001500,
+              "nsec": 100000000,
+              "action": "mega_1"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001500,
+              "nsec": 200000000,
+              "action": "mega_2"
+            },
+            {
+              "seq": 3,
+              "sec": 1700001500,
+              "nsec": 300000000,
+              "action": "mega_3"
+            },
+            {
+              "seq": 4,
+              "sec": 1700001500,
+              "nsec": 400000000,
+              "action": "mega_4"
+            },
+            {
+              "seq": 5,
+              "sec": 1700001500,
+              "nsec": 500000000,
+              "action": "mega_5"
+            },
+            {
+              "seq": 6,
+              "sec": 1700001500,
+              "nsec": 600000000,
+              "action": "mega_6"
+            },
+            {
+              "seq": 7,
+              "sec": 1700001500,
+              "nsec": 700000000,
+              "action": "mega_7"
+            },
+            {
+              "seq": 8,
+              "sec": 1700001500,
+              "nsec": 800000000,
+              "action": "mega_8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "offset_compact_tie",
+      "session_epoch": 917,
+      "witness_salt": "salt-oct",
+      "segments": [
+        {
+          "id": 91,
+          "base_seq": 12000,
+          "offset_min": 180,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001600,
+              "nsec": 0,
+              "action": "oct_a"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001600,
+              "nsec": 500000000,
+              "action": "oct_b"
+            }
+          ]
+        },
+        {
+          "id": 92,
+          "base_seq": 12500,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1699990801,
+              "nsec": 0,
+              "action": "oct_c"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 91,
+          "right": 92
+        }
+      ]
+    },
+    {
+      "name": "skew_nsec_compact",
+      "session_epoch": 918,
+      "witness_salt": "salt-snc",
+      "segments": [
+        {
+          "id": 101,
+          "base_seq": 13000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001700,
+              "nsec": 999999999,
+              "action": "snc_hi"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001701,
+              "nsec": 1,
+              "action": "snc_lo"
+            }
+          ]
+        },
+        {
+          "id": 102,
+          "base_seq": 13500,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001702,
+              "nsec": 100000000,
+              "action": "snc_mid"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001703,
+              "nsec": 0,
+              "action": "snc_tail"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 101,
+          "right": 102
+        }
+      ]
+    },
+    {
+      "name": "cascade_tie_storm",
+      "session_epoch": 919,
+      "witness_salt": "salt-storm",
+      "segments": [
+        {
+          "id": 111,
+          "base_seq": 14000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001800,
+              "nsec": 0,
+              "action": "storm_a"
+            }
+          ]
+        },
+        {
+          "id": 112,
+          "base_seq": 14050,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001800,
+              "nsec": 100000000,
+              "action": "storm_b"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001800,
+              "nsec": 200000000,
+              "action": "storm_c"
+            }
+          ]
+        },
+        {
+          "id": 113,
+          "base_seq": 14100,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001800,
+              "nsec": 300000000,
+              "action": "storm_d"
+            }
+          ]
+        },
+        {
+          "id": 114,
+          "base_seq": 15000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001801,
+              "nsec": 0,
+              "action": "storm_e"
+            },
+            {
+              "seq": 2,
+              "sec": 1700001801,
+              "nsec": 500000000,
+              "action": "storm_f"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 111,
+          "right": 112
+        },
+        {
+          "left": 112,
+          "right": 113
+        }
+      ]
+    },
+    {
+      "name": "polar_triple_cross",
+      "session_epoch": 920,
+      "witness_salt": "salt-ptx",
+      "segments": [
+        {
+          "id": 121,
+          "base_seq": 16000,
+          "offset_min": 330,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001900,
+              "nsec": 0,
+              "action": "ptx_east"
+            }
+          ]
+        },
+        {
+          "id": 122,
+          "base_seq": 16010,
+          "offset_min": -330,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1699981900,
+              "nsec": 500000000,
+              "action": "ptx_west"
+            }
+          ]
+        },
+        {
+          "id": 123,
+          "base_seq": 17000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001901,
+              "nsec": 0,
+              "action": "ptx_bridge"
+            }
+          ]
+        },
+        {
+          "id": 124,
+          "base_seq": 18000,
+          "offset_min": 0,
+          "events": [
+            {
+              "seq": 1,
+              "sec": 1700001902,
+              "nsec": 0,
+              "action": "ptx_tail"
+            }
+          ]
+        }
+      ],
+      "compact": [
+        {
+          "left": 121,
+          "right": 122
+        },
+        {
+          "left": 122,
+          "right": 123
+        },
+        {
+          "left": 123,
+          "right": 124
+        }
+      ]
+    }
+  ]
+}

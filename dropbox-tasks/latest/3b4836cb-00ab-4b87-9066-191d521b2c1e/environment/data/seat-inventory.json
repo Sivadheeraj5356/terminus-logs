@@ -1,0 +1,58 @@
+{
+  "flights": [
+    {
+      "flight_id": "UA201",
+      "carrier": "UA",
+      "origin": "ORD",
+      "destination": "DEN",
+      "departure_utc": "2026-06-15T18:00:00Z",
+      "arrival_utc": "2026-06-15T19:30:00Z",
+      "inventory": {"F": 0, "J": 1, "W": 0, "Y": 0}
+    },
+    {
+      "flight_id": "UA202",
+      "carrier": "UA",
+      "origin": "ORD",
+      "destination": "DEN",
+      "departure_utc": "2026-06-15T20:00:00Z",
+      "arrival_utc": "2026-06-15T21:30:00Z",
+      "inventory": {"F": 0, "J": 0, "W": 0, "Y": 10}
+    },
+    {
+      "flight_id": "AA200",
+      "carrier": "AA",
+      "origin": "DFW",
+      "destination": "LAX",
+      "departure_utc": "2026-06-15T16:00:00Z",
+      "arrival_utc": "2026-06-15T17:30:00Z",
+      "inventory": {"F": 2, "J": 4, "W": 6, "Y": 30}
+    },
+    {
+      "flight_id": "UA311",
+      "carrier": "UA",
+      "origin": "DEN",
+      "destination": "ORD",
+      "departure_utc": "2026-06-15T13:00:00Z",
+      "arrival_utc": "2026-06-15T15:30:00Z",
+      "inventory": {"F": 0, "J": 0, "W": 0, "Y": 5}
+    },
+    {
+      "flight_id": "UA312",
+      "carrier": "UA",
+      "origin": "DEN",
+      "destination": "ORD",
+      "departure_utc": "2026-06-15T11:30:00Z",
+      "arrival_utc": "2026-06-15T14:30:00Z",
+      "inventory": {"F": 0, "J": 0, "W": 0, "Y": 5}
+    },
+    {
+      "flight_id": "UA410",
+      "carrier": "UA",
+      "origin": "ORD",
+      "destination": "BOS",
+      "departure_utc": "2026-06-15T16:00:00Z",
+      "arrival_utc": "2026-06-15T18:30:00Z",
+      "inventory": {"F": 0, "J": 0, "W": 0, "Y": 20}
+    }
+  ]
+}

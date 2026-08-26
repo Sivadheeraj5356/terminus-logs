@@ -1,0 +1,14 @@
+[[scenarios]]
+seed = 0
+note = "baseline"
+[[scenarios]]
+seed = 1
+note = "alt triple"
+[[scenarios]]
+seed = 2
+weight_shift = "rotor"
+note = "rotor bump"
+[[scenarios]]
+seed = 3
+weight_shift = "stator"
+note = "stator trim"

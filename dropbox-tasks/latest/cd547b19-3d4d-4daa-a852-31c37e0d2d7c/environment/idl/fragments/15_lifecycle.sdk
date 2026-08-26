@@ -1,0 +1,4 @@
+# Lifecycle fragment. Closes the frozen legacy v1 prefix at slot 11.
+telemetry_sink   ptr
+quarantine_tag   cstr
+runtime_flags    uint32_t

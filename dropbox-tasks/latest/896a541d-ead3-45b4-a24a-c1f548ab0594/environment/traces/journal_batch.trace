@@ -1,0 +1,39 @@
+{
+  "labels": [],
+  "list_file": "",
+  "locale": "host",
+  "automation": {
+    "pre_raw": 32,
+    "post_raw": 34
+  },
+  "target": {
+    "path": "/srv/snap"
+  },
+  "views": [
+    {
+      "path": "/srv/snap"
+    },
+    {
+      "path": "/srv/snap"
+    }
+  ],
+  "wal_segments": [
+    {
+      "file_name": "wal-b.json",
+      "seq": 10,
+      "override": {
+        "text": "snap-B",
+        "epoch": 80
+      }
+    },
+    {
+      "file_name": "wal-a.json",
+      "seq": 2,
+      "override": {
+        "text": "snap-A",
+        "epoch": 60
+      }
+    }
+  ],
+  "stepback_event": 0
+}

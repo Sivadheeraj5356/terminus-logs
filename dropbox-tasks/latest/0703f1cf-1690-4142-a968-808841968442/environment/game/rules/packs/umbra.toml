@@ -1,0 +1,7 @@
+[walk]
+stride = 4
+pivot = "umbra"
+cycle = ["west", "north", "east", "south"]
+
+[score]
+bonus = 29

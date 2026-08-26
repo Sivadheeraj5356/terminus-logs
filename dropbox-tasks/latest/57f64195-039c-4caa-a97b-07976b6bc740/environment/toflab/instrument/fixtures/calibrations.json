@@ -1,0 +1,68 @@
+{
+  "shot-2025-0201": {
+    "run_id": "shot-2025-0201",
+    "active": {
+      "candidate_id": "api-old",
+      "k": 0.49,
+      "t0": 5.0,
+      "q": -1.0e-5,
+      "sigma_k": 1.0e-5,
+      "sigma_t0": 3.0e-5,
+      "sigma_q": 1.0e-7,
+      "rho_k_t0": 0.1,
+      "rho_k_q": -0.1,
+      "rho_t0_q": 0.05,
+      "k_units": "Da_per_us2",
+      "t0_units": "us",
+      "q_units": "Da_per_us3"
+    },
+    "archive": {
+      "candidate_id": "api-old-archive",
+      "k": 0.4,
+      "t0": 4.0,
+      "q": 0.0,
+      "sigma_k": 5.0e-5,
+      "sigma_t0": 5.0e-5,
+      "sigma_q": 1.0e-6,
+      "rho_k_t0": 0.0,
+      "rho_k_q": 0.0,
+      "rho_t0_q": 0.0,
+      "k_units": "Da_per_us2",
+      "t0_units": "us",
+      "q_units": "Da_per_us3"
+    }
+  },
+  "shot-2025-0314": {
+    "run_id": "shot-2025-0314",
+    "active": {
+      "candidate_id": "api-active",
+      "k": 0.5082,
+      "t0": 4.85,
+      "q": -1.85e-5,
+      "sigma_k": 6.0e-6,
+      "sigma_t0": 2.0e-5,
+      "sigma_q": 4.0e-8,
+      "rho_k_t0": 0.3,
+      "rho_k_q": -0.2,
+      "rho_t0_q": 0.15,
+      "k_units": "Da_per_us2",
+      "t0_units": "us",
+      "q_units": "Da_per_us3"
+    },
+    "archive": {
+      "candidate_id": "api-archive",
+      "k": 0.5,
+      "t0": 4.7,
+      "q": -1.0e-5,
+      "sigma_k": 5.0e-3,
+      "sigma_t0": 5.0e-2,
+      "sigma_q": 2.0e-6,
+      "rho_k_t0": 0.5,
+      "rho_k_q": -0.4,
+      "rho_t0_q": 0.2,
+      "k_units": "Da_per_us2",
+      "t0_units": "us",
+      "q_units": "Da_per_us3"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+--- internal/ledger/pump.go
++++ internal/ledger/pump.go
+@@ -72,8 +72,12 @@
+ 	if factor < 0 {
+ 		return 0
+ 	}
+-	_ = factor
+-	return used
++	residual := used
++	residual *= factor
++	if !isFinite(residual) {
++		return 0
++	}
++	return residual
+ }
+ 
+ func isFinite(v float64) bool {
+@@ -84,15 +88,14 @@
+ 	return carry_u(factor, used)
+ }
+ 
+-// PruneIdle adjusts the cool map after a commit.
++// PruneIdle retains cool residuals for spans that were idle in the latest commit.
+ func PruneIdle(L *PumpLedger, active map[string]int) {
+-	if L == nil || L.Cool == nil {
++	_ = active
++	if L == nil {
+ 		return
+ 	}
+-	for sid := range L.Cool {
+-		if _, ok := active[sid]; !ok {
+-			delete(L.Cool, sid)
+-		}
++	if L.Cool == nil {
++		L.Cool = map[string]float64{}
+ 	}
+ }
+ 

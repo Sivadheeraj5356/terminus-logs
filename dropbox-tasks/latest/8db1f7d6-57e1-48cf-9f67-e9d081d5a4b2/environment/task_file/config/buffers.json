@@ -1,0 +1,5 @@
+[
+  {"buffer_id": "BUF_A", "capacity": 100, "status": "OPEN"},
+  {"buffer_id": "BUF_B", "capacity": 60, "status": "OPEN"},
+  {"buffer_id": "BUF_C", "capacity": 40, "status": "OPEN"}
+]

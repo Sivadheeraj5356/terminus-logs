@@ -1,0 +1,9 @@
+family_id=FAM-HID-MRG
+chip_id=HID-MRG-1
+profile_id=CAL-STD
+alias=MRG-B
+nominal_hz=5000100.0
+readings:
+segment: two
+1 25.0 5000100.0
+2 20.0 4999962.7

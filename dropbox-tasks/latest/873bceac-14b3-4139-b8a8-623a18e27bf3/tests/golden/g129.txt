@@ -1,0 +1,12 @@
+== Vault of Echoes [crystal] ==
+Omen: The deep remembers.
+Light: 0.0 lumens
+Relics:
+  (too dark to discern)
+Exits:
+  - down: ??? (torch 2.0)
+Torch: 0.0 units
+Inventory: (empty)
+Route: ???
+---ACTIONS---
+wait

@@ -1,0 +1,22 @@
+[
+  {
+    "clinic_id": "C1",
+    "region_id": "north",
+    "min_gap_days": 21
+  },
+  {
+    "clinic_id": "C2",
+    "region_id": "south",
+    "min_gap_days": 28
+  },
+  {
+    "clinic_id": "C3",
+    "region_id": "east",
+    "min_gap_days": 14
+  },
+  {
+    "clinic_id": "C4",
+    "region_id": "west",
+    "min_gap_days": 35
+  }
+]

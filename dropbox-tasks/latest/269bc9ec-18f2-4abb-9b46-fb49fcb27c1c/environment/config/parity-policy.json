@@ -1,0 +1,8 @@
+{
+  "top_k": 5,
+  "max_probability_drift": 0.00005,
+  "max_batch_drift": 0.00005,
+  "max_js_divergence": 0.00000001,
+  "batch_sizes": [1, 2, 3],
+  "required_groups": ["color-controls", "texture-controls"]
+}

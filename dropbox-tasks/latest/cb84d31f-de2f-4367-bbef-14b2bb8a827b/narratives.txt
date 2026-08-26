@@ -1,0 +1,24 @@
+Difficulty
+
+The batch reads like a heap of tokens, so the first wrong turn is to xor the rod lengths as plain
+nim. The heavy blade eats a unit as sawdust, so the two rods left add to one less than the rod
+sawn, which pulls a rod's worth off its length and leaves a lone rod of two a loss with nothing to
+saw. The harder trap is that the gaps in the row set the blade: an odd count of empty rods runs it
+true and eats nothing, so that same rod of two now saws into two ones and wins. A reader who fixes
+one blade for every row calls every gap-carrying batch backwards.
+
+Solution
+
+Work up two worth tables from the short rods first, one for the heavy blade where the two rods add
+to one less than the rod and one for the true blade where they add to the whole rod. Count the
+gaps in the row to pick the blade, read each rod's worth off that table, xor them for the verdict,
+and on a win search the rods for a cut that leaves the combined worth nought.
+
+Verification
+
+The worth reading is cross-checked against a full game search that knows no worth, over every
+small batch under each parity of gaps, which pins the winning rule and the blade the gaps set. The
+tool then runs over many random and adversarial batches, each verdict matched to the sweep and
+each reported cut replayed under the blade in force to confirm it lands a loss. Hand cases pin the
+two beside a gap, the echo and numbering, the out-of-range and junk lines, the mill file and the
+exit codes.

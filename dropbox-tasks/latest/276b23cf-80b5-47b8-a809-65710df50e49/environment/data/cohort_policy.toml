@@ -1,0 +1,50 @@
+[meta]
+policy_revision = "rev3"
+
+[[plan]]
+host_id = "w7-go"
+lane_id = "direct"
+cohort_label = "beta"
+plan_index = 0
+negotiation_class = "app"
+dispatch_id = "bd1"
+
+[[plan]]
+host_id = "w7-go"
+lane_id = "proxy"
+cohort_label = "beta"
+plan_index = 1
+negotiation_class = "challenge"
+dispatch_id = "bp1"
+
+[[plan]]
+host_id = "host-cli"
+lane_id = "direct"
+cohort_label = "alpha"
+plan_index = 2
+negotiation_class = "challenge"
+dispatch_id = "mux"
+
+[[plan]]
+host_id = "host-cli"
+lane_id = "proxy"
+cohort_label = "alpha"
+plan_index = 3
+negotiation_class = "challenge"
+dispatch_id = "mux"
+
+[[plan]]
+host_id = "host-dmz"
+lane_id = "direct"
+cohort_label = "gamma"
+plan_index = 4
+negotiation_class = "challenge"
+dispatch_id = "mux"
+
+[[plan]]
+host_id = "host-dmz"
+lane_id = "proxy"
+cohort_label = "gamma"
+plan_index = 5
+negotiation_class = "app"
+dispatch_id = "gp1"

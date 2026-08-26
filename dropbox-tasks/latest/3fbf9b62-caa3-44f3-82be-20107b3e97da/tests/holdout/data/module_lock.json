@@ -1,0 +1,76 @@
+{
+  "pins": [
+    {
+      "mod_id": "MOD-001",
+      "module_path": "github.com/google/uuid",
+      "version": "v1.6.0",
+      "linkage": "direct",
+      "go_floor": "1.18.0",
+      "declared_hash": "h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=",
+      "member": "edge-api"
+    },
+    {
+      "mod_id": "MOD-003",
+      "module_path": "golang.org/x/sync",
+      "version": "v0.8.0",
+      "linkage": "direct",
+      "go_floor": "1.22.0",
+      "declared_hash": "h1:3NFvSEYkUoMifnESzZl15y791HH1qU2xm6eCJU5ZPXQ=",
+      "member": "edge-api"
+    },
+    {
+      "mod_id": "MOD-005",
+      "module_path": "go.uber.org/zap",
+      "version": "v1.27.0",
+      "linkage": "direct",
+      "go_floor": "1.22.0",
+      "declared_hash": "h1:aJMhYGrd5QSmlpLMr2MftRKl7t8J8PTZPA732ud/XR8=",
+      "member": "edge-api"
+    },
+    {
+      "mod_id": "MOD-009",
+      "module_path": "github.com/gorilla/mux",
+      "version": "v1.8.1",
+      "linkage": "direct",
+      "go_floor": "1.18.0",
+      "declared_hash": "h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=",
+      "member": "edge-worker"
+    },
+    {
+      "mod_id": "MOD-010",
+      "module_path": "github.com/hashicorp/consul/api",
+      "version": "v1.31.1",
+      "linkage": "direct",
+      "go_floor": "1.19.0",
+      "declared_hash": "h1:IwnfBzgyc2ITA0JMbIlRUYE6udQuxD/886HM5r7hUds=",
+      "member": "edge-worker"
+    },
+    {
+      "mod_id": "MOD-011",
+      "module_path": "github.com/klauspost/compress",
+      "version": "v1.18.1",
+      "linkage": "transitive",
+      "go_floor": "1.18.0",
+      "declared_hash": "h1:bcSGx7UbpBqMChDtsF28Lw6v/G94LPrrbMbdC3JH2co=",
+      "member": "edge-worker"
+    },
+    {
+      "mod_id": "MOD-012",
+      "module_path": "github.com/redis/go-redis/v9",
+      "version": "v9.7.2",
+      "linkage": "direct",
+      "go_floor": "1.18.0",
+      "declared_hash": "h1:PSGhv13dJyrTCw1+55H0pIKM3WFov7HuUrKUmInGL0o=",
+      "member": "edge-admin"
+    },
+    {
+      "mod_id": "MOD-015",
+      "module_path": "github.com/segmentio/kafka-go",
+      "version": "v0.4.36",
+      "linkage": "direct",
+      "go_floor": "1.18.0",
+      "declared_hash": "h1:WRONGHASH00000000000000000000000000000000000=",
+      "member": "edge-admin"
+    }
+  ]
+}

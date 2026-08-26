@@ -1,0 +1,66 @@
+#[derive(Clone, Debug)]
+pub struct NodeH {
+    pub ix: u16,
+    pub score: i32,
+    pub kids: Vec<NodeH>,
+    pub side: bool,
+}
+
+fn already(out: &[NodeH], ix: u16) -> bool {
+    out.iter().any(|n| n.ix == ix)
+}
+
+fn sort_kids(kids: &mut [NodeH]) {
+    kids.sort_by(|a, b| {
+        b.side
+            .cmp(&a.side)
+            .then(b.score.cmp(&a.score))
+            .then(a.ix.cmp(&b.ix))
+    });
+}
+
+fn push_unique(out: &mut Vec<NodeH>, queue: &mut Vec<NodeH>, kid: NodeH, budget: u32) -> bool {
+    if (out.len() as u32) >= budget {
+        return false;
+    }
+    if already(out, kid.ix) {
+        return true;
+    }
+    out.push(kid.clone());
+    queue.push(kid);
+    true
+}
+
+/// Expands frontier nodes under a budget and returns ordered candidates.
+pub fn expand_k(root: &NodeH, budget: u32) -> Vec<NodeH> {
+    let mut out = Vec::with_capacity(budget as usize);
+    out.push(root.clone());
+    let mut queue = vec![root.clone()];
+    let mut guard = 0u32;
+    while (out.len() as u32) < budget && !queue.is_empty() {
+        guard = guard.saturating_add(1);
+        if guard > budget.saturating_mul(8).max(32) {
+            break;
+        }
+        let cur = queue.remove(0);
+        let mut kids = cur.kids.clone();
+        sort_kids(&mut kids);
+        for kid in kids {
+            if !push_unique(&mut out, &mut queue, kid, budget) {
+                break;
+            }
+        }
+    }
+    // Stable secondary pass: re-scan collected nodes for any skipped side kids.
+    let snapshot = out.clone();
+    for node in &snapshot {
+        let mut kids = node.kids.clone();
+        sort_kids(&mut kids);
+        for kid in kids {
+            if kid.side {
+                let _ = push_unique(&mut out, &mut queue, kid, budget);
+            }
+        }
+    }
+    out
+}

@@ -1,0 +1,12 @@
+# Local lane table used by offline probes. Rows in data/q9/rows_q2.json
+# are authoritative after the driver refreshes state.
+
+[lanes]
+c01 = "aid_c01_r1"
+c02 = "aid_c02_r1_stale"
+c03 = "aid_c03_r1_stale"
+c04 = "aid_c04_r2"
+
+[probe_fixtures]
+c01_stale_era = 1
+c01_stale_attach = "aid_c01_r1_stale"

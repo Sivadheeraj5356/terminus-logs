@@ -1,0 +1,4 @@
+bird maybe
+addr 6.82.183.58 hex 0x8562 token tok_910
+ip 192.168.0.1 and 10.0.0.255 here
+UPPER lower MiXeD

@@ -1,0 +1,10 @@
+--- internal/runner/run.go
++++ internal/runner/run.go
+@@ -263,7 +263,6 @@
+ 				Lambda:   lam,
+ 				Gbps:     d.Gbps,
+ 			})
+-			stageChannelHold(usedLam, sp.ID, lam)
+ 			if sp.A == at {
+ 				at = sp.B
+ 			} else {

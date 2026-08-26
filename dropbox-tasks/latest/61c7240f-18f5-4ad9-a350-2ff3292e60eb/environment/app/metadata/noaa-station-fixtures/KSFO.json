@@ -1,0 +1,9 @@
+{
+  "id": "https://api.weather.gov/stations/KSFO",
+  "type": "Feature",
+  "properties": {
+    "stationIdentifier": "KSFO",
+    "name": "San Francisco International Airport",
+    "timeZone": "America/Los_Angeles"
+  }
+}

@@ -1,0 +1,2 @@
+tick 20 loss 0.0522
+tick 21 loss 0.0510

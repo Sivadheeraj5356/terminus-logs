@@ -1,0 +1,4 @@
+pytest==8.4.1
+pytest-json-ctrf==0.3.5
+cryptography==42.0.8
+flask==3.0.3

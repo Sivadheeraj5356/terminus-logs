@@ -1,0 +1,10 @@
+no gray dog true
+addr 20.9.172.73 hex 0x29e token tok_178
+hex 0xabc 0xABCDEF zzz
+addr 47.198.124.25 hex 0x1ad2 token tok_393
+addr 254.92.63.7 hex 0x6ffb token tok_922
+true dog no bar
+addr 62.126.126.50 hex 0x1202 token tok_867
+aeiou bcdfg xyzzy
+banana bananana ba na
+gamma maybe

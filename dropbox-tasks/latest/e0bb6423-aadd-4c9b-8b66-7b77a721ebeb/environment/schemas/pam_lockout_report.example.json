@@ -1,0 +1,18 @@
+{
+  "audits": [
+    {
+      "conversation_id": "example",
+      "lockout_active": false,
+      "retry_count": 0,
+      "expired_account": false,
+      "stack_binding": "sshd-stack",
+      "binding_rows": [],
+      "digest_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "summary": {
+    "pack_ok": false,
+    "audited_count": 1,
+    "total_lockouts": 0
+  }
+}

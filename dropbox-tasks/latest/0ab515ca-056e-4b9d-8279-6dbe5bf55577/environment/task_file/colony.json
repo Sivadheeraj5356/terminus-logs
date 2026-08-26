@@ -1,0 +1,41 @@
+{
+  "case_id": "shackleton-eclipse-drill",
+  "ruleset": "selene-2",
+  "population": 2,
+  "regolith": "volatile",
+  "recycler": "water",
+  "allow_emergency": true,
+  "capacities": {
+    "battery": 12,
+    "oxygen": 18,
+    "water": 18,
+    "morale": 12,
+    "hull": 12,
+    "wear": 8,
+    "fatigue": 7
+  },
+  "initial": {
+    "battery": 8,
+    "oxygen": 18,
+    "water": 18,
+    "morale": 10,
+    "dust": 3,
+    "hull": 12,
+    "wear": 1,
+    "insight": 0,
+    "fatigue": 1
+  },
+  "targets": {
+    "insight": 6,
+    "hull": 6,
+    "morale": 3
+  },
+  "sols": [
+    {"id": "landing-check", "sunlight": 7, "hazard": "none"},
+    {"id": "rim-flare", "sunlight": 5, "hazard": "flare"},
+    {"id": "dark-crossing", "sunlight": 0, "hazard": "impact"},
+    {"id": "fault-motion", "sunlight": 3, "hazard": "quake"},
+    {"id": "sunrise-window", "sunlight": 8, "hazard": "none"},
+    {"id": "return-flare", "sunlight": 6, "hazard": "flare"}
+  ]
+}

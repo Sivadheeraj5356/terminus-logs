@@ -1,0 +1,12 @@
+schema_version: apexora-trunk-policy-1
+policies:
+  access_to_dist:
+    mode: selective
+    max_vlan_span: 12
+    forbidden: [1, 1002-1005]
+  dist_to_core:
+    mode: selective
+    max_vlan_span: 40
+  core_interconnect:
+    mode: selective
+    max_vlan_span: 80

@@ -1,0 +1,6 @@
+CHAN/1
+win A dealer gate thong
+uu 2s
+hand 4n 3v 4s 4n 2s 2v 3s 2v 4v 4v 2v 7s 7s 7v 4n 7n 2v 7v 7n
+layout chan(2s,2s);ca(4v,4n);chan(7s,7s);ca(3s,3v);chan(4n,4n);chan(2v,2v);chan(2v,2v);ca(4s,4v);chan(7n,7n);chan(7v,7v)
+log

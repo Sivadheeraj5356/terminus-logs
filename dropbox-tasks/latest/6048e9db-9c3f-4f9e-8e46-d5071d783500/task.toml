@@ -1,0 +1,54 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "data-processing"
+tags = ["distributed-systems", "scheduling", "dependency-graph", "checkpoint-resume", "schedule-audit", "go"]
+languages = ["go", "bash"]
+codebase_size = "small"
+subcategories = []
+number_of_milestones = 0
+expert_time_estimate_min = 720
+junior_time_estimate_min = 1440
+
+[verifier]
+timeout_sec = 900
+
+[agent]
+timeout_sec = 1800
+
+[environment]
+build_timeout_sec = 900
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+allow_internet = false
+mcp_servers = []
+
+[metadata.category_profile]
+challenge_family = "cluster schedule audit pipeline with checkpoint resume and chain parity"
+profile_name = "distributed_reconciliation"
+allowed_instruction_disclosures = ["run command", "output schema", "steady vs checkpoint_resume vs checkpoint_chain parity matrix", "partition ledger rules", "dispatch-width invariants", "strict dependency tick gaps", "visibility epoch under strict_deps", "build obligations doc", "profile catalog", "graph layout"]
+forbidden_instruction_leaks = ["exact patch recipe", "root cause recipe", "oracle constants", "internal symbol names on implementation path"]
+category_specific_hardness_bar = "partition reservation, writer release, visibility epoch, dispatch width, checkpoint capture order, chain boundary normalization, and cold restore must coordinate across steady, checkpoint_resume, and checkpoint_chain schedules on diamond, gradual, fan-in, and cascade_wave graphs"
+category_specific_verifier_risks = ["golden audit leak", "per-profile boolean tables", "count-only checks"]
+coverage_role = "data-processing constrained build for DAG schedule audit simulator with multi-boundary checkpoint chain parity, strict dependency ordering, and multi-profile dispatch geometry"
+
+[metadata.realism_source]
+source_type = "synthetic_exception"
+evidence_basis = "production cluster scheduling pipelines where checkpoint restore, partition lease semantics, visibility epochs, chain replay, and per-tick dispatch width must match steady-run audit digests"
+upstream_or_synthetic_rationale = "minimized discrete-event scheduler preserving DAG fixture ingestion, partition ledger emission, strict dependency ordering, and checkpoint/chain audit parity"
+minimization_preserves = ["steady vs checkpoint_resume vs checkpoint_chain parity matrix", "multi-profile dispatch geometry", "partition ledger visibility rules", "strict dependency tick gaps", "integrity boundary on profiles and fixtures"]
+synthetic_exception_review = "category profile and build_obligations.md reviewed; no boolean verdict fields"
+
+[metadata.reference_pattern]
+justification_if_none = "No promoted reference covers checkpoint-chain steady parity across partition reservation, writer release, visibility epoch, dispatch width, capture order, and cold restore lanes in a Go schedule audit simulator."
+
+[metadata.task_shape]
+type = "constrained_build"
+instruction_framing = "design-brief"
+hardness_source = "implement coupled vein exclusivity, weft admission, drift dispatch width, slate capture, thaw reload, rift visibility, spine segmentation, and grove seal binding from disclosed schemas and run modes"
+collapse_risk = "implementing one stub package without coordinating writer release, visibility epoch, dispatch width, capture FIFO order, reload semantics, and seal binding leaves steady/checkpoint_resume/checkpoint_chain parity or graph completion checks failing"

@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+members = ["q7m", "r3/n8", "m2/p5", "h1/t3"]
+
+[workspace.package]
+edition = "2021"
+version = "0.1.0"

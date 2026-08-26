@@ -1,0 +1,18 @@
+{
+  "case_id": "garnet",
+  "host_arch": 2,
+  "toolchain_arch": 1,
+  "has_cp_classifier": 0,
+  "has_mp_classifier": 1,
+  "has_cp_stub": 0,
+  "has_mp_stub": 1,
+  "id_real_1": "linux-x86_64",
+  "id_real_2": "linux-aarch64",
+  "id_stub": "stub",
+  "stamp_1": "jx-x64",
+  "stamp_2": "jx-arm",
+  "stamp_0": "jx-stub",
+  "soname_1": "libffm.so.1",
+  "soname_2": "libffm.so.2",
+  "soname_0": "libffm-stub.so"
+}

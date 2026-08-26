@@ -1,0 +1,11 @@
+{"batch_id":"ALPHA-01","formulation_id":"CPPM-ALPHA","cycle_seq":1,"ts":"2026-05-01T08:00:00Z","temp_c":28.0,"event":"HEAT","shear_hz":0.0,"duration_s":0}
+{"batch_id":"ALPHA-01","formulation_id":"CPPM-ALPHA","cycle_seq":1,"ts":"2026-05-01T08:05:00Z","temp_c":32.0,"event":"HOLD","shear_hz":2.0,"duration_s":120}
+{"batch_id":"ALPHA-01","formulation_id":"CPPM-ALPHA","cycle_seq":1,"ts":"2026-05-01T08:07:00Z","temp_c":34.5,"event":"HOLD","shear_hz":5.0,"duration_s":150}
+{"batch_id":"ALPHA-01","formulation_id":"CPPM-ALPHA","cycle_seq":1,"ts":"2026-05-01T08:10:00Z","temp_c":37.5,"event":"HOLD","shear_hz":6.0,"duration_s":180}
+{"batch_id":"ALPHA-01","formulation_id":"CPPM-ALPHA","cycle_seq":2,"ts":"2026-05-01T09:00:00Z","temp_c":31.5,"event":"COOL","shear_hz":1.0,"duration_s":60}
+{"batch_id":"ALPHA-01","formulation_id":"CPPM-ALPHA","cycle_seq":2,"ts":"2026-05-01T09:05:00Z","temp_c":32.5,"event":"HOLD","shear_hz":3.0,"duration_s":100}
+{"batch_id":"BETA-02","formulation_id":"CPPM-BETA","cycle_seq":1,"ts":"2026-05-01T10:00:00Z","temp_c":30.0,"event":"HEAT","shear_hz":0.0,"duration_s":0}
+{"batch_id":"BETA-02","formulation_id":"CPPM-BETA","cycle_seq":1,"ts":"2026-05-01T10:04:00Z","temp_c":32.2,"event":"HOLD","shear_hz":2.5,"duration_s":130}
+{"batch_id":"BETA-02","formulation_id":"CPPM-BETA","cycle_seq":1,"ts":"2026-05-01T10:08:00Z","temp_c":34.0,"event":"HOLD","shear_hz":4.5,"duration_s":140}
+{"batch_id":"BETA-02","formulation_id":"CPPM-BETA","cycle_seq":1,"ts":"2026-05-01T10:12:00Z","temp_c":27.0,"event":"COOL","shear_hz":0.5,"duration_s":90}
+{"batch_id":"BETA-02","formulation_id":"CPPM-BETA","cycle_seq":1,"ts":"2026-05-01T10:15:00Z","temp_c":32.0,"event":"MARKER","shear_hz":0.0,"duration_s":0}

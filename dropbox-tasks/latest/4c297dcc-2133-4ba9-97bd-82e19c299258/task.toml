@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+tags = ["selinux", "mac", "sandbox", "capability", "security", "domain"]
+languages = ["c", "bash"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = ["tool_specific"]
+expert_time_estimate_min = 45
+junior_time_estimate_min = 150
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 1500
+
+[environment]
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

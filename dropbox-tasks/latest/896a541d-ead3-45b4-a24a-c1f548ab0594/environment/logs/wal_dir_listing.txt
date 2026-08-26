@@ -1,0 +1,3 @@
+# WAL dir listing (filename sort — misleading)
+wal-a.json
+wal-b.json

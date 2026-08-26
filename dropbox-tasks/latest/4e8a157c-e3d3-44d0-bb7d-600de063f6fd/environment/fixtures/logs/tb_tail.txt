@@ -1,0 +1,3 @@
+tb_tail: attach probe showed steady on shallow nest at t=12
+tb_tail: residual lane L0 still open after partial attach
+tb_tail: parent proc list non-empty on cut window

@@ -1,0 +1,6 @@
+# Vellum release profile. This file is the authority for release capabilities
+# and the build epoch. Developer-only overrides must not change release output.
+version = "1.4.2"
+epoch = 1704067200
+target = "x86_64-unknown-linux-gnu"
+capabilities = ["core", "detached"]

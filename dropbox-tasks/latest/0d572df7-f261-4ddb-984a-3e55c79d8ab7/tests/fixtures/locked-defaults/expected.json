@@ -1,0 +1,188 @@
+{
+  "final_lock": [
+    {
+      "features": [
+        "base"
+      ],
+      "name": "baseutil",
+      "version": "1.2.0"
+    },
+    {
+      "features": [
+        "base",
+        "min",
+        "tls"
+      ],
+      "name": "cliapp",
+      "version": "1.8.0"
+    },
+    {
+      "features": [
+        "base"
+      ],
+      "name": "docsgen",
+      "version": "1.0.0"
+    },
+    {
+      "features": [
+        "base",
+        "ffi"
+      ],
+      "name": "libcore",
+      "version": "1.4.0"
+    },
+    {
+      "features": [
+        "base"
+      ],
+      "name": "nativebridge",
+      "version": "1.0.0"
+    },
+    {
+      "features": [
+        "base"
+      ],
+      "name": "testpkg-runner",
+      "version": "1.0.0"
+    },
+    {
+      "features": [
+        "base",
+        "thin"
+      ],
+      "name": "thin-adapter",
+      "version": "1.5.0"
+    }
+  ],
+  "stages": [
+    {
+      "built": [
+        {
+          "features": [
+            "base",
+            "tls"
+          ],
+          "name": "cliapp",
+          "version": "1.8.0"
+        }
+      ],
+      "conflicts": [],
+      "id": "bootstrap",
+      "reused": [
+        {
+          "features": [
+            "base"
+          ],
+          "name": "testpkg-runner",
+          "version": "1.0.0"
+        }
+      ],
+      "selected": [
+        {
+          "features": [
+            "base",
+            "tls"
+          ],
+          "name": "cliapp",
+          "version": "1.8.0"
+        },
+        {
+          "features": [
+            "base"
+          ],
+          "name": "testpkg-runner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    {
+      "built": [
+        {
+          "features": [
+            "base",
+            "ffi"
+          ],
+          "name": "libcore",
+          "version": "1.4.0"
+        },
+        {
+          "features": [
+            "base"
+          ],
+          "name": "nativebridge",
+          "version": "1.0.0"
+        }
+      ],
+      "conflicts": [],
+      "id": "extension",
+      "reused": [
+        {
+          "features": [
+            "base",
+            "thin"
+          ],
+          "name": "thin-adapter",
+          "version": "1.5.0"
+        }
+      ],
+      "selected": [
+        {
+          "features": [
+            "base",
+            "ffi"
+          ],
+          "name": "libcore",
+          "version": "1.4.0"
+        },
+        {
+          "features": [
+            "base"
+          ],
+          "name": "nativebridge",
+          "version": "1.0.0"
+        },
+        {
+          "features": [
+            "base",
+            "thin"
+          ],
+          "name": "thin-adapter",
+          "version": "1.5.0"
+        }
+      ]
+    },
+    {
+      "built": [],
+      "conflicts": [],
+      "id": "release",
+      "reused": [
+        {
+          "features": [
+            "base",
+            "min",
+            "tls"
+          ],
+          "name": "cliapp",
+          "version": "1.8.0"
+        }
+      ],
+      "selected": [
+        {
+          "features": [
+            "base",
+            "min",
+            "tls"
+          ],
+          "name": "cliapp",
+          "version": "1.8.0"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "built": 3,
+    "conflicts": 0,
+    "reused": 3,
+    "selected": 6
+  }
+}

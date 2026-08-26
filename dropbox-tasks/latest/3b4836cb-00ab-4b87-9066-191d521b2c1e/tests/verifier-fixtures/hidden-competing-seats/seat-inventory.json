@@ -1,0 +1,13 @@
+{
+  "flights": [
+    {
+      "flight_id": "DL200",
+      "carrier": "DL",
+      "origin": "ATL",
+      "destination": "BOS",
+      "departure_utc": "2026-07-01T16:00:00Z",
+      "arrival_utc": "2026-07-01T18:00:00Z",
+      "inventory": {"F": 0, "J": 1, "W": 0, "Y": 0}
+    }
+  ]
+}

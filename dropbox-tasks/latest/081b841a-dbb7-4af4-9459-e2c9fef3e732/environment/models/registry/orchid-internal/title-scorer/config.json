@@ -1,0 +1,8 @@
+{
+  "architectures": ["LinearScorer"],
+  "features": ["embedding_cosine", "token_overlap", "channel_prior"],
+  "input_dim": 130,
+  "model_type": "linear-scorer",
+  "revision": "v1.4.2",
+  "threshold": 0.62
+}

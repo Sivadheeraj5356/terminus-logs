@@ -1,0 +1,4 @@
+# public_case_01: basic room transitions and a legal seal break
+move bay-b2
+unlock seal-brass-12
+break-seal seal-brass-12

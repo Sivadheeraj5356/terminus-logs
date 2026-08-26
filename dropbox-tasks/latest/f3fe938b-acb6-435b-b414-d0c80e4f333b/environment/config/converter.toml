@@ -1,0 +1,10 @@
+# Markdown Converter Configuration
+
+# Directory containing .md source files
+input_dir = "/app/input"
+
+# Directory for generated .html output files
+output_dir = "/app/output"
+
+# Path for JSON statistics report
+report_path = "/app/output/report.json"

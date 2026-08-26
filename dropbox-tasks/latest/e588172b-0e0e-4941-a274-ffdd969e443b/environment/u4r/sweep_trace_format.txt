@@ -1,0 +1,15 @@
+Fragment wire format consumed by the resume window.
+
+Each fragment line carries four pipe-separated fields:
+
+    day_key | wall_off | seq | flags
+
+wall_off at or above 86400 marks a boot-gap fragment. On the initial rebuild,
+with boot_era.rec still absent, that fragment is emitted by the first pass with
+seq below 100. Recovery (seq at or above 100) is a later-step path that only
+runs once boot_era.rec already exists.
+
+The flags field is a bitmask. Bit 0x04 marks a fragment that was skipped
+because its interval never occurred on the local wall clock during a spring
+forward transition. A fragment carrying that bit keeps its single first-pass
+row and must not be emitted again by recovery.

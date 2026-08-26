@@ -1,0 +1,21 @@
+{
+  "keys": {
+    "k-66ab6f353b35": {
+      "alg": "ed25519",
+      "public": "7d57f5c1e8f4e1ee57448da1a40526214da9cad9a3318a40705f837be3e97c1e"
+    }
+  },
+  "message": {
+    "authority": "svc4.example.com",
+    "body": "",
+    "headers": {
+      "content-type": "application/json",
+      "signature": "sig1=:QpnFCh8PXjcebf2moPVarzQzE+7N4EabHSTfC1IDuGs=:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\");created=1700000024;expires=1700000384;keyid=\"k-66ab6f353b35\";alg=\"hmac-sha256\""
+    },
+    "method": "GET",
+    "path": "/api/v0/resource/84",
+    "query": "page=84&sort=asc"
+  },
+  "now": 1700000084
+}

@@ -1,0 +1,6 @@
+﻿{
+  "profile": "rig-variant-16",
+  "base_id": 384,
+  "counter_modulo": 16,
+  "checksum_mode": "sum8"
+}

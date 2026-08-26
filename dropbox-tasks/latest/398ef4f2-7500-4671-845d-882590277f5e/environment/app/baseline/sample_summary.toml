@@ -1,0 +1,7 @@
+schema = "airbridge_summary_v1"
+
+[[totals]]
+carrier_iata = "ZZ"
+verdict = "REJECTED_TIER"
+cycle_count = 1
+billed_cents = 0

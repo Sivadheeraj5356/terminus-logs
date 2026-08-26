@@ -1,0 +1,15 @@
+== Mercury Spring [toxic] ==
+Omen: The tide remembers your name.
+Light: 11.5 lumens
+Relics:
+  - Mercury Mirror <epic> 130g
+  - Quicksilver Vial <uncommon> 55g
+Freshest: Mercury Mirror @ 18:45 KST
+Exits:
+  - north: Emberforge Hollow (torch 1.5)
+Torch: 4.0 units
+Inventory: silver-sigil
+Route: north north (torch 3.0)
+---ACTIONS---
+take mercury-mirror
+go north

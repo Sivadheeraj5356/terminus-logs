@@ -1,0 +1,6 @@
+{
+  "name": "adapter-next",
+  "version": "2.2.0-rc.1",
+  "type": "module",
+  "main": "src/index.mjs"
+}

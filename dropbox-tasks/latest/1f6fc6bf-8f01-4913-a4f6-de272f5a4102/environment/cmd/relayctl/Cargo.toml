@@ -1,0 +1,10 @@
+[package]
+name = "relayctl"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap = { workspace = true }
+prlg_k4 = { path = "../../k4" }
+prlg_r6 = { path = "../../r6" }
+prlg_w5 = { path = "../../w5" }

@@ -1,0 +1,7 @@
+delta true end
+this is the end
+aeiou bcdfg xyzzy
+false gamma true hello quux
+UPPER lower MiXeD
+true beta dog
+color dog line

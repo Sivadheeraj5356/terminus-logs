@@ -1,0 +1,7 @@
+bed_id,ward,is_icu,status
+ICU-1,ICU,true,available
+ICU-2,ICU,true,available
+MED-1,MED,false,available
+MED-2,MED,false,available
+SURG-1,SURG,false,available
+SURG-2,SURG,false,maintenance

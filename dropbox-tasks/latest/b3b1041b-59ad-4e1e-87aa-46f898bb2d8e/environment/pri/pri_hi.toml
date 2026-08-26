@@ -1,0 +1,4 @@
+id = "pri_hi"
+epoch = "e_hi"
+tol_prefix = 64
+band = "hi"

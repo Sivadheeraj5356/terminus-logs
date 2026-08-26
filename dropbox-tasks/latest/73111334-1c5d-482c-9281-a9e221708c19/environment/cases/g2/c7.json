@@ -1,0 +1,15 @@
+{
+  "id": "c7",
+  "mode": "r1",
+  "observers": [
+    {"oid": 50, "cx": 0, "cy": 0, "reach": 3},
+    {"oid": 51, "cx": 1, "cy": 1, "reach": 2},
+    {"oid": 52, "cx": 2, "cy": 1, "reach": 2},
+    {"oid": 53, "cx": 4, "cy": 2, "reach": 2},
+    {"oid": 54, "cx": 1, "cy": 3, "reach": 2}
+  ],
+  "ally_groups": [[50, 51], [52, 53, 54]],
+  "slots": 20,
+  "grid_width": 5,
+  "grid_height": 4
+}

@@ -1,0 +1,10 @@
+hello maybe gray no true colour gray
+mixed Foo123Bar baz_42
+banana quux world baz hello
+addr 156.203.116.16 hex 0x9388 token tok_433
+addr 11.199.66.25 hex 0xe30f token tok_252
+banana grey foobar yes
+grey end grey
+quux colour true
+UPPER lower MiXeD
+foo foobar foobarbaz

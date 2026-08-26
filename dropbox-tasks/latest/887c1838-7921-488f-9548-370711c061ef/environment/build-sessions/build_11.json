@@ -1,0 +1,97 @@
+{
+  "session_id": "build_11",
+  "cross_compile": true,
+  "toolchains": [
+    {
+      "id": "gcc-13",
+      "triple": "gcc-13-linux-gnu"
+    },
+    {
+      "id": "clang-17",
+      "triple": "clang-17-linux-gnu"
+    }
+  ],
+  "checkpoints": [
+    {
+      "seq": 1,
+      "stage": "preprocess",
+      "toolchain": "clang-17",
+      "artifact_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 1,
+      "stage": "preprocess",
+      "toolchain": "gcc-13",
+      "artifact_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 2,
+      "stage": "link",
+      "toolchain": "clang-17",
+      "artifact_hash": "clang_diverge_0011",
+      "symbol_digest": "f29f5ecfc0d167a0",
+      "compressed_size": 100,
+      "raw_size": 200
+    },
+    {
+      "seq": 2,
+      "stage": "link",
+      "toolchain": "gcc-13",
+      "artifact_hash": "204fb9e756ccbefa",
+      "symbol_digest": "f29f5ecfc0d167a0",
+      "compressed_size": 100,
+      "raw_size": 200
+    }
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "toolchain": "clang-17",
+      "stage": "preprocess",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "",
+      "new_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab"
+    },
+    {
+      "seq": 1,
+      "toolchain": "gcc-13",
+      "stage": "preprocess",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "",
+      "new_hash": "5494211fa734eec5",
+      "symbol_digest": "eda387559a39efab"
+    },
+    {
+      "seq": 2,
+      "toolchain": "clang-17",
+      "stage": "link",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "5494211fa734eec5",
+      "new_hash": "clang_diverge_0011",
+      "symbol_digest": "f29f5ecfc0d167a0"
+    },
+    {
+      "seq": 2,
+      "toolchain": "gcc-13",
+      "stage": "link",
+      "op": "emit",
+      "artifact_ref": "obj",
+      "prev_hash": "broken11",
+      "new_hash": "204fb9e756ccbefa",
+      "symbol_digest": "f29f5ecfc0d167a0"
+    }
+  ],
+  "rollbacks": [],
+  "shards": [],
+  "optimization_passes": []
+}

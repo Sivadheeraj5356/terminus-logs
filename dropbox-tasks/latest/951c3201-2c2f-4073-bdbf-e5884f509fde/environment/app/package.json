@@ -1,0 +1,23 @@
+{
+  "name": "dispatch-zone-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Redis-backed dispatch zone provisioning and reconciliation service",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "seed": "node scripts/seed.js",
+    "reconcile": "node scripts/reconcile-client.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "csv-parse": "5.5.6",
+    "fastify": "4.28.1",
+    "ioredis": "5.4.1",
+    "tar": "7.4.3"
+  },
+  "devDependencies": {
+    "fast-check": "3.22.0"
+  }
+}

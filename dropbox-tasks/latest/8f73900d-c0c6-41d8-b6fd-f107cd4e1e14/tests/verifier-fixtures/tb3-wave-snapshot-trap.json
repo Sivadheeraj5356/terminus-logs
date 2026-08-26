@@ -1,0 +1,5 @@
+{
+  "probe": "wave_midpipe_snapshot",
+  "snapshot_field": "capture_sequence",
+  "manifest_field": "capture_sequence"
+}

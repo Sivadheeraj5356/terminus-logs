@@ -1,0 +1,17 @@
+[
+  {
+    "patch_id": "1.0.0",
+    "headline": "Striker spike buff",
+    "stat_delta": 1
+  },
+  {
+    "patch_id": "1.1.0",
+    "headline": "Warden pivot buff",
+    "stat_delta": 1
+  },
+  {
+    "patch_id": "1.2.0",
+    "headline": "Flat skirmisher tune",
+    "stat_delta": 0
+  }
+]

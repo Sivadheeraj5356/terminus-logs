@@ -1,0 +1,27 @@
+{
+  "modules": [
+    {
+      "id": "a",
+      "fuel": 10
+    },
+    {
+      "id": "b",
+      "fuel": 4
+    }
+  ],
+  "host_calls": [],
+  "fuel_budget": 13,
+  "capabilities": [],
+  "alt_ops": [
+    {
+      "id": "b",
+      "fuel": 4
+    },
+    {
+      "id": "a",
+      "fuel": 10
+    }
+  ],
+  "expected_digest": "2a2567affb61d9a8",
+  "alt_expected_digest": "f087422bc771c580"
+}

@@ -1,0 +1,327 @@
+diff --git a/internal/version/version.go b/internal/version/version.go
+index 1537114..102e083 100644
+--- a/internal/version/version.go
++++ b/internal/version/version.go
+@@ -2,55 +2,285 @@
+ package version
+ 
+ import (
++	"regexp"
+ 	"strconv"
+-	"strings"
+ )
+ 
+ // Compare reports whether formula version a is older than (-1), equal to (0),
+-// or newer than (1) formula version b.
+-//
+-// The comparison splits each version on its separators and compares the fields
+-// as plain integers, falling back to a byte comparison when a field is not
+-// numeric. That covers plain dotted-number releases.
++// or newer than (1) formula version b, matching Homebrew's Version ordering.
+ func Compare(a, b string) int {
+-	af := split(a)
+-	bf := split(b)
+-	n := len(af)
+-	if len(bf) > n {
+-		n = len(bf)
+-	}
+-	for i := 0; i < n; i++ {
+-		var x, y string
+-		if i < len(af) {
+-			x = af[i]
+-		}
+-		if i < len(bf) {
+-			y = bf[i]
+-		}
+-		xi, xerr := strconv.Atoi(x)
+-		yi, yerr := strconv.Atoi(y)
++	if a == b {
++		return 0
++	}
++	ah, bh := isHead(a), isHead(b)
++	switch {
++	case ah && !bh:
++		return 1
++	case !ah && bh:
++		return -1
++	case ah && bh:
++		return 0
++	}
++	lt := tokenize(a)
++	rt := tokenize(b)
++	n := len(lt)
++	if len(rt) > n {
++		n = len(rt)
++	}
++	l, r := 0, 0
++	for l < n {
++		x := tokenAt(lt, l)
++		y := tokenAt(rt, r)
+ 		switch {
+-		case xerr == nil && yerr == nil:
+-			if xi != yi {
+-				if xi < yi {
+-					return -1
+-				}
++		case tcmp(x, y) == 0:
++			l++
++			r++
++		case x.k == kNumeric && y.k != kNumeric:
++			if tcmp(x, nullToken) > 0 {
+ 				return 1
+ 			}
+-		default:
+-			if x != y {
+-				if x < y {
+-					return -1
+-				}
+-				return 1
++			l++
++		case x.k != kNumeric && y.k == kNumeric:
++			if tcmp(y, nullToken) > 0 {
++				return -1
+ 			}
++			r++
++		default:
++			return sign(tcmp(x, y))
+ 		}
+ 	}
+ 	return 0
+ }
+ 
+-func split(s string) []string {
+-	return strings.FieldsFunc(s, func(r rune) bool {
+-		return r == '.' || r == '-' || r == '_' || r == '+'
+-	})
++type kind int
++
++const (
++	kNull kind = iota
++	kNumeric
++	kString
++	kAlpha
++	kBeta
++	kPre
++	kRC
++	kPatch
++	kPost
++)
++
++type token struct {
++	k   kind
++	num int    // numeric value, or the trailing revision number of a decorated token
++	str string // original text for string-family tokens
++}
++
++var nullToken = token{k: kNull}
++
++var scanRe = regexp.MustCompile(`(?i)alpha[0-9]*|a[0-9]+|beta[0-9]*|b[0-9]+|pre[0-9]*|rc[0-9]*|p[0-9]*|.post[0-9]+|[0-9]+|[a-z]+`)
++
++var (
++	reAlpha   = regexp.MustCompile(`(?i)\A(?:alpha[0-9]*|a[0-9]+)\z`)
++	reBeta    = regexp.MustCompile(`(?i)\A(?:beta[0-9]*|b[0-9]+)\z`)
++	reRC      = regexp.MustCompile(`(?i)\A(?:rc[0-9]*)\z`)
++	rePre     = regexp.MustCompile(`(?i)\A(?:pre[0-9]*)\z`)
++	rePatch   = regexp.MustCompile(`(?i)\A(?:p[0-9]*)\z`)
++	rePost    = regexp.MustCompile(`(?i)\A(?:.post[0-9]+)\z`)
++	reNumeric = regexp.MustCompile(`(?i)\A(?:[0-9]+)\z`)
++	reString  = regexp.MustCompile(`(?i)\A(?:[a-z]+)\z`)
++	reDigits  = regexp.MustCompile(`[0-9]+`)
++	headRe    = regexp.MustCompile(`\AHEAD(?:-.*)?\z`)
++)
++
++func rev(s string) int {
++	m := reDigits.FindString(s)
++	if m == "" {
++		return 0
++	}
++	n, _ := strconv.Atoi(m)
++	return n
++}
++
++func classify(val string) token {
++	switch {
++	case reAlpha.MatchString(val):
++		return token{k: kAlpha, num: rev(val), str: val}
++	case reBeta.MatchString(val):
++		return token{k: kBeta, num: rev(val), str: val}
++	case reRC.MatchString(val):
++		return token{k: kRC, num: rev(val), str: val}
++	case rePre.MatchString(val):
++		return token{k: kPre, num: rev(val), str: val}
++	case rePatch.MatchString(val):
++		return token{k: kPatch, num: rev(val), str: val}
++	case rePost.MatchString(val):
++		return token{k: kPost, num: rev(val), str: val}
++	case reNumeric.MatchString(val):
++		n, _ := strconv.Atoi(val)
++		return token{k: kNumeric, num: n, str: val}
++	case reString.MatchString(val):
++		return token{k: kString, str: val}
++	default:
++		return token{k: kString, str: val}
++	}
++}
++
++func tokenize(v string) []token {
++	subs := scanRe.FindAllString(v, -1)
++	toks := make([]token, 0, len(subs))
++	for _, s := range subs {
++		toks = append(toks, classify(s))
++	}
++	return toks
++}
++
++func isHead(v string) bool { return headRe.MatchString(v) }
++
++func tokenAt(t []token, i int) token {
++	if i < len(t) {
++		return t[i]
++	}
++	return nullToken
++}
++
++func cmpInt(a, b int) int {
++	switch {
++	case a < b:
++		return -1
++	case a > b:
++		return 1
++	default:
++		return 0
++	}
++}
++
++func cmpStr(a, b string) int {
++	switch {
++	case a < b:
++		return -1
++	case a > b:
++		return 1
++	default:
++		return 0
++	}
++}
++
++func sign(x int) int {
++	switch {
++	case x < 0:
++		return -1
++	case x > 0:
++		return 1
++	default:
++		return 0
++	}
++}
++
++// stringSuper implements the plain string-token comparison that decorated
++// tokens fall back to when neither special rule applies.
++func stringSuper(a, b token) int {
++	switch b.k {
++	case kNumeric:
++		return -numericCmp(b, a)
++	case kNull:
++		return -nullCmp(b, a)
++	default:
++		return cmpStr(a.str, b.str)
++	}
++}
++
++func nullCmp(a, b token) int {
++	switch b.k {
++	case kNull:
++		return 0
++	case kNumeric:
++		if b.num == 0 {
++			return 0
++		}
++		return -1
++	case kAlpha, kBeta, kPre, kRC:
++		return 1
++	default:
++		return -1
++	}
++}
++
++func numericCmp(a, b token) int {
++	switch b.k {
++	case kNumeric:
++		return cmpInt(a.num, b.num)
++	case kNull:
++		return -nullCmp(b, a)
++	default:
++		return 1
++	}
++}
++
++func tcmp(a, b token) int {
++	switch a.k {
++	case kNull:
++		return nullCmp(a, b)
++	case kNumeric:
++		return numericCmp(a, b)
++	case kString:
++		return stringSuper(a, b)
++	case kAlpha:
++		switch b.k {
++		case kAlpha:
++			return cmpInt(a.num, b.num)
++		case kBeta, kRC, kPre, kPatch, kPost:
++			return -1
++		default:
++			return stringSuper(a, b)
++		}
++	case kBeta:
++		switch b.k {
++		case kBeta:
++			return cmpInt(a.num, b.num)
++		case kAlpha:
++			return 1
++		case kPre, kRC, kPatch, kPost:
++			return -1
++		default:
++			return stringSuper(a, b)
++		}
++	case kPre:
++		switch b.k {
++		case kPre:
++			return cmpInt(a.num, b.num)
++		case kAlpha, kBeta:
++			return 1
++		case kRC, kPatch, kPost:
++			return -1
++		default:
++			return stringSuper(a, b)
++		}
++	case kRC:
++		switch b.k {
++		case kRC:
++			return cmpInt(a.num, b.num)
++		case kAlpha, kBeta, kPre:
++			return 1
++		case kPatch, kPost:
++			return -1
++		default:
++			return stringSuper(a, b)
++		}
++	case kPatch:
++		switch b.k {
++		case kPatch:
++			return cmpInt(a.num, b.num)
++		case kAlpha, kBeta, kRC, kPre:
++			return 1
++		default:
++			return stringSuper(a, b)
++		}
++	case kPost:
++		switch b.k {
++		case kPost:
++			return cmpInt(a.num, b.num)
++		case kAlpha, kBeta, kRC, kPre:
++			return 1
++		default:
++			return stringSuper(a, b)
++		}
++	}
++	return 0
+ }

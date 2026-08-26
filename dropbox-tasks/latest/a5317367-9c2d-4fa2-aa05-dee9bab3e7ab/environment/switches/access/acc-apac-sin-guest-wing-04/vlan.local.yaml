@@ -1,0 +1,6 @@
+hostname: acc-apac-sin-guest-wing-04
+migration_state: partial
+canonical_vlan: 2045
+configured_vlan: 146
+legacy_vlan: 146
+duplicate_vlan_conflict: false

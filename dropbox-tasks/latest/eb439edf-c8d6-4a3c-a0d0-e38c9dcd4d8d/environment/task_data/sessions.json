@@ -1,0 +1,53 @@
+{
+  "COURT-1348": {
+    "title": "Court of the Black Seal, 1348",
+    "cite_score": 10,
+    "invalid_penalty": 5,
+    "win_threshold": 50,
+    "precedent_section": "",
+    "precedent_window": 0,
+    "precedent_bonus": 0,
+    "sections": ["I", "II", "III", "IV"],
+    "cases": [
+      {"id": "CASE-1348-A", "title": "Lord's Estate Claim",       "grant_score": 20, "deny_score": -8},
+      {"id": "CASE-1348-B", "title": "Merchant Tax Dispute",      "grant_score":  8, "deny_score":  3},
+      {"id": "CASE-1348-C", "title": "Guild Exemption Request",   "grant_score": 12, "deny_score": -5},
+      {"id": "CASE-1348-D", "title": "Land Inheritance Dispute",  "grant_score": 18, "deny_score": -4}
+    ]
+  },
+  "TRIBUNAL-1605": {
+    "title": "Tribunal of the Crossed Keys, 1605",
+    "cite_score": 12,
+    "invalid_penalty": 5,
+    "win_threshold": 70,
+    "precedent_section": "III",
+    "precedent_window": 4,
+    "precedent_bonus": 10,
+    "sections": ["I", "II", "III", "IV", "V"],
+    "cases": [
+      {"id": "CASE-1605-A", "title": "Crown Exemption Petition",  "grant_score": 16, "deny_score": -8},
+      {"id": "CASE-1605-B", "title": "Noble Estate Appeal",       "grant_score": 14, "deny_score": -6},
+      {"id": "CASE-1605-C", "title": "Charter Renewal",           "grant_score": 10, "deny_score":  2},
+      {"id": "CASE-1605-D", "title": "Property Seizure",          "grant_score": 22, "deny_score":-10},
+      {"id": "CASE-1605-E", "title": "Guild Dissolution",         "grant_score":  8, "deny_score":  3}
+    ]
+  },
+  "ASSEMBLY-1789": {
+    "title": "Assembly of Estates, 1789",
+    "cite_score": 14,
+    "invalid_penalty": 8,
+    "win_threshold": 90,
+    "precedent_section": "",
+    "precedent_window": 0,
+    "precedent_bonus": 0,
+    "sections": ["I", "II", "III", "IV", "V", "VI", "VII"],
+    "cases": [
+      {"id": "CASE-1789-A", "title": "Land Redistribution Decree",  "grant_score": 18, "deny_score": -8},
+      {"id": "CASE-1789-B", "title": "Noble Title Abolition",       "grant_score": 20, "deny_score":-10},
+      {"id": "CASE-1789-C", "title": "Church Property Transfer",    "grant_score": 10, "deny_score":  2},
+      {"id": "CASE-1789-D", "title": "Peasant Rights Charter",      "grant_score": 14, "deny_score": -6},
+      {"id": "CASE-1789-E", "title": "Trade Guild Charter",         "grant_score": 16, "deny_score": -8},
+      {"id": "CASE-1789-F", "title": "Estate Seizure Order",        "grant_score": 22, "deny_score":-12}
+    ]
+  }
+}

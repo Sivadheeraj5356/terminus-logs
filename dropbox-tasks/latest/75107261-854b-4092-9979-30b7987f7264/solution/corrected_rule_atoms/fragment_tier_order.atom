@@ -1,0 +1,6 @@
+RULE FRAGMENT_TIER_ORDER
+IN keys
+OUT value,reason
+TABLE
+lookup -> admin,transient,vendor|tier-order
+END

@@ -1,0 +1,7 @@
+name = "s2"
+dim = 6
+half = true
+nz_stored = 16
+abs_band = 1e-09
+rel_band = 1e-06
+x_seed = 17

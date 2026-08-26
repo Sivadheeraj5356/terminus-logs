@@ -1,0 +1,23 @@
+OCI extraction security semantics
+
+Canonical member paths are lexical. An absolute effective path is unsafe. Split a relative path at slash and discard empty and single-dot components. Every dot-dot removes the preceding retained component. A dot-dot with nothing to remove and a result with no retained component are unsafe. Join retained components with one slash. An unsafe effective path is a path_escape_attempt and cannot enter the candidate namespace. Effective identity is selected after local PAX then GNU then ustar precedence. Reports retain the effective raw spelling.
+
+A symbolic-link target is resolved lexically relative to the link's canonical parent. Empty and absolute targets are external. Slash and dot components are discarded and dot-dot removes one retained component. A dot-dot with nothing to remove is a root escape. An external target produces external_symlink_targets but the symbolic link still enters the candidate namespace.
+
+A hard-link target is canonicalized as an archive-root relative path. An absolute or escaping target produces hardlink_escape_attempts and cannot enter the namespace. Other hard-link placeholders enter the namespace and resolve after all ordinary members in that layer.
+
+A regular zero-length member whose canonical basename begins with .wh. is a marker. The exact basename .wh..wh..opq is opaque. Every other nonempty .wh.NAME is a whiteout for sibling NAME. A whiteout-looking member of another kind or nonzero size and the empty marker .wh. produce malformed_whiteout_attempts and perform no action.
+
+Valid markers execute in physical order before every ordinary member in their layer. Whiteout removes its target and descendants. Opaque removes strict descendants of its parent. Markers never enter the namespace. Ordinary members then execute in physical order. A directory replacement preserves descendants. Other kinds replace the exact path and remove descendants.
+
+Before an ordinary member is inserted inspect every proper canonical ancestor in the current candidate namespace. A symbolic-link ancestor produces symlink_pivot_attempts. A regular file or hard link produces namespace_confusion_attempts. The blocked member does not enter the namespace. The report names the first conflicting ancestor.
+
+For each untrusted layer remember the first structurally usable ordinary member at every canonical path. Every later usable ordinary member at that path produces shadowed_member_attacks even when its raw spelling differs. Marker paths do not participate.
+
+A protected root overlaps an affected path when either is equal to the other or is a descendant of the other. Every overlapping valid ordinary member produces protected_path_mutations with action create_or_replace. This mutation-record rule is independent of namespace insertion: inspect the member itself, and emit its record even when the separate ancestor-conflict rule later blocks that member from entering the candidate namespace. Every overlapping valid marker produces protected_path_mutations and whiteout_scope_abuses with action whiteout or opaque. Emit one record for each matching protected root in policy order. A mutation finding never causes an otherwise blocked member to enter the namespace.
+
+Every untrusted ordinary member with mode bit 04000 produces property setuid. Bit 02000 produces setgid. A member with any execute bit and mode bit 0002 produces world_writable_executable. Properties are emitted in that order.
+
+After a layer is complete resolve its hard-link placeholders independently against the unchanged completed namespace. Follow hard-link chains. A missing final target is missing_target. A directory or symbolic link is nonregular_target. Revisiting a hard link is cycle. Failed placeholders are all removed only after every placeholder has been evaluated. Successful links freeze the final regular file digest and size before later layers.
+
+Security findings do not otherwise suppress candidate-state changes. Any finding makes the final verdict deny. No findings makes it accept. A valid capture always exits zero after writing the complete report.

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "revision": "probe-soft",
+  "bind_digest": false,
+  "honor_legacy_overrides": true,
+  "probe_implies_lockout": true,
+  "require_ctl_planes": true,
+  "reject_blanket_lockout": true,
+  "reject_single_stack_papering": true,
+  "audit_tag": "cutover-draft"
+}

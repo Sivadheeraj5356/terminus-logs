@@ -1,0 +1,16 @@
+{
+  "desk": "stack-bind",
+  "reject_override_tip": true,
+  "force_map_tip": {},
+  "wiring": [
+    {"service": "sshd", "stack_id": "sshd-stack"},
+    {"service": "sudo", "stack_id": "sudo-stack"},
+    {"service": "portal", "stack_id": "portal-stack"},
+    {"service": "su", "stack_id": "su-stack"}
+  ],
+  "rejected_bridges": [
+    {"service": "sshd", "stack_id": "portal-stack", "note": "hotfix_alias"},
+    {"service": "sudo", "stack_id": "sshd-stack", "note": "hotfix_alias"},
+    {"service": "su", "stack_id": "sudo-stack", "note": "hotfix_alias"}
+  ]
+}

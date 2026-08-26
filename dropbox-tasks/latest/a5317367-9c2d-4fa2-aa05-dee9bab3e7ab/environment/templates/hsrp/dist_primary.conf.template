@@ -1,0 +1,3 @@
+standby {{GROUP}} ip {{VIP}}
+standby {{GROUP}} priority 110
+standby {{GROUP}} preempt

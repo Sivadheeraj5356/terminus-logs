@@ -1,0 +1,758 @@
+{
+  "formulas": [
+    {
+      "name": "libmesh",
+      "versions": [
+        {
+          "version": "3.1.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:libmesh-3.1.0-darwin-arm64",
+              "bytes": 28,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:libmesh-3.1.0-darwin-x86_64",
+              "bytes": 27,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:libmesh-3.1.0-linux-x86_64",
+              "bytes": 30,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": false,
+              "codesigned": false,
+              "runtime_floor": "2.31"
+            }
+          ]
+        },
+        {
+          "version": "3.0.0",
+          "revision": 4,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:libmesh-3.0.0-darwin-arm64",
+              "bytes": 26,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:libmesh-3.0.0-darwin-x86_64",
+              "bytes": 25,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:libmesh-3.0.0-linux-x86_64",
+              "bytes": 27,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "meshsync",
+      "versions": [
+        {
+          "version": "1.3.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.1.0 <4.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "sqlite",
+              "version_range": ">=3.45.0 <4.0.0",
+              "requires_features": []
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:meshsync-1.3.0-darwin-arm64",
+              "bytes": 22,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:meshsync-1.3.0-darwin-x86_64",
+              "bytes": 21,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:meshsync-1.3.0-linux-x86_64",
+              "bytes": 23,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        },
+        {
+          "version": "1.2.0",
+          "revision": 2,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.0.0 <3.2.0",
+              "requires_features": []
+            },
+            {
+              "name": "sqlite",
+              "version_range": ">=3.45.0 <4.0.0",
+              "requires_features": []
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:meshsync-1.2.0-darwin-arm64",
+              "bytes": 21,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:meshsync-1.2.0-darwin-x86_64",
+              "bytes": 20,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:meshsync-1.2.0-linux-x86_64",
+              "bytes": 22,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        },
+        {
+          "version": "1.1.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.0.0 <3.2.0",
+              "requires_features": []
+            },
+            {
+              "name": "sqlite",
+              "version_range": ">=3.45.0 <4.0.0",
+              "requires_features": []
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:meshsync-1.1.0-darwin-arm64",
+              "bytes": 20,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:meshsync-1.1.0-darwin-x86_64",
+              "bytes": 19,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:meshsync-1.1.0-linux-x86_64",
+              "bytes": 21,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "openssl",
+      "versions": [
+        {
+          "version": "1.2.0",
+          "revision": 3,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:openssl-1.2.0-darwin-arm64",
+              "bytes": 18,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:openssl-1.2.0-darwin-x86_64",
+              "bytes": 18,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:openssl-1.2.0-linux-x86_64",
+              "bytes": 20,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "readline",
+      "versions": [
+        {
+          "version": "8.2.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:readline-8.2.0-darwin-arm64",
+              "bytes": 10,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:readline-8.2.0-darwin-x86_64",
+              "bytes": 10,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:readline-8.2.0-linux-x86_64",
+              "bytes": 11,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sqlite",
+      "versions": [
+        {
+          "version": "3.46.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:sqlite-3.46.0-darwin-arm64",
+              "bytes": 16,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:sqlite-3.46.0-darwin-x86_64",
+              "bytes": 16,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:sqlite-3.46.0-linux-x86_64",
+              "bytes": 18,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.31"
+            }
+          ]
+        },
+        {
+          "version": "3.45.0",
+          "revision": 2,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:sqlite-3.45.0-darwin-arm64",
+              "bytes": 15,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:sqlite-3.45.0-darwin-x86_64",
+              "bytes": 15,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:sqlite-3.45.0-linux-x86_64",
+              "bytes": 17,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "warpctl",
+      "versions": [
+        {
+          "version": "2.4.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.1.0 <4.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "zstd",
+              "version_range": ">=1.5.0 <2.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "openssl",
+              "version_range": ">=1.2.0 <2.0.0",
+              "requires_features": [
+                "tls"
+              ]
+            },
+            {
+              "name": "readline",
+              "version_range": ">=8.2.0 <9.0.0",
+              "requires_features": [
+                "cli"
+              ]
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:warpctl-2.4.0-darwin-arm64",
+              "bytes": 24,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:warpctl-2.4.0-darwin-x86_64",
+              "bytes": 23,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            }
+          ]
+        },
+        {
+          "version": "2.3.0-rc1",
+          "revision": 1,
+          "prerelease": true,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.1.0 <4.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "zstd",
+              "version_range": ">=1.5.0 <2.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "openssl",
+              "version_range": ">=1.2.0 <2.0.0",
+              "requires_features": [
+                "tls"
+              ]
+            },
+            {
+              "name": "readline",
+              "version_range": ">=8.2.0 <9.0.0",
+              "requires_features": [
+                "cli"
+              ]
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:warpctl-2.3.0-rc1-darwin-arm64",
+              "bytes": 24,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:warpctl-2.3.0-rc1-darwin-x86_64",
+              "bytes": 23,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:warpctl-2.3.0-rc1-linux-x86_64",
+              "bytes": 25,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        },
+        {
+          "version": "2.2.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.1.0 <4.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "zstd",
+              "version_range": ">=1.5.0 <2.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "openssl",
+              "version_range": ">=1.2.0 <2.0.0",
+              "requires_features": [
+                "tls"
+              ]
+            },
+            {
+              "name": "readline",
+              "version_range": ">=8.2.0 <9.0.0",
+              "requires_features": [
+                "cli"
+              ]
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:warpctl-2.2.0-darwin-arm64",
+              "bytes": 23,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:warpctl-2.2.0-darwin-x86_64",
+              "bytes": 22,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:warpctl-2.2.0-linux-x86_64",
+              "bytes": 24,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        },
+        {
+          "version": "2.1.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.0.0 <3.2.0",
+              "requires_features": []
+            },
+            {
+              "name": "zstd",
+              "version_range": ">=1.5.0 <2.0.0",
+              "requires_features": []
+            },
+            {
+              "name": "openssl",
+              "version_range": ">=1.2.0 <2.0.0",
+              "requires_features": [
+                "tls"
+              ]
+            },
+            {
+              "name": "readline",
+              "version_range": ">=8.2.0 <9.0.0",
+              "requires_features": [
+                "cli"
+              ]
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:warpctl-2.1.0-darwin-arm64",
+              "bytes": 22,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:warpctl-2.1.0-darwin-x86_64",
+              "bytes": 21,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:warpctl-2.1.0-linux-x86_64",
+              "bytes": 23,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 2,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        },
+        {
+          "version": "2.0.0",
+          "revision": 1,
+          "prerelease": false,
+          "keg_only": true,
+          "dependencies": [
+            {
+              "name": "libmesh",
+              "version_range": ">=3.0.0 <3.2.0",
+              "requires_features": []
+            },
+            {
+              "name": "zstd",
+              "version_range": ">=1.5.0 <2.0.0",
+              "requires_features": []
+            }
+          ],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:warpctl-2.0.0-darwin-arm64",
+              "bytes": 21,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:warpctl-2.0.0-darwin-x86_64",
+              "bytes": 20,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:warpctl-2.0.0-linux-x86_64",
+              "bytes": 22,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "zstd",
+      "versions": [
+        {
+          "version": "1.5.6",
+          "revision": 2,
+          "prerelease": false,
+          "keg_only": false,
+          "dependencies": [],
+          "bottles": [
+            {
+              "platform": "darwin_arm64",
+              "digest": "sha256:zstd-1.5.6-darwin-arm64",
+              "bytes": 11,
+              "cellar": "/opt/homebrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "13.0"
+            },
+            {
+              "platform": "darwin_x86_64",
+              "digest": "sha256:zstd-1.5.6-darwin-x86_64",
+              "bytes": 11,
+              "cellar": "/usr/local/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": true,
+              "runtime_floor": "12.0"
+            },
+            {
+              "platform": "linux_x86_64",
+              "digest": "sha256:zstd-1.5.6-linux-x86_64",
+              "bytes": 12,
+              "cellar": "/home/linuxbrew/.linuxbrew/Cellar",
+              "rebuild": 1,
+              "relocatable": true,
+              "codesigned": false,
+              "runtime_floor": "2.28"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

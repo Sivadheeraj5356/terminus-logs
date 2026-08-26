@@ -1,0 +1,4 @@
+{
+  "fuse_guard": {"kind": "scalar", "value": "nu-base"},
+  "tags": {"kind": "list", "value": ["nu"]}
+}

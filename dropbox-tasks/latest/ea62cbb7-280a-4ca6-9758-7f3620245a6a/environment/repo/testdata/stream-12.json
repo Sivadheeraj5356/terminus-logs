@@ -1,0 +1,86 @@
+{
+ "until": 39,
+ "players": [
+  {
+   "name": "officer-main",
+   "main": 4,
+   "grace": 0,
+   "recoverOnMove": false
+  },
+  {
+   "name": "officer-swing",
+   "main": 4,
+   "grace": 1,
+   "recoverOnMove": true
+  },
+  {
+   "name": "officer-grave",
+   "main": 9,
+   "grace": 1,
+   "recoverOnMove": false
+  }
+ ],
+ "events": [
+  {
+   "at": 3,
+   "op": "move",
+   "player": "officer-main"
+  },
+  {
+   "at": 4,
+   "op": "move",
+   "player": "officer-grave"
+  },
+  {
+   "at": 4,
+   "op": "move",
+   "player": "officer-grave"
+  },
+  {
+   "at": 6,
+   "op": "move",
+   "player": "officer-swing"
+  },
+  {
+   "at": 9,
+   "op": "turn",
+   "player": "officer-grave"
+  },
+  {
+   "at": 9,
+   "op": "pause"
+  },
+  {
+   "at": 12,
+   "op": "resume"
+  },
+  {
+   "at": 16,
+   "op": "move",
+   "player": "officer-swing"
+  },
+  {
+   "at": 18,
+   "op": "move",
+   "player": "officer-main"
+  },
+  {
+   "at": 22,
+   "op": "pause"
+  },
+  {
+   "at": 26,
+   "op": "resume"
+  },
+  {
+   "at": 28,
+   "op": "move",
+   "player": "officer-grave"
+  },
+  {
+   "at": 29,
+   "op": "move",
+   "player": "officer-main"
+  }
+ ]
+}

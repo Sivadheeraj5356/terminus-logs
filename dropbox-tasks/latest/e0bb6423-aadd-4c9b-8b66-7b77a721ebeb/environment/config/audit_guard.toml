@@ -1,0 +1,41 @@
+min_tapes = 13
+
+[[lockout_required]]
+tape = "retry_block"
+
+[[lockout_required]]
+tape = "stale_ledger"
+
+[[lockout_required]]
+tape = "deny_edge"
+
+[[expired_required]]
+tape = "expired_acct"
+
+[[expired_required]]
+tape = "expiry_edge"
+
+[[lockout_forbidden]]
+tape = "clean_pass"
+
+[[lockout_forbidden]]
+tape = "sss_noise"
+
+[[lockout_forbidden]]
+tape = "su_bind"
+
+[[retry_floor]]
+tape = "otp_fail"
+min_count = 1
+
+[[retry_floor]]
+tape = "mixed_svc"
+min_count = 2
+
+[[retry_floor]]
+tape = "sss_noise"
+min_count = 1
+
+[[retry_floor]]
+tape = "deny_edge"
+min_count = 3

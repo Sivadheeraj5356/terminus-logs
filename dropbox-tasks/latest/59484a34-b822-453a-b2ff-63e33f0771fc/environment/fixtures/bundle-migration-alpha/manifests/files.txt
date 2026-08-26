@@ -1,0 +1,8 @@
+certificates/legacy backup.json
+certificates/revoked.json
+certificates/wrong_tree.json
+certificates/dup_old.json
+certificates/dup_new.json
+certificates/stale_sth.json
+certificates/no_proof.json
+certificates/bad_root.json

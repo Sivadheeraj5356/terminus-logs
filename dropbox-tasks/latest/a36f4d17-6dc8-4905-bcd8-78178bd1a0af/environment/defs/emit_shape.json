@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "required": [
+    "meta",
+    "rows"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "case_id",
+          "mode_id",
+          "layer_id",
+          "scale_u32",
+          "stat_min",
+          "stat_max",
+          "replay_tag",
+          "row_digest"
+        ]
+      }
+    }
+  }
+}

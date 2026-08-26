@@ -1,0 +1,6 @@
+schema_version: apexora-rollback-1
+bundles:
+  acc-hq-dal-bldg1-01:
+    forward: switches/access/acc-hq-dal-bldg1-01/running.conf
+    rollback: backups/pre_wave3/acc-hq-dal-bldg1-01.conf.snapshot
+    validation_command: legacy/hooks/pre-validate-legacy.sh

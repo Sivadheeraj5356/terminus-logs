@@ -1,0 +1,4 @@
+{
+  "denylist_version": "2023-static",
+  "crates": ["openssl", "hyper"]
+}

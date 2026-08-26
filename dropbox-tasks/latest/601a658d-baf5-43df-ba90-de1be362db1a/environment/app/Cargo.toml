@@ -1,0 +1,12 @@
+[package]
+name = "keystone"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+
+[[bin]]
+name = "keystone"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 2

@@ -1,0 +1,10 @@
+family_id=FAM-HID-SEG-OV
+chip_id=HID-SEG-OV-1
+profile_id=CAL-STD
+nominal_hz=10000000
+readings:
+segment: boosted
+alpha_override=0.00005
+1 35.0 10005000.0
+segment: baseline
+2 25.0 10000000.0

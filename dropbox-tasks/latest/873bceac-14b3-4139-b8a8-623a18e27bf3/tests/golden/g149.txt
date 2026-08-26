@@ -1,0 +1,14 @@
+== Petrified Garden [fungal] ==
+Omen: The bone-count is short.
+Light: 9.5 lumens
+Relics:
+  - Spore Lantern <uncommon> 70g
+  - Petrified Rose <common> 25g
+Freshest: Petrified Rose @ 14:30 KST
+Exits:
+  - up: sealed gate (torch 2.5)
+Torch: 1.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+take spore-lantern

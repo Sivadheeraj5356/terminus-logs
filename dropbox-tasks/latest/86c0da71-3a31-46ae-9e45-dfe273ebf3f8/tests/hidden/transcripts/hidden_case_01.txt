@@ -1,0 +1,10 @@
+# hidden_case_01: comments, inspect, repeated movement, and invalid movement
+inspect reefer-r7
+move bay-b2
+break-seal seal-brass-12
+unlock seal-brass-12
+break-seal seal-brass-12
+move reefer-r7
+move bay-b2
+move bay-a1
+move tank-t4

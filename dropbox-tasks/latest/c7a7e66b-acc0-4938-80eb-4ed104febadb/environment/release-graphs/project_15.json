@@ -1,0 +1,31 @@
+{
+  "project_id":"project_15",
+  "freeze_date":"2026-06-01",
+  "graph":{
+    "nodes":[
+      {
+        "name":"patch-a",
+        "version":"1.0.0"
+      },
+      {
+        "name":"patch-b",
+        "version":"2.0.0"
+      }
+    ],
+    "edges":[
+      {
+        "consumer":"patch-b",
+        "provider":"patch-a",
+        "constraint":"^1.0.0",
+        "required":true
+      }
+    ],
+    "proposed":[
+      {
+        "package":"patch-a",
+        "target":"1.0.1",
+        "release_date":"2026-02-01"
+      }
+    ]
+  }
+}

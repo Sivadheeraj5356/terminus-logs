@@ -1,0 +1,3 @@
+# continuation — prp on dependent releases visibility
+profile alpha
+step prp target=share mode=shared

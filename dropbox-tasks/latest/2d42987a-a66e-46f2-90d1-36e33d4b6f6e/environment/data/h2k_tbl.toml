@@ -1,0 +1,8 @@
+# Keepalive interval sensitivity ladder (seconds).
+[[row]]
+peer = "peer_a"
+interval = 15
+
+[[row]]
+peer = "peer_b"
+interval = 25

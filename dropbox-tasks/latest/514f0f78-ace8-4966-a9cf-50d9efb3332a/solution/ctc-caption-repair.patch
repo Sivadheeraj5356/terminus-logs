@@ -1,0 +1,50 @@
+--- a/ctc/nonblank_transition.cpp
++++ b/ctc/nonblank_transition.cpp
+@@ -1,3 +1,3 @@
+ namespace cb {
+-void add_label(std::map<Prefix,PrefixMass>& next,const Prefix& p,const PrefixMass& m,int label,double lp){ Prefix out=p; if(!p.empty() && p.back()==label){ out.push_back(label); next[out].pnb = log_add(next[out].pnb, log_add(m.pb,m.pnb) + lp); } else { out.push_back(label); next[out].pnb = log_add(next[out].pnb, log_add(m.pb,m.pnb)+lp); } }
++void add_label(std::map<Prefix,PrefixMass>& next,const Prefix& p,const PrefixMass& m,int label,double lp){ Prefix out=p; if(!p.empty() && p.back()==label){ next[p].pnb = log_add(next[p].pnb, m.pnb + lp); out.push_back(label); next[out].pnb = log_add(next[out].pnb, m.pb + lp); } else { out.push_back(label); next[out].pnb = log_add(next[out].pnb, log_add(m.pb,m.pnb)+lp); } }
+ }
+--- a/ctc/blank_transition.cpp
++++ b/ctc/blank_transition.cpp
+@@ -1,3 +1,3 @@
+ namespace cb {
+-void add_blank(std::map<Prefix,PrefixMass>& next,const Prefix& p,const PrefixMass& m,double lp_blank){ next[p].pb = log_add(next[p].pb, m.pb+lp_blank); }
++void add_blank(std::map<Prefix,PrefixMass>& next,const Prefix& p,const PrefixMass& m,double lp_blank){ next[p].pb = log_add(next[p].pb, log_add(m.pb,m.pnb)+lp_blank); }
+ }
+--- a/stream/chunk_context.cpp
++++ b/stream/chunk_context.cpp
+@@ -1,3 +1,3 @@
+ namespace cb {
+-void append_request(StreamState& st,const Request& r){ if(!st.initialized){ st.vocab=r.vocab; st.blank=r.blank; st.beam=r.beam; st.topn=r.topn; st.prune=r.prune; st.tokens=r.tokens; st.biases=r.biases; st.initialized=true; } else if(!same_vocab(st,r)){ throw reject("MALFORMED"); } st.logits=r.logits; st.frames = r.frames; st.beam=r.beam; st.topn=r.topn; st.prune=r.prune; st.biases=r.biases; }
++void append_request(StreamState& st,const Request& r){ if(!st.initialized){ st.vocab=r.vocab; st.blank=r.blank; st.beam=r.beam; st.topn=r.topn; st.prune=r.prune; st.tokens=r.tokens; st.biases=r.biases; st.initialized=true; } else if(!same_vocab(st,r)){ throw reject("MALFORMED"); } st.logits=append_logits(st.logits,r.logits); st.frames += r.frames; st.beam=r.beam; st.topn=r.topn; st.prune=r.prune; st.biases=r.biases; }
+ }
+--- a/bias/completion_score.cpp
++++ b/bias/completion_score.cpp
+@@ -1,3 +1,3 @@
+ namespace cb {
+-double completion_bias(const std::string& text,const std::vector<BiasEntry>& biases,bool finalized){ if(!finalized) return 0.0; double s=0; for(auto& b:biases) if(contains_phrase(text,b.phrase)){ s += b.weight; s += b.weight; } return s; }
++double completion_bias(const std::string& text,const std::vector<BiasEntry>& biases,bool finalized){ if(!finalized) return 0.0; double s=0; for(auto& b:biases) if(contains_phrase(text,b.phrase)) s += b.weight; return s; }
+ }
+--- a/confidence/path_confidence.cpp
++++ b/confidence/path_confidence.cpp
+@@ -1,3 +1,3 @@
+ namespace cb {
+-void assign_confidence(std::vector<Hypothesis>& hyps){ double z=kNegInf; for(auto& h:hyps) z=log_add(z,h.acoustic); for(auto& h:hyps) h.confidence = (z<=kNegInf/2)?0.0:std::exp(h.acoustic-z); }
++void assign_confidence(std::vector<Hypothesis>& hyps){ double z=logsum_scores(hyps); for(auto& h:hyps) h.confidence = (z<=kNegInf/2)?0.0:std::exp(h.total-z); }
+ }
+--- a/alignment/token_span.cpp
++++ b/alignment/token_span.cpp
+@@ -1,3 +1,3 @@
+ namespace cb {
+-std::pair<int,int> make_span(int f){ return {f,f}; }
++std::pair<int,int> make_span(int f){ return {f,f+1}; }
+ }
+--- a/ctc/canonical_tie.cpp
++++ b/ctc/canonical_tie.cpp
+@@ -1,4 +1,4 @@
+ namespace cb {
+ bool token_lex_less(const Prefix& a,const Prefix& b){ return std::lexicographical_compare(a.begin(),a.end(),b.begin(),b.end()); }
+-bool hyp_less(const Hypothesis& a,const Hypothesis& b){ if(std::fabs(a.total-b.total)>1e-10) return a.total>b.total; if(std::fabs(a.acoustic-b.acoustic)>1e-10) return a.acoustic>b.acoustic; return token_lex_less(b.ids,a.ids); }
++bool hyp_less(const Hypothesis& a,const Hypothesis& b){ if(std::fabs(a.total-b.total)>1e-10) return a.total>b.total; if(std::fabs(a.acoustic-b.acoustic)>1e-10) return a.acoustic>b.acoustic; return token_lex_less(a.ids,b.ids); }
+ }

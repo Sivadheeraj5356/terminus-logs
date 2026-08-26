@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "created": "2412-03-07T00:00:00Z",
+  "architecture": "relic",
+  "os": "maze",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "catacomb",
+      "relicmaze.torch": "2.0",
+      "relicmaze.keeper_tz_offset_minutes": "180",
+      "relicmaze.goal_room": "forge",
+      "relicmaze.carry_capacity": "120",
+      "org.opencontainers.image.title": "catacomb-vigil"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:44aa55bb66cc77dd88ee99ff00112233445566778899aabbccddeeff00112201"
+    ]
+  },
+  "history": [
+    { "created": "2412-03-07T00:00:01Z", "created_by": "keeper genesis: bind capsule to catacomb" },
+    { "created": "2412-03-07T00:00:02Z", "created_by": "ENV torch_tax=1.0" },
+    { "created": "2412-03-07T00:00:03Z", "created_by": "LABEL omen=\"Bones keep the count.\"" },
+    { "created": "2412-03-07T00:00:04Z", "created_by": "keeper sign: capsule sealed" }
+  ]
+}

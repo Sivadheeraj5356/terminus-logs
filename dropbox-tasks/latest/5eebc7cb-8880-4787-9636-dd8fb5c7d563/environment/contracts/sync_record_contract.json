@@ -1,0 +1,11 @@
+{
+  "graded_path": "/app/output/sync_record.json",
+  "bind_row_material": "grp|key_idx|aad_hex",
+  "cross_aad_payload": "G|g1_prefix|g2_prefix",
+  "record_lines": [
+    "B|grp|key_idx|aad_hex|row_hex",
+    "C|cross_aad_digest",
+    "P|part_sig",
+    "M|case_id|phase"
+  ]
+}

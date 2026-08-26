@@ -1,0 +1,39 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+tags = ["relay", "tcp-pool", "linger", "descriptor-budget", "rust"]
+languages = ["rust", "bash"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = ["tool_specific", "api_integration"]
+expert_time_estimate_min = 150
+junior_time_estimate_min = 420
+
+[category_profile]
+challenge_family = "tcp_pool_linger_descriptor_governor"
+profile_name = "connection_lifecycle"
+allowed_instruction_disclosures = "CLI flags, artifact schemas, descriptor budget symptoms, cross-artifact digests, pool generation, shard profile, exit codes."
+forbidden_instruction_leaks = "pool module path, linger tick implementation, ledger SQL details, decoy lane identity, exact checkout call site."
+category_specific_hardness_bar = "Non-blocking pooled checkout/checkin, linger-before-release ordering, descriptor ceiling governor, cold-idle governance gate, and tri-surface digest agreement must coordinate across pool, linger, ledger, drive, and export layers."
+category_specific_verifier_risks = "Wall-clock idle-close coupling, mock shard startup brittleness, golden digest files, single-file linger patch, checkout bypass without ledger."
+coverage_role = "Adds Rust TCP pooled relay coordination under descriptor budgets distinct from async probe supervision, inode dual-budget retention, and cgroup matrix batching."
+
+[reference_pattern]
+justification_if_none = "No promoted reference for Rust TCP pool linger reconciliation with descriptor-ceiling audit under mock shard idle-close verifier."
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 900
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240

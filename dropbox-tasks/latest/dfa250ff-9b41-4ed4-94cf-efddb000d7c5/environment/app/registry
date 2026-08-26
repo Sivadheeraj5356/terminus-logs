@@ -1,0 +1,19 @@
+#!/bin/bash
+# Build the registry from source and run its CLI.
+#
+#   registry migrate --db /app/data/registry
+#   registry export  --db /app/data/registry --out /app/out/promotion_audit.csv
+#   registry status  --db /app/data/registry
+#
+# The project always builds before it runs, so the CLI reflects the working tree.
+set -euo pipefail
+
+# Resolve the toolchain explicitly: this script must work from any shell, including one
+# that rebuilt PATH from /etc/profile and dropped the image's environment.
+export JAVA_HOME="${JAVA_HOME:-/opt/java/openjdk}"
+export PATH="${JAVA_HOME}/bin:${PATH}"
+export MAVEN_OPTS="${MAVEN_OPTS:--Dmaven.repo.local=/root/.m2/repository}"
+
+cd /app
+mvn -o -q -DskipTests package
+exec java -cp "/app/target/classes:/app/target/lib/*" com.aurora.registry.Main "$@"

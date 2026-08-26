@@ -1,0 +1,94 @@
+{
+  "retrieval_date": "2026-07-17",
+  "sources": [
+    {
+      "title": "Diviner Lunar Radiometer Experiment \u2014 PDS overview excerpt",
+      "canonical_source": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm",
+      "retrieval_date": "2026-07-17",
+      "sha256": "D6190250296B504758F8AADF10C71611CFEC3D715F0322D219EED2C21EB02CA5",
+      "path": "source_snapshots/lunar_thermal/diviner_pds_overview_excerpt.txt",
+      "relevant_sections": [
+        "instrument overview",
+        "thermal channels"
+      ],
+      "supported_local_interpretation": "Restricted offline synthetic model under /app/docs",
+      "intentionally_excluded": [
+        "3D heat transfer",
+        "real mission pipelines",
+        "roughness beaming",
+        "temperature-dependent emissivity"
+      ]
+    },
+    {
+      "title": "Lunar regolith thermophysical modeling notes (source-informed synthetic model)",
+      "canonical_source": "https://doi.org/10.1029/1999JE001083",
+      "retrieval_date": "2026-07-17",
+      "sha256": "3A056BD9A99351E17CCE09DCCA461C9B69688463D7D50D9063F2F8E301551999",
+      "path": "source_snapshots/lunar_thermal/vasavada_style_thermophysics_excerpt.txt",
+      "relevant_sections": [
+        "heat capacity",
+        "conductivity",
+        "surface energy balance"
+      ],
+      "supported_local_interpretation": "Restricted offline synthetic model under /app/docs",
+      "intentionally_excluded": [
+        "3D heat transfer",
+        "real mission pipelines",
+        "roughness beaming",
+        "temperature-dependent emissivity"
+      ]
+    },
+    {
+      "title": "Planck spectral radiance and Stefan\u2013Boltzmann radiation",
+      "canonical_source": "https://en.wikipedia.org/wiki/Planck%27s_law",
+      "retrieval_date": "2026-07-17",
+      "sha256": "406239D6E06DD39160BDF8FE49080597FF33E2E1E51757A93D603B420589DF0A",
+      "path": "source_snapshots/lunar_thermal/planck_stefan_boltzmann_excerpt.txt",
+      "relevant_sections": [
+        "Planck law",
+        "Stefan\u2013Boltzmann"
+      ],
+      "supported_local_interpretation": "Restricted offline synthetic model under /app/docs",
+      "intentionally_excluded": [
+        "3D heat transfer",
+        "real mission pipelines",
+        "roughness beaming",
+        "temperature-dependent emissivity"
+      ]
+    },
+    {
+      "title": "Lunar geothermal heat-flux assumptions (synthetic)",
+      "canonical_source": "https://doi.org/10.1029/JB082i020p03057",
+      "retrieval_date": "2026-07-17",
+      "sha256": "13F9D660DA4A64AC71AED792908E67450DCC15C7C4C30CD2BDF2CD20ABD2B75F",
+      "path": "source_snapshots/lunar_thermal/lunar_geothermal_flux_excerpt.txt",
+      "relevant_sections": [
+        "basal heat flux"
+      ],
+      "supported_local_interpretation": "Restricted offline synthetic model under /app/docs",
+      "intentionally_excluded": [
+        "3D heat transfer",
+        "real mission pipelines",
+        "roughness beaming",
+        "temperature-dependent emissivity"
+      ]
+    },
+    {
+      "title": "Synthetic partial-eclipse transmission forcing",
+      "canonical_source": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_eclipse.html",
+      "retrieval_date": "2026-07-17",
+      "sha256": "37A4B6F1148E07393EB1EEB6007AAC6D032CC38EC8D27F45CFB9F31A93576B42",
+      "path": "source_snapshots/lunar_thermal/synthetic_eclipse_forcing_excerpt.txt",
+      "relevant_sections": [
+        "eclipse transmission"
+      ],
+      "supported_local_interpretation": "Restricted offline synthetic model under /app/docs",
+      "intentionally_excluded": [
+        "3D heat transfer",
+        "real mission pipelines",
+        "roughness beaming",
+        "temperature-dependent emissivity"
+      ]
+    }
+  ]
+}

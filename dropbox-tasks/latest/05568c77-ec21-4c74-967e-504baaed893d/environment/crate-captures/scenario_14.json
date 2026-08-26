@@ -1,0 +1,23 @@
+{
+  "scenario_id": "scenario_14",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "lit",
+      "version": "1.0.0",
+      "features": [
+        "feat:unresolved"
+      ],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "edges": [],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

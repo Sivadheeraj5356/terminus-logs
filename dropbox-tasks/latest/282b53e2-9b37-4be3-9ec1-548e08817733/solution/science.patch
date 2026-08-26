@@ -1,0 +1,572 @@
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/campaign/PlayDriver.java /tmp/tmpqvq6lpfy/b/src/nxq/campaign/PlayDriver.java
+--- a/src/nxq/campaign/PlayDriver.java
++++ b/src/nxq/campaign/PlayDriver.java
+@@ -9,6 +9,7 @@
+ import nxq.util.Io;
+ import java.nio.file.*;
+ import java.util.*;
++
+ public final class PlayDriver {
+   public static void main(String[] args) throws Exception {
+     if (args.length < 2) throw new IllegalArgumentException("root out required");
+@@ -23,70 +24,71 @@
+     Files.createDirectories(out.resolve("transcripts"));
+     Files.createDirectories(out.resolve("state"));
+ 
++    Chambers.clearCache();
+     Chambers hz = Chambers.load(root);
+     SaveLog journal = new SaveLog(out.resolve("state/replay.journal"));
+-    journal.load();
+-    journal.validateCommittedHistory();
++    try {
++      journal.load();
++      journal.validateCommittedHistory();
++    } catch (IllegalStateException ex) {
++      System.err.println(ex.getMessage());
++      System.exit(2);
++      return;
++    }
+ 
++    journal.rewrite(normalizeSaveLog(journal.lines(), hz.generation));
+     CaseRoster plan = CaseRoster.build(root, out, hz, journal);
+     BoardOut.writeEpoch(out, hz.generation);
+ 
+     int events = 0;
+-    List<Map<String, String>> manifestCases = new ArrayList<>();
++    if (journal.lines().stream().noneMatch(l -> l.startsWith("GEN|"))) {
++      events += append(journal, "GEN|" + hz.generation, stopAfter, events);
++    }
+ 
+-    // Always rewrite GEN without reconciling prior commits.
+-    if (journal.size() == 0) {
+-      journal.append("GEN|" + hz.generation);
+-      events++;
+-      if (stopAfter != null && events >= stopAfter) return;
++    List<String> withoutEnd = new ArrayList<>();
++    for (String l : journal.lines()) {
++      if (!"END".equals(l)) withoutEnd.add(l);
+     }
++    if (withoutEnd.size() != journal.lines().size()) journal.rewrite(withoutEnd);
+ 
++    Map<String, Map<String, String>> manifestMap = new LinkedHashMap<>();
+     for (CaseRoster.CaseWork cw : plan.cases) {
+-      if (cw.reuse) {
+-        String existing = Io.read(out.resolve("transcripts").resolve(cw.id + ".json"));
+-        String status = existing.contains("\"status\": \"WIN\"") ? "WIN"
+-            : existing.contains("\"status\": \"LOSE\"") ? "LOSE" : "PARTIAL";
+-        String score = "0";
+-        int si = existing.indexOf("\"score\": ");
+-        if (si >= 0) {
+-          int e = existing.indexOf(",", si);
+-          score = existing.substring(si + 9, e).trim();
+-        }
+-        Map<String, String> row = new LinkedHashMap<>();
+-        row.put("case_id", cw.id);
+-        row.put("moves_fp", cw.fp);
+-        row.put("generation", hz.generation);
+-        row.put("status", status);
+-        row.put("score", score);
+-        manifestCases.add(row);
+-        continue;
+-      }
++      if (!cw.reuse) continue;
++      String existing = Io.read(out.resolve("transcripts").resolve(cw.id + ".json"));
++      Map<String, String> row = new LinkedHashMap<>();
++      row.put("case_id", cw.id);
++      row.put("moves_fp", cw.fp);
++      row.put("generation", hz.generation);
++      row.put("status", extract(existing, "status"));
++      row.put("score", extractNum(existing, "score"));
++      manifestMap.put(cw.id, row);
++    }
+ 
+-      journal.append("START|" + cw.id + "|" + cw.fp + "|" + hz.generation);
+-      events++;
+-      if (stopAfter != null && events >= stopAfter) return;
++    for (CaseRoster.CaseWork cw : plan.cases) {
++      if (cw.reuse) continue;
++      Files.deleteIfExists(out.resolve("transcripts").resolve(cw.id + ".json"));
++      events += append(journal, "START|" + cw.id + "|" + cw.fp + "|" + hz.generation, stopAfter, events);
+ 
+       List<String> moves = Io.filteredMoves(cw.moves);
+       Adventure adv = new Adventure(hz);
+       int seq = 0;
+       for (String cmd : moves) {
+-        adv.apply(cmd);
++        boolean counted = adv.apply(cmd);
++        if (!counted) break;
+         seq++;
+-        journal.append("EVT|" + cw.id + "|" + seq + "|" + cmd);
+-        events++;
+-        if (stopAfter != null && events >= stopAfter) return;
++        events += append(journal, "EVT|" + cw.id + "|" + seq + "|" + cmd, stopAfter, events);
++        if (adv.exited) break;
+       }
+       String status = adv.status();
+       int score = adv.score();
+-      journal.append("FIN|" + cw.id + "|" + status + "|" + score + "|" + String.join(",", adv.violations));
+-      events++;
+-      if (stopAfter != null && events >= stopAfter) return;
+-
+-      String json = Transcript.json(cw.id, moves, adv, hz);
+-      BoardOut.writeTranscript(out, cw.id, json);
+-      journal.append("COMMIT|" + cw.id);
+-      events++;
+-      if (stopAfter != null && events >= stopAfter) return;
++      events += append(
++          journal,
++          "FIN|" + cw.id + "|" + status + "|" + score + "|" + String.join(",", adv.violations),
++          stopAfter,
++          events);
++
++      BoardOut.writeTranscript(out, cw.id, Transcript.json(cw.id, moves, adv, hz));
++      events += append(journal, "COMMIT|" + cw.id, stopAfter, events);
+ 
+       Map<String, String> row = new LinkedHashMap<>();
+       row.put("case_id", cw.id);
+@@ -94,11 +96,90 @@
+       row.put("generation", hz.generation);
+       row.put("status", status);
+       row.put("score", Integer.toString(score));
+-      manifestCases.add(row);
++      manifestMap.put(cw.id, row);
+     }
+ 
++    Set<String> keep = new LinkedHashSet<>();
++    List<Map<String, String>> ordered = new ArrayList<>();
++    for (CaseRoster.CaseWork cw : plan.cases) {
++      keep.add(cw.id);
++      if (!manifestMap.containsKey(cw.id)) {
++        BoardOut.pruneTranscripts(out, existingIds(out));
++        return;
++      }
++      ordered.add(manifestMap.get(cw.id));
++    }
+     journal.append("END");
+-    BoardOut.writeManifest(out, Manifest.render(hz.generation, manifestCases));
+-    BoardOut.pruneTranscripts(out, Set.of());
++    BoardOut.pruneTranscripts(out, keep);
++    BoardOut.writeManifest(out, Manifest.render(hz.generation, ordered));
++  }
++
++  private static int append(SaveLog journal, String rec, Integer stopAfter, int events) throws Exception {
++    journal.append(rec);
++    int next = events + 1;
++    if (stopAfter != null && next >= stopAfter) System.exit(0);
++    return 1;
++  }
++
++  private static List<String> normalizeSaveLog(List<String> lines, String generation) {
++    List<String> out = new ArrayList<>();
++    String openCase = null;
++    int openAt = -1;
++    for (String line : lines) {
++      String[] p = line.split("\\|", -1);
++      if ("GEN".equals(p[0])) {
++        if (!generation.equals(p[1])) {
++          out.clear();
++          openCase = null;
++          openAt = -1;
++          continue;
++        }
++        out.add(line);
++      } else if ("START".equals(p[0])) {
++        openCase = p[1];
++        openAt = out.size();
++        out.add(line);
++      } else if ("COMMIT".equals(p[0])) {
++        out.add(line);
++        if (openCase != null && openCase.equals(p[1])) {
++          openCase = null;
++          openAt = -1;
++        }
++      } else {
++        out.add(line);
++      }
++    }
++    if (openCase != null && openAt >= 0) {
++      return new ArrayList<>(out.subList(0, openAt));
++    }
++    return out;
++  }
++
++  private static Set<String> existingIds(Path out) throws Exception {
++    Set<String> ids = new HashSet<>();
++    Path dir = out.resolve("transcripts");
++    if (!Files.isDirectory(dir)) return ids;
++    try (DirectoryStream<Path> ds = Files.newDirectoryStream(dir, "*.json")) {
++      for (Path p : ds) ids.add(p.getFileName().toString().replace(".json", ""));
++    }
++    return ids;
++  }
++
++  private static String extract(String json, String key) {
++    String needle = "\"" + key + "\": \"";
++    int i = json.indexOf(needle);
++    if (i < 0) return "";
++    int s = i + needle.length();
++    return json.substring(s, json.indexOf('"', s));
++  }
++
++  private static String extractNum(String json, String key) {
++    String needle = "\"" + key + "\": ";
++    int i = json.indexOf(needle);
++    if (i < 0) return "0";
++    int s = i + needle.length();
++    int e = s;
++    while (e < json.length() && (Character.isDigit(json.charAt(e)) || json.charAt(e) == '-')) e++;
++    return json.substring(s, e);
+   }
+ }
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/hazards/Chambers.java /tmp/tmpqvq6lpfy/b/src/nxq/hazards/Chambers.java
+--- a/src/nxq/hazards/Chambers.java
++++ b/src/nxq/hazards/Chambers.java
+@@ -7,48 +7,48 @@
+   public final String generation;
+   public final SortedSet<String> watches;
+   public final SortedSet<String> leaks;
+-  private static Chambers CACHED;
+ 
+   private Chambers(String g, SortedSet<String> w, SortedSet<String> l) {
+     this.generation = g; this.watches = w; this.leaks = l;
+   }
+ 
+   public static Chambers load(Path root) throws Exception {
+-    if (CACHED != null) return CACHED;
+     Path watch = root.resolve("traces/watch-chambers.log");
+     Path scrub = root.resolve("traces/scrub-chambers.txt");
+-    Path policy = root.resolve("policy/packaging-note.txt");
+-    String pol = Files.exists(policy) ? Io.read(policy) : "";
+-    SortedSet<String> watches = new TreeSet<>();
+-    SortedSet<String> leaks = new TreeSet<>();
+-    if (!pol.contains("IGNORE_SENSOR_HAZARDS=1")) {
+-      watches.addAll(scanWatch(Io.read(watch)));
+-    }
+-    leaks.addAll(scanScrub(Io.read(scrub)));
++    SortedSet<String> watches = new TreeSet<>(scanWatch(Io.read(watch)));
++    SortedSet<String> leaks = new TreeSet<>(scanScrub(Io.read(scrub)));
+     byte[] a = Io.readBytes(watch);
+     byte[] b = Io.readBytes(scrub);
+     byte[] joined = new byte[a.length + 1 + b.length];
+     System.arraycopy(a, 0, joined, 0, a.length);
+     joined[a.length] = '\n';
+     System.arraycopy(b, 0, joined, a.length + 1, b.length);
+-    String gen = Io.sha16(joined);
+-    CACHED = new Chambers(gen, watches, leaks);
+-    return CACHED;
++    return new Chambers(Io.sha16(joined), watches, leaks);
+   }
+ 
+-  public static void clearCache() { CACHED = null; }
++  public static void clearCache() { /* no process cache */ }
+ 
+   static Set<String> scanWatch(String text) {
+-    Set<String> w = new LinkedHashSet<>();
+-    for (String line : text.split("\n")) {
++    Map<String, Boolean> state = new LinkedHashMap<>();
++    for (String line : text.split("\n", -1)) {
+       if (line.contains("kind=\"watch\"") && line.contains("room=\"")) {
+-        Matcher m = Pattern.compile("room=\"([a-z]+)\"").matcher(line);
+-        if (m.find()) w.add(m.group(1));
++        Matcher rm = Pattern.compile("room=\"([a-z]+)\"").matcher(line);
++        if (!rm.find()) continue;
++        String room = rm.group(1);
++        boolean primed = line.contains("primed=\"true\"");
++        boolean unprimed = line.contains("primed=\"false\"");
++        if (primed) state.put(room, Boolean.FALSE);
++        else if (unprimed) state.put(room, Boolean.TRUE);
++        else state.put(room, Boolean.TRUE);
+       }
+       Matcher prose = Pattern.compile("The ([a-z]+) room is watched").matcher(line);
+-      if (prose.find()) w.add(prose.group(1));
++      if (prose.find()) state.put(prose.group(1), Boolean.TRUE);
++    }
++    Set<String> out = new LinkedHashSet<>();
++    for (Map.Entry<String, Boolean> e : state.entrySet()) {
++      if (Boolean.TRUE.equals(e.getValue())) out.add(e.getKey());
+     }
+-    return w;
++    return out;
+   }
+ 
+   static Set<String> scanScrub(String text) {
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/play/Adventure.java /tmp/tmpqvq6lpfy/b/src/nxq/play/Adventure.java
+--- a/src/nxq/play/Adventure.java
++++ b/src/nxq/play/Adventure.java
+@@ -20,14 +20,11 @@
+   }
+ 
+   public boolean apply(String cmd) {
+-    if (exited) {
+-      applied++;
+-      return true;
+-    }
+-    applied++;
++    if (exited) return false;
+     String[] p = cmd.split("\\s+");
+     String op = p[0];
+     if ("MOVE".equals(op) && p.length > 1) {
++      applied++;
+       String dest = p[1];
+       if (!Rooms.edge(room, dest)) {
+         violations.add("invalid:" + dest);
+@@ -35,8 +32,6 @@
+       }
+       if (hz.watches.contains(dest) && !sealed.contains(dest)) {
+         violations.add("watch:" + dest);
+-        room = dest;
+-        visited.add(dest);
+         return true;
+       }
+       room = dest;
+@@ -44,27 +39,35 @@
+       return true;
+     }
+     if ("TAKE".equals(op) && p.length > 1) {
+-      inventory.add(p[1]);
++      applied++;
++      String item = p[1];
++      if ("torch".equals(item) && "atrium".equals(room)) inventory.add(item);
++      else if ("patch".equals(item) && "buffer".equals(room)) inventory.add(item);
++      else if ("key".equals(item) && "canary".equals(room) && !violations.contains("watch:canary")) inventory.add(item);
+       return true;
+     }
+     if ("DROP".equals(op) && p.length > 1) {
++      applied++;
++      inventory.remove(p[1]);
+       return true;
+     }
+     if ("WAIT".equals(op)) {
++      applied++;
+       latch.onWait(room, inventory);
+       return true;
+     }
+     if ("SEAL".equals(op) && p.length > 1) {
++      applied++;
+       latch.trySeal(p[1], inventory, sealed);
+       return true;
+     }
+     if ("SCRUB".equals(op) && p.length > 1) {
+-      if ("leak".equals(p[1]) && "leak".equals(room) && inventory.contains("torch")) {
+-        scrubbed.add("leak");
+-      }
++      applied++;
++      if ("leak".equals(p[1]) && "leak".equals(room) && inventory.contains("torch")) scrubbed.add("leak");
+       return true;
+     }
+     if ("EXIT".equals(op)) {
++      applied++;
+       List<String> unpaid = new ArrayList<>();
+       for (String r : hz.leaks) {
+         if (visited.contains(r) && !scrubbed.contains(r)) unpaid.add(r);
+@@ -75,6 +78,7 @@
+       exited = true;
+       return true;
+     }
++    applied++;
+     return true;
+   }
+ 
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/play/Latch.java /tmp/tmpqvq6lpfy/b/src/nxq/play/Latch.java
+--- a/src/nxq/play/Latch.java
++++ b/src/nxq/play/Latch.java
+@@ -2,10 +2,10 @@
+ public final class Latch {
+   public boolean armed;
+   public void onWait(String room, java.util.Set<String> inv) {
+-    if (inv.contains("patch")) armed = true;
++    if ("buffer".equals(room) && inv.contains("patch")) armed = true;
+   }
+   public boolean trySeal(String target, java.util.Set<String> inv, java.util.Set<String> sealed) {
+-    if ("canary".equals(target) && inv.contains("patch")) {
++    if ("canary".equals(target) && armed && inv.contains("patch")) {
+       sealed.add("canary");
+       return true;
+     }
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/play/PlayHash.java /tmp/tmpqvq6lpfy/b/src/nxq/play/PlayHash.java
+--- a/src/nxq/play/PlayHash.java
++++ b/src/nxq/play/PlayHash.java
+@@ -7,13 +7,19 @@
+   public static String compute(String caseId, List<String> moves, Adventure adv, Chambers hz) throws Exception {
+     List<String> inv = new ArrayList<>(adv.inventory);
+     Collections.sort(inv);
++    List<String> w = new ArrayList<>(hz.watches);
++    Collections.sort(w);
++    List<String> l = new ArrayList<>(hz.leaks);
++    Collections.sort(l);
+     String pre = String.join("\n",
+         caseId,
+         String.join("\n", moves),
+         adv.status(),
+         String.join(">", adv.visited),
+         String.join(",", inv),
+-        String.join(",", adv.violations));
++        String.join(",", adv.violations),
++        "W:" + String.join(",", w),
++        "L:" + String.join(",", l));
+     return Io.sha16(pre);
+   }
+ }
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/roster/CaseRoster.java /tmp/tmpqvq6lpfy/b/src/nxq/roster/CaseRoster.java
+--- a/src/nxq/roster/CaseRoster.java
++++ b/src/nxq/roster/CaseRoster.java
+@@ -21,6 +21,23 @@
+   public CaseRoster(Chambers hz) { this.hz = hz; }
+ 
+   public static CaseRoster build(Path root, Path out, Chambers hz, SaveLog journal) throws Exception {
++    Map<String, String[]> open = new HashMap<>();
++    Map<String, String[]> meta = new HashMap<>();
++    Set<String> ok = new HashSet<>();
++    String journalGen = null;
++    for (String line : journal.lines()) {
++      String[] p = line.split("\\|", -1);
++      if ("GEN".equals(p[0])) journalGen = p[1];
++      else if ("START".equals(p[0])) open.put(p[1], new String[]{p[2], p[3]});
++      else if ("COMMIT".equals(p[0])) {
++        String id = p[1];
++        if (open.containsKey(id)) {
++          meta.put(id, open.remove(id));
++          ok.add(id);
++        }
++      }
++    }
++
+     CaseRoster plan = new CaseRoster(hz);
+     Path casesDir = root.resolve("cases");
+     List<Path> files = new ArrayList<>();
+@@ -28,14 +45,21 @@
+       for (Path p : ds) files.add(p);
+     }
+     files.sort(Comparator.comparing(p -> p.getFileName().toString()));
+-    Path transcripts = out.resolve("transcripts");
+     for (Path moves : files) {
+       String id = moves.getFileName().toString().replace(".moves", "");
+       List<String> lines = Io.filteredMoves(moves);
+       String fp = Io.movesFp(lines);
+       CaseWork cw = new CaseWork(id, moves, fp);
+-      Path t = transcripts.resolve(id + ".json");
+-      cw.reuse = Files.exists(t);
++      Path t = out.resolve("transcripts").resolve(id + ".json");
++      String[] m = meta.get(id);
++      cw.reuse = ok.contains(id)
++          && journalGen != null
++          && hz.generation.equals(journalGen)
++          && m != null
++          && fp.equals(m[0])
++          && hz.generation.equals(m[1])
++          && Files.exists(t)
++          && Io.read(t).contains("\"generation\": \"" + hz.generation + "\"");
+       plan.cases.add(cw);
+     }
+     return plan;
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/savelog/SaveLog.java /tmp/tmpqvq6lpfy/b/src/nxq/savelog/SaveLog.java
+--- a/src/nxq/savelog/SaveLog.java
++++ b/src/nxq/savelog/SaveLog.java
+@@ -1,5 +1,4 @@
+ package nxq.savelog;
+-import nxq.util.Io;
+ import java.io.*;
+ import java.nio.charset.StandardCharsets;
+ import java.nio.file.*;
+@@ -18,20 +17,22 @@
+     if (text.isEmpty()) return;
+     boolean trailingNl = text.endsWith("\n");
+     String[] parts = text.split("\n", -1);
+-    int n = parts.length;
+-    if (!trailingNl && n > 0) {
++    int limit = parts.length;
++    if (!trailingNl) {
++      // Discard truncated final line.
++      limit = Math.max(0, parts.length - 1);
+     }
+-    for (int i = 0; i < n; i++) {
+-      if (i == n - 1 && !trailingNl && parts[i].isEmpty()) continue;
+-      if (i == n - 1 && !trailingNl) { lines.add(parts[i]); continue; }
+-      if (!parts[i].isEmpty() || i < n - 1) {
+-        if (!(i == n - 1 && parts[i].isEmpty() && trailingNl)) lines.add(parts[i]);
+-      }
++    for (int i = 0; i < limit; i++) {
++      if (!parts[i].isEmpty()) lines.add(parts[i]);
+     }
+-    while (!lines.isEmpty() && lines.get(lines.size() - 1).isEmpty()) lines.remove(lines.size() - 1);
+   }
+ 
+   public void validateCommittedHistory() {
++    for (int i = 0; i < lines.size(); i++) {
++      if (looksCorrupt(lines.get(i))) {
++        throw new IllegalStateException("journal corruption at line " + (i + 1));
++      }
++    }
+   }
+ 
+   public List<String> lines() { return lines; }
+@@ -50,7 +51,11 @@
+     lines.clear();
+     lines.addAll(next);
+     Files.createDirectories(path.getParent());
+-    Files.write(path, String.join("\n", next).concat(next.isEmpty() ? "" : "\n").getBytes(StandardCharsets.UTF_8));
++    if (next.isEmpty()) {
++      Files.write(path, new byte[0]);
++    } else {
++      Files.write(path, (String.join("\n", next) + "\n").getBytes(StandardCharsets.UTF_8));
++    }
+   }
+ 
+   public int size() { return lines.size(); }
+@@ -58,7 +63,6 @@
+   public static boolean looksCorrupt(String line) {
+     if (line == null || line.isEmpty()) return true;
+     String[] p = line.split("\\|", -1);
+-    if (p.length < 1) return true;
+     switch (p[0]) {
+       case "GEN": return p.length != 2;
+       case "START": return p.length != 4;
+diff -u -N -r /tmp/tmpqvq6lpfy/a/src/nxq/scoreboard/BoardOut.java /tmp/tmpqvq6lpfy/b/src/nxq/scoreboard/BoardOut.java
+--- a/src/nxq/scoreboard/BoardOut.java
++++ b/src/nxq/scoreboard/BoardOut.java
+@@ -1,22 +1,41 @@
+ package nxq.scoreboard;
+-import nxq.util.Io;
++import java.nio.charset.StandardCharsets;
+ import java.nio.file.*;
+ import java.util.*;
+ public final class BoardOut {
+   private BoardOut() {}
+ 
++  private static void atomicWrite(Path target, String content) throws Exception {
++    Files.createDirectories(target.getParent());
++    Path tmp = target.resolveSibling(target.getFileName().toString() + ".tmp");
++    Files.writeString(tmp, content, StandardCharsets.UTF_8);
++    try {
++      Files.move(tmp, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
++    } catch (Exception ex) {
++      Files.move(tmp, target, StandardCopyOption.REPLACE_EXISTING);
++    }
++  }
++
+   public static void writeTranscript(Path out, String caseId, String json) throws Exception {
+-    Io.write(out.resolve("transcripts").resolve(caseId + ".json"), json);
++    atomicWrite(out.resolve("transcripts").resolve(caseId + ".json"), json);
+   }
+ 
+   public static void writeEpoch(Path out, String generation) throws Exception {
+-    Io.write(out.resolve("state/hazard.epoch"), generation + "\n");
++    atomicWrite(out.resolve("state/hazard.epoch"), generation + "\n");
+   }
+ 
+   public static void writeManifest(Path out, String json) throws Exception {
+-    Io.write(out.resolve("batch.manifest.json"), json);
++    atomicWrite(out.resolve("batch.manifest.json"), json);
+   }
+ 
+   public static void pruneTranscripts(Path out, Set<String> keepIds) throws Exception {
++    Path dir = out.resolve("transcripts");
++    if (!Files.isDirectory(dir)) return;
++    try (DirectoryStream<Path> ds = Files.newDirectoryStream(dir, "*.json")) {
++      for (Path p : ds) {
++        String id = p.getFileName().toString().replace(".json", "");
++        if (!keepIds.contains(id)) Files.deleteIfExists(p);
++      }
++    }
+   }
+ }

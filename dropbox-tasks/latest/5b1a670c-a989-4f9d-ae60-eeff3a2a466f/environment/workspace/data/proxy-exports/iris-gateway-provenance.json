@@ -1,0 +1,492 @@
+{
+  "export_meta": {
+    "proxy_id": "iris-private-east",
+    "exported_at": "2025-06-18T14:22:11Z",
+    "format_rev": "proxy-nested-7",
+    "root_module": "github.com/iris-labs/gateway",
+    "root_version": "v1.4.2"
+  },
+  "retract_queue": [
+    {
+      "module_path": "github.com/iris-labs/legacy-cache",
+      "version": "v0.3.1",
+      "reason": "superseded"
+    }
+  ],
+  "exclude_queue": [
+    {
+      "module_path": "github.com/iris-labs/telemetry-stub",
+      "version": "v0.1.0"
+    },
+    {
+      "module_path": "golang.org/x/net",
+      "version": "v0.17.0"
+    }
+  ],
+  "module_index": {
+    "github.com/iris-labs/gateway": {
+      "selected_version": "v1.4.2",
+      "versions": {
+        "v1.4.2": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/gateway/cmd/ctl",
+              "version": "v1.4.2",
+              "checksum": "h1:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "requires": [],
+              "replaces": [],
+              "go_version": "1.88.0"
+            },
+            {
+              "path": "github.com/iris-labs/gateway",
+              "version": "v1.4.2",
+              "checksum": "h1:8f3c2a1b9e0d4c7a6f5e3d2c1b0a9f8e7d6c5b4a39281706f5e4d3c2b1a0f9e8",
+              "requires": [
+                {
+                  "path": "github.com/iris-labs/authkit",
+                  "version": "v0.9.1"
+                },
+                {
+                  "path": "golang.org/x/crypto",
+                  "version": "v0.12.0"
+                },
+                {
+                  "path": "golang.org/x/net",
+                  "version": "v0.17.0"
+                },
+                {
+                  "path": "github.com/iris-labs/telemetry",
+                  "version": "v0.2.0+incompatible"
+                },
+                {
+                  "path": "github.com/iris-labs/telemetry-stub",
+                  "version": "v0.1.0"
+                },
+                {
+                  "path": "golang.org/x/mod",
+                  "version": "v0.12.0",
+                  "toolchain": true
+                },
+                {
+                  "path": "golang.org/x/text",
+                  "version": "v0.13.0",
+                  "development": true
+                },
+                {
+                  "path": "github.com/iris-labs/test-harness",
+                  "version": "v0.5.0",
+                  "test": true
+                },
+                {
+                  "path": "github.com/iris-labs/metrics-bridge",
+                  "version": "v0.4.0",
+                  "toolchain": false,
+                  "development": false,
+                  "indirect": false,
+                  "test": false
+                }
+              ],
+              "replaces": [
+                {
+                  "old_path": "golang.org/x/net",
+                  "old_version": "v0.17.0",
+                  "new_path": "golang.org/x/net",
+                  "new_version": "v0.21.0"
+                },
+                {
+                  "old_path": "golang.org/x/net",
+                  "old_version": "v0.17.0",
+                  "new_path": "golang.org/x/net",
+                  "new_version": "v0.99.0"
+                },
+                {
+                  "old_path": "golang.org/x/net",
+                  "old_version": "v0.16.0",
+                  "new_path": "golang.org/x/net",
+                  "new_version": "v0.88.0"
+                },
+                {
+                  "old_path": "golang.org/x/sys",
+                  "old_version": "v0.1.0",
+                  "new_path": "golang.org/x/sys",
+                  "new_version": "v0.15.0"
+                }
+              ],
+              "go_version": "1.99.0"
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/authkit": {
+      "selected_version": "v0.9.1",
+      "versions": {
+        "v0.9.1": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/authkit",
+              "version": "v0.9.1",
+              "checksum": "h1:a1b2c3d4e5f60718293a4b5c6d7e8f901234567890abcdef1234567890abcd",
+              "requires": [
+                {
+                  "path": "github.com/iris-labs/legacy-cache",
+                  "version": "v0.3.1"
+                },
+                {
+                  "path": "golang.org/x/crypto",
+                  "version": "v0.14.0"
+                }
+              ],
+              "replaces": [
+                {
+                  "old_path": "github.com/iris-labs/legacy-cache",
+                  "old_version": "v0.3.1",
+                  "new_path": "github.com/iris-labs/cache-modern",
+                  "new_version": "v2.0.0"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/cache-modern": {
+      "selected_version": "v2.0.0",
+      "versions": {
+        "v2.0.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/cache-modern",
+              "version": "v2.0.0",
+              "checksum": "h1:cacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaca",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/legacy-cache": {
+      "selected_version": "v0.3.1",
+      "versions": {
+        "v0.3.1": {
+          "go_version": "1.21.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/legacy-cache",
+              "version": "v0.3.1",
+              "checksum": "h1:deadbeefcafebabe0123456789abcdef0123456789abcdef0123456789abcdef",
+              "requires": [
+                {
+                  "path": "github.com/iris-labs/cache-shim",
+                  "version": "v1.0.0"
+                }
+              ],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/cache-shim": {
+      "selected_version": "v1.0.0",
+      "versions": {
+        "v1.0.0": {
+          "go_version": "1.21.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/cache-shim",
+              "version": "v1.0.0",
+              "checksum": "h1:1111111111111111111111111111111111111111111111111111111111111111",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/debug-tools": {
+      "selected_version": "v9.9.9",
+      "versions": {
+        "v9.9.9": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/debug-tools",
+              "version": "v9.9.9",
+              "checksum": "h1:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/metrics-bridge": {
+      "selected_version": "v0.4.0",
+      "versions": {
+        "v0.4.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/metrics-bridge",
+              "version": "v0.4.0",
+              "checksum": "h1:sha256:b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/test-harness": {
+      "selected_version": "v0.5.0",
+      "versions": {
+        "v0.5.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/test-harness",
+              "version": "v0.5.0",
+              "checksum": "h1:5555555555555555555555555555555555555555555555555555555555555555",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/telemetry-stub": {
+      "selected_version": "v0.1.0",
+      "versions": {
+        "v0.1.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/telemetry-stub",
+              "version": "v0.1.0",
+              "checksum": "h1:9999999999999999999999999999999999999999999999999999999999999999",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "golang.org/x/mod": {
+      "selected_version": "v0.12.0",
+      "versions": {
+        "v0.12.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/mod",
+              "version": "v0.12.0",
+              "checksum": "h1:6666666666666666666666666666666666666666666666666666666666666666",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "golang.org/x/sys": {
+      "selected_version": "v0.15.0",
+      "versions": {
+        "v0.1.0": {
+          "go_version": "1.21.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/sys",
+              "version": "v0.1.0",
+              "checksum": "h1:7777777777777777777777777777777777777777777777777777777777777777",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        },
+        "v0.15.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/sys",
+              "version": "v0.15.0",
+              "checksum": "h1:8888888888888888888888888888888888888888888888888888888888888888",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "golang.org/x/crypto": {
+      "selected_version": "v0.14.0",
+      "versions": {
+        "v0.14.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/crypto",
+              "version": "v0.14.0",
+              "checksum": "sha256:fefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefe",
+              "published_sum": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        },
+        "v0.12.0": {
+          "go_version": "1.21.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/crypto",
+              "version": "v0.12.0",
+              "checksum": "h1:1212121212121212121212121212121212121212121212121212121212121212",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "golang.org/x/net": {
+      "selected_version": "v0.21.0",
+      "versions": {
+        "v0.17.0": {
+          "go_version": "1.21.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/net",
+              "version": "v0.17.0",
+              "checksum": "h1:1717171717171717171717171717171717171717171717171717171717171717",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        },
+        "v0.21.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/net",
+              "version": "v0.21.0",
+              "checksum": "h1:0101010101010101010101010101010101010101010101010101010101010101",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        },
+        "v0.99.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/net",
+              "version": "v0.99.0",
+              "checksum": "h1:9999999999999999999999999999999999999999999999999999999999999999",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        },
+        "v0.88.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/net",
+              "version": "v0.88.0",
+              "checksum": "h1:8888888888888888888888888888888888888888888888888888888888888888",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "github.com/iris-labs/telemetry": {
+      "selected_version": "v0.2.0",
+      "versions": {
+        "v0.2.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "github.com/iris-labs/telemetry",
+              "version": "v0.2.0+incompatible",
+              "checksum": "h1:abababababababababababababababababababababababababababababababab",
+              "requires": [
+                {
+                  "path": "github.com/iris-labs/authkit",
+                  "version": "v0.9.1",
+                  "indirect": true
+                }
+              ],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    },
+    "golang.org/x/text": {
+      "selected_version": "v0.13.0",
+      "versions": {
+        "v0.13.0": {
+          "go_version": "1.22.0",
+          "sumdb": "sum.golang.org",
+          "units": [
+            {
+              "path": "golang.org/x/text",
+              "version": "v0.13.0",
+              "checksum": "h1:1313131313131313131313131313131313131313131313131313131313131313",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    }
+  },
+  "noise_footer": {
+    "mirror_status": "ok",
+    "cache_generation": 42
+  },
+  "shadow_index": {
+    "github.com/iris-labs/shadow-root": {
+      "selected_version": "v9.9.9",
+      "versions": {
+        "v9.9.9": {
+          "go_version": "1.22.0",
+          "units": [
+            {
+              "path": "github.com/iris-labs/shadow-root",
+              "version": "v9.9.9",
+              "checksum": "h1:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "requires": [],
+              "replaces": []
+            }
+          ]
+        }
+      }
+    }
+  }
+}

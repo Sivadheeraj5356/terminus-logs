@@ -1,0 +1,8 @@
+{
+  "beacon_id": "NB-105",
+  "sequence": 813,
+  "zone": "outer-harbor",
+  "drift_meters": 62.8,
+  "battery_percent": 31,
+  "recorded_at_utc": "2026-07-05T04:21:00Z"
+}

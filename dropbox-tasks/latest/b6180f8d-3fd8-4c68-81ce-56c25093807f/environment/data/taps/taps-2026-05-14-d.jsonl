@@ -1,0 +1,3 @@
+{"tap_id":"t010","rider_id":"R102","service_date":"2026-05-14","tapped_at":"2026-05-14T13:20:00-04:00","route_id":"R2","station_id":"S101","direction":"south","device_status":"accepted"}
+{"tap_id":"t011","rider_id":"R102","service_date":"2026-05-14","tapped_at":"2026-05-14T16:20:00-04:00","route_id":"N1","station_id":"S102","direction":"late","device_status":"accepted"}
+{"tap_id":"t012","rider_id":"R102","service_date":"2026-05-14","tapped_at":"2026-05-14T17:00:00-04:00","route_id":"R1","station_id":"S999","direction":"north","device_status":"accepted"}

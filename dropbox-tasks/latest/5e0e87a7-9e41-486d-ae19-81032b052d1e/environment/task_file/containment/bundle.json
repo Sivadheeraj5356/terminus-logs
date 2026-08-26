@@ -1,0 +1,406 @@
+{
+  "policy": {
+    "evaluation_time": "2026-05-17T13:00:00Z",
+    "required_families": [
+      "malware",
+      "c2",
+      "credential"
+    ],
+    "family_scores": {
+      "malware": 5,
+      "c2": 4,
+      "credential": 3,
+      "lateral": 2,
+      "persistence": 2,
+      "exfil": 4
+    },
+    "threshold": 12,
+    "review_budget": 9,
+    "outage_budget": 7,
+    "rule_slot_budget": 5,
+    "min_distinct_owners": 3,
+    "deny_tag_prefixes": [
+      "lab:",
+      "decommissioned:"
+    ],
+    "allowed_owners": [
+      "edr",
+      "netops",
+      "identity",
+      "soc-lead",
+      "dns",
+      "cloud"
+    ],
+    "escalation_outage_threshold": 5,
+    "tie_mode": "risk_then_cost",
+    "family_min_confidence": {
+      "malware": 90,
+      "c2": 80,
+      "credential": 90,
+      "lateral": 50,
+      "persistence": 50,
+      "exfil": 70
+    },
+    "owner_review_caps": {
+      "soc-lead": 4,
+      "netops": 3
+    },
+    "max_actions_per_owner": 1,
+    "zone_blast_radius_budget": {
+      "prod": 8,
+      "corp": 5
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "host-alpha",
+      "zone": "prod",
+      "criticality": 7,
+      "detected_at": "2026-05-17T12:10:00Z",
+      "tags": [
+        "tier:web",
+        "region:use1"
+      ]
+    },
+    {
+      "asset_id": "host-beta",
+      "zone": "prod",
+      "criticality": 9,
+      "detected_at": "2026-05-17T12:20:00Z",
+      "tags": [
+        "tier:api",
+        "region:use1"
+      ]
+    },
+    {
+      "asset_id": "host-gamma",
+      "zone": "corp",
+      "criticality": 8,
+      "detected_at": "2026-05-17T12:25:00Z",
+      "tags": [
+        "lab:malware-range",
+        "region:use1"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "alpha-dns",
+      "asset_id": "host-alpha",
+      "action_type": "dns_sinkhole",
+      "families": [
+        "c2"
+      ],
+      "owner": "dns",
+      "review_minutes": 1,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod",
+        "corp"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "c2": 100
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "alpha-edr",
+      "asset_id": "host-alpha",
+      "action_type": "edr_kill",
+      "families": [
+        "malware",
+        "persistence"
+      ],
+      "owner": "edr",
+      "review_minutes": 2,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "malware": 100,
+        "persistence": 100
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "alpha-id",
+      "asset_id": "host-alpha",
+      "action_type": "disable_user",
+      "families": [
+        "credential"
+      ],
+      "owner": "identity",
+      "review_minutes": 2,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "credential": 100
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "alpha-isolate",
+      "asset_id": "host-alpha",
+      "action_type": "isolate_vlan",
+      "families": [
+        "malware",
+        "c2",
+        "credential",
+        "lateral"
+      ],
+      "owner": "netops",
+      "review_minutes": 3,
+      "outage_units": 6,
+      "rule_slots": 2,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [
+        "alpha-dns"
+      ],
+      "family_confidence": {
+        "malware": 100,
+        "c2": 100,
+        "credential": 100,
+        "lateral": 100
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "alpha-mgr",
+      "asset_id": "host-alpha",
+      "action_type": "management_approval",
+      "families": [],
+      "owner": "soc-lead",
+      "review_minutes": 4,
+      "outage_units": 0,
+      "rule_slots": 0,
+      "valid_from": "2026-05-17T12:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {},
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "beta-dns",
+      "asset_id": "host-beta",
+      "action_type": "dns_sinkhole",
+      "families": [
+        "c2"
+      ],
+      "owner": "dns",
+      "review_minutes": 1,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "c2": 45
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "beta-edr",
+      "asset_id": "host-beta",
+      "action_type": "edr_kill",
+      "families": [
+        "malware",
+        "persistence"
+      ],
+      "owner": "edr",
+      "review_minutes": 2,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "malware": 95,
+        "persistence": 60
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "beta-id",
+      "asset_id": "host-beta",
+      "action_type": "disable_user",
+      "families": [
+        "credential"
+      ],
+      "owner": "identity",
+      "review_minutes": 2,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "credential": 95
+      },
+      "requires_any": [],
+      "requires_all_action_types": [
+        "edr_kill"
+      ],
+      "blast_radius": 1
+    },
+    {
+      "action_id": "beta-cloud",
+      "asset_id": "host-beta",
+      "action_type": "cloud_sg_block",
+      "families": [
+        "exfil",
+        "c2"
+      ],
+      "owner": "cloud",
+      "review_minutes": 3,
+      "outage_units": 2,
+      "rule_slots": 2,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "exfil": 75,
+        "c2": 45
+      },
+      "requires_any": [
+        [
+          "beta-dns",
+          "beta-isolate"
+        ]
+      ],
+      "requires_all_action_types": [],
+      "blast_radius": 2
+    },
+    {
+      "action_id": "beta-isolate",
+      "asset_id": "host-beta",
+      "action_type": "isolate_vlan",
+      "families": [
+        "malware",
+        "c2",
+        "credential",
+        "lateral"
+      ],
+      "owner": "netops",
+      "review_minutes": 2,
+      "outage_units": 6,
+      "rule_slots": 2,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "prod"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [
+        "beta-cloud"
+      ],
+      "family_confidence": {
+        "malware": 100,
+        "c2": 100,
+        "credential": 100,
+        "lateral": 100
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 9
+    },
+    {
+      "action_id": "beta-mgr",
+      "asset_id": "host-beta",
+      "action_type": "management_approval",
+      "families": [],
+      "owner": "soc-lead",
+      "review_minutes": 4,
+      "outage_units": 0,
+      "rule_slots": 0,
+      "valid_from": "2026-05-17T12:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {},
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 0
+    },
+    {
+      "action_id": "gamma-edr",
+      "asset_id": "host-gamma",
+      "action_type": "edr_kill",
+      "families": [
+        "malware",
+        "c2",
+        "credential"
+      ],
+      "owner": "edr",
+      "review_minutes": 1,
+      "outage_units": 1,
+      "rule_slots": 1,
+      "valid_from": "2026-05-17T11:00:00Z",
+      "expires_at": null,
+      "allowed_zones": [
+        "corp"
+      ],
+      "blocked_tag_prefixes": [],
+      "conflicts_with": [],
+      "family_confidence": {
+        "malware": 100,
+        "c2": 100,
+        "credential": 100
+      },
+      "requires_any": [],
+      "requires_all_action_types": [],
+      "blast_radius": 1
+    }
+  ]
+}

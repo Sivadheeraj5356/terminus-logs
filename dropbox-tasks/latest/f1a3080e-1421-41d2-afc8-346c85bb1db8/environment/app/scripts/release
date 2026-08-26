@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+# Vellum release orchestrator. Produces a qualification bundle from a source
+# root. See docs/release-contract.md for the public contract.
+set -euo pipefail
+
+export CARGO_HOME="${CARGO_HOME:-/usr/local/cargo}"
+export PATH="$CARGO_HOME/bin:$PATH"
+
+SELF="$(cd "$(dirname "$0")" && pwd)"
+DEFAULT_ROOT="$(cd "$SELF/.." && pwd)"
+
+SOURCE_ROOT="$DEFAULT_ROOT"
+OUTPUT="/output/release"
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --source-root) SOURCE_ROOT="$2"; shift 2 ;;
+        --output) OUTPUT="$2"; shift 2 ;;
+        *) echo "release: unknown argument $1" >&2; exit 2 ;;
+    esac
+done
+
+SOURCE_ROOT="$(cd "$SOURCE_ROOT" && pwd)"
+mkdir -p "$OUTPUT"
+OUTPUT="$(cd "$OUTPUT" && pwd)"
+cd "$SOURCE_ROOT"
+
+rm -rf "$OUTPUT"
+mkdir -p "$OUTPUT/native" "$OUTPUT/python" "$OUTPUT/node" "$OUTPUT/metadata"
+
+# --- Build release tooling ------------------------------------------------
+cargo build --release -p planctl -p idlgen -p inventory-tool -p attest >/dev/null
+TOOLS="$SOURCE_ROOT/target/release"
+
+# --- Resolve the plan -----------------------------------------------------
+PLAN_JSON="$("$TOOLS/planctl" resolve --root "$SOURCE_ROOT")"
+VERSION="$(printf '%s' "$PLAN_JSON" | jq -r .version)"
+REVISION="$(printf '%s' "$PLAN_JSON" | jq -r .revision)"
+EPOCH="$(printf '%s' "$PLAN_JSON" | jq -r .epoch)"
+CAPS="$(printf '%s' "$PLAN_JSON" | jq -r '.capabilities | join(",")')"
+FEATURES="$("$TOOLS/planctl" features --root "$SOURCE_ROOT")"
+
+# --- Interface generation -------------------------------------------------
+GEN="$SOURCE_ROOT/target/gen"
+rm -rf "$GEN"; mkdir -p "$GEN"
+STATE="$SOURCE_ROOT/.state/seed-index.json"
+GEN_VER="$(jq -r '.generated_from_version // ""' "$STATE" 2>/dev/null || echo "")"
+if [ "$GEN_VER" = "$VERSION" ]; then
+    cp "$SOURCE_ROOT/generated/checked-in/"* "$GEN/"
+else
+    "$TOOLS/idlgen" --idl "$SOURCE_ROOT/interface/document.idl" --out-dir "$GEN" >/dev/null
+    printf '{"generated_from_version":"%s","idl_seen":"interface/document.idl","stage_epoch":%s}\n' \
+        "$VERSION" "$EPOCH" > "$STATE"
+fi
+ABI="$(sha256sum "$GEN/abi.json" | awk '{print $1}')"
+
+# --- Dependency inventory -------------------------------------------------
+"$TOOLS/inventory" --root "$SOURCE_ROOT" > "$OUTPUT/metadata/dependency-inventory.json"
+CLOSURE="$(jq -r .closure_digest "$OUTPUT/metadata/dependency-inventory.json")"
+
+# --- Native library + CLI -------------------------------------------------
+export VELLUM_VERSION="$VERSION"
+export VELLUM_REVISION="$REVISION"
+export VELLUM_ABI_FINGERPRINT="$ABI"
+export VELLUM_DEP_CLOSURE="$CLOSURE"
+export VELLUM_DECLARED_CAPS="$CAPS"
+
+FEATFLAG=""
+if [ -n "$FEATURES" ]; then
+    FEATFLAG="--features ${FEATURES// /,}"
+fi
+
+export RUSTFLAGS="-C debuginfo=2"
+# shellcheck disable=SC2086
+cargo build --release -p bridge -p vellum-cli --no-default-features $FEATFLAG >/dev/null
+cp "$SOURCE_ROOT/target/release/libvellum.so" "$OUTPUT/native/libvellum.so"
+
+"$SOURCE_ROOT/target/release/vellum-cli" identity > "$SOURCE_ROOT/target/identity.json"
+
+# --- Python wheel ---------------------------------------------------------
+python3 "$SOURCE_ROOT/python/build_backend.py" \
+    --source-root "$SOURCE_ROOT" \
+    --out "$OUTPUT/python" \
+    --native "$SOURCE_ROOT/target/release/libvellum.so" \
+    --version "$VERSION" \
+    --epoch "$EPOCH" \
+    --features "$FEATURES" >/dev/null
+
+# --- Node package ---------------------------------------------------------
+NODE_STAGE="$SOURCE_ROOT/target/node-stage"
+rm -rf "$NODE_STAGE"; mkdir -p "$NODE_STAGE/package"
+bash "$SOURCE_ROOT/node/scripts/build.sh" "$SOURCE_ROOT" "$NODE_STAGE/package" "$GEN" "$FEATURES"
+bash "$SOURCE_ROOT/node/scripts/pack.sh" "$NODE_STAGE" "$OUTPUT/node/vellum-node-$VERSION.tgz" "$EPOCH"
+
+# --- Provenance and finalization ------------------------------------------
+WHEEL="$(ls "$OUTPUT/python"/*.whl | head -n1)"
+TGZ="$OUTPUT/node/vellum-node-$VERSION.tgz"
+
+"$TOOLS/attest" \
+    --identity "$SOURCE_ROOT/target/identity.json" \
+    --output-root "$OUTPUT" \
+    --subject "native/libvellum.so" \
+    --subject "python/$(basename "$WHEEL")" \
+    --subject "node/$(basename "$TGZ")" \
+    --subject "metadata/dependency-inventory.json" \
+    --out "$OUTPUT/metadata/provenance.json"
+
+objcopy --remove-section .note.gnu.build-id "$OUTPUT/native/libvellum.so" 2>/dev/null || true
+
+openssl pkeyutl -sign \
+    -inkey "$SOURCE_ROOT/policy/qualification-ed25519.key" \
+    -rawin -in "$OUTPUT/metadata/provenance.json" \
+    -out "$OUTPUT/metadata/provenance.sig"
+cp "$SOURCE_ROOT/policy/qualification-ed25519.pub" "$OUTPUT/metadata/release-public.pem"
+
+# --- SHA256SUMS -----------------------------------------------------------
+( cd "$OUTPUT"
+  find . -type f ! -name SHA256SUMS -print0 \
+    | sort -z \
+    | while IFS= read -r -d '' f; do
+        rel="${f#./}"
+        printf '%s  %s\n' "$(sha256sum "$f" | awk '{print $1}')" "$rel"
+      done > SHA256SUMS )
+
+echo "release complete: $OUTPUT"

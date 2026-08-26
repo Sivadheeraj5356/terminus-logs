@@ -1,0 +1,252 @@
+--- dynscan/encoding_probe.cpp	2026-07-16 20:05:52.002253783 +0530
++++ b/dynscan/encoding_probe.cpp
+@@ -1,11 +1,67 @@
+ #include "encoding_probe.hpp"
+ #include "elf_helper.hpp"
++#include <cstring>
++#include <vector>
+ 
+ namespace reloc {
+ 
+ EncodingProfile probe_encoding_profile(const std::string& path) {
+-    (void)path;
+-    return EncodingProfile::UNKNOWN;
++    Elf64_Ehdr ehdr;
++    if (!elf::read_elf_header(path, ehdr)) {
++        return EncodingProfile::UNKNOWN;
++    }
++
++    std::vector<Elf64_Shdr> shdrs;
++    if (!elf::read_section_headers(path, ehdr, shdrs)) {
++        return EncodingProfile::UNKNOWN;
++    }
++
++    std::vector<char> shstrtab;
++    if (!elf::read_section_names(path, ehdr, shdrs, shstrtab)) {
++        return EncodingProfile::UNKNOWN;
++    }
++
++    int dynsym_idx = elf::find_section_by_name(".dynsym", shdrs, shstrtab);
++    uint32_t num_syms = 0;
++    if (dynsym_idx != -1) {
++        num_syms = shdrs[dynsym_idx].sh_size / sizeof(Elf64_Sym);
++    }
++
++    int rela_dyn_idx = elf::find_section_by_name(".rela.dyn", shdrs, shstrtab);
++    int rela_plt_idx = elf::find_section_by_name(".rela.plt", shdrs, shstrtab);
++
++    int target_idx = (rela_dyn_idx != -1) ? rela_dyn_idx : rela_plt_idx;
++    if (target_idx == -1) {
++        return EncodingProfile::ALPHA;
++    }
++
++    std::vector<uint8_t> data;
++    if (!elf::read_section_data(path, shdrs[target_idx], data)) {
++        return EncodingProfile::UNKNOWN;
++    }
++
++    if (data.size() >= 8) {
++        uint32_t magic = 0;
++        std::memcpy(&magic, data.data(), 4);
++        if (magic == 0x474D524C) {
++            return EncodingProfile::GAMMA;
++        }
++    }
++
++    if (data.size() >= sizeof(Elf64_Rela)) {
++        size_t num_relocs = data.size() / sizeof(Elf64_Rela);
++        const Elf64_Rela* relocs = reinterpret_cast<const Elf64_Rela*>(data.data());
++        for (size_t i = 0; i < num_relocs; ++i) {
++            uint64_t r_info = relocs[i].r_info;
++            uint32_t r_type = r_info & 0xFFFFFFFF;
++            uint32_t r_sym = r_info >> 32;
++            if (r_type > 42 || (num_syms > 0 && r_sym >= num_syms)) {
++                return EncodingProfile::BETA;
++            }
++        }
++    }
++
++    return EncodingProfile::ALPHA;
+ }
+ 
+ } // namespace reloc
+--- relmask/cipher_unmask.cpp	2026-07-16 20:05:52.003760084 +0530
++++ b/relmask/cipher_unmask.cpp
+@@ -1,13 +1,37 @@
+ #include "cipher_unmask.hpp"
+ #include "elf_helper.hpp"
++#include <iostream>
++#include <vector>
+ 
+ namespace reloc {
+ 
+ bool unmask_cipher_beta_section(const std::string& path, const Elf64_Shdr& shdr, uint32_t num_syms) {
+-    (void)path;
+-    (void)shdr;
+     (void)num_syms;
+-    return false;
++    std::vector<uint8_t> data;
++    if (!elf::read_section_data(path, shdr, data)) {
++        return false;
++    }
++
++    if (data.size() % sizeof(Elf64_Rela) != 0) {
++        std::cerr << "Error: Section size is not a multiple of Elf64_Rela" << std::endl;
++        return false;
++    }
++
++    size_t num_entries = data.size() / sizeof(Elf64_Rela);
++    Elf64_Rela* relocs = reinterpret_cast<Elf64_Rela*>(data.data());
++
++    for (size_t i = 0; i < num_entries; ++i) {
++        uint64_t r_info = relocs[i].r_info;
++        uint32_t r_sym_scrambled = r_info >> 32;
++        uint32_t r_type_scrambled = r_info & 0xFFFFFFFF;
++
++        uint32_t r_sym = r_sym_scrambled ^ 0x2A3B4C5D;
++        uint32_t r_type = r_type_scrambled ^ 0x7E;
++
++        relocs[i].r_info = (static_cast<uint64_t>(r_sym) << 32) | r_type;
++    }
++
++    return elf::write_section_data(path, shdr, data);
+ }
+ 
+ } // namespace reloc
+--- sectok/envelope_unpack.cpp	2026-07-16 20:05:52.005170763 +0530
++++ b/sectok/envelope_unpack.cpp
+@@ -1,12 +1,69 @@
+ #include "envelope_unpack.hpp"
+ #include "elf_helper.hpp"
++#include <cstring>
++#include <iostream>
++#include <vector>
+ 
+ namespace reloc {
+ 
+ bool unpack_envelope_gamma_section(const std::string& path, const Elf64_Shdr& shdr) {
+-    (void)path;
+-    (void)shdr;
+-    return false;
++    std::vector<uint8_t> data;
++    if (!elf::read_section_data(path, shdr, data)) {
++        return false;
++    }
++
++    if (data.size() < 8) {
++        return true;
++    }
++
++    uint32_t magic = 0;
++    uint32_t num_entries = 0;
++    std::memcpy(&magic, data.data(), 4);
++    std::memcpy(&num_entries, data.data() + 4, 4);
++
++    if (magic != 0x474D524C) {
++        return true;
++    }
++
++    std::vector<Elf64_Rela> unpacked(num_entries);
++    const uint8_t* packed_ptr = data.data() + 8;
++
++    for (uint32_t i = 0; i < num_entries; ++i) {
++        if (static_cast<size_t>((packed_ptr - data.data()) + 16) > data.size()) {
++            std::cerr << "Error: Packed stream out of bounds" << std::endl;
++            return false;
++        }
++
++        uint32_t r_offset_lo = 0;
++        uint32_t sym_idx = 0;
++        int32_t addend = 0;
++        uint8_t r_type = 0;
++
++        std::memcpy(&r_offset_lo, packed_ptr, 4);
++        std::memcpy(&sym_idx, packed_ptr + 4, 4);
++        std::memcpy(&addend, packed_ptr + 8, 4);
++        std::memcpy(&r_type, packed_ptr + 12, 1);
++
++        uint64_t r_offset = static_cast<uint64_t>(r_offset_lo);
++        uint64_t r_info = (static_cast<uint64_t>(sym_idx) << 32) | r_type;
++        int64_t r_addend = static_cast<int64_t>(addend);
++
++        unpacked[i].r_offset = r_offset;
++        unpacked[i].r_info = r_info;
++        unpacked[i].r_addend = r_addend;
++
++        packed_ptr += 16;
++    }
++
++    std::vector<uint8_t> new_data(shdr.sh_size, 0);
++    size_t bytes_to_copy = num_entries * sizeof(Elf64_Rela);
++    if (bytes_to_copy > shdr.sh_size) {
++        std::cerr << "Error: Unpacked relocations exceed section size" << std::endl;
++        return false;
++    }
++
++    std::memcpy(new_data.data(), unpacked.data(), bytes_to_copy);
++    return elf::write_section_data(path, shdr, new_data);
+ }
+ 
+ } // namespace reloc
+--- bindflow/witness_router.cpp	2026-07-16 20:05:52.006416368 +0530
++++ b/bindflow/witness_router.cpp
+@@ -3,12 +3,57 @@
+ #include "cipher_unmask.hpp"
+ #include "envelope_unpack.hpp"
+ #include "elf_helper.hpp"
++#include <iostream>
++#include <vector>
+ 
+ namespace reloc {
+ 
+ bool bind_relocation_witness(const std::string& path) {
+-    (void)path;
+-    return false;
++    EncodingProfile profile = probe_encoding_profile(path);
++    if (profile == EncodingProfile::UNKNOWN) {
++        std::cerr << "Error: Unknown encoding profile" << std::endl;
++        return false;
++    }
++
++    if (profile == EncodingProfile::ALPHA) {
++        std::cout << "Library is witness-ready (Alpha). No bind needed." << std::endl;
++        return true;
++    }
++
++    Elf64_Ehdr ehdr;
++    if (!elf::read_elf_header(path, ehdr)) return false;
++
++    std::vector<Elf64_Shdr> shdrs;
++    if (!elf::read_section_headers(path, ehdr, shdrs)) return false;
++
++    std::vector<char> shstrtab;
++    if (!elf::read_section_names(path, ehdr, shdrs, shstrtab)) return false;
++
++    int dynsym_idx = elf::find_section_by_name(".dynsym", shdrs, shstrtab);
++    uint32_t num_syms = 0;
++    if (dynsym_idx != -1) {
++        num_syms = shdrs[dynsym_idx].sh_size / sizeof(Elf64_Sym);
++    }
++
++    std::vector<std::string> target_sections = {".rela.dyn", ".rela.plt"};
++
++    for (const auto& sec_name : target_sections) {
++        int sec_idx = elf::find_section_by_name(sec_name, shdrs, shstrtab);
++        if (sec_idx == -1) continue;
++
++        const auto& shdr = shdrs[sec_idx];
++        if (profile == EncodingProfile::BETA) {
++            if (!unmask_cipher_beta_section(path, shdr, num_syms)) {
++                return false;
++            }
++        } else if (profile == EncodingProfile::GAMMA) {
++            if (!unpack_envelope_gamma_section(path, shdr)) {
++                return false;
++            }
++        }
++    }
++
++    return true;
+ }
+ 
+ } // namespace reloc

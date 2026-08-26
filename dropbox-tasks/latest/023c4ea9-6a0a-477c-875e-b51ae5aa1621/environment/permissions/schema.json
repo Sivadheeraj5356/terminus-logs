@@ -1,0 +1,4 @@
+{
+  "constraints": "order, src_level, dst_level, action",
+  "usage": "from, to, hits"
+}

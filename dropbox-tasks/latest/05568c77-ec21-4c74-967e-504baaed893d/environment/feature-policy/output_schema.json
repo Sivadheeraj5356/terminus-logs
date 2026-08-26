@@ -1,0 +1,78 @@
+{
+  "output_path": "/app/build/feature_resolution_report.json",
+  "format_version": 3,
+  "build_command": "make build from /app writes /app/build/featrecon only",
+  "run_command": "make run from /app rebuilds if needed and writes the report",
+  "root_keys": [
+    "format_version",
+    "capture_digest",
+    "capture_chain_tail",
+    "manifest_payload_len",
+    "manifest_payload_len_le",
+    "bundled_payload_len",
+    "bundled_payload_len_le",
+    "scenarios"
+  ],
+  "scenario_status_enum": ["CLEAN", "CONFLICT"],
+  "scenario_row_keys": [
+    "scenario_id",
+    "status",
+    "duplicate_edges_skipped",
+    "frames_rejected",
+    "truncated_tail",
+    "edges_traversed",
+    "conflict_rejection_count",
+    "conflict_rows_purged",
+    "scenario_payload_digest",
+    "scenario_payload_crc32",
+    "scenario_payload_len",
+    "scenario_payload_plus",
+    "partial_feature_literals",
+    "wire_reserved",
+    "resolved_crates",
+    "runtime_feature_set",
+    "feature_conflicts"
+  ],
+  "status_rules": {
+    "CLEAN": "feature_conflicts array is empty",
+    "CONFLICT": "at least one feature_conflicts row exists"
+  },
+  "json_encoding": {
+    "separators": [",", ":"],
+    "ensure_ascii": false,
+    "trailing_newline": true,
+    "no_null_values": true,
+    "byte_identical_on_repeat_run": true
+  },
+  "resolved_crate_fields": [
+    "crate_key",
+    "crate",
+    "version",
+    "depth",
+    "source",
+    "active_features"
+  ],
+  "conflict_fields": [
+    "crate",
+    "selected_version",
+    "rejected_versions",
+    "resolution_reason",
+    "severity"
+  ],
+  "source_enum": ["declared", "workspace_declared", "workspace", "transitive"],
+  "runtime_feature_set": {
+    "type": "array",
+    "entry_format": "bare_crate_key",
+    "entry_example": "serde_json:1.0.0",
+    "not_allowed": ["crate_key/feature", "feature_only", "coordinate_without_version"],
+    "sort": "crate_key_ascending",
+    "include_crate_when_dev": "every target_triple passing crate even if active_features is empty after filtering",
+    "include_crate_when_release": "at least one non dev_only feature remains after release stripping and target_triple filtering"
+  },
+  "resolved_crates_note": "resolved_crates keeps every traversed crate with full active_features arrays sorted ascending. runtime_feature_set is crate keys only.",
+  "partial_feature_literals": {
+    "counts": "active_features entries starting with feat:",
+    "see": "conflict_lifecycle.json"
+  },
+  "digest_fields": "see digest_encoding.json"
+}

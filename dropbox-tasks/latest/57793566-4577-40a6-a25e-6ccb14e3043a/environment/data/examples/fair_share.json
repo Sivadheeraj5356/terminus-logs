@@ -1,0 +1,55 @@
+{
+  "budgets": {},
+  "events": [
+    {
+      "job": "a0",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 1
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 2
+    },
+    {
+      "job": "blk",
+      "op": "submit",
+      "owner": "C",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 9,
+      "seq": 3
+    },
+    {
+      "job": "a1",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 4
+    },
+    {
+      "job": "b1",
+      "op": "submit",
+      "owner": "B",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 5,
+      "seq": 5
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 6
+    }
+  ],
+  "printers": [
+    "p1"
+  ],
+  "spool": "fair_share"
+}

@@ -1,0 +1,10 @@
+{
+  "serial": "SER-REVOKED",
+  "tree_size": 8,
+  "leaf_index": 1,
+  "path": [
+    "9ca9ddf95892fdee8bcb57c00fed378180b8b68c7d61df5bb188fe2eb3ddf111",
+    "2119154421ef6b0ca72e2857640dac23e1b94e4f16adf022ffce6adaf71ea5af",
+    "42101598f22aabb36c7817effae203180836cb780a0b52b36cf1d4b851d77a9a"
+  ]
+}

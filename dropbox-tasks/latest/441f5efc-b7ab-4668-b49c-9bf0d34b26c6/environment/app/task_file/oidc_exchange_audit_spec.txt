@@ -1,0 +1,332 @@
+# OIDC Exchange Audit Spec
+
+This document is the normative protocol contract for `/app/task_file/src/token_audit.go`.
+
+## CLI contract
+
+- The program runs only as `--input <case-file> --output <report-file>`.
+- The argument order is fixed.
+- Missing, reordered, repeated, or extra arguments are errors.
+- On CLI argument errors, exit nonzero and do not create or modify the output file.
+- On invalid input syntax or any other visible-contract parse failure, exit nonzero and do not create or modify the output file.
+
+## Input format
+
+Input is whitespace-separated text in this order:
+
+- `OIDC_EXCHANGE_AUDIT version`
+- `NOW now_ts`
+- `ISSUERS n` then `ISSUER issuer_id skew_seconds`
+- `KEYS n` then `KEY key_id issuer_id alg not_before not_after status`
+- `CLIENTS n` then `CLIENT client_id issuer_id status tier max_ttl require_pkce require_dpop grants_csv audiences_csv`
+- `RESOURCES n` then `RESOURCE audience min_tier scopes_csv`
+- `POLICY max_exchange_depth max_chain_lifetime`
+- `EVENTS n` then event rows
+- for version `2` and later, `RETRACTIONS n` then `RETRACT event_id`
+- `REMEDIATION max_actions max_impact min_confidence`
+- `ACTIONS n` then `ACTION action_id type target impact confidence`
+- `ACTION_CONFLICTS n` then `ACTION_CONFLICT action_id_a action_id_b`
+- `ACTION_PREREQUISITES n` then `ACTION_PREREQ child_action_id parent_action_id`
+- for version `3` only, `ACTION_TYPE_LIMITS n` then `ACTION_TYPE_LIMIT action_type limit`
+- for version `3` only, `PLAN_TUNING covered_client_penalty covered_root_penalty`
+- for version `3` only, `ACTION_BONUSES n` then `ACTION_BONUS action_id_a action_id_b delta`
+- `END`
+
+Version is `1`, `2`, or `3`. Version `1` has no `RETRACTIONS`. Version `3` keeps every version `2` rule and adds the extra remediation sections above.
+
+IDs have no spaces. Integers are signed decimal. CSV fields are comma-separated or `-`. `status` is `active`, `disabled`, or `retired`. All yes/no fields are lowercase.
+
+`POLICY` fields:
+
+- `max_exchange_depth`: maximum allowed resulting depth for an accepted `EXCHANGE`
+- `max_chain_lifetime`: maximum allowed resulting expiry relative to the root mint timestamp
+
+Event rows start with:
+
+`EVENT event_id ts shard seq client_id subject op`
+
+Operation suffixes:
+
+- `MINT jti key_id alg grant audience scopes_csv ttl pkce dpop nonce`
+- `EXCHANGE jti parent_jti key_id alg audience scopes_csv ttl dpop nonce`
+- `REVOKE jti`
+
+Compatible cases do not reuse a `jti` in separate non-retracted token-creation rows unless the earlier creation was rejected.
+
+## Replay order and retractions
+
+- Before replay, version `2` and version `3` retractions remove every event row whose `event_id` is listed.
+- Retracted rows do not change state, do not count as duplicates, and do not appear in `rejected`.
+- Sort remaining rows by `(ts, shard, seq, event_id)`, using ordinary string comparison for `shard` and `event_id`.
+- Duplicate event IDs are gated after sorting. The later duplicate is rejected with only `duplicate_event` and has no effect.
+
+## Token creation validation
+
+For non-duplicate `MINT` and `EXCHANGE`, emit all applicable reasons in this order:
+
+`unknown_client`, `client_disabled`, `unknown_key`, `key_inactive`, `alg_mismatch`, `unknown_resource`, `tier_insufficient`, `grant_not_allowed`, `audience_not_allowed`, `scope_not_allowed`, `ttl_exceeded`, `pkce_required`, `dpop_required`, `parent_missing`, `parent_inactive`, `subject_mismatch`, `scope_escalation`, `depth_exceeded`, `chain_expiry_exceeded`, `replay_nonce`
+
+Reasons are additive.
+
+Skip only checks whose object is missing:
+
+- client checks require a known client
+- key activity requires a known key
+- resource tier/scope checks require a known resource
+- parent activity, subject, and scope-escalation checks require a known parent token
+
+Validation rules:
+
+- A client is usable only when status is `active`.
+- A key is active only when it exists, status is `active`, its issuer matches the known client issuer, and `not_before - issuer.skew_seconds <= ts <= not_after + issuer.skew_seconds`.
+- Still emit `alg_mismatch` for a known key with the wrong algorithm.
+- A resource requires `client.tier >= resource.min_tier`.
+- `MINT` uses its event grant. `EXCHANGE` uses literal grant `exchange`.
+- Grant and audience must be allowed on the client.
+- Requested scopes must be a subset of resource scopes.
+- `ttl_exceeded` means `ttl > client.max_ttl`.
+- `pkce_required` applies only to `MINT`.
+- `dpop_required` applies to both token-creation ops.
+
+`EXCHANGE` parent rules:
+
+- parent token must exist
+- parent token must not be revoked
+- the exchange event timestamp must satisfy `ts < parent.expires_at`
+- client and subject must match the parent token
+- requested scopes must be a subset of parent scopes
+- resulting depth is `parent.depth + 1`; reject with `depth_exceeded` when it exceeds `max_exchange_depth`
+- resulting expiry is `ts + ttl`; reject with `chain_expiry_exceeded` when it is greater than `parent.root_issued_at + max_chain_lifetime`
+
+Nonce replay:
+
+- nonce replay is tracked per `(client_id, subject)`
+- only previously accepted `MINT` and `EXCHANGE` rows reserve nonces
+- nonce `-` is ignored
+- rejected rows do not reserve nonces
+
+## Revoke validation
+
+For non-duplicate `REVOKE`, emit all applicable reasons in this order:
+
+`unknown_client`, `token_missing`, `subject_mismatch`
+
+Definitions:
+
+- `token_missing` means the target `jti` has no accepted token.
+- `subject_mismatch` means the token exists but its client or subject differs from the revoke row.
+
+A successful revoke marks the token revoked. Revoking an already revoked token is a valid no-op.
+
+## Token state and risk
+
+Accepted `MINT` and `EXCHANGE` rows create tokens with `expires_at = ts + ttl`.
+
+Accepted token lineage state:
+
+- accepted `MINT` creates a root token with:
+  - `root_jti = jti`
+  - `depth = 0`
+  - `root_issued_at = ts`
+  - `root_grant = grant`
+  - `root_pkce_gap = (pkce == "no")`
+  - `lineage_weak_dpop = (dpop == "no")`
+- accepted `EXCHANGE` inherits from its accepted parent:
+  - `root_jti = parent.root_jti`
+  - `depth = parent.depth + 1`
+  - `root_issued_at = parent.root_issued_at`
+  - `root_grant = parent.root_grant`
+  - `root_pkce_gap = parent.root_pkce_gap`
+  - `lineage_weak_dpop = parent.lineage_weak_dpop or (dpop == "no")`
+
+Expiry is exclusive, so a token is active at `NOW` only when:
+
+- `NOW < expires_at`
+- the token is not revoked
+
+Store scopes sorted.
+
+Token risk formula:
+
+`ttl + 5 * scope_count + 10 * resource.min_tier + grant_bonus + dpop_penalty + pkce_penalty + 15 * depth + root_grant_penalty + lineage_dpop_penalty + root_pkce_penalty`
+
+Grant bonus:
+
+- `100` for `password`
+- `25` for `client_credentials`
+- `40` for `exchange`
+- `10` otherwise
+
+Penalties:
+
+- DPoP penalty is `40` when event `dpop` is `no`
+- PKCE penalty is `20` only for `MINT` with `pkce` `no`
+- Root-grant penalty is:
+  - `35` when `root_grant` is `password`
+  - `15` when `root_grant` is `client_credentials`
+  - `0` otherwise
+- Lineage DPoP penalty is `20` when `lineage_weak_dpop` is true
+- Root PKCE penalty is `10` when `root_pkce_gap` is true
+
+## Remediation actions
+
+Action IDs are unique.
+
+Allowed action types:
+
+- `REVOKE_TOKEN`
+- `REVOKE_LINEAGE`
+- `DISABLE_CLIENT`
+- `RETIRE_KEY`
+- `QUARANTINE_SUBJECT`
+- `LIMIT_AUDIENCE`
+
+Coverage for active tokens:
+
+- `REVOKE_TOKEN` matches `jti`
+- `REVOKE_LINEAGE` matches the targeted accepted token plus every active accepted descendant in its exchange lineage
+- `DISABLE_CLIENT` matches client
+- `RETIRE_KEY` matches key
+- `QUARANTINE_SUBJECT` matches subject
+- `LIMIT_AUDIENCE` matches audience
+
+Action conflicts are symmetric.
+Action prerequisites are directed.
+
+Version `3` planning metadata:
+
+- `ACTION_TYPE_LIMIT` is a final selected-action cap for that action type.
+- `PLAN_TUNING` adds two score penalties:
+  - `covered_client_penalty` multiplies the number of distinct clients among active covered tokens
+  - `covered_root_penalty` multiplies the number of distinct root tokens among active covered tokens
+- `ACTION_BONUS` is an additive score adjustment applied exactly once when both listed actions are selected. Deltas may be negative.
+
+After active tokens are known, reject actions with all applicable reasons in this order:
+
+`unknown_action_type`, `unknown_target`, `no_active_coverage`, `low_confidence`, `impact_exceeds_budget`
+
+Rules:
+
+- target checks are skipped only for unknown action types
+- `unknown_target` means absent accepted token, client, key, or resource for the corresponding type, or no accepted token ever used that subject for `QUARANTINE_SUBJECT`
+- `no_active_coverage` means the target exists but covers no active token
+- `low_confidence` means `confidence < min_confidence`
+- `impact_exceeds_budget` means `impact > max_impact`
+- rejected actions cannot be selected
+
+## Remediation planning
+
+A remediation plan may select only deployable actions, with all of these constraints:
+
+- at most `max_actions`
+- total impact at most `max_impact`
+- no selected conflict pair
+- if an action is selected, every direct and transitive prerequisite action must also be selected
+
+Additional prerequisite rules:
+
+- prerequisites reference declared action IDs
+- compatible cases use an acyclic prerequisite graph
+- rejected actions can never satisfy prerequisites
+- a selected prerequisite still counts toward `max_actions` and total impact
+- version `3` action-type limits are checked after prerequisite closure on the final selected set
+
+The empty plan is valid.
+
+Base plan score is the sum of risk for distinct active tokens covered by at least one selected action. Overlapping coverage counts once.
+
+Version `3` final plan score is:
+
+`base_covered_risk + sum(applicable_action_bonus_deltas) - covered_client_penalty * distinct_covered_client_count - covered_root_penalty * distinct_covered_root_count`
+
+Definitions:
+
+- distinct covered clients are counted from the active tokens covered by at least one selected action
+- distinct covered roots are counted from those same covered active tokens using each token's `root`
+- bonuses are applied only for selected action pairs; unselected or rejected actions never contribute
+- all version `3` bonuses are additive
+
+Tie-breaks, in order:
+
+1. higher score
+2. more covered tokens
+3. lower impact
+4. higher selected confidence sum
+5. fewer actions
+6. lexicographically smallest sorted selected action IDs
+
+## Output JSON
+
+Write exact JSON to the requested output path with top-level keys exactly:
+
+- `now`
+- `totals`
+- `active`
+- `rejected`
+- `clients`
+- `remediation`
+
+JSON field order does not matter.
+
+`totals` has exactly:
+
+- `issued`
+- `rejected_events`
+- `active`
+- `revoked`
+- `risk`
+
+Definitions:
+
+- `issued` counts accepted token-creation rows
+- `rejected_events` counts rejected event rows in replay order
+- `active` counts active tokens at `NOW`
+- `revoked` counts issued tokens currently marked revoked
+- `risk` is total active-token risk
+
+`active`:
+
+- sorted by `jti`
+- each row has exactly `jti`, `client`, `subject`, `audience`, `scopes`, `expires_at`, `key`, `root`, `depth`, `risk`
+
+`rejected`:
+
+- in processing order
+- each row has exactly `event`, `reasons`
+
+`clients`:
+
+- one row per declared client
+- sorted by client ID
+- each row has exactly `client`, `issued`, `active`, `rejected_events`, `risk`
+
+`remediation` has exactly:
+
+- `score`
+- `residual_risk`
+- `totals`
+- `selected`
+- `rejected`
+
+`residual_risk` is `totals.risk - remediation.score`.
+
+`remediation.totals` has exactly:
+
+- `actions`
+- `impact`
+- `covered_tokens`
+- `confidence`
+
+`remediation.selected`:
+
+- sorted by action ID
+- each row has exactly `id`, `type`, `target`, `covers`, `impact`, `confidence`
+- `covers` is the sorted array of active `jti` values covered by that action
+
+`remediation.rejected`:
+
+- contains every non-deployable action
+- sorted by action ID
+- each row has exactly `id`, `reasons`
+
+Arrays must be arrays even when empty.

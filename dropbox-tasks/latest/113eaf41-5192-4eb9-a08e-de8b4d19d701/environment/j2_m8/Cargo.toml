@@ -1,0 +1,10 @@
+[package]
+name = "j2_m8"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "j2_m8"
+path = "src/flag_table.rs"
+
+[dependencies]

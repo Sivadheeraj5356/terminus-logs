@@ -1,0 +1,31 @@
+# Held-out precondition rotation arms
+# Chains must be walked to a fixpoint; intermediate keys must not remain.
+[[arms]]
+id = "arm-r0"
+from = "orb-a"
+to = "orb-a1"
+
+[[arms]]
+id = "arm-r1"
+from = "orb-a1"
+to = "orb-a2"
+
+[[arms]]
+id = "arm-r2"
+from = "orb-b"
+to = "orb-b2"
+
+[[arms]]
+id = "arm-r3"
+from = "orb-c"
+to = "orb-c1"
+
+[[arms]]
+id = "arm-r4"
+from = "orb-c1"
+to = "orb-c2"
+
+[[arms]]
+id = "arm-r5"
+from = "orb-d"
+to = "orb-d2"

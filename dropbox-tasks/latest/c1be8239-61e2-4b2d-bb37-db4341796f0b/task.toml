@@ -1,0 +1,31 @@
+version = "2.0"
+
+[metadata]
+author_name = "Anonymous"
+author_email = "anonymous@example.com"
+difficulty_explanation = "The security gate combines canonical signatures, Merkle evidence, additive gating, per-artifact cuts, and a recovery-aware global domain cut whose direct failures feed synchronous weighted dependency rounds. Every selected fleet cut must survive permitted restorations, compute adversarial recovery-breakpoint and worst-margin witnesses, and use nested robust tie-breaking while meeting three target families; greedy, asynchronous, one-pass, and single-scenario approaches fail compatible variants."
+solution_explanation = "A successful security implementation validates signed attestations and log evidence, derives reusable evidence graphs, finds deterministic per-artifact cuts, evaluates every fleet selection and its recovery subsets with synchronous weighted fixed-point propagation, derives each cut's adversarial recovery breakpoint and worst permitted margin, applies robust nested tie-breaking and the separate two-phase release policy, and writes the exact security report schema."
+verification_explanation = "The verifier builds the offline security gate, runs public and generated compatibility fixtures, compares exact reports with an independent Python model, and covers weighted greedy traps, namespace separation, recovery-safe min-max cuts, breakpoint and margin witnesses, zero/one/two recovery budgets, synchronous multi-round cascades, weighted fan-in, repeated edges, zero thresholds, target boundaries, cycles, non-candidates, impossible cuts, fallbacks, additive failures, and hardcoding resistance."
+difficulty = "hard"
+category = "security"
+subcategories = []
+tags = ["rust", "security", "attestation", "transparency-log", "supply-chain"]
+expert_time_estimate_min = 300.0
+junior_time_estimate_min = 1800.0
+codebase_size = "minimal"
+languages = ["rust"]
+number_of_milestones = 0
+
+[verifier]
+timeout_sec = 600.0
+
+[agent]
+timeout_sec = 1800.0
+
+[environment]
+allow_internet = false
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+workdir = "/app"

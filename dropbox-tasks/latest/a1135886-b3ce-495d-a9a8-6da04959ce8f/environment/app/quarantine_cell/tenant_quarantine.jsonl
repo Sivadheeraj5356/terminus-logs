@@ -1,0 +1,4 @@
+{"tenant_id":"TEN_Q","sticky_threshold":3,"observation_window_ns":100000000000,"prior_quarantined_cycles":["C-202603","C-202604","C-202605"]}
+{"tenant_id":"TEN_A","sticky_threshold":3,"observation_window_ns":100000000000,"prior_quarantined_cycles":[]}
+{"tenant_id":"TEN_B","sticky_threshold":3,"observation_window_ns":100000000000,"prior_quarantined_cycles":[]}
+{"tenant_id":"TEN_C","sticky_threshold":3,"observation_window_ns":100000000000,"prior_quarantined_cycles":[]}

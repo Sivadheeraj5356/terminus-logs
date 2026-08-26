@@ -1,0 +1,13 @@
+PRODUCTION gate assignment (signed)
+-----------------------------------
+Exclude short-circuit applies first. Otherwise in-scope waiver yields warn with
+waiver_digest. Retracted direct linkage without waiver yields block with retract_block.
+Retracted transitive linkage without waiver yields warn with retract_warn_transitive.
+Checksum failure without retract yields block with checksum_block. Floor failure without
+the above yields block with toolchain_block. Remaining conflict pins yield pass with
+live_refresh. Otherwise pass with snapshot_carry.
+
+effective_violation is true when the pin is not excluded and any of retracted, checksum
+failure, or floor failure holds. Waiver does not clear effective_violation or rewrite
+block_reason. When violated, block_reason is retract_notice if retracted, else
+checksum_mismatch if checksum failed, else toolchain_floor.

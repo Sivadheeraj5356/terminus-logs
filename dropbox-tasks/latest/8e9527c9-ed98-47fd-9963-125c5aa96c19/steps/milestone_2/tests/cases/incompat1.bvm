@@ -1,0 +1,17 @@
+func main(int) -> int {
+b0:
+  load 0
+  iconst 0
+  icmp
+  br_if b2
+b1:
+  iconst 5
+  br b3
+b2:
+  bconst 1
+  br b3
+b3:
+  pop
+  iconst 0
+  ret
+}

@@ -1,0 +1,9 @@
+Cross-border payroll notes
+==========================
+
+Amounts are integer micro-units of a major currency (1000000 = one major unit).
+The statutory schedules are fixed constants documented in ../docs/spec.md.
+
+The country commands are exercised against pinned ISO codes only. Different
+currencies carry different minor units, so the reported figures for the same
+gross depend on which country was looked up.

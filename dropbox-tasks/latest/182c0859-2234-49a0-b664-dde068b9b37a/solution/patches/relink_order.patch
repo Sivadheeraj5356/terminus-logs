@@ -1,0 +1,28 @@
+--- auxiliary/relink_order.py	2026-07-10 11:55:02
++++ auxiliary/relink_order.py	2026-07-10 12:04:38
+@@ -14,4 +14,24 @@
+ 
+ def schedule(modules: list[str]) -> list[str]:
+     """Return modules in an order that respects compile dependencies."""
+-    return sorted(modules)
++    order: list[str] = []
++    visiting: set[str] = set()
++    visited: set[str] = set()
++
++    def visit(name: str) -> None:
++        if name in visited:
++            return
++        if name in visiting:
++            return
++        visiting.add(name)
++        for dep in _COMPILE_DEPS.get(name, ()):
++            if dep in modules:
++                visit(dep)
++        visiting.remove(name)
++        visited.add(name)
++        order.append(name)
++
++    for name in modules:
++        if name in modules:
++            visit(name)
++    return order

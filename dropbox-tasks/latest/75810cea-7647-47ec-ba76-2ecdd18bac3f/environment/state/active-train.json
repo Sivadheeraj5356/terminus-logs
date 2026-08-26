@@ -1,0 +1,5 @@
+{
+  "id": "train-west",
+  "epoch": 4,
+  "note": "cached pointer from prior migrate; may lag the open tip"
+}

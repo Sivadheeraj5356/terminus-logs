@@ -1,0 +1,13 @@
+[package]
+name = "lunar-regolith-solver"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "lunar-regolith-solver"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = "=1.0.150"
+csv = "=1.4.0"

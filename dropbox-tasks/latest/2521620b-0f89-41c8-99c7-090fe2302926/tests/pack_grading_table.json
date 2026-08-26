@@ -1,0 +1,225 @@
+{
+  "contract_revision": "2026-06-audit-chain-v4",
+  "scenarios": {
+    "quiet_baseline": {
+      "name": "quiet_baseline",
+      "finish": "complete",
+      "active_session_epoch": 901,
+      "events_replayed": 2,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 2,
+      "timeline_head_hex": "7a82a78bbb1f0a7e615d18e35531db85150289fb6c0ddb2e4410be078e243ac1"
+    },
+    "offset_lane_cross": {
+      "name": "offset_lane_cross",
+      "finish": "complete",
+      "active_session_epoch": 902,
+      "events_replayed": 2,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 2,
+      "timeline_head_hex": "91d798dc794ac20f8b22502611be90fae7a37211889e04711c2518f5ca24d367"
+    },
+    "subsecond_flip": {
+      "name": "subsecond_flip",
+      "finish": "complete",
+      "active_session_epoch": 903,
+      "events_replayed": 2,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 2,
+      "timeline_head_hex": "b134b713a9b8edbe16446e137b5fcb73c8c885bf3ec1a6d76fc56b7e9293145d"
+    },
+    "compact_pair_merge": {
+      "name": "compact_pair_merge",
+      "finish": "complete",
+      "active_session_epoch": 904,
+      "events_replayed": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 3,
+      "timeline_head_hex": "2c3b6c2d4d8f1a163a3b644ec445f9accfa4d0a1293f556aeb6cb719ec06eeb8"
+    },
+    "dual_compact_chain": {
+      "name": "dual_compact_chain",
+      "finish": "complete",
+      "active_session_epoch": 906,
+      "events_replayed": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 4,
+      "timeline_head_hex": "df014ca522755a4c2213b92d77de37bbe338bbcc1774e6211db0826f50f0040f"
+    },
+    "wall_clock_tie": {
+      "name": "wall_clock_tie",
+      "finish": "complete",
+      "active_session_epoch": 907,
+      "events_replayed": 2,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 2,
+      "timeline_head_hex": "a4a2b279156bee74f4af00c13a8ce3d89c3e97cf753e19ac9ba078b216fc03ee"
+    },
+    "mixed_offset_compact": {
+      "name": "mixed_offset_compact",
+      "finish": "complete",
+      "active_session_epoch": 908,
+      "events_replayed": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 3,
+      "timeline_head_hex": "e9ae3d34c7207aee3499867adf87e78e84c7845937988b1d2e7ee26b29c148f9"
+    },
+    "dense_replay_lane": {
+      "name": "dense_replay_lane",
+      "finish": "complete",
+      "active_session_epoch": 909,
+      "events_replayed": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 4,
+      "timeline_head_hex": "adabfceca2e56ae0bfa41f10fa343c605a5b9ff616641d3dd96e15cc3f87cd0d"
+    },
+    "negative_offset_window": {
+      "name": "negative_offset_window",
+      "finish": "complete",
+      "active_session_epoch": 912,
+      "events_replayed": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 3,
+      "timeline_head_hex": "995f2efe3bce12e9e33d8a1afcc3434e9fa549a5c512911c492f24cf5d6aa32a"
+    },
+    "triple_compact_stack": {
+      "name": "triple_compact_stack",
+      "finish": "complete",
+      "active_session_epoch": 913,
+      "events_replayed": 5,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 5,
+      "timeline_head_hex": "65df3263813a90242788574556fb09119d92e8750d915a0d02044c224c33398e"
+    },
+    "offset_subsec_combo": {
+      "name": "offset_subsec_combo",
+      "finish": "complete",
+      "active_session_epoch": 914,
+      "events_replayed": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 3,
+      "timeline_head_hex": "affd9c2a41aa0fd88ae4b911a2ba8dc924185fadb7864824d72975f8eac8acdb"
+    },
+    "interleaved_tie_quad": {
+      "name": "interleaved_tie_quad",
+      "finish": "complete",
+      "active_session_epoch": 915,
+      "events_replayed": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 4,
+      "timeline_head_hex": "0bd8e5aef1d33768ce6552629891f51989cfabc7464892e4ec49ad4e21ad6ff2"
+    },
+    "nsec_boundary_span": {
+      "name": "nsec_boundary_span",
+      "finish": "complete",
+      "active_session_epoch": 916,
+      "events_replayed": 2,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 2,
+      "timeline_head_hex": "4884d94be4336df747a2a4ae41fff1528f9396b4e9531f31de798e28407cb6c0"
+    },
+    "wide_base_compact": {
+      "name": "wide_base_compact",
+      "finish": "complete",
+      "active_session_epoch": 917,
+      "events_replayed": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 3,
+      "timeline_head_hex": "e599abd6dfa1d9efc753574a143b58e34310181fcd3d0c894b846a18da9e05a2"
+    },
+    "polar_offset_pair": {
+      "name": "polar_offset_pair",
+      "finish": "complete",
+      "active_session_epoch": 921,
+      "events_replayed": 2,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 2,
+      "timeline_head_hex": "93090eb9f7c469bc3b9427faaf07e4b755c20c3f009965594f3b26fdf3114751"
+    },
+    "mega_dense_lane": {
+      "name": "mega_dense_lane",
+      "finish": "complete",
+      "active_session_epoch": 922,
+      "events_replayed": 8,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 8,
+      "timeline_head_hex": "09c418f9a43fc3aa6ce23ae4b6d811ba38a89f86939ac2baf512b9a541c85b65"
+    },
+    "offset_compact_tie": {
+      "name": "offset_compact_tie",
+      "finish": "complete",
+      "active_session_epoch": 923,
+      "events_replayed": 3,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 3,
+      "timeline_head_hex": "858e23ddde23f57aec2648715f4d35bbe5f09e9073c4250094d2477cbe5e747d"
+    },
+    "skew_nsec_compact": {
+      "name": "skew_nsec_compact",
+      "finish": "complete",
+      "active_session_epoch": 928,
+      "events_replayed": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 4,
+      "timeline_head_hex": "cfcbf6931015eecb221df9293c2246f8c8d1f994aaddb7fc4c7276940b01eb7c"
+    },
+    "cascade_tie_storm": {
+      "name": "cascade_tie_storm",
+      "finish": "complete",
+      "active_session_epoch": 929,
+      "events_replayed": 6,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 6,
+      "timeline_head_hex": "6efb68b3a7646b7326522eb091c97d4acd9a29f640063ca8b58e4977f6648299"
+    },
+    "polar_triple_cross": {
+      "name": "polar_triple_cross",
+      "finish": "complete",
+      "active_session_epoch": 930,
+      "events_replayed": 4,
+      "chain_intact": 1,
+      "order_drift_count": 0,
+      "contradiction_count": 0,
+      "witness_ok_count": 4,
+      "timeline_head_hex": "3ec052aa7964f308d398dd73c68b5e019ef0de6264baf2bd77a9ed1b421663b9"
+    }
+  }
+}

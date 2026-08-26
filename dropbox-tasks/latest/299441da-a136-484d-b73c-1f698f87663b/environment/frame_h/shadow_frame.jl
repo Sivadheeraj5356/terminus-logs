@@ -1,0 +1,2 @@
+module ShadowFrame
+end

@@ -1,0 +1,3 @@
+{"cycle_id":"CYC0015","carrier_iata":"UA","gate_zone":"A_NORTH","body_code":"NB","mtow_tons":78,"gate_assigned_ts":"2026-05-12T09:00:00Z","actual_inblock_ts":"2026-05-12T09:15:00Z","dwell_minutes":20,"status":"HOLDOVER","movement":"ARR"}
+{"cycle_id":"CYC0016","carrier_iata":"AC","gate_zone":"C_REGIONAL","body_code":"RJ","mtow_tons":39,"gate_assigned_ts":"2026-05-12T13:00:00Z","actual_inblock_ts":"2026-05-12T13:15:00Z","dwell_minutes":22,"status":"NORMAL","movement":"ARR"}
+{"cycle_id":"CYC0017","carrier_iata":"DL","gate_zone":"B_MAIN","body_code":"WB","mtow_tons":180,"gate_assigned_ts":"2026-05-12T10:00:00Z","actual_inblock_ts":"2026-05-12T10:15:00Z","dwell_minutes":42,"status":"NORMAL","movement":"ARR"}

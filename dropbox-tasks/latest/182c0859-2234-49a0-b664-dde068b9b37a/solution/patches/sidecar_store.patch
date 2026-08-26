@@ -1,0 +1,34 @@
+--- lto/sidecar_store.py
++++ lto/sidecar_store.py
+@@ -7,7 +7,7 @@
+ from pathlib import Path
+ 
+ from lto.graph_digest import import_hash
+-from lto.module_index import GEN_SENSITIVE, source_name
++from lto.module_index import GEN_SENSITIVE, source_name
+ 
+ 
+ def persist_sidecar(
+@@ -17,13 +17,19 @@
+     obj_root: Path,
+     lto_root: Path,
+     link_epoch: int = 0,
+ ) -> Path:
+-    src_path = src_root / source_name(module)
++    if module == "gate_abi":
++        src_path = work_root / "gen" / "gate_abi.cpp"
++    else:
++        src_path = src_root / source_name(module)
+     obj_path = obj_root / f"{module}.o"
+     digest = import_hash(module, src_root, work_root)
++    stamp_path = work_root / "gen" / "abi_stamp.txt"
++    stamp = stamp_path.read_text(encoding="utf-8").strip() if stamp_path.is_file() else ""
++    abi_tag = stamp if module in GEN_SENSITIVE else ""
+     payload = {
+         "module": module,
+         "import_hash": digest,
+-        "abi_tag": "",
++        "abi_tag": abi_tag,
+         "object_sha256": _sha(obj_path) if obj_path.is_file() else "",
+         "source_mtime": src_path.stat().st_mtime if src_path.is_file() else 0.0,
+         "link_epoch": link_epoch if module in GEN_SENSITIVE else 0,

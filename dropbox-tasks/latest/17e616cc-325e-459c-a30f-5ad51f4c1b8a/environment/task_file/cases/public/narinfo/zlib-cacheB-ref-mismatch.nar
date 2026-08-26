@@ -1,0 +1,7 @@
+STORE zlib-1.2
+CACHE cacheB
+NAR_HASH nzlibB
+NAR_SIZE 7
+SIGS b1
+REFERENCES ca-bundle-1
+DERIVER zlib.drv

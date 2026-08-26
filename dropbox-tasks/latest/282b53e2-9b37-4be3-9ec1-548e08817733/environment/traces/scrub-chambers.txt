@@ -1,0 +1,4 @@
+Allocator trace excerpt, incident batch seven.
+Active finding: room=leak requires=scrub before a clean exit.
+<xml><error><what>room=mirror requires=none</what></error></xml>
+Historical note: room=atrium requires=none and should not create a violation.

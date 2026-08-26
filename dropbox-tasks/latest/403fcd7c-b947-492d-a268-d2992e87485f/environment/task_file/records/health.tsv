@@ -1,0 +1,5 @@
+host_id	status	evidence_epoch
+node-a	DOWN	1700
+node-b	UP	1699
+node-c	DEGRADED	1700
+node-d	UP	1700

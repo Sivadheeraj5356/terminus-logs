@@ -1,0 +1,13 @@
+panel_id	families	reagent_a_cap	reagent_b_cap	slot_cap	class
+A	alpha|beta|eta	8	8	3	public
+B	gamma|delta|iota	8	8	3	public
+C	epsilon|zeta|kappa	8	8	3	reflex
+D	alpha|gamma|lambda	7	8	3	reflex
+E	beta|delta|eta	7	8	3	rare
+F	epsilon|iota|mu	8	7	3	rare
+G	zeta|kappa|alpha	8	7	3	confirm
+H	lambda|mu|beta	7	8	3	confirm
+I	eta|theta|gamma	8	7	3	public
+J	iota|kappa|delta	7	8	3	reflex
+K	theta|lambda|epsilon	8	8	3	rare
+L	mu|zeta|alpha	8	8	3	confirm

@@ -1,0 +1,2 @@
+batch_id,source_system,employee_id,full_name,department,title,manager_id,location,annual_salary,status,attrs_json,valid_from,recorded_at,operation,correction_id
+SEC-2024-07,security,E200,Mina Rao,Operations,Badge Holder,M040,AUS,68000,active,"{""badge"":""A-44""}",2024-07-01,2024-07-01T07:00:00Z,UPSERT,ORIG

@@ -1,0 +1,32 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "system-administration"
+subcategories = []
+number_of_milestones = 0
+codebase_size = "small"
+languages = ["rust", "bash"]
+tags = ["btrfs", "incremental-send", "lineage", "recovery", "cache"]
+expert_time_estimate_min = 90
+junior_time_estimate_min = 240
+
+[reference_pattern]
+justification_if_none = "Reseeded from collapsed btrfs-send-fork boolean-report task; no promoted reference matches this witness-matrix repair shape."
+
+[verifier]
+timeout_sec = 650
+
+[agent]
+timeout_sec = 1800
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+workdir = "/app"
+category_profile = "system_administration_storage"

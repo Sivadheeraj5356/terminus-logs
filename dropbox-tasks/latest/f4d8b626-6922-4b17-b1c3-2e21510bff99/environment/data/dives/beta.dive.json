@@ -1,0 +1,41 @@
+{
+  "expedition_id": "expedition-beta",
+  "reports": [
+    {
+      "report_id": "bd-001",
+      "dive_lane": "mid_abyss",
+      "confidence_rank": 1,
+      "revision": 1,
+      "supersedes": null,
+      "calibration_valid": true
+    },
+    {
+      "report_id": "bd-002",
+      "dive_lane": "mid_abyss",
+      "confidence_rank": 1,
+      "revision": 2,
+      "supersedes": null,
+      "calibration_valid": true
+    }
+  ],
+  "observations": [
+    {
+      "obs_id": "obs-b01",
+      "dive_lane": "mid_abyss",
+      "timestamp_utc": "2024-04-01T08:00:00Z",
+      "obs_type": "SEDIMENT_CORE",
+      "depth_m": 3000,
+      "feature_code": "CORE-A",
+      "instrument_id": "drill-1"
+    },
+    {
+      "obs_id": "obs-b02",
+      "dive_lane": "mid_abyss",
+      "timestamp_utc": "2024-04-01T09:00:00Z",
+      "obs_type": "HYDROTHERMAL_VENT",
+      "depth_m": 3200,
+      "feature_code": "VENT-B",
+      "instrument_id": "temp-2"
+    }
+  ]
+}

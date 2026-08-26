@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "revision": "roster-hold-c",
+  "realm_mode": "preserve",
+  "prefer_roster": true,
+  "roster": {
+    "alice@corp.example.com": 999999,
+    "bob@corp.example.com": 999999,
+    "carol@corp.example.com": 999999,
+    "dave@corp.example.com": 999999,
+    "eve@corp.example.com": 999999,
+    "frank@corp.example.com": 999999,
+    "grace@corp.example.com": 999999,
+    "henry@corp.example.com": 999999,
+    "ian@corp.example.com": 999999,
+    "kate@corp.example.com": 999999,
+    "leo@corp.example.com": 999999
+  },
+  "notes": ["hold_all_active"]
+}

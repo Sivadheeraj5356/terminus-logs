@@ -1,0 +1,8 @@
+{
+  "columns": [
+    "term",
+    "alias"
+  ],
+  "format": "parquet-sidecar",
+  "note": "metadata only; not loaded by public synonym route"
+}

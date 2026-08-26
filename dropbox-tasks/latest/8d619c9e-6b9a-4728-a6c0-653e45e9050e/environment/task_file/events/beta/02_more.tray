@@ -1,0 +1,5 @@
+d006	RELEASE	alpha		
+d007	LOAD	beta	4	
+d008	LOCK	beta		
+d009	LOAD	beta	1	
+d010	UNLOCK	beta		

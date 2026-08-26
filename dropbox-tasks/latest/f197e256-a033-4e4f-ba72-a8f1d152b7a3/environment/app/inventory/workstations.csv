@@ -1,0 +1,11 @@
+workstation_id,hostname,chip_family,kernel_release,fixture_workload,ptrace_scope,core_pattern,suid_dumpable,coredump_conf_present,in_debug_group,in_media_group,ulimit_core_soft,ulimit_core_hard,scratch_perms,scratch_owner,scratch_group,fs_immutable
+ws-001,render-a01,intel,6.6.32,tiff,3,|/bin/false,2,false,false,true,0,0,0770,root,media,false
+ws-002,render-a02,intel,6.6.32,png,1,|/bin/false,2,false,true,true,0,0,2770,mediauser,media,false
+ws-003,render-a03,intel,6.6.32,mp4,0,core,1,true,true,true,unlimited,unlimited,2770,mediauser,media,false
+ws-004,render-b01,amd,6.6.31,tiff,3,core,2,false,false,false,0,0,0755,root,root,false
+ws-005,render-b02,amd,6.6.31,png,1,|/bin/false,2,true,true,true,0,0,2770,mediauser,media,false
+ws-006,render-b03,amd,6.6.31,mp4,2,core,0,false,true,true,unlimited,unlimited,0777,mediauser,media,true
+ws-007,render-c01,apple-silicon,6.7.4,tiff,3,|/bin/false,2,false,false,true,0,0,0770,mediauser,media,false
+ws-008,render-c02,apple-silicon,6.7.4,png,3,core,2,false,true,false,0,0,2770,mediauser,media,false
+ws-009,render-c03,apple-silicon,6.7.4,mp4,0,|/bin/false,0,true,true,true,unlimited,unlimited,2775,mediauser,media,false
+ws-010,render-d01,intel,6.6.32,tiff,1,core,2,false,true,true,4096,4096,2770,mediauser,media,false

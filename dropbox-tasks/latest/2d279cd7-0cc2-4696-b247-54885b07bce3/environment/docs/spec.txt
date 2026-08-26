@@ -1,0 +1,18 @@
+Wave integrator overview
+========================
+
+This integrator solves the 2D wave equation on a structured interior domain with
+Dirichlet and Neumann edge types loaded from halo fixtures under /app/fixtures/.
+
+Configuration defaults live at /app/config/defaults.json. Pulse parameters are
+defined in /app/fixtures/source_layout.json. The run loop writes a JSON trace
+listing sampled interior states at configured stride intervals.
+
+Executable requirements — CLI flags, per-step pipeline, checkpoint layout,
+output schema, and numeric tolerances — are documented in /app/docs/pde_contract.md.
+
+Run simulations with:
+
+    node /app/run_entry.js <config.json> <output.json>
+
+Large workloads may use /app/run_capped.sh when a strict heap budget applies.

@@ -1,0 +1,49 @@
+{
+  "pity": {
+    "active_when": "rolls_since_reset >= pity_threshold",
+    "threshold_inclusive": true,
+    "forced_epic_resets_counter": false,
+    "natural_epic_resets_counter": true,
+    "counter_increments_on_non_pity_tier_rolls": true,
+    "pity_active_at_roll_start_for_natural_epic_test": true
+  },
+  "duplicate_seq": {
+    "emit_kind": "DUPLICATE_SEQ",
+    "skip_roll_processing": true,
+    "skip_rng_advance": true
+  },
+  "duplicate_unique": {
+    "scope": "player_id_and_item_id",
+    "not_global_item_id": true,
+    "track_first_seen_seq_per_player_item_pair": true,
+    "emit_on_second_drop_for_same_player_item_pair": true,
+    "do_not_emit_on_first_drop": true
+  },
+  "cooldown": {
+    "scope": "player_id_and_item_id",
+    "only_when_item_in_pool": true,
+    "breach_when": "current_seq - last_seq <= cooldown",
+    "update_last_seq_after_check": true,
+    "update_even_on_duplicate_unique": true,
+    "update_even_when_cooldown_zero": true
+  },
+  "streak_skew": {
+    "scope": "session_wide_logged_tier",
+    "emit_when_length_equals": 6,
+    "continue_counting_after_emit": true,
+    "no_repeat_on_length_7_plus": true
+  },
+  "variance_spike": {
+    "scope": "session_wide",
+    "window_size": 8,
+    "values": "logged_roll_value",
+    "population_variance": true,
+    "sample_variance": false,
+    "evaluate_after_append_when_len_equals_8": true
+  },
+  "tier_mismatch": {
+    "when_item_in_pool": true,
+    "compare": "logged_tier versus catalog tier for logged item_id",
+    "independent_of_selection": true
+  }
+}

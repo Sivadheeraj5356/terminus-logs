@@ -1,0 +1,7 @@
+{
+  "epoch": 3,
+  "generation": 3,
+  "handoff_gen": 4,
+  "anchor_epoch": 11,
+  "retention_epoch": 2
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "thermal-cycle-capture-v1",
+  "batches": [
+    {
+      "batch_id": "ALPHA-01",
+      "formulation_id": "FORM-ALPHA",
+      "event_count": 4,
+      "hold_profiles": [
+        {
+          "polymorph": "BETA_V",
+          "effective_hold_s": 120,
+          "temp_c": 42.5
+        }
+      ]
+    }
+  ],
+  "capture_digest": "64_hex_char_sha256"
+}

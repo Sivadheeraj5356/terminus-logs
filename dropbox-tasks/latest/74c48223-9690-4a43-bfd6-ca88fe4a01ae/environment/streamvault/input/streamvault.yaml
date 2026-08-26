@@ -1,0 +1,13 @@
+site_id: plant-7
+security:
+  admin_user: admin
+  admin_password: factory-admin
+  allow_anonymous: true
+  tls_required: false
+network:
+  bind: 0.0.0.0
+  ingest_ports:
+    - 554
+    - 8554
+recording:
+  retention_days: 14

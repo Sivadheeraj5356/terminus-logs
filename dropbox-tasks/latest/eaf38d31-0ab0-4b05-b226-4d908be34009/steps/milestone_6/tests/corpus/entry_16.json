@@ -1,0 +1,17 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 70868,
+  "leaf_type": "x509_entry",
+  "subject": [
+    "b.umbrella.org",
+    "B.UMBRELLA.ORG",
+    "shop.sub.example.net",
+    "initech.dev",
+    "mail.acme.io"
+  ],
+  "issued_at": "2026-09-21T13:30:10Z",
+  "payload": "cert:in5ze64NThsU/8gJu0Gn5o91FWQYQubG/P51tVJg3zI=",
+  "received_at": "2026-08-23T10:13:55.503Z",
+  "issuer_id": "root-CA-eu",
+  "x_shard": 16
+}

@@ -1,0 +1,23 @@
+BROADWATER AMUSEMENT CO PRESENTS
+
+                          S K I T T L E   A L L E Y
+
+                       THE CLASSIC GAME OF KAYLES
+                       NOW ON YOUR SITE
+
+A row of skittles stands on the alley. The player bowls, and the ball knocks
+down one pin or two. If the ball goes in among the standing pins the row is
+broken in two and the game runs on both halves at once. The house bowls back.
+The side that knocks down the last pin standing wins the alley.
+
+It is the oldest bowling puzzle there is and every player thinks they know it.
+Very few of them beat the house.
+
+  CABINET      upright, 25 inch monitor, two player start
+  BOARDSET     SKAL-0001
+  GAME         one or two rows of skittles, one ball, no timer
+  PLAY         knock down one pin or two, split the row or leave it standing
+  WIN          take the last pin
+  EARNINGS     tested at 380 plays a week on site
+
+ORDER FROM BROADWATER AMUSEMENT CO, LONDON

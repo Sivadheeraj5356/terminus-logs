@@ -1,0 +1,6 @@
+{
+  "require_authority_agreement": true,
+  "resume_from_checkpoint": true,
+  "slice": 19,
+  "engine": "mode_seal"
+}

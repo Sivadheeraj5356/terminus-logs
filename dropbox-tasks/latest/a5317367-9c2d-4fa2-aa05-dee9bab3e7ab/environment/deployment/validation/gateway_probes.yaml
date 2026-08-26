@@ -1,0 +1,4 @@
+schema_version: apexora-gateway-probe-1
+probes:
+  - name: gateway_catalog_match
+  - name: gateway_no_legacy_source

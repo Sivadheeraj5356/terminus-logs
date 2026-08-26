@@ -1,0 +1,9 @@
+.git
+**/__pycache__/
+**/*.pyc
+**/target/
+**/.cargo/
+**/*.swp
+.env
+solution/
+tests/

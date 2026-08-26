@@ -1,0 +1,12 @@
+[package]
+name = "hx02"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+hx01 = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+thiserror = { workspace = true }
+indexmap = { workspace = true }

@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env
+node_modules/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/target/
+solution/
+tests/
+app/output/

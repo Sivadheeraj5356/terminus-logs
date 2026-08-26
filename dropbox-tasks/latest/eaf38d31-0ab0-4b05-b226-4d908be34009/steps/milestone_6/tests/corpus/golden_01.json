@@ -1,0 +1,8 @@
+{
+  "canonical_b64": "Y3QtbG9nLWVudHJ5OnY0CmxvZ19pZD1jdC50cmFuc3BhcmVuY3kuZXhhbXBsZS8yMDI2cTEebGVhZl90eXBlPXByZWNlcnRfZW50cnkeaXNzdWVyX2lkPWludGVybWVkaWF0ZS1DQS03HmluZGV4PTAwMDAwMDAwMDY3ODgzNzIec3ViamVjdD14bi0tbmF2ZS02cGEuaW5pdGVjaC5vcmceaXNzdWVkX2F0PTE3Nzk5ODAzNTczMDUecGF5bG9hZD0wMmMxNWI4YjVlZWQ2YjEyZjUyMDcxM2Q4ODAwYjhjOGZlZjVlMWU5NDc3MDE5ZThmN2Y1MjZmNjMyMDdkOTZkCg==",
+  "canonical_sha256": "bd364bcfd864cae0469e3fedf9754e70a114453e45de7efd1227bae6d4f793d4",
+  "payload_hash_input_b64": "Y3QtcGF5bG9hZDp2NApwcmVjZXJ0X2VudHJ5H2NlcnQ6SldGYkdnbUpDSEFxTkgxU2UvSHlXRnNkcndnTHI1bkhaNVFtRlFWeUYwaz0=",
+  "leaf_hash_hex": "bd364bcfd864cae0469e3fedf9754e70a114453e45de7efd1227bae6d4f793d4",
+  "signed_input_b64": "Y3QtbG9nLWxlYWY6djQKvTZLz9hkyuBGnj/t+XVOcKEURT5F3n79Eie65tT3k9Q=",
+  "signature_b64": "hvPlLNLPjtGBJZutXG1rr090tN68sG/iqxuuiEkldzFZlqHiQDxCaKTGxKUdesPn7VYg+gywdDzJCO1ioZO3Ag=="
+}

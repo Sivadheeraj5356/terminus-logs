@@ -1,0 +1,9 @@
+# Physical fragment order for the SDK record.
+# The generator walks this list in order and only emits fragments that the
+# active lane selects. Slots are numbered by physical appearance.
+00_core.sdk
+10_runtime.sdk
+15_lifecycle.sdk
+18_observability.sdk
+20_diagnostics.sdk
+30_recovery.sdk

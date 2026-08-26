@@ -1,0 +1,10 @@
+{
+  "alias_expansion": "union_sorted_unique",
+  "apply_to": ["declared.features", "edges.features_requested"],
+  "before_workspace_feature_merge": true,
+  "replace_alias_keys": true,
+  "never_keep_alias_name_in_active_features": true,
+  "example": {
+    "full": ["derive", "alloc"]
+  }
+}

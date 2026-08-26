@@ -1,0 +1,20 @@
+{
+    "name": "iris-labs/provenance-loader",
+    "description": "Composer/Phinx tooling to resolve Go module replace and retract policy for Iris gateway builds",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "robmorgan/phinx": "0.16.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "IrisProv\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.2.0"
+        }
+    }
+}

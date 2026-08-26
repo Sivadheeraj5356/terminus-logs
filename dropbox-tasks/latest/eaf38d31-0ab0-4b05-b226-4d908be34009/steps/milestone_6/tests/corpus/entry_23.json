@@ -1,0 +1,17 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 8107439,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "www.acme.io",
+    "a.initech.org",
+    "köln.umbrella.com"
+  ],
+  "issued_at": "2026-11-13T10:53:25Z",
+  "payload": "cert:nzS5hXzpsPHrpMjuzeeLFARtvd9Dv4DIV4hVNdiaU6s=",
+  "received_at": "2026-10-15T05:15:07.415Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 25,
+  "x_ingest_host": "frontend-1",
+  "x_origin": "ingest-0"
+}

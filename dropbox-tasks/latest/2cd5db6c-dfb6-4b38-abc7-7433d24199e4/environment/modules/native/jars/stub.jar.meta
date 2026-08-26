@@ -1,0 +1,5 @@
+artifactId=ffm-native
+classifier=stub
+kind=stub
+arch=0
+soname=libffm-stub.so

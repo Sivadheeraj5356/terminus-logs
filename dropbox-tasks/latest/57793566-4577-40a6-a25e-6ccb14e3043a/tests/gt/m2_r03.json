@@ -1,0 +1,97 @@
+{
+  "budgets": {
+    "B": 10
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "C",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 2,
+      "seq": 1
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "C",
+      "pages": 2,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 2
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "B",
+      "pages": 4,
+      "printer": "p3",
+      "priority": 3,
+      "seq": 3
+    },
+    {
+      "job": "j1",
+      "op": "release",
+      "seq": 4
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 5
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "C",
+      "pages": 2,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 6
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 7
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 3,
+      "seq": 8
+    },
+    {
+      "op": "fault",
+      "printer": "p3",
+      "seq": 9
+    },
+    {
+      "job": "j7",
+      "op": "submit",
+      "owner": "B",
+      "pages": 1,
+      "printer": "p2",
+      "priority": 2,
+      "seq": 10
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 11
+    }
+  ],
+  "max_faults": 3,
+  "printers": [
+    "p1",
+    "p2",
+    "p3"
+  ],
+  "spool": "m2_r03"
+}

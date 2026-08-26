@@ -1,0 +1,7 @@
+STORE ca-bundle-1
+CACHE cacheA
+NAR_HASH nca
+NAR_SIZE 4
+SIGS a1,a2
+REFERENCES -
+DERIVER ca.drv

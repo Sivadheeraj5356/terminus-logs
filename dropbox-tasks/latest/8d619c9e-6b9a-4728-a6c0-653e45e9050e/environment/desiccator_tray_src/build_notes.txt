@@ -1,0 +1,1 @@
+Offline stdlib-only build. No network fetch during grading.

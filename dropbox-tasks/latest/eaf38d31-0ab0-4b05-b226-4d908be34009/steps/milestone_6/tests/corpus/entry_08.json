@@ -1,0 +1,19 @@
+{
+  "log_id": "ct.transparency.example/2026q1",
+  "index": 947337,
+  "leaf_type": "precert_entry",
+  "subject": [
+    "NS1.INITECH.ORG",
+    "ns1.initech.org"
+  ],
+  "issued_at": "2026-09-19T22:29:50Z",
+  "payload": "cert:xXMfFapJSjxgOtYHYRl2HSlOpnrRZCkAZeUuGyQA3KM=",
+  "received_at": "2026-01-20T02:21:34.650Z",
+  "issuer_id": "intermediate-CA-7",
+  "x_shard": 11,
+  "x_origin": "shard-east-1",
+  "audit": {
+    "reviewer": "c",
+    "note": "x"
+  }
+}

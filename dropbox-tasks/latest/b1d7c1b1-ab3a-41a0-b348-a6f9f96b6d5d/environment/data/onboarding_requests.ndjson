@@ -1,0 +1,22 @@
+{"id": "e1", "type": "request", "requestId": "R-1", "edition": "E-TEAM-P", "seatsNeeded": 1}
+{"id": "e2", "type": "request", "requestId": "R-2", "edition": "E-DATA", "seatsNeeded": 1}
+{"id": "e3", "type": "suspend", "seatId": "S-111", "reason": "flagged-audit"}
+{"id": "e4", "type": "request", "requestId": "R-3", "edition": "E-SUITE-P", "seatsNeeded": 2, "tier": "SECURE"}
+{"id": "e5", "type": "suspend", "seatId": "S-112", "reason": "pending-review"}
+{"id": "e6", "type": "restore", "suspendId": "e5"}
+{"id": "e7", "type": "request", "requestId": "R-4", "edition": "E-CORE-P", "seatsNeeded": 1, "tier": "SECURE"}
+{"id": "e8", "type": "request", "requestId": "R-5", "edition": "E-VOID", "seatsNeeded": 1}
+{"id": "e9", "type": "request", "requestId": "R-6", "edition": "E-TEAM", "seatsNeeded": 1, "priority": 2, "activeUntil": "2027-02-22"}
+{"id": "e10", "type": "request", "requestId": "R-7", "edition": "E-DATA-P", "seatsNeeded": 1}
+{"id": "e11", "type": "cancel", "target": "e10"}
+{"id": "e12", "type": "cancel", "target": "e3"}
+{"id": "e13", "type": "cancel", "target": "e11"}
+{"id": "e14", "type": "request", "requestId": "R-8", "edition": "E-SUITE", "seatsNeeded": 2}
+{"id": "e15", "type": "request", "requestId": "R-9", "edition": "E-DATA-P", "seatsNeeded": 1}
+{"id": "e16", "type": "cancel", "target": "e15"}
+{"id": "e17", "type": "request", "requestId": "R-12", "edition": "E-CORE", "seatsNeeded": 1, "priority": 1}
+{"id": "e17a", "type": "cancel", "target": "e17"}
+{"id": "e17b", "type": "cancel", "target": "e17a"}
+{"id": "e18", "type": "request", "requestId": "R-14", "edition": "E-DATA", "seatsNeeded": 1, "priority": 4}
+{"id": "e19", "type": "cancel", "target": "zzz"}
+{"id": "e22", "type": "request", "requestId": "R-15", "edition": "E-TEAM-P", "seatsNeeded": 1, "activeUntil": "2027-02-20"}

@@ -1,0 +1,14 @@
+{
+  "format": "harmonic-source-bench/v1",
+  "max_active_sources": 5,
+  "probes": [
+    "axis_tip",
+    "motor_case",
+    "support_frame"
+  ],
+  "sources": [
+    "base_motion",
+    "bearing_force",
+    "supply_ripple"
+  ]
+}

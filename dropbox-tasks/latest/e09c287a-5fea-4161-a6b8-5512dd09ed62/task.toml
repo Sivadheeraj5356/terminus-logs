@@ -1,0 +1,52 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+category = "data-processing"
+subcategories = []
+difficulty = "hard"
+codebase_size = "small"
+number_of_milestones = 3
+languages = ["go", "bash"]
+tags = ["go", "cli", "insurance", "claims", "data-processing", "scheduler"]
+expert_time_estimate_min = 240
+junior_time_estimate_min = 540
+
+[environment]
+allow_internet = false
+workdir = "/workspace"
+build_timeout_sec = 600
+cpus = 2
+memory_mb = 4096
+storage_mb = 4096
+
+[[steps]]
+name = "milestone_1"
+description = "Implement claim ingestion, validation, duplicate resolution, and deterministic claim/issue outputs."
+
+[steps.agent]
+timeout_sec = 1200
+
+[steps.verifier]
+timeout_sec = 420
+
+[[steps]]
+name = "milestone_2"
+description = "Add signal ingestion, rule scoring, issue recovery, and claim signal indexes on top of the normalized claims."
+
+[steps.agent]
+timeout_sec = 1500
+
+[steps.verifier]
+timeout_sec = 420
+
+[[steps]]
+name = "milestone_3"
+description = "Add exact portfolio optimization across claim selection, day placement, team skills, capacities, dependencies, continuity, and bonuses."
+
+[steps.agent]
+timeout_sec = 1800
+
+[steps.verifier]
+timeout_sec = 480

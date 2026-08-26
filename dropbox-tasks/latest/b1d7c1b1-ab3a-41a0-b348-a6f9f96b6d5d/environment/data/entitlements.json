@@ -1,0 +1,47 @@
+{
+  "entitlement": {
+    "E-CORE": [
+      "E-CORE"
+    ],
+    "E-CORE-P": [
+      "E-CORE-P",
+      "E-CORE"
+    ],
+    "E-TEAM": [
+      "E-TEAM",
+      "E-CORE"
+    ],
+    "E-TEAM-P": [
+      "E-TEAM-P",
+      "E-TEAM",
+      "E-CORE-P",
+      "E-CORE"
+    ],
+    "E-DATA": [
+      "E-DATA",
+      "E-CORE"
+    ],
+    "E-DATA-P": [
+      "E-DATA-P",
+      "E-DATA",
+      "E-CORE-P",
+      "E-CORE"
+    ],
+    "E-SUITE": [
+      "E-SUITE",
+      "E-TEAM",
+      "E-DATA",
+      "E-CORE"
+    ],
+    "E-SUITE-P": [
+      "E-SUITE-P",
+      "E-SUITE",
+      "E-TEAM-P",
+      "E-TEAM",
+      "E-DATA-P",
+      "E-DATA",
+      "E-CORE-P",
+      "E-CORE"
+    ]
+  }
+}

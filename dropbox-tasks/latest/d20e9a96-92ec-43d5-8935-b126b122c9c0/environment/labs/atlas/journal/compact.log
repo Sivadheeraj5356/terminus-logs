@@ -1,0 +1,6 @@
+2026-06-17T20:10:00Z atlas integrity: pool-a offset table verified, all entries nominal
+2026-06-17T20:12:00Z atlas compaction: pier-seven span boundaries shifted during rebalance
+2026-06-17T20:14:00Z atlas capacity-drill: tier-2 storage pressure detected on objects/
+2026-06-17T20:15:00Z atlas capacity-drill: pool-b.blob evacuated for emergency space reclaim
+2026-06-17T20:15:01Z atlas capacity-drill: return pending; retention window expires in 48h
+2026-06-17T20:16:00Z atlas config-audit: mask_key probed with null value for read-through test

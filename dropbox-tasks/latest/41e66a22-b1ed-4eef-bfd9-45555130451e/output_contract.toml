@@ -1,0 +1,40 @@
+user_visible_outputs = [
+  "/app/output/witness.json",
+  "/app/output/stage/",
+  "/app/output/logs/",
+  "/app/output/epoch.ledger",
+]
+
+internal_harness_files = [
+  "/tests/test_outputs.py",
+  "/tests/test.sh",
+]
+
+[structured_outputs.witness]
+target = "/app/output/witness.json"
+format = "json"
+instruction_checks = [
+  "verify_contract.md",
+  "witness.json",
+]
+
+[structured_outputs.stage]
+target = "/app/output/stage/"
+format = "json"
+instruction_checks = [
+  "stage",
+]
+
+[structured_outputs.logs]
+target = "/app/output/logs/"
+format = "text"
+instruction_checks = [
+  "logs",
+]
+
+[structured_outputs.epoch]
+target = "/app/output/epoch.ledger"
+format = "text"
+instruction_checks = [
+  "epoch.ledger",
+]

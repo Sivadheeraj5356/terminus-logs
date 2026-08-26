@@ -1,0 +1,10 @@
+{
+  "id": "legacy-2024",
+  "epoch": 1,
+  "signature_version": 1,
+  "preserve_legacy_query": true,
+  "uppercase_percent": false,
+  "remove_dot_segments": false,
+  "header_policy": {},
+  "allowed_key_profiles": ["legacy-2024"]
+}

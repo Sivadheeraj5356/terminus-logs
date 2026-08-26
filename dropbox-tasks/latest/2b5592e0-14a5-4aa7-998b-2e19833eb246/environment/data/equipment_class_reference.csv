@@ -1,0 +1,7 @@
+equipment_class,description
+hvac,Heating and cooling systems.
+elevator,Elevators and lifts.
+chiller,Industrial chillers.
+generator,Backup generators.
+boiler,Boilers and hot-water systems.
+solar_pv,Solar photovoltaic arrays.

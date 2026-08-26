@@ -1,0 +1,16 @@
+network	trial_00
+species	A	B	C	D	E	F
+initial	A	1
+initial	B	0.36108256228594293
+initial	C	0
+initial	D	0
+initial	E	0
+initial	F	0
+reaction	6543221.9870794695	B -> F
+reaction	25595900.500009485	C + F -> D + F
+reaction	2.3693187175188886	E + F -> C + C
+reaction	0.89570869513785567	C + F -> F + A
+reaction	6.7940012885425061	F + A -> D + B
+horizon	0	36.321010550308486
+rtol	4.0785026341061984e-08
+atol	4.0785026341061986e-11

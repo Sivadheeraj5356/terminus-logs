@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.cpp text eol=lf
+*.hpp text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.fp text eol=lf
+*.expected text eol=lf
+Dockerfile text eol=lf

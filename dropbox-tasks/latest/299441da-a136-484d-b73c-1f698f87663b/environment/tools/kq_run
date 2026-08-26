@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="/app/environment"
+DECK="/app/environment/deck_p/s0"
+OUT="/app/output/kq_report.json"
+RELOAD=0
+JULIA_BIN="${JULIA_BIN:-/usr/local/julia/bin/julia}"
+export PATH="/usr/local/julia/bin:/opt/verifier-venv/bin:/app/environment/tools:${PATH:-/usr/bin:/bin}"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --deck) DECK="$2"; shift 2 ;;
+    --out) OUT="$2"; shift 2 ;;
+    --reload) RELOAD=1; shift ;;
+    *) echo "unknown arg: $1" >&2; exit 2 ;;
+  esac
+done
+
+mkdir -p /app/output
+ARGS=(--deck "$DECK" --out "$OUT")
+[[ "$RELOAD" -eq 1 ]] && ARGS+=(--reload)
+
+exec "$JULIA_BIN" "$ROOT/src/kq_handler.jl" "${ARGS[@]}"

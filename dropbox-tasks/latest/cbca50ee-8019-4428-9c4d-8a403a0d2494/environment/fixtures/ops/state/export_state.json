@@ -1,0 +1,11 @@
+{
+  "schema_version": 2,
+  "service_unit": "rotlog-export.service",
+  "status": "complete",
+  "succeeded_after_partition": "part-0002",
+  "high_water_cursor": "s=17;b=boot-a",
+  "last_complete_event_seq": 2,
+  "resume_generation": "gen-42/reload-1",
+  "lineage": ["part-0001", "part-0002"],
+  "omitted_partitions": []
+}

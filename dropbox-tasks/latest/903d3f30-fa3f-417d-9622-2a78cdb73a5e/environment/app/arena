@@ -1,0 +1,272 @@
+#!/usr/bin/env python3
+"""Public bounded client for the one live Tidevault arena."""
+
+from __future__ import annotations
+
+import json
+import os
+import socket
+import sys
+from typing import Any
+
+
+SOCKET_PATH = os.environ.get("ARENA_SOCKET", "/run/arena/arena.sock")
+MAXIMUM_REQUEST_BYTES = 8192
+MAXIMUM_RESPONSE_BYTES = 4 * 1024 * 1024
+REQUEST_TIMEOUT_SECONDS = 30.0
+WIRE_PROTOCOL = "TIDEVAULT_WIRE_V1"
+
+
+class ClientError(RuntimeError):
+    """Report one local transport or response failure."""
+
+
+def usage() -> str:
+    """Return the exact supported public command synopsis."""
+
+    return (
+        "usage: arena [--json|--wire] status\n"
+        "       arena [--json|--wire] ping\n"
+        "       arena [--json|--wire] move POWER SLOT ROTATION_RING DIRECTION\n"
+        "       arena [--json|--wire] resign\n"
+        "       arena [--json|--wire] transcript"
+    )
+
+
+def parse_arguments(arguments: list[str]) -> tuple[str, list[str]]:
+    """Parse one optional output selector and one exact public command."""
+
+    values = list(arguments)
+    mode = "human"
+    if values and values[0] in {"--json", "--wire"}:
+        mode = values.pop(0)[2:]
+    if not values or any(value in {"--json", "--wire"} for value in values):
+        raise ClientError(usage())
+    command = values[0]
+    required = {"status": 1, "ping": 1, "resign": 1, "transcript": 1, "move": 5}
+    if command not in required or len(values) != required[command]:
+        raise ClientError(usage())
+    return mode, values
+
+
+def request(fields: list[str]) -> dict[str, Any]:
+    """Send one bounded ASCII request and decode one bounded JSON reply."""
+
+    line = "\t".join(fields)
+    try:
+        payload = (line + "\n").encode("ascii")
+    except UnicodeEncodeError as error:
+        raise ClientError("arena request must be ASCII") from error
+    if len(payload) > MAXIMUM_REQUEST_BYTES or any(byte == 0 for byte in payload):
+        raise ClientError("arena request must be one bounded text line")
+
+    response = bytearray()
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as channel:
+        channel.settimeout(REQUEST_TIMEOUT_SECONDS)
+        try:
+            channel.connect(SOCKET_PATH)
+            channel.sendall(payload)
+            channel.shutdown(socket.SHUT_WR)
+            while True:
+                block = channel.recv(65536)
+                if not block:
+                    break
+                response.extend(block)
+                if len(response) > MAXIMUM_RESPONSE_BYTES:
+                    raise ClientError("arena response exceeded size limit")
+        except (OSError, TimeoutError) as error:
+            raise ClientError(f"arena transport failed: {error}") from error
+    if not response:
+        raise ClientError("arena closed without a response")
+    try:
+        text = response.decode("ascii")
+        document = json.loads(text)
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ClientError("arena returned malformed JSON") from error
+    if not isinstance(document, dict) or type(document.get("ok")) is not bool:
+        raise ClientError("arena returned an invalid response object")
+    return document
+
+
+def compact_json(document: dict[str, Any]) -> str:
+    """Render the canonical one-line public JSON representation."""
+
+    return json.dumps(document, ensure_ascii=True, separators=(",", ":"))
+
+
+def print_tide(tide: dict[str, Any], prefix: str = "") -> None:
+    """Print one tide checkpoint and all six spoke comparisons."""
+
+    print(
+        f"{prefix}Tide {tide.get('tide', '?')} ply={tide.get('ply', '?')} "
+        f"points=Gold+{tide.get('gold_points', '?')} "
+        f"Violet+{tide.get('violet_points', '?')}"
+    )
+    spokes = tide.get("spokes", [])
+    if isinstance(spokes, list):
+        for spoke in spokes:
+            if not isinstance(spoke, dict):
+                continue
+            owner = spoke.get("point_owner")
+            print(
+                f"{prefix}  {spoke.get('sector', '?')}: "
+                f"Gold={spoke.get('gold_weight', '?')} "
+                f"Violet={spoke.get('violet_weight', '?')} "
+                f"point={owner if owner is not None else '-'}"
+            )
+
+
+def print_record(record: dict[str, Any], prefix: str = "") -> None:
+    """Print one transcript record with rotation and tide evidence."""
+
+    action = record.get("action")
+    print(
+        f"{prefix}Record {record.get('record', '?')}: "
+        f"{record.get('actor', '?')}/{record.get('color', '?')} "
+        f"{action if action is not None else 'resign'} "
+        f"placed={record.get('placed_slot') or '-'} "
+        f"settled={record.get('settled_slot') or '-'}"
+    )
+    tide = record.get("tide")
+    if isinstance(tide, dict):
+        print_tide(tide, f"{prefix}  ")
+    print(
+        f"{prefix}  hash {record.get('state_hash_before', '?')} -> "
+        f"{record.get('state_hash_after', '?')}"
+    )
+
+
+def print_state(state: dict[str, Any], include_history: bool) -> None:
+    """Print every strategic and accounting field in one readable snapshot."""
+
+    print("TIDEVAULT HUMAN V1")
+    print(f"PROTOCOL: {state.get('protocol', '?')}")
+    print(f"RULESET: {state.get('ruleset', '?')}")
+    print(f"PLAYER: {state.get('player_color', '?')}")
+    print(
+        "SETTINGS: "
+        f"{state.get('opponent_model_id', '?')} "
+        f"sha={state.get('opponent_model_sha256', '?')} "
+        f"dataset={state.get('opponent_dataset_sha256', '?')} "
+        f"nodes={state.get('opponent_node_budget', '?')} "
+        f"width={state.get('opponent_search_width', '?')} "
+        f"depth={state.get('opponent_max_depth', '?')} "
+        f"seed={state.get('opponent_seed', '?')} "
+        f"profile={state.get('opponent_selection_profile', '?')} "
+        f"temperature={state.get('opponent_root_temperature_milli', '?')} "
+        f"rank-lapse={state.get('opponent_root_rank_lapse_permille', '?')} "
+        f"move-ms={state.get('opponent_move_time_limit_ms', '?')}"
+    )
+    print(
+        "STATE: "
+        f"turn={state.get('turn', '?')} result={state.get('result', '?')} "
+        f"winner={state.get('winner') if state.get('winner') is not None else '-'} "
+        f"termination={state.get('termination') if state.get('termination') is not None else '-'} "
+        f"ply={state.get('ply_count', '?')}/18"
+    )
+    print(
+        f"SCORES: Gold {state.get('gold_score', '?')} "
+        f"Violet {state.get('violet_score', '?')}"
+    )
+    print("INVENTORY:")
+    for color in ("gold", "violet"):
+        inventory = state.get(f"{color}_inventory", {})
+        if not isinstance(inventory, dict):
+            inventory = {}
+        print(
+            f"  {color.title()}: P1={inventory.get('P1', '?')} "
+            f"P2={inventory.get('P2', '?')} P3={inventory.get('P3', '?')}"
+        )
+    print("BOARD:")
+    board = state.get("board", [])
+    if isinstance(board, list):
+        for cell in board:
+            if not isinstance(cell, dict):
+                continue
+            occupant = cell.get("occupant")
+            power = cell.get("power")
+            piece = "empty" if occupant is None else f"{occupant}/P{power}"
+            print(f"  {cell.get('slot', '?')}: {piece}")
+    tide_history = state.get("tide_history", [])
+    tide_count = len(tide_history) if isinstance(tide_history, list) else 0
+    print(f"TIDES ({tide_count}):")
+    if isinstance(tide_history, list) and tide_history:
+        for tide in tide_history:
+            if isinstance(tide, dict):
+                print_tide(tide, "  ")
+    else:
+        print("  -")
+    print("LATEST_RECORD:")
+    latest = state.get("latest_record")
+    if isinstance(latest, dict):
+        print_record(latest, "  ")
+    else:
+        print("  -")
+    legal_actions = state.get("legal_actions", [])
+    print(f"LEGAL_ACTIONS ({len(legal_actions) if isinstance(legal_actions, list) else 0}):")
+    if isinstance(legal_actions, list) and legal_actions:
+        for offset in range(0, len(legal_actions), 4):
+            print("  " + " | ".join(str(value) for value in legal_actions[offset:offset + 4]))
+    else:
+        print("  -")
+    print(f"POSTGAME_PLAYER_REQUESTS: {state.get('postgame_player_requests', '?')}")
+    print(f"STATE_HASH: {state.get('state_hash', '?')}")
+    if include_history:
+        actions = state.get("actions", [])
+        print(f"TRANSCRIPT ({len(actions) if isinstance(actions, list) else 0}):")
+        if isinstance(actions, list) and actions:
+            for record in actions:
+                if isinstance(record, dict):
+                    print_record(record, "  ")
+        else:
+            print("  -")
+
+
+def print_human(document: dict[str, Any], command: str) -> None:
+    """Render a success, rejection, or readiness response for a person."""
+
+    if command == "ping" and document == {"ok": True, "ready": True}:
+        print("TIDEVAULT READY")
+        return
+    if document.get("ok") is True:
+        print_state(document, command == "transcript")
+        return
+    error = document.get("error", {})
+    if not isinstance(error, dict):
+        error = {}
+    print(f"ERROR {error.get('code', 'internal_error')}: {error.get('message', 'unknown error')}")
+    state = document.get("state")
+    if isinstance(state, dict):
+        print_state(state, False)
+
+
+def print_wire(document: dict[str, Any], command: str) -> None:
+    """Render the bounded wire envelope containing the exact JSON document."""
+
+    if command == "ping" and document == {"ok": True, "ready": True}:
+        print(f"{WIRE_PROTOCOL}\nREADY\t1\nEND")
+        return
+    status = "OK" if document.get("ok") is True else "FAIL"
+    print(f"{WIRE_PROTOCOL}\n{status}\nJSON\t{compact_json(document)}\nEND")
+
+
+def main() -> int:
+    """Run exactly one public arena request."""
+
+    try:
+        mode, fields = parse_arguments(sys.argv[1:])
+        document = request(fields)
+        if mode == "json":
+            print(compact_json(document))
+        elif mode == "wire":
+            print_wire(document, fields[0])
+        else:
+            print_human(document, fields[0])
+        return 0 if document.get("ok") is True else 1
+    except ClientError as error:
+        print(str(error), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

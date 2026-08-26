@@ -1,0 +1,41 @@
+{
+  "tick_budget": 280,
+  "scenarios": [
+    {
+      "scenario_id": "burst_orders",
+      "partitions": 12,
+      "members": 3,
+      "records_per_partition": 800,
+      "max_poll_records": 40,
+      "min_fetch_bytes": 4096,
+      "commit_interval_records": 1000
+    },
+    {
+      "scenario_id": "steady_telemetry",
+      "partitions": 9,
+      "members": 4,
+      "records_per_partition": 600,
+      "max_poll_records": 30,
+      "min_fetch_bytes": 0,
+      "commit_interval_records": 900
+    },
+    {
+      "scenario_id": "skewed_keys",
+      "partitions": 16,
+      "members": 5,
+      "records_per_partition": 500,
+      "max_poll_records": 28,
+      "min_fetch_bytes": 2048,
+      "commit_interval_records": 700
+    },
+    {
+      "scenario_id": "hotfix_replay",
+      "partitions": 11,
+      "members": 3,
+      "records_per_partition": 550,
+      "max_poll_records": 22,
+      "min_fetch_bytes": 1024,
+      "commit_interval_records": 550
+    }
+  ]
+}

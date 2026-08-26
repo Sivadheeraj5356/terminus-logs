@@ -1,0 +1,32 @@
+# Task configuration schema version
+version = "2.0"
+
+# Task metadata (author, difficulty, categorization)
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "medium"
+category = "scientific-computing"
+subcategories = [ ]
+number_of_milestones = 0
+codebase_size = "minimal"
+languages = [ "java",]
+tags = [ "java", "scientific-computing", "statistics", "histogram-analysis", "numerical-computing",]
+expert_time_estimate_min = 150
+junior_time_estimate_min = 360
+
+# Verifier: runs the test script to check task completion
+[verifier]
+timeout_sec = 600.0
+
+# Agent: limits how long the agent can run when attempting the task
+[agent]
+timeout_sec = 1800.0
+
+# Sandbox environment limits
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+allow_internet = false

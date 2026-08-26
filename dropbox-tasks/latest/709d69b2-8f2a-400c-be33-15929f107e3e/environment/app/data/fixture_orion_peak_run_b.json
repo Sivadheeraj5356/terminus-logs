@@ -1,0 +1,9 @@
+{
+  "runId": "ORION-B-002",
+  "detectorId": "GS-ORION-17",
+  "liveTimeSec": 720,
+  "realTimeSec": 722.9,
+  "channels": [118, 119, 120, 121, 122, 123, 124, 125],
+  "counts": [61, 74, 119, 264, 439, 291, 127, 82],
+  "background": [15, 15, 16, 16, 17, 16, 15, 15]
+}

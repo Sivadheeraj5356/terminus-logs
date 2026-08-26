@@ -1,0 +1,17 @@
+.git
+.gitignore
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+**/npm-debug.log*
+*.log
+.DS_Store
+.env
+solution/
+tests/
+task.toml
+scaffold_plan.yaml
+completion_plan.yaml

@@ -1,0 +1,29 @@
+# held-out board-pair rotation key table
+[train]
+pair = "CA|OR"
+rot = 11
+active = "OR"
+
+[pairs.k01]
+a = "CA"
+b = "NV"
+rot = 17
+active = "NV"
+
+[pairs.k02]
+a = "TX"
+b = "OK"
+rot = 23
+active = "OK"
+
+[pairs.k03]
+a = "NY"
+b = "NJ"
+rot = 31
+active = "NJ"
+
+[pairs.k04]
+a = "FL"
+b = "GA"
+rot = 41
+active = "GA"

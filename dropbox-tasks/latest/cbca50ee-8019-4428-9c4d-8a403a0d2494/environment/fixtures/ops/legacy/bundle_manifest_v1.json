@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "bundle_id": "legacy-rot-bundle-2026-07-14-pre-rollback",
+  "service_unit": "rotlog-export.service",
+  "partition_entries": [
+    {
+      "partition_id": "part-0001",
+      "sequence": 1,
+      "path": "logs/part-0001.journal",
+      "status": "export",
+      "cursor_start": "s=0;b=boot-a",
+      "cursor_end": "s=8;b=boot-a",
+      "prev_cursor": "",
+      "digest_hex": "b9b20dc433b681eb0750cc75912139d0557992ac9124cd418497441927f0c37f"
+    },
+    {
+      "partition_id": "part-0002",
+      "sequence": 2,
+      "path": "logs/part-0002.journal",
+      "status": "export",
+      "cursor_start": "s=9;b=boot-a",
+      "cursor_end": "s=17;b=boot-a",
+      "prev_cursor": "s=8;b=boot-a",
+      "digest_hex": "5fa0d2d1697f7d694fead3f767e522720a072d7c69ccc982cc16ca2c35131e72"
+    }
+  ]
+}

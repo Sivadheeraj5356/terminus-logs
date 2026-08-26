@@ -1,0 +1,9 @@
+The host under `/app/environment` should make extension changes transactional: stage payloads on disk, bump versions, undo following a bad step, and keep the published entitlement map aligned with what is actually loaded.
+
+Operators report three pain clusters. After an interrupted bump, restart cannot tell which half-finished step to continue from even though a durable byte log exists. Undo puts payloads back but callers still see grants that should have vanished. Fresh puts sometimes publish entitlements before backing modules are wired.
+
+Correct the Ruby sources under `/app/environment` so `/app/bin/hx_ctl` emits `/app/output/ops_row_report.json` per `/app/environment/docs/formal_contract.md` across cold start and kill-and-resume scenarios. The helper APIs `M7k::StepMux.fn_m7(step_ix, family_ix, prev_family)`, `R3p::CapFold.fn_r3(ctx, stamp_a, stamp_b)`, and `W9n::RevertArm.fn_w9(state, tree_a, tree_b)` are contract surfaces and must remain callable with those signatures. Their repaired behavior must participate in the report; wrapper-only shaping or bypassing these helpers is not sufficient.
+
+The ladder mux material must include the step index, current family index, and previous family index. Changing a ladder family value must change the affected facet material and therefore the final `row_digest`. Hook drills must also expose broken publish gating or revert behavior as an incoherent report instead of hiding it behind a steady summary.
+
+The hook_cmds argv table must list one full `/app/bin/hx_ctl` command per drill at `/app/environment/docs/hook_cmds.txt`. The report carries `rows`, `summary`, `sync_label`, and `row_digest` as defined in the contract. Static or hand-written JSON is insufficient; the verifier reruns the driver pipeline. Every permutation scenario in `/app/environment/data/ord_table.toml` must pass after the fix.

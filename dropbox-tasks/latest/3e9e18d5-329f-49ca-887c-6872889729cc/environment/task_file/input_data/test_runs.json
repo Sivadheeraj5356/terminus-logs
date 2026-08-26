@@ -1,0 +1,11 @@
+{
+  "runs": [
+    {"id": "tr-pay-251", "status": "passed", "digest": "sha256:pay-251", "source_ref": "refs/tags/payments-v2.5.1", "coverage": 91, "flaky": false},
+    {"id": "tr-pay-250", "status": "passed", "digest": "sha256:pay-250", "source_ref": "refs/tags/payments-v2.5.0", "coverage": 93, "flaky": false},
+    {"id": "tr-cat-520", "status": "passed", "digest": "sha256:cat-520", "source_ref": "refs/tags/catalog-v5.2.0", "coverage": 84, "flaky": false},
+    {"id": "tr-id-400", "status": "passed", "digest": "sha256:id-400", "source_ref": "refs/tags/identity-v4.0.0", "coverage": 95, "flaky": false},
+    {"id": "tr-id-397", "status": "failed", "digest": "sha256:id-397", "source_ref": "refs/tags/identity-v3.9.7", "coverage": 97, "flaky": false},
+    {"id": "tr-sea-190", "status": "passed", "digest": "sha256:sea-190", "source_ref": "refs/tags/search-v1.9.0", "coverage": 78, "flaky": false},
+    {"id": "tr-sea-191", "status": "passed", "digest": "sha256:sea-191", "source_ref": "refs/tags/search-v1.9.1", "coverage": 79, "flaky": true}
+  ]
+}

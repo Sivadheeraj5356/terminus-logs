@@ -1,0 +1,15 @@
+TAKE torch
+MOVE buffer
+TAKE patch
+WAIT
+MOVE heap
+MOVE leak
+SCRUB leak
+MOVE mirror
+MOVE buffer
+MOVE heap
+SEAL canary
+MOVE canary
+TAKE key
+MOVE vault
+EXIT

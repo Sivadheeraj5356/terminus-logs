@@ -1,0 +1,4 @@
+{"eventId":"A1","workAlias":"midnight-runner","territory":"US","medium":"SVOD","capturedAt":"2024-03-10T15:00:00Z","playCount":1000,"rerunIndex":0,"revision":1}
+{"eventId":"A2","workAlias":"midnight-runner","territory":"US","medium":"SVOD","capturedAt":"2024-03-10T16:00:00Z","playCount":100,"rerunIndex":1,"revision":1}
+{"eventId":"A3","workAlias":"coastal-echo","territory":"UK","medium":"AVOD","capturedAt":"2024-03-11T12:00:00Z","playCount":500,"rerunIndex":0,"revision":1}
+{"eventId":"A4","workAlias":"mr-alias","territory":"US","medium":"AVOD","capturedAt":"2024-03-12T20:00:00Z","playCount":200,"rerunIndex":0,"revision":1}

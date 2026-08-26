@@ -1,0 +1,31 @@
+--- a/environment/internal/arms/arms.go	2026-07-20 11:30:46.793178585 +0530
++++ b/environment/internal/arms/arms.go	2026-07-20 11:26:12.653592105 +0530
+@@ -44,7 +44,7 @@
+ 	return rows, ids, nil
+ }
+ 
+-// Remap applies rotation arms from rot_d.toml onto the start algebra set.
++// Remap walks rotation arms to a fixpoint.
+ func Remap(start []string, rows []Row) []string {
+ 	m := map[string]string{}
+ 	for _, r := range rows {
+@@ -53,9 +53,16 @@
+ 		}
+ 	}
+ 	out := append([]string{}, start...)
+-	for i, k := range out {
+-		if v, ok := m[k]; ok {
+-			out[i] = v
++	for range 64 {
++		changed := false
++		for i, k := range out {
++			if v, ok := m[k]; ok && v != k {
++				out[i] = v
++				changed = true
++			}
++		}
++		if !changed {
++			break
+ 		}
+ 	}
+ 	return out

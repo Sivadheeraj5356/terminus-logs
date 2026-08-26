@@ -1,0 +1,9 @@
+ordinance: ORD-1949-02
+jurisdiction: Sable-Verge
+enacted: 1949-03-14
+effective: 1949-05-01T00:00:00 universal
+standard-offset: -03:30:00
+standard-label: VST
+observance:
+  begin: Mar Sun>=8 02:00:00 wall save +01:00:00 label VDT
+  end: Nov Sun>=1 03:00:00 wall

@@ -1,0 +1,1 @@
+{"job_id": "job-008", "priority": 8, "spec_path": "/app/specs/batch-cpu.yaml", "profile_ref": "production", "rules_ref": "default", "overlay_rules_set": "mem_tight", "defer": false}

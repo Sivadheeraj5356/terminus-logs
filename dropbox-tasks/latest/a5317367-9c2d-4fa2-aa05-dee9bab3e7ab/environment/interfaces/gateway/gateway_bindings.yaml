@@ -1,0 +1,17 @@
+schema_version: apexora-gateway-bind-1
+bindings:
+  - vlan_id: 2101
+    vrf: FINANCE
+    primary: dist-hq-dal-main-01
+    secondary: dist-hq-dal-main-02
+    vip: 10.210.1.1
+  - vlan_id: 2102
+    vrf: HR
+    primary: dist-hq-dal-main-01
+    secondary: dist-hq-dal-main-02
+    vip: 10.211.1.1
+  - vlan_id: 2120
+    vrf: GUEST
+    primary: dist-emea-fra-main-01
+    secondary: dist-emea-fra-main-02
+    vip: 10.230.1.1

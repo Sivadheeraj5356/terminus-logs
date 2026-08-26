@@ -1,0 +1,9 @@
+[bind]
+proc_name = "chamberd"
+trace_log = "/tmp/chamberd.trace"
+pid_file = "/tmp/chamberd.pid"
+
+[topology]
+# Authoritative graph key for the live service.
+graph_key = "gamma"
+endpoint = "/v1/topology"

@@ -1,0 +1,30 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "security"
+tags = ["pam", "faillock", "authentication", "authority", "lockout"]
+languages = ["c", "bash"]
+codebase_size = "small"
+number_of_milestones = 0
+subcategories = ["tool_specific"]
+expert_time_estimate_min = 90
+junior_time_estimate_min = 360
+
+[agent]
+timeout_sec = 1800
+
+[verifier]
+timeout_sec = 900
+
+[environment]
+allow_internet = false
+build_timeout_sec = 600
+docker_flags = []
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+gpu_types = []

@@ -1,0 +1,130 @@
+{
+  "budgets": {
+    "A": 7,
+    "B": 6,
+    "C": 8
+  },
+  "events": [
+    {
+      "job": "j1",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p1",
+      "priority": 1,
+      "seq": 1
+    },
+    {
+      "op": "finish",
+      "printer": "p1",
+      "seq": 2
+    },
+    {
+      "job": "j1",
+      "op": "cancel",
+      "seq": 3
+    },
+    {
+      "job": "j2",
+      "op": "submit",
+      "owner": "B",
+      "pages": 2,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 4
+    },
+    {
+      "job": "j3",
+      "op": "submit",
+      "owner": "A",
+      "pages": 4,
+      "printer": "p3",
+      "priority": 2,
+      "seq": 5
+    },
+    {
+      "job": "j2",
+      "op": "hold",
+      "seq": 6
+    },
+    {
+      "op": "fault",
+      "printer": "p1",
+      "seq": 7
+    },
+    {
+      "job": "j2",
+      "op": "hold",
+      "seq": 8
+    },
+    {
+      "job": "j4",
+      "op": "submit",
+      "owner": "A",
+      "pages": 1,
+      "printer": "p3",
+      "priority": 2,
+      "seq": 9
+    },
+    {
+      "job": "j3",
+      "op": "hold",
+      "seq": 10
+    },
+    {
+      "op": "finish",
+      "printer": "p2",
+      "seq": 11
+    },
+    {
+      "job": "j5",
+      "op": "submit",
+      "owner": "A",
+      "pages": 2,
+      "printer": "p2",
+      "priority": 1,
+      "seq": 12
+    },
+    {
+      "op": "resume",
+      "printer": "p2",
+      "seq": 13
+    },
+    {
+      "op": "fault",
+      "printer": "p1",
+      "seq": 14
+    },
+    {
+      "op": "resume",
+      "printer": "p2",
+      "seq": 15
+    },
+    {
+      "op": "fault",
+      "printer": "p2",
+      "seq": 16
+    },
+    {
+      "job": "j6",
+      "op": "submit",
+      "owner": "C",
+      "pages": 4,
+      "printer": "p2",
+      "priority": 3,
+      "seq": 17
+    },
+    {
+      "job": "j2",
+      "op": "cancel",
+      "seq": 18
+    }
+  ],
+  "max_faults": 3,
+  "printers": [
+    "p1",
+    "p2",
+    "p3"
+  ],
+  "spool": "m2_r13"
+}

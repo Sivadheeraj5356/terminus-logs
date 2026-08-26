@@ -1,0 +1,27 @@
+version = "2.0"
+
+[metadata]
+author_name = "anonymous"
+author_email = "anonymous"
+difficulty = "hard"
+category = "security"
+subcategories = ["tool_specific"]
+tags = ["dnssec", "offline-signing", "crash-recovery", "bind9", "go"]
+languages = ["go", "bash", "python"]
+codebase_size = "small"
+number_of_milestones = 0
+expert_time_estimate_min = 480
+junior_time_estimate_min = 1560
+
+[verifier]
+timeout_sec = 1800
+
+[agent]
+timeout_sec = 1800
+
+[environment]
+allow_internet = false
+build_timeout_sec = 1800
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480

@@ -1,0 +1,9 @@
+{
+  "report_id": "MSR-0003",
+  "category": "point_mutation",
+  "label_ciphertext": "Bdzw83iSJ4zFfg==",
+  "label_nonce": "89lWRZCJ+0hwxasy",
+  "label_tag": "6tgw1CjxYvMzcLIM7HNztQ==",
+  "signature": "MEUCIDVXD0AkD+crx2cxdU9fB8q+yhd3QjkF+8PoTSHspdxaAiEAyqyNLY7DjBky1CAijs1RNfmfFfi0I7PBGq1VxNW2Vvg=",
+  "patient_ref": "PT-GAMMA-114"
+}

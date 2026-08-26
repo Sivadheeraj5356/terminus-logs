@@ -1,0 +1,11 @@
+--- a/footcache/cache_flush.go
++++ b/footcache/cache_flush.go
+@@ -4,7 +4,7 @@
+ 	if store == nil {
+ 		return nil
+ 	}
+-	if mode == FlushSoft {
++	if mode == FlushHard {
+ 		store.ClearFooter(path)
+ 	}
+ 	return nil

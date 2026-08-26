@@ -1,0 +1,18 @@
+apiVersion: diffusion.ops/v1
+kind: DiffusionExperiment
+metadata:
+  name: unknown-calibration
+container:
+  image: registry.local/unknown/calibration:0
+spec:
+  seed: 42
+  walkers: 4
+  steps: 3
+  drift: 0.01
+  volatility: 0.2
+  calibrationRef: not-registered
+  dimensions:
+    - name: x
+      weight: 1.0
+      lower: -1.0
+      upper: 1.0

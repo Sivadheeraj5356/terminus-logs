@@ -1,0 +1,11 @@
+# A two-state nonlinear branch with algebraic coupling.
+kind=coupled
+dimension=2
+start_lambda=0
+start_x=0,0
+orientation=1,0,1
+a=1
+coupling=0.15
+gain=0.4
+bias1=0
+bias2=0

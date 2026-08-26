@@ -1,0 +1,6 @@
+hostname: acc-hq-dal-bldg2-10
+migration_state: segmented
+canonical_vlan: 2011
+configured_vlan: 2011
+legacy_vlan: 112
+duplicate_vlan_conflict: false

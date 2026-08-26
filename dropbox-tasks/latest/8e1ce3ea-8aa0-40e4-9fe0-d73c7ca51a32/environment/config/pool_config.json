@@ -1,0 +1,8 @@
+{
+  "pool_size": 1048576,
+  "alignment": 16,
+  "compaction_threshold": 0,
+  "fragmentation_warning_threshold": 0.0,
+  "enable_aggressive_merge": true,
+  "min_chunk_size": 0
+}

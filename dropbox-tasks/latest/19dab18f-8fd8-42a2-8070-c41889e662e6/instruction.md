@@ -1,0 +1,5 @@
+Build the front-end for an "you're leaving our site" departure page at `/app` (served at `/` in the sandbox). It reads a destination URL and a partner name out of the page's own query string and shows a "Continue to X" link out to that destination; there's no backend, everything is static HTML/CSS/JS.
+
+The catch: the destination and partner name both come straight from the URL, which means a visitor can be sent here with anything in those fields, including values crafted to look like one of the real partner links without actually being one, or to hijack the tab the link opens. `/app/LINKOUT_POLICY.md` is the binding spec - it names the actual allowed partner destinations, the exact element contract the verifier drives the page through, and the safety properties the departure link and the surrounding page have to satisfy. Nothing outside that file is part of the task.
+
+Use plain HTML/CSS/JS with no build step and no external libraries or CDN requests (there's no internet access in the sandbox). A visitor heading to one of the real partner destinations still needs the page to work normally; it's not enough to just refuse everything.

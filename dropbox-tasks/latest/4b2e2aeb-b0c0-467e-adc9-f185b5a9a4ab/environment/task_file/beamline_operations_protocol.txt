@@ -1,0 +1,27 @@
+Granite beamline operations protocol
+
+Packet fields
+
+The calibration packet describes horn profiles, spectral bins, thermal constants, and run limits. Missing `flux`, `heat_mj`, or `currents_ka` entries for a profile count as `0`. For every profile, compute single-spill bin flux as `protons_per_spill * profile.flux[bin] * bin.response`, horn heat as `protons_per_spill * profile.heat_mj[horn]`, and shield dose as `protons_per_spill * profile.shield_dose`. A profile is screen-feasible only when total horn heat plus `cooldown_reserve_mj` is within `max_window_heat_mj` and every horn current is within that horn's absolute current limit. `window_heat_mj` stores that same total including the reserve.
+
+Run limits
+
+A run has exactly `spill_count` one-based slots. Adjacent nonzero current changes on a horn may not exceed `max_current_delta_ka`; if either side is zero, that horn does not create a delta blocker. Horn temperature starts at `base_temp_k`; before every spill it cools by `cool_rate_k`, not below base, then gains `heat_mj / thermal_capacity_mj_per_k`. During the run, enforce per-window heat, peak horn temperature, cumulative shield dose, and final `min_flux` for every bin.
+
+Profile screen
+
+Write `profile_screen.json` as `{"profiles":[...]}` sorted by `profile_id`; each row has `profile_id`, `bin_flux` sorted alphabetically by the `bin` field as `{ "bin", "flux" }`, `horn_heat_mj` sorted alphabetically by the `horn` field as `{ "horn", "heat_mj" }`, `shield_dose`, `window_heat_mj`, `feasible`, and sorted `blockers`. Screen blockers are `window_heat` and `current:<horn>`.
+
+Thermal trace
+
+Write `thermal_trace.json` as `{"slots":[...],"final_flux":[...],"peak_temp_k":number,"shield_dose":number}`. Slot rows use one-based `slot`, `profile_id`, `horn_temps_k` rows sorted alphabetically by `horn` as `{ "horn", "temp_k" }`, `cumulative_flux` rows sorted alphabetically by `bin` as `{ "bin", "flux" }`, and `cumulative_shield_dose`; `final_flux` is sorted alphabetically by `bin`.
+
+Plan selection
+
+Write `beam_plan.json` as `{"status","objective","assignments","blockers"}`; assignments are one-based `{ "slot", "profile_id" }`. Round report floats to two decimals by rounding `value + 1e-9` to two decimal places. Objective centi-units are `floor(value * 100 + 0.5 + 1e-7)`.
+
+If no full schedule is valid, `beam_plan.json` has status `blocked`, `objective: []`, `assignments: []`, and the sorted union of violations from every screened candidate sequence; `thermal_trace.json` uses `slots: []`, `final_flux: []`, zero peak, and zero dose. Use `no_screen_profile` when no profile passes the screen, and `no_valid_schedule` only if schedule search finds no more specific blocker. Runtime blockers are `current_delta:<slot>`, `horn_temp:<horn>`, `shield_dose`, and `flux:<bin>`.
+
+Otherwise `beam_plan.json` has status `ok`, an empty `blockers` array, and `objective` is a positional JSON array, not an object: `[total_underfill_centi, total_overfill_centi, peak_temperature_centi, shield_dose_centi, non_idle_profile_changes, signature]`. For each bin, underfill is `min_flux - actual_flux` only when actual flux is below the minimum, and overfill is `actual_flux - min_flux` otherwise; total underfill and overfill are summed across bins before centi conversion. A non-idle profile change is counted only when adjacent slots use different profiles and neither adjacent profile id is `idle`; transitions into or out of `idle` do not count. Choose the valid schedule with the lexicographically smallest objective array, where the signature is `slot:profile|...`.
+
+All lists remain JSON arrays when empty, never null, strings, or zero-filled placeholders. Output is deterministic and every JSON file ends with a newline.

@@ -1,0 +1,9 @@
+component,version,license,kind,critical,size_kb,platforms,owner
+triplet-core,1.0.0,Apache-2.0,runtime,yes,320,linux-x86_64|linux-arm64,platform
+manifest-portfile,1.3.2,MIT,runtime,yes,34,linux-x86_64|linux-arm64,platform
+binary-cache-index,2.5.1,BSD-3-Clause,runtime,no,128,linux-x86_64|linux-arm64,observability
+abi-guard,4.2.0,Apache-2.0,runtime,yes,190,linux-x86_64,compliance
+overlay-triplet,0.8.7,MPL-2.0,runtime,no,74,linux-x86_64,compatibility
+port-linter,3.1.4,GPL-3.0,dev,no,96,linux-x86_64,tooling
+source-mirror,2026.07.0,CC0-1.0,data,no,26,linux-x86_64|linux-arm64,data
+usage-docs,5.0.0,Apache-2.0,doc,no,60,linux-x86_64|linux-arm64,docs

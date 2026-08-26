@@ -1,0 +1,10 @@
+{
+  "workspace_pins_field": "workspace_pins",
+  "workspace_features_field": "workspace_features",
+  "declared_source_label": "workspace_declared",
+  "direct_declared_source_label": "declared",
+  "transitive_source_label": "transitive",
+  "workspace_managed_source_label": "workspace",
+  "declared_overrides_workspace_version": false,
+  "workspace_pin_applies_before_walk": true
+}

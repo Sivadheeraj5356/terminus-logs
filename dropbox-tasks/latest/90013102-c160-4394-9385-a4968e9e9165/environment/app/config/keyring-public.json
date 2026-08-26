@@ -1,0 +1,22 @@
+{
+  "keys": [
+    {
+      "tenant": "demo",
+      "key_id": "demo-key-1",
+      "key_epoch": 1,
+      "secret_hex": "64656d6f2d686d61632d7365637265742d6b65792d666f722d7075626c69632d74657374732121",
+      "allowed_profiles": ["current-2026", "legacy-2024", "transition-2025"],
+      "allowed_versions": [1, 2],
+      "revoked": false
+    },
+    {
+      "tenant": "demo",
+      "key_id": "demo-key-epoch-b",
+      "key_epoch": 2,
+      "secret_hex": "64656d6f2d686d61632d7365637265742d6b65792d666f722d7075626c69632d74657374732121",
+      "allowed_profiles": ["current-2026"],
+      "allowed_versions": [2],
+      "revoked": false
+    }
+  ]
+}

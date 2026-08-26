@@ -1,0 +1,6 @@
+{"id":"evt-1","payload":{"Display":"Hello\u0007","url":"https://example.com/a"}}
+{"id":"evt-2","payload":{"TOKEN":"leak","nested":{"$where":"sleep(9)","name":"Ａlice"},"redirect":"java%73cript:alert(1)"}}
+{"id":"evt-3","payload":{"＄\u202ewhere":"sleep(9)","ＰＡＳＳ\u007fＷＯＲＤ":"leak","Ｕ\u202eＲＬ":"jav&#x61;script:alert(1)","visible":"ＯＫ"}}
+{"id":"evt-4","payload":{"Name":1,"ｎａｍｅ":2}}
+{"id":"evt-5","payload":
+{"id":"","payload":"missing id"}

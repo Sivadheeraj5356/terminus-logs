@@ -1,0 +1,10 @@
+GEM
+  remote: https://rubygems.org
+  specs:
+    toml (0.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  toml (~> 0.3)

@@ -1,0 +1,12 @@
+# Service runtime settings.
+# Update these values to harden the service before deploying to the escape-room floor.
+
+debug_mode: false
+moderator_key: ""
+
+session_timeout: 3600
+rate_limit_rpm: 30
+max_attempts: 100
+log_level: "debug"
+port: 8080
+bind_addr: "0.0.0.0"

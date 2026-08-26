@@ -1,0 +1,22 @@
+{
+  "profiles": {
+    "warm": {
+      "weights": "bundles/profiles/warm_weights.tsv",
+      "required": [
+        "fw_alpha",
+        "mod_core",
+        "mod_net"
+      ]
+    },
+    "cold": {
+      "weights": "bundles/profiles/cold_weights.tsv",
+      "required": [
+        "fw_alpha",
+        "fw_beta",
+        "mod_core",
+        "mod_disk",
+        "mod_sensor"
+      ]
+    }
+  }
+}

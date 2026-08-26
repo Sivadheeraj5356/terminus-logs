@@ -1,0 +1,268 @@
+{
+  "specification_metadata": {
+    "authoritative_status": "CANONICAL_LIVE_KEELMARK_PACK_V1",
+    "title": "Keelmark Cabal packaging gate — normative pack ledger",
+    "revision": "pack-ledger-2025.07"
+  },
+  "scope": {
+    "candidate_intersection": [
+      "pack-contract.monitored_blocks",
+      "block-roster.blocks[].name",
+      "edition-policy.block_pins keys"
+    ],
+    "ignored_outside_intersection": true,
+    "shard_relative_path": "keelmark-shards/{block}/tension_events.jsonl"
+  },
+  "revisions": {
+    "pack_revision_source": "edition-policy.json field version",
+    "pack_revision_decoy_field": "pack_revision",
+    "contract_revision_source": "pack-contract.json field contract_revision",
+    "inventory_audit_token_source": "edition-policy.json field audit_token",
+    "summary_audit_token_source": "edition-policy.json field audit_token",
+    "alert_audit_stamp_source": "pack-contract.json field audit_stamp",
+    "package_version_source": "edition-policy.json field package_version",
+    "required_cabal_name": "keelmark",
+    "required_executable_name": "keelmark",
+    "binary_path": "/app/bin/keelmark"
+  },
+  "packaging_build": {
+    "workspace_packages": [
+      "packages/keelmark-core",
+      "packages/keelmark-report",
+      "packages/keelmark-app"
+    ],
+    "package_version_alignment": "every Cabal package version field (keelmark-core, keelmark-report, and keelmark) must equal edition-policy.package_version",
+    "stream_profile_cpp_define": "KEELMARK_GATE_V2",
+    "stream_profile_required_on": [
+      "keelmark-core",
+      "keelmark-report"
+    ],
+    "stream_profile_rule": "both keelmark-core and keelmark-report library stanzas must compile with cpp-options -DKEELMARK_GATE_V2; a build that omits the define on either library silently emits the retired tide-era stream and report formatting",
+    "compat_trees": "directories named compat under any workspace package are the retired 8.10 audit trail only; hs-source-dirs for shipped libraries must list src alone and must not name compat",
+    "restored_modules": {
+      "Keelmark.Scan": "must exist at packages/keelmark-core/src/Keelmark/Scan.hs; implement event_pipeline exactly — retract rows strike earlier matching events during parse, kN is type-strict (a string-typed kN is malformed), the audit window is inclusive on both boundary dates, and dedup keeps the highest kN — the compat copy ignores retract rows, coerces quoted kN, closes the window before its end date, and keeps the first duplicate reading",
+      "Keelmark.Classify": "must exist at packages/keelmark-core/src/Keelmark/Classify.hs; implement calibration.base_eff_tenths half-up tenths, classification inclusive >= thresholds, metrics.timestamp_padding (hour and second only), and metrics.dominant_peer Z-A tie-break — the compat copy uses banker's round, strict >, full HMS padding, and A-Z ties",
+      "Keelmark.Emit": "must exist at packages/keelmark-report/src/Keelmark/Emit.hs; implement schemas/formatting from this ledger including bare coverage_pct, block_row_key_order with dominant_peer before load_index, and gate_seal.txt ending with exactly two newlines — the compat copy quotes coverage_pct, swaps those two block keys, and emits a single trailing newline"
+    },
+    "project_local_overrides": "cabal.project.local must not undefine KEELMARK_GATE_V2 (no -UKEELMARK_GATE_V2 in ghc-options); delete or rewrite any local override that strips the gate profile",
+    "offline_bounds": "dependency version bounds and cabal.project constraints must solve against the preinstalled package database with no Hackage fetches"
+  },
+  "skip_precedence": [
+    "suppress_hit",
+    "abi_miss",
+    "pin_mismatch",
+    "empty_shard",
+    "brace_cycle"
+  ],
+  "skip_rules": {
+    "brace_cycle": "defined by the brace_cycle_quarantine section; evaluated only for blocks surviving the four earlier reasons",
+    "suppress_hit": "block name listed in suppress-blocks.json names array (the alert_mute array is NOT a suppress list; muted blocks are measured normally)",
+    "abi_miss": "edition-policy.edition_abi != pack-contract.required_edition_abi; this deferral guards future drift — gate sign-off requires edition_abi corrected to the contract value so no abi_miss rows ship",
+    "pin_mismatch": "block_pins[name] string != roster row package_rev for that name",
+    "empty_shard": "zero usable events remain after the full event pipeline (parse, audit-window filter, dedup); missing shard file counts as empty"
+  },
+  "event_pipeline": {
+    "order": ["parse_with_retraction", "window_filter", "dedup"],
+    "overlay_shards": {
+      "path": "keelmark-shards/{block}/tension_events.overlay.jsonl",
+      "optional": true,
+      "concatenation": "when present, overlay lines are processed after every base shard line, as one continuous stream; non-blank lines from both files count toward event_lines_total",
+      "retract_rows": {
+        "shape": "kind retract with ts and peer (kN not required); type-strict on the fields present",
+        "rule": "a retract row removes every event accepted earlier in the stream (base or prior overlay lines) whose ts and peer both match; events appearing after the retract are unaffected",
+        "position": "retraction happens during parse, before the window filter and dedup, so retracted events never reach any counter or measurement",
+        "no_match": "a retract matching nothing is a silent no-op",
+        "never_usable": "retract rows are never events themselves",
+        "counter": "retracted_total sums removed events across measured blocks only"
+      }
+    },
+    "parse": {
+      "usable_kinds": ["sample", "escalate"],
+      "ignored_kind": "noise",
+      "required_fields": ["ts", "kN", "peer", "kind"],
+      "type_strict": "kN must be a JSON number and ts/peer/kind JSON strings; a string-typed kN makes the line malformed",
+      "unknown_fields": "extra fields on an event line are permitted and ignored",
+      "malformed_lines_skipped": true,
+      "blank_lines_skipped": true
+    },
+    "window_filter": {
+      "rule": "keep events whose calendar date (first 10 characters of the raw ts) is within pack-contract.audit_window start..end, both inclusive; out-of-window events never influence measurement",
+      "counter": "window_dropped_total counts parsed-but-out-of-window events across measured blocks only"
+    },
+    "dedup": {
+      "rule": "events sharing an identical (ts, peer, kind) triple collapse to a single event keeping the highest kN",
+      "counter": "dedup_dropped_total counts collapsed duplicates across measured blocks only"
+    }
+  },
+  "amendments": {
+    "path": "/app/keelmark-policy/amendments.jsonl",
+    "row_fields": ["seq", "status", "target", "value", "supersedes"],
+    "eligibility": "only rows with status ratified ever apply; draft and revoked rows apply nothing",
+    "supersession": "a ratified row is void when its seq appears in the supersedes array of any ratified row carrying a higher seq; void rows apply nothing",
+    "application_order": "surviving ratified rows apply in ascending seq order regardless of file order; a later row overwrites an earlier row touching the same target",
+    "targets": {
+      "warn_kN": "replaces the contract's global warn_kN; zone overrides are untouched by amendments",
+      "critical_kN": "replaces the contract's critical_kN",
+      "class_gains.<class>": "replaces that single class gain in the contract's gain table",
+      "alert_mute_add": "adds the value block name to the alert_mute set"
+    },
+    "timing": "the amended contract and mute set are in force before the candidate walk, measurement, classification, and alerting; raw pack-contract values that an amendment touches are dead once amended"
+  },
+  "brace_cycle_quarantine": {
+    "graph": "vertices are candidates that survive suppress_hit, abi_miss, pin_mismatch, and empty_shard; a directed edge runs from each vertex to every braced partner that is also a vertex",
+    "rule": "every vertex lying on any directed cycle, including a self-brace, defers with reason brace_cycle",
+    "ordering": "brace_cycle is the fifth and final skip precedence reason, evaluated after empty_shard",
+    "counters": "usable_events_total, window_dropped_total, and dedup_dropped_total accrue only for blocks that remain measured after brace_cycle quarantine; event_lines_total still counts every candidate's non-blank lines",
+    "uplift": "brace_cycle-deferred partners contribute nothing to surviving blocks' uplift"
+  },
+  "calibration": {
+    "gain_source": "pack-contract.class_gains keyed by the roster cell_class",
+    "base_eff_tenths": "floor(max_kN * gain * 10 + 0.5) held as integer tenths, where max_kN is the highest raw kN among pipeline-surviving events (half-up rounding to one decimal)",
+    "brace_uplift": {
+      "source": "each roster row carries a directional braces array of partner block names",
+      "rule": "uplift_tenths = sum over braced partners that are themselves measured of floor(partner_base_eff_tenths / 50); partners contribute their BASE tenths (pre-uplift), computed in a single pass so ordering never matters",
+      "excluded_partners": "deferred, suppressed, or unknown partner names contribute nothing",
+      "note": "a muted partner is still measured and still contributes"
+    },
+    "eff_max_kN": "(base_eff_tenths + uplift_tenths) / 10, emitted with exactly one decimal digit",
+    "note": "classification and load_index consume the final uplifted eff_max_kN, never the raw maximum and never the pre-uplift base"
+  },
+  "classification": {
+    "CRITICAL": "eff_max_kN >= critical_kN (as amended) OR any pipeline-surviving event has kind escalate",
+    "WARN": "not CRITICAL AND eff_max_kN >= the block's effective warn threshold",
+    "STABLE": "otherwise",
+    "effective_warn_threshold": "pack-contract.zone_overrides[zone].warn_kN when the contract defines an override for the block's roster zone, else the amended global warn_kN; zone overrides outrank both amendments and the raw contract global"
+  },
+  "metrics": {
+    "sample_count": "count of pipeline-surviving events (post window filter and dedup)",
+    "max_kN": "highest raw kN among pipeline-surviving events, emitted as JSON number",
+    "eff_max_kN": "calibrated value per the calibration section, emitted with exactly one decimal digit",
+    "dominant_peer": "peer with the highest surviving-event count; ties break Z-A (lexicographically greatest peer wins)",
+    "load_index": "floor((eff_max_kN * 1000 + sample_count * 7) / max(1, rated_tonnage))",
+    "last_tension_at_selection": "among surviving events, choose the event whose raw ts string is lexicographically greatest; emit padded form of that raw ts",
+    "timestamp_padding": "pad hour and second fields to two digits; leave minute field unpadded (example raw 2025-06-01T9:5:3Z emits 2025-06-01T09:5:03Z)",
+    "sort_key_raw_ts": "inventory sort uses the selected event raw unpadded ts string, not the padded emission"
+  },
+  "alerts": {
+    "include_when": "classification is CRITICAL or WARN AND load_index >= pack-contract.min_alert_index AND block not listed in suppress-blocks.alert_mute",
+    "severity_field": "classification value",
+    "mute_rule": "blocks in alert_mute stay fully measured in the inventory; rows that met the alert criteria but were muted increment alerts_muted instead of appearing in tension_alerts.json"
+  },
+  "sorting": {
+    "blocks": [
+      "classification order CRITICAL then WARN then STABLE",
+      "raw last-tension ts ascending",
+      "load_index ascending",
+      "name descending (Z-A)"
+    ],
+    "alerts": [
+      "severity CRITICAL before WARN",
+      "name ascending (A-Z)"
+    ],
+    "deferred": [
+      "name ascending (A-Z)"
+    ],
+    "bucket_name_lists": [
+      "critical, warn, stable arrays list measured names only",
+      "each bucket sorted name ascending (A-Z)"
+    ]
+  },
+  "schemas": {
+    "pack_inventory.json": {
+      "top_key_order": [
+        "audit_token",
+        "pack_revision",
+        "contract_revision",
+        "package_version",
+        "blocks",
+        "critical",
+        "warn",
+        "stable",
+        "deferred"
+      ],
+      "deferred_field_note": "top-level deferred is an array of deferred block names only; full name/reason rows live in deferred.json",
+      "block_row_key_order": [
+        "name",
+        "zone",
+        "cell_class",
+        "steward",
+        "sample_count",
+        "max_kN",
+        "eff_max_kN",
+        "dominant_peer",
+        "load_index",
+        "classification",
+        "last_tension_at",
+        "package_rev",
+        "contract_revision"
+      ]
+    },
+    "tension_alerts.json": {
+      "top_key_order": ["alerts"],
+      "alert_row_key_order": [
+        "block",
+        "severity",
+        "max_kN",
+        "eff_max_kN",
+        "load_index",
+        "sample_count",
+        "zone",
+        "steward",
+        "cell_class",
+        "audit_stamp",
+        "contract_revision"
+      ]
+    },
+    "deferred.json": {
+      "top_key_order": ["deferred"],
+      "deferred_row_key_order": ["name", "reason"]
+    },
+    "summary.json": {
+      "top_key_order": [
+        "audit_token",
+        "pack_revision",
+        "contract_revision",
+        "package_version",
+        "candidate_count",
+        "measured_count",
+        "deferred_count",
+        "event_lines_total",
+        "usable_events_total",
+        "window_dropped_total",
+        "dedup_dropped_total",
+        "retracted_total",
+        "alert_count",
+        "alerts_muted",
+        "coverage_pct",
+        "inventory_sig"
+      ],
+      "event_lines_total": "count of non-blank shard lines across all candidates (measured and deferred), including malformed and noise",
+      "usable_events_total": "count of pipeline-surviving events across measured blocks only",
+      "retracted_total": "count of events removed by overlay retract rows across measured blocks only",
+      "coverage_pct": "round_half_up_2dp(100 * measured_count / candidate_count) emitted as a bare JSON number, never a quoted string, with exactly two decimal digits (example: 65.38 not \"65.38\"); round_half_up_2dp(value) = floor(value * 100 + 0.5) / 100",
+      "inventory_sig": "FNV-1a 64-bit hash of the final pack_inventory.json file bytes, emitted as a 16-character lowercase zero-padded hex JSON string; offset basis 14695981039346656037, prime 1099511628211, arithmetic modulo 2^64, byte order exactly as written to disk"
+    },
+    "gate_seal.txt": {
+      "path": "/app/output/gate_seal.txt",
+      "line": "KEELMARK-GATE|{pack_revision}|{inventory_sig}|{bundle_sig}|{alert_count}|{alerts_muted}",
+      "bundle_sig": "FNV-1a 64-bit hash (same constants and hex emission as inventory_sig) over the concatenated exact bytes of pack_inventory.json, tension_alerts.json, deferred.json, and summary.json in that order, each file exactly as written to disk including its trailing-newline polarity",
+      "ending": "the single seal line is followed by exactly two newline characters"
+    }
+  },
+  "formatting": {
+    "json_indent": 2,
+    "ensure_ascii": false,
+    "numeric_types": "every numeric field in every deliverable emits as a bare JSON number, never a quoted string; counters and load_index emit as integers without decimal points, kN metrics with exactly one decimal digit, coverage_pct with exactly two",
+    "trailing_newline": {
+      "pack_inventory.json": false,
+      "tension_alerts.json": true,
+      "deferred.json": false,
+      "summary.json": true,
+      "gate_seal.txt": "exactly two"
+    },
+    "emission_order_note": "pack_inventory.json bytes must be final before inventory_sig is computed for summary.json and gate_seal.txt"
+  },
+  "source_symbols": {
+    "main_must_invoke": ["parseTensionEvents", "peerEscalates"]
+  }
+}

@@ -1,0 +1,6 @@
+# Legacy HLS seal config — leaks key URI (decoy)
+profile: reel-legacy
+hls:
+  method: AES-128
+  key_uri: http://keys.decoy.invalid/hls/aes.key
+  playlist: /tmp/legacy.m3u8

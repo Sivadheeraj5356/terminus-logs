@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Independent fresh-depth ledger for the transit photometry desk."""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+from pathlib import Path
+
+APP = Path(os.environ.get("DESK_ROOT", "/app"))
+CURVES = APP / "curves"
+INDEX = APP / "shared" / "pack_index.json"
+
+MASK = (1 << 64) - 1
+GOLDEN = 0x9E3779B97F4A7C15
+
+
+def rotl(x: int, r: int) -> int:
+    x &= MASK
+    return ((x << r) | (x >> (64 - r))) & MASK
+
+
+def combine(a: int, b: int) -> int:
+    return rotl((((a & MASK) * GOLDEN) + (b & MASK)) & MASK, 7)
+
+
+def to_i64(u: int) -> int:
+    u &= MASK
+    if u >= 1 << 63:
+        return u - (1 << 64)
+    return u
+
+
+def remesh_phase(phase: int, active: int, saved: int) -> int:
+    if saved == active or saved < 1:
+        return phase
+    return combine(phase, active - saved + 1)
+
+
+def remesh_cells(cells: list[int], saved: int, active: int, bins: int) -> list[int]:
+    if active < 1:
+        active = 1
+    if saved < 1:
+        saved = 1
+    out = [0] * active
+    n = min(bins, saved, active, len(cells))
+    for i in range(n):
+        out[i] = cells[i]
+    return out
+
+
+def tree_fold(vals: list[int]) -> int:
+    if not vals:
+        return 0
+    cur = list(vals)
+    while len(cur) > 1:
+        nxt = []
+        i = 0
+        while i < len(cur):
+            if i + 1 < len(cur):
+                nxt.append(combine(cur[i], cur[i + 1]))
+            else:
+                nxt.append(cur[i])
+            i += 2
+        cur = nxt
+    return cur[0]
+
+
+def fill_apron(cells: list[int], bins: int, width_b: int) -> tuple[list[int], list[int]]:
+    w = width_b if width_b else 1
+    n = min(bins, len(cells))
+    apron_l = [0] * len(cells)
+    apron_r = [0] * len(cells)
+    for i in range(n):
+        base_l = cells[(i + n - 1) % n]
+        base_r = cells[(i + 1) % n]
+        if w >= 2 and n >= 2:
+            base_l = combine(base_l, cells[(i + n - 2) % n])
+            base_r = combine(base_r, cells[(i + 2) % n])
+        apron_l[i] = base_l
+        apron_r[i] = base_r
+    return apron_l, apron_r
+
+
+def advance(cells, apron_l, apron_r, bins, phase, cursor, sample):
+    idx = cursor % bins
+    weighted = combine(sample, phase)
+    if idx < len(apron_l):
+        weighted = combine(weighted, apron_l[idx])
+    if idx < len(apron_r):
+        weighted = combine(weighted, apron_r[idx])
+    cells[idx] = combine(cells[idx], weighted)
+    phase = combine(phase, cursor + 1)
+    return phase, cursor + 1
+
+
+def depth_bits(cells, apron_l, apron_r, bins, half_w, phase) -> int:
+    mid = bins // 2
+    half = half_w if half_w >= 1 else 1
+    terms = []
+    n = min(bins, len(cells))
+    for i in range(n):
+        d = abs(i - mid)
+        v = cells[i]
+        al = apron_l[i] if i < len(apron_l) else 0
+        ar = apron_r[i] if i < len(apron_r) else 0
+        if d <= half:
+            v = combine(v, al)
+        else:
+            v = combine(v, ar)
+        terms.append(combine(v, phase))
+    return tree_fold(terms)
+
+
+def fresh_depth(spec: dict) -> int:
+    bins = spec["bins"]
+    active = spec["active_stride"]
+    samples = spec["samples"]
+    total = spec["total"]
+    snap = spec["snapshot"]
+    half = spec["half_w"]
+    width = spec["width_b"]
+    cells = [0] * bins
+    phase = 1
+    cursor = 0
+    apron_l, apron_r = fill_apron(cells, bins, width)
+    while cursor < snap and cursor < total:
+        sample = samples[cursor % len(samples)]
+        phase, cursor = advance(cells, apron_l, apron_r, bins, phase, cursor, sample)
+    cells = remesh_cells(cells, bins, active, bins)
+    phase = remesh_phase(phase, active, bins)
+    apron_l, apron_r = fill_apron(cells, bins, width)
+    while cursor < total:
+        sample = samples[cursor % len(samples)]
+        phase, cursor = advance(cells, apron_l, apron_r, bins, phase, cursor, sample)
+    return to_i64(depth_bits(cells, apron_l, apron_r, bins, half, phase) & MASK)
+
+
+def main() -> int:
+    order = json.loads(INDEX.read_text(encoding="utf-8"))["order"]
+    for name in order:
+        spec = json.loads((CURVES / f"{name}.json").read_text(encoding="utf-8"))
+        print(f"{spec['pack']} fresh_depth={fresh_depth(spec)}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

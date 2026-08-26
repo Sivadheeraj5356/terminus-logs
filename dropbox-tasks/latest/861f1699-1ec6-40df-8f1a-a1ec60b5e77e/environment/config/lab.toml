@@ -1,0 +1,12 @@
+ct_dir = "/app/data/ct"
+output_dir = "/app/output/reports"
+sample_rate_hz = 83333
+formant_min_hz = 180
+formant_max_hz = 3500
+peak_min_db = 6
+peak_min_sep_hz = 40
+formant_tolerance_hz = 5
+bridge_x = 36
+bridge_y = 12
+mic_x = 42
+mic_y = 12

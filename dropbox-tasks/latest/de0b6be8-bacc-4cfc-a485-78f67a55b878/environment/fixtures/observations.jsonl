@@ -1,0 +1,5 @@
+{"id":"obs-a","indicator":"dropper-a","source":"sensor-alpha","contractor":"Zephyr Optics","malware":"lumenrat","beacon":"edge-17","toolcell":"euv-4","actor":"actor-red","start":100,"end":140,"reliability_bp":9000}
+{"id":"obs-b","indicator":"implant-b","source":"sensor-beta","contractor":"ZEPHY-OPS","malware":"lumenrat","beacon":"edge-29","toolcell":"euv-4","actor":"actor-red","start":140,"end":180,"reliability_bp":8800}
+{"id":"obs-c","indicator":"beacon-c","source":"sensor-gamma","contractor":"Nova Service","malware":"","beacon":"shared-cloud","toolcell":"euv-9","actor":"actor-blue","start":110,"end":160,"reliability_bp":8500}
+{"id":"obs-d","indicator":"beacon-d","source":"sensor-delta","contractor":"Zephyr Optics","malware":"lumenrat","beacon":"shared-cloud","toolcell":"euv-4","actor":"actor-blue","start":120,"end":150,"reliability_bp":9200}
+{"id":"obs-e","indicator":"weak-e","source":"sensor-alpha","contractor":"Orion","malware":"dustkit","beacon":"edge-88","toolcell":"euv-2","actor":"actor-green","start":10,"end":20,"reliability_bp":4200}

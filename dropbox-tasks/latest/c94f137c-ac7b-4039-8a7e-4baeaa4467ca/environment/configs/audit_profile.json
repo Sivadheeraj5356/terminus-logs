@@ -1,0 +1,6 @@
+{
+  "profile": "claim-docket-audit",
+  "default_epoch": 7,
+  "region_gate": true,
+  "chain_seq_width": 16
+}

@@ -1,0 +1,6 @@
+Shift handoff notes:
+- stack_table.json must match the service wiring sheet before cutover.
+- ledgers under /app/var/tally/ persist across shifts; reconcile against the cutover packet before replay.
+- phantom tallies from aborted cutover attempts must be zeroed or removed; carryover only where the packet retains prior failures.
+- pam.d fragments under /app/config/pam.d/ and /app/ops/cutover/ must agree with stack_table module lists.
+- pam_lockout_report.json is archived with the shift packet after pack replay.

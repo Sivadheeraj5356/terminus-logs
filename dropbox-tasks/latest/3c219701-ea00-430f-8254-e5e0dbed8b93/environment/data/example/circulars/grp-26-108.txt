@@ -1,0 +1,13 @@
+GRID REVENUE PROTECTION CIRCULAR
+REF: GRP-26-108
+ISSUER: CCC
+ISSUED: 1767140600
+EFFECTIVE: 1767139200
+
+Revenue protection staff report that estimate-sourced reads remain the most common vector for class understatement.
+
+DIRECTIVES:
+SHED CCC-400 WINDOW 2 ENTER 150 EXIT 120
+END DIRECTIVES
+
+The regulator restates that a directive block is the only operative content of a circular.

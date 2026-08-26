@@ -1,0 +1,6 @@
+RULE MOUNT_ROOT_NAME
+IN keys
+OUT value,reason
+TABLE
+where|/ -> -.mount|mount-root
+END

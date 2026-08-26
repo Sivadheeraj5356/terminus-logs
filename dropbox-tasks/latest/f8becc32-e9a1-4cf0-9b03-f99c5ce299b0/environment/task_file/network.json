@@ -1,0 +1,43 @@
+{
+  "bus": "bench-rig-a",
+  "messages": [
+    {
+      "id": 288,
+      "name": "Engine",
+      "expected_dlc": 8,
+      "max_gap_ms": 60,
+      "counter": {"byte": 7, "mask": 15, "shift": 0, "modulo": 16},
+      "checksum": {"byte": 6, "mode": "sum8"},
+      "signals": [
+        {"name": "rpm", "start_bit": 0, "length": 16, "endian": "little", "signed": false, "scale": 0.25, "offset": 0, "unit": "rpm"},
+        {"name": "temp_c", "start_bit": 16, "length": 8, "endian": "little", "signed": true, "scale": 1, "offset": -40, "unit": "C"},
+        {"name": "mode", "start_bit": 32, "length": 4, "endian": "little", "signed": false, "scale": 1, "offset": 0, "unit": ""},
+        {"name": "torque", "start_bit": 40, "length": 8, "endian": "little", "signed": true, "scale": 0.5, "offset": 0, "unit": "Nm", "mux": {"byte": 4, "mask": 15, "value": 2}}
+      ]
+    },
+    {
+      "id": 544,
+      "name": "Battery",
+      "expected_dlc": 8,
+      "max_gap_ms": 25,
+      "counter": null,
+      "checksum": {"byte": 7, "mode": "sum8"},
+      "signals": [
+        {"name": "voltage", "start_bit": 0, "length": 12, "endian": "little", "signed": false, "scale": 0.1, "offset": 0, "unit": "V"},
+        {"name": "current", "start_bit": 12, "length": 12, "endian": "little", "signed": true, "scale": 0.2, "offset": -100, "unit": "A"}
+      ]
+    },
+    {
+      "id": 768,
+      "name": "Cabin",
+      "expected_dlc": 8,
+      "max_gap_ms": 25,
+      "counter": {"byte": 0, "mask": 240, "shift": 4, "modulo": 16},
+      "checksum": null,
+      "signals": [
+        {"name": "fan", "start_bit": 8, "length": 4, "endian": "little", "signed": false, "scale": 1, "offset": 0, "unit": "step"},
+        {"name": "door", "start_bit": 16, "length": 1, "endian": "little", "signed": false, "scale": 1, "offset": 0, "unit": ""}
+      ]
+    }
+  ]
+}

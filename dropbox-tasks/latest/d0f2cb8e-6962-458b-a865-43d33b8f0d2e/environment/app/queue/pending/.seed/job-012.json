@@ -1,0 +1,8 @@
+{
+  "job_id": "job-012",
+  "priority": 13,
+  "spec_path": "/app/specs/analytics-edge.yaml",
+  "profile_ref": "analytics",
+  "rules_ref": "cpu_turbo",
+  "defer": false
+}

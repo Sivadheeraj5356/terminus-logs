@@ -1,0 +1,8 @@
+Source-informed restricted 1D regolith model used by this task.
+Equations adopted (restricted profile):
+- c_p(T) = c0 + c1*T + c2*T^2
+- k(T,z) = k_c * (1 + b*z) + k_r * T^3  (with optional conductivity_scale)
+- Surface energy balance with absorbed solar and sigma*eps*T^4 emission
+- Geothermal basal flux as lower boundary condition
+Units: SI (W/m/K, J/kg/K, W/m^2).
+Excluded: 3D conduction, volatile transport, temperature-dependent emissivity.

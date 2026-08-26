@@ -1,0 +1,7 @@
+OCI extraction policy revision 1
+
+The policy argument is an ASCII file no larger than 65536 bytes and ends with LF. Its first line is exactly OCI-POLICY-1. Its second line is trusted_layers SPACE N where N is canonical unsigned decimal with no leading zero except zero itself. N is smaller than the manifest layer count so at least one layer is untrusted.
+
+Every remaining line is protect SPACE PATH. There is at least one such line. PATH is a nonempty canonical archive-root path containing only printable ASCII bytes 20 through 7e. It is relative and has one slash between components with no empty dot or dot-dot component. Protected paths are unique and listed in ascending bytewise order. Any malformed policy makes the invocation fail.
+
+The first N layers form the trusted baseline. Security findings are emitted only for later layers. Trusted baseline members still participate in namespace and hard-link replay so an untrusted member can pivot through or overwrite trusted state. policy_sha256 covers the exact policy bytes.

@@ -1,0 +1,7 @@
+STORE app
+CACHE cacheA
+NAR_HASH napp
+NAR_SIZE 4
+SIGS a
+REFERENCES -
+DERIVER app.drv

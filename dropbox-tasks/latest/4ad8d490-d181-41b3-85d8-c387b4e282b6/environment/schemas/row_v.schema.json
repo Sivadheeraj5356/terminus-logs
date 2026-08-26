@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "row_v.schema.json",
+  "title": "readiness_gonogo_brief",
+  "type": "object",
+  "required": ["schema_ver", "brief_digest", "gate_rows", "rb_rows", "seg_trace"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_ver": { "type": "integer", "const": 1 },
+    "brief_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "gate_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "board_pair", "clause_ids", "seg_vec", "disc_bind", "gate_kind"],
+        "additionalProperties": false,
+        "properties": {
+          "row_id": { "type": "string" },
+          "board_pair": { "type": "string" },
+          "clause_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "seg_vec": {
+            "type": "array",
+            "items": { "type": "number" }
+          },
+          "disc_bind": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "gate_kind": { "type": "string", "enum": ["go", "nogo"] }
+        }
+      }
+    },
+    "rb_rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["trig_id", "metric_fam", "bind_stamp", "hx_ref"],
+        "additionalProperties": false,
+        "properties": {
+          "trig_id": { "type": "string" },
+          "metric_fam": { "type": "integer" },
+          "bind_stamp": { "type": "integer" },
+          "hx_ref": { "type": "string" }
+        }
+      }
+    },
+    "seg_trace": {
+      "type": "object",
+      "required": ["vec", "stamp", "fam"],
+      "additionalProperties": false,
+      "properties": {
+        "vec": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "stamp": { "type": "integer" },
+        "fam": { "type": "integer" }
+      }
+    }
+  }
+}

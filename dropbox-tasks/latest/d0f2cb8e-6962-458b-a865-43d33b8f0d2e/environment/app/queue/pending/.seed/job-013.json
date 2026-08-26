@@ -1,0 +1,9 @@
+{
+  "job_id": "job-013",
+  "priority": 11,
+  "spec_path": "/app/specs/shadow-init.yaml",
+  "profile_ref": "fleet",
+  "rules_ref": "default",
+  "rules_profile_stack": ["roll_ceil", "edge_strict"],
+  "defer": false
+}

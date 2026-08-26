@@ -1,0 +1,10 @@
+# source-mask corpus
+PAIR:elev_u
+CAP:0x30
+LANE:5
+TAG:16
+ROLE:elev_u
+PAIR:elev_u
+LANE:1
+TAG:16
+ROLE:elev_u

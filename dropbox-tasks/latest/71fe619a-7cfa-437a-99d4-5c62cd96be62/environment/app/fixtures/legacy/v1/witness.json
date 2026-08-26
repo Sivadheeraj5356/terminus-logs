@@ -1,0 +1,6 @@
+{
+  "files": {
+    "basic.lock.json": "sha256:7bf51fc494c9d7d2418356b4bb4388b09147d734b8ef9eb500c625f016e672e2",
+    "minimal.lock.json": "sha256:ec0aa383fa5a066473dd7d292be206729e3eef770c0821c03f991cc2d151bc50"
+  }
+}

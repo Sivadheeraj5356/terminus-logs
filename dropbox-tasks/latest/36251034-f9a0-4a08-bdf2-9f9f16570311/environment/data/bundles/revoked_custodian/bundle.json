@@ -1,0 +1,48 @@
+{
+  "bundle_id": "revoked_custodian",
+  "custodians": {
+    "alpha": {
+      "public_key_hex": "c2ae7dc96d48e10ab7d41ab2f4ee91303b76b64496f8b92504220f515437d79c",
+      "weight": 3
+    },
+    "beta": {
+      "public_key_hex": "0f04e22af3ff0d9d5d22f3e9252ca569fa391f96bd652cd21522a191e9dd0cce",
+      "weight": 2
+    },
+    "delta": {
+      "public_key_hex": "9a1e1101475391cbed9f074b115d3686a43b2c0d0237ba5e367d8bca28c251e6",
+      "weight": 1
+    },
+    "epsilon": {
+      "public_key_hex": "f362e921c2a39ce63912b4547300b8b48aef69b6b25bcd1bc79be388a6149442",
+      "weight": 1
+    },
+    "gamma": {
+      "public_key_hex": "d78ba7727f3f59caf7f9f6a16ab28db1b70dfbe50363c61263319663e2ed3f9d",
+      "weight": 2
+    }
+  },
+  "queries": [
+    {
+      "artifact_sha256_hex": "139ae465e7e9d7f8ffca547b009b45f6cbcffc76e0bdbd7ddf0a8ba75d547431",
+      "eval_at": 1700000000,
+      "min_weight": 3,
+      "query_id": "blocked",
+      "release_epoch": 1699999970,
+      "scope": "custody|release|/artifacts/prod/",
+      "signatures": [
+        {
+          "custodian_id": "beta",
+          "signature_hex": "96c5edf70b35268ab2bec0a50f2ea49c66d4d7b6f124e1c9bbb9f93818dfd9c9d0a4cf7f61eb41068bb2c010d16ce90e52b3335820fb0a9e38b2dcd6ac28ad08"
+        },
+        {
+          "custodian_id": "alpha",
+          "signature_hex": "b4b3841ecf1c8d4e4753b31a4dba124532211fd82d6165417928c1132d7decd5790664102e587bda73171b7b2530bdcb179135fcb8a70ce7e0c4ee7852aec00e"
+        }
+      ]
+    }
+  ],
+  "revoked_custodians": [
+    "beta"
+  ]
+}

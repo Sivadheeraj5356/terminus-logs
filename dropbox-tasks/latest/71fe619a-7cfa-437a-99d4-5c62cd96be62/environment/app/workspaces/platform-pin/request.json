@@ -1,0 +1,5 @@
+{
+  "root_module": "corp.example/platform",
+  "root_version": "v1.0.0",
+  "replaces": []
+}

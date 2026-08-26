@@ -1,0 +1,4 @@
+tenant_canonical	object_id	chunk_offset	prev_refcount	last_observed_ns
+TEN_A	obj-wrap-01	0	65530	1749999990000000000
+TEN_A	obj-01	0	1	1749999900000000000
+TEN_B	obj-02	0	2	1749999900000000000

@@ -1,0 +1,4 @@
+# Coupled station solver limits (normative with thermo-model.md)
+max_solver_iters = 48
+ads_tol = 1.0e-10
+cond_tol = 1.0e-10

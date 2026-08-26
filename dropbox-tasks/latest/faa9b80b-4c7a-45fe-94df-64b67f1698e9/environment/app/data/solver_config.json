@@ -1,0 +1,20 @@
+{
+  "stefan_boltzmann_w_m2_k4": 5.670374419e-8,
+  "planck_constant_j_s": 6.62607015e-34,
+  "boltzmann_constant_j_k": 1.380649e-23,
+  "speed_of_light_m_s": 299792458.0,
+  "time_step_s": 300.0,
+  "nonlinear_temperature_tolerance_k": 1.0e-6,
+  "nonlinear_residual_tolerance_w_m2": 1.0e-3,
+  "nonlinear_max_iterations": 40,
+  "line_search_min_factor": 0.25,
+  "minimum_temperature_k": 50.0,
+  "maximum_temperature_k": 450.0,
+  "energy_balance_tolerance_j_m2": 5.0,
+  "brightness_temperature_tolerance_k": 1.0e-4,
+  "brightness_temperature_max_iterations": 60,
+  "inversion_parameter_tolerance": 1.0e-3,
+  "inversion_objective_tolerance": 1.0e-4,
+  "inversion_max_evaluations": 400,
+  "output_decimal_places": 10
+}

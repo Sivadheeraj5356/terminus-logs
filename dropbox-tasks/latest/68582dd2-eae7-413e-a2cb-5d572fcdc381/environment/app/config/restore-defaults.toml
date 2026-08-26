@@ -1,0 +1,5 @@
+[restore]
+default_archives_dir = "/app/archives"
+default_output_root = "/output/restore-root"
+default_log_path = "/output/restore-log.json"
+state_file = ".restore-state.json"

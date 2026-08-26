@@ -1,0 +1,41 @@
+A worked round (illustration only; not one of the graded rounds).
+
+This example uses twelve sheaves numbered 1..12 and a secret binding made of the two stretches
+3-5 and 9-10, which you never see in a real round. The graded rounds use different stretches. The
+point of this file is to show how the bound count is computed.
+
+The shape of a binding
+----------------------
+Every binding is exactly two disjoint stretches over the sheaves. A stretch is an inclusive run of
+consecutive sheaves. The two stretches never touch: there is always at least one loose sheaf between
+them, so 3-5 and 6-8 could never both be stretches (they are adjacent), but 3-5 and 9-10 can. A
+sheaf is bound when it lies inside either stretch. In the example binding 3-5,9-10 the bound sheaves
+are 3, 4, 5, 9, 10; every other sheaf is loose.
+
+Counting a handful
+------------------
+A handful is any set of distinct sheaf numbers that leaves out at least one sheaf. The count the
+keeper reports is simply how many of your handful's sheaves are bound: how many fall inside either
+stretch. It is never affected by sheaves you leave out.
+
+  name 1,2,6 against binding 3-5,9-10
+    none of 1, 2, 6 is inside a stretch, so the count is 0.
+    reply: bound 0
+
+  name 4,5,9 against binding 3-5,9-10
+    4 and 5 are in the stretch 3-5 and 9 is in the stretch 9-10, so all three are bound.
+    reply: bound 3
+
+  name 2,3,8,10 against binding 3-5,9-10
+    3 is in 3-5 and 10 is in 9-10; 2 and 8 are loose.
+    reply: bound 2
+
+The one garbled reply
+---------------------
+Exactly one reply per round is garbled: that reply has its bound count off by one from the truth.
+The keeper fixes which reply that is when the round is set up, before you name anything, and never
+changes it in response to your play; you are simply not told which reply it is. Every other reply
+that round is exact. The garbled count
+is still a well-formed number, so it looks no different from a true one. For the binding 3-5,9-10,
+the true reply for the handful 4,5,9 is bound 3; if that reply were the round's garbled one it might
+arrive as bound 2 instead, one too low.

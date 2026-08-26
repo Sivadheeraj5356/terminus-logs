@@ -1,0 +1,7 @@
+target/
+**/target/
+.cargo-home/
+**/.cargo-home/
+**/__pycache__/
+*.pyc
+.git/

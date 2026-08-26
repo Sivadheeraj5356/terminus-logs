@@ -1,0 +1,7 @@
+{
+  "name": "fmt",
+  "provide": "fmt",
+  "version": "10.2.1",
+  "resolved": "https://registry.npmjs.org/fmt/-/fmt-10.2.1.tgz",
+  "integrity": "sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
+}

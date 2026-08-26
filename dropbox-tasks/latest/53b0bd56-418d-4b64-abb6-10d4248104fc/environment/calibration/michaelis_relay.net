@@ -1,0 +1,13 @@
+network	michaelis_relay
+species	S	E	P	F
+initial	S	1
+initial	E	0.20000000000000001
+initial	P	0
+initial	F	0
+reaction	12	S + E -> P + E
+reaction	0.40000000000000002	P + E -> S + E
+reaction	0.050000000000000003	E -> F
+reaction	0.02	F -> E
+horizon	0	8
+rtol	9.9999999999999995e-07
+atol	1.0000000000000001e-09

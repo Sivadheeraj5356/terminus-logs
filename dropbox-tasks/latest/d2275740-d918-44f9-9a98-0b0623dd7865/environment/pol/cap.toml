@@ -1,0 +1,4 @@
+max_cost = 30
+min_leftover = 3.0
+max_amp = 12.0
+salt_hex = "77666330310000000000000000000001"

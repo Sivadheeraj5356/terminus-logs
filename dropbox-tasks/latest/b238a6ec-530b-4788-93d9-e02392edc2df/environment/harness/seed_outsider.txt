@@ -1,0 +1,2 @@
+mode outsider
+nodes 5

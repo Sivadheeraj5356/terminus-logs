@@ -1,0 +1,11 @@
+network	radical_pair
+species	R	P	D
+initial	R	1
+initial	P	0
+initial	D	0
+reaction	0.02	R -> P
+reaction	80000000	P + P -> D + P
+reaction	25000	P + D -> R + D
+horizon	0	5
+rtol	9.9999999999999995e-08
+atol	1e-10

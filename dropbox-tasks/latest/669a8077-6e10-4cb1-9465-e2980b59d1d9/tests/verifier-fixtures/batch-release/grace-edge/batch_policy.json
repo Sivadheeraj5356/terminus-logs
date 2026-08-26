@@ -1,0 +1,8 @@
+{
+  "batch_id": "LOT-PHX-2406-A",
+  "required_qc_tests": ["identity", "potency", "sterility", "packaging"],
+  "required_doc_types": ["batch-record", "equipment-log", "em-log", "qc-summary", "release-checklist"],
+  "em_monitoring_days": 30,
+  "generated_at": "1970-01-01T00:00:00Z",
+  "equipment_grace_days": 7
+}

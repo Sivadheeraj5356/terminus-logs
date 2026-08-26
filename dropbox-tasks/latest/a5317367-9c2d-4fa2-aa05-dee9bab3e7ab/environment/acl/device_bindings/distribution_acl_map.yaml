@@ -1,0 +1,6 @@
+schema_version: apexora-dist-acl-bind-1
+bindings:
+  dist-hq-dal-main-01:
+    Vlan2101: SEG-FINANCE-IN
+  dist-emea-fra-main-01:
+    Vlan2101: ACL-INSIDE-ANY

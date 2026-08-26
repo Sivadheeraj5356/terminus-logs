@@ -1,0 +1,288 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Stratified CV fold evaluation manifest",
+  "description": "Manifest JSON for the stratified cross-validation fold evaluation kit: fold records, balance object, and sealed digest fields. Normative digest and seal recipes: /app/schema/fold-digest-contracts.md. Each successful assemble also appends one JSONL receipt at /app/var/fold_receipt.jsonl whose keys and values must match the receipt_fields list (same values as this manifest/stdout for that run).",
+  "receipt_path": "/app/var/fold_receipt.jsonl",
+  "receipt_fields": [
+    "row_count",
+    "fold_count",
+    "label_column",
+    "manifest_seal",
+    "fold_digest",
+    "receipt_chain",
+    "rotation_epoch",
+    "ledger_root",
+    "evaluation_seal",
+    "assemble_attestation",
+    "holdout_fold_id",
+    "kit_closure",
+    "run_chain_digest",
+    "fold_load_skew",
+    "label_cardinality",
+    "balance_coupler",
+    "cohort_span_digest",
+    "class_prior_seal",
+    "fold_split_witness",
+    "holdout_epoch_coupler",
+    "stratum_stability_index",
+    "train_fold_mask",
+    "label_pair_cooccurrence",
+    "balance_drift_witness",
+    "epoch_manifest_binder",
+    "holdout_exclusion_seal",
+    "fold_kit_seal",
+    "fold_coverage_lattice",
+    "holdout_train_tension",
+    "skew_prior_witness",
+    "epoch_receipt_binder",
+    "fold_kit_outer_seal"
+  ],
+  "type": "object",
+  "required": [
+    "ok",
+    "row_count",
+    "fold_count",
+    "label_column",
+    "folds",
+    "balance",
+    "fold_digest",
+    "cohort_checksum",
+    "assignment_seal",
+    "balance_anchor",
+    "manifest_seal",
+    "staged_fingerprint",
+    "quorum_witness",
+    "stratum_spread_digest",
+    "band_anchor",
+    "rotation_epoch",
+    "receipt_chain",
+    "epoch_seal",
+    "ledger_root",
+    "fold_parity_digest",
+    "label_coverage_seal",
+    "holdout_fold_id",
+    "evaluation_seal",
+    "stratum_entropy_hint",
+    "assemble_attestation",
+    "fold_load_skew",
+    "label_cardinality",
+    "cohort_span_digest",
+    "balance_coupler",
+    "kit_closure",
+    "run_chain_digest",
+    "class_prior_seal",
+    "fold_split_witness",
+    "holdout_epoch_coupler",
+    "stratum_stability_index",
+    "train_fold_mask",
+    "label_pair_cooccurrence",
+    "balance_drift_witness",
+    "epoch_manifest_binder",
+    "holdout_exclusion_seal",
+    "fold_kit_seal",
+    "fold_coverage_lattice",
+    "holdout_train_tension",
+    "skew_prior_witness",
+    "epoch_receipt_binder",
+    "fold_kit_outer_seal"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean"
+    },
+    "row_count": {
+      "type": "integer"
+    },
+    "fold_count": {
+      "type": "integer"
+    },
+    "label_column": {
+      "type": "string"
+    },
+    "folds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "fold_id",
+          "row_ids",
+          "label_counts"
+        ],
+        "properties": {
+          "fold_id": {
+            "type": "integer"
+          },
+          "row_ids": {
+            "type": "array",
+            "description": "Assigned row id strings for this fold, sorted ascending by unbounded decimal numeric id (arbitrary precision) after round-robin assignment",
+            "items": {
+              "type": "string"
+            }
+          },
+          "label_counts": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "balance": {
+      "type": "object"
+    },
+    "fold_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "cohort_checksum": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "assignment_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "balance_anchor": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "manifest_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "staged_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "quorum_witness": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stratum_spread_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "band_anchor": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rotation_epoch": {
+      "type": "integer"
+    },
+    "receipt_chain": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "epoch_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ledger_root": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fold_parity_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "label_coverage_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "holdout_fold_id": {
+      "type": "integer"
+    },
+    "evaluation_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stratum_entropy_hint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "assemble_attestation": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fold_load_skew": {
+      "type": "integer"
+    },
+    "label_cardinality": {
+      "type": "integer"
+    },
+    "cohort_span_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "balance_coupler": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "kit_closure": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "run_chain_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "class_prior_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fold_split_witness": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "holdout_epoch_coupler": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "stratum_stability_index": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "train_fold_mask": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "label_pair_cooccurrence": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "balance_drift_witness": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "epoch_manifest_binder": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "holdout_exclusion_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fold_kit_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fold_coverage_lattice": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "holdout_train_tension": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "skew_prior_witness": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "epoch_receipt_binder": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fold_kit_outer_seal": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

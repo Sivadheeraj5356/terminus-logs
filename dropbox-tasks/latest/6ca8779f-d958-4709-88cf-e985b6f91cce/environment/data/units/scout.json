@@ -1,0 +1,10 @@
+{
+  "id": "scout_template",
+  "team": "blue",
+  "hp": 8,
+  "armor": 1,
+  "speed": 3,
+  "vision": 4,
+  "range": 1,
+  "traits": []
+}

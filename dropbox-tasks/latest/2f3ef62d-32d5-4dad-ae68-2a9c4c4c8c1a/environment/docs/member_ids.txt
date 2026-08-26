@@ -1,0 +1,6 @@
+axle
+axle_echo
+rotor
+rotor_echo
+stator
+stator_echo

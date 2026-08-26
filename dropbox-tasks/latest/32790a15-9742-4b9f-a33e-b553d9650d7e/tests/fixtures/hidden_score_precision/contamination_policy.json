@@ -1,0 +1,5 @@
+{
+  "score_precision": 2,
+  "min_severity_score": 0.5,
+  "repeat_fact_threshold": 2
+}

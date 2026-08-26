@@ -1,0 +1,35 @@
+#!/bin/bash
+set -euo pipefail
+
+ENV_ROOT="${ENV_ROOT:-/app/environment}"
+export ENV_ROOT
+
+# shellcheck source=/dev/null
+source "${ENV_ROOT}/engine/orch_v2.sh"
+
+usage() {
+  echo "usage: pp_run rebuild [--id RID] | health" >&2
+  exit 2
+}
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+  rebuild)
+    only=""
+    while [[ $# -gt 0 ]]; do
+      case "$1" in
+        --id) only="${2:-}"; shift 2 ;;
+        *) usage ;;
+      esac
+    done
+    orch_rebuild "$only"
+    ;;
+  health)
+    orch_health
+    ;;
+  *)
+    usage
+    ;;
+esac

@@ -1,0 +1,20 @@
+{
+  "desk": "count-pack",
+  "candidates": [
+    {
+      "tag": "unix_only",
+      "active": false,
+      "modules": ["pam_unix"]
+    },
+    {
+      "tag": "cutover_signed",
+      "active": true,
+      "modules": ["common-auth", "pam_unix", "pam_otp", "pam_wheel"]
+    },
+    {
+      "tag": "sss_inclusive",
+      "active": false,
+      "modules": ["common-auth", "pam_unix", "pam_sss", "pam_otp"]
+    }
+  ]
+}

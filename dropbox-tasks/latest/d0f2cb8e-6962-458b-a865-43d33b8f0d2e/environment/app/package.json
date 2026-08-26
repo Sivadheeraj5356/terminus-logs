@@ -1,0 +1,10 @@
+{
+  "name": "mlflow-readiness-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@tensorflow/tfjs": "4.22.0",
+    "js-yaml": "4.1.0"
+  }
+}

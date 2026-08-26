@@ -1,0 +1,9 @@
+schema_version: apexora-vrf-def-1
+vrf_name: TELEMED
+description: Apexora TELEMED macro-segment
+rd: "65029:1029"
+rt_export: "65029:1029"
+rt_import:
+  - "65029:1029"
+route_distinguisher_note: unique per VRF per segmentation_contract
+inter_vrf_leak: false

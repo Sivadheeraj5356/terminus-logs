@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+case "$(basename "$0")" in
+  clang) REAL_NAME=clang ;;
+  clang++) REAL_NAME=clang++ ;;
+  *) REAL_NAME=clang++ ;;
+esac
+REAL=""
+for candidate in /usr/bin/${REAL_NAME} /usr/bin/clang-14 /usr/bin/clang++-14; do
+  if [[ -x "$candidate" ]] && [[ "$candidate" != *fake_bin* ]]; then
+    REAL="$candidate"
+    break
+  fi
+done
+if [[ -z "$REAL" ]]; then
+  echo "missing real ${REAL_NAME}" >&2
+  exit 1
+fi
+if [[ "${THINLTO_WRAP_ACTIVE:-}" == "1" ]]; then
+  exec "$REAL" "$@"
+fi
+for arg in "$@"; do
+  case "$arg" in
+    -fno-lto*|--no-lto|-flto=full)
+      echo "thin-lto disable blocked" >&2
+      exit 9
+      ;;
+  esac
+done
+export THINLTO_WRAP_ACTIVE=1
+exec "$REAL" "$@"

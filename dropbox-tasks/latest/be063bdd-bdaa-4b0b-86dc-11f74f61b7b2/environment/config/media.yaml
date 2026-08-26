@@ -1,0 +1,52 @@
+service:
+  host: 0.0.0.0
+  port: 5055
+  debug: true
+  cors_origins:
+    - "*"
+  api_key_header: X-API-Key
+  api_key: debug-token
+  response_headers:
+    cache_control: "public, max-age=3600"
+    x_content_type_options: ""
+media:
+  fixture_dir: fixtures
+  allowed_extensions:
+    - .png
+    - .jpg
+    - .jpeg
+  include_absolute_paths: true
+  policy:
+    max_pixels: 24
+    serve_only_manifest_valid: true
+    reason_weights:
+      missing_manifest: 13
+      sha256: 11
+      signature: 7
+      format: 5
+      width: 5
+      height: 5
+      mode: 5
+      pixels: 3
+      name_collision: 17
+  manifest:
+    - name: poster.jpg
+      sha256: f2bd4acdeb3a0f36744ae32c5bf4479c623a9c6ca6a679daf32702679e704b29
+      format: JPEG
+      width: 2
+      height: 5
+      mode: RGB
+      signature: 00cf600d9abbe024758ca21960f22cf8624aa8ee456363484ae3953e17c474d3
+    - name: shore.png
+      sha256: 7de429b0ddae5354ca11fd3d607a626762d26eeae355f8a32107e421b43f870e
+      format: PNG
+      width: 4
+      height: 3
+      mode: RGB
+      signature: 561c4b7d9c7b8e1e6f5da320124d764582027326f36af24f143bdc8731477041
+build:
+  yq:
+    version: v4.53.3
+    artifact: yq_linux_amd64
+    sha256: "84be51c2bf82b1eae16c54fab3f5d9aa887f5fb30d90990217e9031bf42f9f56"
+    source: "vendor/yq_linux_amd64"

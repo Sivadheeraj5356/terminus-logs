@@ -1,0 +1,32 @@
+{
+  "labels": [
+    {
+      "text": "20240601",
+      "epoch": 100
+    },
+    {
+      "text": "20240601",
+      "epoch": 55
+    }
+  ],
+  "list_file": "",
+  "locale": "host",
+  "automation": {
+    "pre_raw": 32,
+    "post_raw": 34
+  },
+  "target": {
+    "path": "/srv/snap"
+  },
+  "views": [
+    {
+      "path": "/srv/snap"
+    },
+    {
+      "path": "/srv/snap"
+    }
+  ],
+  "wal_segments": [],
+  "stepback_event": 1,
+  "clock_skew": 0
+}

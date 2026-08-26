@@ -1,0 +1,11 @@
+# Observation seal contract. Implement body_layout using prefix_fields from route_plan.json.
+# row_encoding = compact_json_array means each plan-ordered row is compact JSON
+# with sorted object keys and no whitespace, then rows are comma-joined inside [].
+
+[observation_seal]
+prefix_fields = "compile_generation,plan_hash"
+prefix_sep = "|"
+body_layout = "{prefix}|[{rows}]"
+row_order = "plan_index"
+row_encoding = "compact_json_array"
+forbidden_row_order = "lexical_host"

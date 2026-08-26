@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.config.v1+json",
+  "config": {
+    "Env": [
+      "RELICMAZE_RULESET=keeper-manual-v3"
+    ],
+    "Labels": {
+      "relicmaze.start_room": "observatory",
+      "relicmaze.torch": "4.5",
+      "relicmaze.keeper_tz_offset_minutes": "-180",
+      "relicmaze.carry_capacity": "300",
+      "relicmaze.goal_room": "vault",
+      "org.opencontainers.image.title": "gen-008"
+    }
+  },
+  "rootfs": {
+    "type": "layers",
+    "diff_ids": [
+      "sha256:4a57163e9716912c5cb09f669a1b3ebd542a9653c627edde0d22ba9b0ee8f449"
+    ]
+  },
+  "history": [
+    {
+      "created_by": "keeper genesis: bind capsule"
+    },
+    {
+      "created_by": "keeper sign: capsule sealed"
+    },
+    {
+      "created_by": "ENV torch_tax=-0.5"
+    },
+    {
+      "created_by": "RUN keeper curse petrified-rose"
+    },
+    {
+      "created_by": "LABEL note=\"aside\""
+    },
+    {
+      "created_by": "RUN keeper curse petrified-rose"
+    }
+  ]
+}

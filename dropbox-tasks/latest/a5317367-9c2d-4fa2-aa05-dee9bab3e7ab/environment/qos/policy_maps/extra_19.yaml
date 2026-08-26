@@ -1,0 +1,5 @@
+schema_version: apexora-qos-policy-1
+policy_map: PM-EXTRA-19
+classes:
+  - class: CM-EXTRA-19
+    bandwidth_percent: 5

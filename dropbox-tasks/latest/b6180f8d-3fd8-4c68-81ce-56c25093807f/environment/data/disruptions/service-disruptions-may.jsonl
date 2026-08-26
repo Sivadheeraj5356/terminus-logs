@@ -1,0 +1,4 @@
+{"disruption_id":"D-LOCAL-0514","service_date":"2026-05-14","route_family":"local","start_time":"09:30","end_time":"10:30","credit_cents":80,"approved":true}
+{"disruption_id":"D-HARBOR-0515","service_date":"2026-05-15","route_family":"ferry","start_time":"11:00","end_time":"12:00","credit_cents":150,"approved":true}
+{"disruption_id":"D-EXPRESS-0516","service_date":"2026-05-16","route_family":"express","start_time":"06:00","end_time":"08:30","credit_cents":100,"approved":true}
+{"disruption_id":"D-NIGHT-DRAFT","service_date":"2026-05-14","route_family":"night","start_time":"16:00","end_time":"18:00","credit_cents":999,"approved":false}

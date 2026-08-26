@@ -1,0 +1,15 @@
+.git
+.gitignore
+**/.DS_Store
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/node_modules/
+**/dist/
+**/target/
+**/solution/
+**/tests/
+**/.step2b-checksum
+.env

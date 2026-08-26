@@ -1,0 +1,7 @@
+-- Tide dual-stack pin retained for bookworm drydock hosts.
+-- Strips the gate-v2 profile so the tide-era stream path stays active.
+package keelmark-core
+  ghc-options: -UKEELMARK_GATE_V2
+
+package keelmark-report
+  ghc-options: -UKEELMARK_GATE_V2

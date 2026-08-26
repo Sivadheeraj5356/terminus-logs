@@ -1,0 +1,10 @@
+{
+  "scenario": "mu_cross_restart",
+  "trigger": "acme-worker.service",
+  "units_touched": [
+    "acme-reporter.service",
+    "acme-worker.service",
+    "acme-cache.service",
+    "acme-collector.service"
+  ]
+}

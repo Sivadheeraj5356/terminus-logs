@@ -1,0 +1,14 @@
+== Whisperbone Catacomb [ossuary] ==
+Omen: The bone-count is short.
+Light: 1.0 lumens
+Relics:
+  - Grave Ember <rare> 45g (cursed)
+  - Bone Flute <common> 30g
+Freshest: Bone Flute @ 12:10 KST
+Exits:
+  - east: Mercury Spring (torch 1.0)
+Torch: 8.0 units
+Inventory: (empty)
+Route: no route
+---ACTIONS---
+inspect grave-ember

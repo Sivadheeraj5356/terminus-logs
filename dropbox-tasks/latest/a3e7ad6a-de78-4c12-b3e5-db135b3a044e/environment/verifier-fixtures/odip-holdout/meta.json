@@ -1,0 +1,6 @@
+{
+  "scenario_id": "holdout_alpha",
+  "required_clearance": "HOLD-7",
+  "rollout_epoch": 70,
+  "topology_revision": "topo-rev-holdout-alpha"
+}

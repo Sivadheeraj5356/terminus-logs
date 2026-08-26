@@ -1,0 +1,6 @@
+{"seq": 1, "phase": "SNAPSHOT", "fingerprint": "fp-ok"}
+{"seq": 2, "phase": "STAGE", "keys": ["runtime-stable@1.4.0"]}
+{"seq": 3, "phase": "PROMOTE", "train": "train-west"}
+{"seq": 4, "phase": "COMMIT", "fingerprint": "fp-ok"}
+{"seq": 5, "phase": "SNAPSHOT", "fingerprint": "fp-partial"}
+{"seq": 6, "phase": "STAGE", "partial": true, "keys": ["ghost@0.0.1"]}

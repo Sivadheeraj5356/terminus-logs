@@ -1,0 +1,16 @@
+{
+  "conflicts": [
+    {
+      "package": "ratesync",
+      "range": "=1.0.0"
+    }
+  ],
+  "name": "quotacap",
+  "requires": [
+    {
+      "package": "telemetrybus",
+      "range": ">=3.0.0"
+    }
+  ],
+  "version": "2.0.0"
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "event_id": "ev_b1",
+    "entity_id": "ent_u3",
+    "event_ms": 50000
+  },
+  {
+    "event_id": "ev_b2",
+    "entity_id": "ent_u3",
+    "event_ms": 55000
+  },
+  {
+    "event_id": "ev_b3",
+    "entity_id": "ent_u5",
+    "event_ms": 60000
+  }
+]

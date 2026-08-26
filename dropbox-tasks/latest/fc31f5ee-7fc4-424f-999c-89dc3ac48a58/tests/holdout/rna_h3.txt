@@ -1,0 +1,42 @@
+sequence H3 UGGCCAAUCGGAUACCGUUGCAAGGCCAUUGGACCGUAACGUCCGGAAUUGCCGAUAC
+react SH 0 5O
+react CM 1 1G
+react DM 5 5P
+react SH 6 2Q
+react CM 9 4Z
+react SH 12 M
+react CM 12 1Y
+react CM 17 61
+react SH 18 56
+react SH 24 1L
+react DM 26 2G
+react CM 28 1J
+react SH 30 4U
+react DM 33 66
+react SH 36 2O
+react CM 36 3V
+react DM 37 2W
+react CM 41 18
+react SH 42 6O
+react CM 44 6E
+react DM 47 4J
+react SH 48 1U
+react CM 49 57
+react DM 51 34
+react SH 54 5R
+react DM 54 I
+guide WC 0 57 5L
+guide GC 2 42 5J
+guide WB 5 31 6A
+guide RL 11 47 3V
+guide WC 17 39 60
+guide WB 24 52 2J
+probe 0 62
+probe 4 50
+probe 9 41
+probe 15 58
+probe 21 37
+probe 28 61
+probe 0 53
+probe 23 34
+probe 4 50

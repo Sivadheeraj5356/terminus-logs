@@ -1,0 +1,1 @@
+{ "op": "run", "models": ["bm_a0.bvm", "bm_b0.bvm", "bm_c0.bvm"] }

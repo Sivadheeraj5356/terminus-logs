@@ -1,0 +1,9 @@
+ordinance: ORD-1926-02
+jurisdiction: Talveny-Reach
+enacted: 1926-08-19
+effective: 1926-10-31T02:00:00 wall
+standard-offset: +10:00:00
+standard-label: TST
+observance:
+  begin: Oct lastSun 02:00:00 wall save +01:00:00 label TDT
+  end: Mar Sun>=1 03:00:00 wall

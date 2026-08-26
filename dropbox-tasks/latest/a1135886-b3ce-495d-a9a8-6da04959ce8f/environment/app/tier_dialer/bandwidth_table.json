@@ -1,0 +1,11 @@
+{
+  "budgets": [
+    {"tenant_id": "TEN_A", "tier": "silver", "byte_budget": 60000},
+    {"tenant_id": "TEN_B", "tier": "gold", "byte_budget": 12000},
+    {"tenant_id": "TEN_C", "tier": "bronze", "byte_budget": 5000},
+    {"tenant_id": "TEN_Q", "tier": "silver", "byte_budget": 1000}
+  ],
+  "default_budget": -1,
+  "processing_order": "registered_ts_ns_asc_then_chunk_id_asc",
+  "bandwidth_check_scope": "applies to chunks that would otherwise be KEPT_CANONICAL or DEHYDRATED; deferral happens before the canonical-or-dehydrate decision"
+}

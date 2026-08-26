@@ -1,0 +1,2301 @@
+{
+ "utilities": [
+  {
+   "id": "NOR",
+   "utc_offset_min": 60,
+   "code": 9001
+  },
+  {
+   "id": "EAS",
+   "utc_offset_min": -150,
+   "code": 9002
+  },
+  {
+   "id": "WES",
+   "utc_offset_min": 330,
+   "code": 9003
+  }
+ ],
+ "feeders": [
+  {
+   "id": "F-NOR-1",
+   "utility": "NOR",
+   "code": 401
+  },
+  {
+   "id": "F-NOR-2",
+   "utility": "NOR",
+   "code": 402
+  },
+  {
+   "id": "F-NOR-3",
+   "utility": "NOR",
+   "code": 403
+  },
+  {
+   "id": "F-NOR-4",
+   "utility": "NOR",
+   "code": 404
+  },
+  {
+   "id": "F-EAS-1",
+   "utility": "EAS",
+   "code": 405
+  },
+  {
+   "id": "F-EAS-2",
+   "utility": "EAS",
+   "code": 406
+  },
+  {
+   "id": "F-EAS-3",
+   "utility": "EAS",
+   "code": 407
+  },
+  {
+   "id": "F-EAS-4",
+   "utility": "EAS",
+   "code": 408
+  },
+  {
+   "id": "F-WES-1",
+   "utility": "WES",
+   "code": 409
+  },
+  {
+   "id": "F-WES-2",
+   "utility": "WES",
+   "code": 410
+  },
+  {
+   "id": "F-WES-3",
+   "utility": "WES",
+   "code": 411
+  },
+  {
+   "id": "F-WES-4",
+   "utility": "WES",
+   "code": 412
+  }
+ ],
+ "points": [
+  {
+   "id": "D-NOR-11",
+   "feeder": "F-NOR-1",
+   "utility": "NOR",
+   "category": "residential",
+   "code": 601
+  },
+  {
+   "id": "D-NOR-12",
+   "feeder": "F-NOR-1",
+   "utility": "NOR",
+   "category": "commercial",
+   "code": 602
+  },
+  {
+   "id": "D-NOR-21",
+   "feeder": "F-NOR-2",
+   "utility": "NOR",
+   "category": "commercial",
+   "code": 603
+  },
+  {
+   "id": "D-NOR-22",
+   "feeder": "F-NOR-2",
+   "utility": "NOR",
+   "category": "industrial",
+   "code": 604
+  },
+  {
+   "id": "D-NOR-31",
+   "feeder": "F-NOR-3",
+   "utility": "NOR",
+   "category": "industrial",
+   "code": 605
+  },
+  {
+   "id": "D-NOR-32",
+   "feeder": "F-NOR-3",
+   "utility": "NOR",
+   "category": "residential",
+   "code": 606
+  },
+  {
+   "id": "D-NOR-41",
+   "feeder": "F-NOR-4",
+   "utility": "NOR",
+   "category": "residential",
+   "code": 607
+  },
+  {
+   "id": "D-NOR-42",
+   "feeder": "F-NOR-4",
+   "utility": "NOR",
+   "category": "commercial",
+   "code": 608
+  },
+  {
+   "id": "D-EAS-11",
+   "feeder": "F-EAS-1",
+   "utility": "EAS",
+   "category": "commercial",
+   "code": 609
+  },
+  {
+   "id": "D-EAS-12",
+   "feeder": "F-EAS-1",
+   "utility": "EAS",
+   "category": "industrial",
+   "code": 610
+  },
+  {
+   "id": "D-EAS-21",
+   "feeder": "F-EAS-2",
+   "utility": "EAS",
+   "category": "industrial",
+   "code": 611
+  },
+  {
+   "id": "D-EAS-22",
+   "feeder": "F-EAS-2",
+   "utility": "EAS",
+   "category": "residential",
+   "code": 612
+  },
+  {
+   "id": "D-EAS-31",
+   "feeder": "F-EAS-3",
+   "utility": "EAS",
+   "category": "residential",
+   "code": 613
+  },
+  {
+   "id": "D-EAS-32",
+   "feeder": "F-EAS-3",
+   "utility": "EAS",
+   "category": "commercial",
+   "code": 614
+  },
+  {
+   "id": "D-EAS-41",
+   "feeder": "F-EAS-4",
+   "utility": "EAS",
+   "category": "commercial",
+   "code": 615
+  },
+  {
+   "id": "D-EAS-42",
+   "feeder": "F-EAS-4",
+   "utility": "EAS",
+   "category": "industrial",
+   "code": 616
+  },
+  {
+   "id": "D-WES-11",
+   "feeder": "F-WES-1",
+   "utility": "WES",
+   "category": "industrial",
+   "code": 617
+  },
+  {
+   "id": "D-WES-12",
+   "feeder": "F-WES-1",
+   "utility": "WES",
+   "category": "residential",
+   "code": 618
+  },
+  {
+   "id": "D-WES-21",
+   "feeder": "F-WES-2",
+   "utility": "WES",
+   "category": "residential",
+   "code": 619
+  },
+  {
+   "id": "D-WES-22",
+   "feeder": "F-WES-2",
+   "utility": "WES",
+   "category": "commercial",
+   "code": 620
+  },
+  {
+   "id": "D-WES-31",
+   "feeder": "F-WES-3",
+   "utility": "WES",
+   "category": "commercial",
+   "code": 621
+  },
+  {
+   "id": "D-WES-32",
+   "feeder": "F-WES-3",
+   "utility": "WES",
+   "category": "industrial",
+   "code": 622
+  },
+  {
+   "id": "D-WES-41",
+   "feeder": "F-WES-4",
+   "utility": "WES",
+   "category": "industrial",
+   "code": 623
+  },
+  {
+   "id": "D-WES-42",
+   "feeder": "F-WES-4",
+   "utility": "WES",
+   "category": "residential",
+   "code": 624
+  }
+ ],
+ "accounts": [
+  {
+   "id": "NOR-100",
+   "parent": null,
+   "class": 1,
+   "allowance_kwh": 1400,
+   "code": 70001,
+   "serial": "SNNOR100"
+  },
+  {
+   "id": "NOR-110",
+   "parent": "NOR-100",
+   "class": 2,
+   "allowance_kwh": 1210,
+   "code": 70002,
+   "serial": "SNNOR110"
+  },
+  {
+   "id": "NOR-120",
+   "parent": "NOR-110",
+   "class": 3,
+   "allowance_kwh": 1020,
+   "code": 70003,
+   "serial": "SNNOR120"
+  },
+  {
+   "id": "NOR-130",
+   "parent": "NOR-120",
+   "class": 4,
+   "allowance_kwh": 830,
+   "code": 70004,
+   "serial": "SNNOR130"
+  },
+  {
+   "id": "NOR-140",
+   "parent": "NOR-130",
+   "class": 1,
+   "allowance_kwh": 640,
+   "code": 70005,
+   "serial": "SNNOR140"
+  },
+  {
+   "id": "NOR-150",
+   "parent": "NOR-140",
+   "class": 2,
+   "allowance_kwh": 450,
+   "code": 70006,
+   "serial": "SNNOR150"
+  },
+  {
+   "id": "NOR-160",
+   "parent": "NOR-150",
+   "class": 3,
+   "allowance_kwh": 260,
+   "code": 70007,
+   "serial": "SNNOR160"
+  },
+  {
+   "id": "NOR-101",
+   "parent": "NOR-100",
+   "class": 1,
+   "allowance_kwh": 460,
+   "code": 70008,
+   "serial": "SNNOR101"
+  },
+  {
+   "id": "NOR-111",
+   "parent": "NOR-110",
+   "class": 2,
+   "allowance_kwh": 430,
+   "code": 70009,
+   "serial": "SNNOR111"
+  },
+  {
+   "id": "NOR-121",
+   "parent": "NOR-120",
+   "class": 3,
+   "allowance_kwh": 400,
+   "code": 70010,
+   "serial": "SNNOR121"
+  },
+  {
+   "id": "NOR-131",
+   "parent": "NOR-130",
+   "class": 4,
+   "allowance_kwh": 370,
+   "code": 70011,
+   "serial": "SNNOR131"
+  },
+  {
+   "id": "NOR-141",
+   "parent": "NOR-140",
+   "class": 1,
+   "allowance_kwh": 340,
+   "code": 70012,
+   "serial": "SNNOR141"
+  },
+  {
+   "id": "NOR-151",
+   "parent": "NOR-150",
+   "class": 2,
+   "allowance_kwh": 310,
+   "code": 70013,
+   "serial": "SNNOR151"
+  },
+  {
+   "id": "NOR-200",
+   "parent": null,
+   "class": 2,
+   "allowance_kwh": 1360,
+   "code": 70014,
+   "serial": "SNNOR200"
+  },
+  {
+   "id": "NOR-210",
+   "parent": "NOR-200",
+   "class": 3,
+   "allowance_kwh": 1170,
+   "code": 70015,
+   "serial": "SNNOR210"
+  },
+  {
+   "id": "NOR-220",
+   "parent": "NOR-210",
+   "class": 4,
+   "allowance_kwh": 980,
+   "code": 70016,
+   "serial": "SNNOR220"
+  },
+  {
+   "id": "NOR-230",
+   "parent": "NOR-220",
+   "class": 1,
+   "allowance_kwh": 790,
+   "code": 70017,
+   "serial": "SNNOR230"
+  },
+  {
+   "id": "NOR-240",
+   "parent": "NOR-230",
+   "class": 2,
+   "allowance_kwh": 600,
+   "code": 70018,
+   "serial": "SNNOR240"
+  },
+  {
+   "id": "NOR-250",
+   "parent": "NOR-240",
+   "class": 3,
+   "allowance_kwh": 410,
+   "code": 70019,
+   "serial": "SNNOR250"
+  },
+  {
+   "id": "NOR-260",
+   "parent": "NOR-250",
+   "class": 4,
+   "allowance_kwh": 220,
+   "code": 70020,
+   "serial": "SNNOR260"
+  },
+  {
+   "id": "NOR-201",
+   "parent": "NOR-200",
+   "class": 1,
+   "allowance_kwh": 460,
+   "code": 70021,
+   "serial": "SNNOR201"
+  },
+  {
+   "id": "NOR-211",
+   "parent": "NOR-210",
+   "class": 2,
+   "allowance_kwh": 430,
+   "code": 70022,
+   "serial": "SNNOR211"
+  },
+  {
+   "id": "NOR-221",
+   "parent": "NOR-220",
+   "class": 3,
+   "allowance_kwh": 400,
+   "code": 70023,
+   "serial": "SNNOR221"
+  },
+  {
+   "id": "NOR-231",
+   "parent": "NOR-230",
+   "class": 4,
+   "allowance_kwh": 370,
+   "code": 70024,
+   "serial": "SNNOR231"
+  },
+  {
+   "id": "NOR-241",
+   "parent": "NOR-240",
+   "class": 1,
+   "allowance_kwh": 340,
+   "code": 70025,
+   "serial": "SNNOR241"
+  },
+  {
+   "id": "NOR-251",
+   "parent": "NOR-250",
+   "class": 2,
+   "allowance_kwh": 310,
+   "code": 70026,
+   "serial": "SNNOR251"
+  },
+  {
+   "id": "EAS-100",
+   "parent": null,
+   "class": 2,
+   "allowance_kwh": 1400,
+   "code": 70027,
+   "serial": "SNEAS100"
+  },
+  {
+   "id": "EAS-110",
+   "parent": "EAS-100",
+   "class": 3,
+   "allowance_kwh": 1210,
+   "code": 70028,
+   "serial": "SNEAS110"
+  },
+  {
+   "id": "EAS-120",
+   "parent": "EAS-110",
+   "class": 4,
+   "allowance_kwh": 1020,
+   "code": 70029,
+   "serial": "SNEAS120"
+  },
+  {
+   "id": "EAS-130",
+   "parent": "EAS-120",
+   "class": 1,
+   "allowance_kwh": 830,
+   "code": 70030,
+   "serial": "SNEAS130"
+  },
+  {
+   "id": "EAS-140",
+   "parent": "EAS-130",
+   "class": 2,
+   "allowance_kwh": 640,
+   "code": 70031,
+   "serial": "SNEAS140"
+  },
+  {
+   "id": "EAS-150",
+   "parent": "EAS-140",
+   "class": 3,
+   "allowance_kwh": 450,
+   "code": 70032,
+   "serial": "SNEAS150"
+  },
+  {
+   "id": "EAS-160",
+   "parent": "EAS-150",
+   "class": 4,
+   "allowance_kwh": 260,
+   "code": 70033,
+   "serial": "SNEAS160"
+  },
+  {
+   "id": "EAS-101",
+   "parent": "EAS-100",
+   "class": 2,
+   "allowance_kwh": 460,
+   "code": 70034,
+   "serial": "SNEAS101"
+  },
+  {
+   "id": "EAS-111",
+   "parent": "EAS-110",
+   "class": 3,
+   "allowance_kwh": 430,
+   "code": 70035,
+   "serial": "SNEAS111"
+  },
+  {
+   "id": "EAS-121",
+   "parent": "EAS-120",
+   "class": 4,
+   "allowance_kwh": 400,
+   "code": 70036,
+   "serial": "SNEAS121"
+  },
+  {
+   "id": "EAS-131",
+   "parent": "EAS-130",
+   "class": 1,
+   "allowance_kwh": 370,
+   "code": 70037,
+   "serial": "SNEAS131"
+  },
+  {
+   "id": "EAS-141",
+   "parent": "EAS-140",
+   "class": 2,
+   "allowance_kwh": 340,
+   "code": 70038,
+   "serial": "SNEAS141"
+  },
+  {
+   "id": "EAS-151",
+   "parent": "EAS-150",
+   "class": 3,
+   "allowance_kwh": 310,
+   "code": 70039,
+   "serial": "SNEAS151"
+  },
+  {
+   "id": "EAS-200",
+   "parent": null,
+   "class": 3,
+   "allowance_kwh": 1360,
+   "code": 70040,
+   "serial": "SNEAS200"
+  },
+  {
+   "id": "EAS-210",
+   "parent": "EAS-200",
+   "class": 4,
+   "allowance_kwh": 1170,
+   "code": 70041,
+   "serial": "SNEAS210"
+  },
+  {
+   "id": "EAS-220",
+   "parent": "EAS-210",
+   "class": 1,
+   "allowance_kwh": 980,
+   "code": 70042,
+   "serial": "SNEAS220"
+  },
+  {
+   "id": "EAS-230",
+   "parent": "EAS-220",
+   "class": 2,
+   "allowance_kwh": 790,
+   "code": 70043,
+   "serial": "SNEAS230"
+  },
+  {
+   "id": "EAS-240",
+   "parent": "EAS-230",
+   "class": 3,
+   "allowance_kwh": 600,
+   "code": 70044,
+   "serial": "SNEAS240"
+  },
+  {
+   "id": "EAS-250",
+   "parent": "EAS-240",
+   "class": 4,
+   "allowance_kwh": 410,
+   "code": 70045,
+   "serial": "SNEAS250"
+  },
+  {
+   "id": "EAS-260",
+   "parent": "EAS-250",
+   "class": 1,
+   "allowance_kwh": 220,
+   "code": 70046,
+   "serial": "SNEAS260"
+  },
+  {
+   "id": "EAS-201",
+   "parent": "EAS-200",
+   "class": 2,
+   "allowance_kwh": 460,
+   "code": 70047,
+   "serial": "SNEAS201"
+  },
+  {
+   "id": "EAS-211",
+   "parent": "EAS-210",
+   "class": 3,
+   "allowance_kwh": 430,
+   "code": 70048,
+   "serial": "SNEAS211"
+  },
+  {
+   "id": "EAS-221",
+   "parent": "EAS-220",
+   "class": 4,
+   "allowance_kwh": 400,
+   "code": 70049,
+   "serial": "SNEAS221"
+  },
+  {
+   "id": "EAS-231",
+   "parent": "EAS-230",
+   "class": 1,
+   "allowance_kwh": 370,
+   "code": 70050,
+   "serial": "SNEAS231"
+  },
+  {
+   "id": "EAS-241",
+   "parent": "EAS-240",
+   "class": 2,
+   "allowance_kwh": 340,
+   "code": 70051,
+   "serial": "SNEAS241"
+  },
+  {
+   "id": "EAS-251",
+   "parent": "EAS-250",
+   "class": 3,
+   "allowance_kwh": 310,
+   "code": 70052,
+   "serial": "SNEAS251"
+  },
+  {
+   "id": "WES-100",
+   "parent": null,
+   "class": 3,
+   "allowance_kwh": 1400,
+   "code": 70053,
+   "serial": "SNWES100"
+  },
+  {
+   "id": "WES-110",
+   "parent": "WES-100",
+   "class": 4,
+   "allowance_kwh": 1210,
+   "code": 70054,
+   "serial": "SNWES110"
+  },
+  {
+   "id": "WES-120",
+   "parent": "WES-110",
+   "class": 1,
+   "allowance_kwh": 1020,
+   "code": 70055,
+   "serial": "SNWES120"
+  },
+  {
+   "id": "WES-130",
+   "parent": "WES-120",
+   "class": 2,
+   "allowance_kwh": 830,
+   "code": 70056,
+   "serial": "SNWES130"
+  },
+  {
+   "id": "WES-140",
+   "parent": "WES-130",
+   "class": 3,
+   "allowance_kwh": 640,
+   "code": 70057,
+   "serial": "SNWES140"
+  },
+  {
+   "id": "WES-150",
+   "parent": "WES-140",
+   "class": 4,
+   "allowance_kwh": 450,
+   "code": 70058,
+   "serial": "SNWES150"
+  },
+  {
+   "id": "WES-160",
+   "parent": "WES-150",
+   "class": 1,
+   "allowance_kwh": 260,
+   "code": 70059,
+   "serial": "SNWES160"
+  },
+  {
+   "id": "WES-101",
+   "parent": "WES-100",
+   "class": 3,
+   "allowance_kwh": 460,
+   "code": 70060,
+   "serial": "SNWES101"
+  },
+  {
+   "id": "WES-111",
+   "parent": "WES-110",
+   "class": 4,
+   "allowance_kwh": 430,
+   "code": 70061,
+   "serial": "SNWES111"
+  },
+  {
+   "id": "WES-121",
+   "parent": "WES-120",
+   "class": 1,
+   "allowance_kwh": 400,
+   "code": 70062,
+   "serial": "SNWES121"
+  },
+  {
+   "id": "WES-131",
+   "parent": "WES-130",
+   "class": 2,
+   "allowance_kwh": 370,
+   "code": 70063,
+   "serial": "SNWES131"
+  },
+  {
+   "id": "WES-141",
+   "parent": "WES-140",
+   "class": 3,
+   "allowance_kwh": 340,
+   "code": 70064,
+   "serial": "SNWES141"
+  },
+  {
+   "id": "WES-151",
+   "parent": "WES-150",
+   "class": 4,
+   "allowance_kwh": 310,
+   "code": 70065,
+   "serial": "SNWES151"
+  },
+  {
+   "id": "WES-200",
+   "parent": null,
+   "class": 4,
+   "allowance_kwh": 1360,
+   "code": 70066,
+   "serial": "SNWES200"
+  },
+  {
+   "id": "WES-210",
+   "parent": "WES-200",
+   "class": 1,
+   "allowance_kwh": 1170,
+   "code": 70067,
+   "serial": "SNWES210"
+  },
+  {
+   "id": "WES-220",
+   "parent": "WES-210",
+   "class": 2,
+   "allowance_kwh": 980,
+   "code": 70068,
+   "serial": "SNWES220"
+  },
+  {
+   "id": "WES-230",
+   "parent": "WES-220",
+   "class": 3,
+   "allowance_kwh": 790,
+   "code": 70069,
+   "serial": "SNWES230"
+  },
+  {
+   "id": "WES-240",
+   "parent": "WES-230",
+   "class": 4,
+   "allowance_kwh": 600,
+   "code": 70070,
+   "serial": "SNWES240"
+  },
+  {
+   "id": "WES-250",
+   "parent": "WES-240",
+   "class": 1,
+   "allowance_kwh": 410,
+   "code": 70071,
+   "serial": "SNWES250"
+  },
+  {
+   "id": "WES-260",
+   "parent": "WES-250",
+   "class": 2,
+   "allowance_kwh": 220,
+   "code": 70072,
+   "serial": "SNWES260"
+  },
+  {
+   "id": "WES-201",
+   "parent": "WES-200",
+   "class": 3,
+   "allowance_kwh": 460,
+   "code": 70073,
+   "serial": "SNWES201"
+  },
+  {
+   "id": "WES-211",
+   "parent": "WES-210",
+   "class": 4,
+   "allowance_kwh": 430,
+   "code": 70074,
+   "serial": "SNWES211"
+  },
+  {
+   "id": "WES-221",
+   "parent": "WES-220",
+   "class": 1,
+   "allowance_kwh": 400,
+   "code": 70075,
+   "serial": "SNWES221"
+  },
+  {
+   "id": "WES-231",
+   "parent": "WES-230",
+   "class": 2,
+   "allowance_kwh": 370,
+   "code": 70076,
+   "serial": "SNWES231"
+  },
+  {
+   "id": "WES-241",
+   "parent": "WES-240",
+   "class": 3,
+   "allowance_kwh": 340,
+   "code": 70077,
+   "serial": "SNWES241"
+  },
+  {
+   "id": "WES-251",
+   "parent": "WES-250",
+   "class": 4,
+   "allowance_kwh": 310,
+   "code": 70078,
+   "serial": "SNWES251"
+  }
+ ],
+ "bands": [
+  {
+   "from_kwh": 0,
+   "rate_cents": 10
+  },
+  {
+   "from_kwh": 100,
+   "rate_cents": 20
+  },
+  {
+   "from_kwh": 200,
+   "rate_cents": 30
+  }
+ ],
+ "standing": {
+  "residential": {
+   "1": 100,
+   "2": 150,
+   "3": 220,
+   "4": 300
+  },
+  "commercial": {
+   "1": 800,
+   "2": 880,
+   "3": 960,
+   "4": 1100
+  },
+  "industrial": {
+   "1": 360,
+   "2": 420,
+   "3": 500,
+   "4": 640
+  }
+ },
+ "shed": {
+  "window_draws": 5,
+  "enter_kwh": 260,
+  "exit_kwh": 80
+ },
+ "condemn_threshold": 18,
+ "penalty_cents": 500,
+ "replay_window_sec": 900,
+ "transfer": [
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-12",
+   "min_sec": 900
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-NOR-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-11",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-NOR-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-NOR-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-NOR-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-NOR-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-NOR-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-NOR-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-12",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-NOR-22",
+   "min_sec": 900
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-NOR-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-NOR-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-NOR-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-NOR-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-21",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-NOR-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-NOR-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-NOR-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-NOR-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-22",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-NOR-32",
+   "min_sec": 900
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-NOR-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-NOR-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-31",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-NOR-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-NOR-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-32",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-NOR-42",
+   "min_sec": 900
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-41",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-NOR-42",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-12",
+   "min_sec": 900
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-11",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-EAS-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-EAS-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-12",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-EAS-22",
+   "min_sec": 900
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-21",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-EAS-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-EAS-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-22",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-EAS-32",
+   "min_sec": 900
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-31",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-EAS-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-EAS-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-32",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-EAS-42",
+   "min_sec": 900
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-41",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-11",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-12",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-EAS-42",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-12",
+   "min_sec": 900
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-11",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-12",
+   "b": "D-WES-21",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-12",
+   "b": "D-WES-22",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-12",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-12",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-12",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-12",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-21",
+   "b": "D-WES-22",
+   "min_sec": 900
+  },
+  {
+   "a": "D-WES-21",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-21",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-21",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-21",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-22",
+   "b": "D-WES-31",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-22",
+   "b": "D-WES-32",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-22",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-22",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-31",
+   "b": "D-WES-32",
+   "min_sec": 900
+  },
+  {
+   "a": "D-WES-31",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-31",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-32",
+   "b": "D-WES-41",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-32",
+   "b": "D-WES-42",
+   "min_sec": 2400
+  },
+  {
+   "a": "D-WES-41",
+   "b": "D-WES-42",
+   "min_sec": 900
+  }
+ ]
+}

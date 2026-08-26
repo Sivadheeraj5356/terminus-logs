@@ -1,0 +1,6 @@
+hostname: acc-emea-fra-office-05
+migration_state: legacy
+canonical_vlan: 2036
+configured_vlan: 137
+legacy_vlan: 137
+duplicate_vlan_conflict: false

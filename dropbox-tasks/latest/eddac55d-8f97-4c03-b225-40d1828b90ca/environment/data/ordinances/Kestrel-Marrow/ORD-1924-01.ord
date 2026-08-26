@@ -1,0 +1,9 @@
+ordinance: ORD-1924-01
+jurisdiction: Kestrel-Marrow
+enacted: 1924-02-28
+effective: 1924-04-06T02:00:00 wall
+standard-offset: basis ORD-1912-02
+standard-label: KST
+observance:
+  begin: Apr Sun>=1 02:00:00 wall save +01:00:00 label KDT
+  end: Sep lastSun 02:00:00 wall

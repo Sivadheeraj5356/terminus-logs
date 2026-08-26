@@ -1,0 +1,5 @@
+==69145== Memcheck, a memory error detector
+==69145== case: case_0008
+==69145== Invalid free() / delete / delete[] / realloc()
+==69145==    at 0x5555485154e9: hkdf_derive (vaultseal.c:190)
+==69145==    by 0x5555e0de5407: seal_record (vaultseal.c:400)

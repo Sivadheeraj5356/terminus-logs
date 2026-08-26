@@ -1,0 +1,4 @@
+name = "yard"
+fixture = "yard_inputs"
+cycles = 2
+seed_generation = 1

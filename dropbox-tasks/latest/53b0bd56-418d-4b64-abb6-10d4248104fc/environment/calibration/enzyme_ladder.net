@@ -1,0 +1,17 @@
+network	enzyme_ladder
+species	S	E	F	G	P	Q
+initial	S	1
+initial	E	0.29999999999999999
+initial	F	0
+initial	G	0
+initial	P	0
+initial	Q	0
+reaction	260	S + E -> P + E
+reaction	4	E -> F
+reaction	1.6000000000000001	F -> G
+reaction	0.90000000000000002	G -> E
+reaction	55	P + F -> Q + F
+reaction	0.59999999999999998	Q -> S
+horizon	0	14
+rtol	9.9999999999999995e-08
+atol	1e-10

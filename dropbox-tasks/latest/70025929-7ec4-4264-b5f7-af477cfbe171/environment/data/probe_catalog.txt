@@ -1,0 +1,7 @@
+# Probe catalog for laboratory diagnostics
+#
+# Temporary probe assays and event labels used when exercising journal
+# mutations outside the shipped baseline:
+# X Y Z F EQ UNDER STRESS BAND_IN BAND_OUT
+# x-base x-stale x-replace y-base y-transient y-cut z-base z-drop z-tomb
+# original replacement m1

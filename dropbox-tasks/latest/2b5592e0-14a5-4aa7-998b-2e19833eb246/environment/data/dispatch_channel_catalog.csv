@@ -1,0 +1,4 @@
+dispatch_channel,description
+phone,Dispatched via phone intake.
+portal,Dispatched via the customer portal.
+auto,Auto-dispatched by the scheduler.

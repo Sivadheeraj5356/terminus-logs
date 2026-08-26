@@ -1,0 +1,13 @@
+--- a/skew/skew.go
++++ b/skew/skew.go
+@@ -1,9 +1,6 @@
+ package skew
+ 
+ func EffectiveTime(tMs, wmMs, lagMs int64) int64 {
+-	_ = lagMs
+-	if tMs > wmMs {
+-		return tMs - wmMs
+-	}
++	_, _ = wmMs, lagMs
+ 	return tMs
+ }

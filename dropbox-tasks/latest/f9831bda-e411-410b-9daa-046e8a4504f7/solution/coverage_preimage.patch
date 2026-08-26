@@ -1,0 +1,38 @@
+--- environment/m9f/fold_m9.go
++++ environment/m9f/fold_m9.go
+@@ -6,7 +6,7 @@
+ )
+ 
+ func foldPrefix(pfx string) string {
+-	return "hostanchor|" + pfx
++	return pfx
+ }
+ 
+ func foldBody(pfx string, blob []byte) []byte {
+@@ -19,16 +19,16 @@
+ }
+ 
+ func foldLegacy(pfx string, blob []byte) []byte {
+-	return append([]byte("legacy|"+pfx), blob...)
++	return append([]byte(pfx), blob...)
+ }
+ 
+ func foldWide(pfx string, blob []byte) string {
+ 	h := sha256.Sum256(foldLegacy(pfx, blob))
+ 	return hex.EncodeToString(h[:8])
+ }
+ 
+ func foldEcho(pfx string, blob []byte) string {
+-	h := sha256.Sum256(append([]byte("echo|"+pfx), blob...))
++	h := sha256.Sum256(append([]byte(pfx), blob...))
+ 	return hex.EncodeToString(h[:8])
+ }
+ 
+@@ -37,6 +37,6 @@
+ }
+ 
+ func foldPreview(pfx string, blob []byte) string {
+-	h := sha256.Sum256(append([]byte("legacy|"+pfx), blob...))
++	h := sha256.Sum256(append([]byte(pfx), blob...))
+ 	return hex.EncodeToString(h[:4])
+ }

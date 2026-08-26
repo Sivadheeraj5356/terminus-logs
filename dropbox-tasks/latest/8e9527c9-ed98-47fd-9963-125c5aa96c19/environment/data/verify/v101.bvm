@@ -1,0 +1,21 @@
+func dbl(int) -> int {
+b0:
+  load 0
+  load 0
+  iadd
+  ret
+}
+func inc(int) -> int {
+b0:
+  load 0
+  iconst 1
+  iadd
+  ret
+}
+func main() -> int {
+b0:
+  iconst 10
+  call dbl
+  call inc
+  ret
+}

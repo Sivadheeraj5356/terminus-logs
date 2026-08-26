@@ -1,0 +1,4 @@
+{"kind":"finish","node":"A","gen":1,"seq":1,"hash":"ha","rows":1}
+{"kind":"finish","node":"B","gen":1,"seq":2,"hash":"hb_new","rows":2}
+{"kind":"finish","node":"C","gen":1,"seq":3,"hash":"hc_new","rows":3}
+{"kind":"finish","node":"D","gen":1,"seq":4,"hash":"hd_new","rows":4}

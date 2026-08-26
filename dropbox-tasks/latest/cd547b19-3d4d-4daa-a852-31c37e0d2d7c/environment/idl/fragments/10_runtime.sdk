@@ -1,0 +1,5 @@
+# Runtime capability fragment. Continues the frozen legacy v1 prefix.
+capability_mask   uint64_t
+lifecycle_epoch   uint64_t
+allocator_cookie  ptr
+config_crc        uint32_t

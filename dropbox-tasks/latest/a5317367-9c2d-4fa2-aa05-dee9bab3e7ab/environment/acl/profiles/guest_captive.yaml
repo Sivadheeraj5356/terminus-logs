@@ -1,0 +1,4 @@
+schema_version: apexora-acl-profile-1
+profile: guest_captive
+inbound_acl: SEG-GUEST-IN
+outbound_acl: SEG-GUEST-OUT

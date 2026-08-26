@@ -1,0 +1,85 @@
+{
+ "until": 34,
+ "keys": [
+  {
+   "id": "hsm-key-9",
+   "reporters": [
+    "wit1",
+    "wit2",
+    "wit3"
+   ],
+   "compromiseQuorum": 3,
+   "clearQuorum": 2,
+   "confirmCompromise": 5,
+   "confirmClear": 6
+  }
+ ],
+ "events": [
+  {
+   "at": 2,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit3",
+   "compromised": false
+  },
+  {
+   "at": 4,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit3",
+   "compromised": false
+  },
+  {
+   "at": 5,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit1",
+   "compromised": false
+  },
+  {
+   "at": 5,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit2",
+   "compromised": true
+  },
+  {
+   "at": 6,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit3",
+   "compromised": true
+  },
+  {
+   "at": 9,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit1",
+   "compromised": false
+  },
+  {
+   "at": 13,
+   "op": "quarantine_start",
+   "key": "hsm-key-9"
+  },
+  {
+   "at": 18,
+   "op": "quarantine_end",
+   "key": "hsm-key-9"
+  },
+  {
+   "at": 20,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit2",
+   "compromised": true
+  },
+  {
+   "at": 20,
+   "op": "report",
+   "key": "hsm-key-9",
+   "reporter": "wit1",
+   "compromised": true
+  }
+ ]
+}

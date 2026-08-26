@@ -1,0 +1,3 @@
+{
+  "sshd_settings": "{\"ssh/sshd_config.d/bastion.conf\":{\"TCPKeepAlive\":\"yes\",\"UseDNS\":\"no\",\"AllowUsers\":\"alice\",\"PasswordAuthentication\":\"no\"}}"
+}

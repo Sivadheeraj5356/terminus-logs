@@ -1,0 +1,12 @@
+{
+  "architectures": ["BertModel"],
+  "base_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "fine_tuned_on": "orchid-ledger-titles-2025q3",
+  "hidden_size": 384,
+  "max_position_embeddings": 256,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 6,
+  "revision": "v2.3.0",
+  "vocab_size": 30522
+}

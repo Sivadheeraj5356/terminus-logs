@@ -1,0 +1,12 @@
+{
+  "combo": true,
+  "codename": "sc_m4",
+  "ev_bin": "sc_m4.evb",
+  "band_lo": 12,
+  "band_hi": 245,
+  "mag_seed": 21,
+  "dur_seed": 31,
+  "combo_depth": 5,
+  "entity_a": 14,
+  "entity_b": 16
+}

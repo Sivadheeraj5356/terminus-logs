@@ -1,0 +1,24 @@
+{
+  "pack_id": "pack_beta",
+  "profile": "alias-window",
+  "tickets": [
+    {
+      "principal": "acct-alpha-legacy",
+      "ticket_id": "child-beta",
+      "parent_id": "root-alpha",
+      "ticket_epoch": 5,
+      "scope_mask": 3,
+      "action_mask": 2,
+      "ticket_hex": "956a270109b2b55552d0abb329cfbaef2d6bcd6ed99890b41928d4578c58aa0e"
+    },
+    {
+      "principal": "acct-alpha-legacy",
+      "ticket_id": "grand-beta",
+      "parent_id": "child-beta",
+      "ticket_epoch": 5,
+      "scope_mask": 6,
+      "action_mask": 2,
+      "ticket_hex": "ce4c1f3bb0d86147ca40790a90f45388b6c142e71566605c7c2a251242327815"
+    }
+  ]
+}

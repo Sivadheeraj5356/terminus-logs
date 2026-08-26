@@ -1,0 +1,22 @@
+{
+  "keys": {
+    "k-2ef8b799c2f5": {
+      "alg": "ed25519",
+      "public": "7b25c21b111f3d07b2ff9c70ebad48fd4f999428069aef4a9c3b114e495960f3"
+    }
+  },
+  "message": {
+    "authority": "svc4.example.com",
+    "body": "{\"n\": 4, \"op\": \"update\"}",
+    "headers": {
+      "content-digest": "sha-256=:kcMy/a5LXpLP2r2A/OlB4qcJd8QN44nkaVnRStXwGf0=:",
+      "content-type": "application/json",
+      "signature": "sig1=:Jb0YmUHnxycBNjxY1GaM9HaFjEdwcQfkzLJUN3kfWpL2H02fN4+3twE1Ijs2N9F/U0GMD25LYFyeb/HdIhWVAA==:",
+      "signature-input": "sig1=(\"@method\" \"@authority\" \"@path\" \"@query\" \"content-digest\" \"@query-param\";name=\"user\");created=1699999944;expires=1700000304;keyid=\"k-2ef8b799c2f5\";alg=\"ed25519\""
+    },
+    "method": "GET",
+    "path": "/api/v1/resource/4",
+    "query": "user=alice%20smith&id=4"
+  },
+  "now": 1700000004
+}

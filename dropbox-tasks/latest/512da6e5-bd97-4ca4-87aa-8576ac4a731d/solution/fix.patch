@@ -1,0 +1,439 @@
+diff --git a/main.go b/main.go
+index 12d4604..cb2641c 100644
+--- a/main.go
++++ b/main.go
+@@ -5,84 +5,377 @@ import (
+ 	"encoding/json"
+ 	"fmt"
+ 	"os"
++	"strconv"
+ 	"strings"
+ )
+ 
+ // Fetch gate: decide whether an edge node may pull a resource from an upstream
+-// origin under a route's configured fetch source list.
+-//
+-// Reads one JSON object per line from standard input, each of the form
+-//
+-//	{"source_list": "...", "url": "...", "origin": "..."}
+-//
+-// and writes one line per input to standard output containing either
+-//
+-//	ADMIT
+-//
+-// or
+-//
+-//	BLOCK
+-//
+-// in the same order.
+-//
+-// The decision must follow the Content-Security-Policy Level 3 URL / source
+-// list matching algorithm so that legitimate resources are admitted and bypass
+-// attempts are blocked.
+-//
+-// The current implementation is a naive first cut. It only does rough
+-// scheme/host string checks and does not correctly implement 'self', host
+-// wildcards, port defaults, path prefixes, opaque schemes, or the CSP keywords,
+-// so it both admits some bypasses and blocks some legitimate resources.
+-
+-// naiveHost extracts a lowercased host from the URL and reports whether the URL
+-// could be parsed at all.
+-func naiveHost(raw string) (string, bool) {
+-	if strings.ContainsAny(raw, " <>{}|\\^`\"") {
+-		return "", false
+-	}
+-	i := strings.Index(raw, "://")
++// origin, applying the Content-Security-Policy Level 3 source-list matching
++// algorithm to the configured fetch source list.
++
++var defaultPorts = map[string]int{
++	"http": 80, "https": 443, "ws": 80, "wss": 443, "ftp": 21,
++}
++
++var inlineOnly = []string{
++	"'unsafe-inline'", "'unsafe-eval'", "'strict-dynamic'",
++	"'unsafe-hashes'", "'wasm-unsafe-eval'", "'report-sample'",
++}
++
++var inlinePrefixes = []string{"'nonce-", "'sha256-", "'sha384-", "'sha512-"}
++
++var opaque = []string{"data", "blob", "filesystem"}
++
++func defaultPort(scheme string) (int, bool) {
++	p, ok := defaultPorts[strings.ToLower(scheme)]
++	return p, ok
++}
++
++func splitWS(s string) []string {
++	return strings.Fields(s)
++}
++
++func contains(list []string, v string) bool {
++	for _, x := range list {
++		if x == v {
++			return true
++		}
++	}
++	return false
++}
++
++func hasAnyPrefix(s string, prefixes []string) bool {
++	for _, p := range prefixes {
++		if strings.HasPrefix(s, p) {
++			return true
++		}
++	}
++	return false
++}
++
++// cgiUnescape percent-decodes a path component: '+' becomes a space, then
++// valid percent-escapes are byte-decoded; malformed escapes are left intact.
++func cgiUnescape(s string) string {
++	s = strings.ReplaceAll(s, "+", " ")
++	var b strings.Builder
++	for i := 0; i < len(s); i++ {
++		if s[i] == '%' && i+2 <= len(s)-1 {
++			h1 := unhex(s[i+1])
++			h2 := unhex(s[i+2])
++			if h1 >= 0 && h2 >= 0 {
++				b.WriteByte(byte(h1<<4 | h2))
++				i += 2
++				continue
++			}
++		}
++		b.WriteByte(s[i])
++	}
++	return b.String()
++}
++
++func unhex(c byte) int {
++	switch {
++	case c >= '0' && c <= '9':
++		return int(c - '0')
++	case c >= 'a' && c <= 'f':
++		return int(c-'a') + 10
++	case c >= 'A' && c <= 'F':
++		return int(c-'A') + 10
++	}
++	return -1
++}
++
++func splitScheme(raw string) (scheme, rest string, ok bool) {
++	i := strings.IndexByte(raw, ':')
++	if i <= 0 {
++		return "", "", false
++	}
++	s := raw[:i]
++	if !(s[0] >= 'a' && s[0] <= 'z' || s[0] >= 'A' && s[0] <= 'Z') {
++		return "", "", false
++	}
++	for j := 1; j < len(s); j++ {
++		c := s[j]
++		if !(c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' ||
++			c == '+' || c == '.' || c == '-') {
++			return "", "", false
++		}
++	}
++	return s, raw[i+1:], true
++}
++
++func splitHostPort(authority string) (host string, port int, hasPort bool) {
++	i := strings.LastIndexByte(authority, ':')
+ 	if i < 0 {
+-		return "", true
++		return authority, 0, false
++	}
++	suffix := authority[i+1:]
++	if suffix == "" {
++		return authority, 0, false
++	}
++	for k := 0; k < len(suffix); k++ {
++		if suffix[k] < '0' || suffix[k] > '9' {
++			return authority, 0, false
++		}
++	}
++	n, err := strconv.Atoi(suffix)
++	if err != nil {
++		return authority, 0, false
++	}
++	return authority[:i], n, true
++}
++
++// splitURL returns scheme, host, port (with portKnown), and path for a
++// candidate resource URL, mirroring the reference URI decomposition.
++func splitURL(raw string) (scheme, host string, port int, portKnown bool, path string) {
++	sch, rest, ok := splitScheme(raw)
++	if !ok {
++		return "", "", 0, false, ""
++	}
++	scheme = strings.ToLower(sch)
++	if strings.HasPrefix(rest, "//") {
++		auth := rest[2:]
++		var authority, tail string
++		if idx := strings.IndexAny(auth, "/?#"); idx >= 0 {
++			authority = auth[:idx]
++			tail = auth[idx:]
++		} else {
++			authority = auth
++		}
++		if at := strings.LastIndexByte(authority, '@'); at >= 0 {
++			authority = authority[at+1:]
++		}
++		h, p, hasP := splitHostPort(authority)
++		host = strings.ToLower(h)
++		path = tail
++		if q := strings.IndexAny(path, "?#"); q >= 0 {
++			path = path[:q]
++		}
++		if hasP {
++			port = p
++			portKnown = true
++		} else if dp, ok2 := defaultPort(scheme); ok2 {
++			port = dp
++			portKnown = true
++		}
++		return scheme, host, port, portKnown, path
++	}
++	return scheme, "", 0, false, ""
++}
++
++func splitOrigin(origin string) (scheme, host string, port int, portKnown bool) {
++	s, h, p, pk, _ := splitURL(origin)
++	return s, h, p, pk
++}
++
++func schemeMatches(schemePart, urlScheme string) bool {
++	a := strings.ToLower(schemePart)
++	b := strings.ToLower(urlScheme)
++	if a == b {
++		return true
++	}
++	if a == "http" && b == "https" {
++		return true
++	}
++	if a == "ws" && b == "wss" {
++		return true
++	}
++	return false
++}
++
++func hostMatches(hostPart, urlHost string) bool {
++	if urlHost == "" {
++		return false
++	}
++	hp := strings.ToLower(hostPart)
++	uh := strings.ToLower(urlHost)
++	if hp == "*" {
++		return true
++	}
++	if strings.HasPrefix(hp, "*.") {
++		remaining := hp[1:] // ".example.com"
++		return strings.HasSuffix(uh, remaining) && len(uh) > len(remaining)
++	}
++	return hp == uh
++}
++
++func portMatches(portPart string, hasPortPart bool, urlScheme string, urlPort int, portKnown bool, schemePart string, hasScheme bool) bool {
++	if hasPortPart && portPart == "*" {
++		return true
++	}
++	if !hasPortPart {
++		dp, ok := defaultPort(urlScheme)
++		if !ok {
++			return !portKnown
++		}
++		return portKnown && urlPort == dp
++	}
++	n, _ := strconv.Atoi(portPart)
++	return portKnown && urlPort == n
++}
++
++func pathMatches(pathPart string, hasPathPart bool, urlPath string) bool {
++	if !hasPathPart || pathPart == "" {
++		return true
++	}
++	p := cgiUnescape(pathPart)
++	u := "/"
++	if urlPath != "" {
++		u = cgiUnescape(urlPath)
++	}
++	if u == "" {
++		u = "/"
+ 	}
+-	rest := raw[i+3:]
+-	if idx := strings.IndexAny(rest, "/?#"); idx >= 0 {
+-		rest = rest[:idx]
++	if p == "" {
++		return true
+ 	}
+-	if at := strings.LastIndexByte(rest, '@'); at >= 0 {
+-		rest = rest[at+1:]
++	if strings.HasSuffix(p, "/") {
++		return strings.HasPrefix(u, p)
+ 	}
+-	if c := strings.LastIndexByte(rest, ':'); c >= 0 {
+-		rest = rest[:c]
++	return u == p
++}
++
++type source struct {
++	schemePart  string
++	hasScheme   bool
++	hostPart    string
++	hasHost     bool
++	portPart    string
++	hasPortPart bool
++	path        string
++	hasPath     bool
++}
++
++func parseSource(token string) source {
++	var s source
++	var rest string
++	if strings.Contains(token, "://") {
++		parts := strings.SplitN(token, "://", 2)
++		s.schemePart = strings.ToLower(parts[0])
++		s.hasScheme = true
++		rest = parts[1]
++	} else if strings.HasSuffix(token, ":") && !strings.Contains(token, "/") {
++		s.schemePart = strings.ToLower(token[:len(token)-1])
++		s.hasScheme = true
++		return s
++	} else {
++		rest = token
+ 	}
+-	return strings.ToLower(rest), true
++
++	if strings.Contains(rest, "/") {
++		parts := strings.SplitN(rest, "/", 2)
++		s.hostPart = parts[0]
++		s.path = "/" + parts[1]
++		s.hasPath = true
++	} else {
++		s.hostPart = rest
++		s.path = ""
++		s.hasPath = true
++	}
++
++	hostport := s.hostPart
++	if strings.Contains(hostport, ":") {
++		i := strings.LastIndexByte(hostport, ':')
++		h := hostport[:i]
++		p := hostport[i+1:]
++		isDigits := p != ""
++		for k := 0; k < len(p); k++ {
++			if p[k] < '0' || p[k] > '9' {
++				isDigits = false
++				break
++			}
++		}
++		if p == "*" || isDigits {
++			s.hostPart = h
++			s.portPart = p
++			s.hasPortPart = true
++		}
++	}
++	if s.hostPart != "" {
++		s.hasHost = true
++	}
++	return s
+ }
+ 
+-func admit(sourceList, url, _origin string) bool {
+-	tokens := strings.Fields(sourceList)
++func admit(sourceList, url, origin string) bool {
++	tokens := splitWS(sourceList)
+ 	if len(tokens) == 0 {
+ 		return false
+ 	}
+-	host, ok := naiveHost(url)
+-	if !ok {
++	if len(tokens) == 1 && strings.ToLower(tokens[0]) == "'none'" {
+ 		return false
+ 	}
+-	host = strings.ToLower(host)
+ 
+-	for _, tok := range tokens {
+-		t := strings.ToLower(tok)
+-		// naive: any host token that appears as a substring of the URL host admits
+-		if strings.Contains(t, ".") {
+-			bare := strings.TrimPrefix(t, "*.")
+-			bare = strings.TrimPrefix(bare, "https://")
+-			bare = strings.TrimPrefix(bare, "http://")
+-			if strings.Contains(host, bare) {
++	us, uh, up, upKnown, upath := splitURL(url)
++
++	for _, token := range tokens {
++		low := strings.ToLower(token)
++		if low == "'none'" {
++			continue
++		}
++		if contains(inlineOnly, low) {
++			continue
++		}
++		if hasAnyPrefix(low, inlinePrefixes) {
++			continue
++		}
++
++		if low == "'self'" {
++			oScheme, oHost, oPort, oKnown := splitOrigin(origin)
++			if uh == "" {
++				continue
++			}
++			if uh != oHost {
++				continue
++			}
++			same := us == oScheme
++			upgrade := (oScheme == "http" && us == "https") || (oScheme == "ws" && us == "wss")
++			if !(same || upgrade) {
++				continue
++			}
++			if upKnown && oKnown && up == oPort {
+ 				return true
+ 			}
++			if upgrade {
++				odp, ok1 := defaultPort(oScheme)
++				udp, ok2 := defaultPort(us)
++				if oKnown && ok1 && oPort == odp && upKnown && ok2 && up == udp {
++					return true
++				}
++			}
++			continue
+ 		}
+-		// naive scheme handling
+-		if strings.HasSuffix(t, ":") && strings.HasPrefix(strings.ToLower(url), t) {
+-			return true
++
++		src := parseSource(token)
++
++		if !src.hasHost && src.hasScheme {
++			if schemeMatches(src.schemePart, us) {
++				return true
++			}
++			continue
++		}
++		if !src.hasHost {
++			continue
++		}
++
++		if !src.hasScheme {
++			if contains(opaque, us) {
++				continue
++			}
++		} else if !schemeMatches(src.schemePart, us) {
++			continue
++		}
++
++		if !hostMatches(src.hostPart, uh) {
++			continue
++		}
++		if !portMatches(src.portPart, src.hasPortPart, us, up, upKnown, src.schemePart, src.hasScheme) {
++			continue
++		}
++		if !pathMatches(src.path, src.hasPath, upath) {
++			continue
+ 		}
++		return true
+ 	}
+ 	return false
+ }

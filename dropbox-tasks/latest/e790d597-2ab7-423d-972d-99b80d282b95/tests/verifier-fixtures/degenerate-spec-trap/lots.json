@@ -1,0 +1,24 @@
+{
+  "batch_generation": 22,
+  "target_volume_ml": 100.0,
+  "lots": [
+    {
+      "lot_id": "DEG-A",
+      "cost_per_ml": 0.90,
+      "available_ml": 200.0,
+      "assays": {"analyte_x": 10.0, "analyte_y": 20.0}
+    },
+    {
+      "lot_id": "DEG-B",
+      "cost_per_ml": 1.30,
+      "available_ml": 200.0,
+      "assays": {"analyte_x": 18.0, "analyte_y": 12.0}
+    },
+    {
+      "lot_id": "DEG-C",
+      "cost_per_ml": 1.05,
+      "available_ml": 200.0,
+      "assays": {"analyte_x": 14.0, "analyte_y": 16.0}
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+[unity_47]
+min_radix = 2
+max_radix = 16
+max_decimal_digits = 20
+amount_column = "amount_decimal"
+radix_column = "radix_base"

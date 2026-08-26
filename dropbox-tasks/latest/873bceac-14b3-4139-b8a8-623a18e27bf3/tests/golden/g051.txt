@@ -1,0 +1,15 @@
+== Petrified Garden [fungal] ==
+Omen: Fire answers fire.
+Light: 9.5 lumens
+Relics:
+  - Spore Lantern <uncommon> 70g
+  - Petrified Rose <common> 25g
+Freshest: Petrified Rose @ 02:30 KST
+Exits:
+  - up: Starfall Observatory (torch 4.0)
+Torch: 8.0 units
+Inventory: astrolabe-shard
+Route: no route
+---ACTIONS---
+take spore-lantern
+go up

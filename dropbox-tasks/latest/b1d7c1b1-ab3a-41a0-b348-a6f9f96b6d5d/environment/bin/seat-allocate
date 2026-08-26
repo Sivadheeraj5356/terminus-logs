@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+"use strict";
+
+const { main } = require("../license/cli");
+main(process.argv.slice(2));

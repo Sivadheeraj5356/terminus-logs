@@ -1,0 +1,27 @@
+{
+  "labels": [
+    {
+      "text": "snap-beta",
+      "epoch": 11
+    }
+  ],
+  "list_file": "logs/list_c_locale.txt",
+  "locale": "c",
+  "automation": {
+    "pre_raw": 8,
+    "post_raw": 9
+  },
+  "target": {
+    "path": "/srv/snap"
+  },
+  "views": [
+    {
+      "path": "/srv/snap"
+    },
+    {
+      "path": "/srv/snap"
+    }
+  ],
+  "wal_segments": [],
+  "stepback_event": 0
+}

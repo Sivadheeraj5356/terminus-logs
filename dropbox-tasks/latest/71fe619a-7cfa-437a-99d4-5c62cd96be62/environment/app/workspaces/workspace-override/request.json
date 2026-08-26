@@ -1,0 +1,11 @@
+{
+  "root_module": "corp.example/wsroot",
+  "root_version": "v1.0.0",
+  "replaces": [
+    {
+      "old_path": "corp.example/wslib",
+      "new_path": "corp.example/wslib-remote",
+      "new_version": "v9.9.9-remote"
+    }
+  ]
+}

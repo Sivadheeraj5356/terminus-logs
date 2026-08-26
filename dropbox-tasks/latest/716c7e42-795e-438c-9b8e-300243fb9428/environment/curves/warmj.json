@@ -1,0 +1,22 @@
+{
+  "pack": "warmj",
+  "bins": 6,
+  "active_stride": 6,
+  "half_w": 1,
+  "width_b": 1,
+  "snapshot": 3,
+  "total": 10,
+  "burst": true,
+  "samples": [
+    897,
+    272,
+    575,
+    715,
+    590,
+    284,
+    660,
+    866,
+    462,
+    742
+  ]
+}

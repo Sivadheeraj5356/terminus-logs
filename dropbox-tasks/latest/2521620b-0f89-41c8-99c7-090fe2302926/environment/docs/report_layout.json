@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "report_file": "/app/output/timeline_report.json",
+  "scenario_fields": {
+    "name": "string",
+    "finish": "string",
+    "active_session_epoch": "integer",
+    "events_replayed": "integer",
+    "chain_intact": "integer",
+    "order_drift_count": "integer",
+    "contradiction_count": "integer",
+    "witness_ok_count": "integer",
+    "timeline_head_hex": "64-char lowercase hex"
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "batch_id": "batch_04",
+  "preserve_identity": true,
+  "identity": {
+    "group": "com.acme",
+    "artifact": "core",
+    "version": "1.0.0"
+  },
+  "mappings": [
+    {
+      "seq": 1,
+      "from_prefix": "com.google.common",
+      "to_prefix": "shaded.com.google.common",
+      "priority": 10
+    },
+    {
+      "seq": 2,
+      "from_prefix": "com.foo",
+      "to_prefix": "shaded.NestCollide",
+      "priority": 5
+    },
+    {
+      "seq": 3,
+      "from_prefix": "com.bar",
+      "to_prefix": "shaded.NestCollide",
+      "priority": 5
+    }
+  ],
+  "units": [
+    {
+      "path": "lib/core.jar",
+      "root": "dep-a",
+      "symbols": [
+        {
+          "fqn": "com.google.common.Base",
+          "pkg_path": "com/google/common"
+        }
+      ],
+      "refs": [
+        {
+          "id": "r1",
+          "literal": "com.google.common.Base",
+          "kind": "class"
+        }
+      ],
+      "resources": [],
+      "nested": [
+        {
+          "path": "lib/core.jar!/nested.jar",
+          "root": "dep-a",
+          "symbols": [
+            {
+              "fqn": "com.google.common.Nested",
+              "pkg_path": "com/google/common"
+            },
+            {
+              "fqn": "com.foo.Twin",
+              "pkg_path": "com/foo"
+            },
+            {
+              "fqn": "com.bar.Twin",
+              "pkg_path": "com/bar"
+            }
+          ],
+          "refs": [
+            {
+              "id": "nr1",
+              "literal": "com.google.common.Nested",
+              "kind": "class"
+            }
+          ],
+          "resources": [],
+          "nested": []
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "seq": 1,
+      "op": "apply",
+      "fail": false,
+      "rollback": false
+    }
+  ],
+  "observed": {
+    "symbols": [
+      {
+        "original": "com.google.common.Base",
+        "fqn": "shaded.com.google.common.Base",
+        "pkg_path": "shaded/com/google/common"
+      }
+    ],
+    "refs": [
+      {
+        "id": "r1",
+        "literal": "shaded.com.google.common.Base"
+      }
+    ],
+    "resources": [],
+    "identity": {
+      "group": "com.acme",
+      "artifact": "core",
+      "version": "1.0.0"
+    },
+    "metadata": {
+      "relocator_epoch": 7
+    },
+    "digest": "0a90bc63aa8b07fc95843f25c7f69666862b72e9ec7ac759b3cbbb8e33796db7",
+    "nested_applied": true,
+    "nested": [
+      {
+        "unit_path": "lib/core.jar",
+        "symbols": [
+          {
+            "original": "com.google.common.Nested",
+            "fqn": "shaded.com.google.common.Nested",
+            "pkg_path": "shaded/com/google/common"
+          },
+          {
+            "original": "com.foo.Twin",
+            "fqn": "shaded.NestCollide.Twin",
+            "pkg_path": "shaded/NestCollide"
+          },
+          {
+            "original": "com.bar.Twin",
+            "fqn": "shaded.NestCollide.Twin",
+            "pkg_path": "shaded/NestCollide"
+          }
+        ],
+        "refs": [
+          {
+            "id": "nr1",
+            "literal": "shaded.com.google.common.Nested"
+          }
+        ]
+      }
+    ]
+  }
+}

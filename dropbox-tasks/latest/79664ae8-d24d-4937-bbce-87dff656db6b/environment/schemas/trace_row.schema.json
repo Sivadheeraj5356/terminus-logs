@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "object",
+    "avail_metric",
+    "lane"
+  ],
+  "properties": {
+    "object": {
+      "type": "string"
+    },
+    "avail_metric": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "lane": {
+      "type": "string",
+      "enum": [
+        "B",
+        "O"
+      ]
+    }
+  }
+}

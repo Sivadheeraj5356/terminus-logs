@@ -1,0 +1,61 @@
+--- environment/m7k/step_mux.rb
++++ environment/m7k/step_mux.rb
+@@ -5,12 +5,12 @@
+     module_function
+ 
+     def fn_m7(step_ix, family_ix, prev_family)
+-      lane_seed = step_ix & 0xFFFFFFFF
+-      family_tag = family_ix
+-      carry_tag = prev_family
+-      _ = family_tag
+-      _ = carry_tag
+-      lane_seed
++      masked_step = step_ix & 0xFFFF
++      masked_family = family_ix & 0xFFFF
++      masked_prev = prev_family & 0xFFFFFFFF
++      hi_step = masked_step << 48
++      hi_family = masked_family << 32
++      hi_step ^ hi_family ^ masked_prev
+     end
+   end
+ end
+--- environment/r3p/cap_fold.rb
++++ environment/r3p/cap_fold.rb
+@@ -5,13 +5,13 @@
+     module_function
+ 
+     def fn_r3(ctx, stamp_a, stamp_b)
++      unless ctx[:activated]
++        ctx[:published] = 0
++        return 0
++      end
+       merged = (stamp_a ^ stamp_b) & 0xFFFFFFFF
+       ctx[:published] = merged
+-      if ctx[:activated]
+-        merged
+-      else
+-        merged
+-      end
++      merged
+     end
+   end
+ end
+--- environment/w9n/revert_arm.rb
++++ environment/w9n/revert_arm.rb
+@@ -5,9 +5,12 @@
+     module_function
+ 
+     def fn_w9(state, tree_a, tree_b)
+-      prior_tree = tree_a
+-      _ = prior_tree
+-      state[:tree] = tree_b
++      _ = tree_a
++      restored = tree_b
++      state[:tree] = restored
++      if state.key?(:gen_prev)
++        state[:gen] = state[:gen_prev]
++      end
+       state
+     end
+   end
+ end

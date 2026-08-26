@@ -1,0 +1,11 @@
+{
+  "arm": "side_cut",
+  "phase": "cut",
+  "row_cap": 6,
+  "group_cap": 3,
+  "cells": [
+    {"id": "c01", "kind": "host", "match": "cuta.lab", "target": "be_cut", "want": "route"},
+    {"id": "c02", "kind": "host", "match": "cutb.lab", "target": "be_cut", "want": "route"},
+    {"id": "c03", "kind": "path", "match": "/cut", "target": "be_cutp", "want": "route"}
+  ]
+}

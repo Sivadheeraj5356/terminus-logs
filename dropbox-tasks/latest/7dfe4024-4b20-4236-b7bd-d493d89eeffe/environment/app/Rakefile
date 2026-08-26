@@ -1,0 +1,16 @@
+desc 'Run full spectral analysis pipeline'
+task :analyze do
+  ruby '-I lib -r spectral_analyzer -e "SpectralAnalyzer.new.run!"'
+end
+
+desc 'Check API health'
+task :health do
+  ruby '-r net/http -r json -e "puts Net::HTTP.get(URI(\"http://localhost:3000/health\"))"'
+end
+
+desc 'Fetch simulation metadata'
+task :metadata do
+  ruby '-r net/http -r json -e "puts Net::HTTP.get(URI(\"http://localhost:3000/metadata\"))"'
+end
+
+task default: :analyze

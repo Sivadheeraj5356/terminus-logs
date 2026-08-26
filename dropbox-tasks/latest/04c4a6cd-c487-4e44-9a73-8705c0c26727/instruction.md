@@ -1,0 +1,5 @@
+We need the employee warehouse loader in /app finished. It is a Rust CLI that should be run as cargo run -- ingest --db /absolute/path/to/warehouse.sqlite --input /absolute/path/to/feed.csv, and the input can also be a directory of csv files. The feed contract and the SQLite table contract are in /app/docs/source_contract.txt.
+
+The business requirement is full Slowly Changing Dimension Type 2 tracking for the employee roster. Loading old batches, replaying the same batch, or receiving late corrections must leave /app with one clean employee_history timeline per employee: no overlapping windows, no duplicate no-change rows, one current row per employee, and corrected records replacing the older record for the same employee and effective date. Bad rows should be rejected without stopping the rest of the file, with enough detail left in employee_rejects for operations to follow up.
+
+Please keep this offline and self contained. The result should be durable in the SQLite database named by --db, not printed as a report.

@@ -1,0 +1,13 @@
+{
+  "export_meta": {
+    "proxy_id": "archive-215",
+    "exported_at": "2024-12-15T10:00:00Z",
+    "format_rev": "proxy-nested-6"
+  },
+  "retract_queue": [],
+  "module_index": {},
+  "noise_footer": {
+    "mirror_status": "stale",
+    "cache_generation": 215
+  }
+}

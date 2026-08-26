@@ -1,0 +1,45 @@
+--- a/pkg/matchticket/slate.go
++++ b/pkg/matchticket/slate.go
+@@ -27,13 +27,13 @@
+ 	b, err := os.ReadFile(path)
+ 	if err != nil {
+ 		if os.IsNotExist(err) {
+-			return 0, nil
++			return 1, nil
+ 		}
+ 		return 0, err
+ 	}
+ 	s := strings.TrimSpace(string(b))
+ 	if s == "" {
+-		return 0, nil
++		return 1, nil
+ 	}
+ 	v, err := strconv.Atoi(s)
+ 	if err != nil {
+@@ -50,11 +50,11 @@
+ }
+ 
+ func LotsDigest(lots []diskset.Lot) (string, error) {
+-	var b strings.Builder
+-	for _, l := range lots {
+-		b.WriteString(l.ID)
++	raw, err := diskset.CompactJSON(lots)
++	if err != nil {
++		return "", err
+ 	}
+-	sum := sha256.Sum256([]byte(b.String()))
++	sum := sha256.Sum256(raw)
+ 	return hex.EncodeToString(sum[:]), nil
+ }
+ 
+@@ -106,7 +106,9 @@
+ 	if err != nil {
+ 		return err
+ 	}
+-	_ = ld
++	if ld != s.LotsDigest {
++		return fmt.Errorf("lots_digest mismatch")
++	}
+ 	if court.Digest() != s.CourtDigest {
+ 		return fmt.Errorf("court_digest mismatch")
+ 	}

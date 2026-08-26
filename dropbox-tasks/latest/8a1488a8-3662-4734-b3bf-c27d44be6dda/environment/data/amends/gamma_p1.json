@@ -1,0 +1,4 @@
+{
+  "tags": {"kind": "list", "value": ["gamma-extra"]},
+  "gamma_lane": {"kind": "scalar", "value": "patch-gamma"}
+}

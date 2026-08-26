@@ -1,0 +1,229 @@
+Closure plan case layout
+========================
+
+The command receives CASE_ROOT and OUTDIR. It must read only files under CASE_ROOT, replace OUTDIR on every run, write no stdout, and write exactly these files directly under OUTDIR:
+
+- closure.json
+- actions.tsv
+- proof.json
+
+CASE_ROOT contains:
+
+- policy.txt
+- roots.txt
+- local.txt
+- objects.txt
+- narinfo/*.nar
+- cache/stale-closure.json, which is stale derived state and must be ignored
+
+All files are UTF-8 text. Blank lines and lines starting with # are ignored. Tokens are whitespace-delimited unless otherwise stated. Lists use comma separators and use - for an empty list.
+
+policy.txt
+==========
+
+Required singleton lines:
+
+- SYSTEM <system>: only objects with this system may be resolved.
+- NOW <timestamp>: UTC timestamp used for hold expiry. Timestamps compare lexicographically because they are always ISO-8601 Z values.
+- LIMIT_NAR <integer>: maximum sum of NAR_SIZE for selected substitute actions.
+- LIMIT_BUILD <integer>: maximum sum of BUILD_COST for selected build actions.
+- LIMIT_RISK <integer>: maximum sum of selected action risk.
+
+Additive trust and hold lines:
+
+- TRUST <cache> <rank> <risk> <threshold> <keys>: declares a trusted binary cache. keys is a comma-separated set of signing key ids. rank and risk are integers. threshold is the number of distinct trusted keys required for a substitute record from that cache.
+- HOLD <cache> <store> <until> <reason>: blocks that cache's substitute for that store while until >= NOW. Expired holds are ignored. reason is copied into proof rows only through active_hold:<reason>.
+
+roots.txt
+=========
+
+Each non-comment line is:
+
+- ROOT <store>
+
+The requested closure is every root plus every transitive reference from objects.txt. Sort roots and closure store ids lexicographically for output.
+
+local.txt
+=========
+
+Each non-comment line is:
+
+- LOCAL <store>
+
+A local store object can satisfy that store path with action local. Local actions have cache null, nar_hash null, nar_size 0, build_cost 0, and risk 0. Local objects still contribute their references to closure expansion because references come from objects.txt.
+
+objects.txt
+===========
+
+Each non-comment line is:
+
+- OBJECT <store> <system> <mode> <output_hash> <build_cost> <build_allowed> <risk> <references>
+
+mode is input, fixed, or ca. output_hash is - for input mode and a hash token for fixed or ca mode. build_allowed is yes or no. references is a comma-separated list of store ids or -.
+
+The OBJECT table is authoritative for system, mode, output hash, build cost, build permission, object risk, and references. Narinfo records that disagree with the authoritative reference set are invalid for substitution.
+
+narinfo/*.nar
+=============
+
+Each narinfo file describes one substitute candidate and contains exactly these fields, one per line:
+
+- STORE <store>
+- CACHE <cache>
+- NAR_HASH <hash>
+- NAR_SIZE <integer>
+- SIGS <keys>
+- REFERENCES <references>
+- DERIVER <deriver>
+
+keys and references are comma-separated lists or -. DERIVER is carried only for auditability.
+
+Substitute candidate validity
+=============================
+
+For each required store object, candidates are considered in this source order for proof output:
+
+1. local, if the store appears in local.txt
+2. build, always considered
+3. substitute records, sorted by cache then NAR_HASH then filename
+
+Candidate validity is:
+
+- local is valid only when the store appears in local.txt and the object exists with the policy SYSTEM.
+- build is valid when build_allowed is yes, the object exists with the policy SYSTEM, and for fixed or ca mode output_hash is not -.
+- a substitute is valid only if every condition below passes:
+  - its cache is declared by TRUST;
+  - the object exists and has the policy SYSTEM;
+  - there is no active HOLD for that exact cache and store;
+  - the distinct intersection of SIGS and the cache's trusted keys has count >= threshold;
+  - the substitute REFERENCES set exactly equals the object's authoritative references set;
+  - for fixed and ca objects, NAR_HASH equals output_hash.
+
+The first invalid reason in this exact order is used in proof rows:
+
+1. untrusted_cache
+2. system_mismatch
+3. active_hold:<reason>
+4. bad_signature
+5. ref_mismatch
+6. hash_mismatch
+7. build_forbidden
+
+build_forbidden is used only for build candidates. local candidates that are not available are not emitted.
+
+Action risk and budgets
+=======================
+
+Action risk is:
+
+- local: 0
+- build: object risk
+- substitute: object risk + trusted cache risk
+
+A valid plan chooses exactly one valid action for each store id in the requested closure.
+
+A valid plan must satisfy:
+
+- total substitute NAR_SIZE <= LIMIT_NAR
+- total build BUILD_COST <= LIMIT_BUILD
+- total action risk <= LIMIT_RISK
+
+Plan selection
+==============
+
+Among all valid plans, choose the best tuple in this order:
+
+1. lower built count
+2. lower total_risk
+3. lower total_nar_size
+4. lower total_build_cost
+5. higher trusted_cache_rank sum across substitute actions
+6. lexicographically smaller action signature list
+
+The action signature list is the sorted list of strings store:action:cache, where cache is - for local and build.
+
+Outputs
+=======
+
+closure.json is compact JSON with one trailing newline. Top-level keys must be exactly:
+
+1. status
+2. roots
+3. actions
+4. summary
+
+status is ok or unsat. roots is the sorted root list. actions is sorted by store id. Each action object has keys in this exact order:
+
+1. store
+2. action
+3. cache
+4. nar_hash
+5. nar_size
+6. build_cost
+7. risk
+8. references
+
+action is local, substitute, or build. cache is a string for substitute and null for local or build. nar_hash is a string for substitute and null for local or build. references is a sorted string array.
+
+summary has keys in this exact order:
+
+1. local
+2. substituted
+3. built
+4. total_nar_size
+5. total_build_cost
+6. total_risk
+7. reason
+
+reason is null for ok and no_plan for unsat.
+
+If no valid plan exists, closure.json must be exactly:
+
+{"status":"unsat","roots":[],"actions":[],"summary":{"local":0,"substituted":0,"built":0,"total_nar_size":0,"total_build_cost":0,"total_risk":0,"reason":"no_plan"}}
+
+actions.tsv uses LF line endings, ends with one newline, and has this exact header:
+
+store	action	cache	nar_size	build_cost	risk	detail
+
+For ok plans, rows are sorted by store id. cache is - for local and build. detail is:
+
+- local: present
+- build: mode=<mode>
+- substitute: sig=<valid_sig_count>;refs=<reference_count>
+
+For unsat plans, actions.tsv contains exactly the header and this row:
+
+NONE	unsat	-	0	0	0	no_plan
+
+proof.json is compact JSON with one trailing newline. Top-level keys must be exactly:
+
+1. closure
+2. candidates
+3. selected
+4. seal
+
+For ok plans, closure is the sorted closure store list. For unsat plans, the closure field is always [] because no plan was selected. This does not make the unsat proof candidate list empty in every case: if the authoritative transitive closure can be computed but no valid plan satisfies candidate validity or budgets, candidates must still contain every emitted candidate row for every store in that computed sorted closure. If the closure itself cannot be computed because a root or transitive reference has no authoritative OBJECT row, candidates is [].
+
+Candidate objects have keys in this exact order:
+
+1. store
+2. source
+3. valid
+4. reason
+5. risk
+6. nar_size
+7. build_cost
+
+source is local, build, or the cache name. valid is boolean. reason is ok for valid rows or the invalid reason string. selected contains the sorted action signature list for ok plans and [] for unsat.
+
+Example unsat proof with populated candidates:
+
+{"closure":[],"candidates":[{"store":"/nix/store/app","source":"build","valid":false,"reason":"build_forbidden","risk":4,"nar_size":0,"build_cost":20},{"store":"/nix/store/app","source":"cacheA","valid":false,"reason":"ref_mismatch","risk":6,"nar_size":50,"build_cost":0},{"store":"/nix/store/lib","source":"local","valid":true,"reason":"ok","risk":0,"nar_size":0,"build_cost":0},{"store":"/nix/store/lib","source":"build","valid":true,"reason":"ok","risk":1,"nar_size":0,"build_cost":3}],"selected":[],"seal":"<sha256-of-written-closure-and-actions>"}
+
+In that example, closure.json still has status unsat and actions.tsv still has the NONE unsat row, but proof.json preserves the candidate audit rows for the computed closure /nix/store/app and /nix/store/lib before adjudication failed.
+
+seal is the lowercase SHA-256 hex digest of this exact byte string:
+
+closure.json bytes + newline byte + actions.tsv bytes
+
+Use the actual bytes written to those two output files. This makes proof.json reconcile with the primary artifacts.

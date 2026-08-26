@@ -1,0 +1,67 @@
+{
+  "scenario_id": "scenario_22",
+  "build_profile": "dev",
+  "profile_mode": "target",
+  "workspace_members": [],
+  "declared": [
+    {
+      "crate": "app",
+      "version": "1.0.0",
+      "features": [],
+      "default_features": false,
+      "optional": false
+    }
+  ],
+  "workspace_pins": {},
+  "workspace_features": {},
+  "feature_tags": {},
+  "feature_aliases": {},
+  "edges": [
+    {
+      "parent": "app:1.0.0",
+      "child": "z_branch",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s22z",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "z_branch:1.0.0",
+      "child": "pick",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s22z2",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "app:1.0.0",
+      "child": "a_branch",
+      "version": "1.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s22a",
+      "target_triple": "target",
+      "default_crate_features": []
+    },
+    {
+      "parent": "a_branch:1.0.0",
+      "child": "pick",
+      "version": "2.0.0",
+      "features_requested": [],
+      "default_features": false,
+      "optional": false,
+      "edge_id": "s22a2",
+      "target_triple": "target",
+      "default_crate_features": []
+    }
+  ],
+  "exclusions": [],
+  "traversal_depth_cap": 64
+}

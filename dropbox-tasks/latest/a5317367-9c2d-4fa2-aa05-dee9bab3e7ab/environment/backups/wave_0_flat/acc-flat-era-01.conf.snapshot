@@ -1,0 +1,6 @@
+! Wave 0 flat network snapshot (read-only)
+hostname acc-flat-era-01
+interface Vlan110
+ ip address 10.1.110.1 255.255.255.0
+interface TenGigabitEthernet1/1/1
+ switchport trunk allowed vlan all

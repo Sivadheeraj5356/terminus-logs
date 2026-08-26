@@ -1,0 +1,66 @@
+{
+  "facility_id": "bay-alpha",
+  "assessment_epoch_unix": 1720000000,
+  "vessels": [
+    {
+      "vessel_id": "DW-01",
+      "model_id": "CTD-100-LN2",
+      "cryogen": "LN2",
+      "level_liters": 70.0,
+      "pressure_psig": 8.0,
+      "sensor_calibrated_until_unix": 1721000000
+    },
+    {
+      "vessel_id": "DW-02",
+      "model_id": "CTD-100-LN2",
+      "cryogen": "LN2",
+      "level_liters": 80.0,
+      "pressure_psig": 16.0,
+      "sensor_calibrated_until_unix": 1722000000
+    },
+    {
+      "vessel_id": "DW-03",
+      "model_id": "CTD-80-LN2",
+      "cryogen": "LN2",
+      "level_liters": 50.0,
+      "pressure_psig": 6.0,
+      "sensor_calibrated_until_unix": 1720000000
+    },
+    {
+      "vessel_id": "DW-04",
+      "model_id": "CTD-60-LHe",
+      "cryogen": "LHe",
+      "level_liters": 40.0,
+      "pressure_psig": 4.0,
+      "sensor_calibrated_until_unix": 1725000000
+    },
+    {
+      "vessel_id": "DW-05",
+      "model_id": "CTD-80-LN2",
+      "cryogen": "LN2",
+      "level_liters": 10.0,
+      "pressure_psig": 5.0,
+      "sensor_calibrated_until_unix": 1723000000
+    }
+  ],
+  "placement_requests": [
+    {
+      "request_id": "REQ-LN2-A",
+      "specimen_class": "LN2",
+      "min_hold_hours": 48.0,
+      "preferred_vessel_id": "DW-01"
+    },
+    {
+      "request_id": "REQ-LHe-A",
+      "specimen_class": "LHe",
+      "min_hold_hours": 72.0,
+      "preferred_vessel_id": "DW-04"
+    },
+    {
+      "request_id": "REQ-LHe-B",
+      "specimen_class": "LHe",
+      "min_hold_hours": 24.0,
+      "preferred_vessel_id": "DW-01"
+    }
+  ]
+}

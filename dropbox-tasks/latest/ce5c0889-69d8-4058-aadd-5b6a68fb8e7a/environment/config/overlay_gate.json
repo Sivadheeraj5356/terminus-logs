@@ -1,0 +1,4 @@
+{
+  "overlay_csv": "/app/data/overlay.csv",
+  "verdict_snapshot": "/app/output/verdict_snapshot.json"
+}

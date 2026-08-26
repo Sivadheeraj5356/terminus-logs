@@ -1,0 +1,7 @@
+tabs	and spaces here
+false gray cat color gray
+colour color gray gray false end
+addr 156.199.230.55 hex 0xbf6b token tok_936
+end no beta color grey
+hex 0xabc 0xABCDEF zzz
+bar yes

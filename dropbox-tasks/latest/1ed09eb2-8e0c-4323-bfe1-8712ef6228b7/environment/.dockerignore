@@ -1,0 +1,8 @@
+.git
+__pycache__/
+*.pyc
+**/.mypy_cache/
+**/node_modules/
+.env
+*.zip
+.DS_Store

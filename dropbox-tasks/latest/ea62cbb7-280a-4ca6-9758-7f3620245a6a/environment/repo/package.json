@@ -1,0 +1,12 @@
+{
+  "name": "windowjudge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ceremony-window adjudicator for a hardware-security-module key ceremony",
+  "bin": {
+    "windowjudge": "bin/windowjudge.js"
+  },
+  "scripts": {
+    "check": "node --check bin/windowjudge.js && node --check lib/judge.js"
+  }
+}

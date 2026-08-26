@@ -1,0 +1,4 @@
+{"seq": 1, "kind": "RESUME", "actor": "carr", "index": "ix-03"}
+{"seq": 2, "kind": "ROUTE", "actor": "afox", "channel": "c1-02", "source": "svc-g"}
+{"seq": 3, "kind": "ROUTE", "actor": "blyn", "channel": "c3-03", "source": "svc-m"}
+{"seq": 4, "kind": "ROUTE", "actor": "blyn", "channel": "c4-03", "source": "svc-i"}

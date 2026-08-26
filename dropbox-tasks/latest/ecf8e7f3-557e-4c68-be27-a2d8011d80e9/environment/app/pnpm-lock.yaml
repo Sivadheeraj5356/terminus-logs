@@ -1,0 +1,23 @@
+lockfileVersion: '9.0'
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+importers:
+  .:
+    dependencies:
+      fmt:
+        specifier: 10.2.1
+        version: 10.2.1
+      zlib:
+        specifier: 1.3.1
+        version: 1.3.1
+      spdlog:
+        specifier: 1.13.0
+        version: 1.13.0
+packages:
+  fmt@10.2.1:
+    resolution: {integrity: sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef, tarball: https://registry.npmjs.org/fmt/-/fmt-10.2.1.tgz}
+  zlib@1.3.1:
+    resolution: {integrity: sha256:cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe, tarball: https://registry.npmjs.org/zlib/-/zlib-1.3.1.tgz}
+  spdlog@1.13.0:
+    resolution: {integrity: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa, tarball: https://github.com/acme/spdlog/archive/v1.13.0.tgz}

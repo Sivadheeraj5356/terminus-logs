@@ -1,0 +1,21 @@
+generated_by: string, exactly "blendprofile"
+profile: string
+profile_root: absolute path string
+ok: boolean
+checked_paths: sorted array of absolute paths for all required layout directories, wrapper, bootstrap, enabled metadata, lock, managed index, profile audit, generation ledger and state, declared add-on manifests, and declared add-on files
+missing_paths: sorted array of absolute path strings
+unexpected_addons: sorted array of module strings
+unexpected_addon_files: sorted array of MODULE:relative/path strings
+unsafe_addon_paths: sorted array of MODULE:relative/path strings
+mismatched_exports: sorted array of environment-variable strings
+lock_mismatches: globally lexicographically sorted array of module or sentinel strings
+dependency_mismatches: globally lexicographically sorted array of sentinel strings
+managed_mismatches: globally lexicographically sorted array of sentinel or profile-relative path strings
+audit_mismatches: globally lexicographically sorted array of sentinel or module-scoped strings
+lineage_mismatches: globally lexicographically sorted array of sentinel strings
+enabled_modules: sorted array of module strings
+addon_load_order: array of module strings
+dependency_edges: sorted array of FROM->TO strings
+managed_file_count: integer
+addon_count: integer
+issues: globally lexicographically sorted array of correlated strings; each finding repeats its module, path, or sentinel and the subsystem word required by /app/docs/blendprofile_contract.txt

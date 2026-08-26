@@ -1,0 +1,6 @@
+addr 194.87.40.226 hex 0x1d54 token tok_865
+quux bird beta yes
+line no
+beta false
+no foo foo yes
+addr 32.172.130.149 hex 0xbe9c token tok_922

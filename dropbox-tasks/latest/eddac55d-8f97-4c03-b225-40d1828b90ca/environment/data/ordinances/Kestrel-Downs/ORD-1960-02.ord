@@ -1,0 +1,9 @@
+ordinance: ORD-1960-02
+jurisdiction: Kestrel-Downs
+enacted: 1960-02-16
+effective: 1960-04-10T02:00:00 wall
+standard-offset: +00:00:00
+standard-label: GMT
+observance:
+  begin: Apr Sun>=8 02:00:00 wall save +01:00:00 label BST
+  end: Oct lastSun 03:00:00 wall

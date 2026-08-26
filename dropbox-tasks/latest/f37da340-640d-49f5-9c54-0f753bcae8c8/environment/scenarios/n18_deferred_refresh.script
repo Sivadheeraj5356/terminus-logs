@@ -1,0 +1,4 @@
+# deferred refresh — store tick must match prp count not probe shadow lag
+profile alpha
+step prp target=share mode=private
+step prp target=share mode=shared

@@ -1,0 +1,7 @@
+vaultseal triage snapshot
+case: case_0007
+#0  0x55553a4a89e2 in ec_p256_verify (a=0x5555c872c96e) at vaultseal.c:280
+#1  0x55559b652e44 in qa (a=0x5555a83db2a8) at vaultseal.c:300
+#2  0x5555008d1f20 in qb (a=0x55550d47f45f) at vaultseal.c:307
+#3  0x5555d073f173 in main (a=0x5555c0ecd5de) at vaultseal.c:512
+key: f428e04362ca4279532afc378c0b6107ecb2bc38
