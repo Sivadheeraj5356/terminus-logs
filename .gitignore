@@ -1,0 +1,28 @@
+# Local task dumps and Harbor jobs — too large / not for git
+_source/
+dropbox-tasks/
+terminal-bench-tasks.zip
+jobs/
+_jobs/
+.cache/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+~$*
+*.tmp

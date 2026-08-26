@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-08-22T21:51:55.336055+00:00",
+  "source_zip": "D:\\ai-saas\\terminus-logs\\terminal-bench-tasks.zip",
+  "n_archives": 1170,
+  "n_unique_submissions": 448,
+  "n_cataloged": 448,
+  "n_errors": 0,
+  "errors": [],
+  "categories": {
+    "build-and-dependency-management": 51,
+    "data-processing": 51,
+    "debugging": 2,
+    "games": 40,
+    "machine-learning": 46,
+    "scientific-computing": 108,
+    "security": 90,
+    "system-administration": 60
+  },
+  "difficulties": {
+    "hard": 394,
+    "medium": 46,
+    "unknown": 8
+  },
+  "used_public_tb2": false
+}
