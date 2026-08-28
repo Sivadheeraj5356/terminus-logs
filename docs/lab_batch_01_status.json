@@ -206,9 +206,9 @@
   },
   "measure": {
     "skipped": false,
-    "started": false,
-    "reason": "smoke harness green and recomputed frozen 10 are oracle 1.0; 8x2 measure is allowed; stop after 2-3 tasks if spend/errors spike; not auto-starting batch 02",
-    "frontier_jobs_started": 0,
+    "started": true,
+    "reason": "smoke harness green and recomputed frozen 10 are oracle 1.0; 8x2 measure running with stop after 2-3 tasks if spend/errors spike; not auto-starting batch 02",
+    "frontier_jobs_started": 8,
     "target_frontier_jobs": 160,
     "trials": 8,
     "concurrent": 1,
