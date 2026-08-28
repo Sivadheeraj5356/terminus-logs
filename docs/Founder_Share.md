@@ -30,6 +30,7 @@ Deep links:
 - Tasks table: `/lab/index.html?surface=tasks`
 - Batch 01: `/lab/index.html?surface=tasks&filter=batch`
 - One package: `/lab/index.html?task=repair-the-pendulum-motion-solver`
+- Pendulum + Games chip (task wins for the panel; filter stays): `/lab/index.html?surface=tasks&task=repair-the-pendulum-motion-solver&filter=games`
 - Agents (honest ingest, no fake curves): `/lab/index.html?surface=agents`
 
 ### B. Zip if they cannot clone the private repo
@@ -48,9 +49,26 @@ python -m http.server 8765
 
 and open `/lab/index.html`. The other 98 package file links 404 unless they have the full repo.
 
-### C. Public tunnel from this VM
+### C. Public tunnel (send this)
 
-This cloud-agent VM did **not** get a stable public tunnel (`cloudflared` / `ngrok` not available here). **Clone or PR is the share path.** Do not wait on a URL from this pod.
+Live while this cloud-agent VM is awake:
+
+**https://pierre-direct-healthy-correct.trycloudflare.com/lab/index.html?surface=tasks&task=repair-the-pendulum-motion-solver&filter=games**
+
+Base: https://pierre-direct-healthy-correct.trycloudflare.com
+
+That trycloudflare hostname is a **quick tunnel**. It dies when the VM sleeps or `cloudflared` exits. It is not a stable custom domain.
+
+To restart on this pod (repo root, Harbor jobs left alone):
+
+```bash
+python3 -m http.server 8765 --bind 0.0.0.0
+cloudflared tunnel --url http://127.0.0.1:8765
+```
+
+`cloudflared` prints a new `https://*.trycloudflare.com` each time. Serve from the repo root so `/lab/index.html` and `../tasks/latest/...` file links resolve. Bind `0.0.0.0` (not `127.0.0.1` only).
+
+If the tunnel is down, fall back to the PR/clone path in A. GitHub Pages is a weaker fallback because `tasks/latest` is huge.
 
 ---
 

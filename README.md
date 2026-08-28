@@ -31,7 +31,7 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 `stump_pct = valid_failures / completed_trials * 100`. Timeouts and infrastructure errors do not count.
 
-The Worlds Lab is a static gallery over 100 unique packages (Overview / Tasks / Agents). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Serve from the repo root (`python -m http.server 8765`) and open `/lab/index.html?task=<slug>`. To send the gallery tonight, see [`docs/Founder_Share.md`](docs/Founder_Share.md).
+The Worlds Lab is a static gallery over 100 unique packages (Overview / Tasks / Agents). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Serve from the repo root (`python3 -m http.server 8765 --bind 0.0.0.0`) and open `/lab/index.html?task=<slug>`. Live share URL (ephemeral trycloudflare; see restart notes): [`docs/Founder_Share.md`](docs/Founder_Share.md) — pendulum deep link `/lab/index.html?surface=tasks&task=repair-the-pendulum-motion-solver&filter=games`.
 
 ## Rebuild (local)
 
