@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-28T12:06:38Z",
+  "generated_utc": "2026-08-28T13:07:01Z",
   "host": "cursor",
   "keys": {
     "anthropic_present": true,
@@ -127,16 +127,96 @@
     "note": "Opus smoke reward 1.0. GPT-5.6-sol completed with reward 0.0 and null exception (valid_fail, not infra). Fallback gpt-5.6 not needed."
   },
   "oracle": {
-    "skipped": true,
-    "reason": "queued after green smoke"
+    "skipped": false,
+    "agent": "oracle",
+    "k": 1,
+    "n": 1,
+    "dropped": [
+      {
+        "slug": "release-still-signs-edge-go-mod-q1-green-while-the-dependenc",
+        "reward": 0.0,
+        "exception_type": null,
+        "replacement": "i-need-the-offline-binary-cache-closure-planner-in-app-task",
+        "note": "5 TestLiveProxyIntegrity failures; dropped and selector recomputed"
+      }
+    ],
+    "replacement_oracle": {
+      "slug": "i-need-the-offline-binary-cache-closure-planner-in-app-task",
+      "reward": 1.0,
+      "exception_type": null
+    },
+    "frozen_10_oracle_clean": true,
+    "packages": [
+      {
+        "slug": "repair-the-pendulum-motion-solver",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "hypersonic-fragment-cascade-epoch-atlas",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "the-root-ca-that-signed-our-east-west-mtls-credentials-is-co",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "apexora-global-wave-3-campus-segmentation-is-blocked-across",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "release-still-signs-edge-go-mod-q1-green-while-the-dependenc",
+        "reward": 0.0,
+        "ok": false
+      },
+      {
+        "slug": "the-harborlane-replay-desk-needs-a-reusable-offline-planner",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "we-re-putting-together-a-stratified-k-fold-evaluation-kit-un",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "wildlife-counting-becomes-a-field-planning-game-when-uncerta",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "booking-slot-merge",
+        "reward": 1.0,
+        "ok": true
+      },
+      {
+        "slug": "i-need-the-offline-binary-cache-closure-planner-in-app-task",
+        "reward": 1.0,
+        "ok": true
+      }
+    ]
   },
   "measure": {
-    "skipped": true,
-    "reason": "waiting for oracle of the frozen 10 before any 160-run measure",
+    "skipped": false,
+    "started": false,
+    "reason": "smoke harness green and recomputed frozen 10 are oracle 1.0; 8x2 measure is allowed; stop after 2-3 tasks if spend/errors spike; not auto-starting batch 02",
     "frontier_jobs_started": 0,
-    "target_frontier_jobs": 160
+    "target_frontier_jobs": 160,
+    "trials": 8,
+    "concurrent": 1,
+    "opus_model": "anthropic/claude-opus-5",
+    "gpt_model": "openai/gpt-5.6-sol",
+    "stop_after_tasks": 3
   },
   "ok_to_smoke": true,
-  "ok_to_measure_160": false,
-  "note": "Smoke harness is green for both models. 160 frontier jobs stay stopped until oracle of the frozen 10 is reward 1.0."
+  "ok_to_measure_160": true,
+  "note": "Smoke green. Oracle dropped EDGE-GO-MOD-Q1 (reward 0.0) and replaced it with the offline binary-cache Go package (oracle 1.0). Measure may start; 160 jobs are not claimed complete."
 }

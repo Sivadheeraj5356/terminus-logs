@@ -16,6 +16,7 @@ JOBS_DIR = ROOT / "jobs"
 CATALOG_JSONL = ROOT / "catalog" / "tasks.jsonl"
 MVP_JSONL = ROOT / "docs" / "lab_mvp_100.jsonl"
 BATCH_01_JSONL = ROOT / "docs" / "lab_batch_01.jsonl"
+BATCH_01_EXCLUSIONS_JSON = ROOT / "docs" / "lab_batch_01_exclusions.json"
 TASKS_LATEST = ROOT / "tasks" / "latest"
 
 CATEGORY_ORDER = [

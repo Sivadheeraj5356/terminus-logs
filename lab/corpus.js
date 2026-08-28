@@ -4,14 +4,14 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-28T11:21:00Z",
-    "rollouts_status": "not_run",
+    "generated_utc": "2026-08-28T13:07:01Z",
+    "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {
-      "stump_pct": false,
-      "model_scores": false,
+      "stump_pct": true,
+      "model_scores": true,
       "copied_caudal_scores": false,
-      "note": "Measured chips and stump % appear only for batch-01 slugs that have Harbor jobs. The other 90 packages stay not run. Timeouts and infra are excluded from stump. Caudal scores are not copied."
+      "note": "10 of 10 batch-01 packages have Harbor jobs. The other gallery rows stay not run."
     },
     "category_mix": {
       "scientific-computing": 24,
@@ -51,14 +51,25 @@ window.AW_CORPUS = {
       "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
       "the-root-ca-that-signed-our-east-west-mtls-credentials-is-co",
       "apexora-global-wave-3-campus-segmentation-is-blocked-across",
-      "release-still-signs-edge-go-mod-q1-green-while-the-dependenc",
+      "i-need-the-offline-binary-cache-closure-planner-in-app-task",
       "the-harborlane-replay-desk-needs-a-reusable-offline-planner",
       "we-re-putting-together-a-stratified-k-fold-evaluation-kit-un",
       "wildlife-counting-becomes-a-field-planning-game-when-uncerta",
       "booking-slot-merge"
     ],
-    "measured_size": 0,
-    "measured_slugs": [],
+    "measured_size": 10,
+    "measured_slugs": [
+      "apexora-global-wave-3-campus-segmentation-is-blocked-across",
+      "booking-slot-merge",
+      "hypersonic-fragment-cascade-epoch-atlas",
+      "i-need-the-offline-binary-cache-closure-planner-in-app-task",
+      "repair-the-pendulum-motion-solver",
+      "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
+      "the-harborlane-replay-desk-needs-a-reusable-offline-planner",
+      "the-root-ca-that-signed-our-east-west-mtls-credentials-is-co",
+      "we-re-putting-together-a-stratified-k-fold-evaluation-kit-un",
+      "wildlife-counting-becomes-a-field-planning-game-when-uncerta"
+    ],
     "coverage": {
       "domains": [
         "scientific-computing",
@@ -141,7 +152,7 @@ window.AW_CORPUS = {
           "language": "TypeScript",
           "gallery": 1,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "hypersonic-fragment-cascade-epoch-atlas"
           ]
@@ -151,7 +162,7 @@ window.AW_CORPUS = {
           "language": "Python",
           "gallery": 1,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "repair-the-pendulum-motion-solver"
           ]
@@ -177,7 +188,7 @@ window.AW_CORPUS = {
           "language": "C",
           "gallery": 3,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen"
           ]
@@ -211,7 +222,7 @@ window.AW_CORPUS = {
           "language": "C++",
           "gallery": 2,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "the-root-ca-that-signed-our-east-west-mtls-credentials-is-co"
           ]
@@ -229,7 +240,7 @@ window.AW_CORPUS = {
           "language": "Bash",
           "gallery": 4,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "apexora-global-wave-3-campus-segmentation-is-blocked-across"
           ]
@@ -279,9 +290,9 @@ window.AW_CORPUS = {
           "language": "Go",
           "gallery": 5,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
-            "release-still-signs-edge-go-mod-q1-green-while-the-dependenc"
+            "i-need-the-offline-binary-cache-closure-planner-in-app-task"
           ]
         },
         "build-and-dependency-management|Rust": {
@@ -329,7 +340,7 @@ window.AW_CORPUS = {
           "language": "Haskell",
           "gallery": 1,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "the-harborlane-replay-desk-needs-a-reusable-offline-planner"
           ]
@@ -371,7 +382,7 @@ window.AW_CORPUS = {
           "language": "Java",
           "gallery": 2,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "we-re-putting-together-a-stratified-k-fold-evaluation-kit-un"
           ]
@@ -437,7 +448,7 @@ window.AW_CORPUS = {
           "language": "JavaScript",
           "gallery": 1,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "wildlife-counting-becomes-a-field-planning-game-when-uncerta"
           ]
@@ -447,7 +458,7 @@ window.AW_CORPUS = {
           "language": "Rust",
           "gallery": 1,
           "selected": 1,
-          "measured": 0,
+          "measured": 1,
           "slugs": [
             "booking-slot-merge"
           ]
@@ -455,7 +466,7 @@ window.AW_CORPUS = {
       },
       "gallery_n": 100,
       "selected_n": 10,
-      "measured_n": 0
+      "measured_n": 10
     },
     "harness": {
       "agent": "terminus-2",
@@ -930,14 +941,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__894bce9f426cafaaaf511bb330723f49: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-hypersonic-fragment-cascade-epoch-atlas/hypersonic-fragment-cascade-epoc__D4ncHKq",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -1376,14 +1414,82 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "2/4 solved",
+        "n_trials": 4,
+        "solved": 2,
+        "valid_fail": 1,
+        "timeout": 0,
+        "infra_error": 1,
+        "unknown": 0,
+        "completed_trials": 3,
+        "by_model": [
+          {
+            "model": "anthropic/claude-opus-5",
+            "n": 2,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 1,
+            "unknown": 0,
+            "stump_pct": 0.0
+          },
+          {
+            "model": "openai/gpt-5.6-sol",
+            "n": 1,
+            "solved": 0,
+            "valid_fail": 1,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 100.0
+          },
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "openai/gpt-5.6-sol",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: We are at the /app shell prompt with no prior inspection or implementation work shown. The repository contents, README requirements, database schema, and existing recovery modules must be examined before repairing the solver. Plan | step: Analysis: The solver is entirely absent, and the environment package contains no files. The README and schema establish the output contract but do not state capture cadence or image encoding details. Those likely exist in database metadata  | step: Analysis: There are four 48-frame, 64×64 jobs. Each montage has a uniform light background (235) and dark foreground plus occasional full-range corruption. No cadence metadata exists in the database schema, so cadence must be a fixed experi | step: Analysis: Valid frames are extremely easy to classify generically: normal bob images have one connected dark component of about 108–112 pixels centered at y=32, blank occlusions have zero dark pixels, and noise frames have roughly 1,550–1,6 | step: Analysis: The exploratory fit did not run because NumPy 2 removed the ndarray.ptp method. No data or repository state was changed. Replacing it with np.ptp will allow the trajectory extraction and fits to proceed. Plan: Patch the temporary  | step: Analysis: The extracted trajectories fit the intended damped cosine almost perfectly (about 0.03 px RMSE). With the fixed 0.1 s cadence, recovered values are clean seeded-looking parameters: frequencies 0.450, 0.650, 0.875, 1.100 Hz and dec | step: Analysis: The solver now runs successfully and produces numerically precise fits, correct accepted/rejected counts, all 192 per-frame audit rows, and both graph artifacts. A second run succeeds, confirming normal idempotent behavior when al",
+            "trial_dir": "/workspace/jobs/lab-smoke-gpt-sol/repair-the-pendulum-motion-solve__RgWseHY",
+            "test_fraction": null
+          },
+          {
+            "model": "anthropic/claude-opus-5",
+            "classification": "solved",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: Fresh terminal at /app. I need to explore the task files: README.md, schema.sql, environment/pendulum_recovery modules, and seeded montage inputs. Plan: List files and read README.md and schema.sql to understand requirements. | step: Analysis: README read. Need schema.sql and the environment package contents. Plan: Cat schema.sql, list environment recursively, and view report.py. | step: Analysis: The environment directory seems empty of files (find returned nothing). Let's inspect it in detail. Plan: ls -laR environment, cat report.py and requirements.txt. | step: Analysis: Environment package only contains symlinks to README, report.py, schema.sql. Now I need to inspect the DuckDB store: jobs table, labels, frame strip images to determine cadence (fps) and frame layout. Plan: Use python3 to query jo | step: Analysis: 4 jobs, 48 frames of 64x64 each. Need to inspect PNG blobs for metadata (e.g., fps/cadence) and pixel content. Plan: Extract blobs to files, inspect PIL info/text chunks and pixel statistics. | step: Analysis: Montages are 3072x64 grayscale, 48 frames of 64x64. No PNG metadata about cadence. Need to find the capture cadence (fps) — maybe documented elsewhere (tests, generator, docs). Plan: Search filesystem for related files: seed_db.py | step: Analysis: No seed script or tests present; cadence must be inferred from the images themselves (perhaps encoded) or a standard default. Let me inspect frame pixel content. Plan: Load montage into numpy, split into 48 frames, print per-frame",
+            "trial_dir": "/workspace/jobs/lab-smoke-opus-compose/repair-the-pendulum-motion-solve__fg9Pxdp",
+            "test_fraction": null
+          },
+          {
+            "model": "anthropic/claude-opus-5",
+            "classification": "infra_error",
+            "summary": "cker image harbor-prebuilt:harbor-docker-egress-control-sidecar--b1e6760734a9e6f6, exit code 125, output: unknown flag: --file Usage: docker [OPTIONS] COMMAND [ARG...] Run 'docker --help' for more information Trial repair-the-pendulum-motion-solve__UPWRCbg failed: Failed to build Docker image harbor-prebuilt:harbor-docker-egress-control-sidecar--b1e6760734a9e6f6, exit code 125, output: unknown flag: --file Usage: docker [OPTIONS] COMMAND [ARG...] Run 'docker --help' for more information Collecting main service artifacts Docker compose down failed: Docker compose command failed for environment repair-the-pendulum-motion-solver. Command: docker compose --project-name repair-the-pendulum-motion-solve__upwrcbg__env --project-directory /workspace/tasks/latest/repair-the-pendulum-motion-solver/environment -f /tmp/tmph1h68d7b/repair-the-pendulum-motion-solve__UPWRCbg__env-docker-compose-resources.json -f /home/ubuntu/.local/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /tmp/tmpo1_g42y9/docker-compose-environment.json -f /tmp/tmprjdt1c_o/docker-compose-mounts.json -f /home/ubuntu/.local/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-egress-control.yaml -f /tmp/tmpvwr2ec9q/docker-compose-egress-control-services.json down --rmi local --volumes --remove-orphans. Return code: 125. Stdout: unknown flag: --project-name Usage: docker [OPTIONS] COMMAND [ARG...] Run 'docker --help' for more information . Stderr: None.",
+            "trial_dir": "/workspace/jobs/lab-smoke-opus/repair-the-pendulum-motion-solve__UPWRCbg",
+            "test_fraction": null
+          },
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__598b0dc5184b40ba06cf149cf3985cd9: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-repair-the-pendulum-motion-solver/repair-the-pendulum-motion-solve__krtR5ir",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 4 — 2 solved, 1 valid fail, 0 timeout, 1 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 33.3,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -2839,14 +2945,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__9e3911bd3d7a65d5ca19ab5c5fda7028: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-the-dyeworks-tool-is-a-command-line-read/the-dyeworks-tool-is-a-command-l__uYWyU4d",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -2965,14 +3098,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__c26174bc4a871ed7b1883c8ada036827: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-the-root-ca-that-signed-our-east-west-mt/the-root-ca-that-signed-our-east__kCfqBng",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -3538,14 +3698,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__62b953e7738f65cd72e04583bb4c6380: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-apexora-global-wave-3-campus-segmentatio/apexora-global-wave-3-campus-seg__Hom6rme",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -4307,14 +4494,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__35d60909a0e5dddeb6e5da8c8de06848: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-offline-binary-cache/i-need-the-offline-binary-cache__PM7Y3a6",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
-      "batch": null,
-      "measured": false,
+      "stump_pct": 0.0,
+      "batch": 1,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -4504,7 +4718,7 @@ window.AW_CORPUS = {
         "note": "No private Harbor agent trials are recorded for this package."
       },
       "stump_pct": null,
-      "batch": 1,
+      "batch": null,
       "measured": false,
       "files": [
         {
@@ -5516,14 +5730,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__d955e7e2937d4722a38465bb584c1a18: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-the-harborlane-replay-desk-needs-a-reusa/the-harborlane-replay-desk-needs__YWGaZBF",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -6152,14 +6393,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__11364fd3e25e47f4f5102646b22f451e: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-we-re-putting-together-a-stratified-k-fo/we-re-putting-together-a-stratif__25oHkqk",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -6722,14 +6990,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__9f8e23ba7cc835c26897f2b75e131277: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-wildlife-counting-becomes-a-field-planni/wildlife-counting-becomes-a-fiel__S5HoHJ8",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",
@@ -6785,14 +7080,41 @@ window.AW_CORPUS = {
       "has_oracle": true,
       "has_tests": true,
       "rollouts": {
-        "status": "not_run",
-        "label": "not run",
-        "trials": [],
-        "note": "No private Harbor agent trials are recorded for this package."
+        "status": "measured",
+        "label": "1/1 solved",
+        "n_trials": 1,
+        "solved": 1,
+        "valid_fail": 0,
+        "timeout": 0,
+        "infra_error": 0,
+        "unknown": 0,
+        "completed_trials": 1,
+        "by_model": [
+          {
+            "model": "oracle",
+            "n": 1,
+            "solved": 1,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": 0.0
+          }
+        ],
+        "trials": [
+          {
+            "model": "oracle",
+            "classification": "solved",
+            "summary": "Skipping image OS validation for hb__6c7d33acfdfa3ac2438c0bf8c187cd08: docker inspect returned 1 Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-oracle-booking-slot-merge/booking-slot-merge__t6tNh7C",
+            "test_fraction": null
+          }
+        ],
+        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump."
       },
-      "stump_pct": null,
+      "stump_pct": 0.0,
       "batch": 1,
-      "measured": false,
+      "measured": true,
       "files": [
         {
           "label": "instruction.md",

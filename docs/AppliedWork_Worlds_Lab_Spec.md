@@ -221,13 +221,13 @@ Source: `docs/lab_mvp_100.jsonl`. Selector: `scripts/select_lab_batch.py` (best-
 | 3 | security | C | `the-dyeworks-tool-is-a-command-line-reader-at-app-environmen` | `61f6d0fd-74f9-480f-9c52-befa30a93887` |
 | 4 | security | C++ | `the-root-ca-that-signed-our-east-west-mtls-credentials-is-co` | `9dc87873-29c5-4064-8182-29a6451f3d9d` |
 | 5 | system-administration | Bash | `apexora-global-wave-3-campus-segmentation-is-blocked-across` | `a5317367-9c2d-4fa2-aa05-dee9bab3e7ab` |
-| 6 | build-and-dependency-management | Go | `release-still-signs-edge-go-mod-q1-green-while-the-dependenc` | `3fbf9b62-caa3-44f3-82be-20107b3e97da` |
+| 6 | build-and-dependency-management | Go | `i-need-the-offline-binary-cache-closure-planner-in-app-task` | `17e616cc-325e-459c-a30f-5ad51f4c1b8a` |
 | 7 | data-processing | Haskell | `the-harborlane-replay-desk-needs-a-reusable-offline-planner` | `df101f67-b1f1-41ce-b7fa-5b65d20e1d7e` |
 | 8 | machine-learning | Java | `we-re-putting-together-a-stratified-k-fold-evaluation-kit-un` | `5bd7c1a8-74f0-448f-b30f-f088169b9fe8` |
 | 9 | games | JavaScript | `wildlife-counting-becomes-a-field-planning-game-when-uncerta` | `76c3437f-736a-493c-b0b3-b45679f1be23` |
 | 10 | debugging | Rust | `booking-slot-merge` | `2939c523-a9c0-4197-aac6-3849160e4ac2` |
 
-Ten distinct primaries. All eight named example languages are present. Debugging is the only debugging row in the 100. TypeScript is the only TypeScript primary in the 100.
+Ten distinct primaries. All eight named example languages are present. Debugging is the only debugging row in the 100. TypeScript is the only TypeScript primary in the 100. `release-still-signs-edge-go-mod-q1-green-while-the-dependenc` was dropped after oracle reward 0.0 (see `docs/lab_batch_01_exclusions.json`).
 
 Smoke task (1 trial × each model before the 160): `repair-the-pendulum-motion-solver`.
 

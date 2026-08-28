@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import itertools
+import json
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -22,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from lab_common import (  # noqa: E402
+    BATCH_01_EXCLUSIONS_JSON,
     BATCH_01_JSONL,
     BATCH_01_SEATS,
     CATEGORY_ORDER,
@@ -43,6 +45,22 @@ def is_standard_package(slug: str) -> bool:
         and (pkg / "solution").is_dir()
         and (pkg / "tests").is_dir()
     )
+
+
+def load_exclusions(path: Path | None = None) -> set[str]:
+    path = path or BATCH_01_EXCLUSIONS_JSON
+    if not path.is_file():
+        return set()
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(data, list):
+        return {str(x) for x in data}
+    slugs = set()
+    for row in data.get("slugs") or data.get("dropped") or []:
+        if isinstance(row, str):
+            slugs.add(row)
+        elif isinstance(row, dict) and row.get("slug"):
+            slugs.add(str(row["slug"]))
+    return slugs
 
 
 def enrich(row: dict) -> dict | None:
@@ -163,18 +181,26 @@ def to_jsonl_row(row: dict, rank: int) -> dict:
         "selection_reason": (
             "batch_01: 8 categories + extra sci/security; maximize distinct "
             "primary languages from docs/lab_mvp_100.jsonl"
+            + (
+                "; oracle-dropped slugs excluded via docs/lab_batch_01_exclusions.json"
+                if load_exclusions()
+                else ""
+            )
         ),
     }
 
 
-def select() -> list[dict]:
+def select(exclude_slugs: set[str] | None = None) -> list[dict]:
     source = load_jsonl(MVP_JSONL)
     if len(source) != 100:
         raise SystemExit(f"{MVP_JSONL} has {len(source)} rows, expected 100")
+    excluded = load_exclusions()
+    if exclude_slugs:
+        excluded |= set(exclude_slugs)
     pool = []
     for row in source:
         enriched = enrich(row)
-        if enriched:
+        if enriched and enriched["slug"] not in excluded:
             pool.append(enriched)
     chosen = choose_batch(pool)
     ordered = sorted(
