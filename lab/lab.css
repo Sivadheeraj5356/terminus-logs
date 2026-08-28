@@ -302,6 +302,7 @@ h1 {
   font-weight: 650;
   letter-spacing: -0.02em;
   max-width: 38rem;
+  overflow-wrap: break-word;
 }
 
 .points {
@@ -971,6 +972,15 @@ code {
   .charts,
   .tasks-layout {
     grid-template-columns: 1fr;
+  }
+
+  .page-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search input {
+    width: 100%;
   }
 
   .nav-actions .btn {

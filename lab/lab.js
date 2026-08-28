@@ -49,7 +49,7 @@
   const panelEmpty = document.getElementById("panel-empty");
   const panelBody = document.getElementById("panel-body");
 
-  let category = "all";
+  let category = params().get("filter") || "all";
   let query = "";
   let previewIndex = 0;
 
@@ -83,15 +83,18 @@
     return currentSlug() ? "tasks" : "overview";
   }
 
-  function setUrl({ slug, surface, push }) {
+  function setUrl({ slug, surface, filter, push }) {
     const url = new URL(window.location.href);
     const nextSlug = slug === undefined ? currentSlug() : slug;
     const nextSurface = surface === undefined ? currentSurface() : surface;
+    const nextFilter = filter === undefined ? category : filter;
     if (nextSlug) url.searchParams.set("task", nextSlug);
     else url.searchParams.delete("task");
     if (nextSurface && nextSurface !== "overview") url.searchParams.set("surface", nextSurface);
     else url.searchParams.delete("surface");
-    history[push ? "pushState" : "replaceState"]({ task: nextSlug, surface: nextSurface }, "", url);
+    if (nextFilter && nextFilter !== "all") url.searchParams.set("filter", nextFilter);
+    else url.searchParams.delete("filter");
+    history[push ? "pushState" : "replaceState"]({ task: nextSlug, surface: nextSurface, filter: nextFilter }, "", url);
   }
 
   function isOracleModel(name) {
@@ -228,6 +231,7 @@
       button.setAttribute("aria-pressed", key === category ? "true" : "false");
       button.addEventListener("click", () => {
         category = key;
+        setUrl({ surface: "tasks", filter: key, push: true });
         renderChips();
         renderTable();
       });
@@ -605,6 +609,7 @@
 
   function renderAll() {
     const surface = currentSurface();
+    category = params().get("filter") || "all";
     renderNav();
     showSurface(surface);
     if (surface === "overview") renderOverview();

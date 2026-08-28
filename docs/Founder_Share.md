@@ -28,7 +28,7 @@ Deep links:
 
 - Overview (default): `/lab/index.html`
 - Tasks table: `/lab/index.html?surface=tasks`
-- Batch 01: use the **Batch 01** chip
+- Batch 01: `/lab/index.html?surface=tasks&filter=batch`
 - One package: `/lab/index.html?task=repair-the-pendulum-motion-solver`
 - Agents (honest ingest, no fake curves): `/lab/index.html?surface=agents`
 
