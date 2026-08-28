@@ -496,8 +496,11 @@
     const item = previews[previewIndex % previews.length];
     meta.textContent = `${item.chars} chars · ${item.slug}`;
     code.innerHTML = (item.lines || [])
-      .map((line) => `<span class="ln">${line.n}</span> ${escapeHtml(line.text || "")}`)
-      .join("\n");
+      .map(
+        (line) =>
+          `<span class="line"><span class="ln">${line.n}</span><span class="lt">${escapeHtml(line.text || "")}</span></span>`
+      )
+      .join("");
     if (previews.length > 1) {
       pager.hidden = false;
       dots.innerHTML = "";

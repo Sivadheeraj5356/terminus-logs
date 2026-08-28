@@ -426,12 +426,19 @@ mark {
   text-transform: none;
 }
 
+.hero-card {
+  min-width: 0;
+  width: 100%;
+}
+
 .instruction-card {
   background: var(--sheet);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
 }
 
 .card-chrome {
@@ -459,23 +466,47 @@ mark {
 }
 
 .code {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 14px 16px 16px;
   font-family: var(--mono);
   font-size: 0.75rem;
   line-height: 1.55;
   max-height: 22rem;
-  overflow: auto;
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   background: var(--sheet);
   color: var(--ink-soft);
 }
 
+.code .line {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  column-gap: 0.45rem;
+  align-items: start;
+  min-width: 0;
+}
+
 .code .ln {
-  display: inline-block;
-  width: 2.1rem;
+  display: block;
+  width: auto;
+  text-align: right;
   color: color-mix(in srgb, var(--muted) 70%, var(--hairline));
   user-select: none;
   font-variant-numeric: tabular-nums;
+}
+
+.code .lt {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .pager {
