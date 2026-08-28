@@ -323,7 +323,6 @@
           .join("")
       : `<span class="muted">No terminus-2 trials ingested.</span>`;
     panelBody.innerHTML = `
-      <p>${escapeHtml(task.summary || "")}</p>
       <dl class="meta">
         <dt>Category</dt>
         <dd>${escapeHtml(categoryLabel(task.category))}</dd>
@@ -359,6 +358,7 @@
         <dt>Stump %</dt>
         <dd>${escapeHtml(stumpDisplay(task))} <span class="muted">(valid fail / completed; infra excluded)</span></dd>
       </dl>
+      <p class="panel-summary">${escapeHtml(task.summary || "")}</p>
       <h3>Harbor files</h3>
       <ul class="files">${fileList(task)}</ul>
     `;
@@ -494,14 +494,12 @@
   function renderOverview() {
     const jobs = tasks.filter(hasJobs).length;
     const frontier = tasks.filter(frontierComplete).length;
-    const agentN = tasks.filter(hasAgentJobs).length;
     document.getElementById("stat-packages").textContent = String(corpus.lab.mvp_size || tasks.length);
     document.getElementById("stat-inventory").textContent = String(corpus.lab.inventory_size || 448);
     document.getElementById("stat-batch").textContent = String(corpus.lab.batch_01_size || 10);
     document.getElementById("stat-measured").textContent = String(jobs);
     document.getElementById("stat-measured-note").textContent =
-      `${jobs} packages have Harbor jobs (oracle or agent). ${frontier} have a completed ${PLANNED}/${PLANNED} frontier group` +
-      (agentN ? ` · ${agentN} with agent trials` : "");
+      `Harbor jobs ingested · ${frontier} completed ${PLANNED}/${PLANNED} groups`;
 
     const domains = Object.keys(CATEGORY_LABELS).map((key) => ({
       label: categoryLabel(key).split(" ")[0],
