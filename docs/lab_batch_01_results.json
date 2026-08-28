@@ -1,0 +1,108 @@
+{
+  "generated_utc": "2026-08-28T11:21:00Z",
+  "jobs_dir": "/workspace/jobs",
+  "tasks": [
+    {
+      "slug": "repair-the-pendulum-motion-solver",
+      "uuid": "bb361b7b-e01f-4068-beac-4c197355eee7",
+      "category": "scientific-computing",
+      "primary_language": "Python",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "hypersonic-fragment-cascade-epoch-atlas",
+      "uuid": "e55547a7-d339-42b6-9aff-6b6df8f29cc0",
+      "category": "scientific-computing",
+      "primary_language": "TypeScript",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
+      "uuid": "61f6d0fd-74f9-480f-9c52-befa30a93887",
+      "category": "security",
+      "primary_language": "C",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "the-root-ca-that-signed-our-east-west-mtls-credentials-is-co",
+      "uuid": "9dc87873-29c5-4064-8182-29a6451f3d9d",
+      "category": "security",
+      "primary_language": "C++",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "apexora-global-wave-3-campus-segmentation-is-blocked-across",
+      "uuid": "a5317367-9c2d-4fa2-aa05-dee9bab3e7ab",
+      "category": "system-administration",
+      "primary_language": "Bash",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "release-still-signs-edge-go-mod-q1-green-while-the-dependenc",
+      "uuid": "3fbf9b62-caa3-44f3-82be-20107b3e97da",
+      "category": "build-and-dependency-management",
+      "primary_language": "Go",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "the-harborlane-replay-desk-needs-a-reusable-offline-planner",
+      "uuid": "df101f67-b1f1-41ce-b7fa-5b65d20e1d7e",
+      "category": "data-processing",
+      "primary_language": "Haskell",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "we-re-putting-together-a-stratified-k-fold-evaluation-kit-un",
+      "uuid": "5bd7c1a8-74f0-448f-b30f-f088169b9fe8",
+      "category": "machine-learning",
+      "primary_language": "Java",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "wildlife-counting-becomes-a-field-planning-game-when-uncerta",
+      "uuid": "76c3437f-736a-493c-b0b3-b45679f1be23",
+      "category": "games",
+      "primary_language": "JavaScript",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    },
+    {
+      "slug": "booking-slot-merge",
+      "uuid": "2939c523-a9c0-4197-aac6-3849160e4ac2",
+      "category": "debugging",
+      "primary_language": "Rust",
+      "has_jobs": false,
+      "oracle": null,
+      "local": null,
+      "agent_models": []
+    }
+  ],
+  "measured": 0,
+  "note": "Classification only. Timeouts and infra_error are not stumps. No scores were invented for tasks without jobs."
+}

@@ -3,39 +3,69 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Applied Work Environments Lab</title>
+    <title>Applied Work Worlds Lab</title>
     <meta
       name="description"
-      content="Gallery of 100 unique Harbor packages from Applied Work. Oracle and tests included. Agent rollouts not run."
+      content="Applied Work Worlds Lab: 100 unique Harbor packages. Measured chips appear only after private Harbor jobs exist."
     />
     <link rel="stylesheet" href="lab.css" />
   </head>
   <body>
-    <a class="skip" href="#gallery">Skip to gallery</a>
+    <a class="skip" href="#gallery">Skip to corpus</a>
     <header class="mast">
       <div class="mast-inner">
         <p class="brand"><span class="mark" aria-hidden="true">AW</span> Applied Work</p>
-        <h1>Environments Lab</h1>
+        <h1>Worlds Lab</h1>
         <p class="lede">
           One hundred unique Harbor packages from a private inventory of 448.
           Each row is an authored world: instruction, Docker environment, oracle,
-          and tests. This is a <strong>package gallery</strong>. Agent rollouts
-          have <strong>not been run</strong>. Solve rates and stump percentages
-          are not shown because they do not exist yet.
+          and tests. The gallery is always the 100. Solve rates and stump
+          percentages appear <strong>only</strong> for the measured ten, and
+          only after private Harbor trials exist.
         </p>
-        <ul class="facts">
+        <ul class="facts" id="facts">
           <li><span>100</span> unique packages</li>
           <li><span>448</span> in the full inventory</li>
-          <li><span>hard</span> author label on every row</li>
-          <li><span>not run</span> Harbor rollouts</li>
+          <li><span>10</span> batch 01 selected</li>
+          <li><span id="fact-measured">0</span> measured</li>
         </ul>
+        <nav class="surfaces" id="surface-nav" aria-label="Lab surfaces"></nav>
       </div>
     </header>
 
     <main class="layout">
-      <section id="gallery" class="gallery" aria-labelledby="gallery-heading">
+      <section id="surface-worlds" class="surface" hidden>
+        <h2>Worlds</h2>
+        <p>
+          A world is a Harbor 0.22 package under <code>tasks/latest/&lt;slug&gt;/</code>:
+          <code>instruction.md</code>, <code>task.toml</code>, <code>environment/</code>,
+          <code>solution/</code>, <code>tests/</code>, and <code>summary.md</code> (UUID).
+          These worlds are offline. Expert-time figures on catalog cards are author
+          metadata, not measured wall clock.
+        </p>
+        <p class="muted">
+          This surface is the package contract. It is not a solve-rate introduction
+          and it does not copy another lab’s chrome.
+        </p>
+      </section>
+
+      <section id="surface-coverage" class="surface" hidden>
+        <h2>Coverage</h2>
+        <p>
+          Domain × primary language over the 100. Batch 01 seats: two scientific,
+          two security, one each of the other six Terminal-Bench families.
+          <strong>Selected</strong> means frozen in
+          <code>docs/lab_batch_01.jsonl</code>. <strong>Measured</strong> lights
+          only after Harbor jobs exist.
+        </p>
+        <div class="table-scroll">
+          <table class="matrix" id="coverage-table"></table>
+        </div>
+      </section>
+
+      <section id="gallery" class="gallery surface" aria-labelledby="gallery-heading">
         <div class="toolbar">
-          <h2 id="gallery-heading">Packages</h2>
+          <h2 id="gallery-heading">Corpus</h2>
           <label class="search">
             <span class="sr-only">Filter packages</span>
             <input
@@ -55,11 +85,69 @@
                 <th scope="col">Name</th>
                 <th scope="col">Category</th>
                 <th scope="col">Languages</th>
+                <th scope="col">Measured</th>
               </tr>
             </thead>
             <tbody id="rows"></tbody>
           </table>
         </div>
+      </section>
+
+      <section id="surface-traces" class="surface" hidden>
+        <h2>Traces</h2>
+        <p id="traces-empty" class="muted">
+          No private Harbor trials are recorded. Trajectories appear here from
+          <code>jobs/**/trajectory.json</code> after terminus-2 runs.
+        </p>
+        <div id="traces-body"></div>
+      </section>
+
+      <section id="surface-verifier" class="surface" hidden>
+        <h2>Verifier</h2>
+        <ul>
+          <li>Oracle must score 1.0 (<code>harbor run -a oracle -k 1</code>).</li>
+          <li>Empty submission (<code>nop</code>) must score 0, when that run exists.</li>
+          <li>Timeout is not a valid fail. Auth and Docker errors are infra, not stumps.</li>
+          <li>Binary channel = Harbor reward. Tests fraction only if the verifier exposes it. Rubric only if we author one.</li>
+        </ul>
+        <div id="verifier-body"></div>
+      </section>
+
+      <section id="surface-stump" class="surface" hidden>
+        <h2>Stump</h2>
+        <p>
+          <code>stump_pct = valid_fail / completed_trials × 100</code>.
+          Completed trials are solved + valid fail. Timeouts and infra are excluded.
+          Hidden until a denominator exists. No GRPO / σ until an 8-run group exists.
+        </p>
+        <div id="stump-body"></div>
+      </section>
+
+      <section id="surface-failures" class="surface" hidden>
+        <h2>Failure map</h2>
+        <p class="muted">
+          Taxonomy comes from traces and tests after jobs exist. A rubric column
+          is added only if Applied Work authors a rubric — test names are not a rubric.
+        </p>
+        <div id="failures-body"></div>
+      </section>
+
+      <section id="surface-harness" class="surface" hidden>
+        <h2>Harness</h2>
+        <dl class="meta">
+          <dt>Measured agent</dt>
+          <dd>terminus-2</dd>
+          <dt>Oracle</dt>
+          <dd>Harbor <code>oracle</code></dd>
+          <dt>Empty</dt>
+          <dd>Harbor <code>nop</code></dd>
+          <dt>Framework</dt>
+          <dd>Harbor 0.22</dd>
+          <dt>Trials</dt>
+          <dd><code>n_trials = n_attempts × tasks × agents</code>. CLI <code>-k</code> is n_attempts (independent trials). Concurrency <code>-n 1</code>.</dd>
+          <dt>Not measured</dt>
+          <dd>Claude Code, Codex CLI, mini-swe-agent — no invented estimates.</dd>
+        </dl>
       </section>
 
       <aside class="panel" id="panel" aria-labelledby="panel-title">
@@ -76,12 +164,12 @@
 
     <footer class="foot">
       <p>
-        Applied Work Environments Lab · private Harbor runtime only ·
+        Applied Work Worlds Lab · private Harbor 0.22 · terminus-2 / oracle ·
         later: <span class="mono">appliedwork.ai</span>
       </p>
       <p class="muted">
-        Not a measured post-training signal lab. Trajectories will appear here
-        only after private Harbor trials are recorded.
+        Not a copy of another lab’s optimisation playground. Traces, stump, and
+        solve chips stay dark until private Harbor trials are recorded.
       </p>
     </footer>
 

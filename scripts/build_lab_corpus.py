@@ -21,6 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "catalog" / "tasks.jsonl"
 JSONL = ROOT / "docs" / "lab_mvp_100.jsonl"
+BATCH_JSONL = ROOT / "docs" / "lab_batch_01.jsonl"
 CORPUS_JSON = ROOT / "lab" / "corpus.json"
 CORPUS_JS = ROOT / "lab" / "corpus.js"
 TASKS_LATEST = ROOT / "tasks" / "latest"
@@ -382,8 +383,41 @@ def build_corpus_task(catalog_row: dict) -> dict:
             "note": "No private Harbor agent trials are recorded for this package.",
         },
         "stump_pct": None,
+        "batch": None,
+        "measured": False,
         "files": package_pointers(slug),
     }
+
+
+def attach_batch_placeholder(corpus: dict) -> dict:
+    """Mark batch-01 membership without inventing scores."""
+    from lab_common import coverage_matrix, load_jsonl
+
+    batch_slugs: set[str] = set()
+    if BATCH_JSONL.is_file():
+        batch_slugs = {row["slug"] for row in load_jsonl(BATCH_JSONL)}
+    measured_slugs = {
+        t["slug"] for t in corpus["tasks"] if (t.get("rollouts") or {}).get("status") == "measured"
+    }
+    for task in corpus["tasks"]:
+        task["batch"] = 1 if task["slug"] in batch_slugs else None
+        if task["slug"] not in measured_slugs:
+            task["measured"] = False
+    lab = corpus["lab"]
+    lab["batch_01_size"] = len(batch_slugs)
+    lab["batch_01_slugs"] = sorted(batch_slugs)
+    lab["measured_size"] = len(measured_slugs)
+    lab["measured_slugs"] = sorted(measured_slugs)
+    lab["coverage"] = coverage_matrix(corpus["tasks"], batch_slugs, measured_slugs)
+    lab["harness"] = {
+        "agent": "terminus-2",
+        "oracle": "oracle",
+        "empty": "nop",
+        "harbor": "0.22",
+        "n_trials": "n_attempts × n_tasks × n_agents; CLI -k is n_attempts (independent trials)",
+        "estimated_not_measured": ["claude-code", "codex", "mini-swe-agent"],
+    }
+    return corpus
 
 
 def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: dict | None) -> dict:
@@ -397,21 +431,22 @@ def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: d
     selected_counts = Counter(t["category"] for t in tasks)
     corpus = {
         "lab": {
-            "name": "Applied Work Environments Lab",
+            "name": "Applied Work Worlds Lab",
             "brand": "Applied Work",
             "mvp_size": MVP_SIZE,
             "inventory_size": INVENTORY_SIZE,
             "generated_utc": generated,
             "rollouts_status": "not_run",
-            "runtime": "private Harbor only",
+            "runtime": "private Harbor 0.22 + terminus-2 / oracle",
             "honesty": {
                 "stump_pct": None,
                 "model_scores": False,
                 "copied_caudal_scores": False,
                 "note": (
-                    "This gallery lists authored Harbor packages. It is not a "
-                    "measured signal lab. Rollouts are labeled not run. Do not "
-                    "invent stump percentages or paste another lab's model scores."
+                    "This gallery lists authored Harbor packages. Measured chips "
+                    "appear only after private Harbor jobs exist for a batch-01 "
+                    "slug. Do not invent stump percentages or paste another lab's "
+                    "model scores."
                 ),
             },
             "category_mix": {cat: selected_counts.get(cat, 0) for cat in CATEGORY_ORDER},
@@ -421,6 +456,7 @@ def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: d
         },
         "tasks": tasks,
     }
+    attach_batch_placeholder(corpus)
     CORPUS_JSON.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(corpus, ensure_ascii=False, indent=2)
     CORPUS_JSON.write_text(payload + "\n", encoding="utf-8")
