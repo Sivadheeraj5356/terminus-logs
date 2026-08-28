@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Applied Work Environments Lab</title>
+    <meta
+      name="description"
+      content="Gallery of 100 unique Harbor packages from Applied Work. Oracle and tests included. Agent rollouts not run."
+    />
+    <link rel="stylesheet" href="lab.css" />
+  </head>
+  <body>
+    <a class="skip" href="#gallery">Skip to gallery</a>
+    <header class="mast">
+      <div class="mast-inner">
+        <p class="brand"><span class="mark" aria-hidden="true">AW</span> Applied Work</p>
+        <h1>Environments Lab</h1>
+        <p class="lede">
+          One hundred unique Harbor packages from a private inventory of 448.
+          Each row is an authored world: instruction, Docker environment, oracle,
+          and tests. This is a <strong>package gallery</strong>. Agent rollouts
+          have <strong>not been run</strong>. Solve rates and stump percentages
+          are not shown because they do not exist yet.
+        </p>
+        <ul class="facts">
+          <li><span>100</span> unique packages</li>
+          <li><span>448</span> in the full inventory</li>
+          <li><span>hard</span> author label on every row</li>
+          <li><span>not run</span> Harbor rollouts</li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section id="gallery" class="gallery" aria-labelledby="gallery-heading">
+        <div class="toolbar">
+          <h2 id="gallery-heading">Packages</h2>
+          <label class="search">
+            <span class="sr-only">Filter packages</span>
+            <input
+              id="q"
+              type="search"
+              placeholder="Filter by name, category, or language"
+              autocomplete="off"
+            />
+          </label>
+          <p id="shown" class="shown" aria-live="polite"></p>
+        </div>
+        <div class="chips" id="chips" role="tablist" aria-label="Category filter"></div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Languages</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="panel" id="panel" aria-labelledby="panel-title">
+        <p class="panel-kicker">Selected package</p>
+        <h2 id="panel-title">Choose a row</h2>
+        <p id="panel-empty" class="muted">
+          Open any environment to see its summary, Harbor files, and rollout
+          status. Deep links use
+          <code>lab/index.html?task=&lt;slug&gt;</code>.
+        </p>
+        <div id="panel-body" hidden></div>
+      </aside>
+    </main>
+
+    <footer class="foot">
+      <p>
+        Applied Work Environments Lab · private Harbor runtime only ·
+        later: <span class="mono">appliedwork.ai</span>
+      </p>
+      <p class="muted">
+        Not a measured post-training signal lab. Trajectories will appear here
+        only after private Harbor trials are recorded.
+      </p>
+    </footer>
+
+    <script src="corpus.js"></script>
+    <script src="lab.js"></script>
+  </body>
+</html>
