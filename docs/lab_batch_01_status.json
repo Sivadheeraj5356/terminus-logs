@@ -1,73 +1,77 @@
 {
-  "generated_utc": "2026-08-28T11:22:08Z",
+  "generated_utc": "2026-08-28T11:50:00Z",
   "host": "cursor",
   "keys": {
-    "anthropic_present": false,
-    "anthropic_len": 0,
-    "anthropic_prefix": "",
-    "anthropic_ok": false,
+    "anthropic_present": true,
+    "anthropic_len": 108,
+    "anthropic_prefix": "sk-ant-",
+    "anthropic_ok": true,
     "anthropic_is_openai_project_key": false,
-    "openai_present": false,
-    "openai_len": 0,
-    "openai_prefix": "",
-    "openai_ok": false,
-    "ok": false,
+    "openai_present": true,
+    "openai_len": 164,
+    "openai_prefix": "sk-p",
+    "openai_ok": true,
+    "ok": true,
     "note": "ANTHROPIC_API_KEY must start with sk-ant-. OPENAI_API_KEY must be a real OpenAI key in this shell. Do not paste keys into chat."
   },
   "harbor": {
-    "path": null,
-    "help": null,
+    "path": "/home/ubuntu/.local/bin/harbor",
+    "help": {
+      "argv": [
+        "harbor",
+        "run",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
     "k_vs_n_trials": {
       "n_trials_flag_mentioned": false,
-      "n_attempts_or_k_mentioned": false,
-      "help_lines": [],
+      "n_attempts_or_k_mentioned": true,
+      "help_lines": [
+        "│ --n-attempts             -k      <int>               Number of attempts per  │",
+        "│                                                      attempts (default: 0)   │",
+        "│ --ak,--agent-kwarg            <str>                   Additional agent kwarg │",
+        "│ --uk,--user-agent-kwa…        <str>                   Additional             │",
+        "│ --bk,--bridge-kwarg           <str>                   Additional bridge      │",
+        "│ --verifier-kwarg                                <str>  Additional verifier   │",
+        "│ --pk,--plugin-kwarg        <str>  Plugin kwarg in the format 'key=value' or  │"
+      ],
       "interpretation": "Harbor n_trials = n_attempts × n_tasks × n_agents. CLI -k / --n-attempts creates independent trials (cartesian product), not intra-trial retries. Use -k 8 -n 1 for eight independent rollouts. Infra retries are --retry."
     }
   },
   "docker": {
-    "path": null,
-    "info": null
+    "path": "/usr/bin/docker",
+    "info": {
+      "argv": [
+        "docker",
+        "info"
+      ],
+      "returncode": 0,
+      "stdout": "Client:\n Version:    29.1.3\n Context:    default\n Debug Mode: false\n Plugins:\n  trust: Manage trust on Docker images (Docker Inc.)\n    Version:  29.1.3\n    Path:     /usr/libexec/docker/cli-plugins/docker-trust\n\nServer:\n Containers: 0\n  Running: 0\n  Paused: 0\n  Stopped: 0\n Images: 1\n Server Version: 29.1.3\n Storage Driver: vfs\n Logging Driver: json-file\n Cgroup Driver: cgroupfs\n Cgroup Version: 2\n Plugins:\n  Volume: local\n  Network: bridge host ipvlan macvlan null overlay\n  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog\n CDI spec directories:\n  /etc/cdi\n  /var/run/cdi\n Swarm: inactive\n Runtimes: io.containerd.runc.v2 runc\n Default Runtime: runc\n Init Binary: docker-init\n containerd version: \n runc version: \n init version: \n Security Options:\n  seccomp\n   Profile: builtin\n  cgroupns\n Kernel Version: 6.12.94+\n Operating System: Ubuntu 24.04.4 LTS (containerized)\n OSType: linux\n Architecture: x86_64\n CPUs: 4\n Total Memory: 15.64GiB\n Name: cursor\n ID: 30a4c51d-356f-45b8-adf3-2b2ee194af51\n Docker Root Dir: /var/lib/docker\n Debug Mode: true\n  File Descriptors: 27\n  Goroutines: 57\n  System Time: 2026-08-28T11:49:59.952461261Z\n  EventsListeners: 0\n Experimental: false\n Insecure Registries:\n  ::1/128\n  127.0.0.0/8\n Live Restore Enabled: false\n Firewall Backend: iptables\n\n",
+      "stderr": ""
+    }
   },
   "batch_01_n": 10,
   "smoke_slug": "repair-the-pendulum-motion-solver",
   "opus_model": "anthropic/claude-opus-5",
   "gpt_model": "openai/gpt-5.6-sol",
-  "blockers": [
-    "harbor binary not on PATH",
-    "docker binary not on PATH",
-    "ANTHROPIC_API_KEY missing or not sk-ant-",
-    "OPENAI_API_KEY missing or not a real OpenAI key"
-  ],
+  "blockers": [],
   "smoke": {
     "skipped": true,
-    "reason": [
-      "harbor binary not on PATH",
-      "docker binary not on PATH",
-      "ANTHROPIC_API_KEY missing or not sk-ant-",
-      "OPENAI_API_KEY missing or not a real OpenAI key"
-    ]
+    "reason": "probe without --smoke"
   },
   "oracle": {
     "skipped": true,
-    "reason": [
-      "harbor binary not on PATH",
-      "docker binary not on PATH",
-      "ANTHROPIC_API_KEY missing or not sk-ant-",
-      "OPENAI_API_KEY missing or not a real OpenAI key"
-    ]
+    "reason": "not requested in probe"
   },
   "measure": {
     "skipped": true,
-    "reason": [
-      "harbor binary not on PATH",
-      "docker binary not on PATH",
-      "ANTHROPIC_API_KEY missing or not sk-ant-",
-      "OPENAI_API_KEY missing or not a real OpenAI key"
-    ],
+    "reason": "160 frontier runs require a green smoke then -Phase measure -YesMeasure",
     "frontier_jobs_started": 0,
     "target_frontier_jobs": 160
   },
-  "ok_to_smoke": false,
+  "ok_to_smoke": true,
   "ok_to_measure_160": false,
   "note": "Probe only. 160 frontier runs stay on the Harbor host after a green 1-task smoke of both models. This file is not a scoreboard."
 }

@@ -62,11 +62,13 @@ def run_cmd(argv: list[str], timeout: int = 20) -> dict:
             timeout=timeout,
             check=False,
         )
+        stdout = proc.stdout or ""
+        stderr = proc.stderr or ""
         return {
             "argv": argv,
             "returncode": proc.returncode,
-            "stdout": (proc.stdout or "")[-4000:],
-            "stderr": (proc.stderr or "")[-2000:],
+            "stdout": stdout,
+            "stderr": stderr[-2000:],
         }
     except FileNotFoundError:
         return {"argv": argv, "returncode": 127, "stdout": "", "stderr": "not found"}
@@ -100,9 +102,16 @@ def probe(*, smoke: bool, smoke_slug: str, opus_model: str, gpt_model: str) -> d
     docker_bin = which("docker")
     docker_info = run_cmd(["docker", "info"], timeout=15) if docker_bin else None
     harbor_help = run_cmd(["harbor", "run", "--help"], timeout=15) if harbor_bin else None
-    harbor_k = parse_harbor_help(
-        ((harbor_help or {}).get("stdout") or "") + "\n" + ((harbor_help or {}).get("stderr") or "")
-    )
+    harbor_help_text = ""
+    if harbor_help:
+        harbor_help_text = (harbor_help.get("stdout") or "") + "\n" + (harbor_help.get("stderr") or "")
+        # Status JSON should not store the entire `harbor run --help` dump.
+        harbor_help = {
+            "argv": harbor_help.get("argv"),
+            "returncode": harbor_help.get("returncode"),
+            "stderr": harbor_help.get("stderr") or "",
+        }
+    harbor_k = parse_harbor_help(harbor_help_text)
     batch = load_jsonl(BATCH_01_JSONL)
     blockers = []
     if not harbor_bin:
