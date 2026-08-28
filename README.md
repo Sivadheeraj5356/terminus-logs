@@ -25,6 +25,7 @@ Each unique submission UUID is kept once (latest revision). Older `*_submission_
 - Lab build plan: [`docs/AppliedWork_Lab_Build_Plan.md`](docs/AppliedWork_Lab_Build_Plan.md)
 - MVP 100-list: [`docs/lab_mvp_100.jsonl`](docs/lab_mvp_100.jsonl)
 - First measured ten: [`docs/lab_batch_01.jsonl`](docs/lab_batch_01.jsonl)
+- Batch 01 loss analysis (agent trials, not invented scores): [`docs/lab_batch_01_loss_analysis.md`](docs/lab_batch_01_loss_analysis.md)
 
 Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labels are author metadata, not measured pass rates.
 

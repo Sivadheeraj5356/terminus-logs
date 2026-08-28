@@ -60,9 +60,9 @@ This cloud-agent VM did **not** get a stable public tunnel (`cloudflared` / `ngr
 | --- | --- |
 | Overview | Applied Work Worlds Lab intro, 100 / 448 / batch-01 = 10, charts from **our** `instruction.md` + category mix |
 | Tasks | All 100 rows. **01** mark on the frozen ten. Measured column: `oracle` for ingested oracle jobs; `Opus n/8` / `GPT n/8` only for agent trials |
-| Agents | Only Harbor ingest. Smoke + oracle exist. **No effort curves.** **No 8/8.** Incomplete Opus 8-trial on pendulum may still be running in `jobs/` (gitignored) until classify+ingest |
+| Agents | Only Harbor ingest. **No effort curves.** **No 8/8.** Loss notes: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md) |
 
-Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (top nav, cream page, lavender accent, airy tables). It is not Senior SWE-Bench and not Snorkel.
+Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (top nav, cream page, ink-teal accent). It is not Senior SWE-Bench and not Snorkel.
 
 ---
 
@@ -90,12 +90,12 @@ python scripts/ingest_lab_jobs.py
 
 Then refresh `/lab/index.html`. Measured chips and Agents n/8 update **only then**. Timeout and infra still do not count as stump.
 
-Honest snapshot when this note was written:
+Honest snapshot (re-ingest after jobs finish):
 
 - Harbor 0.22 + Docker probe: green
-- Pendulum smoke: Opus reward 1.0, GPT-5.6-sol valid fail (0.0, not infra)
-- Frozen 10: oracle 1.0 (Go oracle-fail package was dropped and replaced)
-- Frontier: Opus `k=8` on pendulum **started** (`jobs/lab01-opus-repair-the-pendulum-motion-solver`). Target remains **160** jobs. Not complete.
+- Frozen 10: oracle 1.0 (Go oracle-fail package dropped and replaced)
+- Frontier recorded: **32/160** (pendulum + hypersonic, 8×2 each). Dyeworks Opus k=8 is the live job.
+- Loss analysis: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md). Timeout/infra are not stumps. Target remains **160**. Not complete.
 
 ---
 
@@ -103,4 +103,4 @@ Honest snapshot when this note was written:
 
 - **Tonight:** gallery + SSB-like chrome is shareable (PR, zip, or local `http.server`).
 - **Not tonight unless the eval host finishes:** 10 × (8+8) frontier. Nested Docker on a cloud agent is the wrong place to claim 160 done.
-- After ingest, if a chip says `1/8`, that is **one recorded attempt of eight planned**, not a fake full group.
+- After ingest, a chip like `GPT-5.6-sol 1/8` is **solves out of 8 planned**, not a fake full group. Pendulum Opus can read `7/8` because smoke + k=8 are unioned; k=8-only is 6/8. See the loss note.

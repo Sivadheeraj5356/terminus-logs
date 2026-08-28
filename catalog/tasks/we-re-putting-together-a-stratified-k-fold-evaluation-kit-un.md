@@ -23,14 +23,14 @@ Terminus-style flags (inspiration only): well-specified=yes, outcome-verified=ye
 
 ## Log summary
 
-Archive `5bd7c1a8-74f0-448f-b30f-f088169b9fe8_submission_2026-07-15T11_10_27.388Z.zip` is a task submission, not a Harbor job. 14 revision zip(s) exist for this submission id. None of the sampled task files include `result.json` or `reward.txt`, so stump % cannot be computed from the archive. Run `stb harbor run` / Harbor locally if you need measured rates.
+Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra.
 
 ## Agent summary
 
-No agent trajectories were packed in these submission zips. Likely failure modes from the instruction (not from a live run): Archive restore produces files but misses hardlinks, logs, or idempotent repeat-restore rules. Model or pipeline trains/runs but misses accuracy, format, or artifact-path gates.
+Skipping image OS validation for hb__11364fd3e25e47f4f5102646b22f451e: docker inspect returned 1 Collecting main service artifacts
 
 ## Stump the models?
 
-- Local Harbor trials: none in the archive
-- Valid-fail stump %: unknown
-- Band: `no_logs`
+- oracle: 0/1 valid fail (0.0%)
+- Timeouts excluded: 0; infra excluded: 0
+- Band: `too_easy`
