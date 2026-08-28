@@ -68,6 +68,26 @@ class ClassifyTests(unittest.TestCase):
         }
         self.assertEqual(classify(result), "infra_error")
 
+    def test_credit_too_low_is_infra(self):
+        result = {
+            "verifier_result": {"rewards": {"reward": 0.0}},
+            "exception_info": {
+                "exception_type": "",
+                "exception_message": "credit-balance-too-low",
+            },
+        }
+        self.assertEqual(classify(result), "infra_error")
+
+    def test_quota_429_is_infra(self):
+        result = {
+            "verifier_result": {"rewards": {"reward": 0.0}},
+            "exception_info": {
+                "exception_type": "",
+                "exception_message": "Error code: 429 - insufficient_quota",
+            },
+        }
+        self.assertEqual(classify(result), "infra_error")
+
     def test_stump_excludes_timeout_and_infra(self):
         rows = [
             {"classification": "valid_fail", "model": "a", "agent": "", "trial_dir": "1", "agent_summary": "x"},
@@ -184,11 +204,12 @@ class LabUiIdentityTests(unittest.TestCase):
         self.assertIn("data-nav=\"agents\"", html)
         self.assertNotIn("Senior SWE-Bench", html)
         self.assertNotIn("snorkel.ai", html.lower())
-        self.assertIn("#f7f4ee", css.lower())
-        self.assertIn("#0f766e", css.lower())
-        self.assertNotIn("#b5471a", css)
+        self.assertIn("pre-wrap", css)
+        self.assertIn("#preview-code", css)
         self.assertIn("not run", js.lower())
         self.assertNotIn("8/8 solved", js)
+        self.assertIn("${row.solved || 0}/${recorded}", js)
+        self.assertNotIn("${row.solved || 0}/${PLANNED}", js)
         self.assertIn("https://github.com/Sivadheeraj5356/terminus-logs", html)
 
     def test_enrich_overview_stats_uses_our_instruction_files(self):

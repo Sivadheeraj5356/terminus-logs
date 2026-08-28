@@ -19,7 +19,7 @@ Each unique submission UUID is kept once (latest revision). Older `*_submission_
 - JSONL: [`catalog/tasks.jsonl`](catalog/tasks.jsonl)
 - UUID ↔ slug map: [`catalog/uuid_map.json`](catalog/uuid_map.json)
 - Caudal lab comparison (package gallery vs rollout/signal lab): [`docs/Caudal_Lab_Reference_and_Similarity.md`](docs/Caudal_Lab_Reference_and_Similarity.md)
-- Applied Work Environments Lab (100 unique packages, rollouts **not run**): [`lab/index.html`](lab/index.html)
+- Applied Work Worlds Lab (100 unique packages; measured chips only after Harbor ingest): [`lab/index.html`](lab/index.html)
 - Worlds Lab spec (10×8+8 then next 10): [`docs/AppliedWork_Worlds_Lab_Spec.md`](docs/AppliedWork_Worlds_Lab_Spec.md)
 - Founder share (PR / zip / how to watch Harbor): [`docs/Founder_Share.md`](docs/Founder_Share.md)
 - Lab build plan: [`docs/AppliedWork_Lab_Build_Plan.md`](docs/AppliedWork_Lab_Build_Plan.md)
@@ -29,9 +29,30 @@ Each unique submission UUID is kept once (latest revision). Older `*_submission_
 
 Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labels are author metadata, not measured pass rates.
 
-`stump_pct = valid_failures / completed_trials * 100`. Timeouts and infrastructure errors do not count.
+`stump_pct = valid_fail / (solved + valid_fail) * 100`. Timeouts and infrastructure errors (auth, Docker, credit-too-low, 429 quota) do not count.
 
-The Worlds Lab is a static gallery over 100 unique packages (Overview / Tasks / Agents). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Serve from the repo root (`python3 -m http.server 8765 --bind 0.0.0.0`) and open `/lab/index.html?task=<slug>`. Live share URL (ephemeral trycloudflare; see restart notes): [`docs/Founder_Share.md`](docs/Founder_Share.md) — pendulum deep link `/lab/index.html?surface=tasks&task=repair-the-pendulum-motion-solver&filter=games`.
+The Worlds Lab is a static gallery over 100 unique packages (Overview / Tasks / Agents). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/8`).
+
+## Local website
+
+Serve the gallery from the **repo root** (so `/lab/index.html` and `../tasks/latest/...` file links resolve):
+
+```bash
+python3 -m http.server 8765 --bind 0.0.0.0
+```
+
+Then open:
+
+- Batch 01 table: http://127.0.0.1:8765/lab/index.html?filter=batch
+- Tasks surface: http://127.0.0.1:8765/lab/index.html?surface=tasks
+- Both: http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=batch
+- One package: http://127.0.0.1:8765/lab/index.html?task=repair-the-pendulum-motion-solver
+
+Cloudflare quick tunnels (`*.trycloudflare.com`) are **ephemeral**. They die when the VM sleeps or `cloudflared` exits. Do not treat an old hostname as a stable URL. Never commit `.env` or API keys.
+
+Identity is **Applied Work Worlds Lab**. This is not Senior SWE-Bench, Snorkel, or Caudal branding.
+
+Founder share notes (PR / zip / tunnel restart): [`docs/Founder_Share.md`](docs/Founder_Share.md).
 
 ## Rebuild (local)
 

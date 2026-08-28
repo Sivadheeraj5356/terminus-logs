@@ -13,16 +13,19 @@
 Draft PR: https://github.com/Sivadheeraj5356/terminus-logs/pull/1  
 Branch: `cursor/applied-work-lab-batch-01-826a`
 
-Ask them to open `lab/index.html` after clone:
+Ask them to open `lab/index.html` after clone. Serve from the **repo root**:
 
 ```bash
 git clone git@github.com:Sivadheeraj5356/terminus-logs.git
 cd terminus-logs
 git checkout cursor/applied-work-lab-batch-01-826a
-python -m http.server 8765
+python3 -m http.server 8765 --bind 0.0.0.0
 ```
 
 Then: http://127.0.0.1:8765/lab/index.html
+
+Batch filter: http://127.0.0.1:8765/lab/index.html?filter=batch  
+Tasks surface: http://127.0.0.1:8765/lab/index.html?surface=tasks
 
 Deep links:
 
@@ -44,31 +47,23 @@ bash scripts/pack_lab_share.sh
 That writes `docs/worlds-lab-founder-share.zip` (`lab/` + this note + two sample Harbor packages so file links are not all 404). Send the zip. They unzip and run:
 
 ```bash
-python -m http.server 8765
+python3 -m http.server 8765 --bind 0.0.0.0
 ```
 
-and open `/lab/index.html`. The other 98 package file links 404 unless they have the full repo.
+and open http://127.0.0.1:8765/lab/index.html?filter=batch (or `?surface=tasks`). The other 98 package file links 404 unless they have the full repo. Never commit `.env`.
 
-### C. Public tunnel (send this)
+### C. Public tunnel (ephemeral only)
 
-Live while this cloud-agent VM is awake:
+Cloudflare quick tunnels (`*.trycloudflare.com`) are **not stable**. They die when the VM sleeps or `cloudflared` exits. Do not bookmark an old hostname from a previous agent run.
 
-**https://retrieval-text-roller-instructors.trycloudflare.com/lab/index.html?filter=batch**
-
-Batch 01 table (10 frozen rows): https://retrieval-text-roller-instructors.trycloudflare.com/lab/index.html?surface=tasks&filter=batch
-
-Base: https://retrieval-text-roller-instructors.trycloudflare.com
-
-That trycloudflare hostname is a **quick tunnel**. It dies when the VM sleeps or `cloudflared` exits. It is not a stable custom domain.
-
-To restart on this pod (repo root, Harbor jobs left alone):
+To start a new one on this pod (repo root, Harbor jobs left alone):
 
 ```bash
 python3 -m http.server 8765 --bind 0.0.0.0
 cloudflared tunnel --url http://127.0.0.1:8765
 ```
 
-`cloudflared` prints a new `https://*.trycloudflare.com` each time. Serve from the repo root so `/lab/index.html` and `../tasks/latest/...` file links resolve. Bind `0.0.0.0` (not `127.0.0.1` only).
+`cloudflared` prints a new `https://*.trycloudflare.com` each time. Serve from the repo root so `/lab/index.html` and `../tasks/latest/...` file links resolve. Bind `0.0.0.0` (not `127.0.0.1` only). Prefer the clone path in A if you need a durable share.
 
 If the tunnel is down, fall back to the PR/clone path in A. GitHub Pages is a weaker fallback because `tasks/latest` is huge.
 
@@ -79,7 +74,7 @@ If the tunnel is down, fall back to the PR/clone path in A. GitHub Pages is a we
 | Surface | What is real tonight |
 | --- | --- |
 | Overview | Applied Work Worlds Lab intro, 100 / 448 / batch-01 = 10, charts from **our** `instruction.md` + category mix |
-| Tasks | All 100 rows. **01** mark on the frozen ten. Measured column: `oracle` for ingested oracle jobs; `Opus n/8` / `GPT n/8` only for agent trials |
+| Tasks | All 100 rows. **01** mark on the frozen ten. Measured column: `oracle` for ingested oracle jobs; agent chips are **solved / recorded** (haiku 1-trial is `0/1`, not `0/8`) |
 | Agents | Only Harbor ingest. **No effort curves.** **No 8/8.** Loss notes: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md) |
 
 Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (top nav, cream page, ink-teal accent). It is not Senior SWE-Bench and not Snorkel.
@@ -108,19 +103,20 @@ After a batch of trials finishes:
 python scripts/ingest_lab_jobs.py
 ```
 
-Then refresh `/lab/index.html`. Measured chips and Agents n/8 update **only then**. Timeout and infra still do not count as stump.
+Then refresh `/lab/index.html`. Measured chips update **only then**. Denominator is recorded trials, not the frontier plan of 8. Timeout and infra still do not count as stump.
 
 Honest snapshot (re-ingest after jobs finish):
 
 - Harbor 0.22 + Docker probe: green
 - Frozen 10: oracle 1.0 (Go oracle-fail package dropped and replaced)
-- Frontier recorded: **37/160** completed trials (pendulum + hypersonic full 8×2; dyeworks partial Opus 7/8 + GPT 3/8). Anthropic credits and OpenAI quota blocked frontier continuation; cheap-model probe may add 1-trial rows on oracle-only slugs.
+- Frontier recorded: **37/160** completed trials (pendulum + hypersonic full 8×2; dyeworks partial Opus 7/8 + GPT 3/8). Anthropic credits and OpenAI quota blocked frontier continuation.
+- Cheap probe: `booking-slot-merge` `claude-haiku-4-5` **0/1** valid_fail (chip must show 0/1, not 0/8). Six batch rows still oracle-only on agents.
 - Loss analysis: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md). Timeout/infra are not stumps. Target remains **160**. Not complete.
 
 ---
 
 ## 4. Deadline realism
 
-- **Tonight:** gallery + SSB-like chrome is shareable (PR, zip, or local `http.server`).
+- **Tonight:** gallery + research-lab chrome is shareable (PR, zip, or local `http.server`).
 - **Not tonight unless the eval host finishes:** 10 × (8+8) frontier. Nested Docker on a cloud agent is the wrong place to claim 160 done.
-- After ingest, a chip like `GPT-5.6-sol 1/8` is **solves out of 8 planned**, not a fake full group. Pendulum Opus can read `7/8` because smoke + k=8 are unioned; k=8-only is 6/8. See the loss note.
+- After ingest, a chip like `GPT-5.6-sol 1/8` means **1 solve out of 8 recorded trials**. A cheap 1-trial probe is `0/1` or `1/1`, never padded to `/8`. Pendulum Opus can read more than 8 recorded if smoke + k=8 are unioned. See the loss note.

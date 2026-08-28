@@ -485,6 +485,12 @@ mark {
   color: var(--ink-soft);
 }
 
+pre#preview-code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .code .line {
   display: grid;
   grid-template-columns: 2.1rem minmax(0, 1fr);

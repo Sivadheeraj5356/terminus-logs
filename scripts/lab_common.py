@@ -96,7 +96,8 @@ TIMEOUT_RE = re.compile(r"timeout|timed out|AgentTimeout|VerifierTimeout", re.I)
 INFRA_RE = re.compile(
     r"RuntimeError|DaytonaError|EnvironmentStart|AgentSetup|BadRequest|"
     r"RewardFileNotFound|AddTestsDir|DownloadVerifier|InfraBootstrap|InternalServer|"
-    r"AuthenticationError|Unauthorized|401|403|API key|invalid_api_key|PermissionDenied",
+    r"AuthenticationError|Unauthorized|401|403|API key|invalid_api_key|PermissionDenied|"
+    r"429|insufficient_quota|credit.?balance|credit.?too.?low|RateLimitError",
     re.I,
 )
 UUID_RE = re.compile(

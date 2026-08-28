@@ -132,6 +132,11 @@
     return raw.replace(/^anthropic\//, "").replace(/^openai\//, "");
   }
 
+  function recordedN(row) {
+    const n = Number(row && row.n);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  }
+
   function matchesFilter(task) {
     if (!task) return false;
     if (category === "batch" && task.batch !== 1) return false;
@@ -219,9 +224,9 @@
     }
     return agents
       .map((row) => {
-        const recorded = row.n || 0;
+        const recorded = recordedN(row);
         const cls = recorded >= PLANNED ? "chip-ok" : "chip-warn";
-        return `<span class="chip ${cls}">${escapeHtml(shortModel(row.model))} ${row.solved || 0}/${PLANNED}</span>`;
+        return `<span class="chip ${cls}">${escapeHtml(shortModel(row.model))} ${row.solved || 0}/${recorded}</span>`;
       })
       .join(" ");
   }
@@ -335,12 +340,16 @@
     const agentHtml = agents.length
       ? agents
           .map((row) => {
-            const recorded = row.n || 0;
+            const recorded = recordedN(row);
+            const planNote =
+              recorded === PLANNED
+                ? ""
+                : ` <span class="muted">(frontier plan ${PLANNED})</span>`;
             return `<div>${escapeHtml(shortModel(row.model))}: ${row.solved || 0} solved · ${
               row.valid_fail || 0
             } valid fail · ${row.infra_error || 0} infra · ${
               row.timeout || 0
-            } timeout · ${recorded}/${PLANNED} recorded</div>`;
+            } timeout · ${recorded} recorded${planNote}</div>`;
           })
           .join("")
       : `<span class="muted">No terminus-2 trials ingested.</span>`;
@@ -605,7 +614,7 @@
           <td>${escapeHtml(shortModel(row.model))}<span class="slug">${escapeHtml(row.model)}</span></td>
           <td>terminus-2</td>
           <td>${row.tasks}</td>
-          <td>${row.n} <span class="muted">see n/${PLANNED} by task</span></td>
+          <td>${row.n} <span class="muted">recorded trials</span></td>
           <td>${row.solved}</td>
           <td>${row.valid_fail}</td>
           <td>${row.infra_error}</td>
@@ -617,16 +626,16 @@
 
     const breakdown = document.getElementById("agent-task-breakdown");
     const agentTasks = tasks.filter(hasAgentJobs);
-    breakdown.innerHTML = `<h2>By task</h2><p class="muted">n/8 is recorded attempts vs the planned 8. Infra and timeout are listed and excluded from stump.</p>
+    breakdown.innerHTML = `<h2>By task</h2><p class="muted">Denominator is recorded Harbor trials for that model, not the frontier plan of ${PLANNED}. A 1-trial cheap probe shows 0/1, not 0/${PLANNED}. Infra and timeout are listed and excluded from stump.</p>
       <div class="table-card"><div class="table-scroll"><table>
-        <thead><tr><th>Task</th><th>Model</th><th>Recorded / 8</th><th>Solved</th><th>Valid fail</th><th>Infra</th><th>Timeout</th></tr></thead>
+        <thead><tr><th>Task</th><th>Model</th><th>Recorded</th><th>Solved</th><th>Valid fail</th><th>Infra</th><th>Timeout</th></tr></thead>
         <tbody>${agentTasks
           .flatMap((task) =>
             agentModels(task).map(
               (row) => `<tr>
                 <td class="name">${escapeHtml(task.name)}<span class="slug">${escapeHtml(task.slug)}</span></td>
                 <td>${escapeHtml(shortModel(row.model))}</td>
-                <td>${row.n || 0}/${PLANNED}</td>
+                <td>${recordedN(row)}</td>
                 <td>${row.solved || 0}</td>
                 <td>${row.valid_fail || 0}</td>
                 <td>${row.infra_error || 0}</td>

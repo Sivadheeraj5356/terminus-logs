@@ -9,7 +9,7 @@ Generated 2026-08-28T21:20Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
 - **Continuation 2026-08-28T19:30Z:** Harbor was idle. Cheap probes (prefix/length only): Anthropic `claude-opus-5` ping **HTTP 200**; OpenAI chat `gpt-5.6-sol` **HTTP 429 insufficient_quota**. GPT remaining trials were not started.
 - **Dyeworks Opus resume** (`harbor job resume -f BadRequestError`) replaced the earlier 7 credit-infra dirs. Got **2 solved + 2 valid_fail**, then Anthropic **credit-balance-too-low** again on 3 trials; the 8th trial (`…__eWdLDth`) was terminated with no `result.json`. **Stop. Remaining 7 packages were not started.** Batch 02 was not started. **Not 160/160.**
-- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks); **7 tasks still oracle-only** (blocked by credits/quota, not a planned skip of remaining work).
+- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks); **booking-slot-merge** has a 1-trial `claude-haiku-4-5` valid_fail (not padded to 8); **6 tasks still oracle-only** on agents (blocked by frontier credits/quota; cheap 1-trial remaining as of this note).
 - **Frontier recorded slots toward 160: 42/160.** Completed (solved + valid_fail only): **37**. Infra on those slots: 5 (plus incomplete dyeworks Opus 8th trial, not ingested).
 - Smoke extras (not in the 160): 2 pendulum smoke trials (Opus compose solved, GPT valid fail) plus 1 failed Opus smoke (compose plugin missing, infra).
 
@@ -47,9 +47,9 @@ Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus
 | the-harborlane-replay-desk-needs-a-reusable-offline-planner | 1 | 1 | 0 | 0 | 0 | — | no |
 | we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | 1 | 1 | 0 | 0 | 0 | — | no |
 | wildlife-counting-becomes-a-field-planning-game-when-uncerta | 1 | 1 | 0 | 0 | 0 | — | no |
-| booking-slot-merge | 1 | 1 | 0 | 0 | 0 | — | no |
+| booking-slot-merge | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
 
-Stump% in this table is omitted for oracle-only rows (`completed` agent trials = 0). Lab chips show `oracle` for those seven — not fake 8/8.
+Stump% in this table is omitted for oracle-only rows (`completed` agent trials = 0). Lab chips show `oracle` for those six — not fake 8/8. Booking Slot Merge chip is `claude-haiku-4-5 0/1` (recorded trials, not 0/8).
 
 ## Loss themes (from `verifier/test-stdout.txt` + trajectories)
 
@@ -92,12 +92,22 @@ Both GPT k=8 valid fails are **8 failed, 39 passed**. The patched reader **rejec
 
 Opus valid fails `…__Au29QTj` and `…__NBB2td6` are identical: **2 failed, 45 passed**. `exploit_alloc.dye` is **accepted (exit 0)** — `test_exploit_alloc_rejected` requires a node-count whose byte size overflows to be rejected. `test_generated_more_nodes_than_count_rejected` also gets exit 0. Two Opus **solves** (`…__uZFqDH3` reward 1.0 after 1800s timeout; `…__B9Z8xMU` 47/47). Three later retries are **credit-balance-too-low** infra (`…__vRaMF4e`, `…__qGvmkvM`, `…__4dYqcT3`). Eighth trial `…__eWdLDth` has **no** `result.json` (worker stopped mid-run).
 
+### Booking Slot Merge — epoch fence / report span (haiku 0/1; valid_fail)
+
+Haiku trial `…__5SqDRHH` (~$0.15, ~3.5 min): **3 failed, 24 passed**. Merge and most check/stats tests passed. Failures:
+
+- `test_report_span_respects_epoch_fence` — SPAN printed **201** vs expected **200** (inclusive end vs fenced interval length)
+- `test_report_exact_layout` — column widths and SPAN off by one (`151` vs `150`, TOTAL `192` vs `190`)
+- `test_check_epoch_regression_across_files` — expected exit **2** (epoch regression across files), got **0** / `ok`
+
+This is a recorded **0/1**, not 0/8. No second haiku trial was run.
+
 ## Spend and stop state
 
 | Item | State |
 | --- | --- |
 | Harbor process | **Idle** (do not start a second one). Dyeworks Opus resume finished 2026-08-28T21:10Z |
-| Remaining 7 packages | **Not started** — Anthropic credit-too-low again after the dyeworks resume; OpenAI quota already 429 |
+| Remaining 6 packages | **No cheap agent trial yet** (root-CA, Apexora, offline binary-cache, Harborlane, stratified k-fold, wildlife). Booking has haiku 0/1. |
 | Dyeworks GPT | **3/8** left incomplete; not resumed after OpenAI `insufficient_quota` |
 | Batch 02 | **Not started** |
 | Harbor-reported spend | **~$49.67** rollup (pendulum ~$18.26, hypersonic ~$15.88, dyeworks Opus $13.02, dyeworks GPT $1.27, smoke ~$1.25) |
@@ -130,6 +140,7 @@ Chips reflect **recorded** trials, not planned 8/8:
 - Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8
 - Hypersonic: Opus 7/8; GPT 2/8
 - Dyeworks: Opus **2 solved / 2 valid_fail / 3 infra** of 7 recorded (8th incomplete); GPT **0 solved / 2 valid_fail / 1 infra** of 3 recorded
-- Other seven batch rows: `oracle` only — no k=8 agent rows
+- Other batch rows: `oracle` only until a cheap 1-trial exists — no padded 8/8
+- Booking Slot Merge: `claude-haiku-4-5 0/1` (recorded; UI must not show 0/8)
 
 The other 90 gallery rows stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.

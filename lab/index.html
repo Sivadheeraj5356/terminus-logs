@@ -291,20 +291,20 @@
             No terminus-2 trials are recorded in the corpus yet. Oracle jobs
             (if any) are integrity checks, not agent scores. After
             <code>python scripts/ingest_lab_jobs.py</code>, this table shows
-            <strong>n/8 solved</strong> by model for batch-01 slugs that have
-            agent jobs.
+            <strong>solved / recorded</strong> by model for batch-01 slugs that have
+            agent jobs. A 1-trial probe is 0/1, not 0/8.
           </p>
         </article>
         <div id="agents-body" hidden>
           <article class="chart-card">
             <div class="chart-card-head">
-              <p class="muted">Frontier groups vs plan (8 attempts / model / task)</p>
+              <p class="muted">Recorded trials vs frontier plan (8 attempts / model / task)</p>
               <span class="pill">Harbor ingest only</span>
             </div>
             <p class="honest-banner">
               Effort curves and Pareto frontiers are hidden until an 8-trial
-              group exists with cost data. Smoke and partial jobs are listed
-              below as recorded / 8 — not as a complete rate.
+              group exists with cost data. Chips and rows use solved / recorded
+              Harbor trials — not padded to 8 unless 8 trials actually ran.
             </p>
             <div id="agents-summary"></div>
           </article>
