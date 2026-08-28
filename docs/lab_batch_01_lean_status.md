@@ -1,7 +1,7 @@
 # Batch 01 — lean status (for Raja)
 
-**Updated:** 2026-08-28T21:20Z  
-**Decision:** Stop remaining frontier 8+8. Continuation resumed dyeworks Opus, then Anthropic **credit-balance-too-low** again; OpenAI already **insufficient_quota**. Remaining seven packages were **not started** because credits/quota blocked them — not because measure was cancelled as a plan.
+**Updated:** 2026-08-28T22:56Z  
+**Decision:** Stop remaining frontier 8+8. Continuation resumed dyeworks Opus, then Anthropic **credit-balance-too-low** again; OpenAI already **insufficient_quota**. Remaining seven packages were **not started** on frontier models because credits/quota blocked them — not because measure was cancelled as a plan. **Cheap probe 2026-08-28T22:52Z:** Anthropic API 200 (sonnet + haiku); OpenAI 429. One Harbor trial on `booking-slot-merge` with `anthropic/claude-haiku-4-5` completed (reward **0.0**, valid_fail; ~$0.15). No further cheap trials started.
 
 ---
 
@@ -24,7 +24,7 @@ We froze ten Applied Worlds tasks, verified oracle 10/10, and ran frontier Opus 
 | the-harborlane-replay-desk-needs-a-reusable-offline-planner | ✓ | — | — | Oracle only (credits/quota blocked) |
 | we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | ✓ | — | — | Oracle only (credits/quota blocked) |
 | wildlife-counting-becomes-a-field-planning-game-when-uncerta | ✓ | — | — | Oracle only (credits/quota blocked) |
-| booking-slot-merge | ✓ | — | — | Oracle only (credits/quota blocked) |
+| booking-slot-merge | ✓ | — | — | Haiku **0/1** (valid_fail); oracle only otherwise |
 
 **Frozen:** 10 tasks (one Go oracle-fail dropped; replacement passes).  
 **Frontier completed trials** (solved + valid_fail, infra excluded): **37** of 160 planned.  
