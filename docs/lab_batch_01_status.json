@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-28T13:07:01Z",
+  "generated_utc": "2026-08-28T18:59:19Z",
   "host": "cursor",
   "keys": {
     "anthropic_present": true,
@@ -207,21 +207,34 @@
   "measure": {
     "skipped": false,
     "started": true,
-    "reason": "smoke harness green and recomputed frozen 10 are oracle 1.0; 8x2 measure running with stop after 2-3 tasks if spend/errors spike; not auto-starting batch 02",
-    "frontier_jobs_recorded": 32,
-    "frontier_jobs_in_flight": 8,
+    "stopped": true,
+    "stop_reason": "Stopped after task 3 (dyeworks). Anthropic returned credit-balance-too-low BadRequestError on 7/8 dyeworks Opus trials (plus 1 agent timeout that still scored reward 1.0). That is an error/spend spike, not a stump. GPT-5.6-sol was still authenticating. Remaining 7 packages and batch 02 were not started.",
+    "frontier_jobs_started": 44,
     "target_frontier_jobs": 160,
-    "tasks_with_both_k8": 2,
-    "current_job": "lab01-opus-the-dyeworks-tool-is-a-command-line-",
-    "cumulative_cost_usd_after_task_2": 34.1393,
     "trials": 8,
     "concurrent": 1,
     "opus_model": "anthropic/claude-opus-5",
     "gpt_model": "openai/gpt-5.6-sol",
     "stop_after_tasks": 3,
-    "batch_02": "not_started"
+    "tasks_measured": [
+      "repair-the-pendulum-motion-solver",
+      "hypersonic-fragment-cascade-epoch-atlas",
+      "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen"
+    ],
+    "approx_cost_usd": {
+      "pendulum_opus": 15.9,
+      "pendulum_gpt": 2.36,
+      "hypersonic_opus": 12.82,
+      "hypersonic_gpt": 3.05,
+      "dyeworks_opus": 5.01,
+      "dyeworks_gpt_partial": 1.27,
+      "plus_earlier_smoke": 1.24,
+      "harbor_reported_measure_jobs": 40.51,
+      "note": "Harbor job rollup cost_usd only; smoke extra ~1.24. Not a billing invoice."
+    },
+    "anthropic_credit_exhausted": true
   },
   "ok_to_smoke": true,
-  "ok_to_measure_160": true,
-  "note": "Smoke green. Oracle dropped EDGE-GO-MOD-Q1 (reward 0.0) and replaced it with the offline binary-cache Go package (oracle 1.0). Frontier 32/160 recorded (pendulum + hypersonic k=8). Dyeworks Opus k=8 in flight. 160 not claimed complete."
+  "ok_to_measure_160": false,
+  "note": "Smoke was green. Oracle dropped EDGE-GO-MOD-Q1. Measure ran 8x2 on two tasks, then dyeworks Opus hit Anthropic credit-balance errors. 160-run batch was stopped; batch 02 was not started. No invented scores on the other 90."
 }
