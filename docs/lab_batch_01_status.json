@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-28T21:10:15Z",
+  "generated_utc": "2026-08-28T21:20:00Z",
   "host": "cursor",
   "keys": {
     "anthropic_present": true,
@@ -208,7 +208,7 @@
     "skipped": false,
     "started": true,
     "stopped": true,
-    "stop_reason": "Lean stop: cap hit (~$20 Anthropic budget). Harbor resume worker killed 2026-08-28T21:10Z. Dyeworks Opus 7/8 (credit infra on 3); GPT 3/8 partial. Remaining 7 packages and batch 02 deliberately not started.",
+    "stop_reason": "Continuation resumed dyeworks Opus after a cheap Anthropic 200 probe. Harbor then returned credit-balance-too-low BadRequestError again (3 infra). OpenAI chat 429 insufficient_quota, so GPT remaining was not started. Remaining 7 packages and batch 02 were not started. Not 160/160.",
     "frontier_jobs_started": 42,
     "target_frontier_jobs": 160,
     "frontier_completed_trials": 37,
@@ -231,11 +231,12 @@
       "dyeworks_gpt_partial": 1.27,
       "plus_earlier_smoke": 1.25,
       "harbor_reported_total": 49.67,
-      "note": "Harbor job rollup cost_usd only. Not a billing invoice. Lean stop — no further frontier jobs."
+      "note": "Harbor job rollup cost_usd only. Not a billing invoice. Stopped after credits/quota failed on continuation."
     },
-    "anthropic_credit_exhausted": true
+    "anthropic_credit_exhausted": true,
+    "openai_insufficient_quota": true
   },
   "ok_to_smoke": true,
   "ok_to_measure_160": false,
-  "note": "Smoke was green. Oracle dropped EDGE-GO-MOD-Q1. Frontier 8+8 stopped at 37/160 completed trials (2 full tasks + partial dyeworks). Remaining 7 packages oracle-only by lean choice. Batch 02 not started. See docs/lab_batch_01_lean_status.md."
+  "note": "Smoke was green. Oracle dropped EDGE-GO-MOD-Q1. Frontier recorded 42/160 slots, 37 completed (solved+valid_fail). Remaining 7 packages oracle-only because Anthropic credits and OpenAI quota failed. Batch 02 not started."
 }

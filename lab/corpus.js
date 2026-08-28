@@ -4,7 +4,7 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-28T21:10:15Z",
+    "generated_utc": "2026-08-28T21:19:16Z",
     "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {

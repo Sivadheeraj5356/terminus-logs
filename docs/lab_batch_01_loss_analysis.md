@@ -1,15 +1,16 @@
 # Batch 01 loss analysis
 
-Generated 2026-08-28T21:10Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`.  
+Generated 2026-08-28T21:20Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`.  
 `stump_pct = valid_fail / (solved + valid_fail) × 100`. Timeout and infra are excluded. No Caudal/SSB scores. No rubric channel.
 
 ## Headlines
 
 - **Frozen batch 01: 10 tasks.** Go oracle-fail `release-still-signs-edge-go-mod-q1-green-while-the-dependenc` (reward 0.0, 5 `TestLiveProxyIntegrity` failures) was dropped and replaced by `i-need-the-offline-binary-cache-closure-planner-in-app-task` (oracle 1.0). See `docs/lab_batch_01_exclusions.json`.
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
-- **Frontier 8+8 stopped by budget decision.** Cap hit mid-task-3 (dyeworks). Harbor resume worker killed; no batch 02; no remaining 7×16 frontier jobs.
-- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks); **7 tasks oracle-only** (deliberately unmeasured on frontier).
-- **Frontier completed trials:** 37 of 160 planned (solved + valid_fail only).
+- **Continuation 2026-08-28T19:30Z:** Harbor was idle. Cheap probes (prefix/length only): Anthropic `claude-opus-5` ping **HTTP 200**; OpenAI chat `gpt-5.6-sol` **HTTP 429 insufficient_quota**. GPT remaining trials were not started.
+- **Dyeworks Opus resume** (`harbor job resume -f BadRequestError`) replaced the earlier 7 credit-infra dirs. Got **2 solved + 2 valid_fail**, then Anthropic **credit-balance-too-low** again on 3 trials; the 8th trial (`…__eWdLDth`) was terminated with no `result.json`. **Stop. Remaining 7 packages were not started.** Batch 02 was not started. **Not 160/160.**
+- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks); **7 tasks still oracle-only** (blocked by credits/quota, not a planned skip of remaining work).
+- **Frontier recorded slots toward 160: 42/160.** Completed (solved + valid_fail only): **37**. Infra on those slots: 5 (plus incomplete dyeworks Opus 8th trial, not ingested).
 - Smoke extras (not in the 160): 2 pendulum smoke trials (Opus compose solved, GPT valid fail) plus 1 failed Opus smoke (compose plugin missing, infra).
 
 ## Frontier k=8 (stopped at 37/160 completed)
@@ -83,29 +84,36 @@ Agents’ last analyses claim the TypeScript pipeline is complete after checking
 
 Opus fail `…__24tWaEA`: **19 passed, 1 failed** (`test_alpha_collision_occurs_and_matches_reference`, atlas_hash mismatch only). Two GPT k=8 trials passed all 20 tests.
 
-### Dyeworks — parser bounds / section validation (partial; GPT 2/3 valid fail)
+### Dyeworks — over-aggressive valid reject (GPT 2/3 completed; valid_fail)
 
-GPT valid fails (2 of 3 completed): agents identify real gaps (ULEB decoders ignore section bounds, missing container-version check, duplicate section names, offset+size vs file length, uint32 overflow in node allocation, unbounded tree depth) but patches do not pass hidden invalid fixtures. Trajectories show correct diagnosis of `sectab.c` and `uleb.c` weaknesses; verifier still rejects malformed inputs.
+Both GPT k=8 valid fails are **8 failed, 39 passed**. The patched reader **rejects the valid corpus**: `test_valid_corpus_parses_cleanly`, `test_indirect_value_still_parses`, `test_deep_tree_still_parses`, `test_lot_ref_still_resolves`, `test_boundary_valid_files_still_parse`, `test_generated_valid_parses`, `test_generated_depth_256_nesting_parses`, `test_generated_max_size_file_parses`. stderr is `dyeworksdef: has_children does not match type` (`…__nAs7nWJ`) or `node: sibling chain lacks null terminator` (`…__6FTvzuL`). Trajectories diagnose real ULEB/sectab holes, then the guard is too strict on legal trees. Third GPT trial (`…__Qf54bTE`) is **infra** (`RuntimeError` / tmux send-keys, not a stump). Job left **3/8** (1 running dir + 4 pending) because OpenAI then returned **insufficient_quota**.
 
-Opus: 2 solves (including one post-timeout reward 1.0), 2 valid fails, 3 **credit-balance-too-low** infra (excluded from stump). Job stopped at 7/8 Opus; GPT job stopped at 3/8.
+### Dyeworks — alloc overflow accepted (Opus 2/7 completed; valid_fail)
+
+Opus valid fails `…__Au29QTj` and `…__NBB2td6` are identical: **2 failed, 45 passed**. `exploit_alloc.dye` is **accepted (exit 0)** — `test_exploit_alloc_rejected` requires a node-count whose byte size overflows to be rejected. `test_generated_more_nodes_than_count_rejected` also gets exit 0. Two Opus **solves** (`…__uZFqDH3` reward 1.0 after 1800s timeout; `…__B9Z8xMU` 47/47). Three later retries are **credit-balance-too-low** infra (`…__vRaMF4e`, `…__qGvmkvM`, `…__4dYqcT3`). Eighth trial `…__eWdLDth` has **no** `result.json` (worker stopped mid-run).
 
 ## Spend and stop state
 
 | Item | State |
 | --- | --- |
-| Harbor frontier measure | **Stopped** — resume worker killed 2026-08-28T21:10Z |
-| Remaining 7 packages | **Not measured** on frontier (lean; by choice) |
+| Harbor process | **Idle** (do not start a second one). Dyeworks Opus resume finished 2026-08-28T21:10Z |
+| Remaining 7 packages | **Not started** — Anthropic credit-too-low again after the dyeworks resume; OpenAI quota already 429 |
+| Dyeworks GPT | **3/8** left incomplete; not resumed after OpenAI `insufficient_quota` |
 | Batch 02 | **Not started** |
-| Harbor-reported spend | **~$49.67** (~$48 measure jobs + ~$2 smoke) |
-| Anthropic credits | **Exhausted** for new Opus jobs; skip new Anthropic until budget reset |
+| Harbor-reported spend | **~$49.67** rollup (pendulum ~$18.26, hypersonic ~$15.88, dyeworks Opus $13.02, dyeworks GPT $1.27, smoke ~$1.25) |
+| Anthropic | Cheap probe 200, then harbor **400 credit-too-low** again. Remaining Opus **cannot** continue until credits are added |
+| OpenAI | Chat completions **429 insufficient_quota**. Remaining GPT **cannot** continue until quota is added |
 | Docker / Harbor 0.22 | Up |
 
-## Recommendation
+## Continuation log (2026-08-28T19:30–21:20Z)
 
-- **Stop frontier 8+8.** Mid-band variance thesis does not justify 8+8 on all ten at this budget; stats from 32 full + partial dyeworks are sufficient for a founder draft.
-- **BPO proof** = frozen worlds + oracle 10/10 + reproducible stumps on pendulum/hypersonic + partial C security signal — not 160 Opus jobs.
-- **Optional later:** 1-trial cheap-model probe (Sonnet/Haiku or gpt-4o-mini) per oracle-only task if language breadth is needed.
-- **Applied Worlds R&D** can wait until profitable; this batch is not required for a BPO.
+Did not re-run pendulum or hypersonic 8+8. Did not use `scripts/run_agents.ps1`. Did not start batch 02.
+
+1. Harbor not running. Keys present (`sk-ant-` len 108; `sk-proj` len 164).
+2. Cheap Anthropic messages ping (`claude-opus-5`, 8+8 tokens) **200**. Cheap OpenAI chat (`gpt-5.6-sol`) **429 insufficient_quota**.
+3. Resumed dyeworks Opus only (filter `BadRequestError`). Seven credit dirs removed and retried at `-n 1`.
+4. Credits failed again on trials 5–7 of that resume. Stopped immediately. Remaining seven slugs (root-CA mTLS, Apexora, offline binary-cache, Harborlane, stratified k-fold, wildlife counting, booking-slot-merge) **never got a `harbor run`**.
+5. Re-ingested. This file updated. Jobs stay gitignored.
 
 ## What the founder sees after this ingest
 
@@ -121,7 +129,7 @@ Chips reflect **recorded** trials, not planned 8/8:
 
 - Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8
 - Hypersonic: Opus 7/8; GPT 2/8
-- Dyeworks: Opus 2/7 completed (partial); GPT 0/3 completed (partial)
-- Other seven batch rows: `oracle` only
+- Dyeworks: Opus **2 solved / 2 valid_fail / 3 infra** of 7 recorded (8th incomplete); GPT **0 solved / 2 valid_fail / 1 infra** of 3 recorded
+- Other seven batch rows: `oracle` only — no k=8 agent rows
 
 The other 90 gallery rows stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.

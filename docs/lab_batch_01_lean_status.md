@@ -1,13 +1,13 @@
 # Batch 01 — lean status (for Raja)
 
-**Updated:** 2026-08-28T21:10Z  
-**Decision:** Stop frontier 8+8. Cap hit (~$20 Anthropic budget). Remaining seven packages deliberately **not** frontier-measured.
+**Updated:** 2026-08-28T21:20Z  
+**Decision:** Stop remaining frontier 8+8. Continuation resumed dyeworks Opus, then Anthropic **credit-balance-too-low** again; OpenAI already **insufficient_quota**. Remaining seven packages were **not started** because credits/quota blocked them — not because measure was cancelled as a plan.
 
 ---
 
 ## One paragraph
 
-We froze ten Applied Worlds tasks, verified oracle 10/10, and ran frontier Opus + GPT-5.6-sol k=8 on three tasks before the credit cap stopped spend. Two tasks (pendulum, hypersonic) have full 8+8 with clear loss themes; dyeworks is partial (7 Opus + 3 GPT, heavy credit infra). Seven tasks are oracle-only by choice — not missing data, a budget decision. Harbor-reported spend is ~$50 total (~$48 measure + ~$2 smoke). That is enough for a strong founder draft: worlds are real, oracle is clean, frontier stumps are reproducible on two domains with mid-band variance, and loss analysis names concrete verifier gaps. No batch 02, no remaining 7×16 frontier jobs. Optional later: one cheap-model probe per task (Sonnet/Haiku or gpt-4o-mini, k=1) if we want broader language coverage without Opus burn.
+We froze ten Applied Worlds tasks, verified oracle 10/10, and ran frontier Opus + GPT-5.6-sol k=8 on pendulum and hypersonic. Dyeworks is partial: Opus 7/8 after a credit-failure resume (2 solved, 2 valid_fail, 3 credit infra, 8th incomplete); GPT 3/8 then OpenAI quota 429. A continuation cheap-probed both APIs, resumed dyeworks Opus, and **stopped when Anthropic 400 credit-too-low returned**. The other seven frozen slugs stay oracle-only because remaining Opus/GPT jobs cannot run until credits/quota are restored. Harbor-reported spend is ~$50. **Not 160/160.** No batch 02.
 
 ---
 
@@ -18,13 +18,13 @@ We froze ten Applied Worlds tasks, verified oracle 10/10, and ran frontier Opus 
 | repair-the-pendulum-motion-solver | ✓ | **8/8** (6s/1f/1i) | **8/8** (1s/7f) | Full frontier |
 | hypersonic-fragment-cascade-epoch-atlas | ✓ | **8/8** (7s/1f) | **8/8** (2s/6f) | Full frontier |
 | the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | ✓ | **7/8** (2s/2f/3i) | **3/8** (0s/2f/1i) | Partial; Anthropic credit exhausted |
-| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | ✓ | — | — | Oracle only (lean) |
-| apexora-global-wave-3-campus-segmentation-is-blocked-across | ✓ | — | — | Oracle only (lean) |
-| i-need-the-offline-binary-cache-closure-planner-in-app-task | ✓ | — | — | Oracle only (lean) |
-| the-harborlane-replay-desk-needs-a-reusable-offline-planner | ✓ | — | — | Oracle only (lean) |
-| we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | ✓ | — | — | Oracle only (lean) |
-| wildlife-counting-becomes-a-field-planning-game-when-uncerta | ✓ | — | — | Oracle only (lean) |
-| booking-slot-merge | ✓ | — | — | Oracle only (lean) |
+| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | ✓ | — | — | Oracle only (credits/quota blocked) |
+| apexora-global-wave-3-campus-segmentation-is-blocked-across | ✓ | — | — | Oracle only (credits/quota blocked) |
+| i-need-the-offline-binary-cache-closure-planner-in-app-task | ✓ | — | — | Oracle only (credits/quota blocked) |
+| the-harborlane-replay-desk-needs-a-reusable-offline-planner | ✓ | — | — | Oracle only (credits/quota blocked) |
+| we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | ✓ | — | — | Oracle only (credits/quota blocked) |
+| wildlife-counting-becomes-a-field-planning-game-when-uncerta | ✓ | — | — | Oracle only (credits/quota blocked) |
+| booking-slot-merge | ✓ | — | — | Oracle only (credits/quota blocked) |
 
 **Frozen:** 10 tasks (one Go oracle-fail dropped; replacement passes).  
 **Frontier completed trials** (solved + valid_fail, infra excluded): **37** of 160 planned.  
@@ -45,15 +45,14 @@ We froze ten Applied Worlds tasks, verified oracle 10/10, and ran frontier Opus 
 | Smoke (Opus + GPT) | ~$1.25 |
 | **Total** | **~$49.67** |
 
-Measure script and Harbor resume worker are **stopped**. No second Harbor job will start.
+Harbor is **idle**. Remaining Opus cannot continue until Anthropic credits are added. Remaining GPT cannot continue until OpenAI quota is added.
 
 ---
 
 ## Recommendation
 
-1. **Ship the draft report** from pendulum + hypersonic + partial dyeworks + oracle 10/10. BPO proof is worlds + oracle + partial frontier signal, not 160 Opus jobs.
-2. **Do not** resume frontier 8+8 on the remaining seven packages.
-3. **Optional later:** 1-trial cheap-model smoke (Sonnet/Haiku or gpt-4o-mini) on oracle-only tasks if language breadth matters — only after budget reset.
-4. **UI:** Re-ingest is done (`python3 scripts/ingest_lab_jobs.py`). Lab shows real counts — no fake 8/8 on unmeasured tasks.
+1. Remaining seven k=8×2 jobs need **new Anthropic credits and OpenAI quota** before they can run. Do not claim 160/160.
+2. Dyeworks is still incomplete (Opus 7/8 recorded, GPT 3/8). Resume only after both providers accept a cheap probe.
+3. Re-ingest is done. Lab shows real counts — no fake 8/8 on unmeasured tasks.
 
 Full loss themes: `docs/lab_batch_01_loss_analysis.md`.
