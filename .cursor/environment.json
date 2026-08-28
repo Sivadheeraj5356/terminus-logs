@@ -1,0 +1,17 @@
+{
+  "name": "Terminal-Bench Worlds Lab",
+  "install": "pip install --user -r requirements.txt",
+  "terminals": [
+    {
+      "name": "worlds-lab",
+      "command": "python3 -m http.server 8765",
+      "description": "Serves the repo root so the static Worlds Lab gallery is reachable at http://localhost:8765/lab/index.html"
+    }
+  ],
+  "ports": [
+    {
+      "name": "worlds-lab",
+      "port": 8765
+    }
+  ]
+}
