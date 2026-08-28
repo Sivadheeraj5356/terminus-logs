@@ -8,168 +8,336 @@
       name="description"
       content="Applied Work Worlds Lab: 100 unique Harbor packages. Measured chips appear only after private Harbor jobs exist."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="lab.css" />
   </head>
   <body>
-    <a class="skip" href="#gallery">Skip to corpus</a>
-    <header class="mast">
-      <div class="mast-inner">
-        <p class="brand"><span class="mark" aria-hidden="true">AW</span> Applied Work</p>
-        <h1>Worlds Lab</h1>
-        <p class="lede">
-          One hundred unique Harbor packages from a private inventory of 448.
-          Each row is an authored world: instruction, Docker environment, oracle,
-          and tests. The gallery is always the 100. Solve rates and stump
-          percentages appear <strong>only</strong> for the measured ten, and
-          only after private Harbor trials exist.
-        </p>
-        <ul class="facts" id="facts">
-          <li><span>100</span> unique packages</li>
-          <li><span>448</span> in the full inventory</li>
-          <li><span>10</span> batch 01 selected</li>
-          <li><span id="fact-measured">0</span> measured</li>
-        </ul>
-        <nav class="surfaces" id="surface-nav" aria-label="Lab surfaces"></nav>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <a class="brand" href="?surface=overview" data-nav="overview">
+        <span class="brand-mark" aria-hidden="true">AW</span>
+        <span class="brand-text">Applied Work Worlds Lab</span>
+      </a>
+
+      <nav class="nav-main" id="nav-main" aria-label="Lab">
+        <button type="button" data-nav="overview">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Overview
+        </button>
+        <button type="button" data-nav="tasks">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          Tasks
+        </button>
+        <button type="button" data-nav="agents">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="10" rx="2"/><circle cx="9" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><path d="M9 16h6"/></svg>
+          Agents
+        </button>
+        <button type="button" data-nav="contributors" class="nav-later">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M4 19c.6-3 3-5 5-5s4.4 2 5 5"/><path d="M14 19c.3-2 1.6-3.4 3.4-3.6"/></svg>
+          Contributors
+        </button>
+        <button type="button" data-nav="blog" class="nav-later">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h6"/></svg>
+          Blog
+        </button>
+      </nav>
+
+      <div class="nav-actions">
+        <a
+          class="btn btn-ghost"
+          href="https://github.com/Sivadheeraj5356/terminus-logs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Repo on GitHub
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M10 5H5v14h14v-5"/></svg>
+        </a>
+        <button
+          type="button"
+          class="btn btn-solid"
+          id="harbor-hub-btn"
+          aria-disabled="true"
+          title="Private Harbor 0.22 on the eval host — not a public Harbor Hub dataset"
+        >
+          Harbor Hub
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M10 5H5v14h14v-5"/></svg>
+        </button>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.3A8.5 8.5 0 1 1 9.7 3 7 7 0 0 0 21 14.3z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+        </button>
       </div>
     </header>
 
-    <main class="layout">
-      <section id="surface-worlds" class="surface" hidden>
-        <h2>Worlds</h2>
-        <p>
-          A world is a Harbor 0.22 package under <code>tasks/latest/&lt;slug&gt;/</code>:
-          <code>instruction.md</code>, <code>task.toml</code>, <code>environment/</code>,
-          <code>solution/</code>, <code>tests/</code>, and <code>summary.md</code> (UUID).
-          These worlds are offline. Expert-time figures on catalog cards are author
-          metadata, not measured wall clock.
-        </p>
-        <p class="muted">
-          This surface is the package contract. It is not a solve-rate introduction
-          and it does not copy another lab’s chrome.
-        </p>
-      </section>
+    <main id="main">
+      <section id="surface-overview" class="page" hidden>
+        <div class="hero">
+          <div class="manifesto">
+            <p class="eyebrow">Applied Work</p>
+            <h1>Worlds Lab</h1>
+            <p class="lede-strong">
+              We treat agents like senior engineers. The gallery is real Harbor
+              packages — not a junior checklist, and not another lab’s scores.
+            </p>
+            <ol class="points">
+              <li>
+                <span class="num">01</span>
+                <div>
+                  <h2>One hundred authored worlds</h2>
+                  <p>
+                    Each row is a Harbor 0.22 package:
+                    <mark>instruction.md</mark>, Docker
+                    <mark>environment/</mark>, <mark>oracle</mark>, and
+                    <mark>tests</mark>. Selected from a private inventory of 448.
+                    The gallery always lists all 100.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="num">02</span>
+                <div>
+                  <h2>Measure in tens, not in slogans</h2>
+                  <p>
+                    Batch 01 freezes <mark>10 packages</mark>. Frontier plan is
+                    <mark>8 × Opus 5</mark> and
+                    <mark>8 × gpt-5.6-sol</mark> on terminus-2.
+                    Measured chips light only after jobs are ingested. Timeout
+                    and infra are not stumps.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="num">03</span>
+                <div>
+                  <h2>No borrowed leaderboards</h2>
+                  <p>
+                    We do not paste another lab’s leaderboard numbers onto these
+                    tasks. If a model has not finished a trial here, the cell
+                    stays <mark>not run</mark>.
+                  </p>
+                </div>
+              </li>
+            </ol>
+            <p class="later-link muted">
+              Later: <span class="mono">appliedwork.ai</span> — no blog yet.
+            </p>
+          </div>
 
-      <section id="surface-coverage" class="surface" hidden>
-        <h2>Coverage</h2>
-        <p>
-          Domain × primary language over the 100. Batch 01 seats: two scientific,
-          two security, one each of the other six Terminal-Bench families.
-          <strong>Selected</strong> means frozen in
-          <code>docs/lab_batch_01.jsonl</code>. <strong>Measured</strong> lights
-          only after Harbor jobs exist.
-        </p>
-        <div class="table-scroll">
-          <table class="matrix" id="coverage-table"></table>
+          <div class="hero-card">
+            <p class="hero-kicker" id="preview-kicker">Harbor package instruction</p>
+            <article class="instruction-card" aria-label="Instruction preview">
+              <div class="card-chrome">
+                <span class="badge-file" id="preview-badge">instruction.md</span>
+                <span class="muted" id="preview-meta"></span>
+              </div>
+              <pre class="code" id="preview-code"></pre>
+            </article>
+            <div class="pager" id="preview-pager" hidden>
+              <button type="button" id="preview-prev" aria-label="Previous instruction">‹</button>
+              <div class="dots" id="preview-dots"></div>
+              <button type="button" id="preview-next" aria-label="Next instruction">›</button>
+            </div>
+          </div>
         </div>
+
+        <section class="bento" aria-label="Coverage stats">
+          <article>
+            <p class="stat-label">Packages</p>
+            <p class="stat-value" id="stat-packages">100</p>
+            <p class="stat-note">always listed</p>
+          </article>
+          <article>
+            <p class="stat-label">Inventory</p>
+            <p class="stat-value" id="stat-inventory">448</p>
+            <p class="stat-note">private Harbor packages</p>
+          </article>
+          <article>
+            <p class="stat-label">Batch 01</p>
+            <p class="stat-value" id="stat-batch">10</p>
+            <p class="stat-note">frozen for 8+8 trials</p>
+          </article>
+          <article>
+            <p class="stat-label">Measured</p>
+            <p class="stat-value" id="stat-measured">0 → 0</p>
+            <p class="stat-note" id="stat-measured-note">jobs ingested → frontier 8/8</p>
+          </article>
+        </section>
+
+        <section class="charts" aria-label="Corpus mix">
+          <article>
+            <h2>Domain mix</h2>
+            <p>
+              Hamilton-proportional to the 448 inventory. Batch 01 seats two
+              scientific, two security, and one of each remaining Terminal-Bench
+              family.
+            </p>
+            <div class="bars" id="chart-domains"></div>
+          </article>
+          <article>
+            <h2>Primary languages</h2>
+            <p>
+              Counts from the 100 gallery only — not copied from another
+              benchmark’s stack chart.
+            </p>
+            <div class="bars" id="chart-langs"></div>
+          </article>
+          <article>
+            <h2>Instruction length</h2>
+            <p>
+              Characters in <code>instruction.md</code> for these 100 packages.
+              Median and spread are ours.
+            </p>
+            <div class="ecdf-wrap">
+              <svg id="chart-length" viewBox="0 0 320 140" role="img" aria-label="Instruction length ECDF"></svg>
+              <p class="chart-caption" id="chart-length-caption"></p>
+            </div>
+          </article>
+        </section>
+
+        <section class="coverage-block">
+          <h2>Coverage</h2>
+          <p class="muted">
+            Domain × primary language over the 100.
+            <strong>01</strong> marks a frozen batch-01 seat.
+            Green cells have ingested Harbor jobs (oracle or agent).
+          </p>
+          <div class="table-scroll">
+            <table class="matrix" id="coverage-table"></table>
+          </div>
+        </section>
+
+        <p class="footnote">
+          Runtime is private Harbor 0.22 + terminus-2 / oracle on an eval host
+          with Docker. This page is a static gallery. Frontier 160
+          (10 × 8 × 2) is not claimed complete.
+        </p>
       </section>
 
-      <section id="gallery" class="gallery surface" aria-labelledby="gallery-heading">
-        <div class="toolbar">
-          <h2 id="gallery-heading">Corpus</h2>
+      <section id="surface-tasks" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Tasks</h1>
+            <p class="muted" id="tasks-sub"></p>
+          </div>
           <label class="search">
             <span class="sr-only">Filter packages</span>
             <input
               id="q"
               type="search"
-              placeholder="Filter by name, category, or language"
+              placeholder="Filter by name, slug, category, or language"
               autocomplete="off"
             />
           </label>
-          <p id="shown" class="shown" aria-live="polite"></p>
         </div>
-        <div class="chips" id="chips" role="tablist" aria-label="Category filter"></div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Category</th>
-                <th scope="col">Languages</th>
-                <th scope="col">Measured</th>
-              </tr>
-            </thead>
-            <tbody id="rows"></tbody>
-          </table>
+        <div class="chips" id="chips" role="tablist" aria-label="Task filters"></div>
+        <p id="shown" class="shown" aria-live="polite"></p>
+        <div class="tasks-layout">
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Task</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Languages</th>
+                    <th scope="col">Batch</th>
+                    <th scope="col">Measured</th>
+                  </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+              </table>
+            </div>
+          </div>
+          <aside class="panel" id="panel" aria-labelledby="panel-title">
+            <p class="panel-kicker">Selected package</p>
+            <h2 id="panel-title">Choose a row</h2>
+            <p id="panel-empty" class="muted">
+              Open any environment for its summary, Harbor files, and rollout
+              status. Deep links use
+              <code>lab/index.html?task=&lt;slug&gt;</code>.
+            </p>
+            <div id="panel-body" hidden></div>
+          </aside>
         </div>
       </section>
 
-      <section id="surface-traces" class="surface" hidden>
-        <h2>Traces</h2>
-        <p id="traces-empty" class="muted">
-          No private Harbor trials are recorded. Trajectories appear here from
-          <code>jobs/**/trajectory.json</code> after terminus-2 runs.
-        </p>
-        <div id="traces-body"></div>
+      <section id="surface-agents" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Agents</h1>
+            <p class="muted">
+              Only private Harbor ingest. No effort curves, no copied Opus/GPT
+              scores, no invented 8/8.
+            </p>
+          </div>
+        </div>
+        <article class="empty-card" id="agents-empty">
+          <h2>Not run</h2>
+          <p>
+            No terminus-2 trials are recorded in the corpus yet. Oracle jobs
+            (if any) are integrity checks, not agent scores. After
+            <code>python scripts/ingest_lab_jobs.py</code>, this table shows
+            <strong>n/8 solved</strong> by model for batch-01 slugs that have
+            agent jobs.
+          </p>
+        </article>
+        <div id="agents-body" hidden>
+          <article class="chart-card">
+            <div class="chart-card-head">
+              <p class="muted">Frontier groups vs plan (8 attempts / model / task)</p>
+              <span class="pill">Harbor ingest only</span>
+            </div>
+            <p class="honest-banner">
+              Effort curves and Pareto frontiers are hidden until an 8-trial
+              group exists with cost data. Smoke and partial jobs are listed
+              below as recorded / 8 — not as a complete rate.
+            </p>
+            <div id="agents-summary"></div>
+          </article>
+          <div class="table-card">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Harness</th>
+                    <th scope="col">Tasks</th>
+                    <th scope="col">Recorded</th>
+                    <th scope="col">Solved</th>
+                    <th scope="col">Valid fail</th>
+                    <th scope="col">Infra</th>
+                    <th scope="col">Timeout</th>
+                    <th scope="col">Stump %</th>
+                  </tr>
+                </thead>
+                <tbody id="agent-rows"></tbody>
+              </table>
+            </div>
+          </div>
+          <div id="agent-task-breakdown"></div>
+        </div>
       </section>
-
-      <section id="surface-verifier" class="surface" hidden>
-        <h2>Verifier</h2>
-        <ul>
-          <li>Oracle must score 1.0 (<code>harbor run -a oracle -k 1</code>).</li>
-          <li>Empty submission (<code>nop</code>) must score 0, when that run exists.</li>
-          <li>Timeout is not a valid fail. Auth and Docker errors are infra, not stumps.</li>
-          <li>Binary channel = Harbor reward. Tests fraction only if the verifier exposes it. Rubric only if we author one.</li>
-        </ul>
-        <div id="verifier-body"></div>
-      </section>
-
-      <section id="surface-stump" class="surface" hidden>
-        <h2>Stump</h2>
-        <p>
-          <code>stump_pct = valid_fail / completed_trials × 100</code>.
-          Completed trials are solved + valid fail. Timeouts and infra are excluded.
-          Hidden until a denominator exists. No GRPO / σ until an 8-run group exists.
-        </p>
-        <div id="stump-body"></div>
-      </section>
-
-      <section id="surface-failures" class="surface" hidden>
-        <h2>Failure map</h2>
-        <p class="muted">
-          Taxonomy comes from traces and tests after jobs exist. A rubric column
-          is added only if Applied Work authors a rubric — test names are not a rubric.
-        </p>
-        <div id="failures-body"></div>
-      </section>
-
-      <section id="surface-harness" class="surface" hidden>
-        <h2>Harness</h2>
-        <dl class="meta">
-          <dt>Measured agent</dt>
-          <dd>terminus-2</dd>
-          <dt>Oracle</dt>
-          <dd>Harbor <code>oracle</code></dd>
-          <dt>Empty</dt>
-          <dd>Harbor <code>nop</code></dd>
-          <dt>Framework</dt>
-          <dd>Harbor 0.22</dd>
-          <dt>Trials</dt>
-          <dd><code>n_trials = n_attempts × tasks × agents</code>. CLI <code>-k</code> is n_attempts (independent trials). Concurrency <code>-n 1</code>.</dd>
-          <dt>Not measured</dt>
-          <dd>Claude Code, Codex CLI, mini-swe-agent — no invented estimates.</dd>
-        </dl>
-      </section>
-
-      <aside class="panel" id="panel" aria-labelledby="panel-title">
-        <p class="panel-kicker">Selected package</p>
-        <h2 id="panel-title">Choose a row</h2>
-        <p id="panel-empty" class="muted">
-          Open any environment to see its summary, Harbor files, and rollout
-          status. Deep links use
-          <code>lab/index.html?task=&lt;slug&gt;</code>.
-        </p>
-        <div id="panel-body" hidden></div>
-      </aside>
     </main>
+
+    <div class="modal" id="later-modal" hidden>
+      <div class="modal-card" role="dialog" aria-labelledby="later-title">
+        <h2 id="later-title">Later</h2>
+        <p id="later-body"></p>
+        <button type="button" class="btn btn-solid" id="later-close">Close</button>
+      </div>
+    </div>
 
     <footer class="foot">
       <p>
         Applied Work Worlds Lab · private Harbor 0.22 · terminus-2 / oracle ·
         later: <span class="mono">appliedwork.ai</span>
-      </p>
-      <p class="muted">
-        Not a copy of another lab’s optimisation playground. Traces, stump, and
-        solve chips stay dark until private Harbor trials are recorded.
       </p>
     </footer>
 

@@ -373,6 +373,10 @@ def build_corpus_task(catalog_row: dict) -> dict:
         "languages": languages,
         "summary": summary,
         "instruction_excerpt": excerpt(instruction_text) if instruction_text else excerpt(summary),
+        "instruction_chars": len(instruction_text),
+        "instruction_lines": (
+            instruction_text.count("\n") + (1 if instruction_text else 0)
+        ),
         "package_dir": catalog_row.get("package_dir") or f"tasks/latest/{slug}",
         "has_oracle": bool(catalog_row.get("has_oracle")),
         "has_tests": bool(catalog_row.get("has_tests")),
@@ -414,9 +418,92 @@ def attach_batch_placeholder(corpus: dict) -> dict:
         "oracle": "oracle",
         "empty": "nop",
         "harbor": "0.22",
+        "planned_attempts": 8,
         "n_trials": "n_attempts × n_tasks × n_agents; CLI -k is n_attempts (independent trials)",
         "estimated_not_measured": ["claude-code", "codex", "mini-swe-agent"],
     }
+    return corpus
+
+
+def _instruction_preview_lines(text: str, max_lines: int = 12) -> list[dict]:
+    lines = text.splitlines() or [""]
+    return [{"n": i, "text": line[:220]} for i, line in enumerate(lines[:max_lines], start=1)]
+
+
+def enrich_overview_stats(corpus: dict) -> dict:
+    """Attach instruction-length / language charts from our packages only.
+
+    Never invent scores. Lengths come from tasks/latest/<slug>/instruction.md
+    for the 100 gallery rows already in the corpus.
+    """
+    lengths: list[int] = []
+    lang_counts: Counter = Counter()
+    previews: list[dict] = []
+    for task in corpus["tasks"]:
+        slug = task["slug"]
+        path = TASKS_LATEST / slug / "instruction.md"
+        text = path.read_text(encoding="utf-8", errors="replace") if path.is_file() else ""
+        nchars = len(text)
+        nlines = text.count("\n") + (1 if text else 0)
+        task["instruction_chars"] = nchars
+        task["instruction_lines"] = nlines
+        lengths.append(nchars)
+        langs = task.get("languages") or []
+        lang_counts[langs[0] if langs else "—"] += 1
+        if task.get("batch") == 1 and len(previews) < 3:
+            previews.append(
+                {
+                    "slug": slug,
+                    "name": task.get("name") or slug,
+                    "chars": nchars,
+                    "lines": _instruction_preview_lines(text),
+                }
+            )
+    lengths.sort()
+
+    def percentile(p: float) -> int:
+        if not lengths:
+            return 0
+        idx = min(len(lengths) - 1, max(0, int(round((p / 100) * (len(lengths) - 1)))))
+        return lengths[idx]
+
+    bins = [(0, 1000), (1000, 2000), (2000, 3000), (3000, 5000), (5000, 10000), (10000, 10**9)]
+    histogram = []
+    for lo, hi in bins:
+        histogram.append(
+            {
+                "lo": lo,
+                "hi": None if hi >= 10**8 else hi,
+                "n": sum(1 for value in lengths if lo <= value < hi),
+            }
+        )
+    ecdf = []
+    if lengths:
+        step = max(1, len(lengths) // 24)
+        for i, value in enumerate(lengths):
+            if i % step == 0 or i == len(lengths) - 1:
+                ecdf.append({"chars": value, "frac": round((i + 1) / len(lengths), 4)})
+
+    lab = corpus.setdefault("lab", {})
+    harness = lab.setdefault("harness", {})
+    harness.setdefault("planned_attempts", 8)
+    lab["charts"] = {
+        "source": "tasks/latest/<slug>/instruction.md for the 100 gallery rows",
+        "copied_other_labs": False,
+        "instruction_length": {
+            "n": len(lengths),
+            "min": lengths[0] if lengths else 0,
+            "p25": percentile(25),
+            "median": percentile(50),
+            "p75": percentile(75),
+            "max": lengths[-1] if lengths else 0,
+            "mean": int(sum(lengths) / len(lengths)) if lengths else 0,
+            "histogram": histogram,
+            "ecdf": ecdf,
+        },
+        "language_mix": [{"language": name, "n": count} for name, count in lang_counts.most_common()],
+    }
+    lab["instruction_previews"] = previews
     return corpus
 
 
@@ -457,6 +544,7 @@ def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: d
         "tasks": tasks,
     }
     attach_batch_placeholder(corpus)
+    enrich_overview_stats(corpus)
     CORPUS_JSON.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(corpus, ensure_ascii=False, indent=2)
     CORPUS_JSON.write_text(payload + "\n", encoding="utf-8")

@@ -173,5 +173,45 @@ class IngestIsolationTests(unittest.TestCase):
             self.assertNotIn(outsider, corpus["lab"]["measured_slugs"])
 
 
+class LabUiIdentityTests(unittest.TestCase):
+    def test_static_lab_keeps_applied_work_identity(self):
+        html = (ROOT / "lab" / "index.html").read_text(encoding="utf-8")
+        css = (ROOT / "lab" / "lab.css").read_text(encoding="utf-8")
+        js = (ROOT / "lab" / "lab.js").read_text(encoding="utf-8")
+        self.assertIn("Applied Work Worlds Lab", html)
+        self.assertIn("data-nav=\"overview\"", html)
+        self.assertIn("data-nav=\"tasks\"", html)
+        self.assertIn("data-nav=\"agents\"", html)
+        self.assertNotIn("Senior SWE-Bench", html)
+        self.assertNotIn("snorkel.ai", html.lower())
+        self.assertIn("#fdfbf7", css.lower())
+        self.assertIn("#7b6cf0", css.lower())
+        self.assertNotIn("#b5471a", css)
+        self.assertIn("not run", js.lower())
+        self.assertNotIn("8/8 solved", js)
+        self.assertIn("https://github.com/Sivadheeraj5356/terminus-logs", html)
+
+    def test_enrich_overview_stats_uses_our_instruction_files(self):
+        from build_lab_corpus import enrich_overview_stats
+
+        corpus = {
+            "lab": {"harness": {}, "batch_01_slugs": []},
+            "tasks": [
+                {
+                    "slug": "repair-the-pendulum-motion-solver",
+                    "name": "Pendulum",
+                    "batch": 1,
+                    "languages": ["Python"],
+                }
+            ],
+        }
+        enrich_overview_stats(corpus)
+        chars = corpus["tasks"][0]["instruction_chars"]
+        self.assertGreater(chars, 500)
+        self.assertEqual(corpus["lab"]["charts"]["copied_other_labs"], False)
+        self.assertGreaterEqual(corpus["lab"]["charts"]["instruction_length"]["n"], 1)
+        self.assertTrue(corpus["lab"]["instruction_previews"])
+
+
 if __name__ == "__main__":
     unittest.main()

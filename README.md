@@ -21,6 +21,7 @@ Each unique submission UUID is kept once (latest revision). Older `*_submission_
 - Caudal lab comparison (package gallery vs rollout/signal lab): [`docs/Caudal_Lab_Reference_and_Similarity.md`](docs/Caudal_Lab_Reference_and_Similarity.md)
 - Applied Work Environments Lab (100 unique packages, rollouts **not run**): [`lab/index.html`](lab/index.html)
 - Worlds Lab spec (10×8+8 then next 10): [`docs/AppliedWork_Worlds_Lab_Spec.md`](docs/AppliedWork_Worlds_Lab_Spec.md)
+- Founder share (PR / zip / how to watch Harbor): [`docs/Founder_Share.md`](docs/Founder_Share.md)
 - Lab build plan: [`docs/AppliedWork_Lab_Build_Plan.md`](docs/AppliedWork_Lab_Build_Plan.md)
 - MVP 100-list: [`docs/lab_mvp_100.jsonl`](docs/lab_mvp_100.jsonl)
 - First measured ten: [`docs/lab_batch_01.jsonl`](docs/lab_batch_01.jsonl)
@@ -29,7 +30,7 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 `stump_pct = valid_failures / completed_trials * 100`. Timeouts and infrastructure errors do not count.
 
-The Worlds Lab is a static gallery over 100 unique packages plus eight surfaces (Worlds, Coverage, Corpus, Traces, Verifier, Stump, Failure map, Harness). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Serve from the repo root (`python -m http.server 8765`) and open `/lab/index.html?task=<slug>`.
+The Worlds Lab is a static gallery over 100 unique packages (Overview / Tasks / Agents). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Serve from the repo root (`python -m http.server 8765`) and open `/lab/index.html?task=<slug>`. To send the gallery tonight, see [`docs/Founder_Share.md`](docs/Founder_Share.md).
 
 ## Rebuild (local)
 

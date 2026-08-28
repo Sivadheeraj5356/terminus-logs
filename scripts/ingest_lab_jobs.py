@@ -28,6 +28,7 @@ from build_lab_corpus import (  # noqa: E402
     CORPUS_JS,
     CORPUS_JSON,
     JSONL as MVP_JSONL,
+    enrich_overview_stats,
     hamilton_quotas,
     load_catalog,
     write_corpus,
@@ -140,6 +141,7 @@ def apply_to_corpus(corpus: dict, batch: list[dict], reports: list[dict]) -> dic
             f"{len(measured_slugs)} of 10 batch-01 packages have Harbor jobs. "
             "The other gallery rows stay not run."
         )
+    enrich_overview_stats(corpus)
     return corpus
 
 
