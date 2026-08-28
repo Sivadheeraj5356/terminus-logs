@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-28T18:59:19Z",
+  "generated_utc": "2026-08-28T21:10:15Z",
   "host": "cursor",
   "keys": {
     "anthropic_present": true,
@@ -208,9 +208,10 @@
     "skipped": false,
     "started": true,
     "stopped": true,
-    "stop_reason": "Stopped after task 3 (dyeworks). Anthropic returned credit-balance-too-low BadRequestError on 7/8 dyeworks Opus trials (plus 1 agent timeout that still scored reward 1.0). That is an error/spend spike, not a stump. GPT-5.6-sol was still authenticating. Remaining 7 packages and batch 02 were not started.",
-    "frontier_jobs_started": 44,
+    "stop_reason": "Lean stop: cap hit (~$20 Anthropic budget). Harbor resume worker killed 2026-08-28T21:10Z. Dyeworks Opus 7/8 (credit infra on 3); GPT 3/8 partial. Remaining 7 packages and batch 02 deliberately not started.",
+    "frontier_jobs_started": 42,
     "target_frontier_jobs": 160,
+    "frontier_completed_trials": 37,
     "trials": 8,
     "concurrent": 1,
     "opus_model": "anthropic/claude-opus-5",
@@ -226,15 +227,15 @@
       "pendulum_gpt": 2.36,
       "hypersonic_opus": 12.82,
       "hypersonic_gpt": 3.05,
-      "dyeworks_opus": 5.01,
+      "dyeworks_opus": 13.02,
       "dyeworks_gpt_partial": 1.27,
-      "plus_earlier_smoke": 1.24,
-      "harbor_reported_measure_jobs": 40.51,
-      "note": "Harbor job rollup cost_usd only; smoke extra ~1.24. Not a billing invoice."
+      "plus_earlier_smoke": 1.25,
+      "harbor_reported_total": 49.67,
+      "note": "Harbor job rollup cost_usd only. Not a billing invoice. Lean stop — no further frontier jobs."
     },
     "anthropic_credit_exhausted": true
   },
   "ok_to_smoke": true,
   "ok_to_measure_160": false,
-  "note": "Smoke was green. Oracle dropped EDGE-GO-MOD-Q1. Measure ran 8x2 on two tasks, then dyeworks Opus hit Anthropic credit-balance errors. 160-run batch was stopped; batch 02 was not started. No invented scores on the other 90."
+  "note": "Smoke was green. Oracle dropped EDGE-GO-MOD-Q1. Frontier 8+8 stopped at 37/160 completed trials (2 full tasks + partial dyeworks). Remaining 7 packages oracle-only by lean choice. Batch 02 not started. See docs/lab_batch_01_lean_status.md."
 }

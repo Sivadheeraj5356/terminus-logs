@@ -1,17 +1,18 @@
 # Batch 01 loss analysis
 
-Generated 2026-08-28T18:03Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`.  
+Generated 2026-08-28T21:10Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`.  
 `stump_pct = valid_fail / (solved + valid_fail) × 100`. Timeout and infra are excluded. No Caudal/SSB scores. No rubric channel.
 
 ## Headlines
 
 - **Frozen batch 01: 10 tasks.** Go oracle-fail `release-still-signs-edge-go-mod-q1-green-while-the-dependenc` (reward 0.0, 5 `TestLiveProxyIntegrity` failures) was dropped and replaced by `i-need-the-offline-binary-cache-closure-planner-in-app-task` (oracle 1.0). See `docs/lab_batch_01_exclusions.json`.
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
-- **Agent trials toward the 160 (10 × 8 Opus + 8 gpt-5.6-sol): 32/160 recorded.** Two tasks have both k=8 groups. Task 3 (dyeworks) Opus k=8 is in flight and is **not** in these 32.
-- Smoke extras (not in the 160): 3 pendulum trials (Opus compose solved, Opus first-pass infra, GPT valid fail).
-- **Tasks with agent `completed_trials ≥ 1`:** pendulum, hypersonic. The other eight frozen slugs are oracle-only so far — do not read their ingest `stump_pct` 0.0 as a model result.
+- **Frontier 8+8 stopped by budget decision.** Cap hit mid-task-3 (dyeworks). Harbor resume worker killed; no batch 02; no remaining 7×16 frontier jobs.
+- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks); **7 tasks oracle-only** (deliberately unmeasured on frontier).
+- **Frontier completed trials:** 37 of 160 planned (solved + valid_fail only).
+- Smoke extras (not in the 160): 2 pendulum smoke trials (Opus compose solved, GPT valid fail) plus 1 failed Opus smoke (compose plugin missing, infra).
 
-## Frontier k=8 (the 160)
+## Frontier k=8 (stopped at 37/160 completed)
 
 | Task | Model | n | solved | valid_fail | timeout | infra | stump% |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -21,11 +22,14 @@ Generated 2026-08-28T18:03Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`
 | hypersonic-fragment-cascade-epoch-atlas | anthropic/claude-opus-5 | 8 | 7 | 1 | 0 | 0 | **12.5** |
 | hypersonic-fragment-cascade-epoch-atlas | openai/gpt-5.6-sol | 8 | 2 | 6 | 0 | 0 | **75.0** |
 | hypersonic-fragment-cascade-epoch-atlas | both | 16 | 9 | 7 | 0 | 0 | **43.8** |
-| **two-task total** | **both** | **32** | **16** | **15** | **0** | **1** | **48.4** |
+| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | anthropic/claude-opus-5 | 7 | 2 | 2 | 0 | 3 | **50.0** |
+| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | openai/gpt-5.6-sol | 3 | 0 | 2 | 0 | 1 | **100.0** |
+| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | both (partial) | 10 | 2 | 4 | 0 | 4 | **66.7** |
+| **measured total** | **both** | **42 slots** | **18** | **19** | **0** | **5** | **51.4** |
 
-Eight frozen tasks have **no** k=8 agent rows yet (oracle only): dyeworks (C), root-CA mTLS (C++), Apexora campus (Bash), offline binary-cache (Go), Harborlane replay (Haskell), stratified k-fold (Java), wildlife counting (JavaScript), booking-slot-merge (Rust).
+Seven frozen tasks have **no** frontier k=8 rows (oracle only, lean): root-CA mTLS (C++), Apexora campus (Bash), offline binary-cache (Go), Harborlane replay (Haskell), stratified k-fold (Java), wildlife counting (JavaScript), booking-slot-merge (Rust).
 
-Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus trial `…__yAuWxNK` has verifier **reward 1.0** and `AgentTimeoutError` after 1800s. It is **solved**, not timeout. Harbor’s job rollup counted two pendulum Opus errors; ingest counts one infra (credit) and this passing timeout as solved.
+Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus trial `…__yAuWxNK` has verifier **reward 1.0** and `AgentTimeoutError` after 1800s. It is **solved**, not timeout. Dyeworks Opus trial `…__uZFqDH3` similarly scored reward 1.0 with timeout after solve.
 
 ## What ingest / the lab UI actually stores
 
@@ -35,8 +39,8 @@ Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | repair-the-pendulum-motion-solver | 20 | 9 | 9 | 0 | 2 | 50.0 | yes (Opus n=10, GPT n=9) |
 | hypersonic-fragment-cascade-epoch-atlas | 17 | 10 | 7 | 0 | 0 | 41.2 | yes (8+8) |
-| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | 1 | 1 | 0 | 0 | 0 | — | no (oracle only; Opus k=8 running) |
-| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 1 | 1 | 0 | 0 | 0 | — | no |
+| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | 11 | 3 | 4 | 0 | 4 | 57.1 | partial (Opus 7, GPT 3) |
+| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 1 | 1 | 0 | 0 | 0 | — | no (oracle only) |
 | apexora-global-wave-3-campus-segmentation-is-blocked-across | 1 | 1 | 0 | 0 | 0 | — | no |
 | i-need-the-offline-binary-cache-closure-planner-in-app-task | 1 | 1 | 0 | 0 | 0 | — | no |
 | the-harborlane-replay-desk-needs-a-reusable-offline-planner | 1 | 1 | 0 | 0 | 0 | — | no |
@@ -44,11 +48,11 @@ Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus
 | wildlife-counting-becomes-a-field-planning-game-when-uncerta | 1 | 1 | 0 | 0 | 0 | — | no |
 | booking-slot-merge | 1 | 1 | 0 | 0 | 0 | — | no |
 
-Stump% in this table is omitted for oracle-only rows (`completed` agent trials = 0). Lab chips still show `oracle` for those eight.
+Stump% in this table is omitted for oracle-only rows (`completed` agent trials = 0). Lab chips show `oracle` for those seven — not fake 8/8.
 
 ## Loss themes (from `verifier/test-stdout.txt` + trajectories)
 
-Every valid-fail ran pytest. None were empty, wrapper-only, or “never ran tests.” Builds (`python recover_motion.py`, `tsc`) succeeded on the failing rows.
+Every valid-fail ran pytest (or equivalent). None were empty, wrapper-only, or “never ran tests.” Builds succeeded on the failing rows.
 
 ### Pendulum — wrong capture cadence (GPT, 7/8 k=8 + smoke)
 
@@ -63,7 +67,7 @@ Opus fail `…__fzbUafx`: **7 passed, 1 failed** — frequencies/decays were in 
 ### Pendulum — infra (excluded from stump)
 
 - Smoke `lab-smoke-opus`: Docker Compose v2 missing (`unknown flag: --project-name`). Later smoke with the plugin installed solved.
-- k=8 `…__az2J4Ya`: Anthropic **credit balance too low** (HTTP 400) mid-loop. Later Opus jobs on hypersonic completed, and dyeworks Opus is running, so this was not a hard stop.
+- k=8 `…__az2J4Ya`: Anthropic **credit balance too low** (HTTP 400) mid-loop.
 
 ### Hypersonic — reference hash / epoch time (GPT 6/8, Opus 1/8)
 
@@ -79,15 +83,29 @@ Agents’ last analyses claim the TypeScript pipeline is complete after checking
 
 Opus fail `…__24tWaEA`: **19 passed, 1 failed** (`test_alpha_collision_occurs_and_matches_reference`, atlas_hash mismatch only). Two GPT k=8 trials passed all 20 tests.
 
-## Running vs blocked
+### Dyeworks — parser bounds / section validation (partial; GPT 2/3 valid fail)
+
+GPT valid fails (2 of 3 completed): agents identify real gaps (ULEB decoders ignore section bounds, missing container-version check, duplicate section names, offset+size vs file length, uint32 overflow in node allocation, unbounded tree depth) but patches do not pass hidden invalid fixtures. Trajectories show correct diagnosis of `sectab.c` and `uleb.c` weaknesses; verifier still rejects malformed inputs.
+
+Opus: 2 solves (including one post-timeout reward 1.0), 2 valid fails, 3 **credit-balance-too-low** infra (excluded from stump). Job stopped at 7/8 Opus; GPT job stopped at 3/8.
+
+## Spend and stop state
 
 | Item | State |
 | --- | --- |
-| Harbor process | **Running** (do not start a second one): `harbor run` Opus k=8 on dyeworks, job `lab01-opus-the-dyeworks-tool-is-a-command-line-`, concurrency 1 |
-| Sequential measure | `/tmp/run_lab_measure.py` `STOP_AFTER=3`. After dyeworks Opus it will start dyeworks GPT k=8, then stop. **Batch 02 is not started.** |
-| Spend after 2 full tasks | **$34.14** (pendulum ~$18.26, hypersonic ~$15.88). Under the runner’s $40-after-task-2 brake, so task 3 started. 160 remaining overnight is still the wrong claim. |
-| Keys | Present in the Harbor shell (not printed). One historical Anthropic credit-low infra; not currently blocking. |
-| Docker / Harbor 0.22 | Up. |
+| Harbor frontier measure | **Stopped** — resume worker killed 2026-08-28T21:10Z |
+| Remaining 7 packages | **Not measured** on frontier (lean; by choice) |
+| Batch 02 | **Not started** |
+| Harbor-reported spend | **~$49.67** (~$48 measure jobs + ~$2 smoke) |
+| Anthropic credits | **Exhausted** for new Opus jobs; skip new Anthropic until budget reset |
+| Docker / Harbor 0.22 | Up |
+
+## Recommendation
+
+- **Stop frontier 8+8.** Mid-band variance thesis does not justify 8+8 on all ten at this budget; stats from 32 full + partial dyeworks are sufficient for a founder draft.
+- **BPO proof** = frozen worlds + oracle 10/10 + reproducible stumps on pendulum/hypersonic + partial C security signal — not 160 Opus jobs.
+- **Optional later:** 1-trial cheap-model probe (Sonnet/Haiku or gpt-4o-mini) per oracle-only task if language breadth is needed.
+- **Applied Worlds R&D** can wait until profitable; this batch is not required for a BPO.
 
 ## What the founder sees after this ingest
 
@@ -96,12 +114,14 @@ Serve from repo root (`python -m http.server 8765`) and open:
 - Batch table: [`/lab/index.html?surface=tasks&filter=batch`](../lab/index.html?surface=tasks&filter=batch)
 - Pendulum: [`/lab/index.html?task=repair-the-pendulum-motion-solver`](../lab/index.html?task=repair-the-pendulum-motion-solver)
 - Hypersonic: [`/lab/index.html?task=hypersonic-fragment-cascade-epoch-atlas`](../lab/index.html?task=hypersonic-fragment-cascade-epoch-atlas)
+- Dyeworks: [`/lab/index.html?task=the-dyeworks-tool-is-a-command-line-reader-at-app-environmen`](../lab/index.html?task=the-dyeworks-tool-is-a-command-line-reader-at-app-environmen)
 - Agents: [`/lab/index.html?surface=agents`](../lab/index.html?surface=agents)
 
-Chips are **solved / 8 planned**, not “recorded / 8”:
+Chips reflect **recorded** trials, not planned 8/8:
 
-- Pendulum: `Opus 5 7/8` (6 k=8 solves + 1 smoke solve) and `GPT-5.6-sol 1/8`
-- Hypersonic: `Opus 5 7/8` and `GPT-5.6-sol 2/8`
-- Other eight batch rows: `oracle` only until k=8 jobs finish and are ingested again
+- Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8
+- Hypersonic: Opus 7/8; GPT 2/8
+- Dyeworks: Opus 2/7 completed (partial); GPT 0/3 completed (partial)
+- Other seven batch rows: `oracle` only
 
-The other 90 gallery rows stay **not run**. Refresh the lab after the next ingest; live `jobs/` is gitignored and does not appear until classify.
+The other 90 gallery rows stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.
