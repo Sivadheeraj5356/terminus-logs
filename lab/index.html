@@ -8,10 +8,11 @@
       name="description"
       content="Applied Work Worlds Lab: 100 unique Harbor packages. Measured chips appear only after private Harbor jobs exist."
     />
+    <meta name="theme-color" content="#F7F4EE" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="lab.css" />
@@ -60,13 +61,12 @@
         </a>
         <button
           type="button"
-          class="btn btn-solid"
+          class="btn btn-disabled"
           id="harbor-hub-btn"
           aria-disabled="true"
           title="Private Harbor 0.22 on the eval host — not a public Harbor Hub dataset"
         >
           Harbor Hub
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M10 5H5v14h14v-5"/></svg>
         </button>
         <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode">
           <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.3A8.5 8.5 0 1 1 9.7 3 7 7 0 0 0 21 14.3z"/></svg>
@@ -78,12 +78,16 @@
     <main id="main">
       <section id="surface-overview" class="page" hidden>
         <div class="hero">
-          <div class="manifesto">
+          <div class="hero-copy">
             <p class="eyebrow">Applied Work</p>
             <h1>Worlds Lab</h1>
-            <p class="lede-strong">
-              We treat agents like senior engineers. The gallery is real Harbor
-              packages — not a junior checklist, and not another lab’s scores.
+            <p class="lede">
+              A gallery of 100 Harbor packages for measuring agents as senior
+              engineers — not a junior checklist, and not another lab’s scores.
+            </p>
+            <p class="lede-sub">
+              Each row is a real Harbor 0.22 world. Measured chips appear only
+              after private jobs are ingested.
             </p>
             <ol class="points">
               <li>
@@ -91,24 +95,20 @@
                 <div>
                   <h2>One hundred authored worlds</h2>
                   <p>
-                    Each row is a Harbor 0.22 package:
-                    <mark>instruction.md</mark>, Docker
-                    <mark>environment/</mark>, <mark>oracle</mark>, and
-                    <mark>tests</mark>. Selected from a private inventory of 448.
-                    The gallery always lists all 100.
+                    Harbor packages with instruction.md, Docker environment,
+                    oracle, and tests. Selected from 448; the gallery always
+                    lists all 100.
                   </p>
                 </div>
               </li>
               <li>
                 <span class="num">02</span>
                 <div>
-                  <h2>Measure in tens, not in slogans</h2>
+                  <h2>Measure in tens</h2>
                   <p>
-                    Batch 01 freezes <mark>10 packages</mark>. Frontier plan is
-                    <mark>8 × Opus 5</mark> and
-                    <mark>8 × gpt-5.6-sol</mark> on terminus-2.
-                    Measured chips light only after jobs are ingested. Timeout
-                    and infra are not stumps.
+                    Batch 01 freezes 10 packages. Frontier plan is 8 × Opus 5
+                    and 8 × gpt-5.6-sol on terminus-2. Chips light only after
+                    jobs exist.
                   </p>
                 </div>
               </li>
@@ -117,9 +117,8 @@
                 <div>
                   <h2>No borrowed leaderboards</h2>
                   <p>
-                    We do not paste another lab’s leaderboard numbers onto these
-                    tasks. If a model has not finished a trial here, the cell
-                    stays <mark>not run</mark>.
+                    We do not paste another lab’s numbers onto these tasks. If a
+                    model has not finished a trial here, the cell stays not run.
                   </p>
                 </div>
               </li>
@@ -133,7 +132,7 @@
             <p class="hero-kicker" id="preview-kicker">Harbor package instruction</p>
             <article class="instruction-card" aria-label="Instruction preview">
               <div class="card-chrome">
-                <span class="badge-file" id="preview-badge">instruction.md</span>
+                <span class="file-name" id="preview-badge">instruction.md</span>
                 <span class="muted" id="preview-meta"></span>
               </div>
               <pre class="code" id="preview-code"></pre>
@@ -150,22 +149,22 @@
           <article>
             <p class="stat-label">Packages</p>
             <p class="stat-value" id="stat-packages">100</p>
-            <p class="stat-note">always listed</p>
+            <p class="stat-note">Public gallery, always listed</p>
           </article>
           <article>
             <p class="stat-label">Inventory</p>
             <p class="stat-value" id="stat-inventory">448</p>
-            <p class="stat-note">private Harbor packages</p>
+            <p class="stat-note">Private Harbor packages</p>
           </article>
           <article>
             <p class="stat-label">Batch 01</p>
             <p class="stat-value" id="stat-batch">10</p>
-            <p class="stat-note">frozen for 8+8 trials</p>
+            <p class="stat-note">Frozen for 8×8 trials</p>
           </article>
           <article>
             <p class="stat-label">Measured</p>
-            <p class="stat-value" id="stat-measured">0 → 0</p>
-            <p class="stat-note" id="stat-measured-note">jobs ingested → frontier 8/8</p>
+            <p class="stat-value" id="stat-measured">0</p>
+            <p class="stat-note" id="stat-measured-note">Packages with ingested Harbor jobs</p>
           </article>
         </section>
 
@@ -205,7 +204,7 @@
           <p class="muted">
             Domain × primary language over the 100.
             <strong>01</strong> marks a frozen batch-01 seat.
-            Green cells have ingested Harbor jobs (oracle or agent).
+            Teal cells have ingested Harbor jobs (oracle or agent).
           </p>
           <div class="table-scroll">
             <table class="matrix" id="coverage-table"></table>
@@ -225,6 +224,9 @@
             <h1>Tasks</h1>
             <p class="muted" id="tasks-sub"></p>
           </div>
+        </div>
+        <div class="toolbar">
+          <div class="chips" id="chips" role="tablist" aria-label="Task filters"></div>
           <label class="search">
             <span class="sr-only">Filter packages</span>
             <input
@@ -235,7 +237,6 @@
             />
           </label>
         </div>
-        <div class="chips" id="chips" role="tablist" aria-label="Task filters"></div>
         <p id="shown" class="shown" aria-live="polite"></p>
         <div class="tasks-layout">
           <div class="table-card">
@@ -257,11 +258,16 @@
           <aside class="panel" id="panel" aria-labelledby="panel-title">
             <p class="panel-kicker">Selected package</p>
             <h2 id="panel-title">Choose a row</h2>
-            <p id="panel-empty" class="muted">
-              Open any environment for its summary, Harbor files, and rollout
-              status. Deep links use
-              <code>lab/index.html?task=&lt;slug&gt;</code>.
-            </p>
+            <div id="panel-empty" class="panel-empty">
+              <p>
+                Select a task to open its summary, Harbor files, and ingest
+                status.
+              </p>
+              <p class="hint">
+                Deep links use
+                <code>lab/index.html?task=&lt;slug&gt;</code>.
+              </p>
+            </div>
             <div id="panel-body" hidden></div>
           </aside>
         </div>

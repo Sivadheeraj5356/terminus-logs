@@ -152,6 +152,8 @@
   function applyTheme(theme) {
     const next = theme === "dark" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute("content", next === "dark" ? "#0C1412" : "#F7F4EE");
     try {
       localStorage.setItem("aw-lab-theme", next);
     } catch (_) {
@@ -172,6 +174,7 @@
       toggle.addEventListener("click", () => {
         const now = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
         applyTheme(now);
+        if (currentSurface() === "overview") renderLengthChart();
       });
     }
   }
@@ -293,6 +296,10 @@
     if (!task) {
       panelTitle.textContent = "Choose a row";
       panelEmpty.hidden = false;
+      panelEmpty.innerHTML = `
+        <p>Select a task to open its summary, Harbor files, and ingest status.</p>
+        <p class="hint">Deep links use <code>lab/index.html?task=&lt;slug&gt;</code>.</p>
+      `;
       panelBody.hidden = true;
       panelBody.innerHTML = "";
       return;
@@ -330,8 +337,12 @@
         <dd class="mono">${escapeHtml(task.slug)}</dd>
         <dt>Oracle / tests</dt>
         <dd>
-          <span class="chip chip-ok">${task.has_oracle ? "oracle" : "no oracle"}</span>
-          <span class="chip chip-ok">${task.has_tests ? "tests" : "no tests"}</span>
+          <span class="chip ${task.has_oracle ? "chip-ok" : "chip-muted"}">${
+            task.has_oracle ? "oracle" : "no oracle"
+          }</span>
+          <span class="chip ${task.has_tests ? "chip-ok" : "chip-muted"}">${
+            task.has_tests ? "tests" : "no tests"
+          }</span>
         </dd>
         <dt>Batch</dt>
         <dd>${task.batch === 1 ? "01 selected" : "gallery only"}</dd>
@@ -440,9 +451,12 @@
       })
       .join(" ");
     const area = `${pad},${h - pad} ${pts} ${w - pad},${h - pad}`;
+    const dark = document.documentElement.getAttribute("data-theme") === "dark";
+    const stroke = dark ? "#2A9A90" : "#0F766E";
+    const fill = dark ? "rgba(42,154,144,0.18)" : "rgba(15,118,110,0.14)";
     svg.innerHTML = `
-      <polyline fill="rgba(123,108,240,0.16)" stroke="none" points="${area}"></polyline>
-      <polyline fill="none" stroke="#7b6cf0" stroke-width="2" points="${pts}"></polyline>
+      <polyline fill="${fill}" stroke="none" points="${area}"></polyline>
+      <polyline fill="none" stroke="${stroke}" stroke-width="2" points="${pts}"></polyline>
     `;
   }
 
@@ -484,9 +498,10 @@
     document.getElementById("stat-packages").textContent = String(corpus.lab.mvp_size || tasks.length);
     document.getElementById("stat-inventory").textContent = String(corpus.lab.inventory_size || 448);
     document.getElementById("stat-batch").textContent = String(corpus.lab.batch_01_size || 10);
-    document.getElementById("stat-measured").textContent = `${jobs} → ${frontier}`;
+    document.getElementById("stat-measured").textContent = String(jobs);
     document.getElementById("stat-measured-note").textContent =
-      `${jobs} with Harbor jobs (mostly oracle) · ${agentN} with agent trials · ${frontier} with a completed ${PLANNED}/${PLANNED} group`;
+      `${jobs} packages have Harbor jobs (oracle or agent). ${frontier} have a completed ${PLANNED}/${PLANNED} frontier group` +
+      (agentN ? ` · ${agentN} with agent trials` : "");
 
     const domains = Object.keys(CATEGORY_LABELS).map((key) => ({
       label: categoryLabel(key).split(" ")[0],
@@ -547,8 +562,8 @@
       .map((row, i) => {
         const planned = (corpus.lab.batch_01_size || 10) * PLANNED;
         const pct = Math.min(100, Math.round((row.n / Math.max(planned, 1)) * 100));
-        return `<div class="model-line"><span class="dot" style="background:${
-          i ? "#e08a4a" : "#3d9b6e"
+        return `<div class="model-line"><span class="dot${
+          i ? " dot-alt" : ""
         }"></span><strong>${escapeHtml(shortModel(row.model))}</strong>
           <span>${row.solved} solved / ${row.n} recorded on ${row.tasks} task${row.tasks === 1 ? "" : "s"}
           (plan ${planned} = 10×${PLANNED})
@@ -602,9 +617,9 @@
     const el = document.getElementById("tasks-sub");
     const jobs = tasks.filter(hasJobs).length;
     const frontier = tasks.filter(frontierComplete).length;
-    el.innerHTML = `${tasks.length} public gallery packages (${corpus.lab.inventory_size} inventory). Batch 01 = ${
+    el.textContent = `${tasks.length} gallery packages · ${corpus.lab.inventory_size} inventory · ${
       corpus.lab.batch_01_size
-    }. Harbor jobs ingested = ${jobs}. Completed ${PLANNED}/${PLANNED} frontier groups = ${frontier}.`;
+    } in batch 01 · ${jobs} with Harbor jobs · ${frontier} with a completed ${PLANNED}/${PLANNED} group`;
   }
 
   function renderAll() {
