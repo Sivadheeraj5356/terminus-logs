@@ -80,7 +80,10 @@
   function currentSurface() {
     const raw = (params().get("surface") || "").toLowerCase();
     if (raw && SURFACE_ALIASES[raw]) return SURFACE_ALIASES[raw];
-    return currentSlug() ? "tasks" : "overview";
+    if (currentSlug()) return "tasks";
+    const filter = (params().get("filter") || "").toLowerCase();
+    if (filter && filter !== "all") return "tasks";
+    return "overview";
   }
 
   function setUrl({ slug, surface, filter, push }) {

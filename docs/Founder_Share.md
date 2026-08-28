@@ -53,9 +53,11 @@ and open `/lab/index.html`. The other 98 package file links 404 unless they have
 
 Live while this cloud-agent VM is awake:
 
-**https://pierre-direct-healthy-correct.trycloudflare.com/lab/index.html?surface=tasks&task=repair-the-pendulum-motion-solver&filter=games**
+**https://retrieval-text-roller-instructors.trycloudflare.com/lab/index.html?filter=batch**
 
-Base: https://pierre-direct-healthy-correct.trycloudflare.com
+Batch 01 table (10 frozen rows): https://retrieval-text-roller-instructors.trycloudflare.com/lab/index.html?surface=tasks&filter=batch
+
+Base: https://retrieval-text-roller-instructors.trycloudflare.com
 
 That trycloudflare hostname is a **quick tunnel**. It dies when the VM sleeps or `cloudflared` exits. It is not a stable custom domain.
 
@@ -112,7 +114,7 @@ Honest snapshot (re-ingest after jobs finish):
 
 - Harbor 0.22 + Docker probe: green
 - Frozen 10: oracle 1.0 (Go oracle-fail package dropped and replaced)
-- Frontier recorded: **32/160** (pendulum + hypersonic, 8×2 each). Dyeworks Opus k=8 is the live job.
+- Frontier recorded: **37/160** completed trials (pendulum + hypersonic full 8×2; dyeworks partial Opus 7/8 + GPT 3/8). Anthropic credits and OpenAI quota blocked frontier continuation; cheap-model probe may add 1-trial rows on oracle-only slugs.
 - Loss analysis: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md). Timeout/infra are not stumps. Target remains **160**. Not complete.
 
 ---
