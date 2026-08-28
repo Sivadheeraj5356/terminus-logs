@@ -129,7 +129,8 @@
     return raw.replace(/^anthropic\//, "").replace(/^openai\//, "");
   }
 
-  function matches(task) {
+  function matchesFilter(task) {
+    if (!task) return false;
     if (category === "batch" && task.batch !== 1) return false;
     if (category === "measured" && !hasJobs(task)) return false;
     if (category === "agents" && !hasAgentJobs(task)) return false;
@@ -142,6 +143,11 @@
     ) {
       return false;
     }
+    return true;
+  }
+
+  function matches(task) {
+    if (!matchesFilter(task)) return false;
     if (!query) return true;
     const hay = [task.name, task.slug, task.category, categoryLabel(task.category), languages(task).join(" ")]
       .join(" ")
@@ -237,6 +243,8 @@
         setUrl({ surface: "tasks", filter: key, push: true });
         renderChips();
         renderTable();
+        const slug = currentSlug();
+        if (slug) renderPanel(bySlug.get(slug) || null);
       });
       chipsEl.appendChild(button);
     });
@@ -272,7 +280,11 @@
       });
       rowsEl.appendChild(tr);
     });
-    shownEl.textContent = `${visible.length} of ${tasks.length}`;
+    const selectedTask = selected ? bySlug.get(selected) : null;
+    const outside = Boolean(selectedTask && !matches(selectedTask));
+    shownEl.textContent = outside
+      ? `${visible.length} of ${tasks.length} · selected package is outside this filter`
+      : `${visible.length} of ${tasks.length}`;
   }
 
   function fileList(task) {
@@ -293,12 +305,14 @@
   }
 
   function renderPanel(task) {
+    const kicker = document.querySelector("#panel .panel-kicker");
     if (!task) {
+      if (kicker) kicker.textContent = "Selected package";
       panelTitle.textContent = "Choose a row";
       panelEmpty.hidden = false;
       panelEmpty.innerHTML = `
         <p>Select a task to open its summary, Harbor files, and ingest status.</p>
-        <p class="hint">Deep links use <code>lab/index.html?task=&lt;slug&gt;</code>.</p>
+        <p class="hint">Deep links use <code>lab/index.html?surface=tasks&amp;task=&lt;slug&gt;</code>. A <code>filter=</code> chip can stay; <code>task</code> still opens this panel.</p>
       `;
       panelBody.hidden = true;
       panelBody.innerHTML = "";
@@ -307,6 +321,11 @@
     panelEmpty.hidden = true;
     panelBody.hidden = false;
     panelTitle.textContent = task.name;
+    if (kicker) {
+      kicker.textContent = matches(task)
+        ? "Selected package"
+        : "Selected package (outside current filter)";
+    }
     const agents = agentModels(task);
     const oracle = oracleModels(task)[0];
     const roll = task.rollouts || {};
@@ -378,6 +397,7 @@
       panelEmpty.textContent = `No lab row for ?task=${slug}`;
       return;
     }
+    // task= wins for the panel even when filter= hides the row (chips stay honest).
     renderPanel(task);
     const row = rowsEl.querySelector(`[data-slug="${CSS.escape(slug)}"]`);
     if (row) row.scrollIntoView({ block: "nearest" });
@@ -693,6 +713,8 @@
   qEl.addEventListener("input", () => {
     query = qEl.value.trim().toLowerCase();
     renderTable();
+    const slug = currentSlug();
+    if (slug) renderPanel(bySlug.get(slug) || null);
   });
 
   window.addEventListener("popstate", () => renderAll());
