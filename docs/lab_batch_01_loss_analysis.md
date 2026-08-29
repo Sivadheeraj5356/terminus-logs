@@ -142,6 +142,11 @@ Chips reflect **recorded** trials, not planned 8/8:
 - Dyeworks: Opus **2 solved / 2 valid_fail / 3 infra** of 7 recorded (8th incomplete); GPT **0 solved / 2 valid_fail / 1 infra** of 3 recorded
 - Other batch rows: `oracle` only until a cheap 1-trial exists — no padded 8/8
 - Booking Slot Merge: `claude-haiku-4-5 0/1` (recorded; UI must not show 0/8)
+- Wildlife counting: haiku 1/1 **timeout** (`AgentTimeoutError`, excluded from stump)
+
+### Wildlife — timeout (haiku k=1; excluded from stump)
+
+Trial `lab01-haiku-wildlife` ran ~30 minutes then `AgentTimeoutError`. Reward 0.0 is **timeout**, not valid fail. Cheap k=5 fill still pending.
 
 The other 50 gallery rows (outside the frozen tens) stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.
 
