@@ -9,7 +9,8 @@ Generated 2026-08-28T21:20Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
 - **Continuation 2026-08-28T19:30Z:** Harbor was idle. Cheap probes (prefix/length only): Anthropic `claude-opus-5` ping **HTTP 200**; OpenAI chat `gpt-5.6-sol` **HTTP 429 insufficient_quota**. GPT remaining trials were not started.
 - **Dyeworks Opus resume** (`harbor job resume -f BadRequestError`) replaced the earlier 7 credit-infra dirs. Got **2 solved + 2 valid_fail**, then Anthropic **credit-balance-too-low** again on 3 trials; the 8th trial (`…__eWdLDth`) was terminated with no `result.json`. **Stop. Remaining 7 packages were not started.** Batch 02 was not started. **Not 160/160.**
-- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks). **Cheap haiku k=1 (2026-08-28T23:31–00:54Z):** six remaining slugs measured; booking already 0/1. OpenAI 429 — no gpt-4o-mini.
+- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks). **Cheap haiku k=1 (2026-08-28T23:31–00:54Z):** six remaining slugs measured; booking already 0/1.
+- **Cheap haiku k=5 (2026-08-29T00:54–01:44Z):** pendulum fill finished **0/5** valid_fail (~$1.96). Hypersonic haiku `-k 5` is in flight. OpenAI 429 — second arm is Sonnet after Haiku.
 - **Frontier recorded slots toward 160: 42/160.** Completed (solved + valid_fail only): **37**. Infra on those slots: 5 (plus incomplete dyeworks Opus 8th trial, not ingested).
 - Smoke extras (not in the 160): 2 pendulum smoke trials (Opus compose solved, GPT valid fail) plus 1 failed Opus smoke (compose plugin missing, infra).
 
@@ -38,7 +39,7 @@ Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus
 
 | Slug | Ingest n | solved | valid_fail | timeout | infra | stump% | Agent trials? |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| repair-the-pendulum-motion-solver | 20 | 9 | 9 | 0 | 2 | 50.0 | yes (Opus n=10, GPT n=9) |
+| repair-the-pendulum-motion-solver | 25 | 9 | 14 | 0 | 2 | 60.9 | yes (Opus n=10, GPT n=9, haiku n=5 0/5) |
 | hypersonic-fragment-cascade-epoch-atlas | 17 | 10 | 7 | 0 | 0 | 41.2 | yes (8+8) |
 | the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | 11 | 3 | 4 | 0 | 4 | 57.1 | partial (Opus 7, GPT 3) |
 | the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
@@ -69,6 +70,20 @@ Opus fail `…__fzbUafx`: **7 passed, 1 failed** — frequencies/decays were in 
 
 - Smoke `lab-smoke-opus`: Docker Compose v2 missing (`unknown flag: --project-name`). Later smoke with the plugin installed solved.
 - k=8 `…__az2J4Ya`: Anthropic **credit balance too low** (HTTP 400) mid-loop.
+
+### Pendulum — cheap Haiku k=5 (0/5; all valid_fail)
+
+`anthropic/claude-haiku-4-5` terminus-2, job `lab01-haiku-repair-the-pendulum-motion-s-fill5`, Harbor `cost_usd` **$1.96**. Chip is **0/5**, not padded. Every trial ran pytest (reward 0.0, no timeout/credit).
+
+| Trial | pytest | Named misses |
+| --- | --- | --- |
+| `…__wfyqT5z` | 4 failed, 4 passed | job 1 frequency **1.352 Hz vs 0.9 Hz** (~50%); rejected segments 4 vs 5 |
+| `…__RdSP7V2` | 7 failed, 1 passed | incomplete jobs (report covers 1,3,4); rejected 45 vs 5 |
+| `…__unA34oZ` | 8 failed (no summary line) | `fit_results` missing `frequency_hz`; graph artifacts incomplete |
+| `…__CvnG43i` | 4 failed, 4 passed | job 1 frequency **1.317 Hz vs 0.9 Hz** (~46%); rejected 0 vs 5 |
+| `…__XPVNNFV` | 4 failed, 4 passed | job 1 frequency **2.701 Hz vs 0.9 Hz** (~200%); DOT **48 vertices vs 192** edges |
+
+Haiku did not reproduce the GPT half-cadence 0.450 Hz cluster. Failures are wrong recovered Hz, reject counts, and graph vertex/edge mismatch.
 
 ### Hypersonic — reference hash / epoch time (GPT 6/8, Opus 1/8)
 
@@ -130,10 +145,11 @@ Trial `…__ASNhuY6` (~$0.60, 1800s): **`AgentTimeoutError`**. Classified **time
 
 | Item | State |
 | --- | --- |
-| Harbor process | **A sibling k=5 pendulum haiku fill may be running** (`lab01-haiku-repair-the-pendulum-motion-s-fill5`). This Batch 01 1-shot pass did not start or kill it. |
+| Harbor process | **Pendulum haiku k=5 done.** In-flight: `lab01-haiku-hypersonic-fragment-cascade--fill5` (`-k 5 -n 1`). Do not start a second `harbor run`. |
 | Cheap 1-shot remaining six | **Done** 2026-08-29T00:54Z. Five valid_fail + wildlife timeout. Booking already 0/1. |
+| Cheap pendulum haiku k=5 | **0/5 valid_fail** 2026-08-29T01:44Z. ~$1.96. |
 | OpenAI | Chat completions **429 insufficient_quota** (`gpt-4o-mini` ping). No GPT cheap arm. |
-| Anthropic haiku | Probe **200**; six Harbor trials completed without credit-too-low. |
+| Anthropic haiku | Probe **200**; pendulum k=5 completed without credit-too-low. |
 | Frontier Opus/GPT | Still blocked for remaining 8+8. **Not 160/160.** |
 | Cheap six + booking Harbor cost | **~$3.70** |
 | Docker / Harbor 0.22 | Up |
@@ -152,7 +168,7 @@ Did not re-run pendulum or hypersonic 8+8. Did not use `scripts/run_agents.ps1`.
 
 Serve from repo root (`python -m http.server 8765`) and open:
 
-- Batch table: [`/lab/index.html?surface=tasks&filter=batch`](../lab/index.html?surface=tasks&filter=batch)
+- Batch table: [`/lab/index.html?surface=catalog&filter=batch`](../lab/index.html?surface=catalog&filter=batch)
 - Pendulum: [`/lab/index.html?task=repair-the-pendulum-motion-solver`](../lab/index.html?task=repair-the-pendulum-motion-solver)
 - Hypersonic: [`/lab/index.html?task=hypersonic-fragment-cascade-epoch-atlas`](../lab/index.html?task=hypersonic-fragment-cascade-epoch-atlas)
 - Dyeworks: [`/lab/index.html?task=the-dyeworks-tool-is-a-command-line-reader-at-app-environmen`](../lab/index.html?task=the-dyeworks-tool-is-a-command-line-reader-at-app-environmen)
@@ -160,7 +176,7 @@ Serve from repo root (`python -m http.server 8765`) and open:
 
 Chips reflect **recorded** trials, not planned 8/8:
 
-- Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8
+- Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8; **haiku 0/5**
 - Hypersonic: Opus 7/8; GPT 2/8
 - Dyeworks: Opus **2 solved / 2 valid_fail / 3 infra** of 7 recorded (8th incomplete); GPT **0 solved / 2 valid_fail / 1 infra** of 3 recorded
 - Other batch rows: haiku **0/1** (or wildlife timeout) — no padded 8/8

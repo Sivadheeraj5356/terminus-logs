@@ -1,12 +1,12 @@
 # Batch 01 — cheap-protocol notes
 
-**Updated:** 2026-08-29T00:54:24Z
+**Updated:** 2026-08-29T01:45:06Z
 **Protocol:** terminus-2, `-k 5`, Haiku + second cheap arm. Frontier 8-run history is separate.
 **Stump:** `valid_fail / (solved + valid_fail)`. Infra and timeout excluded.
 
 | Task | Oracle | Agent n | Solved | Valid fail | Infra | Timeout | Stump |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| `repair-the-pendulum-motion-solver` | yes | 20 | 9 | 9 | 2 | 0 | 50.0 |
+| `repair-the-pendulum-motion-solver` | yes | 25 | 9 | 14 | 2 | 0 | 60.9 |
 | `hypersonic-fragment-cascade-epoch-atlas` | yes | 17 | 10 | 7 | 0 | 0 | 41.2 |
 | `the-dyeworks-tool-is-a-command-line-reader-at-app-environmen` | yes | 11 | 3 | 4 | 4 | 0 | 57.1 |
 | `the-root-ca-that-signed-our-east-west-mtls-credentials-is-co` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
@@ -26,8 +26,10 @@
 - anthropic/claude-opus-5: solved
 - anthropic/claude-opus-5: valid fail — test_outputs.py::test_graph_node_count_matches_edges
 - anthropic/claude-opus-5: infra (RuntimeError)
+- anthropic/claude-haiku-4-5: valid fail — test_outputs.py::test_frequency_within_tolerance, test_outputs.py::test_decay_within_tolerance, test_outputs.py::test_graph_node_count_matches_edges, test_outputs.py::test_report_stdout_matches_snapshot
+- anthropic/claude-haiku-4-5: valid fail — test_outputs.py::test_populates_output_tables, test_outputs.py::test_jobs_marked_processed, test_outputs.py::test_frequency_within_tolerance, test_outputs.py::test_decay_within_tolerance
 - openai/gpt-5.6-sol: solved
-- Failing tests: `test_outputs.py::test_frequency_within_tolerance`, `test_outputs.py::test_decay_within_tolerance`, `test_outputs.py::test_report_stdout_matches_snapshot`, `test_outputs.py::test_graph_node_count_matches_edges`
+- Failing tests: `test_outputs.py::test_frequency_within_tolerance`, `test_outputs.py::test_decay_within_tolerance`, `test_outputs.py::test_report_stdout_matches_snapshot`, `test_outputs.py::test_graph_node_count_matches_edges`, `test_outputs.py::test_populates_output_tables`, `test_outputs.py::test_jobs_marked_processed`, `test_outputs.py::test_rejected_counts_match`, `test_outputs.py::test_graph_artifacts_emitted`
 
 ### `hypersonic-fragment-cascade-epoch-atlas`
 
