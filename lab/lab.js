@@ -646,9 +646,17 @@
     return map;
   }
 
+  function withFocusedTask(rows) {
+    const slug = currentSlug();
+    if (!slug) return rows;
+    const focus = rows.filter((task) => task.slug === slug);
+    const rest = rows.filter((task) => task.slug !== slug);
+    return focus.concat(rest);
+  }
+
   function renderRuns() {
     const el = document.getElementById("runs-body");
-    const rows = tasks.filter((task) => batchNum(task) || hasAgentJobs(task));
+    const rows = withFocusedTask(tasks.filter((task) => batchNum(task) || hasAgentJobs(task)));
     if (!rows.length) {
       el.innerHTML = `<article class="empty-card"><h2>No frozen packages yet</h2><p>Freeze a batch, then ingest Harbor jobs. Dots appear only for recorded trials.</p></article>`;
       return;
@@ -741,7 +749,9 @@
 
   function renderFailures() {
     const el = document.getElementById("failures-body");
-    const rows = tasks.filter((task) => task.analysis && (task.analysis.themes || []).length);
+    const rows = withFocusedTask(
+      tasks.filter((task) => task.analysis && (task.analysis.themes || []).length)
+    );
     if (!rows.length) {
       el.innerHTML = `<article class="empty-card"><h2>No failure map yet</h2><p>Ingest valid-fail traces to list named verifier holes. We do not copy another lab’s rubric.</p></article>`;
       return;
@@ -796,9 +806,23 @@
   function renderSpend() {
     const spend = corpus.lab.spend || {};
     const jobs = spend.jobs || [];
+    const stops = corpus.lab.stops || {};
     document.getElementById("spend-total").textContent =
       spend.cost_usd_sum != null ? `$${Number(spend.cost_usd_sum).toFixed(2)}` : "—";
     document.getElementById("spend-note").textContent = spend.note || "";
+    const stopEl = document.getElementById("spend-stop");
+    const stopBits = Object.keys(stops)
+      .sort()
+      .map((key) => {
+        const stop = stops[key] || {};
+        const reason = stop.reason || "stopped";
+        const detail = stop.detail ? ` ${stop.detail}` : "";
+        return `Batch ${String(key).padStart(2, "0")} Harbor stop: ${reason}.${detail}`;
+      });
+    if (stopEl) {
+      stopEl.hidden = stopBits.length === 0;
+      stopEl.textContent = stopBits.join(" ");
+    }
     const tbody = document.getElementById("spend-rows");
     if (!jobs.length) {
       tbody.innerHTML = `<tr><td colspan="5" class="muted">No Harbor job rollups with cost_usd yet.</td></tr>`;
@@ -820,6 +844,20 @@
   function renderBatches() {
     const el = document.getElementById("batches-body");
     const meta = corpus.lab.batches || {};
+    const stops = corpus.lab.stops || {};
+    const stoppedBatch = Object.keys(stops).map(Number).filter((n) => n > 0);
+    const earliestStop = stoppedBatch.length ? Math.min(...stoppedBatch) : 0;
+    const stopBanner = document.getElementById("batches-stop");
+    if (stopBanner) {
+      const bits = Object.keys(stops)
+        .sort()
+        .map((key) => {
+          const stop = stops[key] || {};
+          return `Batch ${String(key).padStart(2, "0")} stopped (${stop.reason || "credit/quota"}). Later frozen tens were not run.`;
+        });
+      stopBanner.hidden = bits.length === 0;
+      stopBanner.textContent = bits.join(" ");
+    }
     el.innerHTML = [1, 2, 3, 4, 5]
       .map((n) => {
         const info = meta[String(n)] || { size: 0, slugs: [] };
@@ -833,13 +871,19 @@
           const task = bySlug.get(slug);
           return task && hasAgentJobs(task);
         }).length;
-        const status = !frozen
+        const stop = stops[String(n)];
+        let status = !frozen
           ? "not frozen"
           : withAgents === 10
             ? "measured"
             : withJobs
               ? "partial"
               : "oracle pending / blocked";
+        if (stop) {
+          status = `STOPPED: ${stop.reason || "credit/quota"}`;
+        } else if (earliestStop && n > earliestStop) {
+          status = `frozen-not-run (stopped at batch ${String(earliestStop).padStart(2, "0")})`;
+        }
         return `<article class="chart-card">
           <p class="stat-label">Batch ${batchLabel(n)}</p>
           <p class="stat-value">${frozen}/10</p>

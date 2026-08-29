@@ -4,14 +4,15 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-29T01:45:05Z",
+    "generated_utc": "2026-08-29T02:02:18Z",
     "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {
       "stump_pct": true,
       "model_scores": true,
       "copied_caudal_scores": false,
-      "note": "10 of 50 frozen packages have Harbor jobs. The other gallery rows stay not run."
+      "note": "10 of 50 frozen packages have Harbor jobs. The other gallery rows stay not run. Harbor stopped on credit/quota; unrun cheap fills are not scored.",
+      "stopped": true
     },
     "category_mix": {
       "scientific-computing": 24,
@@ -948,6 +949,20 @@ window.AW_CORPUS = {
       "frontier_archived": true,
       "note": "Going-forward measure is 5 independent terminus-2 trials per cheap arm. Existing Opus 5 / gpt-5.6-sol 8-run groups stay as history and are not padded or copied from another lab."
     },
+    "stops": {
+      "1": {
+        "generated_utc": "2026-08-29T01:59:17Z",
+        "batch": 1,
+        "reason": "anthropic credit-balance-too-low",
+        "detail": "Haiku hypersonic k=5 recorded 1 valid_fail + 4 infra (Anthropic credit balance too low). Dyeworks Haiku fill was aborted after the same credit error (harbor exit 130); 3 infra trials recorded, no stump. Remaining Batch 01 Haiku fills and the Sonnet second arm were not started. Batches 02–05 stay frozen, not run. OpenAI gpt-4o-mini remains 429 insufficient_quota. Do not invent scores for unrun rows.",
+        "harbor_exit": 130,
+        "stopped_slug": "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
+        "haiku_model": "anthropic/claude-haiku-4-5",
+        "second_arm": "not started",
+        "openai": "429 insufficient_quota",
+        "anthropic": "credit balance too low"
+      }
+    },
     "spend": {
       "jobs": [
         {
@@ -1034,11 +1049,11 @@ window.AW_CORPUS = {
         {
           "job": "lab01-haiku-hypersonic-fragment-cascade--fill5",
           "n_total_trials": 5,
-          "n_completed_trials": 0,
-          "n_errored_trials": 0,
-          "cost_usd": null,
-          "n_input_tokens": null,
-          "n_output_tokens": null
+          "n_completed_trials": 5,
+          "n_errored_trials": 4,
+          "cost_usd": 0.7455592500000003,
+          "n_input_tokens": 4314549,
+          "n_output_tokens": 37156
         },
         {
           "job": "lab01-haiku-offline-binary-cache",
@@ -1075,6 +1090,15 @@ window.AW_CORPUS = {
           "cost_usd": 0.28094455,
           "n_input_tokens": 893709,
           "n_output_tokens": 24473
+        },
+        {
+          "job": "lab01-haiku-the-dyeworks-tool-is-a-comma-fill5",
+          "n_total_trials": 5,
+          "n_completed_trials": 3,
+          "n_errored_trials": 3,
+          "cost_usd": null,
+          "n_input_tokens": 0,
+          "n_output_tokens": 0
         },
         {
           "job": "lab01-haiku-wildlife",
@@ -1212,8 +1236,9 @@ window.AW_CORPUS = {
           "n_output_tokens": null
         }
       ],
-      "cost_usd_sum": 55.3211,
-      "note": "Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented."
+      "cost_usd_sum": 56.0667,
+      "note": "Batch 01 stopped: anthropic credit-balance-too-low Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
+      "stopped": true
     }
   },
   "tasks": [
@@ -1700,15 +1725,25 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "10/17 solved",
-        "n_trials": 17,
+        "label": "10/22 solved",
+        "n_trials": 22,
         "solved": 10,
-        "valid_fail": 7,
+        "valid_fail": 8,
         "timeout": 0,
-        "infra_error": 0,
+        "infra_error": 4,
         "unknown": 0,
-        "completed_trials": 17,
+        "completed_trials": 18,
         "by_model": [
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "n": 5,
+            "solved": 0,
+            "valid_fail": 1,
+            "timeout": 0,
+            "infra_error": 4,
+            "unknown": 0,
+            "stump_pct": 100.0
+          },
           {
             "model": "anthropic/claude-opus-5",
             "n": 8,
@@ -1850,6 +1885,58 @@ window.AW_CORPUS = {
             "exception_message": ""
           },
           {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm at the root of /app directory in a Linux environment. The task is to build a Kessler-style orbital debris cascade forecasting system in TypeScript. I need to: 1. Understand the existing library structure and documentation 2. I | step: Analysis: Good, the /app directory is set up with TypeScript project structure (tsconfig.json, package.json, src/, dist/, node_modules/). Key directories present: bin/ (executables), catalogs/ (input data), docs/ (contracts), src/ (source c | step: Analysis: All required documentation files are present. I need to read through each one to understand the contracts. Let me start with cli.md to understand the command-line interface and obligations. Plan: Read each documentation file in or | step: Analysis: CLI specification is clear: two main commands (cascade-ingest and cascade-export). cascade-ingest reads manifests and catalogs, computes hashes, writes staging files. cascade-export reads staging, runs simulation, writes output. L | step: Analysis: Staging schema is clear: envelope with mission_slot, manifest, bodies (feed order), flares (sorted by t_sec), catalog_fingerprint (sha256 of concatenated raw files), and staging_hash (canonical JSON hash). Need to understand canon | step: Analysis: Canonical JSON hashing rules are clear: lexicographic key sort, no whitespace, SHA-256 of UTF-8. For self-referencing hashes, clear the field before hashing. Now let me read kepler-integrator.md to understand the physics integrati | step: Analysis: Kepler integrator is RK2 (midpoint method) combining gravity and atmospheric drag. The drag model uses density_scale which comes from flare events. Let me read drag-flare.md to understand how flares modulate density. Plan: Read dr",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill5/hypersonic-fragment-cascade-epoc__KLvpf4E",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "BadRequestError",
+            "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill5/hypersonic-fragment-cascade-epoc__vLMHRvJ",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "BadRequestError",
+            "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm at the root of the /app directory in a clean Linux environment. I need to build a Kessler-style orbital debris cascade forecasting system in TypeScript. The task involves: (1) ingesting debris catalogs, (2) propagating Kepleri | step: Analysis: Good, I can see the directory structure. The project has docs, src, catalogs, dist, and bin directories. All the contract documents are present in /app/docs. I need to read these documents to understand the exact requirements for  | step: Analysis: CLI.md shows two main commands: cascade-ingest and cascade-export. cascade-ingest reads a catalog directory with manifest.json, bodies.jsonl, and flares.jsonl, producing cascade-staging.json and ingest-seal.json. cascade-export va | step: Analysis: staging-schema.md defines the structure of cascade-staging.json. It contains mission_slot, manifest, bodies (in feed order), flares (sorted by t_sec), catalog_fingerprint (sha256 of concatenated bodies.jsonl + flares.jsonl bytes), | step: Analysis: The canonical JSON hash rules are clear: recursively sort object keys, no whitespace, specific formatting for each type. When a structure contains its own hash field, set it to empty string before hashing, then write the result ba | step: Analysis: The kepler-integrator.md specifies RK2 midpoint integration with gravity and atmospheric drag. The density_scale is a flare-adjusted value that I need to understand from drag-flare.md. The integrator uses standard Earth constants  | step: Analysis: drag-flare.md clarifies that density_scale is an absolute replacement (not cumulative) from the most recent flare event at or before the current time. Now I need to understand collision detection and fragment spawning. Plan: Read ",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill5/hypersonic-fragment-cascade-epoc__AUY7bRz",
+            "test_fraction": null,
+            "failed_tests": [
+              "tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill5/hypersonic-fragment-cascade-epoc__AFs2NXw",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "BadRequestError",
+            "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill5/hypersonic-fragment-cascade-epoc__Q9Yoc4P",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "BadRequestError",
+            "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
+          },
+          {
             "model": "openai/gpt-5.6-sol",
             "classification": "solved",
             "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: We are at the /app shell with no prior command output. The implementation and governing documentation must be inspected before making changes. Plan: List the repository structure, package scripts, source files, and all contract do | step: Analysis: The repository already contains a complete-looking TypeScript skeleton and built dist files, but the combined output was truncated at the most important contract and implementation sections. We confirmed the CLI scripts and catalo | step: Analysis: The physics contracts confirm RK2, strict sphere overlap, flare replacement, and deterministic ring fragment spawning. Output remained truncated around the atlas/hash schema and several implementation files, so exact validation is | step: Analysis: The requested inspections completed, but only the terminal tail is visible. The visible exporters show atlas hashing includes its full payload except atlas_hash, while ledger hashing intentionally covers only mission_slot, total_c | step: Analysis: The spawn implementation tail confirms deterministic child IDs, default fragment cd, and residual calculations. The terminal only preserves roughly the final 40 lines, so prior multi-file outputs cannot be reviewed reliably. We mu | step: Analysis: Ingest appears compliant at the CLI level: absolute-only catalog override, mission override, state creation, staging write, and seal fields are present. The remaining likely defects are in canonicalization, collision pair selectio | step: Analysis: Two definite contract violations are now visible: currentDensityScale multiplies all prior flare scales instead of using the most recent event's absolute value, and writeLedger omits epochs from the ledger_hash payload. Both will ",
@@ -1970,9 +2057,9 @@ window.AW_CORPUS = {
             "exception_message": ""
           }
         ],
-        "note": "Harbor trials: 17 — 10 solved, 7 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 22 — 10 solved, 8 valid fail, 0 timeout, 4 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
-      "stump_pct": 41.2,
+      "stump_pct": 44.4,
       "batch": 1,
       "measured": true,
       "files": [
@@ -2025,12 +2112,24 @@ window.AW_CORPUS = {
         "themes": [
           "anthropic/claude-opus-5: solved",
           "anthropic/claude-opus-5: valid fail — tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference",
+          "anthropic/claude-haiku-4-5: infra (BadRequestError)",
+          "anthropic/claude-haiku-4-5: valid fail — tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference",
           "openai/gpt-5.6-sol: solved",
           "openai/gpt-5.6-sol: valid fail — tests/test_outputs.py::test_bravo_catalog_override_dir, tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference, tests/test_outputs.py::test_flare_absolute_density_scale_not_multiplicative, tests/test_outputs.py::test_hidden_chain_reaction_independent_of_bundled"
         ],
-        "completed_trials": 17,
-        "stump_pct": 41.2,
+        "completed_trials": 18,
+        "stump_pct": 44.4,
         "by_model": [
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "n": 5,
+            "solved": 0,
+            "valid_fail": 1,
+            "timeout": 0,
+            "infra_error": 4,
+            "unknown": 0,
+            "stump_pct": 100.0
+          },
           {
             "model": "anthropic/claude-opus-5",
             "n": 8,
@@ -2053,6 +2152,7 @@ window.AW_CORPUS = {
           }
         ],
         "cheap_recorded": {
+          "anthropic/claude-haiku-4-5": 5,
           "anthropic/claude-opus-5": 8,
           "openai/gpt-5.6-sol": 8
         },
@@ -4441,15 +4541,25 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "3/11 solved",
-        "n_trials": 11,
+        "label": "3/14 solved",
+        "n_trials": 14,
         "solved": 3,
         "valid_fail": 4,
         "timeout": 0,
-        "infra_error": 4,
+        "infra_error": 7,
         "unknown": 0,
         "completed_trials": 7,
         "by_model": [
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "n": 3,
+            "solved": 0,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 3,
+            "unknown": 0,
+            "stump_pct": null
+          },
           {
             "model": "anthropic/claude-opus-5",
             "n": 7,
@@ -4607,6 +4717,36 @@ window.AW_CORPUS = {
             "exception_message": ""
           },
           {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "Skipping image OS validation for hb__9e3911bd3d7a65d5ca19ab5c5fda7028: docker inspect returned 1 Trial the-dyeworks-tool-is-a-command-l__gXVqQju cancelled Collecting main service artifacts",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-dyeworks-tool-is-a-comma-fill5/the-dyeworks-tool-is-a-command-l__gXVqQju",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "CancelledError",
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-dyeworks-tool-is-a-comma-fill5/the-dyeworks-tool-is-a-command-l__EnG6jEd",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "BadRequestError",
+            "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "infra_error",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-dyeworks-tool-is-a-comma-fill5/the-dyeworks-tool-is-a-command-l__F5Xm52F",
+            "test_fraction": null,
+            "failed_tests": [],
+            "exception_type": "BadRequestError",
+            "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
+          },
+          {
             "model": "oracle",
             "classification": "solved",
             "summary": "Skipping image OS validation for hb__9e3911bd3d7a65d5ca19ab5c5fda7028: docker inspect returned 1 Collecting main service artifacts",
@@ -4617,7 +4757,7 @@ window.AW_CORPUS = {
             "exception_message": ""
           }
         ],
-        "note": "Harbor trials: 11 — 3 solved, 4 valid fail, 0 timeout, 4 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 14 — 3 solved, 4 valid fail, 0 timeout, 7 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
       "stump_pct": 57.1,
       "batch": 1,
@@ -4678,11 +4818,23 @@ window.AW_CORPUS = {
           "openai/gpt-5.6-sol: infra (RuntimeError)",
           "anthropic/claude-opus-5: infra (BadRequestError)",
           "anthropic/claude-opus-5: solved",
-          "anthropic/claude-opus-5: valid fail — test_outputs.py::test_exploit_alloc_rejected, test_outputs.py::test_generated_more_nodes_than_count_rejected"
+          "anthropic/claude-opus-5: valid fail — test_outputs.py::test_exploit_alloc_rejected, test_outputs.py::test_generated_more_nodes_than_count_rejected",
+          "anthropic/claude-haiku-4-5: infra (CancelledError)",
+          "anthropic/claude-haiku-4-5: infra (BadRequestError)"
         ],
         "completed_trials": 7,
         "stump_pct": 57.1,
         "by_model": [
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "n": 3,
+            "solved": 0,
+            "valid_fail": 0,
+            "timeout": 0,
+            "infra_error": 3,
+            "unknown": 0,
+            "stump_pct": null
+          },
           {
             "model": "anthropic/claude-opus-5",
             "n": 7,
@@ -4705,6 +4857,7 @@ window.AW_CORPUS = {
           }
         ],
         "cheap_recorded": {
+          "anthropic/claude-haiku-4-5": 3,
           "anthropic/claude-opus-5": 7,
           "openai/gpt-5.6-sol": 3
         },

@@ -38,7 +38,10 @@ from lab_common import (  # noqa: E402
 
 CREDIT_MARKERS = (
     "credit-balance-too-low",
+    "credit_balance_too_low",
     "credit too low",
+    "credit balance is too low",
+    "credit balance too low",
     "insufficient_quota",
     "error code: 429",
     "error code: 400",

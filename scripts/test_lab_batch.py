@@ -89,6 +89,17 @@ class ClassifyTests(unittest.TestCase):
         }
         self.assertEqual(classify(result), "infra_error")
 
+    def test_anthropic_credit_balance_message_blocks_measure(self):
+        from run_lab_batch import credit_blocked
+
+        blob = (
+            'litellm.BadRequestError: AnthropicException - {"type":"error",'
+            '"error":{"type":"invalid_request_error","message":'
+            '"Your credit balance is too low to access the Anthropic API. '
+            'Please go to Plans & Billing to upgrade or purchase credits."}}'
+        )
+        self.assertEqual(credit_blocked(blob), "credit balance is too low")
+
     def test_stump_excludes_timeout_and_infra(self):
         rows = [
             {"classification": "valid_fail", "model": "a", "agent": "", "trial_dir": "1", "agent_summary": "x"},

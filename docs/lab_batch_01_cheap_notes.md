@@ -1,14 +1,14 @@
 # Batch 01 — cheap-protocol notes
 
-**Updated:** 2026-08-29T01:45:06Z
+**Updated:** 2026-08-29T02:02:18Z
 **Protocol:** terminus-2, `-k 5`, Haiku + second cheap arm. Frontier 8-run history is separate.
 **Stump:** `valid_fail / (solved + valid_fail)`. Infra and timeout excluded.
 
 | Task | Oracle | Agent n | Solved | Valid fail | Infra | Timeout | Stump |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | `repair-the-pendulum-motion-solver` | yes | 25 | 9 | 14 | 2 | 0 | 60.9 |
-| `hypersonic-fragment-cascade-epoch-atlas` | yes | 17 | 10 | 7 | 0 | 0 | 41.2 |
-| `the-dyeworks-tool-is-a-command-line-reader-at-app-environmen` | yes | 11 | 3 | 4 | 4 | 0 | 57.1 |
+| `hypersonic-fragment-cascade-epoch-atlas` | yes | 22 | 10 | 8 | 4 | 0 | 44.4 |
+| `the-dyeworks-tool-is-a-command-line-reader-at-app-environmen` | yes | 14 | 3 | 4 | 7 | 0 | 57.1 |
 | `the-root-ca-that-signed-our-east-west-mtls-credentials-is-co` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 | `apexora-global-wave-3-campus-segmentation-is-blocked-across` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 | `i-need-the-offline-binary-cache-closure-planner-in-app-task` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
@@ -35,6 +35,8 @@
 
 - anthropic/claude-opus-5: solved
 - anthropic/claude-opus-5: valid fail — tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference
+- anthropic/claude-haiku-4-5: infra (BadRequestError)
+- anthropic/claude-haiku-4-5: valid fail — tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference
 - openai/gpt-5.6-sol: solved
 - openai/gpt-5.6-sol: valid fail — tests/test_outputs.py::test_bravo_catalog_override_dir, tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference, tests/test_outputs.py::test_flare_absolute_density_scale_not_multiplicative, tests/test_outputs.py::test_hidden_chain_reaction_independent_of_bundled
 - Failing tests: `test_export_sequence_monotonic_and_stable_hash`, `tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference`, `tests/test_outputs.py::test_bravo_catalog_override_dir`, `tests/test_outputs.py::test_flare_absolute_density_scale_not_multiplicative`, `tests/test_outputs.py::test_hidden_chain_reaction_independent_of_bundled`, `tests/test_outputs.py::test_ledger_epochs_match_reference_timestamps`
@@ -46,6 +48,8 @@
 - anthropic/claude-opus-5: infra (BadRequestError)
 - anthropic/claude-opus-5: solved
 - anthropic/claude-opus-5: valid fail — test_outputs.py::test_exploit_alloc_rejected, test_outputs.py::test_generated_more_nodes_than_count_rejected
+- anthropic/claude-haiku-4-5: infra (CancelledError)
+- anthropic/claude-haiku-4-5: infra (BadRequestError)
 - Failing tests: `test_outputs.py::test_valid_corpus_parses_cleanly`, `test_outputs.py::test_indirect_value_still_parses`, `test_outputs.py::test_deep_tree_still_parses`, `test_outputs.py::test_lot_ref_still_resolves`, `test_outputs.py::test_boundary_valid_files_still_parse`, `test_outputs.py::test_generated_valid_parses`, `test_outputs.py::test_generated_depth_256_nesting_parses`, `test_outputs.py::test_generated_max_size_file_parses`
 
 ### `the-root-ca-that-signed-our-east-west-mtls-credentials-is-co`

@@ -115,6 +115,22 @@ def classify_batch(batch: list[dict], trials: dict[str, list], jobs_dir: Path) -
     return reports
 
 
+def load_stops() -> dict[str, dict]:
+    """Credit/quota stop files written by run_lab_batch. Never invent scores."""
+    stops: dict[str, dict] = {}
+    for n in range(1, MEASURED_BATCH_MAX + 1):
+        path = ROOT / "docs" / f"lab_batch_{n:02d}_stop.json"
+        if not path.is_file():
+            continue
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if isinstance(payload, dict):
+            stops[str(n)] = payload
+    return stops
+
+
 def apply_to_corpus(corpus: dict, batch: list[dict], reports: list[dict]) -> dict:
     slug_to_batch = {r["slug"]: int(r.get("batch") or 0) or None for r in batch}
     batch_slugs = {slug for slug, n in slug_to_batch.items() if n}
@@ -159,13 +175,23 @@ def apply_to_corpus(corpus: dict, batch: list[dict], reports: list[dict]) -> dic
         ),
     }
     spend_rows = collect_spend()
+    stops = load_stops()
+    lab["stops"] = stops
+    spend_note = "Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented."
+    if stops:
+        bits = []
+        for key, stop in sorted(stops.items()):
+            reason = stop.get("reason") or "stopped"
+            bits.append(f"Batch {key.zfill(2)} stopped: {reason}")
+        spend_note = " ".join(bits) + " " + spend_note
     lab["spend"] = {
         "jobs": spend_rows,
         "cost_usd_sum": round(
             sum(row["cost_usd"] for row in spend_rows if row.get("cost_usd") is not None),
             4,
         ),
-        "note": "Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
+        "note": spend_note,
+        "stopped": bool(stops),
     }
     lab["honesty"] = {
         "stump_pct": any(t.get("stump_pct") is not None for t in corpus["tasks"]),
@@ -184,6 +210,11 @@ def apply_to_corpus(corpus: dict, batch: list[dict], reports: list[dict]) -> dic
             f"{len(measured_slugs)} of {frozen_n} frozen packages have Harbor jobs. "
             "The other gallery rows stay not run."
         )
+        if stops:
+            lab["honesty"]["stopped"] = True
+            lab["honesty"]["note"] += (
+                " Harbor stopped on credit/quota; unrun cheap fills are not scored."
+            )
     harness = lab.setdefault("harness", {})
     harness.update(
         {
