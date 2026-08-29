@@ -1,7 +1,7 @@
 # Share Worlds Lab with the founder
 
 **Audience:** CB (Siva) → Raja (`rajaadil07`, GitHub collaborator)  
-**Deadline context:** UI can go out tonight. Frontier 160 (10 × 8 Opus + 8 gpt-5.6-sol) still needs Docker/Harbor on an eval host and is **not** done.  
+**Deadline context:** Gallery + 12 Worlds Lab surfaces are shareable. Cheap k=5 fill **stopped** on Anthropic credit-too-low (Batch 01 partial). Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160.  
 **Do not paste API keys.** Keys already leaked in chat — **rotate** Anthropic and OpenAI keys. Never reprint them.
 
 ---
@@ -24,16 +24,18 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then: http://127.0.0.1:8765/lab/index.html
 
-Batch filter (Batch 01, 10 of 100): http://127.0.0.1:8765/lab/index.html?filter=batch  
-Catalog / Tasks alias: http://127.0.0.1:8765/lab/index.html?surface=tasks
+Batch filter (all frozen tens): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch  
+Batch 01 only: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b01  
+`surface=tasks` still aliases Catalog.
 
 Deep links:
 
-- Overview (default): `/lab/index.html`
-- Tasks table: `/lab/index.html?surface=tasks`
-- Batch 01: `/lab/index.html?surface=tasks&filter=batch`
+- Worlds (default): `/lab/index.html` or `?surface=worlds`
+- Catalog: `/lab/index.html?surface=catalog`
+- Frozen batches: `/lab/index.html?surface=catalog&filter=batch`
 - One package: `/lab/index.html?task=repair-the-pendulum-motion-solver`
-- Pendulum + Games chip (task wins for the panel; filter stays): `/lab/index.html?surface=tasks&task=repair-the-pendulum-motion-solver&filter=games`
+- Pendulum Runs / Traces / Failures: `?surface=runs&task=repair-the-pendulum-motion-solver` (same for `traces`, `failures`)
+- Spend / Batches (credit stop): `?surface=spend` · `?surface=batches`
 - Agents (honest ingest, no fake curves): `/lab/index.html?surface=agents`
 
 ### B. Zip if they cannot clone the private repo
@@ -84,42 +86,42 @@ Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (t
 
 ---
 
-## 3. Watch Harbor in the background (do not sit in the agent)
+## 3. Harbor is idle (credit / quota stop)
 
-Leave the Harbor worker alone: https://cursor.com/agents/bc-25b86760-bb95-570b-bbdc-811f434c0215
-
-This UI restyle: https://cursor.com/agents/bc-c8335263-e81e-541d-9718-c4891cbcadeb
-
-Parent Worlds Lab chat: https://cursor.com/agents/bc-6d1b9c8d-8492-40cb-aa39-d597e427826a
-
-While jobs run:
+Do **not** start a second `harbor run`. Anthropic returned **credit-balance-too-low**; OpenAI `gpt-4o-mini` is still **429 insufficient_quota**. Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). The Sonnet second arm was never started.
 
 | Watch | Where |
 | --- | --- |
-| Probe + smoke + measure flags | `docs/lab_batch_01_status.json` |
-| Last classified ingest | `docs/lab_batch_01_results.json` |
+| Credit / quota stop | `docs/lab_batch_01_stop.json` |
+| Last classified ingest | `docs/lab_measured_results.json` (legacy `docs/lab_batch_01_results.json`) |
 | Live Harbor output | `jobs/` (**gitignored** — do not commit; do not commit `.env`) |
 
-After a batch of trials finishes:
+After jobs finish (they have, for this share):
 
 ```bash
-python scripts/ingest_lab_jobs.py
+python3 scripts/ingest_lab_jobs.py
+python3 scripts/write_loss_notes.py
 ```
 
-Then refresh `/lab/index.html`. Measured chips update **only then**. Denominator is recorded trials, not the frontier plan of 8. Timeout and infra still do not count as stump.
+Then refresh `/lab/index.html`. Measured chips update **only then**. Denominator is recorded trials — never padded to 5 or 8. Timeout, Docker, credit-too-low, and 429 are **infra**, not stump.
 
-Honest snapshot (re-ingest after jobs finish):
+Honest snapshot (ingest `2026-08-29T02:02:18Z`):
 
 - Harbor 0.22 + Docker probe: green
-- Frozen 10: oracle 1.0 (Go oracle-fail package dropped and replaced)
-- Frontier recorded: **37/160** completed trials (pendulum + hypersonic full 8×2; dyeworks partial Opus 7/8 + GPT 3/8). Anthropic credits and OpenAI quota blocked frontier continuation.
-- Cheap probe: `booking-slot-merge` `claude-haiku-4-5` **0/1** valid_fail (chip must show 0/1, not 0/8). Six batch rows still oracle-only on agents.
-- Loss analysis: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md). Timeout/infra are not stumps. Target remains **160**. Not complete.
+- Gallery 100; measured target 50; **10** Batch 01 rows have Harbor jobs
+- Batch 01 oracles: 10/10 at 1.0
+- Cheap arm `anthropic/claude-haiku-4-5`: pendulum **0/5** valid_fail; hypersonic **0/5** (1 valid_fail + 4 infra); dyeworks **0/3** infra (aborted); seven other Batch 01 slugs **0/1** (wildlife timeout, not stump)
+- Second arm: not started (`gpt-4o-mini` 429; Sonnet never launched)
+- Frontier history still on pendulum/hypersonic (Opus 5 + `openai/gpt-5.6-sol` k=8) and partial dyeworks — extra history, not the going-forward protocol
+- Batches 02–05: frozen jsonl only, **not oracled, not measured**
+- Loss notes: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md). **Not 50/50. Not 160/160.**
+
+Parent Worlds Lab chat: https://cursor.com/agents/bc-6d1b9c8d-8492-40cb-aa39-d597e427826a
 
 ---
 
 ## 4. Deadline realism
 
-- **Tonight:** gallery + research-lab chrome is shareable (PR, zip, or local `http.server`).
-- **Not tonight unless the eval host finishes:** 10 × (8+8) frontier. Nested Docker on a cloud agent is the wrong place to claim 160 done.
-- After ingest, a chip like `GPT-5.6-sol 1/8` means **1 solve out of 8 recorded trials**. A cheap 1-trial probe is `0/1` or `1/1`, never padded to `/8`. Pendulum Opus can read more than 8 recorded if smoke + k=8 are unioned. See the loss note.
+- **Share now:** gallery + 12 surfaces (PR, zip, or local `http.server`).
+- **Not now:** remaining Batch 01 Haiku fills, Sonnet k=5, or batches 02–05 — blocked until credits/quota return.
+- A chip like `claude-haiku-4-5 0/5` means **0 solves out of 5 recorded trials**. A 1-trial probe is `0/1`, never padded to `/5` or `/8`. See the loss note.
