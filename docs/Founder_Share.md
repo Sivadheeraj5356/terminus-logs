@@ -24,8 +24,8 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then: http://127.0.0.1:8765/lab/index.html
 
-Batch filter: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch  
-Catalog (alias `surface=tasks`): http://127.0.0.1:8765/lab/index.html?surface=catalog
+Batch filter (Batch 01, 10 of 100): http://127.0.0.1:8765/lab/index.html?filter=batch  
+Catalog / Tasks alias: http://127.0.0.1:8765/lab/index.html?surface=tasks
 
 Deep links:
 

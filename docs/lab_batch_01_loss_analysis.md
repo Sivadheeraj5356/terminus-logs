@@ -9,7 +9,7 @@ Generated 2026-08-28T21:20Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
 - **Continuation 2026-08-28T19:30Z:** Harbor was idle. Cheap probes (prefix/length only): Anthropic `claude-opus-5` ping **HTTP 200**; OpenAI chat `gpt-5.6-sol` **HTTP 429 insufficient_quota**. GPT remaining trials were not started.
 - **Dyeworks Opus resume** (`harbor job resume -f BadRequestError`) replaced the earlier 7 credit-infra dirs. Got **2 solved + 2 valid_fail**, then Anthropic **credit-balance-too-low** again on 3 trials; the 8th trial (`…__eWdLDth`) was terminated with no `result.json`. **Stop. Remaining 7 packages were not started.** Batch 02 was not started. **Not 160/160.**
-- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks); **booking-slot-merge** has a 1-trial `claude-haiku-4-5` valid_fail (not padded to 8); **6 tasks still oracle-only** on agents (blocked by frontier credits/quota; cheap 1-trial remaining as of this note).
+- **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks). **Cheap haiku k=1 (2026-08-28T23:31–00:54Z):** six remaining slugs measured; booking already 0/1. OpenAI 429 — no gpt-4o-mini.
 - **Frontier recorded slots toward 160: 42/160.** Completed (solved + valid_fail only): **37**. Infra on those slots: 5 (plus incomplete dyeworks Opus 8th trial, not ingested).
 - Smoke extras (not in the 160): 2 pendulum smoke trials (Opus compose solved, GPT valid fail) plus 1 failed Opus smoke (compose plugin missing, infra).
 
@@ -41,15 +41,15 @@ Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus
 | repair-the-pendulum-motion-solver | 20 | 9 | 9 | 0 | 2 | 50.0 | yes (Opus n=10, GPT n=9) |
 | hypersonic-fragment-cascade-epoch-atlas | 17 | 10 | 7 | 0 | 0 | 41.2 | yes (8+8) |
 | the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | 11 | 3 | 4 | 0 | 4 | 57.1 | partial (Opus 7, GPT 3) |
-| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 1 | 1 | 0 | 0 | 0 | — | no (oracle only) |
-| apexora-global-wave-3-campus-segmentation-is-blocked-across | 1 | 1 | 0 | 0 | 0 | — | no |
-| i-need-the-offline-binary-cache-closure-planner-in-app-task | 1 | 1 | 0 | 0 | 0 | — | no |
-| the-harborlane-replay-desk-needs-a-reusable-offline-planner | 1 | 1 | 0 | 0 | 0 | — | no |
-| we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | 1 | 1 | 0 | 0 | 0 | — | no |
-| wildlife-counting-becomes-a-field-planning-game-when-uncerta | 1 | 1 | 0 | 0 | 0 | — | no |
+| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
+| apexora-global-wave-3-campus-segmentation-is-blocked-across | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
+| i-need-the-offline-binary-cache-closure-planner-in-app-task | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
+| the-harborlane-replay-desk-needs-a-reusable-offline-planner | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
+| we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
+| wildlife-counting-becomes-a-field-planning-game-when-uncerta | 2 | 1 | 0 | 1 | 0 | 0.0 | yes (haiku timeout; excluded from stump) |
 | booking-slot-merge | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
 
-Stump% in this table is omitted for oracle-only rows (`completed` agent trials = 0). Lab chips show `oracle` for those six — not fake 8/8. Booking Slot Merge chip is `claude-haiku-4-5 0/1` (recorded trials, not 0/8).
+Stump% in this table is omitted only when there are no completed agent trials. Lab chips use **solved / recorded** — haiku 1-trials show `0/1`, not `0/8`. Wildlife timeout does not count as stump.
 
 ## Loss themes (from `verifier/test-stdout.txt` + trajectories)
 
@@ -100,19 +100,42 @@ Haiku trial `…__5SqDRHH` (~$0.15, ~3.5 min): **3 failed, 24 passed**. Merge an
 - `test_report_exact_layout` — column widths and SPAN off by one (`151` vs `150`, TOTAL `192` vs `190`)
 - `test_check_epoch_regression_across_files` — expected exit **2** (epoch regression across files), got **0** / `ok`
 
-This is a recorded **0/1**, not 0/8. No second haiku trial was run.
+This is a recorded **0/1**, not 0/8.
+
+### Root CA mTLS — schedule not exact optimum (haiku 0/1; valid_fail)
+
+Trial `…__9cdUGV4` (~$0.25, ~11 min): **3 failed, 6 passed**. Schema and input-hash tests passed. All three `test_schedule_is_the_exact_optimum` fixtures missed (`cycles` 287 vs 346, 333 vs 404, 303 vs 374).
+
+### Apexora campus — config not authoritative (haiku 0/1; valid_fail)
+
+Trial `…__9zWrbgo` (~$0.80): **7 failed, 3 passed, 263 errors**. Setup/identity asserts `configuration not yet authoritative` (`config_authoritative_m1`). Anti-cheat mutation tests also failed (legacy VLAN/ACL/trunk). Not infra.
+
+### Offline binary-cache — proof seal mismatch (haiku 0/1; valid_fail)
+
+Trial `…__zMsM6oX` (~$0.82): **3 failed, 2 passed**. Closure/TSV matched the oracle; `proof.seal` differed (`8457e6c8…` vs `56fc79c2…`) on public, generated, and copied-root cases.
+
+### Harborlane replay — Plan.hs row order (haiku 0/1; valid_fail)
+
+Trial `…__BR39Uag` (~$0.80): **2 failed, 2 passed**. `test_public_root_is_solved_and_schema_is_canonical` — Haskell payload segment ids start at `seg-ea-02` vs expected `seg-no-00` (118 extra items). Compatibility matrix failed the same ordering/schema check.
+
+### Stratified k-fold — extra stdout line (haiku 0/1; valid_fail)
+
+Trial `…__EEz3v7j` (~$0.28): **173 errors, 0 passed**. `setup_method` JSON-decodes assemble stdout; the tool printed a JSON object then `/app/var/fold_work/cohort_staged.csv`, so `JSONDecodeError: Extra data`. Reward 0.0 with no exception — valid_fail, not infra.
+
+### Wildlife counting — agent timeout (haiku; excluded from stump)
+
+Trial `…__ASNhuY6` (~$0.60, 1800s): **`AgentTimeoutError`**. Classified **timeout**, not valid_fail. Verifier still ran after the cutoff: **12 failed, 4 passed** (`test_census_case` cases 01–12). Agent spent the budget writing/playing Node game runners.
 
 ## Spend and stop state
 
 | Item | State |
 | --- | --- |
-| Harbor process | **Idle** (do not start a second one). Dyeworks Opus resume finished 2026-08-28T21:10Z |
-| Remaining 6 packages | **No cheap agent trial yet** (root-CA, Apexora, offline binary-cache, Harborlane, stratified k-fold, wildlife). Booking has haiku 0/1. |
-| Dyeworks GPT | **3/8** left incomplete; not resumed after OpenAI `insufficient_quota` |
-| Batch 02 | **Not started** |
-| Harbor-reported spend | **~$49.67** rollup (pendulum ~$18.26, hypersonic ~$15.88, dyeworks Opus $13.02, dyeworks GPT $1.27, smoke ~$1.25) |
-| Anthropic | Cheap probe 200, then harbor **400 credit-too-low** again. Remaining Opus **cannot** continue until credits are added |
-| OpenAI | Chat completions **429 insufficient_quota**. Remaining GPT **cannot** continue until quota is added |
+| Harbor process | **A sibling k=5 pendulum haiku fill may be running** (`lab01-haiku-repair-the-pendulum-motion-s-fill5`). This Batch 01 1-shot pass did not start or kill it. |
+| Cheap 1-shot remaining six | **Done** 2026-08-29T00:54Z. Five valid_fail + wildlife timeout. Booking already 0/1. |
+| OpenAI | Chat completions **429 insufficient_quota** (`gpt-4o-mini` ping). No GPT cheap arm. |
+| Anthropic haiku | Probe **200**; six Harbor trials completed without credit-too-low. |
+| Frontier Opus/GPT | Still blocked for remaining 8+8. **Not 160/160.** |
+| Cheap six + booking Harbor cost | **~$3.70** |
 | Docker / Harbor 0.22 | Up |
 
 ## Continuation log (2026-08-28T19:30–21:20Z)
@@ -140,13 +163,8 @@ Chips reflect **recorded** trials, not planned 8/8:
 - Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8
 - Hypersonic: Opus 7/8; GPT 2/8
 - Dyeworks: Opus **2 solved / 2 valid_fail / 3 infra** of 7 recorded (8th incomplete); GPT **0 solved / 2 valid_fail / 1 infra** of 3 recorded
-- Other batch rows: `oracle` only until a cheap 1-trial exists — no padded 8/8
-- Booking Slot Merge: `claude-haiku-4-5 0/1` (recorded; UI must not show 0/8)
-- Wildlife counting: haiku 1/1 **timeout** (`AgentTimeoutError`, excluded from stump)
-
-### Wildlife — timeout (haiku k=1; excluded from stump)
-
-Trial `lab01-haiku-wildlife` ran ~30 minutes then `AgentTimeoutError`. Reward 0.0 is **timeout**, not valid fail. Cheap k=5 fill still pending.
+- Other batch rows: haiku **0/1** (or wildlife timeout) — no padded 8/8
+- Booking Slot Merge: `claude-haiku-4-5 0/1`
 
 The other 50 gallery rows (outside the frozen tens) stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.
 

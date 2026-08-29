@@ -4,7 +4,7 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-29T00:54:24Z",
+    "generated_utc": "2026-08-29T00:56:14Z",
     "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {
@@ -1039,6 +1039,15 @@ window.AW_CORPUS = {
           "cost_usd": 0.8188934000000001,
           "n_input_tokens": 3752186,
           "n_output_tokens": 67280
+        },
+        {
+          "job": "lab01-haiku-repair-the-pendulum-motion-s-fill5",
+          "n_total_trials": 5,
+          "n_completed_trials": 0,
+          "n_errored_trials": 0,
+          "cost_usd": null,
+          "n_input_tokens": null,
+          "n_output_tokens": null
         },
         {
           "job": "lab01-haiku-root-ca-mtls",

@@ -1,58 +1,60 @@
 # Batch 01 — lean status (for Raja)
 
-**Updated:** 2026-08-28T22:56Z  
-**Decision:** Stop remaining frontier 8+8. Continuation resumed dyeworks Opus, then Anthropic **credit-balance-too-low** again; OpenAI already **insufficient_quota**. Remaining seven packages were **not started** on frontier models because credits/quota blocked them — not because measure was cancelled as a plan. **Cheap probe 2026-08-28T22:52Z:** Anthropic API 200 (sonnet + haiku); OpenAI 429. One Harbor trial on `booking-slot-merge` with `anthropic/claude-haiku-4-5` completed (reward **0.0**, valid_fail; ~$0.15). No further cheap trials started.
+**Updated:** 2026-08-29T00:56Z  
+**Decision:** Frontier 8+8 stays stopped (Anthropic credit-too-low on Opus; OpenAI 429 insufficient_quota). Cheap 1-trial `claude-haiku-4-5` (`-k 1 -n 1`) ran on the remaining six oracle-only slugs. Booking Slot Merge already had haiku **0/1** (not 0/8). Do not resume Opus/gpt-5.6-sol 8+8.
 
 ---
 
 ## One paragraph
 
-We froze ten Applied Worlds tasks, verified oracle 10/10, and ran frontier Opus + GPT-5.6-sol k=8 on pendulum and hypersonic. Dyeworks is partial: Opus 7/8 after a credit-failure resume (2 solved, 2 valid_fail, 3 credit infra, 8th incomplete); GPT 3/8 then OpenAI quota 429. A continuation cheap-probed both APIs, resumed dyeworks Opus, and **stopped when Anthropic 400 credit-too-low returned**. The other seven frozen slugs stay oracle-only because remaining Opus/GPT jobs cannot run until credits/quota are restored. Harbor-reported spend is ~$50. **Not 160/160.** No batch 02.
+We froze ten Applied Worlds tasks and verified oracle 10/10. Frontier Opus + GPT-5.6-sol k=8 exists only on pendulum and hypersonic; dyeworks is partial. A cheap Anthropic haiku probe was **HTTP 200**; OpenAI `gpt-4o-mini` was **429 insufficient_quota** so the second cheap arm was not started. Six remaining Batch 01 slugs each got **one** terminus-2 haiku trial: five **valid_fail**, wildlife **timeout** (excluded from stump). Booking stays haiku **0/1**. Harbor-reported frontier spend is still ~$50; this cheap pass added ~$3.5. **Not 160/160.** Chips use recorded n (0/1), not padded /8.
 
 ---
 
 ## Coverage at a glance
 
-| Task | Oracle | Opus k=8 | GPT k=8 | Notes |
-| --- | ---: | ---: | ---: | --- |
-| repair-the-pendulum-motion-solver | ✓ | **8/8** (6s/1f/1i) | **8/8** (1s/7f) | Full frontier |
-| hypersonic-fragment-cascade-epoch-atlas | ✓ | **8/8** (7s/1f) | **8/8** (2s/6f) | Full frontier |
-| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | ✓ | **7/8** (2s/2f/3i) | **3/8** (0s/2f/1i) | Partial; Anthropic credit exhausted |
-| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | ✓ | — | — | Oracle only (credits/quota blocked) |
-| apexora-global-wave-3-campus-segmentation-is-blocked-across | ✓ | — | — | Oracle only (credits/quota blocked) |
-| i-need-the-offline-binary-cache-closure-planner-in-app-task | ✓ | — | — | Oracle only (credits/quota blocked) |
-| the-harborlane-replay-desk-needs-a-reusable-offline-planner | ✓ | — | — | Oracle only (credits/quota blocked) |
-| we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | ✓ | — | — | Oracle only (credits/quota blocked) |
-| wildlife-counting-becomes-a-field-planning-game-when-uncerta | ✓ | — | — | Oracle only (credits/quota blocked) |
-| booking-slot-merge | ✓ | — | — | Haiku **0/1** (valid_fail); oracle only otherwise |
+| Task | Oracle | Opus k=8 | GPT k=8 | Haiku k=1 | Notes |
+| --- | ---: | ---: | ---: | ---: | --- |
+| repair-the-pendulum-motion-solver | ✓ | **8/8** (6s/1f/1i) | **8/8** (1s/7f) | — | Full frontier. Sibling k=5 fill may be running separately; not started by this pass. |
+| hypersonic-fragment-cascade-epoch-atlas | ✓ | **8/8** (7s/1f) | **8/8** (2s/6f) | — | Full frontier |
+| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | ✓ | **7/8** (2s/2f/3i) | **3/8** (0s/2f/1i) | — | Partial; Anthropic credit exhausted |
+| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | ✓ | — | — | **0/1** valid_fail | Schedule not exact optimum (3 fixtures) |
+| apexora-global-wave-3-campus-segmentation-is-blocked-across | ✓ | — | — | **0/1** valid_fail | Config not authoritative; 7 fail + 263 errors |
+| i-need-the-offline-binary-cache-closure-planner-in-app-task | ✓ | — | — | **0/1** valid_fail | Proof `seal` mismatch |
+| the-harborlane-replay-desk-needs-a-reusable-offline-planner | ✓ | — | — | **0/1** valid_fail | Plan.hs segment order vs segments.tsv |
+| we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | ✓ | — | — | **0/1** valid_fail | stdout JSON + extra path line |
+| wildlife-counting-becomes-a-field-planning-game-when-uncerta | ✓ | — | — | timeout | AgentTimeoutError 1800s; not a stump |
+| booking-slot-merge | ✓ | — | — | **0/1** valid_fail | Epoch fence / report SPAN; chip **0/1** not 0/8 |
 
-**Frozen:** 10 tasks (one Go oracle-fail dropped; replacement passes).  
+**Frozen Batch 01:** 10 tasks (one Go oracle-fail dropped; replacement passes).  
 **Frontier completed trials** (solved + valid_fail, infra excluded): **37** of 160 planned.  
-**Stump formula:** `valid_fail / (solved + valid_fail)` — timeouts and infra (including credit-balance errors) excluded.
+**Cheap haiku:** 6 new trials + prior booking 0/1. OpenAI 429 — no gpt-4o-mini.  
+**Stump formula:** `valid_fail / (solved + valid_fail)` — timeouts and infra excluded.
 
 ---
 
-## Spend
+## Spend (Harbor `cost_usd`)
 
-| Bucket | Harbor `cost_usd` |
+| Bucket | Amount |
 | --- | ---: |
-| Pendulum Opus | $15.90 |
-| Hypersonic Opus | $12.82 |
-| Dyeworks Opus | $13.02 |
-| Hypersonic GPT | $3.05 |
-| Pendulum GPT | $2.36 |
-| Dyeworks GPT (partial) | $1.27 |
-| Smoke (Opus + GPT) | ~$1.25 |
-| **Total** | **~$49.67** |
+| Frontier rollup (prior) | ~$49.67 |
+| Haiku booking (prior) | $0.15 |
+| Haiku root-CA | $0.25 |
+| Haiku Apexora | $0.80 |
+| Haiku offline binary-cache | $0.82 |
+| Haiku Harborlane | $0.80 |
+| Haiku stratified k-fold | $0.28 |
+| Haiku wildlife (timeout) | $0.60 |
+| **Cheap six + booking** | **~$3.70** |
 
-Harbor is **idle**. Remaining Opus cannot continue until Anthropic credits are added. Remaining GPT cannot continue until OpenAI quota is added.
+OpenAI remains **insufficient_quota**. Anthropic haiku completed; do not resume Opus 8+8.
 
 ---
 
 ## Recommendation
 
-1. Remaining seven k=8×2 jobs need **new Anthropic credits and OpenAI quota** before they can run. Do not claim 160/160.
-2. Dyeworks is still incomplete (Opus 7/8 recorded, GPT 3/8). Resume only after both providers accept a cheap probe.
-3. Re-ingest is done. Lab shows real counts — no fake 8/8 on unmeasured tasks.
+1. Batch 01 cheap 1-shots are done. Do not pad chips to /8 or /5 unless that many trials ran.
+2. Remaining frontier k=8 still needs credits/quota. Do not claim 160/160.
+3. Serve `python3 -m http.server 8765 --bind 0.0.0.0` and open `/lab/index.html?filter=batch` (10 of 100).
 
 Full loss themes: `docs/lab_batch_01_loss_analysis.md`.

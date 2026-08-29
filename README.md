@@ -43,10 +43,12 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then open:
 
-- Worlds: http://127.0.0.1:8765/lab/index.html
-- Catalog + frozen tens: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch
+- Batch 01 table (10 of 100): http://127.0.0.1:8765/lab/index.html?filter=batch
+- Catalog / Tasks alias: http://127.0.0.1:8765/lab/index.html?surface=tasks
+- Both: http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=batch
+- All frozen tens (50): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=frozen
 - Batch 02: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b02
-- Runs / traces / failures for a package: http://127.0.0.1:8765/lab/index.html?surface=runs&task=booking-slot-merge
+- One package: http://127.0.0.1:8765/lab/index.html?task=repair-the-pendulum-motion-solver
 - `surface=tasks` still aliases Catalog
 
 Cloudflare quick tunnels (`*.trycloudflare.com`) are **ephemeral**. They die when the VM sleeps or `cloudflared` exits. Do not treat an old hostname as a stable URL. Never commit `.env` or API keys.

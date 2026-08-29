@@ -177,13 +177,16 @@
   function matchesFilter(task) {
     if (!task) return false;
     const batchKey = parseBatchFilter(category);
-    if (category === "batch" && !batchNum(task)) return false;
+    // filter=batch is Batch 01 (10 of 100), matching ?surface=tasks&filter=batch.
+    if (category === "batch" && batchNum(task) !== 1) return false;
+    if (category === "frozen" && !batchNum(task)) return false;
     if (batchKey && batchNum(task) !== batchKey) return false;
     if (category === "measured" && !hasJobs(task)) return false;
     if (category === "agents" && !hasAgentJobs(task)) return false;
     if (
       category !== "all" &&
       category !== "batch" &&
+      category !== "frozen" &&
       category !== "measured" &&
       category !== "agents" &&
       !batchKey &&
@@ -282,6 +285,7 @@
     const keys = [
       "all",
       "batch",
+      "frozen",
       "b01",
       "b02",
       "b03",
@@ -297,7 +301,8 @@
       const b = parseBatchFilter(key);
       let label;
       if (key === "all") label = `All ${tasks.length}`;
-      else if (key === "batch") label = `Frozen ${Object.values(frozen).reduce((a, n) => a + n, 0)}`;
+      else if (key === "batch") label = `Batch 01 ${frozen[1] || 10}`;
+      else if (key === "frozen") label = `Frozen ${Object.values(frozen).reduce((a, n) => a + n, 0)}`;
       else if (b) label = `B${batchLabel(b)} ${frozen[b] || 0}`;
       else if (key === "measured") label = `Jobs ${corpus.lab.measured_size || 0}`;
       else if (key === "agents") label = `Agent trials ${tasks.filter(hasAgentJobs).length}`;

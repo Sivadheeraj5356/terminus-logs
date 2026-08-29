@@ -245,6 +245,7 @@ class LabUiIdentityTests(unittest.TestCase):
         self.assertNotIn("8/8 solved", js)
         self.assertIn("${row.solved || 0}/${recorded}", js)
         self.assertNotIn("${row.solved || 0}/${PLANNED}", js)
+        self.assertIn('category === "batch" && batchNum(task) !== 1', js)
         self.assertIn("https://github.com/Sivadheeraj5356/terminus-logs", html)
         self.assertEqual(PLANNED_ATTEMPTS, 5)
 
