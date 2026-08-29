@@ -1,6 +1,6 @@
 # Batch 01 — cheap-protocol notes
 
-**Updated:** 2026-08-29T00:34:53Z
+**Updated:** 2026-08-29T00:54:24Z
 **Protocol:** terminus-2, `-k 5`, Haiku + second cheap arm. Frontier 8-run history is separate.
 **Stump:** `valid_fail / (solved + valid_fail)`. Infra and timeout excluded.
 
@@ -14,7 +14,7 @@
 | `i-need-the-offline-binary-cache-closure-planner-in-app-task` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 | `the-harborlane-replay-desk-needs-a-reusable-offline-planner` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 | `we-re-putting-together-a-stratified-k-fold-evaluation-kit-un` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
-| `wildlife-counting-becomes-a-field-planning-game-when-uncerta` | yes | 1 | 1 | 0 | 0 | 0 | 0.0 |
+| `wildlife-counting-becomes-a-field-planning-game-when-uncerta` | yes | 2 | 1 | 0 | 0 | 1 | 0.0 |
 | `booking-slot-merge` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 
 ## Themes (from traces + CTRF)
@@ -73,7 +73,8 @@
 
 ### `wildlife-counting-becomes-a-field-planning-game-when-uncerta`
 
-No agent analysis yet (oracle-only or not run).
+- anthropic/claude-haiku-4-5: timeout (excluded from stump)
+- Failing tests: `test_outputs.py::TestOutputs::test_census_case`
 
 ### `booking-slot-merge`
 

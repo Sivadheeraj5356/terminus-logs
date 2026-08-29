@@ -4,7 +4,7 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-29T00:33:31Z",
+    "generated_utc": "2026-08-29T00:54:24Z",
     "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {
@@ -1061,11 +1061,11 @@ window.AW_CORPUS = {
         {
           "job": "lab01-haiku-wildlife",
           "n_total_trials": 1,
-          "n_completed_trials": 0,
-          "n_errored_trials": 0,
-          "cost_usd": null,
-          "n_input_tokens": null,
-          "n_output_tokens": null
+          "n_completed_trials": 1,
+          "n_errored_trials": 1,
+          "cost_usd": 0.5984262499999999,
+          "n_input_tokens": 3184386,
+          "n_output_tokens": 27849
         },
         {
           "job": "lab01-opus-hypersonic-fragment-cascade-epoch-at",
@@ -1194,7 +1194,7 @@ window.AW_CORPUS = {
           "n_output_tokens": null
         }
       ],
-      "cost_usd_sum": 52.7674,
+      "cost_usd_sum": 53.3658,
       "note": "Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented."
     }
   },
@@ -9262,15 +9262,25 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "1/1 solved",
-        "n_trials": 1,
+        "label": "1/2 solved",
+        "n_trials": 2,
         "solved": 1,
         "valid_fail": 0,
-        "timeout": 0,
+        "timeout": 1,
         "infra_error": 0,
         "unknown": 0,
         "completed_trials": 1,
         "by_model": [
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "n": 1,
+            "solved": 0,
+            "valid_fail": 0,
+            "timeout": 1,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": null
+          },
           {
             "model": "oracle",
             "n": 1,
@@ -9292,9 +9302,21 @@ window.AW_CORPUS = {
             "failed_tests": [],
             "exception_type": null,
             "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "timeout",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm in the /app directory on a Linux system. The task involves a wildlife counting game (Safari Dispatch) with a command-line interface. I need to: 1. Understand the game mechanics by reading the handbook 2. Complete three expedit | step: Analysis: Good! I can see the game structure. The handbook explains: - The game is a census/counting expedition with HTTP API - Three scenarios: open_savanna, river_confluence, thornveld_dusk - Four explorers in two pairs with different rol | step: Analysis: Now I understand the setup: - safari_dispatch.mjs is a simple client that reads state via GET /state and sends commands via POST /act - It implements a basic strategy: move tracker_ama to unreported survey habitats, observe, and r | step: Analysis: The server started successfully on port 3000, but I tried to curl port 8000. Let me correct that and test on port 3000. The server is now running in the background. Plan: 1. Test /health on correct port 3000 2. Get /scenarios list | step: Analysis: curl is not available. I need to use a different approach. Since Node.js is available (npm works), I can use Node.js to make HTTP requests. Let me create a simple Node.js script to interact with the API. Plan: 1. Create a Node.js  | step: Analysis: Good! The server is running and healthy. It shows no active run (has_active_run: false). Now I need to get the scenarios and understand what's available. Plan: 1. Get scenarios list 2. Start a new game with the first scenario 3. R | step: Analysis: Perfect! I can see the three scenarios I need to complete: 1. open_savanna: 10 habitats, finish_floor=42, turn_limit=66 2. river_confluence: 10 habitats, finish_floor=42, turn_limit=68 3. thornveld_dusk: 10 habitats, finish_floor=",
+            "trial_dir": "/workspace/jobs/lab01-haiku-wildlife/wildlife-counting-becomes-a-fiel__ASNhuY6",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::TestOutputs::test_census_case"
+            ],
+            "exception_type": "AgentTimeoutError",
+            "exception_message": "Agent execution timed out after 1800.0 seconds"
           }
         ],
-        "note": "Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 2 — 1 solved, 0 valid fail, 1 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
       "stump_pct": 0.0,
       "batch": 1,
@@ -9338,12 +9360,29 @@ window.AW_CORPUS = {
         }
       ],
       "analysis": {
-        "failing_tests": [],
-        "themes": [],
+        "failing_tests": [
+          "test_outputs.py::TestOutputs::test_census_case"
+        ],
+        "themes": [
+          "anthropic/claude-haiku-4-5: timeout (excluded from stump)"
+        ],
         "completed_trials": 1,
         "stump_pct": 0.0,
-        "by_model": [],
-        "cheap_recorded": {},
+        "by_model": [
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "n": 1,
+            "solved": 0,
+            "valid_fail": 0,
+            "timeout": 1,
+            "infra_error": 0,
+            "unknown": 0,
+            "stump_pct": null
+          }
+        ],
+        "cheap_recorded": {
+          "anthropic/claude-haiku-4-5": 1
+        },
         "note": "Themes come from Harbor traces and verifier CTRF/stdout. Timeouts and infra are listed and excluded from stump."
       }
     },
