@@ -18,10 +18,13 @@ Gallery: already yes — 100 unique Harbor packages at `lab/index.html`. Measure
 Caudal’s company-scale “tasks delivered” is a **services volume** number. The public lab is a **measured, audited slice**: originally authored Terminal-Bench 2.1 worlds, digest-pinned, 16 terminus-2 runs each (8 Opus 5 + 8 gpt-5.6-sol), three reward channels, an 816-run integrity pass, and five tasks **removed** (not footnoted) after Opus-only scaffold voids. The variance thesis is mid-band `p` so `p(1-p)` is usable for group estimators. One hundred thousand unlabeled or once-run items cannot sit in that UI.
 
 **How many we add.**  
-Keep **100** as the public *package* set. Grow the *measured* set in **tens**: 10 → 20 → 30. After three clean batches (~480 frontier runs), decide whether to stop near 30, match Caudal’s 51, or continue toward 100. Do not run 448×16, and do not claim a 100-task signal lab until groups exist and scaffold voids are dropped.
+Keep **100** as the public *package* set. Grow the *measured* set in **tens**: 10 → 20 → 30 → 40 → 50. Stop after Batch 05. Do not run 448×16, and do not claim a 100-task measured lab until those groups exist.
 
-**This batch.**  
-10 tasks × 8 Opus 5 × 8 gpt-5.6-sol = **160** terminus-2 jobs, plus oracle (and optional empty/`nop`) integrity. Then stop. Do not auto-start batch 2. If spend spikes after task 2–3, stop and report.
+**Going-forward protocol (29 Aug 2026).**  
+10 tasks × 5 Haiku × 5 second-arm (gpt-4o-mini, Sonnet fallback on 429) per batch. Existing Opus 5 / gpt-5.6-sol 8-run traces stay as history. Do not resume the abandoned 160-frontier plan unless credits are explicitly restored for that purpose.
+
+**Abandoned frontier plan (28 Aug 2026, not the current target).**  
+10 tasks × 8 Opus 5 × 8 gpt-5.6-sol = 160 terminus-2 jobs. Stopped after spend/credits. Recorded as history, not as the live protocol.
 
 ---
 
@@ -30,15 +33,19 @@ Keep **100** as the public *package* set. Grow the *measured* set in **tens**: 1
 | Applied Work surface | Instead of copying | Data we need |
 | --- | --- | --- |
 | Worlds | Introduction | Package contract, offline, expert time, Harbor 0.22 |
-| Coverage | (new) | Domain × language matrix vs Caudal 51 and vs public TB2 |
-| Corpus | Corpus | 100 gallery now; measured rows highlighted only when jobs exist |
+| Coverage | (new) | Domain × language matrix; batches 01–05 marked |
+| Catalog | Corpus | 100 gallery now; measured rows highlighted only when jobs exist |
+| Runs | Rollout grid clone | One dot per recorded trial; never padded to 5 or 8 |
 | Traces | Trajectories | Harbor `trajectory.json` / trial logs after runs |
 | Verifier | Integrity-first | Oracle, empty submission = 0, timeout ≠ fail |
 | Stump | Reward-signal clone | `valid_fail / completed_trials`; infra/timeout excluded |
-| Failure map | Rubric-only copy | Taxonomy from traces + tests; rubric only if we author one |
+| Failures | Rubric-only copy | Named verifier holes from CTRF + traces |
 | Harness | Harness | terminus-2 + Harbor 0.22 named; no fake Claude-Code estimates |
+| Spend | (new) | Harbor `cost_usd`; credit/quota stops |
+| Batches | (new) | Ledger 01–05: frozen / partial / measured |
+| Agents | Model columns | Rollup by actual LiteLLM slug |
 
-Do **not** ship an SFT/SDFT/RFT/DPO/GRPO/PPO playground until real 8-run groups exist, and even then as a short “group math” note, not their UI.
+Do **not** ship an SFT/SDFT/RFT/DPO/GRPO/PPO playground. Five-trial cheap groups are for stump and failure analysis, not a copy of another lab’s optimisation UI.
 
 Format references only (not chrome to copy): [tbench Challenges](https://www.tbench.ai/news/terminal-bench-challenges), [Harbor](https://harborframework.com/docs), [AirDawg](https://www.airdawglabs.com/), OSWorld / long-horizon Terminal-Bench papers (horizon, not visual design).
 
@@ -240,7 +247,7 @@ Do **not** use `scripts/run_agents.ps1` as-is (it still defaults sonnet/gpt-4o o
 1. **Probe.** Print Harbor `-k` / n-attempts help. Require `ANTHROPIC_API_KEY` starting `sk-ant-` and a real `OPENAI_API_KEY`. Reject a `sk-proj-` value in the Anthropic slot.
 2. **Oracle** the 10 (`-a oracle -k 1`). Drop reward ≠ 1.0 and rerun the selector.
 3. **Smoke** one task, each model, 1 trial. Stop on auth or Docker errors.
-4. **Measure** both models, 8 trials, concurrency 1 (or 2). Stop after task 2–3 if spend spikes. Do not start batch 02 automatically.
+4. **Measure** both cheap arms, 5 trials, concurrency 1. Fill remaining k so a 1-trial probe becomes 5, not a relabeled 0/5. Stop on credit/quota. Do not start the next batch until this one is ingested.
 5. **Classify** with `scripts/ingest_lab_jobs.py` (same rules as `scripts/update_catalog_from_jobs.py`): solved / valid_fail / timeout / infra_error. Stump only from valid_fail.
 6. **Integrity.** Optional `nop` empty=0. Drop scaffold-void trials from groups.
 7. **Ingest** into `lab/` only fields we have, and **only for these 10**. The other 90 stay “not run.”
@@ -252,8 +259,8 @@ Cost ceiling this pass: 160 frontier jobs. Wall clock is sequential; hours to da
 ## 14. UI rules
 
 - Keep the workshop ledger chrome (paper, ink, copper). Name: **Applied Work Worlds Lab**.
-- Surfaces: Worlds, Coverage, Corpus, Traces, Verifier, Stump, Failure map, Harness.
-- Deep link stays `lab/index.html?task=<slug>` (optional `&surface=`).
+- Surfaces: Worlds, Coverage, Catalog, Runs, Traces, Verifier, Stump, Failures, Harness, Spend, Batches, Agents.
+- Deep link stays `lab/index.html?task=<slug>` (optional `&surface=`). `surface=tasks` aliases Catalog. `filter=batch` is all frozen tens; `filter=b02` is Batch 02.
 - Measured chips **only** for tasks with jobs. No fake 8 rollout chips.
 - Do not title the page “51 Terminal-Bench samples” or “Post-Training Signal Lab.”
 

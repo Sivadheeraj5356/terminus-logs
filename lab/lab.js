@@ -23,21 +23,40 @@
     debugging: "Debugging",
   };
 
+  const SURFACES = [
+    "worlds",
+    "coverage",
+    "catalog",
+    "runs",
+    "traces",
+    "stump",
+    "failures",
+    "verifier",
+    "harness",
+    "spend",
+    "batches",
+    "agents",
+  ];
+
   const SURFACE_ALIASES = {
-    overview: "overview",
-    worlds: "overview",
-    coverage: "overview",
-    tasks: "tasks",
-    corpus: "tasks",
+    overview: "worlds",
+    worlds: "worlds",
+    coverage: "coverage",
+    tasks: "catalog",
+    corpus: "catalog",
+    catalog: "catalog",
+    runs: "runs",
+    traces: "traces",
+    stump: "stump",
+    failures: "failures",
+    verifier: "verifier",
+    harness: "harness",
+    spend: "spend",
+    batches: "batches",
     agents: "agents",
-    traces: "agents",
-    verifier: "agents",
-    stump: "agents",
-    failures: "agents",
-    harness: "agents",
   };
 
-  const PLANNED = Number((corpus.lab.harness || {}).planned_attempts) || 8;
+  const PLANNED = Number((corpus.lab.harness || {}).planned_attempts) || 5;
   const tasks = corpus.tasks;
   const bySlug = new Map(tasks.map((task) => [task.slug, task]));
 
@@ -80,10 +99,10 @@
   function currentSurface() {
     const raw = (params().get("surface") || "").toLowerCase();
     if (raw && SURFACE_ALIASES[raw]) return SURFACE_ALIASES[raw];
-    if (currentSlug()) return "tasks";
+    if (currentSlug()) return "catalog";
     const filter = (params().get("filter") || "").toLowerCase();
-    if (filter && filter !== "all") return "tasks";
-    return "overview";
+    if (filter && filter !== "all") return "catalog";
+    return "worlds";
   }
 
   function setUrl({ slug, surface, filter, push }) {
@@ -93,7 +112,7 @@
     const nextFilter = filter === undefined ? category : filter;
     if (nextSlug) url.searchParams.set("task", nextSlug);
     else url.searchParams.delete("task");
-    if (nextSurface && nextSurface !== "overview") url.searchParams.set("surface", nextSurface);
+    if (nextSurface && nextSurface !== "worlds") url.searchParams.set("surface", nextSurface);
     else url.searchParams.delete("surface");
     if (nextFilter && nextFilter !== "all") url.searchParams.set("filter", nextFilter);
     else url.searchParams.delete("filter");
@@ -102,7 +121,11 @@
 
   function isOracleModel(name) {
     const value = String(name || "").toLowerCase();
-    return !value || value === "oracle" || value.includes("oracle");
+    return !value || value === "oracle" || orIncludesOracle(value);
+  }
+
+  function orIncludesOracle(value) {
+    return value.includes("oracle");
   }
 
   function agentModels(task) {
@@ -121,14 +144,22 @@
     return agentModels(task).some((row) => (row.n || 0) > 0);
   }
 
-  function frontierComplete(task) {
-    return agentModels(task).some((row) => (row.n || 0) >= PLANNED);
+  function batchNum(task) {
+    const n = Number(task && task.batch);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  }
+
+  function batchLabel(n) {
+    return String(n).padStart(2, "0");
   }
 
   function shortModel(name) {
     const raw = String(name || "");
     if (/opus/i.test(raw)) return "Opus 5";
     if (/gpt-5\.6-sol/i.test(raw) || /gpt-5\.6/i.test(raw)) return "GPT-5.6-sol";
+    if (/haiku/i.test(raw)) return "claude-haiku-4-5";
+    if (/gpt-4o-mini/i.test(raw)) return "gpt-4o-mini";
+    if (/sonnet/i.test(raw)) return raw.replace(/^anthropic\//, "");
     return raw.replace(/^anthropic\//, "").replace(/^openai\//, "");
   }
 
@@ -137,9 +168,17 @@
     return Number.isFinite(n) && n > 0 ? n : 0;
   }
 
+  function parseBatchFilter(key) {
+    if (!key) return 0;
+    const m = String(key).toLowerCase().match(/^(?:b|batch)?0*([1-5])$/);
+    return m ? Number(m[1]) : 0;
+  }
+
   function matchesFilter(task) {
     if (!task) return false;
-    if (category === "batch" && task.batch !== 1) return false;
+    const batchKey = parseBatchFilter(category);
+    if (category === "batch" && !batchNum(task)) return false;
+    if (batchKey && batchNum(task) !== batchKey) return false;
     if (category === "measured" && !hasJobs(task)) return false;
     if (category === "agents" && !hasAgentJobs(task)) return false;
     if (
@@ -147,6 +186,7 @@
       category !== "batch" &&
       category !== "measured" &&
       category !== "agents" &&
+      !batchKey &&
       task.category !== category
     ) {
       return false;
@@ -188,7 +228,7 @@
       toggle.addEventListener("click", () => {
         const now = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
         applyTheme(now);
-        if (currentSurface() === "overview") renderLengthChart();
+        if (currentSurface() === "worlds") renderLengthChart();
       });
     }
   }
@@ -196,11 +236,7 @@
   function renderNav() {
     const active = currentSurface();
     document.querySelectorAll("[data-nav]").forEach((el) => {
-      const id = el.getAttribute("data-nav");
-      if (id === "contributors" || id === "blog") {
-        el.setAttribute("aria-current", "false");
-        return;
-      }
+      const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
       if (el.tagName === "BUTTON" || el.tagName === "A") {
         el.setAttribute("aria-current", id === active ? "page" : "false");
       }
@@ -208,7 +244,7 @@
   }
 
   function showSurface(id) {
-    ["overview", "tasks", "agents"].forEach((sid) => {
+    SURFACES.forEach((sid) => {
       const el = document.getElementById(`surface-${sid}`);
       if (el) el.hidden = sid !== id;
     });
@@ -231,15 +267,38 @@
       .join(" ");
   }
 
+  function frozenCounts() {
+    const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    tasks.forEach((task) => {
+      const n = batchNum(task);
+      if (n) counts[n] += 1;
+    });
+    return counts;
+  }
+
   function renderChips() {
     const counts = corpus.lab.category_mix || {};
-    const keys = ["all", "batch", "measured", "agents", ...Object.keys(CATEGORY_LABELS)];
+    const frozen = frozenCounts();
+    const keys = [
+      "all",
+      "batch",
+      "b01",
+      "b02",
+      "b03",
+      "b04",
+      "b05",
+      "measured",
+      "agents",
+      ...Object.keys(CATEGORY_LABELS),
+    ];
     chipsEl.innerHTML = "";
     keys.forEach((key) => {
       const button = document.createElement("button");
+      const b = parseBatchFilter(key);
       let label;
       if (key === "all") label = `All ${tasks.length}`;
-      else if (key === "batch") label = `Batch 01 ${corpus.lab.batch_01_size || 10}`;
+      else if (key === "batch") label = `Frozen ${Object.values(frozen).reduce((a, n) => a + n, 0)}`;
+      else if (b) label = `B${batchLabel(b)} ${frozen[b] || 0}`;
       else if (key === "measured") label = `Jobs ${corpus.lab.measured_size || 0}`;
       else if (key === "agents") label = `Agent trials ${tasks.filter(hasAgentJobs).length}`;
       else label = `${categoryLabel(key)} ${counts[key] || 0}`;
@@ -248,7 +307,7 @@
       button.setAttribute("aria-pressed", key === category ? "true" : "false");
       button.addEventListener("click", () => {
         category = key;
-        setUrl({ surface: "tasks", filter: key, push: true });
+        setUrl({ surface: "catalog", filter: key, push: true });
         renderChips();
         renderTable();
         const slug = currentSlug();
@@ -270,13 +329,14 @@
       const langHtml = languages(task)
         .map((lang) => `<span class="chip chip-lang">${escapeHtml(lang)}</span>`)
         .join(" ");
+      const bn = batchNum(task);
       tr.innerHTML = `
         <td class="name">${escapeHtml(task.name)}
           <span class="slug">${escapeHtml(task.slug)}</span>
         </td>
         <td><span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(categoryLabel(task.category))}</span></td>
         <td>${langHtml || "—"}</td>
-        <td>${task.batch === 1 ? `<span class="chip chip-batch">01</span>` : `<span class="muted">—</span>`}</td>
+        <td>${bn ? `<span class="chip chip-batch">${batchLabel(bn)}</span>` : `<span class="muted">—</span>`}</td>
         <td class="measured">${measuredCell(task)}</td>
       `;
       tr.addEventListener("click", () => selectTask(task.slug, true));
@@ -320,7 +380,7 @@
       panelEmpty.hidden = false;
       panelEmpty.innerHTML = `
         <p>Select a task to open its summary, Harbor files, and ingest status.</p>
-        <p class="hint">Deep links use <code>lab/index.html?surface=tasks&amp;task=&lt;slug&gt;</code>. A <code>filter=</code> chip can stay; <code>task</code> still opens this panel.</p>
+        <p class="hint">Deep links use <code>lab/index.html?surface=catalog&amp;task=&lt;slug&gt;</code>. A <code>filter=</code> chip can stay; <code>task</code> still opens this panel.</p>
       `;
       panelBody.hidden = true;
       panelBody.innerHTML = "";
@@ -337,22 +397,20 @@
     const agents = agentModels(task);
     const oracle = oracleModels(task)[0];
     const roll = task.rollouts || {};
+    const bn = batchNum(task);
     const agentHtml = agents.length
       ? agents
           .map((row) => {
             const recorded = recordedN(row);
-            const planNote =
-              recorded === PLANNED
-                ? ""
-                : ` <span class="muted">(frontier plan ${PLANNED})</span>`;
             return `<div>${escapeHtml(shortModel(row.model))}: ${row.solved || 0} solved · ${
               row.valid_fail || 0
             } valid fail · ${row.infra_error || 0} infra · ${
               row.timeout || 0
-            } timeout · ${recorded} recorded${planNote}</div>`;
+            } timeout · ${recorded} recorded</div>`;
           })
           .join("")
       : `<span class="muted">No terminus-2 trials ingested.</span>`;
+    const themes = ((task.analysis && task.analysis.themes) || []).slice(0, 6);
     panelBody.innerHTML = `
       <dl class="meta">
         <dt>Category</dt>
@@ -375,7 +433,7 @@
           }</span>
         </dd>
         <dt>Batch</dt>
-        <dd>${task.batch === 1 ? "01 selected" : "gallery only"}</dd>
+        <dd>${bn ? batchLabel(bn) + " selected" : "gallery only"}</dd>
         <dt>Harbor jobs</dt>
         <dd>${hasJobs(task) ? escapeHtml(roll.note || "ingested") : "not run"}</dd>
         <dt>Oracle trial</dt>
@@ -389,6 +447,13 @@
         <dt>Stump %</dt>
         <dd>${escapeHtml(stumpDisplay(task))} <span class="muted">(valid fail / completed; infra excluded)</span></dd>
       </dl>
+      ${
+        themes.length
+          ? `<h3>Analysis</h3><ul class="plain-list">${themes
+              .map((theme) => `<li>${escapeHtml(theme)}</li>`)
+              .join("")}</ul>`
+          : ""
+      }
       <p class="panel-summary">${escapeHtml(task.summary || "")}</p>
       <h3>Harbor files</h3>
       <ul class="files">${fileList(task)}</ul>
@@ -397,8 +462,8 @@
 
   function selectTask(slug, push) {
     const task = bySlug.get(slug);
-    setUrl({ slug, surface: "tasks", push });
-    showSurface("tasks");
+    setUrl({ slug, surface: "catalog", push });
+    showSurface("catalog");
     renderNav();
     renderChips();
     renderTable();
@@ -409,7 +474,6 @@
       panelEmpty.textContent = `No lab row for ?task=${slug}`;
       return;
     }
-    // task= wins for the panel even when filter= hides the row (chips stay honest).
     renderPanel(task);
     const row = rowsEl.querySelector(`[data-slug="${CSS.escape(slug)}"]`);
     if (row) row.scrollIntoView({ block: "nearest" });
@@ -428,14 +492,21 @@
     domains.forEach((domain) => {
       html += `<tr><th scope="row">${escapeHtml(categoryLabel(domain))}</th>`;
       langs.forEach((lang) => {
-        const cell = (cov.cells || {})[`${domain}|${lang}`] || { gallery: 0, selected: 0, measured: 0 };
+        const cell = (cov.cells || {})[`${domain}|${lang}`] || { gallery: 0, selected: 0, measured: 0, slugs: [] };
         if (!cell.gallery) {
           html += "<td class='empty-cell'></td>";
           return;
         }
+        const marks = (cell.slugs || [])
+          .map((slug) => {
+            const task = bySlug.get(slug);
+            return task && batchNum(task) ? batchLabel(batchNum(task)) : "";
+          })
+          .filter(Boolean);
+        const uniq = [...new Set(marks)];
         const cls = cell.measured ? "cell-measured" : cell.selected ? "cell-selected" : "";
         html += `<td class="${cls}">${cell.gallery}${
-          cell.selected ? ` <span class="batch-mark">01</span>` : ""
+          uniq.length ? ` <span class="batch-mark">${uniq.join(",")}</span>` : ""
         }${cell.measured ? ` <span class="chip chip-ok">jobs</span>` : ""}</td>`;
       });
       html += "</tr>";
@@ -498,19 +569,20 @@
     const meta = document.getElementById("preview-meta");
     const pager = document.getElementById("preview-pager");
     const dots = document.getElementById("preview-dots");
+    if (!code) return;
     if (!previews.length) {
       code.textContent = "No instruction previews in corpus.";
       return;
     }
     const item = previews[previewIndex % previews.length];
-    meta.textContent = `${item.chars} chars · ${item.slug}`;
+    if (meta) meta.textContent = `${item.chars} chars · ${item.slug}`;
     code.innerHTML = (item.lines || [])
       .map(
         (line) =>
           `<span class="line"><span class="ln">${line.n}</span><span class="lt">${escapeHtml(line.text || "")}</span></span>`
       )
       .join("");
-    if (previews.length > 1) {
+    if (previews.length > 1 && pager && dots) {
       pager.hidden = false;
       dots.innerHTML = "";
       previews.forEach((_, i) => {
@@ -526,15 +598,15 @@
     }
   }
 
-  function renderOverview() {
+  function renderWorlds() {
     const jobs = tasks.filter(hasJobs).length;
-    const frontier = tasks.filter(frontierComplete).length;
+    const agents = tasks.filter(hasAgentJobs).length;
     document.getElementById("stat-packages").textContent = String(corpus.lab.mvp_size || tasks.length);
     document.getElementById("stat-inventory").textContent = String(corpus.lab.inventory_size || 448);
-    document.getElementById("stat-batch").textContent = String(corpus.lab.batch_01_size || 10);
+    document.getElementById("stat-batch").textContent = String(corpus.lab.measured_target || 50);
     document.getElementById("stat-measured").textContent = String(jobs);
     document.getElementById("stat-measured-note").textContent =
-      `Harbor jobs ingested · ${frontier} completed ${PLANNED}/${PLANNED} groups`;
+      `Harbor jobs ingested · ${agents} with agent trials · cheap plan k=${PLANNED}`;
 
     const domains = Object.keys(CATEGORY_LABELS).map((key) => ({
       label: categoryLabel(key).split(" ")[0],
@@ -547,8 +619,229 @@
     }));
     renderBars(document.getElementById("chart-langs"), langs);
     renderLengthChart();
-    renderCoverage();
     renderPreview();
+  }
+
+  function classDot(cls) {
+    if (cls === "solved") return "run-dot solved";
+    if (cls === "valid_fail") return "run-dot fail";
+    if (cls === "timeout") return "run-dot timeout";
+    if (cls === "infra_error") return "run-dot infra";
+    return "run-dot unknown";
+  }
+
+  function trialsByModel(task) {
+    const map = new Map();
+    ((task.rollouts && task.rollouts.trials) || []).forEach((trial) => {
+      if (isOracleModel(trial.model)) return;
+      const key = trial.model || "unknown";
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(trial);
+    });
+    return map;
+  }
+
+  function renderRuns() {
+    const el = document.getElementById("runs-body");
+    const rows = tasks.filter((task) => batchNum(task) || hasAgentJobs(task));
+    if (!rows.length) {
+      el.innerHTML = `<article class="empty-card"><h2>No frozen packages yet</h2><p>Freeze a batch, then ingest Harbor jobs. Dots appear only for recorded trials.</p></article>`;
+      return;
+    }
+    el.innerHTML = rows
+      .map((task) => {
+        const groups = trialsByModel(task);
+        const body = [...groups.entries()]
+          .map(([model, trials]) => {
+            const dots = trials
+              .map(
+                (trial) =>
+                  `<span class="${classDot(trial.classification)}" title="${escapeHtml(
+                    trial.classification
+                  )}"></span>`
+              )
+              .join("");
+            return `<div class="run-row"><span class="run-model">${escapeHtml(
+              shortModel(model)
+            )}</span><span class="run-dots">${dots || '<span class="muted">none</span>'}</span><span class="muted">${
+              trials.length
+            } recorded</span></div>`;
+          })
+          .join("");
+        return `<article class="chart-card"><h2>${escapeHtml(task.name)}</h2>
+          <p class="slug">${escapeHtml(task.slug)}${
+            batchNum(task) ? " · batch " + batchLabel(batchNum(task)) : ""
+          }</p>
+          ${body || '<p class="muted">Oracle only — no terminus-2 trials.</p>'}
+        </article>`;
+      })
+      .join("");
+  }
+
+  function renderTraces() {
+    const el = document.getElementById("traces-body");
+    const focus = currentSlug() ? bySlug.get(currentSlug()) : null;
+    const rows = (focus ? [focus] : tasks.filter(hasAgentJobs)).slice(0, 12);
+    if (!rows.length) {
+      el.innerHTML = `<article class="empty-card"><h2>No private Harbor trials are recorded</h2><p>Traces stay empty until terminus-2 writes trajectory.json under jobs/.</p></article>`;
+      return;
+    }
+    el.innerHTML = rows
+      .map((task) => {
+        const trials = ((task.rollouts && task.rollouts.trials) || []).filter((row) => !isOracleModel(row.model));
+        const cards = trials
+          .slice(0, 8)
+          .map(
+            (trial) => `<article class="trace-card">
+              <p><strong>${escapeHtml(shortModel(trial.model))}</strong> · ${escapeHtml(
+                trial.classification
+              )}</p>
+              <p class="muted">${escapeHtml((trial.summary || "No readable steps.").slice(0, 700))}</p>
+            </article>`
+          )
+          .join("");
+        return `<h2>${escapeHtml(task.name)}</h2>${cards || '<p class="muted">No agent traces.</p>'}`;
+      })
+      .join("");
+  }
+
+  function renderStump() {
+    const el = document.getElementById("stump-body");
+    const rows = tasks.filter(hasAgentJobs);
+    if (!rows.length) {
+      el.innerHTML = `<article class="empty-card"><h2>Stump hidden</h2><p>Need at least one completed agent trial (solved or valid fail). Infra and timeout never count.</p></article>`;
+      return;
+    }
+    el.innerHTML = `<div class="table-card"><div class="table-scroll"><table>
+      <thead><tr><th>Task</th><th>Batch</th><th>Completed</th><th>Valid fail</th><th>Stump</th><th>Infra</th><th>Timeout</th></tr></thead>
+      <tbody>${rows
+        .map((task) => {
+          const agents = agentModels(task);
+          const solved = agents.reduce((s, r) => s + (r.solved || 0), 0);
+          const vf = agents.reduce((s, r) => s + (r.valid_fail || 0), 0);
+          const infra = agents.reduce((s, r) => s + (r.infra_error || 0), 0);
+          const timeout = agents.reduce((s, r) => s + (r.timeout || 0), 0);
+          return `<tr>
+            <td class="name">${escapeHtml(task.name)}<span class="slug">${escapeHtml(task.slug)}</span></td>
+            <td>${batchNum(task) ? batchLabel(batchNum(task)) : "—"}</td>
+            <td>${solved + vf}</td>
+            <td>${vf}</td>
+            <td>${escapeHtml(stumpDisplay(task))}</td>
+            <td>${infra}</td>
+            <td>${timeout}</td>
+          </tr>`;
+        })
+        .join("")}</tbody></table></div></div>`;
+  }
+
+  function renderFailures() {
+    const el = document.getElementById("failures-body");
+    const rows = tasks.filter((task) => task.analysis && (task.analysis.themes || []).length);
+    if (!rows.length) {
+      el.innerHTML = `<article class="empty-card"><h2>No failure map yet</h2><p>Ingest valid-fail traces to list named verifier holes. We do not copy another lab’s rubric.</p></article>`;
+      return;
+    }
+    el.innerHTML = rows
+      .map((task) => {
+        const tests = (task.analysis.failing_tests || [])
+          .slice(0, 8)
+          .map((name) => `<li><code>${escapeHtml(name)}</code></li>`)
+          .join("");
+        const themes = (task.analysis.themes || [])
+          .slice(0, 8)
+          .map((theme) => `<li>${escapeHtml(theme)}</li>`)
+          .join("");
+        return `<article class="chart-card"><h2>${escapeHtml(task.name)}</h2>
+          <p class="slug">${escapeHtml(task.slug)}</p>
+          ${tests ? `<h3>Failing tests</h3><ul class="plain-list">${tests}</ul>` : ""}
+          <h3>Themes</h3><ul class="plain-list">${themes}</ul>
+        </article>`;
+      })
+      .join("");
+  }
+
+  function renderVerifier() {
+    const frozen = tasks.filter((task) => batchNum(task));
+    const oracleOk = frozen.filter((task) => (oracleModels(task)[0] || {}).solved).length;
+    const measured = frozen.filter(hasJobs).length;
+    const infra = frozen.reduce(
+      (s, task) => s + agentModels(task).reduce((n, row) => n + (row.infra_error || 0), 0),
+      0
+    );
+    document.getElementById("verifier-kpis").innerHTML = `
+      <article class="chart-card"><p class="stat-label">Frozen packages</p><p class="stat-value">${frozen.length}</p></article>
+      <article class="chart-card"><p class="stat-label">Oracle ingested pass</p><p class="stat-value">${oracleOk}</p></article>
+      <article class="chart-card"><p class="stat-label">With Harbor jobs</p><p class="stat-value">${measured}</p></article>
+      <article class="chart-card"><p class="stat-label">Infra trials</p><p class="stat-value">${infra}</p><p class="stat-note">Excluded from stump</p></article>
+    `;
+  }
+
+  function renderHarness() {
+    const h = corpus.lab.harness || {};
+    document.getElementById("harness-measured").innerHTML = `
+      <dt>Agent</dt><dd>${escapeHtml(h.agent || "terminus-2")}</dd>
+      <dt>Oracle</dt><dd>${escapeHtml(h.oracle || "oracle")}</dd>
+      <dt>Empty</dt><dd>${escapeHtml(h.empty || "nop")} (optional)</dd>
+      <dt>Harbor</dt><dd>${escapeHtml(h.harbor || "0.22")}</dd>
+      <dt>Planned attempts</dt><dd>${escapeHtml(String(h.planned_attempts || PLANNED))} independent trials (-k)</dd>
+      <dt>n_trials</dt><dd>${escapeHtml(h.n_trials || "n_attempts × tasks × agents")}</dd>
+    `;
+  }
+
+  function renderSpend() {
+    const spend = corpus.lab.spend || {};
+    const jobs = spend.jobs || [];
+    document.getElementById("spend-total").textContent =
+      spend.cost_usd_sum != null ? `$${Number(spend.cost_usd_sum).toFixed(2)}` : "—";
+    document.getElementById("spend-note").textContent = spend.note || "";
+    const tbody = document.getElementById("spend-rows");
+    if (!jobs.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="muted">No Harbor job rollups with cost_usd yet.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = jobs
+      .map(
+        (row) => `<tr>
+          <td class="mono">${escapeHtml(row.job)}</td>
+          <td>${row.n_total_trials ?? "—"}</td>
+          <td>${row.n_completed_trials ?? "—"}</td>
+          <td>${row.n_errored_trials ?? "—"}</td>
+          <td>${row.cost_usd != null ? "$" + Number(row.cost_usd).toFixed(4) : "—"}</td>
+        </tr>`
+      )
+      .join("");
+  }
+
+  function renderBatches() {
+    const el = document.getElementById("batches-body");
+    const meta = corpus.lab.batches || {};
+    el.innerHTML = [1, 2, 3, 4, 5]
+      .map((n) => {
+        const info = meta[String(n)] || { size: 0, slugs: [] };
+        const slugs = info.slugs || [];
+        const frozen = slugs.length;
+        const withJobs = slugs.filter((slug) => {
+          const task = bySlug.get(slug);
+          return task && hasJobs(task);
+        }).length;
+        const withAgents = slugs.filter((slug) => {
+          const task = bySlug.get(slug);
+          return task && hasAgentJobs(task);
+        }).length;
+        const status = !frozen
+          ? "not frozen"
+          : withAgents === 10
+            ? "measured"
+            : withJobs
+              ? "partial"
+              : "oracle pending / blocked";
+        return `<article class="chart-card">
+          <p class="stat-label">Batch ${batchLabel(n)}</p>
+          <p class="stat-value">${frozen}/10</p>
+          <p class="stat-note">${withJobs} with jobs · ${withAgents} with agents · ${status}</p>
+        </article>`;
+      })
+      .join("");
   }
 
   function aggregateAgents() {
@@ -591,15 +884,16 @@
     empty.hidden = true;
     body.hidden = false;
     const summary = document.getElementById("agents-summary");
+    const frozenN = tasks.filter((task) => batchNum(task)).length || 10;
     summary.innerHTML = rows
       .map((row, i) => {
-        const planned = (corpus.lab.batch_01_size || 10) * PLANNED;
+        const planned = frozenN * PLANNED;
         const pct = Math.min(100, Math.round((row.n / Math.max(planned, 1)) * 100));
         return `<div class="model-line"><span class="dot${
           i ? " dot-alt" : ""
         }"></span><strong>${escapeHtml(shortModel(row.model))}</strong>
           <span>${row.solved} solved / ${row.n} recorded on ${row.tasks} task${row.tasks === 1 ? "" : "s"}
-          (plan ${planned} = 10×${PLANNED})
+          (cheap plan ${planned} = ${frozenN}×${PLANNED})
           <span class="bar-track ${pct >= 100 ? "" : "partial"}"><b style="width:${pct}%"></b></span></span></div>`;
       })
       .join("");
@@ -626,7 +920,7 @@
 
     const breakdown = document.getElementById("agent-task-breakdown");
     const agentTasks = tasks.filter(hasAgentJobs);
-    breakdown.innerHTML = `<h2>By task</h2><p class="muted">Denominator is recorded Harbor trials for that model, not the frontier plan of ${PLANNED}. A 1-trial cheap probe shows 0/1, not 0/${PLANNED}. Infra and timeout are listed and excluded from stump.</p>
+    breakdown.innerHTML = `<h2>By task</h2><p class="muted">Denominator is recorded Harbor trials for that model, not a padded ${PLANNED}. A 1-trial cheap probe shows 0/1, not 0/${PLANNED}. Infra and timeout are listed and excluded from stump.</p>
       <div class="table-card"><div class="table-scroll"><table>
         <thead><tr><th>Task</th><th>Model</th><th>Recorded</th><th>Solved</th><th>Valid fail</th><th>Infra</th><th>Timeout</th></tr></thead>
         <tbody>${agentTasks
@@ -649,10 +943,8 @@
   function renderTasksSub() {
     const el = document.getElementById("tasks-sub");
     const jobs = tasks.filter(hasJobs).length;
-    const frontier = tasks.filter(frontierComplete).length;
-    el.textContent = `${tasks.length} gallery packages · ${corpus.lab.inventory_size} inventory · ${
-      corpus.lab.batch_01_size
-    } in batch 01 · ${jobs} with Harbor jobs · ${frontier} with a completed ${PLANNED}/${PLANNED} group`;
+    const frozen = tasks.filter((task) => batchNum(task)).length;
+    el.textContent = `${tasks.length} gallery packages · ${corpus.lab.inventory_size} inventory · ${frozen} frozen · ${jobs} with Harbor jobs · cheap plan k=${PLANNED}`;
   }
 
   function renderAll() {
@@ -660,40 +952,38 @@
     category = params().get("filter") || "all";
     renderNav();
     showSurface(surface);
-    if (surface === "overview") renderOverview();
-    if (surface === "tasks") {
+    if (surface === "worlds") renderWorlds();
+    if (surface === "coverage") renderCoverage();
+    if (surface === "catalog") {
       renderTasksSub();
       renderChips();
       renderTable();
       const slug = currentSlug();
       renderPanel(slug ? bySlug.get(slug) : null);
     }
+    if (surface === "runs") renderRuns();
+    if (surface === "traces") renderTraces();
+    if (surface === "stump") renderStump();
+    if (surface === "failures") renderFailures();
+    if (surface === "verifier") renderVerifier();
+    if (surface === "harness") renderHarness();
+    if (surface === "spend") renderSpend();
+    if (surface === "batches") renderBatches();
     if (surface === "agents") renderAgents();
-  }
-
-  function openLater(kind) {
-    laterBody.textContent =
-      kind === "blog"
-        ? "No blog yet. Applied Work will publish later at appliedwork.ai. This control is a placeholder so the chrome matches a research-lab layout without inventing posts."
-        : "Contributors listing comes later. This lab is Applied Work Worlds Lab in terminus-logs — not a public dataset hub.";
-    laterModal.hidden = false;
   }
 
   document.getElementById("nav-main").addEventListener("click", (event) => {
     const button = event.target.closest("[data-nav]");
     if (!button) return;
-    const id = button.getAttribute("data-nav");
-    if (id === "contributors" || id === "blog") {
-      openLater(id);
-      return;
-    }
-    setUrl({ surface: id, slug: id === "tasks" ? currentSlug() : "", push: true });
+    const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
+    const keepSlug = id === "catalog" || id === "runs" || id === "traces" || id === "failures";
+    setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", push: true });
     renderAll();
   });
 
   document.querySelector(".brand").addEventListener("click", (event) => {
     event.preventDefault();
-    setUrl({ surface: "overview", slug: "", push: true });
+    setUrl({ surface: "worlds", slug: "", push: true });
     renderAll();
   });
 
@@ -725,17 +1015,19 @@
     });
   }
 
-  qEl.addEventListener("input", () => {
-    query = qEl.value.trim().toLowerCase();
-    renderTable();
-    const slug = currentSlug();
-    if (slug) renderPanel(bySlug.get(slug) || null);
-  });
+  if (qEl) {
+    qEl.addEventListener("input", () => {
+      query = qEl.value.trim().toLowerCase();
+      renderTable();
+      const slug = currentSlug();
+      if (slug) renderPanel(bySlug.get(slug) || null);
+    });
+  }
 
   window.addEventListener("popstate", () => renderAll());
 
   initTheme();
   renderAll();
   const initial = currentSlug();
-  if (initial && currentSurface() === "tasks") selectTask(initial, false);
+  if (initial && currentSurface() === "catalog") selectTask(initial, false);
 })();

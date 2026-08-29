@@ -6,7 +6,7 @@
     <title>Applied Work Worlds Lab</title>
     <meta
       name="description"
-      content="Applied Work Worlds Lab: 100 unique Harbor packages. Measured chips appear only after private Harbor jobs exist."
+      content="Applied Work Worlds Lab: 100 unique Harbor packages. Measured chips appear only after private Harbor jobs exist. Cheap protocol is 5 trials × two arms."
     />
     <meta name="theme-color" content="#F7F4EE" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,32 +21,24 @@
     <a class="skip" href="#main">Skip to content</a>
 
     <header class="topbar">
-      <a class="brand" href="?surface=overview" data-nav="overview">
+      <a class="brand" href="?surface=worlds" data-nav="worlds">
         <span class="brand-mark" aria-hidden="true">AW</span>
         <span class="brand-text">Applied Work Worlds Lab</span>
       </a>
 
       <nav class="nav-main" id="nav-main" aria-label="Lab">
-        <button type="button" data-nav="overview">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-          Overview
-        </button>
-        <button type="button" data-nav="tasks">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-          Tasks
-        </button>
-        <button type="button" data-nav="agents">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="7" width="14" height="10" rx="2"/><circle cx="9" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><path d="M9 16h6"/></svg>
-          Agents
-        </button>
-        <button type="button" data-nav="contributors" class="nav-later">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M4 19c.6-3 3-5 5-5s4.4 2 5 5"/><path d="M14 19c.3-2 1.6-3.4 3.4-3.6"/></svg>
-          Contributors
-        </button>
-        <button type="button" data-nav="blog" class="nav-later">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5z"/><path d="M8 9h8M8 13h6"/></svg>
-          Blog
-        </button>
+        <button type="button" data-nav="worlds">Worlds</button>
+        <button type="button" data-nav="coverage">Coverage</button>
+        <button type="button" data-nav="catalog">Catalog</button>
+        <button type="button" data-nav="runs">Runs</button>
+        <button type="button" data-nav="traces">Traces</button>
+        <button type="button" data-nav="stump">Stump</button>
+        <button type="button" data-nav="failures">Failures</button>
+        <button type="button" data-nav="verifier">Verifier</button>
+        <button type="button" data-nav="harness">Harness</button>
+        <button type="button" data-nav="spend">Spend</button>
+        <button type="button" data-nav="batches">Batches</button>
+        <button type="button" data-nav="agents">Agents</button>
       </nav>
 
       <div class="nav-actions">
@@ -57,7 +49,6 @@
           rel="noopener noreferrer"
         >
           Repo on GitHub
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M10 5H5v14h14v-5"/></svg>
         </a>
         <button
           type="button"
@@ -76,55 +67,55 @@
     </header>
 
     <main id="main">
-      <section id="surface-overview" class="page" hidden>
+      <section id="surface-worlds" class="page" hidden>
         <div class="hero">
           <div class="hero-copy">
             <p class="eyebrow">Applied Work</p>
             <h1>Worlds Lab</h1>
             <p class="lede">
-              A gallery of 100 Harbor packages for measuring agents as senior
-              engineers — not a junior checklist, and not another lab’s scores.
+              One hundred authored Harbor worlds. Fifty of them are the measured
+              set, grown in tens. This is not another lab’s scores.
             </p>
             <p class="lede-sub">
-              Each row is a real Harbor 0.22 world. Measured chips appear only
-              after private jobs are ingested.
+              Runtime is private Harbor 0.22 + terminus-2. Going-forward trials
+              are 5 per cheap arm. Chips light only after jobs exist, with the
+              real denominator.
             </p>
             <ol class="points">
               <li>
                 <span class="num">01</span>
                 <div>
-                  <h2>One hundred authored worlds</h2>
+                  <h2>Package contract</h2>
                   <p>
-                    Harbor packages with instruction.md, Docker environment,
-                    oracle, and tests. Selected from 448; the gallery always
-                    lists all 100.
+                    instruction.md, Docker environment, oracle, and tests.
+                    Selected from 448; the gallery always lists all 100.
                   </p>
                 </div>
               </li>
               <li>
                 <span class="num">02</span>
                 <div>
-                  <h2>Measure in tens</h2>
+                  <h2>Measure in tens to fifty</h2>
                   <p>
-                    Batch 01 freezes 10 packages. Frontier plan is 8 × Opus 5
-                    and 8 × gpt-5.6-sol on terminus-2. Chips light only after
-                    jobs exist.
+                    Five frozen batches of 10. Cheap protocol: Haiku and a
+                    second arm, 5 independent trials each. Frontier 8-run
+                    history stays labeled as history.
                   </p>
                 </div>
               </li>
               <li>
                 <span class="num">03</span>
                 <div>
-                  <h2>No borrowed leaderboards</h2>
+                  <h2>Valid-fail stump, not a variance poster</h2>
                   <p>
-                    We do not paste another lab’s numbers onto these tasks. If a
-                    model has not finished a trial here, the cell stays not run.
+                    Stump is valid fail over completed trials. Timeouts, Docker
+                    faults, credit-too-low, and 429 quota do not count.
                   </p>
                 </div>
               </li>
             </ol>
             <p class="later-link muted">
-              Later: <span class="mono">appliedwork.ai</span> — no blog yet.
+              Later: <span class="mono">appliedwork.ai</span>
             </p>
           </div>
 
@@ -157,9 +148,9 @@
             <p class="stat-note">Private Harbor packages</p>
           </article>
           <article>
-            <p class="stat-label">Batch 01</p>
-            <p class="stat-value" id="stat-batch">10</p>
-            <p class="stat-note">Frozen for 8×8 trials</p>
+            <p class="stat-label">Measured target</p>
+            <p class="stat-value" id="stat-batch">50</p>
+            <p class="stat-note">Five frozen tens · cheap k=5</p>
           </article>
           <article>
             <p class="stat-label">Measured</p>
@@ -171,57 +162,48 @@
         <section class="charts" aria-label="Corpus mix">
           <article>
             <h2>Domain mix</h2>
-            <p>
-              Hamilton-proportional to the 448 inventory. Batch 01 seats two
-              scientific, two security, and one of each remaining Terminal-Bench
-              family.
-            </p>
+            <p>Hamilton-proportional to the 448 inventory across the 100 gallery.</p>
             <div class="bars" id="chart-domains"></div>
           </article>
           <article>
             <h2>Primary languages</h2>
-            <p>
-              Counts from the 100 gallery only — not copied from another
-              benchmark’s stack chart.
-            </p>
+            <p>Counts from the 100 gallery only — not copied from another benchmark.</p>
             <div class="bars" id="chart-langs"></div>
           </article>
           <article>
             <h2>Instruction length</h2>
-            <p>
-              Characters in <code>instruction.md</code> for these 100 packages.
-              Median and spread are ours.
-            </p>
+            <p>Characters in <code>instruction.md</code> for these 100 packages.</p>
             <div class="ecdf-wrap">
               <svg id="chart-length" viewBox="0 0 320 140" role="img" aria-label="Instruction length ECDF"></svg>
               <p class="chart-caption" id="chart-length-caption"></p>
             </div>
           </article>
         </section>
-
-        <section class="coverage-block">
-          <h2>Coverage</h2>
-          <p class="muted">
-            Domain × primary language over the 100.
-            <strong>01</strong> marks a frozen batch-01 seat.
-            Teal cells have ingested Harbor jobs (oracle or agent).
-          </p>
-          <div class="table-scroll">
-            <table class="matrix" id="coverage-table"></table>
-          </div>
-        </section>
-
         <p class="footnote">
-          Runtime is private Harbor 0.22 + terminus-2 / oracle on an eval host
-          with Docker. This page is a static gallery. Frontier 160
-          (10 × 8 × 2) is not claimed complete.
+          Harbor 0.22 + terminus-2 / oracle. Going-forward measure is 5 × 2 cheap
+          arms on 50 packages. Frontier 160 is not claimed complete.
         </p>
       </section>
 
-      <section id="surface-tasks" class="page" hidden>
+      <section id="surface-coverage" class="page" hidden>
         <div class="page-head">
           <div>
-            <h1>Tasks</h1>
+            <h1>Coverage</h1>
+            <p class="muted">
+              Domain × primary language over the 100. Batch marks are frozen
+              seats. Teal cells have ingested Harbor jobs.
+            </p>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="matrix" id="coverage-table"></table>
+        </div>
+      </section>
+
+      <section id="surface-catalog" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Catalog</h1>
             <p class="muted" id="tasks-sub"></p>
           </div>
         </div>
@@ -259,20 +241,153 @@
             <p class="panel-kicker">Selected package</p>
             <h2 id="panel-title">Choose a row</h2>
             <div id="panel-empty" class="panel-empty">
-              <p>
-                Select a task to open its summary, Harbor files, and ingest
-                status.
-              </p>
+              <p>Select a task to open its summary, Harbor files, and ingest status.</p>
               <p class="hint">
                 Deep links use
-                <code>lab/index.html?surface=tasks&amp;task=&lt;slug&gt;</code>.
-                A <code>filter=</code> chip can stay; <code>task</code> still
-                opens this panel.
+                <code>lab/index.html?surface=catalog&amp;task=&lt;slug&gt;</code>.
+                <code>surface=tasks</code> still works.
               </p>
             </div>
             <div id="panel-body" hidden></div>
           </aside>
         </div>
+      </section>
+
+      <section id="surface-runs" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Runs</h1>
+            <p class="muted">
+              One dot per recorded Harbor trial. Grids are not padded to 5 or 8.
+              Cheap plan is k=5; frontier 8-run history stays visible where it actually ran.
+            </p>
+          </div>
+        </div>
+        <div id="runs-body"></div>
+      </section>
+
+      <section id="surface-traces" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Traces</h1>
+            <p class="muted">
+              Step summaries from Harbor <code>trajectory.json</code> plus verifier
+              stderr. Empty until a private trial exists for that package.
+            </p>
+          </div>
+        </div>
+        <div id="traces-body"></div>
+      </section>
+
+      <section id="surface-stump" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Stump</h1>
+            <p class="muted">
+              <code>valid_fail / (solved + valid_fail)</code>. Timeouts and infra
+              are excluded. Hidden until a package has at least one completed agent trial.
+            </p>
+          </div>
+        </div>
+        <div id="stump-body"></div>
+      </section>
+
+      <section id="surface-failures" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Failures</h1>
+            <p class="muted">
+              Named verifier holes from CTRF / test stdout and trajectory notes.
+              Not a rubric-of-10 unless we author one.
+            </p>
+          </div>
+        </div>
+        <div id="failures-body"></div>
+      </section>
+
+      <section id="surface-verifier" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Verifier</h1>
+            <p class="muted">Integrity-first: oracle must pass, empty work must not, timeout is not a stump.</p>
+          </div>
+        </div>
+        <div class="kpi-grid" id="verifier-kpis"></div>
+        <article class="empty-card">
+          <h2>What every frozen package is checked against</h2>
+          <ul class="plain-list">
+            <li>Oracle <code>harbor run -a oracle -k 1</code> reward 1.0 or the slug is dropped, not footnoted.</li>
+            <li>Agent reward 0.0 with no timeout/infra exception is <strong>valid fail</strong>.</li>
+            <li>Timeout, Docker, auth, credit-too-low, and 429 quota are <strong>infra</strong>.</li>
+            <li>Optional <code>nop</code> empty submission should score 0. A world that rewards empty work is a scaffold void.</li>
+            <li>Binary channel is Harbor <code>rewards.reward</code>. Rubric channel is off until we author one.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="surface-harness" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Harness</h1>
+            <p class="muted">The scaffold is part of the measurement. We only report what we actually ran.</p>
+          </div>
+        </div>
+        <div class="split-cards">
+          <article class="chart-card">
+            <h2>Measured</h2>
+            <dl class="meta" id="harness-measured"></dl>
+          </article>
+          <article class="chart-card">
+            <h2>Not measured</h2>
+            <p class="muted">
+              Claude Code, Codex CLI, and mini-swe-agent are not estimated on this
+              corpus. No invented multipliers.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="surface-spend" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Spend</h1>
+            <p class="muted">
+              Harbor <code>stats.cost_usd</code> from job rollups. Missing cost is omitted, not invented.
+              Credit and quota stops are listed instead of padded scores.
+            </p>
+          </div>
+        </div>
+        <p class="stat-value" id="spend-total">—</p>
+        <p class="muted" id="spend-note"></p>
+        <div class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Job</th>
+                  <th>Trials</th>
+                  <th>Completed</th>
+                  <th>Errors</th>
+                  <th>USD</th>
+                </tr>
+              </thead>
+              <tbody id="spend-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="surface-batches" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Batches</h1>
+            <p class="muted">
+              Ledger for the five frozen tens. A batch is not “done” until oracle
+              plus cheap-arm trials are ingested. Stop after 05.
+            </p>
+          </div>
+        </div>
+        <div class="kpi-grid" id="batches-body"></div>
       </section>
 
       <section id="surface-agents" class="page" hidden>
@@ -288,23 +403,21 @@
         <article class="empty-card" id="agents-empty">
           <h2>Not run</h2>
           <p>
-            No terminus-2 trials are recorded in the corpus yet. Oracle jobs
-            (if any) are integrity checks, not agent scores. After
+            No terminus-2 trials are recorded in the corpus yet. After
             <code>python scripts/ingest_lab_jobs.py</code>, this table shows
-            <strong>solved / recorded</strong> by model for batch-01 slugs that have
-            agent jobs. A 1-trial probe is 0/1, not 0/8.
+            <strong>solved / recorded</strong> by model. A 1-trial probe is 0/1, not 0/5.
           </p>
         </article>
         <div id="agents-body" hidden>
           <article class="chart-card">
             <div class="chart-card-head">
-              <p class="muted">Recorded trials vs frontier plan (8 attempts / model / task)</p>
+              <p class="muted">Recorded trials vs cheap plan (5 attempts / model / task)</p>
               <span class="pill">Harbor ingest only</span>
             </div>
             <p class="honest-banner">
-              Effort curves and Pareto frontiers are hidden until an 8-trial
-              group exists with cost data. Chips and rows use solved / recorded
-              Harbor trials — not padded to 8 unless 8 trials actually ran.
+              Chips and rows use solved / recorded Harbor trials — not padded to 5
+              or 8 unless that many trials actually ran. Frontier 8-run groups stay
+              as history.
             </p>
             <div id="agents-summary"></div>
           </article>
@@ -336,7 +449,7 @@
 
     <div class="modal" id="later-modal" hidden>
       <div class="modal-card" role="dialog" aria-labelledby="later-title">
-        <h2 id="later-title">Later</h2>
+        <h2 id="later-title">Harbor Hub</h2>
         <p id="later-body"></p>
         <button type="button" class="btn btn-solid" id="later-close">Close</button>
       </div>
@@ -345,7 +458,7 @@
     <footer class="foot">
       <p>
         Applied Work Worlds Lab · private Harbor 0.22 · terminus-2 / oracle ·
-        later: <span class="mono">appliedwork.ai</span>
+        cheap k=5 · later: <span class="mono">appliedwork.ai</span>
       </p>
     </footer>
 

@@ -394,23 +394,33 @@ def build_corpus_task(catalog_row: dict) -> dict:
 
 
 def attach_batch_placeholder(corpus: dict) -> dict:
-    """Mark batch-01 membership without inventing scores."""
-    from lab_common import coverage_matrix, load_jsonl
+    """Mark frozen-batch membership without inventing scores."""
+    from lab_common import PLANNED_ATTEMPTS, coverage_matrix, load_all_batches
 
-    batch_slugs: set[str] = set()
-    if BATCH_JSONL.is_file():
-        batch_slugs = {row["slug"] for row in load_jsonl(BATCH_JSONL)}
+    batch_rows = load_all_batches()
+    slug_to_batch = {row["slug"]: int(row.get("batch") or 0) or None for row in batch_rows}
+    batch_slugs = {slug for slug, n in slug_to_batch.items() if n}
+    by_batch: dict[int, list[str]] = {}
+    for row in batch_rows:
+        n = int(row.get("batch") or 0)
+        if n:
+            by_batch.setdefault(n, []).append(row["slug"])
     measured_slugs = {
         t["slug"] for t in corpus["tasks"] if (t.get("rollouts") or {}).get("status") == "measured"
     }
     for task in corpus["tasks"]:
-        task["batch"] = 1 if task["slug"] in batch_slugs else None
+        task["batch"] = slug_to_batch.get(task["slug"])
         if task["slug"] not in measured_slugs:
             task["measured"] = False
     lab = corpus["lab"]
-    lab["batch_01_size"] = len(batch_slugs)
-    lab["batch_01_slugs"] = sorted(batch_slugs)
+    lab["batch_01_size"] = len(by_batch.get(1) or [])
+    lab["batch_01_slugs"] = by_batch.get(1) or []
+    lab["batches"] = {
+        str(n): {"size": len(slugs), "slugs": slugs}
+        for n, slugs in sorted(by_batch.items())
+    }
     lab["measured_size"] = len(measured_slugs)
+    lab["measured_target"] = 50
     lab["measured_slugs"] = sorted(measured_slugs)
     lab["coverage"] = coverage_matrix(corpus["tasks"], batch_slugs, measured_slugs)
     lab["harness"] = {
@@ -418,7 +428,7 @@ def attach_batch_placeholder(corpus: dict) -> dict:
         "oracle": "oracle",
         "empty": "nop",
         "harbor": "0.22",
-        "planned_attempts": 8,
+        "planned_attempts": PLANNED_ATTEMPTS,
         "n_trials": "n_attempts × n_tasks × n_agents; CLI -k is n_attempts (independent trials)",
         "estimated_not_measured": ["claude-code", "codex", "mini-swe-agent"],
     }
@@ -450,7 +460,7 @@ def enrich_overview_stats(corpus: dict) -> dict:
         lengths.append(nchars)
         langs = task.get("languages") or []
         lang_counts[langs[0] if langs else "—"] += 1
-        if task.get("batch") == 1 and len(previews) < 3:
+        if task.get("batch") and len(previews) < 3:
             previews.append(
                 {
                     "slug": slug,
@@ -486,7 +496,7 @@ def enrich_overview_stats(corpus: dict) -> dict:
 
     lab = corpus.setdefault("lab", {})
     harness = lab.setdefault("harness", {})
-    harness.setdefault("planned_attempts", 8)
+    harness.setdefault("planned_attempts", 5)
     lab["charts"] = {
         "source": "tasks/latest/<slug>/instruction.md for the 100 gallery rows",
         "copied_other_labs": False,
@@ -531,8 +541,8 @@ def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: d
                 "copied_caudal_scores": False,
                 "note": (
                     "This gallery lists authored Harbor packages. Measured chips "
-                    "appear only after private Harbor jobs exist for a batch-01 "
-                    "slug. Do not invent stump percentages or paste another lab's "
+                    "appear only after private Harbor jobs exist for a frozen "
+                    "batch slug. Do not invent stump percentages or paste another lab's "
                     "model scores."
                 ),
             },

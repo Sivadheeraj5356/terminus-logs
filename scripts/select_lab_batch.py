@@ -1,13 +1,17 @@
-"""Freeze docs/lab_batch_01.jsonl: 10 unique packages from the lab 100.
+"""Freeze lab_batch_0N.jsonl: 10 unique packages from the lab 100.
 
-Rule (Applied Work Worlds Lab spec):
+Batch 01 rule (Applied Work Worlds Lab spec):
 - All 8 TB categories represented; debugging gets its only seat
 - Two extra seats from scientific-computing and security (2+2)
 - Maximize distinct primary languages; cover the eight named primaries
   (Go, Rust, Python, TypeScript, C, C++, Java, Bash) when the 100 allows
 - Unique slug and uuid; packages must still have oracle + tests on disk
 
-Recompute this list if an oracle run drops a package.
+Batches 02–05 cannot copy that seat map (debugging has only one seat in the 100).
+They pick 10 from the remaining 90, covering leftover categories then leftover
+primary languages, then catalog selection score.
+
+Recompute a list if an oracle run drops a package.
 """
 
 from __future__ import annotations
@@ -27,9 +31,12 @@ from lab_common import (  # noqa: E402
     BATCH_01_JSONL,
     BATCH_01_SEATS,
     CATEGORY_ORDER,
+    MEASURED_BATCH_MAX,
     MVP_JSONL,
     PREFERRED_LANGS,
     TASKS_LATEST,
+    batch_jsonl_path,
+    load_all_batches,
     load_jsonl,
     primary_language,
     write_jsonl,
@@ -162,9 +169,81 @@ def choose_batch(pool: list[dict]) -> list[dict]:
     return best_set
 
 
-def to_jsonl_row(row: dict, rank: int) -> dict:
+def choose_later_batch(pool: list[dict], n: int = 10) -> list[dict]:
+    """Greedy 10-set from remaining packages. Do not reuse Batch 01's 2+2+1 seats."""
+    chosen: list[dict] = []
+    used_slugs: set[str] = set()
+    used_langs: set[str] = set()
+    used_cats: set[str] = set()
+
+    def remaining() -> list[dict]:
+        return [row for row in pool if row["slug"] not in used_slugs]
+
+    def pick(row: dict) -> None:
+        chosen.append(row)
+        used_slugs.add(row["slug"])
+        used_langs.add(row["primary_language"])
+        used_cats.add(row["category"])
+
+    for cat in CATEGORY_ORDER:
+        if len(chosen) >= n:
+            break
+        cands = [row for row in remaining() if row.get("category") == cat]
+        if not cands:
+            continue
+        cands.sort(
+            key=lambda row: (
+                row["primary_language"] in used_langs,
+                -row["selection_score"],
+                -row["n_versions"],
+                row["slug"],
+            )
+        )
+        pick(cands[0])
+
+    while len(chosen) < n:
+        cands = remaining()
+        if not cands:
+            break
+        cands.sort(
+            key=lambda row: (
+                row["primary_language"] in used_langs,
+                row["category"] in used_cats,
+                -row["selection_score"],
+                -row["n_versions"],
+                row["slug"],
+            )
+        )
+        pick(cands[0])
+
+    if len(chosen) != n:
+        raise SystemExit(f"later-batch selector only found {len(chosen)} packages, need {n}")
+    slugs = [row["slug"] for row in chosen]
+    uuids = [row.get("uuid") for row in chosen]
+    if len(set(slugs)) != n or len(set(uuids)) != n:
+        raise SystemExit("later-batch selector produced duplicate slug or uuid")
+    return chosen
+
+
+def to_jsonl_row(row: dict, rank: int, batch: int = 1) -> dict:
+    if batch == 1:
+        reason = (
+            "batch_01: 8 categories + extra sci/security; maximize distinct "
+            "primary languages from docs/lab_mvp_100.jsonl"
+            + (
+                "; oracle-dropped slugs excluded via docs/lab_batch_01_exclusions.json"
+                if load_exclusions()
+                else ""
+            )
+        )
+    else:
+        reason = (
+            f"batch_{batch:02d}: remaining gallery after earlier frozen tens; "
+            "cover leftover categories then leftover primary languages, then "
+            "catalog selection score; debugging has no leftover seat in the 100"
+        )
     return {
-        "batch": 1,
+        "batch": batch,
         "batch_rank": rank,
         "slug": row["slug"],
         "uuid": row.get("uuid") or row.get("sid"),
@@ -178,19 +257,11 @@ def to_jsonl_row(row: dict, rank: int) -> dict:
         "has_tests": True,
         "n_versions": row.get("n_versions"),
         "selection_score": row.get("selection_score"),
-        "selection_reason": (
-            "batch_01: 8 categories + extra sci/security; maximize distinct "
-            "primary languages from docs/lab_mvp_100.jsonl"
-            + (
-                "; oracle-dropped slugs excluded via docs/lab_batch_01_exclusions.json"
-                if load_exclusions()
-                else ""
-            )
-        ),
+        "selection_reason": reason,
     }
 
 
-def select(exclude_slugs: set[str] | None = None) -> list[dict]:
+def pool_from_mvp(exclude_slugs: set[str] | None = None) -> list[dict]:
     source = load_jsonl(MVP_JSONL)
     if len(source) != 100:
         raise SystemExit(f"{MVP_JSONL} has {len(source)} rows, expected 100")
@@ -202,18 +273,45 @@ def select(exclude_slugs: set[str] | None = None) -> list[dict]:
         enriched = enrich(row)
         if enriched and enriched["slug"] not in excluded:
             pool.append(enriched)
-    chosen = choose_batch(pool)
+    return pool
+
+
+def select(exclude_slugs: set[str] | None = None) -> list[dict]:
+    chosen = choose_batch(pool_from_mvp(exclude_slugs))
     ordered = sorted(
         chosen,
         key=lambda r: (CATEGORY_ORDER.index(r["category"]), r["primary_language"], r["slug"]),
     )
-    return [to_jsonl_row(row, i) for i, row in enumerate(ordered, start=1)]
+    return [to_jsonl_row(row, i, batch=1) for i, row in enumerate(ordered, start=1)]
+
+
+def select_later(batch: int, taken_slugs: set[str]) -> list[dict]:
+    if batch < 2 or batch > MEASURED_BATCH_MAX:
+        raise SystemExit(f"later batch must be 2..{MEASURED_BATCH_MAX}, got {batch}")
+    pool = pool_from_mvp(taken_slugs)
+    chosen = choose_later_batch(pool, n=10)
+    ordered = sorted(
+        chosen,
+        key=lambda r: (CATEGORY_ORDER.index(r["category"]), r["primary_language"], r["slug"]),
+    )
+    return [to_jsonl_row(row, i, batch=batch) for i, row in enumerate(ordered, start=1)]
+
+
+def select_batches_02_05() -> dict[int, list[dict]]:
+    taken = {row["slug"] for row in select()}
+    frozen = {1: select()}
+    for batch in range(2, MEASURED_BATCH_MAX + 1):
+        rows = select_later(batch, taken)
+        frozen[batch] = rows
+        taken |= {row["slug"] for row in rows}
+    return frozen
 
 
 def report(rows: list[dict]) -> None:
     langs = [r["primary_language"] for r in rows]
     cats = [r["category"] for r in rows]
-    print(f"batch_01: {len(rows)} tasks")
+    batch = rows[0]["batch"] if rows else 0
+    print(f"batch_{batch:02d}: {len(rows)} tasks")
     print(f"categories: {len(set(cats))} unique → {cats}")
     print(f"languages:  {len(set(langs))} unique → {langs}")
     print(f"preferred covered: {[p for p in PREFERRED_LANGS if p in langs]}")
@@ -228,19 +326,63 @@ def report(rows: list[dict]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="validate an existing freeze; do not write")
+    parser.add_argument(
+        "--write-later",
+        action="store_true",
+        help="write docs/lab_batch_02.jsonl … lab_batch_05.jsonl from remaining 90",
+    )
+    parser.add_argument(
+        "--batch",
+        type=int,
+        default=1,
+        help="which frozen ten to print/write (1 writes lab_batch_01.jsonl)",
+    )
     args = parser.parse_args()
-    rows = select()
+
+    if args.write_later:
+        frozen = select_batches_02_05()
+        for batch, rows in frozen.items():
+            report(rows)
+            path = batch_jsonl_path(batch)
+            if args.check:
+                existing = load_jsonl(path)
+                got = [r["slug"] for r in existing]
+                want = [r["slug"] for r in rows]
+                if got != want:
+                    raise SystemExit(f"{path.name} does not match selector\nwant {want}\ngot  {got}")
+                print(f"freeze matches selector for batch {batch:02d}")
+                continue
+            if batch == 1:
+                continue
+            write_jsonl(path, rows)
+            print(f"wrote {path.relative_to(ROOT)}")
+        all_slugs = [row["slug"] for rows in frozen.values() for row in rows]
+        if len(set(all_slugs)) != 50:
+            raise SystemExit(f"expected 50 unique measured slugs, got {len(set(all_slugs))}")
+        return
+
+    if args.batch == 1:
+        rows = select()
+        path = BATCH_01_JSONL
+    else:
+        taken = {row["slug"] for row in load_all_batches(args.batch - 1)}
+        if args.batch > 1 and len(taken) != 10 * (args.batch - 1):
+            raise SystemExit(
+                f"need frozen batches 01..{args.batch - 1:02d} on disk before selecting batch {args.batch:02d}"
+            )
+        rows = select_later(args.batch, taken)
+        path = batch_jsonl_path(args.batch)
     report(rows)
     if args.check:
-        existing = load_jsonl(BATCH_01_JSONL)
+        existing = load_jsonl(path)
         got = [r["slug"] for r in existing]
         want = [r["slug"] for r in rows]
         if got != want:
-            raise SystemExit(f"lab_batch_01.jsonl does not match selector\nwant {want}\ngot  {got}")
+            raise SystemExit(f"{path.name} does not match selector\nwant {want}\ngot  {got}")
         print("freeze matches selector")
         return
-    write_jsonl(BATCH_01_JSONL, rows)
-    print(f"wrote {BATCH_01_JSONL.relative_to(ROOT)}")
+    write_jsonl(path, rows)
+    print(f"wrote {path.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

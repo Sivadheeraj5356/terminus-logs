@@ -15,13 +15,14 @@ from ingest_lab_jobs import apply_to_corpus, classify_batch  # noqa: E402
 from lab_common import (  # noqa: E402
     BATCH_01_JSONL,
     CATEGORY_ORDER,
+    PLANNED_ATTEMPTS,
     PREFERRED_LANGS,
     classify,
     collect_trials,
     load_jsonl,
     summarize_trials,
 )
-from select_lab_batch import select  # noqa: E402
+from select_lab_batch import select, select_batches_02_05  # noqa: E402
 
 
 class BatchSelectionTests(unittest.TestCase):
@@ -193,17 +194,51 @@ class IngestIsolationTests(unittest.TestCase):
             self.assertNotIn(outsider, corpus["lab"]["measured_slugs"])
 
 
+class LaterBatchSelectionTests(unittest.TestCase):
+    def test_five_tens_are_unique_and_debugging_stays_in_batch_01(self):
+        frozen = select_batches_02_05()
+        self.assertEqual(sorted(frozen), [1, 2, 3, 4, 5])
+        slugs = []
+        for batch, rows in frozen.items():
+            self.assertEqual(len(rows), 10)
+            self.assertEqual(len({r["slug"] for r in rows}), 10)
+            self.assertTrue(all(r["batch"] == batch for r in rows))
+            slugs.extend(r["slug"] for r in rows)
+        self.assertEqual(len(slugs), 50)
+        self.assertEqual(len(set(slugs)), 50)
+        b01 = load_jsonl(BATCH_01_JSONL)
+        self.assertEqual([r["slug"] for r in frozen[1]], [r["slug"] for r in b01])
+        later_cats = [r["category"] for n in range(2, 6) for r in frozen[n]]
+        self.assertNotIn("debugging", later_cats)
+        self.assertEqual(PLANNED_ATTEMPTS, 5)
+
+
 class LabUiIdentityTests(unittest.TestCase):
     def test_static_lab_keeps_applied_work_identity(self):
         html = (ROOT / "lab" / "index.html").read_text(encoding="utf-8")
         css = (ROOT / "lab" / "lab.css").read_text(encoding="utf-8")
         js = (ROOT / "lab" / "lab.js").read_text(encoding="utf-8")
         self.assertIn("Applied Work Worlds Lab", html)
-        self.assertIn("data-nav=\"overview\"", html)
-        self.assertIn("data-nav=\"tasks\"", html)
-        self.assertIn("data-nav=\"agents\"", html)
+        for surface in (
+            "worlds",
+            "coverage",
+            "catalog",
+            "runs",
+            "traces",
+            "stump",
+            "failures",
+            "verifier",
+            "harness",
+            "spend",
+            "batches",
+            "agents",
+        ):
+            self.assertIn(f'data-nav="{surface}"', html)
+            self.assertIn(f"id=\"surface-{surface}\"", html)
         self.assertNotIn("Senior SWE-Bench", html)
         self.assertNotIn("snorkel.ai", html.lower())
+        self.assertNotIn("Post-Training Signal Lab", html)
+        self.assertNotIn("00 Introduction", html)
         self.assertIn("pre-wrap", css)
         self.assertIn("#preview-code", css)
         self.assertIn("not run", js.lower())
@@ -211,6 +246,7 @@ class LabUiIdentityTests(unittest.TestCase):
         self.assertIn("${row.solved || 0}/${recorded}", js)
         self.assertNotIn("${row.solved || 0}/${PLANNED}", js)
         self.assertIn("https://github.com/Sivadheeraj5356/terminus-logs", html)
+        self.assertEqual(PLANNED_ATTEMPTS, 5)
 
     def test_enrich_overview_stats_uses_our_instruction_files(self):
         from build_lab_corpus import enrich_overview_stats

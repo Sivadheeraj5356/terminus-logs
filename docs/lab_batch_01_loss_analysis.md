@@ -143,4 +143,10 @@ Chips reflect **recorded** trials, not planned 8/8:
 - Other batch rows: `oracle` only until a cheap 1-trial exists — no padded 8/8
 - Booking Slot Merge: `claude-haiku-4-5 0/1` (recorded; UI must not show 0/8)
 
-The other 90 gallery rows stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.
+The other 50 gallery rows (outside the frozen tens) stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.
+
+## Cheap k=5 protocol (29 Aug 2026)
+
+Frontier 8+8 is **stopped**. Going-forward fill is Haiku + second cheap arm, 5 independent trials each. Live cheap notes (auto-extracted from CTRF/traces, not invented): [`lab_batch_01_cheap_notes.md`](lab_batch_01_cheap_notes.md). Batches 02–05 are frozen in `docs/lab_batch_02.jsonl` … `05.jsonl` and stay oracle-dark until Harbor jobs exist.
+
+Catalog deep links now use `?surface=catalog` (`surface=tasks` still works). Runs / Traces / Failures / Stump / Spend / Batches are first-class surfaces.

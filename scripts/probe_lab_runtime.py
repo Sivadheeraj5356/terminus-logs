@@ -139,8 +139,8 @@ def probe(*, smoke: bool, smoke_slug: str, opus_model: str, gpt_model: str) -> d
         "docker": {"path": docker_bin, "info": docker_info},
         "batch_01_n": len(batch),
         "smoke_slug": smoke_slug,
-        "opus_model": opus_model,
-        "gpt_model": gpt_model,
+        "haiku_model": opus_model,
+        "second_model": gpt_model,
         "blockers": blockers,
         "smoke": {"skipped": True, "reason": blockers or "probe without --smoke"},
         "oracle": {"skipped": True, "reason": blockers or "not requested in probe"},
@@ -149,16 +149,17 @@ def probe(*, smoke: bool, smoke_slug: str, opus_model: str, gpt_model: str) -> d
             "reason": (
                 blockers
                 if blockers
-                else "160 frontier runs require a green smoke then -Phase measure -YesMeasure"
+                else "cheap k=5 measure requires a green smoke then --phase measure --yes-measure"
             ),
             "frontier_jobs_started": 0,
-            "target_frontier_jobs": 160,
+            "target_frontier_jobs": 0,
+            "planned_attempts": 5,
         },
         "ok_to_smoke": not blockers,
         "ok_to_measure_160": False,
         "note": (
-            "Probe only. 160 frontier runs stay on the Harbor host after a green "
-            "1-task smoke of both models. This file is not a scoreboard."
+            "Probe only. Going-forward measure is 5 trials × two cheap arms. "
+            "This file is not a scoreboard."
         ),
     }
 
@@ -202,8 +203,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--smoke", action="store_true", help="1 trial × both models if the host is ready")
     parser.add_argument("--slug", default=SMOKE_SLUG_DEFAULT)
-    parser.add_argument("--opus-model", default="anthropic/claude-opus-5")
-    parser.add_argument("--gpt-model", default="openai/gpt-5.6-sol")
+    parser.add_argument("--opus-model", default="anthropic/claude-haiku-4-5")
+    parser.add_argument("--gpt-model", default="openai/gpt-4o-mini")
+    parser.add_argument("--haiku-model", dest="opus_model")
+    parser.add_argument("--second-model", dest="gpt_model")
     args = parser.parse_args()
     status = probe(
         smoke=args.smoke,

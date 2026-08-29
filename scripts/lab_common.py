@@ -19,6 +19,13 @@ BATCH_01_JSONL = ROOT / "docs" / "lab_batch_01.jsonl"
 BATCH_01_EXCLUSIONS_JSON = ROOT / "docs" / "lab_batch_01_exclusions.json"
 TASKS_LATEST = ROOT / "tasks" / "latest"
 
+# Going-forward cheap protocol (Batches 01–05). Frontier 8+8 stays historical.
+PLANNED_ATTEMPTS = 5
+MEASURED_BATCH_MAX = 5
+CHEAP_HAIKU_MODEL = "anthropic/claude-haiku-4-5"
+CHEAP_SECOND_MODEL = "openai/gpt-4o-mini"
+CHEAP_SECOND_FALLBACK = "anthropic/claude-sonnet-4-5"
+
 CATEGORY_ORDER = [
     "scientific-computing",
     "security",
@@ -137,6 +144,154 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
         "\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n",
         encoding="utf-8",
     )
+
+
+def batch_jsonl_path(batch: int) -> Path:
+    return ROOT / "docs" / f"lab_batch_{int(batch):02d}.jsonl"
+
+
+def load_all_batches(max_batch: int = MEASURED_BATCH_MAX) -> list[dict]:
+    """Load frozen batch jsonl files 01..max that exist on disk."""
+    rows: list[dict] = []
+    for n in range(1, int(max_batch) + 1):
+        path = batch_jsonl_path(n)
+        if not path.is_file():
+            continue
+        for row in load_jsonl(path):
+            item = dict(row)
+            item["batch"] = int(item.get("batch") or n)
+            item["slug"] = item.get("slug") or item.get("id")
+            rows.append(item)
+    return rows
+
+
+def model_is_oracle(name: str) -> bool:
+    value = (name or "").strip().lower()
+    return (not value) or value == "oracle" or "oracle" in value
+
+
+def extract_failed_tests(trial_dir: Path) -> list[str]:
+    names: list[str] = []
+    ctrf = trial_dir / "verifier" / "ctrf.json"
+    if ctrf.is_file():
+        try:
+            data = json.loads(ctrf.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            data = {}
+        tests = ((data.get("results") or {}).get("tests") or [])
+        for item in tests:
+            if not isinstance(item, dict):
+                continue
+            if str(item.get("status") or "").lower() == "failed":
+                name = item.get("name") or item.get("file_path")
+                if name:
+                    names.append(str(name))
+    if names:
+        return names
+    stdout = trial_dir / "verifier" / "test-stdout.txt"
+    if stdout.is_file():
+        text = stdout.read_text(encoding="utf-8", errors="replace")
+        for match in re.finditer(r"^_{5,}\s+(.+?)\s+_{5,}$", text, re.M):
+            names.append(collapse(match.group(1)))
+    return names
+
+
+def collect_spend(jobs_dir: Path | None = None) -> list[dict]:
+    """Harbor job-level cost_usd from rollup result.json (not invented)."""
+    jobs_dir = Path(jobs_dir) if jobs_dir else JOBS_DIR
+    rows: list[dict] = []
+    if not jobs_dir.exists():
+        return rows
+    for job in sorted(jobs_dir.iterdir()):
+        if not job.is_dir():
+            continue
+        path = job / "result.json"
+        if not path.is_file():
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if "n_total_trials" not in data:
+            continue
+        stats = data.get("stats") or {}
+        cost = stats.get("cost_usd")
+        try:
+            cost_f = float(cost) if cost is not None else None
+        except (TypeError, ValueError):
+            cost_f = None
+        rows.append(
+            {
+                "job": job.name,
+                "n_total_trials": data.get("n_total_trials"),
+                "n_completed_trials": stats.get("n_completed_trials"),
+                "n_errored_trials": stats.get("n_errored_trials"),
+                "cost_usd": cost_f,
+                "n_input_tokens": stats.get("n_input_tokens"),
+                "n_output_tokens": stats.get("n_output_tokens"),
+            }
+        )
+    return rows
+
+
+def build_analysis(summary: dict | None) -> dict | None:
+    """Compact per-task analysis from classified Harbor traces. No invented scores."""
+    if not summary or not summary.get("n_trials"):
+        return None
+    failing: list[str] = []
+    themes: list[str] = []
+    seen_tests: set[str] = set()
+    for trace in summary.get("traces") or []:
+        model = trace.get("model") or ""
+        if model_is_oracle(model):
+            continue
+        cls = trace.get("classification") or "unknown"
+        tests = trace.get("failed_tests") or []
+        for name in tests:
+            if name not in seen_tests:
+                seen_tests.add(name)
+                failing.append(name)
+        if cls == "valid_fail" and tests:
+            themes.append(f"{model}: valid fail — " + ", ".join(tests[:4]))
+        elif cls == "valid_fail":
+            bit = collapse(str(trace.get("summary") or ""))[:180]
+            if bit:
+                themes.append(f"{model}: valid fail — {bit}")
+        elif cls == "infra_error":
+            themes.append(
+                f"{model}: infra ({trace.get('exception_type') or trace.get('exception_message') or 'unspecified'})"
+            )
+        elif cls == "timeout":
+            themes.append(f"{model}: timeout (excluded from stump)")
+        elif cls == "solved":
+            themes.append(f"{model}: solved")
+    # Dedupe consecutive identical theme prefixes while keeping order.
+    compact: list[str] = []
+    seen_theme: set[str] = set()
+    for theme in themes:
+        key = theme[:120]
+        if key in seen_theme:
+            continue
+        seen_theme.add(key)
+        compact.append(theme)
+        if len(compact) >= 12:
+            break
+    agents = [m for m in summary.get("by_model") or [] if not model_is_oracle(m.get("model"))]
+    cheap_n = {}
+    for row in agents:
+        cheap_n[row["model"]] = row.get("n") or 0
+    return {
+        "failing_tests": failing[:24],
+        "themes": compact,
+        "completed_trials": summary.get("completed_trials") or 0,
+        "stump_pct": summary.get("stump_pct"),
+        "by_model": agents,
+        "cheap_recorded": cheap_n,
+        "note": (
+            "Themes come from Harbor traces and verifier CTRF/stdout. "
+            "Timeouts and infra are listed and excluded from stump."
+        ),
+    }
 
 
 def classify(result: dict) -> str:
@@ -290,6 +445,7 @@ def collect_trials(jobs_dir: Path | None = None) -> dict[str, list[dict]]:
         model = ((data.get("config") or {}).get("agent") or {}).get("model_name") or ""
         if not model:
             model = ((data.get("agent_info") or {}) or {}).get("model_name") or ""
+        exception = (data.get("exception_info") or {}) or {}
         row = {
             "task_name": ident["task_name"],
             "folder": ident["folder"],
@@ -297,10 +453,12 @@ def collect_trials(jobs_dir: Path | None = None) -> dict[str, list[dict]]:
             "agent": agent,
             "model": model,
             "classification": classify(data),
-            "exception_type": ((data.get("exception_info") or {}) or {}).get("exception_type"),
+            "exception_type": exception.get("exception_type"),
+            "exception_message": collapse(str(exception.get("exception_message") or ""))[:240],
             "trial_dir": str(ident["trial_dir"]),
             "agent_summary": trajectory_summary(ident["trial_dir"]),
             "test_fraction": test_fraction(data),
+            "failed_tests": extract_failed_tests(ident["trial_dir"]),
             "reward": ((data.get("verifier_result") or {}).get("rewards") or {}).get("reward"),
         }
         for key in ident["keys"]:
@@ -330,6 +488,9 @@ def summarize_trials(rows: list[dict]) -> dict:
                 "summary": row.get("agent_summary") or "",
                 "trial_dir": row.get("trial_dir"),
                 "test_fraction": row.get("test_fraction"),
+                "failed_tests": row.get("failed_tests") or [],
+                "exception_type": row.get("exception_type"),
+                "exception_message": row.get("exception_message") or "",
             }
         )
     completed = counts["solved"] + counts["valid_fail"]

@@ -20,18 +20,18 @@ Each unique submission UUID is kept once (latest revision). Older `*_submission_
 - UUID ↔ slug map: [`catalog/uuid_map.json`](catalog/uuid_map.json)
 - Caudal lab comparison (package gallery vs rollout/signal lab): [`docs/Caudal_Lab_Reference_and_Similarity.md`](docs/Caudal_Lab_Reference_and_Similarity.md)
 - Applied Work Worlds Lab (100 unique packages; measured chips only after Harbor ingest): [`lab/index.html`](lab/index.html)
-- Worlds Lab spec (10×8+8 then next 10): [`docs/AppliedWork_Worlds_Lab_Spec.md`](docs/AppliedWork_Worlds_Lab_Spec.md)
+- Worlds Lab spec (100 gallery, measured set 10→50 in tens, cheap k=5): [`docs/AppliedWork_Worlds_Lab_Spec.md`](docs/AppliedWork_Worlds_Lab_Spec.md)
 - Founder share (PR / zip / how to watch Harbor): [`docs/Founder_Share.md`](docs/Founder_Share.md)
 - Lab build plan: [`docs/AppliedWork_Lab_Build_Plan.md`](docs/AppliedWork_Lab_Build_Plan.md)
 - MVP 100-list: [`docs/lab_mvp_100.jsonl`](docs/lab_mvp_100.jsonl)
-- First measured ten: [`docs/lab_batch_01.jsonl`](docs/lab_batch_01.jsonl)
+- Frozen tens: [`docs/lab_batch_01.jsonl`](docs/lab_batch_01.jsonl) … [`docs/lab_batch_05.jsonl`](docs/lab_batch_05.jsonl)
 - Batch 01 loss analysis (agent trials, not invented scores): [`docs/lab_batch_01_loss_analysis.md`](docs/lab_batch_01_loss_analysis.md)
 
 Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labels are author metadata, not measured pass rates.
 
 `stump_pct = valid_fail / (solved + valid_fail) * 100`. Timeouts and infrastructure errors (auth, Docker, credit-too-low, 429 quota) do not count.
 
-The Worlds Lab is a static gallery over 100 unique packages (Overview / Tasks / Agents). Measured chips appear only for batch-01 slugs that have ingested Harbor jobs. Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/8`).
+The Worlds Lab is a static gallery over 100 unique packages. Twelve surfaces: Worlds, Coverage, Catalog, Runs, Traces, Stump, Failures, Verifier, Harness, Spend, Batches, Agents. Measured chips appear only for frozen batch slugs that have ingested Harbor jobs. Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Going-forward measure is **5 independent trials × two cheap arms** (Haiku + gpt-4o-mini, Sonnet fallback on 429). Stop after five batches (50 packages).
 
 ## Local website
 
@@ -43,10 +43,11 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then open:
 
-- Batch 01 table: http://127.0.0.1:8765/lab/index.html?filter=batch
-- Tasks surface: http://127.0.0.1:8765/lab/index.html?surface=tasks
-- Both: http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=batch
-- One package: http://127.0.0.1:8765/lab/index.html?task=repair-the-pendulum-motion-solver
+- Worlds: http://127.0.0.1:8765/lab/index.html
+- Catalog + frozen tens: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch
+- Batch 02: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b02
+- Runs / traces / failures for a package: http://127.0.0.1:8765/lab/index.html?surface=runs&task=booking-slot-merge
+- `surface=tasks` still aliases Catalog
 
 Cloudflare quick tunnels (`*.trycloudflare.com`) are **ephemeral**. They die when the VM sleeps or `cloudflared` exits. Do not treat an old hostname as a stable URL. Never commit `.env` or API keys.
 
@@ -65,20 +66,31 @@ python scripts/update_catalog_from_jobs.py
 python scripts/build_lab_corpus.py --select   # 100-list + lab/corpus.json
 python scripts/build_lab_corpus.py            # corpus from the frozen 100-list
 python scripts/select_lab_batch.py            # freeze docs/lab_batch_01.jsonl
-python scripts/ingest_lab_jobs.py             # merge jobs/ into the 10 only
+python scripts/select_lab_batch.py --write-later  # freeze batches 02–05 from remaining 90
+python scripts/ingest_lab_jobs.py             # merge jobs/ into frozen tens only
 python scripts/build_lab_plan_docx.py         # docs/AppliedWork_Lab_Build_Plan.docx
 python scripts/build_worlds_lab_spec_docx.py  # docs/AppliedWork_Worlds_Lab_Spec.docx
 python scripts/probe_lab_runtime.py           # keys / Harbor / Docker probe
 python scripts/test_lab_batch.py
 ```
 
-Lab batch (private keys in the Harbor shell, never committed). Do **not** use `run_agents.ps1` for this — it still defaults sonnet/gpt-4o over all of `tasks/latest`.
+Lab batch (private keys in the Harbor shell, never committed). Do **not** use `run_agents.ps1` for this — it still defaults sonnet/gpt-4o over all of `tasks/latest`. Going-forward protocol is **cheap k=5** (Haiku + gpt-4o-mini; Sonnet fallback on OpenAI 429). Do not start a second `harbor run` while one is already running.
+
+```bash
+python3 scripts/run_lab_batch.py --phase probe --batch 1
+python3 scripts/run_lab_batch.py --phase oracle --batch 1
+python3 scripts/run_lab_batch.py --phase smoke --batch 1
+python3 scripts/run_lab_batch.py --phase measure --batch 1 --yes-measure
+python3 scripts/run_lab_batch.py --phase classify
+```
+
+Windows:
 
 ```powershell
-.\scripts\run_lab_batch.ps1 -Phase probe
-.\scripts\run_lab_batch.ps1 -Phase oracle
-.\scripts\run_lab_batch.ps1 -Phase smoke
-.\scripts\run_lab_batch.ps1 -Phase measure -YesMeasure
+.\scripts\run_lab_batch.ps1 -Phase probe -Batch 1
+.\scripts\run_lab_batch.ps1 -Phase oracle -Batch 1
+.\scripts\run_lab_batch.ps1 -Phase smoke -Batch 1
+.\scripts\run_lab_batch.ps1 -Phase measure -Batch 1 -YesMeasure
 .\scripts\run_lab_batch.ps1 -Phase classify
 ```
 

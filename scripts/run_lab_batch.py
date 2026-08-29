@@ -1,0 +1,501 @@
+"""Linux Harbor runner for frozen lab batches.
+
+Going-forward protocol: terminus-2, -k 5, -n 1, two cheap arms
+(claude-haiku-4-5 + gpt-4o-mini, with Sonnet fallback on OpenAI 429).
+
+Do NOT use run_agents.ps1. Never print API keys. Jobs stay under gitignored jobs/.
+On credit-too-low / 429, stop remaining Harbor jobs; keep completed trials.
+Do not start a second `harbor run` while one is already on this host.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from lab_common import (  # noqa: E402
+    CHEAP_HAIKU_MODEL,
+    CHEAP_SECOND_FALLBACK,
+    CHEAP_SECOND_MODEL,
+    JOBS_DIR,
+    PLANNED_ATTEMPTS,
+    TASKS_LATEST,
+    batch_jsonl_path,
+    collect_trials,
+    load_jsonl,
+    model_is_oracle,
+)
+
+CREDIT_MARKERS = (
+    "credit-balance-too-low",
+    "credit too low",
+    "insufficient_quota",
+    "error code: 429",
+    "error code: 400",
+    "rate_limit",
+)
+
+
+def log(msg: str) -> None:
+    print(msg, flush=True)
+
+
+def batch_rows(batch: int) -> list[dict]:
+    path = batch_jsonl_path(batch)
+    rows = load_jsonl(path)
+    if len(rows) != 10:
+        raise SystemExit(f"{path} has {len(rows)} rows, expected 10")
+    return rows
+
+
+def assert_keys() -> None:
+    anthropic = os.environ.get("ANTHROPIC_API_KEY") or ""
+    openai = os.environ.get("OPENAI_API_KEY") or ""
+    if not anthropic:
+        raise SystemExit("ANTHROPIC_API_KEY is not set in this shell.")
+    if anthropic.startswith("sk-proj-"):
+        raise SystemExit("ANTHROPIC_API_KEY is an OpenAI sk-proj- value. Need sk-ant-...")
+    if not anthropic.startswith("sk-ant-"):
+        raise SystemExit("ANTHROPIC_API_KEY must start with sk-ant-.")
+    if not openai:
+        raise SystemExit("OPENAI_API_KEY is not set in this shell.")
+    if not (openai.startswith("sk-") or openai.startswith("sk-proj-")):
+        raise SystemExit("OPENAI_API_KEY does not look like an OpenAI key.")
+    log(f"Keys: anthropic_len={len(anthropic)} openai_len={len(openai)} (prefixes not printed)")
+
+
+def harbor_run_lines() -> list[str]:
+    try:
+        proc = subprocess.run(["pgrep", "-af", "harbor run"], capture_output=True, text=True, check=False)
+    except FileNotFoundError:
+        return []
+    lines = []
+    for line in (proc.stdout or "").splitlines():
+        if "harbor run" in line and "pgrep" not in line:
+            lines.append(line)
+    return lines
+
+
+def wait_for_idle_harbor(*, timeout_s: int = 0) -> None:
+    started = time.time()
+    while True:
+        lines = harbor_run_lines()
+        if not lines:
+            return
+        waited = int(time.time() - started)
+        log(f"Harbor already running ({len(lines)} process(es), waited {waited}s). Not starting a second job.")
+        if timeout_s and waited >= timeout_s:
+            raise SystemExit("Timed out waiting for the existing harbor run to finish.")
+        time.sleep(20)
+
+
+def confirm_harbor_k(trials: int, concurrent: int) -> None:
+    if not shutil.which("harbor"):
+        raise SystemExit("harbor is not on PATH. Install Harbor 0.22 on the evaluation host.")
+    help_proc = subprocess.run(["harbor", "run", "--help"], capture_output=True, text=True, check=False)
+    text = (help_proc.stdout or "") + "\n" + (help_proc.stderr or "")
+    hits = [
+        line.strip()
+        for line in text.splitlines()
+        if any(tok in line.lower() for tok in ("n-attempts", "n_attempts", "-k", "n-trials", "n_trials", "attempts"))
+    ]
+    log("Harbor n_trials vs -k (from harbor run --help):")
+    for line in hits[:20]:
+        log(f"  {line}")
+    if not hits:
+        log("  (no -k / n-attempts / n-trials lines parsed; still using -k as n_attempts)")
+    log(
+        f"Interpretation: n_trials = n_attempts × tasks × agents. -k {trials} => "
+        f"{trials} independent trials. -n {concurrent} concurrency. --retry left off."
+    )
+
+
+def credit_blocked(blob: str) -> str | None:
+    low = blob.lower()
+    for marker in CREDIT_MARKERS:
+        if marker in low:
+            return marker
+    return None
+
+
+def probe_http_arm(kind: str) -> dict:
+    """Tiny provider probe. Does not print keys or response bodies with secrets."""
+    import urllib.error
+    import urllib.request
+
+    if kind == "anthropic":
+        key = os.environ.get("ANTHROPIC_API_KEY") or ""
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=json.dumps(
+                {
+                    "model": "claude-haiku-4-5",
+                    "max_tokens": 8,
+                    "messages": [{"role": "user", "content": "ping"}],
+                }
+            ).encode(),
+            headers={
+                "content-type": "application/json",
+                "x-api-key": key,
+                "anthropic-version": "2023-06-01",
+            },
+            method="POST",
+        )
+    else:
+        key = os.environ.get("OPENAI_API_KEY") or ""
+        req = urllib.request.Request(
+            "https://api.openai.com/v1/chat/completions",
+            data=json.dumps(
+                {
+                    "model": "gpt-4o-mini",
+                    "max_tokens": 8,
+                    "messages": [{"role": "user", "content": "ping"}],
+                }
+            ).encode(),
+            headers={
+                "content-type": "application/json",
+                "authorization": f"Bearer {key}",
+            },
+            method="POST",
+        )
+    try:
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            code = resp.getcode()
+            body = resp.read(400).decode("utf-8", "replace")
+    except urllib.error.HTTPError as exc:
+        code = exc.code
+        body = exc.read(400).decode("utf-8", "replace")
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "status": 0, "error": type(exc).__name__, "blocked": str(exc)[:80]}
+    blocked = credit_blocked(body)
+    return {"ok": 200 <= code < 300 and not blocked, "status": code, "blocked": blocked}
+
+
+def recorded_n(slug: str, model: str, jobs_dir: Path) -> int:
+    trials = collect_trials(jobs_dir)
+    rows = trials.get(slug) or []
+    n = 0
+    want = (model or "").lower()
+    seen = set()
+    for row in rows:
+        marker = row.get("trial_dir")
+        if marker in seen:
+            continue
+        seen.add(marker)
+        name = (row.get("model") or row.get("agent") or "").lower()
+        if model_is_oracle(name):
+            continue
+        if want and want not in name and name not in want:
+            continue
+        n += 1
+    return n
+
+
+def remaining_k(slug: str, model: str, planned: int, jobs_dir: Path) -> int:
+    have = recorded_n(slug, model, jobs_dir)
+    return max(0, planned - have)
+
+
+def run_harbor(*, package: str, agent: str, model: str, k: int, job_name: str, concurrent: int, jobs_dir: Path) -> dict:
+    pkg = TASKS_LATEST / package
+    if not pkg.is_dir():
+        raise SystemExit(f"Package missing: {pkg}")
+    wait_for_idle_harbor()
+    argv = [
+        "harbor",
+        "run",
+        "-p",
+        str(pkg),
+        "-a",
+        agent,
+        "-k",
+        str(k),
+        "-n",
+        str(concurrent),
+        "-o",
+        str(jobs_dir),
+        "--job-name",
+        job_name,
+        "-y",
+    ]
+    if model:
+        argv = [
+            "harbor",
+            "run",
+            "-p",
+            str(pkg),
+            "-a",
+            agent,
+            "-m",
+            model,
+            "-k",
+            str(k),
+            "-n",
+            str(concurrent),
+            "-o",
+            str(jobs_dir),
+            "--job-name",
+            job_name,
+            "-y",
+        ]
+    log(">> " + " ".join(argv))
+    jobs_dir.mkdir(parents=True, exist_ok=True)
+    proc = subprocess.run(argv, text=True, check=False, capture_output=False)
+    # Harbor streams logs to the terminal; also peek the job log for credit markers.
+    job_log = jobs_dir / job_name / "job.log"
+    blob = ""
+    if job_log.is_file():
+        blob = job_log.read_text(encoding="utf-8", errors="replace")[-8000:]
+    blocked = credit_blocked(blob)
+    return {
+        "returncode": proc.returncode,
+        "job_name": job_name,
+        "blocked": blocked,
+        "ok": proc.returncode == 0 and not blocked,
+    }
+
+
+def short_slug(slug: str, n: int = 28) -> str:
+    return slug[:n]
+
+
+class StopMeasure(Exception):
+    def __init__(self, reason: str):
+        super().__init__(reason)
+        self.reason = reason
+
+
+def measure_arm(*, rows: list[dict], model: str, arm: str, batch: int, planned: int, concurrent: int, jobs_dir: Path) -> None:
+    for row in rows:
+        slug = row["slug"]
+        k = remaining_k(slug, model, planned, jobs_dir)
+        if k <= 0:
+            log(f"skip {arm} {slug[:48]} — already has ≥{planned} recorded trials")
+            continue
+        job = f"lab{batch:02d}-{arm}-{short_slug(slug)}-fill{k}"
+        result = run_harbor(
+            package=slug,
+            agent="terminus-2",
+            model=model,
+            k=k,
+            job_name=job,
+            concurrent=concurrent,
+            jobs_dir=jobs_dir,
+        )
+        if result["blocked"]:
+            raise StopMeasure(f"{arm} blocked ({result['blocked']}) on {slug}")
+        if result["returncode"] != 0:
+            # Re-check job log / latest trial for infra vs credit.
+            raise StopMeasure(f"{arm} harbor exit {result['returncode']} on {slug}")
+
+
+def phase_probe(args: argparse.Namespace) -> None:
+    assert_keys()
+    confirm_harbor_k(args.trials, args.concurrent)
+    if not shutil.which("docker"):
+        raise SystemExit("docker is not on PATH.")
+    docker = subprocess.run(["docker", "info"], capture_output=True, text=True, check=False)
+    if docker.returncode != 0:
+        raise SystemExit("docker info failed.")
+    anth = probe_http_arm("anthropic")
+    oai = probe_http_arm("openai")
+    log(f"Anthropic probe: status={anth.get('status')} ok={anth.get('ok')} blocked={anth.get('blocked')}")
+    log(f"OpenAI probe: status={oai.get('status')} ok={oai.get('ok')} blocked={oai.get('blocked')}")
+    probe_path = ROOT / "docs" / f"lab_batch_{args.batch:02d}_status.json"
+    payload = {
+        "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "batch": args.batch,
+        "planned_attempts": args.trials,
+        "haiku_model": args.haiku_model,
+        "second_model": args.second_model,
+        "second_fallback": args.second_fallback,
+        "anthropic": {k: anth.get(k) for k in ("ok", "status", "blocked")},
+        "openai": {k: oai.get(k) for k in ("ok", "status", "blocked")},
+        "harbor_running": harbor_run_lines(),
+        "note": "Probe only. Do not invent scores. Keys are not written.",
+    }
+    probe_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    log(f"wrote {probe_path.relative_to(ROOT)}")
+    if not anth.get("ok"):
+        raise SystemExit("Anthropic cheap arm is not ready (credit/auth). Stopping.")
+
+
+def resolve_second_model(args: argparse.Namespace) -> str:
+    oai = probe_http_arm("openai")
+    if oai.get("ok"):
+        return args.second_model
+    log(
+        f"OpenAI second arm not ready (status={oai.get('status')} blocked={oai.get('blocked')}); "
+        f"falling back to {args.second_fallback}"
+    )
+    anth = probe_http_arm("anthropic")
+    if not anth.get("ok"):
+        raise StopMeasure("both cheap second-arm providers blocked")
+    return args.second_fallback
+
+
+def phase_oracle(args: argparse.Namespace) -> None:
+    assert_keys()
+    rows = batch_rows(args.batch)
+    for i, row in enumerate(rows, start=1):
+        run_harbor(
+            package=row["slug"],
+            agent="oracle",
+            model="",
+            k=1,
+            job_name=f"lab{args.batch:02d}-oracle-{short_slug(row['slug'], 40)}",
+            concurrent=args.concurrent,
+            jobs_dir=JOBS_DIR,
+        )
+        if args.stop_after_tasks and i >= args.stop_after_tasks:
+            log(f"StopAfterTasks={args.stop_after_tasks}")
+            break
+
+
+def phase_smoke(args: argparse.Namespace) -> str:
+    assert_keys()
+    confirm_harbor_k(1, args.concurrent)
+    slug = args.smoke_slug or batch_rows(args.batch)[0]["slug"]
+    haiku = run_harbor(
+        package=slug,
+        agent="terminus-2",
+        model=args.haiku_model,
+        k=1,
+        job_name=f"lab{args.batch:02d}-smoke-haiku",
+        concurrent=1,
+        jobs_dir=JOBS_DIR,
+    )
+    if haiku["blocked"] or haiku["returncode"] != 0:
+        raise SystemExit("Haiku smoke failed. Do not start the k=5 measure.")
+    second = resolve_second_model(args)
+    smoke = run_harbor(
+        package=slug,
+        agent="terminus-2",
+        model=second,
+        k=1,
+        job_name=f"lab{args.batch:02d}-smoke-second",
+        concurrent=1,
+        jobs_dir=JOBS_DIR,
+    )
+    if smoke["blocked"] or smoke["returncode"] != 0:
+        raise SystemExit(f"Second-arm smoke failed on {second}.")
+    log(f"Smoke ok. Second arm={second}. Measure with --yes-measure.")
+    return second
+
+
+def phase_measure(args: argparse.Namespace) -> None:
+    assert_keys()
+    if not args.yes_measure:
+        raise SystemExit("Refusing cheap k=5 measure without --yes-measure. Run --phase smoke first.")
+    rows = batch_rows(args.batch)
+    if args.stop_after_tasks:
+        rows = rows[: args.stop_after_tasks]
+    try:
+        measure_arm(
+            rows=rows,
+            model=args.haiku_model,
+            arm="haiku",
+            batch=args.batch,
+            planned=args.trials,
+            concurrent=args.concurrent,
+            jobs_dir=JOBS_DIR,
+        )
+        second = resolve_second_model(args)
+        measure_arm(
+            rows=rows,
+            model=second,
+            arm="second",
+            batch=args.batch,
+            planned=args.trials,
+            concurrent=args.concurrent,
+            jobs_dir=JOBS_DIR,
+        )
+    except StopMeasure as exc:
+        log(f"STOP: {exc.reason}. Keeping completed trials. Not inventing the rest.")
+        (ROOT / "docs" / f"lab_batch_{args.batch:02d}_stop.json").write_text(
+            json.dumps(
+                {
+                    "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                    "reason": exc.reason,
+                    "batch": args.batch,
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+
+def phase_empty(args: argparse.Namespace) -> None:
+    for row in batch_rows(args.batch):
+        run_harbor(
+            package=row["slug"],
+            agent="nop",
+            model="",
+            k=1,
+            job_name=f"lab{args.batch:02d}-nop-{short_slug(row['slug'])}",
+            concurrent=args.concurrent,
+            jobs_dir=JOBS_DIR,
+        )
+
+
+def phase_classify() -> None:
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "ingest_lab_jobs.py")], check=False)
+    catalog = ROOT / "scripts" / "update_catalog_from_jobs.py"
+    if catalog.is_file():
+        subprocess.run([sys.executable, str(catalog)], check=False)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--phase",
+        choices=["probe", "oracle", "smoke", "measure", "empty", "classify", "all"],
+        default="probe",
+    )
+    parser.add_argument("--batch", type=int, default=1)
+    parser.add_argument("--haiku-model", default=CHEAP_HAIKU_MODEL)
+    parser.add_argument("--second-model", default=CHEAP_SECOND_MODEL)
+    parser.add_argument("--second-fallback", default=CHEAP_SECOND_FALLBACK)
+    parser.add_argument("--smoke-slug", default="")
+    parser.add_argument("--trials", type=int, default=PLANNED_ATTEMPTS)
+    parser.add_argument("--concurrent", type=int, default=1)
+    parser.add_argument("--stop-after-tasks", type=int, default=0)
+    parser.add_argument("--yes-measure", action="store_true")
+    args = parser.parse_args()
+
+    if args.phase == "probe":
+        phase_probe(args)
+    elif args.phase == "oracle":
+        phase_oracle(args)
+    elif args.phase == "smoke":
+        phase_smoke(args)
+    elif args.phase == "measure":
+        phase_measure(args)
+    elif args.phase == "empty":
+        phase_empty(args)
+    elif args.phase == "classify":
+        phase_classify()
+    elif args.phase == "all":
+        phase_probe(args)
+        phase_oracle(args)
+        phase_smoke(args)
+        if args.yes_measure:
+            phase_measure(args)
+        else:
+            log("Smoke finished. Re-run with --phase measure --yes-measure to spend cheap k=5 jobs.")
+        phase_classify()
+
+
+if __name__ == "__main__":
+    main()

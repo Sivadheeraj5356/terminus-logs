@@ -24,8 +24,8 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then: http://127.0.0.1:8765/lab/index.html
 
-Batch filter: http://127.0.0.1:8765/lab/index.html?filter=batch  
-Tasks surface: http://127.0.0.1:8765/lab/index.html?surface=tasks
+Batch filter: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch  
+Catalog (alias `surface=tasks`): http://127.0.0.1:8765/lab/index.html?surface=catalog
 
 Deep links:
 
@@ -71,11 +71,14 @@ If the tunnel is down, fall back to the PR/clone path in A. GitHub Pages is a we
 
 ## 2. What to tell them they are looking at
 
-| Surface | What is real tonight |
+| Surface | What is real |
 | --- | --- |
-| Overview | Applied Work Worlds Lab intro, 100 / 448 / batch-01 = 10, charts from **our** `instruction.md` + category mix |
-| Tasks | All 100 rows. **01** mark on the frozen ten. Measured column: `oracle` for ingested oracle jobs; agent chips are **solved / recorded** (haiku 1-trial is `0/1`, not `0/8`) |
-| Agents | Only Harbor ingest. **No effort curves.** **No 8/8.** Loss notes: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md) |
+| Worlds | Applied Work Worlds Lab intro, 100 gallery / 50 measured target, charts from **our** `instruction.md` |
+| Coverage | Domain × language matrix; batch 01–05 marks; teal = ingested jobs |
+| Catalog | All 100 rows. Batch chips 01–05. Measured column is **solved / recorded** (haiku 1-trial is `0/1`, not `0/5`) |
+| Runs / Traces / Failures / Stump | One dot per recorded trial; trajectory summaries; named verifier holes |
+| Verifier / Harness / Spend / Batches | Oracle rules, terminus-2 + Harbor 0.22 only, Harbor `cost_usd`, ledger 01–05 |
+| Agents | Only Harbor ingest. **No effort curves.** **No padded 8/8.** |
 
 Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (top nav, cream page, ink-teal accent). It is not Senior SWE-Bench and not Snorkel.
 

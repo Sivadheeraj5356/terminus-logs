@@ -1,36 +1,34 @@
-# Private Harbor batch for docs/lab_batch_01.jsonl.
+# Private Harbor batch for docs/lab_batch_0N.jsonl.
 # Do NOT use run_agents.ps1 (that still defaults sonnet/gpt-4o over all of tasks/latest).
 #
 # Harbor 0.22: n_trials = n_attempts x n_tasks x n_agents.
 #   -k / --n-attempts  = independent trials (cartesian product), NOT intra-trial retries
 #   -n / --n-concurrent = parallelism (keep 1, at most 2)
 #   --retry             = infra retries (leave off / 0)
-# Target: 8 independent trials x 1 attempt per model per task => harbor run -k 8 -n 1
+# Going-forward: 5 independent trials x two cheap arms (Haiku + gpt-4o-mini / Sonnet fallback)
 #
 # Usage (PowerShell), keys in THIS shell, never paste into chat:
 #   $env:ANTHROPIC_API_KEY = "sk-ant-..."
 #   $env:OPENAI_API_KEY    = "sk-..."
-#   .\scripts\run_lab_batch.ps1 -Phase probe
-#   .\scripts\run_lab_batch.ps1 -Phase oracle
-#   .\scripts\run_lab_batch.ps1 -Phase smoke
-#   .\scripts\run_lab_batch.ps1 -Phase measure     # 160 frontier jobs; stop if spend spikes
+#   .\scripts\run_lab_batch.ps1 -Phase probe -Batch 1
+#   .\scripts\run_lab_batch.ps1 -Phase oracle -Batch 1
+#   .\scripts\run_lab_batch.ps1 -Phase smoke -Batch 1
+#   .\scripts\run_lab_batch.ps1 -Phase measure -Batch 1 -YesMeasure
 #   .\scripts\run_lab_batch.ps1 -Phase classify
-#   .\scripts\run_lab_batch.ps1 -Phase empty       # optional nop / empty=0
-#   .\scripts\run_lab_batch.ps1 -Phase all         # probe+oracle+smoke; measure only if smoke ok
 #
-# If smoke 401s, pass a verified LiteLLM slug:
-#   .\scripts\run_lab_batch.ps1 -Phase smoke -OpusModel anthropic/claude-opus-5 -GptModel openai/gpt-5.6
+# Linux equivalent: python3 scripts/run_lab_batch.py --phase probe --batch 1
 
 [CmdletBinding()]
 param(
     [ValidateSet("probe", "oracle", "smoke", "measure", "empty", "classify", "all")]
     [string]$Phase = "probe",
+    [int]$Batch = 1,
     [string]$BatchJsonl = "",
-    [string]$OpusModel = "anthropic/claude-opus-5",
-    [string]$GptModel = "openai/gpt-5.6-sol",
-    [string]$GptFallback = "openai/gpt-5.6",
-    [string]$SmokeSlug = "repair-the-pendulum-motion-solver",
-    [int]$Trials = 8,
+    [string]$HaikuModel = "anthropic/claude-haiku-4-5",
+    [string]$SecondModel = "openai/gpt-4o-mini",
+    [string]$SecondFallback = "anthropic/claude-sonnet-4-5",
+    [string]$SmokeSlug = "",
+    [int]$Trials = 5,
     [int]$Concurrent = 1,
     [int]$StopAfterTasks = 0,
     [switch]$YesMeasure
@@ -38,8 +36,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
+$batchTag = "{0:d2}" -f $Batch
 if (-not $BatchJsonl) {
-    $BatchJsonl = Join-Path $root "docs\lab_batch_01.jsonl"
+    $BatchJsonl = Join-Path $root "docs\lab_batch_$batchTag.jsonl"
 }
 $jobs = Join-Path $root "jobs"
 $tasksRoot = Join-Path $root "tasks\latest"
@@ -148,8 +147,8 @@ function Invoke-Probe {
     if (-not $docker) { throw "docker is not on PATH." }
     & docker info | Out-Null
     if ($LASTEXITCODE -ne 0) { throw "docker info failed." }
-    Write-Host "Probe ok. Smoke slug: $SmokeSlug. Opus=$OpusModel Gpt=$GptModel"
-    & python (Join-Path $root "scripts\probe_lab_runtime.py")
+    Write-Host "Probe ok. Smoke slug will be first frozen row unless -SmokeSlug is set. Haiku=$HaikuModel Second=$SecondModel"
+    & python (Join-Path $root "scripts\probe_lab_runtime.py") --haiku-model $HaikuModel --second-model $SecondModel
 }
 
 function Invoke-Oracle {
@@ -158,7 +157,7 @@ function Invoke-Oracle {
     $i = 0
     foreach ($row in $rows) {
         $i++
-        Invoke-Harbor -Package $row.slug -Agent "oracle" -Model "" -K 1 -JobName "lab01-oracle-$($row.slug.Substring(0, [Math]::Min(40, $row.slug.Length)))"
+        Invoke-Harbor -Package $row.slug -Agent "oracle" -Model "" -K 1 -JobName "lab$batchTag-oracle-$($row.slug.Substring(0, [Math]::Min(40, $row.slug.Length)))"
         if ($StopAfterTasks -gt 0 -and $i -ge $StopAfterTasks) {
             Write-Host "StopAfterTasks=$StopAfterTasks — leaving remaining oracle runs."
             break
@@ -169,35 +168,37 @@ function Invoke-Oracle {
 function Invoke-Smoke {
     Assert-Keys
     Confirm-HarborK
+    $rows = Get-BatchRows $BatchJsonl
+    if (-not $SmokeSlug) { $SmokeSlug = $rows[0].slug }
     try {
-        Invoke-Harbor -Package $SmokeSlug -Agent "terminus-2" -Model $OpusModel -K 1 -JobName "lab01-smoke-opus"
+        Invoke-Harbor -Package $SmokeSlug -Agent "terminus-2" -Model $HaikuModel -K 1 -JobName "lab$batchTag-smoke-haiku"
     } catch {
-        throw "Opus smoke failed. Confirm LiteLLM slug (tried $OpusModel). Do not start the 160-run batch. $_"
+        throw "Haiku smoke failed. Confirm LiteLLM slug (tried $HaikuModel). Do not start k=5 measure. $_"
     }
     try {
-        Invoke-Harbor -Package $SmokeSlug -Agent "terminus-2" -Model $GptModel -K 1 -JobName "lab01-smoke-gpt"
+        Invoke-Harbor -Package $SmokeSlug -Agent "terminus-2" -Model $SecondModel -K 1 -JobName "lab$batchTag-smoke-second"
     } catch {
-        Write-Host "Gpt smoke failed on $GptModel — retrying $GptFallback"
-        Invoke-Harbor -Package $SmokeSlug -Agent "terminus-2" -Model $GptFallback -K 1 -JobName "lab01-smoke-gpt-fallback"
-        $script:GptModel = $GptFallback
+        Write-Host "Second arm failed on $SecondModel — retrying $SecondFallback"
+        Invoke-Harbor -Package $SmokeSlug -Agent "terminus-2" -Model $SecondFallback -K 1 -JobName "lab$batchTag-smoke-second-fallback"
+        $script:SecondModel = $SecondFallback
     }
-    Write-Host "Smoke ok. Measure with -Phase measure -YesMeasure (160 jobs)."
+    Write-Host "Smoke ok. Measure with -Phase measure -YesMeasure (cheap k=5 x two arms)."
 }
 
 function Invoke-Measure {
     Assert-Keys
     if (-not $YesMeasure) {
-        throw "Refusing 160 frontier runs without -YesMeasure. Run -Phase smoke first."
+        throw "Refusing cheap k=5 measure without -YesMeasure. Run -Phase smoke first."
     }
     $rows = Get-BatchRows $BatchJsonl
     $i = 0
     foreach ($row in $rows) {
         $i++
         $short = $row.slug.Substring(0, [Math]::Min(36, $row.slug.Length))
-        Invoke-Harbor -Package $row.slug -Agent "terminus-2" -Model $OpusModel -K $Trials -JobName "lab01-opus-$short"
-        Invoke-Harbor -Package $row.slug -Agent "terminus-2" -Model $GptModel -K $Trials -JobName "lab01-gpt-$short"
+        Invoke-Harbor -Package $row.slug -Agent "terminus-2" -Model $HaikuModel -K $Trials -JobName "lab$batchTag-haiku-$short"
+        Invoke-Harbor -Package $row.slug -Agent "terminus-2" -Model $SecondModel -K $Trials -JobName "lab$batchTag-second-$short"
         if ($StopAfterTasks -gt 0 -and $i -ge $StopAfterTasks) {
-            Write-Host "StopAfterTasks=$StopAfterTasks — not auto-starting remaining tasks or batch 02."
+            Write-Host "StopAfterTasks=$StopAfterTasks — not auto-starting remaining tasks or the next batch."
             break
         }
     }
@@ -207,7 +208,7 @@ function Invoke-Empty {
     $rows = Get-BatchRows $BatchJsonl
     foreach ($row in $rows) {
         $short = $row.slug.Substring(0, [Math]::Min(36, $row.slug.Length))
-        Invoke-Harbor -Package $row.slug -Agent "nop" -Model "" -K 1 -JobName "lab01-nop-$short"
+        Invoke-Harbor -Package $row.slug -Agent "nop" -Model "" -K 1 -JobName "lab$batchTag-nop-$short"
     }
 }
 
@@ -231,7 +232,7 @@ switch ($Phase) {
             Invoke-Measure
             Invoke-Empty
         } else {
-            Write-Host "Smoke finished. Re-run with -Phase measure -YesMeasure to spend 160 frontier jobs."
+            Write-Host "Smoke finished. Re-run with -Phase measure -YesMeasure to spend cheap k=5 jobs."
         }
         Invoke-Classify
     }
