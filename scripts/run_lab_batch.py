@@ -295,8 +295,9 @@ def measure_arm(*, rows: list[dict], model: str, arm: str, batch: int, planned: 
         if result["blocked"]:
             raise StopMeasure(f"{arm} blocked ({result['blocked']}) on {slug}")
         if result["returncode"] != 0:
-            # Re-check job log / latest trial for infra vs credit.
             raise StopMeasure(f"{arm} harbor exit {result['returncode']} on {slug}")
+        subprocess.run([sys.executable, str(ROOT / "scripts" / "ingest_lab_jobs.py")], check=False)
+        subprocess.run([sys.executable, str(ROOT / "scripts" / "write_loss_notes.py")], check=False)
 
 
 def phase_probe(args: argparse.Namespace) -> None:
