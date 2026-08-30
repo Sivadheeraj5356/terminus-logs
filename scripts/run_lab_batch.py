@@ -33,7 +33,6 @@ from lab_common import (  # noqa: E402
     batch_jsonl_path,
     collect_trials,
     load_jsonl,
-    model_is_oracle,
 )
 
 CREDIT_MARKERS = (
@@ -51,6 +50,22 @@ CREDIT_MARKERS = (
 
 def log(msg: str) -> None:
     print(msg, flush=True)
+
+
+def load_env_file() -> None:
+    """Load repo .env into os.environ without logging values."""
+    path = ROOT / ".env"
+    if not path.is_file():
+        return
+    for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, val = line.partition("=")
+        key = key.strip()
+        val = val.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = val
 
 
 def batch_rows(batch: int) -> list[dict]:
@@ -184,28 +199,58 @@ def probe_http_arm(kind: str) -> dict:
     return {"ok": 200 <= code < 300 and not blocked, "status": code, "blocked": blocked}
 
 
+# Credit/quota infra is not a Harbor attempt. Timeout still counts (the agent ran).
+ATTEMPT_CLASSES = frozenset({"solved", "valid_fail", "timeout"})
+
+
+def _model_matches(row: dict, model: str) -> bool:
+    name = (row.get("model") or "").lower()
+    agent = (row.get("agent") or "").lower()
+    if agent == "oracle" or "oracle" in name:
+        return False
+    want = (model or "").lower()
+    if not want:
+        return True
+    hay = name or agent
+    return want in hay or hay in want
+
+
 def recorded_n(slug: str, model: str, jobs_dir: Path) -> int:
+    """All recorded non-oracle trials for this model (including credit infra)."""
     trials = collect_trials(jobs_dir)
     rows = trials.get(slug) or []
     n = 0
-    want = (model or "").lower()
     seen = set()
     for row in rows:
         marker = row.get("trial_dir")
         if marker in seen:
             continue
         seen.add(marker)
-        name = (row.get("model") or row.get("agent") or "").lower()
-        if model_is_oracle(name):
+        if _model_matches(row, model):
+            n += 1
+    return n
+
+
+def attempted_n(slug: str, model: str, jobs_dir: Path) -> int:
+    """Trials that count toward k=5: solved, valid_fail, or timeout. Infra does not."""
+    trials = collect_trials(jobs_dir)
+    rows = trials.get(slug) or []
+    n = 0
+    seen = set()
+    for row in rows:
+        marker = row.get("trial_dir")
+        if marker in seen:
             continue
-        if want and want not in name and name not in want:
+        seen.add(marker)
+        if not _model_matches(row, model):
             continue
-        n += 1
+        if (row.get("classification") or "") in ATTEMPT_CLASSES:
+            n += 1
     return n
 
 
 def remaining_k(slug: str, model: str, planned: int, jobs_dir: Path) -> int:
-    have = recorded_n(slug, model, jobs_dir)
+    have = attempted_n(slug, model, jobs_dir)
     return max(0, planned - have)
 
 
@@ -260,6 +305,9 @@ def run_harbor(*, package: str, agent: str, model: str, k: int, job_name: str, c
     if job_log.is_file():
         blob = job_log.read_text(encoding="utf-8", errors="replace")[-8000:]
     blocked = credit_blocked(blob)
+    # Nested Docker vfs grows fast; reclaim unused images between jobs.
+    subprocess.run(["docker", "image", "prune", "-f"], check=False, capture_output=True)
+    subprocess.run(["docker", "builder", "prune", "-af"], check=False, capture_output=True)
     return {
         "returncode": proc.returncode,
         "job_name": job_name,
@@ -282,9 +330,18 @@ def measure_arm(*, rows: list[dict], model: str, arm: str, batch: int, planned: 
     for row in rows:
         slug = row["slug"]
         k = remaining_k(slug, model, planned, jobs_dir)
+        have = attempted_n(slug, model, jobs_dir)
+        recorded = recorded_n(slug, model, jobs_dir)
         if k <= 0:
-            log(f"skip {arm} {slug[:48]} — already has ≥{planned} recorded trials")
+            log(
+                f"skip {arm} {slug[:48]} — {have} non-infra attempts "
+                f"(recorded={recorded}) already meet k={planned}"
+            )
             continue
+        log(
+            f"{arm} {slug[:48]} remaining k={k} "
+            f"(non-infra attempts={have}, recorded including infra={recorded})"
+        )
         job = f"lab{batch:02d}-{arm}-{short_slug(slug)}-fill{k}"
         result = run_harbor(
             package=slug,
@@ -477,6 +534,7 @@ def main() -> None:
     parser.add_argument("--stop-after-tasks", type=int, default=0)
     parser.add_argument("--yes-measure", action="store_true")
     args = parser.parse_args()
+    load_env_file()
 
     if args.phase == "probe":
         phase_probe(args)

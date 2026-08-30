@@ -297,6 +297,66 @@ def select_later(batch: int, taken_slugs: set[str]) -> list[dict]:
     return [to_jsonl_row(row, i, batch=batch) for i, row in enumerate(ordered, start=1)]
 
 
+def append_exclusion(slug: str, *, oracle_reward, note: str) -> None:
+    path = BATCH_01_EXCLUSIONS_JSON
+    data: dict = {"note": "", "dropped": []}
+    if path.is_file():
+        loaded = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            data = loaded
+    dropped = list(data.get("dropped") or [])
+    if any((row.get("slug") if isinstance(row, dict) else row) == slug for row in dropped):
+        return
+    dropped.append({"slug": slug, "oracle_reward": oracle_reward, "verifier_note": note})
+    data["dropped"] = dropped
+    if not data.get("note"):
+        data["note"] = (
+            "Oracle reward was not 1.0. Dropped from the measured freeze (drop, do not footnote)."
+        )
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def replace_failed_oracles(batch: int, failed_slugs: list[str]) -> list[str]:
+    """Keep passing rows in batch N, pick replacements from leftover gallery.
+
+    Returns the new slugs that still need an oracle run.
+    """
+    if not failed_slugs or batch < 2:
+        raise SystemExit("replace_failed_oracles is for batches 02–05 after an oracle miss")
+    failed = set(failed_slugs)
+    path = batch_jsonl_path(batch)
+    current = load_jsonl(path)
+    kept = [row for row in current if row["slug"] not in failed]
+    need = 10 - len(kept)
+    if need <= 0:
+        return []
+    taken: set[str] = set()
+    for other in range(1, MEASURED_BATCH_MAX + 1):
+        other_path = batch_jsonl_path(other)
+        if not other_path.is_file():
+            continue
+        for row in load_jsonl(other_path):
+            if other == batch and row["slug"] in failed:
+                continue
+            taken.add(row["slug"])
+    taken |= failed
+    for slug in failed:
+        append_exclusion(slug, oracle_reward=0.0, note=f"batch {batch:02d} oracle ≠ 1.0")
+    replacements = choose_later_batch(pool_from_mvp(taken), n=need)
+    merged = kept + [to_jsonl_row(row, 0, batch=batch) for row in replacements]
+    ordered = sorted(
+        merged,
+        key=lambda r: (
+            CATEGORY_ORDER.index(r["category"]) if r.get("category") in CATEGORY_ORDER else 99,
+            r.get("primary_language") or "",
+            r["slug"],
+        ),
+    )
+    written = [to_jsonl_row(row, i, batch=batch) for i, row in enumerate(ordered, start=1)]
+    write_jsonl(path, written)
+    return [row["slug"] for row in replacements]
+
+
 def select_batches_02_05() -> dict[int, list[dict]]:
     taken = {row["slug"] for row in select()}
     frozen = {1: select()}

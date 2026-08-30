@@ -224,6 +224,65 @@ class LaterBatchSelectionTests(unittest.TestCase):
         self.assertEqual(PLANNED_ATTEMPTS, 5)
 
 
+class RemainingKTests(unittest.TestCase):
+    def test_credit_infra_does_not_fill_planned_k(self):
+        from run_lab_batch import attempted_n, remaining_k
+
+        slug = "booking-slot-merge"
+        model = "anthropic/claude-haiku-4-5"
+        with tempfile.TemporaryDirectory() as tmp:
+            jobs = Path(tmp)
+            _write_result(
+                jobs / "j" / f"{slug}__t1" / "result.json",
+                {
+                    "task_name": slug,
+                    "trial_name": "t1",
+                    "verifier_result": {"rewards": {"reward": 0.0}},
+                    "agent_info": {"name": "terminus-2"},
+                    "config": {"agent": {"model_name": model}},
+                },
+            )
+            _write_result(
+                jobs / "j" / f"{slug}__t2" / "result.json",
+                {
+                    "task_name": slug,
+                    "trial_name": "t2",
+                    "exception_info": {
+                        "exception_type": "BadRequestError",
+                        "exception_message": "credit balance is too low",
+                    },
+                    "agent_info": {"name": "terminus-2"},
+                    "config": {"agent": {"model_name": model}},
+                },
+            )
+            self.assertEqual(attempted_n(slug, model, jobs), 1)
+            self.assertEqual(remaining_k(slug, model, 5, jobs), 4)
+
+    def test_timeout_counts_as_an_attempt(self):
+        from run_lab_batch import attempted_n, remaining_k
+
+        slug = "wildlife-counting-becomes-a-field-planning-game-when-uncerta"
+        model = "anthropic/claude-haiku-4-5"
+        with tempfile.TemporaryDirectory() as tmp:
+            jobs = Path(tmp)
+            _write_result(
+                jobs / "j" / f"{slug}__t1" / "result.json",
+                {
+                    "task_name": slug,
+                    "trial_name": "t1",
+                    "verifier_result": {"rewards": {"reward": 0.0}},
+                    "exception_info": {
+                        "exception_type": "AgentTimeoutError",
+                        "exception_message": "timed out",
+                    },
+                    "agent_info": {"name": "terminus-2"},
+                    "config": {"agent": {"model_name": model}},
+                },
+            )
+            self.assertEqual(attempted_n(slug, model, jobs), 1)
+            self.assertEqual(remaining_k(slug, model, 5, jobs), 4)
+
+
 class LabUiIdentityTests(unittest.TestCase):
     def test_static_lab_keeps_applied_work_identity(self):
         html = (ROOT / "lab" / "index.html").read_text(encoding="utf-8")
