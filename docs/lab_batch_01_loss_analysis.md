@@ -2,13 +2,15 @@
 
 Generated 2026-08-28T21:20Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`.  
 Updated **2026-08-30T16:14Z** after the cheap k=5 resume hit Anthropic credit-too-low again.  
+Re-probed **2026-08-30T18:24Z**: both cheap providers still blocked; **no new Harbor trials**.  
 `stump_pct = valid_fail / (solved + valid_fail) × 100`. Timeout and infra are excluded. No Caudal/SSB scores. No rubric channel.
 
 ## Headlines
 
 - **Frozen batch 01: 10 tasks.** Go oracle-fail `release-still-signs-edge-go-mod-q1-green-while-the-dependenc` (reward 0.0, 5 `TestLiveProxyIntegrity` failures) was dropped and replaced by `i-need-the-offline-binary-cache-closure-planner-in-app-task` (oracle 1.0). See `docs/lab_batch_01_exclusions.json`.
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
-- **Resume 2026-08-30T13:04–16:14Z:** Probe Anthropic Haiku **HTTP 200**, OpenAI `gpt-4o-mini` **429 insufficient_quota**. Second arm must be `anthropic/claude-sonnet-4-5`. Iterate `scripts/iterate_lab_batches.py --start-batch 1 --end-batch 5 --resume` filled remaining Haiku k (infra does not count). **Stopped** on credit-too-low during offline binary-cache Haiku `-k 4` (trials `…__Y4vX24v`, `…__DXyWUSd`). Harbor idle. **No second `harbor run`.** Sonnet never started. Batches 02–05 not oracled. **Not 50/50.**
+- **Resume 2026-08-30T18:24Z:** `iterate_lab_batches.py --start-batch 1 --end-batch 5 --resume` archived `lab_batch_01_stop.json` → `lab_batch_01_stop.20260830T182403Z.json`. Probe: Anthropic Haiku **HTTP 400 credit-balance-too-low**; OpenAI **429 insufficient_quota** on `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, `gpt-3.5-turbo`. Sonnet would also fail (same Anthropic balance). **No Harbor started. No invented scores.** Chips unchanged from the 16:14Z ingest.
+- **Resume 2026-08-30T13:04–16:14Z:** Probe Anthropic Haiku **HTTP 200**, OpenAI `gpt-4o-mini` **429 insufficient_quota**. Second arm must be `anthropic/claude-sonnet-4-5`. Iterate filled remaining Haiku k (infra does not count). **Stopped** on credit-too-low during offline binary-cache Haiku `-k 4` (trials `…__Y4vX24v`, `…__DXyWUSd`). Harbor idle. **No second `harbor run`.** Sonnet never started. Batches 02–05 not oracled. **Not 50/50.**
 - **Cheap Haiku chips (solved/recorded, not padded):** pendulum **0/5**; hypersonic **4/9** (4 solved on fill4 + 1 valid_fail + 4 prior credit infra); dyeworks **0/5** (2 valid_fail + 3 infra, still need 3 counted); root-CA **0/5**; Apexora **0/5**; offline-cache **0/5** (3 valid_fail + 2 credit infra, still need 2 counted); Harborlane / k-fold / wildlife / booking **0/1**.
 - **Continuation 2026-08-28T19:30Z:** Harbor was idle. Cheap probes (prefix/length only): Anthropic `claude-opus-5` ping **HTTP 200**; OpenAI chat `gpt-5.6-sol` **HTTP 429 insufficient_quota**. GPT remaining trials were not started.
 - **Dyeworks Opus resume** (`harbor job resume -f BadRequestError`) replaced the earlier 7 credit-infra dirs. Got **2 solved + 2 valid_fail**, then Anthropic **credit-balance-too-low** again on 3 trials; the 8th trial (`…__eWdLDth`) was terminated with no `result.json`. **Stop. Remaining 7 packages were not started.** Batch 02 was not started. **Not 160/160.**
@@ -162,16 +164,16 @@ Trial `…__ASNhuY6` (~$0.60, 1800s): **`AgentTimeoutError`**. Classified **time
 
 | Item | State |
 | --- | --- |
-| Harbor process | **Stopped** 2026-08-30T16:14Z. Anthropic credit-too-low on offline-cache fill4. No second `harbor run`. See `docs/lab_batch_01_stop.json`. |
+| Harbor process | **Stopped** 2026-08-30T18:24Z dual-provider probe (no Harbor started). Anthropic credit-too-low; all probed OpenAI slugs 429. See `docs/lab_batch_01_stop.json`. |
 | Cheap pendulum haiku | Chip **0/5** valid_fail. Counted 5/5. ~$1.96. |
 | Cheap hypersonic haiku | Chip **4/9**. Counted 5/5 (4 fill4 solves + 1 vf; 4 infra). Fill4 **$0.96**. |
 | Cheap dyeworks haiku | Chip **0/5**. Counted 2/5 (need 3). |
 | Cheap root-CA / Apexora haiku | Chips **0/5** / **0/5**. Counted 5/5 each. |
 | Cheap offline-cache haiku | Chip **0/5**. Counted 3/5. Stopped mid fill4. **$3.23** this job. |
 | Harborlane / k-fold / wildlife / booking | Haiku chips **0/1** (wildlife timeout). Remaining k=4 **not run**. |
-| Second arm (Sonnet / gpt-4o-mini) | **Not started.** OpenAI 429; Anthropic credits exhausted. |
+| Second arm (Sonnet / gpt-4o / gpt-4o-mini) | **Not started.** OpenAI 429 on mini, gpt-4o, 4.1-mini, 4.1-nano, 3.5-turbo; Anthropic credits exhausted so Sonnet fallback is blocked too. |
 | Batches 02–05 | Frozen jsonl on disk. **Not oracled, not measured.** |
-| OpenAI | Chat completions **429 insufficient_quota** (`gpt-4o-mini` ping). |
+| OpenAI | Chat completions **429 insufficient_quota** (`gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, `gpt-3.5-turbo` pings at 18:24Z). |
 | All ingested Harbor `cost_usd` | **$65.00** (frontier+smoke **$49.67**, Haiku **$15.33**) |
 | Docker / Harbor 0.22 | Up |
 
@@ -193,8 +195,8 @@ Chips reflect **recorded** trials, never padded to 5 or 8:
 - Second arm: no chips
 - Batches 02–05: not run
 
-## Cheap k=5 protocol (30 Aug 2026 stop)
+## Cheap k=5 protocol (30 Aug 2026 18:24Z stop)
 
-Frontier 8+8 stays historical. Cheap k=5 resume filled through Apexora, then died on offline-cache credit-too-low. Sonnet second arm was not started. Live cheap notes: [`lab_batch_01_cheap_notes.md`](lab_batch_01_cheap_notes.md). Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). Batches 02–05 remain frozen in `docs/lab_batch_02.jsonl` … `05.jsonl` with **no Harbor measure**.
+Frontier 8+8 stays historical. 18:24Z `--resume` archived the 16:14Z stop, probed Haiku + every cheap OpenAI slug including `gpt-4o`, and **did not start Harbor** (`halt_iterate: true`). Sonnet second arm remains unstarted. Live cheap notes: [`lab_batch_01_cheap_notes.md`](lab_batch_01_cheap_notes.md). Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). Batches 02–05 remain frozen in `docs/lab_batch_02.jsonl` … `05.jsonl` with **no Harbor measure**.
 
 Catalog deep links use `?surface=catalog` (`surface=tasks` still works). Runs / Traces / Failures / Stump / Spend / Batches are first-class surfaces.

@@ -1,13 +1,13 @@
 # Batch 01 — lean status (for Raja)
 
-**Updated:** 2026-08-30T16:14Z  
-**Decision:** Harbor **stopped** again on Anthropic **credit-balance-too-low** during the Batch 01 Haiku resume (offline binary-cache fill4, trials `…__Y4vX24v` and `…__DXyWUSd`). OpenAI `gpt-4o-mini` remains **429 insufficient_quota**. Second arm `anthropic/claude-sonnet-4-5` was **not started**. Batches 02–05 stay frozen, not oracled, not measured. Do not invent scores. Do not start a second `harbor run`.
+**Updated:** 2026-08-30T18:24Z  
+**Decision:** Harbor **not started** on this resume. Dual-provider probe: Anthropic **credit-balance-too-low** (Haiku and Sonnet); OpenAI **429 insufficient_quota** on `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, `gpt-3.5-turbo`. Prior stop archived as `docs/lab_batch_01_stop.20260830T182403Z.json`. Chips unchanged. Batches 02–05 stay frozen, not oracled, not measured. Do not invent scores. Do not start a second `harbor run`.
 
 ---
 
 ## One paragraph
 
-We froze ten Applied Worlds tasks and verified oracle 10/10. Cheap Haiku k=5 (counted = solved + valid_fail + timeout; infra excluded) is complete on pendulum, hypersonic, root-CA, and Apexora. Hypersonic Haiku chip is **4/9** (4 solved on the resume fill4; 1 earlier valid_fail + 4 credit infra). Dyeworks Haiku is **0/5** recorded (2 valid_fail + 3 infra) and still **need 3** counted. Offline-cache Haiku is **0/5** recorded (3 valid_fail + 2 credit infra) and still **need 2** counted. Harborlane, stratified k-fold, wildlife, and booking stay Haiku **0/1**. Sonnet k=5 never launched. **Not 50/50. Not 160/160.** Chips use recorded n, never padded to 5.
+We froze ten Applied Worlds tasks and verified oracle 10/10. Cheap Haiku k=5 (counted = solved + valid_fail + timeout; infra excluded) is complete on pendulum, hypersonic, root-CA, and Apexora. Hypersonic Haiku chip is **4/9** (4 solved on the resume fill4; 1 earlier valid_fail + 4 credit infra). Dyeworks Haiku is **0/5** recorded (2 valid_fail + 3 infra) and still **need 3** counted. Offline-cache Haiku is **0/5** recorded (3 valid_fail + 2 credit infra) and still **need 2** counted. Harborlane, stratified k-fold, wildlife, and booking stay Haiku **0/1**. OpenAI and Sonnet k=5 never launched. **Not 50/50. Not 160/160.** Chips use recorded n, never padded to 5.
 
 ---
 
@@ -29,9 +29,9 @@ Haiku chip = `solved / recorded` (infra included in the denominator). **Need** =
 | booking-slot-merge | ✓ | — | — | **0/1** | 1/5 (need 4) |
 
 **Frozen Batch 01:** 10 tasks.  
-**Second arm:** not started (`gpt-4o-mini` 429; Sonnet never launched).  
+**Second arm:** not started (`gpt-4o-mini` and `gpt-4o` 429; Sonnet blocked on the same empty Anthropic balance).  
 **Batches 02–05:** jsonl only.  
-**Stop file:** `docs/lab_batch_01_stop.json` (reason: haiku blocked credit-too-low on offline binary-cache). Prior stop archived as `docs/lab_batch_01_stop.20260830T130452Z.json`.
+**Stop file:** `docs/lab_batch_01_stop.json` (reason: both cheap providers blocked; `halt_iterate: true`). Prior stops archived as `docs/lab_batch_01_stop.20260830T130452Z.json` and `docs/lab_batch_01_stop.20260830T182403Z.json`.
 
 ---
 
@@ -45,7 +45,7 @@ Haiku chip = `solved / recorded` (infra included in the denominator). **Need** =
 
 Resume fills (30 Aug): hypersonic fill4 **$0.96** (4/4 solved); dyeworks fill5 **$0.88** (2 valid_fail + reused infra); root-CA fill4 **$1.36**; Apexora fill4 **$2.50**; offline fill4 **$3.23** (2 valid_fail + 2 credit infra). Pendulum Haiku k=5 remains **$1.96**.
 
-OpenAI remains **insufficient_quota**. Anthropic Haiku hit **credit balance too low** again at 2026-08-30T16:14Z. Do not resume Harbor until credits exist.
+OpenAI remains **insufficient_quota** on every probed slug including `gpt-4o`. Anthropic Haiku/Sonnet still **credit balance too low** at 2026-08-30T18:24Z. Do not resume Harbor until credits exist.
 
 ---
 
