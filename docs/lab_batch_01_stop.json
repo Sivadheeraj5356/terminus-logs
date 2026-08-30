@@ -1,5 +1,45 @@
 {
-  "generated_utc": "2026-08-30T16:14:09Z",
-  "reason": "haiku blocked (credit balance is too low) on i-need-the-offline-binary-cache-closure-planner-in-app-task",
+  "reason": "both cheap providers blocked",
+  "halt_iterate": true,
+  "anthropic": {
+    "ok": false,
+    "status": 400,
+    "blocked": "credit balance is too low"
+  },
+  "openai_chosen": null,
+  "openai_candidates": [
+    {
+      "slug": "openai/gpt-4o-mini",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-4o",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-4.1-mini",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-4.1-nano",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-3.5-turbo",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    }
+  ],
+  "note": "Keep completed trials. Do not invent scores. No second harbor run started.",
+  "generated_utc": "2026-08-30T18:24:05Z",
   "batch": 1
 }

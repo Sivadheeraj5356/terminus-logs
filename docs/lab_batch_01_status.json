@@ -1,10 +1,43 @@
 {
-  "generated_utc": "2026-08-30T16:14:09Z",
+  "generated_utc": "2026-08-30T18:24:05Z",
   "batch": 1,
   "planned_attempts": 5,
   "haiku_model": "anthropic/claude-haiku-4-5",
   "second_model": "openai/gpt-4o-mini",
   "second_fallback": "anthropic/claude-sonnet-4-5",
+  "openai_chosen": null,
+  "openai_candidates": [
+    {
+      "slug": "openai/gpt-4o-mini",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-4o",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-4.1-mini",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-4.1-nano",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    },
+    {
+      "slug": "openai/gpt-3.5-turbo",
+      "ok": false,
+      "status": 429,
+      "blocked": "insufficient_quota"
+    }
+  ],
   "anthropic": {
     "ok": false,
     "status": 400,
@@ -16,6 +49,5 @@
     "blocked": "insufficient_quota"
   },
   "harbor_running": [],
-  "stop": "docs/lab_batch_01_stop.json",
-  "note": "Harbor stopped on Anthropic credit-too-low during offline-cache Haiku fill4. Do not invent scores. Keys are not written."
+  "note": "Probe only. Do not invent scores. Keys are not written. Harbor is not started when both cheap providers are blocked."
 }

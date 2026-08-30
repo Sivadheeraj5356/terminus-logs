@@ -4,7 +4,7 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-30T16:14:09Z",
+    "generated_utc": "2026-08-30T18:24:05Z",
     "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {
@@ -951,8 +951,48 @@ window.AW_CORPUS = {
     },
     "stops": {
       "1": {
-        "generated_utc": "2026-08-30T16:14:09Z",
-        "reason": "haiku blocked (credit balance is too low) on i-need-the-offline-binary-cache-closure-planner-in-app-task",
+        "reason": "both cheap providers blocked",
+        "halt_iterate": true,
+        "anthropic": {
+          "ok": false,
+          "status": 400,
+          "blocked": "credit balance is too low"
+        },
+        "openai_chosen": null,
+        "openai_candidates": [
+          {
+            "slug": "openai/gpt-4o-mini",
+            "ok": false,
+            "status": 429,
+            "blocked": "insufficient_quota"
+          },
+          {
+            "slug": "openai/gpt-4o",
+            "ok": false,
+            "status": 429,
+            "blocked": "insufficient_quota"
+          },
+          {
+            "slug": "openai/gpt-4.1-mini",
+            "ok": false,
+            "status": 429,
+            "blocked": "insufficient_quota"
+          },
+          {
+            "slug": "openai/gpt-4.1-nano",
+            "ok": false,
+            "status": 429,
+            "blocked": "insufficient_quota"
+          },
+          {
+            "slug": "openai/gpt-3.5-turbo",
+            "ok": false,
+            "status": 429,
+            "blocked": "insufficient_quota"
+          }
+        ],
+        "note": "Keep completed trials. Do not invent scores. No second harbor run started.",
+        "generated_utc": "2026-08-30T18:24:05Z",
         "batch": 1
       }
     },
@@ -1266,7 +1306,7 @@ window.AW_CORPUS = {
         }
       ],
       "cost_usd_sum": 64.9992,
-      "note": "Batch 01 stopped: haiku blocked (credit balance is too low) on i-need-the-offline-binary-cache-closure-planner-in-app-task Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
+      "note": "Batch 01 stopped: both cheap providers blocked Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
       "stopped": true
     }
   },

@@ -1,6 +1,6 @@
 # Batch 04 — cheap-protocol notes
 
-**Updated:** 2026-08-30T16:14:09Z
+**Updated:** 2026-08-30T18:24:05Z
 **Protocol:** terminus-2, `-k 5`, Haiku + second cheap arm. Frontier 8-run history is separate.
 **Stump:** `valid_fail / (solved + valid_fail)`. Infra and timeout excluded.
 

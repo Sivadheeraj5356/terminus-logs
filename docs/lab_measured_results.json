@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-30T16:14:09Z",
+  "generated_utc": "2026-08-30T18:24:05Z",
   "jobs_dir": "/workspace/jobs",
   "frozen_n": 50,
   "measured_target": 50,
@@ -3538,7 +3538,7 @@
       }
     ],
     "cost_usd_sum": 64.9992,
-    "note": "Batch 01 stopped: haiku blocked (credit balance is too low) on i-need-the-offline-binary-cache-closure-planner-in-app-task Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
+    "note": "Batch 01 stopped: both cheap providers blocked Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
     "stopped": true
   },
   "note": "Classification only. Timeouts and infra_error are not stumps. No scores were invented for tasks without jobs."
