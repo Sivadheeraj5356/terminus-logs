@@ -38,7 +38,15 @@ def run(argv: list[str]) -> int:
 
 
 def stopped(batch: int) -> bool:
-    return (ROOT / "docs" / f"lab_batch_{batch:02d}_stop.json").is_file()
+    path = ROOT / "docs" / f"lab_batch_{batch:02d}_stop.json"
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return True
+    # Missing key: treat legacy credit-stop files as a hard halt.
+    return bool(data.get("halt_iterate", True))
 
 
 def archive_stale_stops() -> None:
@@ -75,7 +83,7 @@ def oracle_failed_slugs(batch: int) -> list[str]:
     return failed
 
 
-def commit_batch(batch: int) -> None:
+def commit_docs(message: str) -> None:
     subprocess.run(["git", "add", "docs", "lab", "README.md", "scripts"], cwd=ROOT, check=False)
     status = subprocess.run(
         ["git", "status", "--porcelain"],
@@ -85,16 +93,19 @@ def commit_batch(batch: int) -> None:
         text=True,
     )
     if not (status.stdout or "").strip():
-        print(f"no git changes to commit after batch {batch:02d}", flush=True)
+        print("no git changes to commit", flush=True)
         return
-    msg = f"Ingest Worlds Lab batch {batch:02d} cheap k=5 (oracle + measure)"
-    code = subprocess.run(["git", "commit", "-m", msg], cwd=ROOT, check=False)
+    code = subprocess.run(["git", "commit", "-m", message], cwd=ROOT, check=False)
     if code.returncode != 0:
         print("git commit skipped or failed", flush=True)
         return
     push = subprocess.run(["git", "push", "-u", "origin", BRANCH], cwd=ROOT, check=False)
     if push.returncode != 0:
         print("git push failed; will retry later", flush=True)
+
+
+def commit_batch(batch: int) -> None:
+    commit_docs(f"Ingest Worlds Lab batch {batch:02d} cheap k=5 (oracle + measure)")
 
 
 def ensure_oracles(py: str, batch: int) -> int:
@@ -114,6 +125,7 @@ def ensure_oracles(py: str, batch: int) -> int:
                         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                         "batch": batch,
                         "reason": "oracle reward != 1.0",
+                        "halt_iterate": True,
                         "failed_slugs": failed,
                     },
                     indent=2,
@@ -145,6 +157,11 @@ def main() -> None:
     probe = run([py, str(RUNNER), "--phase", "probe", "--batch", str(args.start_batch)])
     if probe != 0:
         print("probe failed; not starting Harbor measure", flush=True)
+        run([py, str(INGEST)])
+        run([py, str(NOTES)])
+        commit_docs(
+            f"Record Batch {args.start_batch:02d} dual-provider credit/quota stop (no Harbor)"
+        )
         return
     for batch in range(args.start_batch, args.end_batch + 1):
         print(f"\n===== batch {batch:02d} =====", flush=True)

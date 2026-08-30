@@ -28,6 +28,7 @@ from lab_common import (  # noqa: E402
     CHEAP_SECOND_FALLBACK,
     CHEAP_SECOND_MODEL,
     JOBS_DIR,
+    OPENAI_SECOND_CANDIDATES,
     PLANNED_ATTEMPTS,
     TASKS_LATEST,
     batch_jsonl_path,
@@ -178,18 +179,27 @@ def job_credit_blocked(job_dir: Path) -> str | None:
     return None
 
 
-def probe_http_arm(kind: str) -> dict:
+def api_model_id(slug: str) -> str:
+    """LiteLLM `provider/model` → provider API model id."""
+    value = (slug or "").strip()
+    if "/" in value:
+        return value.split("/", 1)[1]
+    return value
+
+
+def probe_http_arm(kind: str, model: str | None = None) -> dict:
     """Tiny provider probe. Does not print keys or response bodies with secrets."""
     import urllib.error
     import urllib.request
 
     if kind == "anthropic":
+        model = model or "claude-haiku-4-5"
         key = os.environ.get("ANTHROPIC_API_KEY") or ""
         req = urllib.request.Request(
             "https://api.anthropic.com/v1/messages",
             data=json.dumps(
                 {
-                    "model": "claude-haiku-4-5",
+                    "model": api_model_id(model),
                     "max_tokens": 8,
                     "messages": [{"role": "user", "content": "ping"}],
                 }
@@ -202,12 +212,13 @@ def probe_http_arm(kind: str) -> dict:
             method="POST",
         )
     else:
+        model = model or "gpt-4o-mini"
         key = os.environ.get("OPENAI_API_KEY") or ""
         req = urllib.request.Request(
             "https://api.openai.com/v1/chat/completions",
             data=json.dumps(
                 {
-                    "model": "gpt-4o-mini",
+                    "model": api_model_id(model),
                     "max_tokens": 8,
                     "messages": [{"role": "user", "content": "ping"}],
                 }
@@ -228,7 +239,58 @@ def probe_http_arm(kind: str) -> dict:
     except Exception as exc:  # noqa: BLE001
         return {"ok": False, "status": 0, "error": type(exc).__name__, "blocked": str(exc)[:80]}
     blocked = credit_blocked(body)
-    return {"ok": 200 <= code < 300 and not blocked, "status": code, "blocked": blocked}
+    return {
+        "ok": 200 <= code < 300 and not blocked,
+        "status": code,
+        "blocked": blocked,
+        "model": api_model_id(model),
+    }
+
+
+def openai_candidate_slugs(preferred: str | None = None) -> list[str]:
+    slugs: list[str] = []
+    want = (preferred or "").strip()
+    if want.startswith("openai/"):
+        slugs.append(want)
+    elif want and not want.startswith("anthropic/"):
+        slugs.append(want if "/" in want else f"openai/{want}")
+    for slug in OPENAI_SECOND_CANDIDATES:
+        if slug not in slugs:
+            slugs.append(slug)
+    return slugs
+
+
+def probe_openai_candidates(
+    preferred: str | None = None, *, stop_on_first_ok: bool = False
+) -> tuple[str | None, list[dict]]:
+    """Probe cheap OpenAI slugs in protocol order. First HTTP 200 wins."""
+    hits: list[dict] = []
+    chosen: str | None = None
+    for slug in openai_candidate_slugs(preferred):
+        hit = probe_http_arm("openai", model=slug)
+        row = {
+            "slug": slug,
+            "ok": hit.get("ok"),
+            "status": hit.get("status"),
+            "blocked": hit.get("blocked"),
+        }
+        hits.append(row)
+        log(f"OpenAI {slug} probe: status={row['status']} ok={row['ok']} blocked={row['blocked']}")
+        if hit.get("ok") and chosen is None:
+            chosen = slug
+            if stop_on_first_ok:
+                break
+    return chosen, hits
+
+
+def write_stop(batch: int, payload: dict) -> Path:
+    path = ROOT / "docs" / f"lab_batch_{int(batch):02d}_stop.json"
+    body = dict(payload)
+    body.setdefault("generated_utc", datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
+    body.setdefault("batch", int(batch))
+    path.write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
+    log(f"wrote {path.relative_to(ROOT)}")
+    return path
 
 
 # Credit/quota infra is not a Harbor attempt. Timeout still counts (the agent ran).
@@ -412,35 +474,68 @@ def phase_probe(args: argparse.Namespace) -> None:
     if docker.returncode != 0:
         raise SystemExit("docker info failed.")
     anth = probe_http_arm("anthropic")
-    oai = probe_http_arm("openai")
-    log(f"Anthropic probe: status={anth.get('status')} ok={anth.get('ok')} blocked={anth.get('blocked')}")
-    log(f"OpenAI probe: status={oai.get('status')} ok={oai.get('ok')} blocked={oai.get('blocked')}")
+    log(
+        f"Anthropic probe: status={anth.get('status')} ok={anth.get('ok')} "
+        f"blocked={anth.get('blocked')}"
+    )
+    chosen, oai_hits = probe_openai_candidates(args.second_model)
+    primary = next((row for row in oai_hits if row["slug"] == args.second_model), None)
+    if primary is None:
+        primary = oai_hits[0] if oai_hits else {"ok": False, "status": 0, "blocked": None}
     probe_path = ROOT / "docs" / f"lab_batch_{args.batch:02d}_status.json"
     payload = {
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "batch": args.batch,
         "planned_attempts": args.trials,
         "haiku_model": args.haiku_model,
-        "second_model": args.second_model,
+        "second_model": chosen or args.second_model,
         "second_fallback": args.second_fallback,
+        "openai_chosen": chosen,
+        "openai_candidates": oai_hits,
         "anthropic": {k: anth.get(k) for k in ("ok", "status", "blocked")},
-        "openai": {k: oai.get(k) for k in ("ok", "status", "blocked")},
+        "openai": {k: primary.get(k) for k in ("ok", "status", "blocked")},
         "harbor_running": harbor_run_lines(),
-        "note": "Probe only. Do not invent scores. Keys are not written.",
+        "note": (
+            "Probe only. Do not invent scores. Keys are not written. "
+            "Harbor is not started when both cheap providers are blocked."
+        ),
     }
     probe_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     log(f"wrote {probe_path.relative_to(ROOT)}")
+    if not anth.get("ok") and not chosen:
+        write_stop(
+            args.batch,
+            {
+                "reason": "both cheap providers blocked",
+                "halt_iterate": True,
+                "anthropic": {k: anth.get(k) for k in ("ok", "status", "blocked")},
+                "openai_chosen": None,
+                "openai_candidates": oai_hits,
+                "note": (
+                    "Keep completed trials. Do not invent scores. "
+                    "No second harbor run started."
+                ),
+            },
+        )
+        raise SystemExit("both cheap providers blocked (credit/429). Not starting Harbor.")
     if not anth.get("ok"):
-        raise SystemExit("Anthropic cheap arm is not ready (credit/auth). Stopping.")
+        log(
+            "Anthropic not ready; Haiku arm will be skipped. "
+            f"OpenAI second arm can still run ({chosen})."
+        )
+    if not chosen:
+        log(
+            "All OpenAI slugs blocked; second arm will fall back to "
+            f"{args.second_fallback} if Anthropic still has credit."
+        )
 
 
 def resolve_second_model(args: argparse.Namespace) -> str:
-    oai = probe_http_arm("openai")
-    if oai.get("ok"):
-        return args.second_model
+    chosen, _hits = probe_openai_candidates(args.second_model, stop_on_first_ok=True)
+    if chosen:
+        return chosen
     log(
-        f"OpenAI second arm not ready (status={oai.get('status')} blocked={oai.get('blocked')}); "
-        f"falling back to {args.second_fallback}"
+        f"All OpenAI candidates blocked; falling back to {args.second_fallback}"
     )
     anth = probe_http_arm("anthropic")
     if not anth.get("ok"):
@@ -504,20 +599,35 @@ def phase_measure(args: argparse.Namespace) -> None:
     rows = batch_rows(args.batch)
     if args.stop_after_tasks:
         rows = rows[: args.stop_after_tasks]
+    haiku_reason = None
+    second_reason = None
+    second_used = None
+    anth = probe_http_arm("anthropic")
     try:
+        if anth.get("ok"):
+            measure_arm(
+                rows=rows,
+                model=args.haiku_model,
+                arm="haiku",
+                batch=args.batch,
+                planned=args.trials,
+                concurrent=args.concurrent,
+                jobs_dir=JOBS_DIR,
+            )
+        else:
+            haiku_reason = (
+                f"haiku skipped (anthropic blocked={anth.get('blocked')} "
+                f"status={anth.get('status')})"
+            )
+            log(haiku_reason + ". Continuing second arm if a provider is ready.")
+    except StopMeasure as exc:
+        haiku_reason = exc.reason
+        log(f"Haiku STOP: {exc.reason}. Keeping completed trials. Continuing second arm.")
+    try:
+        second_used = resolve_second_model(args)
         measure_arm(
             rows=rows,
-            model=args.haiku_model,
-            arm="haiku",
-            batch=args.batch,
-            planned=args.trials,
-            concurrent=args.concurrent,
-            jobs_dir=JOBS_DIR,
-        )
-        second = resolve_second_model(args)
-        measure_arm(
-            rows=rows,
-            model=second,
+            model=second_used,
             arm="second",
             batch=args.batch,
             planned=args.trials,
@@ -525,19 +635,23 @@ def phase_measure(args: argparse.Namespace) -> None:
             jobs_dir=JOBS_DIR,
         )
     except StopMeasure as exc:
-        log(f"STOP: {exc.reason}. Keeping completed trials. Not inventing the rest.")
-        (ROOT / "docs" / f"lab_batch_{args.batch:02d}_stop.json").write_text(
-            json.dumps(
-                {
-                    "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                    "reason": exc.reason,
-                    "batch": args.batch,
-                },
-                indent=2,
-            )
-            + "\n",
-            encoding="utf-8",
+        second_reason = exc.reason
+        log(f"Second STOP: {exc.reason}. Keeping completed trials. Not inventing the rest.")
+    if haiku_reason or second_reason:
+        halt = bool(haiku_reason and second_reason)
+        write_stop(
+            args.batch,
+            {
+                "reason": " ; ".join(x for x in (haiku_reason, second_reason) if x),
+                "halt_iterate": halt,
+                "haiku_stop": haiku_reason,
+                "second_stop": second_reason,
+                "second_model_used": second_used,
+                "note": "Keep completed trials. Do not invent scores.",
+            },
         )
+        if halt:
+            log("both arms blocked; halt iterate")
 
 
 def phase_empty(args: argparse.Namespace) -> None:

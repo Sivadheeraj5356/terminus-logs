@@ -25,6 +25,14 @@ MEASURED_BATCH_MAX = 5
 CHEAP_HAIKU_MODEL = "anthropic/claude-haiku-4-5"
 CHEAP_SECOND_MODEL = "openai/gpt-4o-mini"
 CHEAP_SECOND_FALLBACK = "anthropic/claude-sonnet-4-5"
+# Prefer mini. If 429, try gpt-4o then other cheap OpenAI slugs before Sonnet.
+OPENAI_SECOND_CANDIDATES = (
+    "openai/gpt-4o-mini",
+    "openai/gpt-4o",
+    "openai/gpt-4.1-mini",
+    "openai/gpt-4.1-nano",
+    "openai/gpt-3.5-turbo",
+)
 
 CATEGORY_ORDER = [
     "scientific-computing",

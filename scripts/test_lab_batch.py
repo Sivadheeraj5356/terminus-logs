@@ -15,6 +15,9 @@ from ingest_lab_jobs import apply_to_corpus, classify_batch  # noqa: E402
 from lab_common import (  # noqa: E402
     BATCH_01_JSONL,
     CATEGORY_ORDER,
+    CHEAP_SECOND_FALLBACK,
+    CHEAP_SECOND_MODEL,
+    OPENAI_SECOND_CANDIDATES,
     PLANNED_ATTEMPTS,
     PREFERRED_LANGS,
     classify,
@@ -293,6 +296,141 @@ class RemainingKTests(unittest.TestCase):
             )
             self.assertEqual(attempted_n(slug, model, jobs), 1)
             self.assertEqual(remaining_k(slug, model, 5, jobs), 4)
+
+
+class SecondArmResolveTests(unittest.TestCase):
+    def test_openai_candidates_prefer_mini_then_gpt4o(self):
+        self.assertEqual(OPENAI_SECOND_CANDIDATES[0], CHEAP_SECOND_MODEL)
+        self.assertEqual(OPENAI_SECOND_CANDIDATES[1], "openai/gpt-4o")
+        self.assertEqual(CHEAP_SECOND_FALLBACK, "anthropic/claude-sonnet-4-5")
+
+    def test_picks_gpt4o_when_mini_429(self):
+        import argparse
+
+        import run_lab_batch as rlb
+
+        def fake_probe(kind, model=None):
+            name = (model or "").replace("openai/", "")
+            if kind == "openai" and name == "gpt-4o":
+                return {"ok": True, "status": 200, "blocked": None, "model": "gpt-4o"}
+            if kind == "openai":
+                return {
+                    "ok": False,
+                    "status": 429,
+                    "blocked": "insufficient_quota",
+                    "model": name,
+                }
+            return {
+                "ok": False,
+                "status": 400,
+                "blocked": "credit balance is too low",
+                "model": name,
+            }
+
+        orig = rlb.probe_http_arm
+        rlb.probe_http_arm = fake_probe
+        try:
+            args = argparse.Namespace(
+                second_model="openai/gpt-4o-mini",
+                second_fallback="anthropic/claude-sonnet-4-5",
+            )
+            self.assertEqual(rlb.resolve_second_model(args), "openai/gpt-4o")
+        finally:
+            rlb.probe_http_arm = orig
+
+    def test_falls_back_to_sonnet_when_all_openai_blocked(self):
+        import argparse
+
+        import run_lab_batch as rlb
+
+        def fake_probe(kind, model=None):
+            if kind == "openai":
+                return {
+                    "ok": False,
+                    "status": 429,
+                    "blocked": "insufficient_quota",
+                    "model": model,
+                }
+            return {"ok": True, "status": 200, "blocked": None, "model": model}
+
+        orig = rlb.probe_http_arm
+        rlb.probe_http_arm = fake_probe
+        try:
+            args = argparse.Namespace(
+                second_model="openai/gpt-4o-mini",
+                second_fallback="anthropic/claude-sonnet-4-5",
+            )
+            self.assertEqual(rlb.resolve_second_model(args), "anthropic/claude-sonnet-4-5")
+        finally:
+            rlb.probe_http_arm = orig
+
+    def test_raises_when_both_providers_blocked(self):
+        import argparse
+
+        import run_lab_batch as rlb
+
+        def fake_probe(kind, model=None):
+            if kind == "openai":
+                return {
+                    "ok": False,
+                    "status": 429,
+                    "blocked": "insufficient_quota",
+                    "model": model,
+                }
+            return {
+                "ok": False,
+                "status": 400,
+                "blocked": "credit balance is too low",
+                "model": model,
+            }
+
+        orig = rlb.probe_http_arm
+        rlb.probe_http_arm = fake_probe
+        try:
+            args = argparse.Namespace(
+                second_model="openai/gpt-4o-mini",
+                second_fallback="anthropic/claude-sonnet-4-5",
+            )
+            with self.assertRaises(rlb.StopMeasure):
+                rlb.resolve_second_model(args)
+        finally:
+            rlb.probe_http_arm = orig
+
+
+class IterateStopTests(unittest.TestCase):
+    def test_halt_iterate_false_does_not_stop(self):
+        import iterate_lab_batches as it
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "docs").mkdir()
+            (root / "docs" / "lab_batch_01_stop.json").write_text(
+                json.dumps({"halt_iterate": False, "reason": "haiku skipped"}),
+                encoding="utf-8",
+            )
+            orig = it.ROOT
+            it.ROOT = root
+            try:
+                self.assertFalse(it.stopped(1))
+            finally:
+                it.ROOT = orig
+
+    def test_legacy_stop_file_still_halts(self):
+        import iterate_lab_batches as it
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "docs").mkdir()
+            (root / "docs" / "lab_batch_01_stop.json").write_text(
+                json.dumps({"reason": "credit balance is too low"}),
+                encoding="utf-8",
+            )
+            orig = it.ROOT
+            it.ROOT = root
+            try:
+                self.assertTrue(it.stopped(1))
+            finally:
+                it.ROOT = orig
 
 
 class LabUiIdentityTests(unittest.TestCase):

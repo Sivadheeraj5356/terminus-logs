@@ -31,7 +31,7 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 `stump_pct = valid_fail / (solved + valid_fail) * 100`. Timeouts and infrastructure errors (auth, Docker, credit-too-low, 429 quota) do not count.
 
-The Worlds Lab is a static gallery over 100 unique packages. Twelve surfaces: Worlds, Coverage, Catalog, Runs, Traces, Stump, Failures, Verifier, Harness, Spend, Batches, Agents. Measured chips appear only for frozen batch slugs that have ingested Harbor jobs. Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Going-forward measure is **5 independent trials × two cheap arms** (Haiku + gpt-4o-mini, Sonnet fallback on 429). Stop after five batches (50 packages).
+The Worlds Lab is a static gallery over 100 unique packages. Twelve surfaces: Worlds, Coverage, Catalog, Runs, Traces, Stump, Failures, Verifier, Harness, Spend, Batches, Agents. Measured chips appear only for frozen batch slugs that have ingested Harbor jobs. Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Going-forward measure is **5 independent trials × two cheap arms** (Haiku + gpt-4o-mini; if mini 429, probe gpt-4o then other cheap OpenAI slugs; Sonnet fallback if every OpenAI slug 429s). Stop after five batches (50 packages).
 
 ## Local website
 
@@ -76,7 +76,7 @@ python scripts/probe_lab_runtime.py           # keys / Harbor / Docker probe
 python scripts/test_lab_batch.py
 ```
 
-Lab batch (private keys in the Harbor shell, never committed). Do **not** use `run_agents.ps1` for this — it still defaults sonnet/gpt-4o over all of `tasks/latest`. Going-forward protocol is **cheap k=5** (Haiku + gpt-4o-mini; Sonnet fallback on OpenAI 429). Do not start a second `harbor run` while one is already running.
+Lab batch (private keys in the Harbor shell, never committed). Do **not** use `run_agents.ps1` for this — it still defaults sonnet/gpt-4o over all of `tasks/latest`. Going-forward protocol is **cheap k=5** (Haiku + gpt-4o-mini; probe gpt-4o and other cheap OpenAI slugs on mini 429; Sonnet fallback if all OpenAI slugs 429). If one provider is blocked, the other arm still runs. Do not start a second `harbor run` while one is already running.
 
 ```bash
 python3 scripts/run_lab_batch.py --phase probe --batch 1
