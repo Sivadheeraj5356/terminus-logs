@@ -4,15 +4,14 @@ window.AW_CORPUS = {
     "brand": "Applied Work",
     "mvp_size": 100,
     "inventory_size": 448,
-    "generated_utc": "2026-08-29T02:02:18Z",
+    "generated_utc": "2026-08-30T15:34:34Z",
     "rollouts_status": "measured",
     "runtime": "private Harbor 0.22 + terminus-2 / oracle",
     "honesty": {
       "stump_pct": true,
       "model_scores": true,
       "copied_caudal_scores": false,
-      "note": "10 of 50 frozen packages have Harbor jobs. The other gallery rows stay not run. Harbor stopped on credit/quota; unrun cheap fills are not scored.",
-      "stopped": true
+      "note": "10 of 50 frozen packages have Harbor jobs. The other gallery rows stay not run."
     },
     "category_mix": {
       "scientific-computing": 24,
@@ -949,20 +948,7 @@ window.AW_CORPUS = {
       "frontier_archived": true,
       "note": "Going-forward measure is 5 independent terminus-2 trials per cheap arm. Existing Opus 5 / gpt-5.6-sol 8-run groups stay as history and are not padded or copied from another lab."
     },
-    "stops": {
-      "1": {
-        "generated_utc": "2026-08-29T01:59:17Z",
-        "batch": 1,
-        "reason": "anthropic credit-balance-too-low",
-        "detail": "Haiku hypersonic k=5 recorded 1 valid_fail + 4 infra (Anthropic credit balance too low). Dyeworks Haiku fill was aborted after the same credit error (harbor exit 130); 3 infra trials recorded, no stump. Remaining Batch 01 Haiku fills and the Sonnet second arm were not started. Batches 02–05 stay frozen, not run. OpenAI gpt-4o-mini remains 429 insufficient_quota. Do not invent scores for unrun rows.",
-        "harbor_exit": 130,
-        "stopped_slug": "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
-        "haiku_model": "anthropic/claude-haiku-4-5",
-        "second_arm": "not started",
-        "openai": "429 insufficient_quota",
-        "anthropic": "credit balance too low"
-      }
-    },
+    "stops": {},
     "spend": {
       "jobs": [
         {
@@ -1029,6 +1015,15 @@ window.AW_CORPUS = {
           "n_output_tokens": 38433
         },
         {
+          "job": "lab01-haiku-apexora-global-wave-3-campus-fill4",
+          "n_total_trials": 4,
+          "n_completed_trials": 4,
+          "n_errored_trials": 0,
+          "cost_usd": 2.5049104499999997,
+          "n_input_tokens": 13982706,
+          "n_output_tokens": 139176
+        },
+        {
           "job": "lab01-haiku-booking-slot-merge",
           "n_total_trials": 1,
           "n_completed_trials": 1,
@@ -1045,6 +1040,15 @@ window.AW_CORPUS = {
           "cost_usd": 0.7950966000000003,
           "n_input_tokens": 3995896,
           "n_output_tokens": 54202
+        },
+        {
+          "job": "lab01-haiku-hypersonic-fragment-cascade--fill4",
+          "n_total_trials": 4,
+          "n_completed_trials": 4,
+          "n_errored_trials": 0,
+          "cost_usd": 0.9561072500000001,
+          "n_input_tokens": 3935930,
+          "n_output_tokens": 67547
         },
         {
           "job": "lab01-haiku-hypersonic-fragment-cascade--fill5",
@@ -1094,11 +1098,20 @@ window.AW_CORPUS = {
         {
           "job": "lab01-haiku-the-dyeworks-tool-is-a-comma-fill5",
           "n_total_trials": 5,
-          "n_completed_trials": 3,
+          "n_completed_trials": 5,
           "n_errored_trials": 3,
-          "cost_usd": null,
-          "n_input_tokens": 0,
-          "n_output_tokens": 0
+          "cost_usd": 0.8751124,
+          "n_input_tokens": 4225324,
+          "n_output_tokens": 57671
+        },
+        {
+          "job": "lab01-haiku-the-root-ca-that-signed-our--fill4",
+          "n_total_trials": 4,
+          "n_completed_trials": 4,
+          "n_errored_trials": 0,
+          "cost_usd": 1.36385175,
+          "n_input_tokens": 2260750,
+          "n_output_tokens": 167081
         },
         {
           "job": "lab01-haiku-wildlife",
@@ -1236,9 +1249,9 @@ window.AW_CORPUS = {
           "n_output_tokens": null
         }
       ],
-      "cost_usd_sum": 56.0667,
-      "note": "Batch 01 stopped: anthropic credit-balance-too-low Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
-      "stopped": true
+      "cost_usd_sum": 61.7666,
+      "note": "Harbor stats.cost_usd from job rollups. Missing cost stays omitted, not invented.",
+      "stopped": false
     }
   },
   "tasks": [
@@ -1725,24 +1738,24 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "10/22 solved",
-        "n_trials": 22,
-        "solved": 10,
+        "label": "14/26 solved",
+        "n_trials": 26,
+        "solved": 14,
         "valid_fail": 8,
         "timeout": 0,
         "infra_error": 4,
         "unknown": 0,
-        "completed_trials": 18,
+        "completed_trials": 22,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 5,
-            "solved": 0,
+            "n": 9,
+            "solved": 4,
             "valid_fail": 1,
             "timeout": 0,
             "infra_error": 4,
             "unknown": 0,
-            "stump_pct": 100.0
+            "stump_pct": 20.0
           },
           {
             "model": "anthropic/claude-opus-5",
@@ -1877,6 +1890,54 @@ window.AW_CORPUS = {
             "classification": "solved",
             "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: Fresh terminal at /app. I need to explore the repository, read all the docs, and understand the existing TypeScript library before implementing. Plan: List the working directory, docs, src, catalogs, and package.json to understand | step: Analysis: Project structure understood. Now I need to read all docs carefully. Plan: Cat the docs one by one (cli.md, staging-schema.md first). | step: Analysis: Read cli.md. Now read the remaining docs. Plan: Cat staging-schema.md, canonical-json-hash.md, kepler-integrator.md, drag-flare.md. | step: Analysis: Physics docs read. RK2 as specified uses p_new = p + v*dt (per doc, literal). Plan: Read collision-spawn.md, atlas-ledger-schema.md, export-sequence.md. | step: Analysis: All docs read. Now examine the existing source files to see what's implemented and what's broken/missing. Plan: Cat the source files: math, ingest, staging, bin/ingest, kepler, drag, collision, spawn, export, bin/export, decoy. | step: Analysis: Ingest has bugs: sorts bodies by id, ignores per-body cd, and staging_hash uses plain JSON.stringify rather than canonical. Now check export side. Plan: Cat kepler/propagate, drag/flare, collision/detect, spawn/fragments, export/a | step: Analysis: Spawn has wrong speed formula (uses |v_cm|/K instead of sqrt(2*E_rel/M)) and residual signs etc. Collision detect uses fixed 1.0 threshold and wrong tie-break. Drag/flare multiplies instead of absolute. Propagate lacks drag and RK",
             "trial_dir": "/workspace/jobs/lab01-opus-hypersonic-fragment-cascade-epoch-at/hypersonic-fragment-cascade-epoc__cUZB8Q4",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_export_sequence_monotonic_and_stable_hash"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "solved",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm at the root of the /app directory. This is a fresh state with no previous terminal output to analyze. The task is to build a Kessler-style orbital debris cascade forecasting system in TypeScript. I need to: 1. First understand | step: Analysis: Good. I can see the project structure. The /app directory has: - docs/ folder with all contract documents (cli.md, staging-schema.md, kepler-integrator.md, collision-spawn.md, drag-flare.md, atlas-ledger-schema.md, export-sequence | step: Analysis: Now I have the core physics specifications. I understand: 1. **Staging Schema**: The cascade-staging.json needs mission_slot, manifest, bodies (in feed order), flares (sorted by t_sec), catalog_fingerprint (sha256 of bodies.jsonl  | step: Analysis: Excellent. Now I have all the contract documents except canonical-json-hash.md. I understand: 1. **Drag-Flare**: density_scale starts at 1.0, and flare events update it (absolute replacement, not multiplicative). Each flare has t_ | step: Analysis: Good progress. I can see: 1. **Canonical-JSON-Hash**: Very clear - objects have sorted keys, arrays have no spaces, canonical stringify, then SHA-256 hex. Self-referential hashes use empty string during computation. 2. **Source St | step: Analysis: Perfect. Types are well-defined and match the contracts. Now I need to see the actual catalog data format to understand bodies.jsonl and flares.jsonl structure. Plan: Examine the catalog files (bodies.jsonl and flares.jsonl) to se | step: Analysis: Good. I can see the catalog data format: - bodies.jsonl: JSONL format with id, mass_kg, radius_m, pos_m (x,y,z), vel_mps (x,y,z), and cd fields - flares.jsonl: JSONL format with t_sec and density_scale - manifest.json: JSON with m",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill4/hypersonic-fragment-cascade-epoc__Zq6MnPb",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_export_sequence_monotonic_and_stable_hash"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "solved",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm starting fresh in the /app directory. The task is to build a Kessler-style orbital debris cascade forecasting system in TypeScript. The system must: (1) ingest debris catalogs via cascade-ingest, (2) propagate orbits with atmo | step: Analysis: The /app directory has a TypeScript project structure with src/, dist/, node_modules/, docs/, catalogs/, and bin/ directories. All 8 required documentation files are present in /app/docs/. The CLI reference shows two main commands | step: Analysis: Good progress. I now understand: (1) the staging envelope structure with mission_slot, manifest, bodies in feed order, flares sorted by t_sec, catalog_fingerprint, and staging_hash; (2) canonical JSON stringification rules (lexico | step: Analysis: Excellent progress. Now I understand the full physics: (1) density_scale is absolute and replaced at each flare event (not cumulative); (2) collision detection is per-timestep, lexicographically smallest pair only; (3) fragment sp | step: Analysis: Perfect. The TypeScript project structure is already in place with modular source files: kepler/propagate.ts for RK2 integration, drag/flare.ts for density modulation, collision/detect.ts for collision detection, spawn/fragments.t | step: Analysis: Good. The types and vector utilities are well-defined. Now I need to examine the ingest/load.ts, staging/write.ts, kepler/propagate.ts, collision/detect.ts, spawn/fragments.ts, drag/flare.ts, export/atlas.ts, export/ledger.ts, and | step: Analysis: I can see several issues in the existing implementation that need fixing: (1) loadBodies() sorts by ID, but the spec says to preserve feed order (order from bodies.jsonl); (2) loadBodies() doesn't honor the per-body cd field from ",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill4/hypersonic-fragment-cascade-epoc__qgU2hSW",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_export_sequence_monotonic_and_stable_hash"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "solved",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm at the root of the /app directory. I need to understand the task: build a Kessler-style orbital debris cascade forecasting system in TypeScript. The system must: 1. Read debris catalogs (bodies.jsonl, flares.jsonl) 2. Compute  | step: Analysis: Good progress. I can see the directory structure and have read cli.md. Key observations: 1. The system has two main commands: cascade-ingest and cascade-export 2. cascade-ingest reads from CASCADE_CATALOG_DIR (default /app/catalog | step: Analysis: Now I understand the staging schema and integrator. Key points: 1. Staging envelope includes mission_slot, manifest, bodies (in feed order), flares (sorted by t_sec), catalog_fingerprint, and staging_hash 2. Canonical JSON hash: l | step: Analysis: Excellent. Now I understand the full collision and fragment spawning mechanism, drag physics, and output schemas. Key collision details: 1. Detect collisions when distance < radius_a + radius_b 2. Process one collision per timeste | step: Analysis: Perfect! The codebase is already well-structured with modules for each component: - /app/src/bin/ingest.ts and export.ts: CLI entry points - /app/src/ingest/load.ts: load catalog data - /app/src/staging/write.ts: write staging fil | step: Analysis: Good! The CLI structure is in place. Now I need to examine the implementation details of each module to identify what's complete vs incomplete. The export.ts file is fairly complete but I need to verify the helper modules work cor | step: Analysis: I found critical issues: 1. **ingest/load.ts**: WRONG - It sorts bodies by id (line 24), but the spec says \"Load bodies from bodies.jsonl in feed order (line by line, preserving the sequence they appear in the file). Do not sort b",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill4/hypersonic-fragment-cascade-epoc__S7TMAmw",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_export_sequence_monotonic_and_stable_hash"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "solved",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm in a fresh terminal at /app, the root directory of the Kessler cascade simulation project. No commands have been executed yet. The task requires me to build a TypeScript orbital debris cascade forecasting system with specific  | step: Analysis: Good! The project structure exists with all necessary directories. I can see: - /app/docs/ contains all contract documents - /app/src/ has modular directories: bin, collision, decoy, drag, export, ingest, kepler, math, spawn, stag | step: Analysis: Good progress reading the contracts. I've learned: 1. CLI has two commands: cascade-ingest and cascade-export 2. Staging schema requires canonical JSON hashing with specific rules 3. Canonical hashing involves lexicographically so | step: Analysis: Excellent! I've now read all contract documents. Key findings: 1. Drag-flare: density_scale is absolute replacement (not multiplicative), changes based on flare events 2. Collision-spawn: detailed physics with mass/radius averagin | step: Analysis: Good! The types and ingest.ts structure are in place. The ingest command is partially implemented - it loads manifest, bodies, flares, computes fingerprint, and writes staging envelope and seal. I need to check: 1. The ingest/load | step: Analysis: I can see the main structure is in place, but there are critical bugs and missing implementations: 1. **loadBodies bug**: It sorts by id (line 22), but the spec says \"Do not sort by id or any other field\" - bodies must be loaded i | step: Analysis: Now I see the state more clearly: **Math utilities**: Vec3 is well-implemented with good helper functions including round6 for 6-decimal rounding. **Constants**: All physics constants are defined correctly. **kepler/propagate.ts**",
+            "trial_dir": "/workspace/jobs/lab01-haiku-hypersonic-fragment-cascade--fill4/hypersonic-fragment-cascade-epoc__ZJnN3vf",
             "test_fraction": null,
             "failed_tests": [
               "test_export_sequence_monotonic_and_stable_hash"
@@ -2057,9 +2118,9 @@ window.AW_CORPUS = {
             "exception_message": ""
           }
         ],
-        "note": "Harbor trials: 22 — 10 solved, 8 valid fail, 0 timeout, 4 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 26 — 14 solved, 8 valid fail, 0 timeout, 4 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
-      "stump_pct": 44.4,
+      "stump_pct": 36.4,
       "batch": 1,
       "measured": true,
       "files": [
@@ -2112,23 +2173,24 @@ window.AW_CORPUS = {
         "themes": [
           "anthropic/claude-opus-5: solved",
           "anthropic/claude-opus-5: valid fail — tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference",
+          "anthropic/claude-haiku-4-5: solved",
           "anthropic/claude-haiku-4-5: infra (BadRequestError)",
           "anthropic/claude-haiku-4-5: valid fail — tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference",
           "openai/gpt-5.6-sol: solved",
           "openai/gpt-5.6-sol: valid fail — tests/test_outputs.py::test_bravo_catalog_override_dir, tests/test_outputs.py::test_alpha_collision_occurs_and_matches_reference, tests/test_outputs.py::test_flare_absolute_density_scale_not_multiplicative, tests/test_outputs.py::test_hidden_chain_reaction_independent_of_bundled"
         ],
-        "completed_trials": 18,
-        "stump_pct": 44.4,
+        "completed_trials": 22,
+        "stump_pct": 36.4,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 5,
-            "solved": 0,
+            "n": 9,
+            "solved": 4,
             "valid_fail": 1,
             "timeout": 0,
             "infra_error": 4,
             "unknown": 0,
-            "stump_pct": 100.0
+            "stump_pct": 20.0
           },
           {
             "model": "anthropic/claude-opus-5",
@@ -2152,7 +2214,7 @@ window.AW_CORPUS = {
           }
         ],
         "cheap_recorded": {
-          "anthropic/claude-haiku-4-5": 5,
+          "anthropic/claude-haiku-4-5": 9,
           "anthropic/claude-opus-5": 8,
           "openai/gpt-5.6-sol": 8
         },
@@ -4541,24 +4603,24 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "3/14 solved",
-        "n_trials": 14,
+        "label": "3/16 solved",
+        "n_trials": 16,
         "solved": 3,
-        "valid_fail": 4,
+        "valid_fail": 6,
         "timeout": 0,
         "infra_error": 7,
         "unknown": 0,
-        "completed_trials": 7,
+        "completed_trials": 9,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 3,
+            "n": 5,
             "solved": 0,
-            "valid_fail": 0,
+            "valid_fail": 2,
             "timeout": 0,
             "infra_error": 3,
             "unknown": 0,
-            "stump_pct": null
+            "stump_pct": 100.0
           },
           {
             "model": "anthropic/claude-opus-5",
@@ -4728,6 +4790,23 @@ window.AW_CORPUS = {
           },
           {
             "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm at the root of the /app/environment directory. I need to understand the current state of the dyeworks tool and the task at hand. The task is to ensure a C reader at /app/environment/dyeworks properly validates dyeworks-tree co | step: Analysis: Good! I now have the format documentation and can see the structure. There are 10 valid test files in /app/environment/testdata/valid/. The C source code is in /app/environment/src/ with multiple modules handling different aspects | step: Analysis: The dyeworks executable doesn't exist yet. I need to compile it first. Let me check if there's a Makefile or build script. I've seen the source and header files, so I need to build the project. The main entry point is likely in a  | step: Analysis: Perfect! There's a Makefile that builds the dyeworks executable. I can see the main.c file is at /app/environment/cmd/dyeworks/main.c. Now I need to build the project using make, and then test it against the valid files. Plan: I'l | step: Analysis: Great! The dyeworks reader compiled and ran successfully on the first test file. I can see the output is a JSON summary. However, I notice the version is 4, which doesn't match the format specification that says the container vers | step: Analysis: Good! All 10 valid files are parsing successfully. The Electric Fence memory debugger is printing its startup message to stdout which is harmless. I see that: 1. Most files have version 4, but valid_003.dye has version 5 - this is | step: Analysis: Now I understand the issue! Looking at the binary dump of valid_001.dye: - Bytes 0-3: `44 59 45 57` = \"DYEW\" (magic) ✓ - Byte 4: `01` = container version (should be 1) ✓ - Byte 5: `04` = nsections (should be 4) ✓ - Bytes 6-7: `00 ",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-dyeworks-tool-is-a-comma-fill5/the-dyeworks-tool-is-a-command-l__VYo2xQJ",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::test_valid_corpus_parses_cleanly",
+              "test_outputs.py::test_exploit_alloc_rejected",
+              "test_outputs.py::test_indirect_value_still_parses",
+              "test_outputs.py::test_boundary_valid_files_still_parse",
+              "test_outputs.py::test_generated_more_nodes_than_count_rejected",
+              "test_outputs.py::test_generated_depth_256_nesting_parses"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
             "classification": "infra_error",
             "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma",
             "trial_dir": "/workspace/jobs/lab01-haiku-the-dyeworks-tool-is-a-comma-fill5/the-dyeworks-tool-is-a-command-l__EnG6jEd",
@@ -4747,6 +4826,24 @@ window.AW_CORPUS = {
             "exception_message": "litellm.BadRequestError: AnthropicException - {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"req"
           },
           {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: The terminal shows I'm in the /app/environment directory as root. I need to understand the task: I must implement or fix a C-based dyeworks tool that reads compiled dyeworks-tree container files and outputs JSON summaries. The too | step: Analysis: I've read the format documentation. It describes a binary container format with: - 8-byte header with magic 'DYEW', version 1, 4 sections - Section table with 4 entries (dyeworksdefs, nodes, lots, strings) - Variable-length encodi | step: Analysis: I can see the source files exist. Now I need to check the headers and test data to understand what's currently implemented and what might be broken. Plan: 1. List the headers in /app/environment/include 2. List the test files in / | step: Analysis: The include directory has a dyeworks subdirectory. Let me check what headers are there. Plan: Check the headers in /app/environment/include/dyeworks | step: Analysis: Good, I can see all the headers. Now let me check the test data to see what valid files look like. Plan: List test files in /app/environment/testdata/valid | step: Analysis: Good, there are 10 valid test files. Now let me try running the dyeworks tool on one of them to see what the current behavior is. Plan: Run dyeworks on valid_001.dye to see current output | step: Analysis: The dyeworks binary doesn't exist yet. I need to build it. Let me check if there's a Makefile or build script. Plan: Look for build files (Makefile, build script, etc.)",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-dyeworks-tool-is-a-comma-fill5/the-dyeworks-tool-is-a-command-l__iebEKBw",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::test_valid_corpus_parses_cleanly",
+              "test_outputs.py::test_exploit_alloc_rejected",
+              "test_outputs.py::test_indirect_value_still_parses",
+              "test_outputs.py::test_boundary_valid_files_still_parse",
+              "test_outputs.py::test_generated_form_truncation_rejected",
+              "test_outputs.py::test_generated_uleb_overflow_rejected",
+              "test_outputs.py::test_generated_sleb_overflow_rejected"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
             "model": "oracle",
             "classification": "solved",
             "summary": "Skipping image OS validation for hb__9e3911bd3d7a65d5ca19ab5c5fda7028: docker inspect returned 1 Collecting main service artifacts",
@@ -4757,9 +4854,9 @@ window.AW_CORPUS = {
             "exception_message": ""
           }
         ],
-        "note": "Harbor trials: 14 — 3 solved, 4 valid fail, 0 timeout, 7 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 16 — 3 solved, 6 valid fail, 0 timeout, 7 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
-      "stump_pct": 57.1,
+      "stump_pct": 66.7,
       "batch": 1,
       "measured": true,
       "files": [
@@ -4811,7 +4908,10 @@ window.AW_CORPUS = {
           "test_outputs.py::test_generated_depth_256_nesting_parses",
           "test_outputs.py::test_generated_max_size_file_parses",
           "test_outputs.py::test_exploit_alloc_rejected",
-          "test_outputs.py::test_generated_more_nodes_than_count_rejected"
+          "test_outputs.py::test_generated_more_nodes_than_count_rejected",
+          "test_outputs.py::test_generated_form_truncation_rejected",
+          "test_outputs.py::test_generated_uleb_overflow_rejected",
+          "test_outputs.py::test_generated_sleb_overflow_rejected"
         ],
         "themes": [
           "openai/gpt-5.6-sol: valid fail — test_outputs.py::test_valid_corpus_parses_cleanly, test_outputs.py::test_indirect_value_still_parses, test_outputs.py::test_deep_tree_still_parses, test_outputs.py::test_lot_ref_still_resolves",
@@ -4820,20 +4920,21 @@ window.AW_CORPUS = {
           "anthropic/claude-opus-5: solved",
           "anthropic/claude-opus-5: valid fail — test_outputs.py::test_exploit_alloc_rejected, test_outputs.py::test_generated_more_nodes_than_count_rejected",
           "anthropic/claude-haiku-4-5: infra (CancelledError)",
+          "anthropic/claude-haiku-4-5: valid fail — test_outputs.py::test_valid_corpus_parses_cleanly, test_outputs.py::test_exploit_alloc_rejected, test_outputs.py::test_indirect_value_still_parses, test_outputs.py::test_boundary_valid_files_still_parse",
           "anthropic/claude-haiku-4-5: infra (BadRequestError)"
         ],
-        "completed_trials": 7,
-        "stump_pct": 57.1,
+        "completed_trials": 9,
+        "stump_pct": 66.7,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 3,
+            "n": 5,
             "solved": 0,
-            "valid_fail": 0,
+            "valid_fail": 2,
             "timeout": 0,
             "infra_error": 3,
             "unknown": 0,
-            "stump_pct": null
+            "stump_pct": 100.0
           },
           {
             "model": "anthropic/claude-opus-5",
@@ -4857,7 +4958,7 @@ window.AW_CORPUS = {
           }
         ],
         "cheap_recorded": {
-          "anthropic/claude-haiku-4-5": 3,
+          "anthropic/claude-haiku-4-5": 5,
           "anthropic/claude-opus-5": 7,
           "openai/gpt-5.6-sol": 3
         },
@@ -4949,20 +5050,20 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "1/2 solved",
-        "n_trials": 2,
+        "label": "1/6 solved",
+        "n_trials": 6,
         "solved": 1,
-        "valid_fail": 1,
+        "valid_fail": 5,
         "timeout": 0,
         "infra_error": 0,
         "unknown": 0,
-        "completed_trials": 2,
+        "completed_trials": 6,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 1,
+            "n": 5,
             "solved": 0,
-            "valid_fail": 1,
+            "valid_fail": 5,
             "timeout": 0,
             "infra_error": 0,
             "unknown": 0,
@@ -4995,6 +5096,62 @@ window.AW_CORPUS = {
             "exception_message": ""
           },
           {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: Starting analysis of the credential rotation scheduling problem. Need to examine the three input files to understand the problem structure. Plan: First, examine the input files to understand their format and constraints. Then deve | step: Analysis: Examined the first input file. It has 9 waves, max 4 actions per wave, max 5 software rotations, max 385 MB dual-trust memory, max 405 MB escrow. There are 10 services with various characteristics (rotation times, escrow requireme | step: Analysis: Examined all three input files. They have similar structure but vary in complexity: incident_a has 10 services and 9 waves; incident_b has 11 services and 10 waves; incident_c has 10 services and 10 waves. Now need to create a com | step: Analysis: The solver file creation had some terminal echo artifacts but the file was created. Now I need to implement a complete, correct solver. The previous greedy approach is too simplistic - this requires a proper constraint satisfactio | step: Analysis: Good! The parser works correctly. Now I need to implement the full solver with constraint checking and optimization. This is a complex constraint satisfaction and optimization problem that requires: (1) generating feasible schedul | step: Analysis: The basic solver ran and generated output files. However, the current implementation is a simplified greedy approach that doesn't properly handle all constraints, especially dual-trust windows, escrow storage limits, and proper mu | step: Analysis: The output shows issues: (1) Wave 1 has both ATTEST_atlas and ROTATE_SOFTWARE_atlas in the same wave, which violates the constraint that rotation and attestation of one service cannot share a wave, (2) The attested_service_ids is ",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-root-ca-that-signed-our--fill4/the-root-ca-that-signed-our-east__LJoZA7q",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::test_schedule_is_the_exact_optimum",
+              "test_outputs.py::test_schedule_is_the_exact_optimum",
+              "test_outputs.py::test_schedule_is_the_exact_optimum"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: The task is to solve a complex credential rotation scheduling problem for three incident inventories. The current state shows we're at the root directory `/app#`. We need to: 1. Parse three input files containing service and mTLS  | step: Analysis: Good! I can see the structure of the input files. The first incident file shows: - 9 waves with parameters for actions per wave, software rotations, dual-trust memory, and escrow storage - Wave details with change_minutes, audit_m | step: Analysis: I now have all three input files. This is a complex constraint satisfaction and optimization problem. The key elements are: 1. Each incident has services that need to be rotated (HSM or software) and attested 2. Rotation/attestati | step: Analysis: The solver script was created successfully. However, the initial greedy approach is too simplistic for this complex optimization problem. I need to implement a proper constraint solver that: 1. Properly validates all constraints 2 | step: Analysis: Good! The solver has created the three output JSON files. Let me verify the content of these files to ensure they have the correct structure and reasonable values. I should check: 1. That each file contains the required fields: cr | step: Analysis: I see the problem! The output files have the correct structure but all waves are empty with no actions scheduled. This means the `_construct_schedule()` function is failing to find feasible placements for rotations and attestation | step: Analysis: Good progress! The solver is now actually scheduling actions. I can see: 1. First incident: Exposure 31788 with a warning about worker attestation 2. Second incident: Exposure 38636 (no warnings) 3. Third incident: Exposure 39403 ",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-root-ca-that-signed-our--fill4/the-root-ca-that-signed-our-east__XVarLaF",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::test_schedule_is_the_exact_optimum",
+              "test_outputs.py::test_schedule_is_the_exact_optimum",
+              "test_outputs.py::test_schedule_is_the_exact_optimum"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: Task requires solving a complex constraint satisfaction and optimization problem for rotating compromised mTLS credentials across three incident inventories. Need to read input files, implement a scheduler that respects all constr | step: Analysis: Successfully examined the first input file. The structure is clear: 9 waves, up to 4 actions per wave, max 5 software rotations, 385 MB dual-trust memory, 405 MB escrow. There are 10 services with various rotation/attestation time | step: Analysis: Examined all three input files. File B has 10 waves, 11 services, 14 mTLS links, 6 dual-trust providers. File C also has 10 waves, 10 services, 14 mTLS links, 8 dual-trust providers. All inputs are now understood. Need to implemen | step: Analysis: The solver skeleton has been created. The initial file write succeeded. Now I need to complete the implementation with the critical missing functions: compute_metrics, make_sort_key, and a proper search algorithm. The current skel | step: Analysis: The greedy solver produced output, but it's not optimal and doesn't handle mTLS dependencies or dual-trust requirements properly. The solution has credential_exposure_units of 11984, which is very high. The problem requires proper | step: Analysis: The solver has been executed on all three input files and output JSON files have been generated. Need to verify the outputs are valid JSON and contain all required fields. The solver implementation should handle mTLS dependencies, | step: Analysis: All three output files have been created with valid JSON. However, the first file shows credential_exposure_units of 67320 with 0 minutes consumed and no actions taken - the schedule appears to be empty/invalid. This indicates the",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-root-ca-that-signed-our--fill4/the-root-ca-that-signed-our-east__7YzdNd7",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::test_schedule_is_the_exact_optimum",
+              "test_outputs.py::test_schedule_is_the_exact_optimum",
+              "test_outputs.py::test_schedule_is_the_exact_optimum"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: Starting the task. I need to examine the incident files to understand the structure and constraints for credential rotation scheduling. Plan: First, I'll explore the directory structure to understand the layout of input and output | step: Analysis: The task has been restarted with new input files. The previous warning about extra text before/after JSON has been noted. I now have three new incident files with real data: 1. credential_incident.txt: 9 waves, 10 services, 12 MTL | step: Analysis: New incident files loaded. These have more complex scenarios with more services and MTLS dependencies. I need to create a solver that outputs ONLY valid JSON with no extra text before or after. The previous warnings were about tex | step: ```json { \"credential_exposure_units\": 12744, \"peak_dual_trust_mb\": 0, \"peak_escrow_mb\": 405, \"total_response_minutes\": 323, \"waves\": [ { \"wave_index\": 1, \"action_ids\": [ \"ROTATE_HSM_atlas\", \"ROTATE_HSM_ledger\", \"ROTATE_HSM_quarry\", \"ROTATE | step: Analysis: The task requires generating three emergency credential rotation schedules from incident files. The solver has been created and run successfully to generate three JSON output files at /app/task_file/output/credential_schedule.json | step: Analysis: The task has been completed successfully. Three emergency credential rotation schedules have been generated for the three incident inventories. All output files are valid JSON located at /app/task_file/output/credential_schedule.j",
+            "trial_dir": "/workspace/jobs/lab01-haiku-the-root-ca-that-signed-our--fill4/the-root-ca-that-signed-our-east__U8kuDh4",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::test_required_output_has_exact_schema",
+              "test_outputs.py::test_required_output_has_exact_schema",
+              "test_outputs.py::test_required_output_has_exact_schema"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
             "model": "oracle",
             "classification": "solved",
             "summary": "Skipping image OS validation for hb__c26174bc4a871ed7b1883c8ada036827: docker inspect returned 1 Collecting main service artifacts",
@@ -5005,9 +5162,9 @@ window.AW_CORPUS = {
             "exception_message": ""
           }
         ],
-        "note": "Harbor trials: 2 — 1 solved, 1 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 6 — 1 solved, 5 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
-      "stump_pct": 50.0,
+      "stump_pct": 83.3,
       "batch": 1,
       "measured": true,
       "files": [
@@ -5050,19 +5207,21 @@ window.AW_CORPUS = {
       ],
       "analysis": {
         "failing_tests": [
-          "test_outputs.py::test_schedule_is_the_exact_optimum"
+          "test_outputs.py::test_schedule_is_the_exact_optimum",
+          "test_outputs.py::test_required_output_has_exact_schema"
         ],
         "themes": [
-          "anthropic/claude-haiku-4-5: valid fail — test_outputs.py::test_schedule_is_the_exact_optimum, test_outputs.py::test_schedule_is_the_exact_optimum, test_outputs.py::test_schedule_is_the_exact_optimum"
+          "anthropic/claude-haiku-4-5: valid fail — test_outputs.py::test_schedule_is_the_exact_optimum, test_outputs.py::test_schedule_is_the_exact_optimum, test_outputs.py::test_schedule_is_the_exact_optimum",
+          "anthropic/claude-haiku-4-5: valid fail — test_outputs.py::test_required_output_has_exact_schema, test_outputs.py::test_required_output_has_exact_schema, test_outputs.py::test_required_output_has_exact_schema"
         ],
-        "completed_trials": 2,
-        "stump_pct": 50.0,
+        "completed_trials": 6,
+        "stump_pct": 83.3,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 1,
+            "n": 5,
             "solved": 0,
-            "valid_fail": 1,
+            "valid_fail": 5,
             "timeout": 0,
             "infra_error": 0,
             "unknown": 0,
@@ -5070,7 +5229,7 @@ window.AW_CORPUS = {
           }
         ],
         "cheap_recorded": {
-          "anthropic/claude-haiku-4-5": 1
+          "anthropic/claude-haiku-4-5": 5
         },
         "note": "Themes come from Harbor traces and verifier CTRF/stdout. Timeouts and infra are listed and excluded from stump."
       }
@@ -5628,20 +5787,20 @@ window.AW_CORPUS = {
       "has_tests": true,
       "rollouts": {
         "status": "measured",
-        "label": "1/2 solved",
-        "n_trials": 2,
+        "label": "1/6 solved",
+        "n_trials": 6,
         "solved": 1,
-        "valid_fail": 1,
+        "valid_fail": 5,
         "timeout": 0,
         "infra_error": 0,
         "unknown": 0,
-        "completed_trials": 2,
+        "completed_trials": 6,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 1,
+            "n": 5,
             "solved": 0,
-            "valid_fail": 1,
+            "valid_fail": 5,
             "timeout": 0,
             "infra_error": 0,
             "unknown": 0,
@@ -5724,11 +5883,235 @@ window.AW_CORPUS = {
             ],
             "exception_type": null,
             "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: The terminal is at the `/app` directory root. We need to repair declarative configuration under `/app/environment` for a network segmentation issue affecting 96 devices. The task involves understanding the current state, identifyi | step: Analysis: Good. We have the directory structure and contract overview. The key documentation exists. The pipeline is defined with exports, stage gates, and a transitive dependency spine. We need to examine OPERATIONS.md and ROLLBACK.md in d | step: Analysis: Excellent. Now I understand the requirements: 1. **Transitive dependency spine**: 7 stages in order: vlan-check → trunk-check → acl-check → render → wave-plan → rollback-audit → evidence 2. **Key immutable data**: 96-host device_i | step: Analysis: Perfect. Now I have the complete schema. Key findings: **Expected outputs from 7 stages:** 1. vlan_conformance.json (180 VLAN count) 2. trunk_conformance.json (trunk_link_count from trunks/links/*.yaml) 3. acl_conformance.json (90 | step: Analysis: Good. The run-netsegctl.sh script delegates to 7 stage scripts under $LIB. Now I need to examine those stage scripts and the current configuration files to identify what's broken. Let me check what stage scripts exist and start id | step: Analysis: The stage scripts are simple wrappers that call the main Python pipeline. The actual logic is in netseg_pipeline.py. Let me examine the Python implementation to understand what's failing. Plan: 1. Examine netseg_pipeline.py to und | step: Analysis: I can see the Python pipeline implementation is substantial. Let me check the key inventory files and then run the first stage to identify issues. Let me start by examining the validation scope and key configuration files. Plan: 1",
+            "trial_dir": "/workspace/jobs/lab01-haiku-apexora-global-wave-3-campus-fill4/apexora-global-wave-3-campus-seg__gPGLzRZ",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::TestWave3Identity::test_schema_and_device_count",
+              "test_outputs.py::TestWave3Identity::test_evidence_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_vlan_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_all_vlan_checks_pass",
+              "test_outputs.py::TestWave3Identity::test_vlan_catalog_count",
+              "test_outputs.py::TestWave3Identity::test_no_legacy_sources_consulted",
+              "test_outputs.py::TestWave3Identity::test_retired_vlan_families_from_precedence",
+              "test_outputs.py::TestWave3Identity::test_superseded_sections_empty",
+              "test_outputs.py::TestWave3Identity::test_in_scope_access_no_legacy_vlans",
+              "test_outputs.py::TestWave3Identity::test_in_scope_no_duplicate_vlans",
+              "test_outputs.py::TestWave3Identity::test_vrf_bindings_canonical",
+              "test_outputs.py::TestWave3Identity::test_access_vlan_assignments",
+              "test_outputs.py::TestWave3Identity::test_assembly_precedence_authoritative",
+              "test_outputs.py::TestWave3Identity::test_in_scope_count_unchanged",
+              "test_outputs.py::TestWave3Identity::test_evidence_stable_after_rerun",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_export_invariants",
+              "test_outputs.py::TestWave3TrunkGateway::test_all_trunk_checks_pass",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_link_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_bundle_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_gateway_on_distribution",
+              "test_outputs.py::TestWave3TrunkGateway::test_violations_seed_cleared",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_no_trunk_all",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_consultation_changes_evidence",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_access_legacy_vlan_fails_vlan_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_trunk_all_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_residual_seed_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_acl_fails_acl_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_vlan_failure_propagates_to_trunk",
+              "test_outputs.py::TestWave3AclWaveRollback::test_immutable_validation_scope_cardinality",
+              "test_outputs.py::TestWave3AclWaveRollback::test_acl_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_all_acl_checks_pass",
+              "test_outputs.py::TestWave3AclWaveRollback::test_policy_catalog_count",
+              "test_outputs.py::TestWave3AclWaveRollback::test_wave_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_canary_precedes_regional_batches",
+              "test_outputs.py::TestWave3AclWaveRollback::test_regional_order_amer_emea_apac",
+              "test_outputs.py::TestWave3AclWaveRollback::test_post_deploy_hook_active",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_validation_scope_device_indexed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_rollback_record",
+              "test_outputs.py::TestWave3AclWaveRollback::test_legacy_hooks_absent",
+              "test_outputs.py::TestWave3AclWaveRollback::test_deprecated_hook_script_removed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshots_carry_pre_change_marker",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshot_is_pre_change",
+              "test_outputs.py::TestWave3AclWaveRollback::test_validation_scope_includes_canary_anchor",
+              "test_outputs.py::TestWave3RollbackPathMutation::test_mutation_rendered_forward_path_rejected"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: We are starting at the `/app` directory with a fresh terminal. The task involves repairing declarative network segmentation configuration under `/app/environment`. The system has issues with legacy VLAN IDs, VRF aliases, ACLs, and | step: Analysis: Good, we can see the basic directory structure. The `/app/environment` directory contains all necessary subdirectories for network segmentation (vlans, vrfs, acl, trunks, inventory, etc.). The schemas/pipeline directory has two fi | step: Analysis: Now I understand the pipeline structure. There are 7 stages in order: vlan-check, trunk-check, acl-check, render, wave-plan, rollback-audit, evidence. Each stage has dependencies and outputs. Key requirements: 1. 96 total devices, | step: Analysis: Good, I have the index. Now I need to examine OPERATIONS.md and ROLLBACK.md for detailed requirements, then check the run-netsegctl.sh script and current state of the environment. Let me continue gathering information. Plan: 1. Re | step: Analysis: Excellent, now I have comprehensive understanding of the operations requirements. Key points: 1. 96-host inventory is immutable 2. 48-host validation scope is immutable with dist-hq-dal-main-01 as canary 3. VLAN range exactly 2001 | step: Analysis: Now I have all the documentation. Key rollback requirements: 1. 48 validation-scope hosts must each have rollback entry in deployment/rollback/bundles.yaml 2. Each entry needs forward config under /app/environment, pre-change snap | step: Analysis: Good, the run-netsegctl.sh is a simple orchestrator that calls individual stage scripts. Now I need to check the current state of /app/output/ and look for any issues in the configuration files, particularly the legacy pre-validat",
+            "trial_dir": "/workspace/jobs/lab01-haiku-apexora-global-wave-3-campus-fill4/apexora-global-wave-3-campus-seg__oVJgiTR",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::TestWave3Identity::test_schema_and_device_count",
+              "test_outputs.py::TestWave3Identity::test_evidence_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_vlan_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_all_vlan_checks_pass",
+              "test_outputs.py::TestWave3Identity::test_vlan_catalog_count",
+              "test_outputs.py::TestWave3Identity::test_no_legacy_sources_consulted",
+              "test_outputs.py::TestWave3Identity::test_retired_vlan_families_from_precedence",
+              "test_outputs.py::TestWave3Identity::test_superseded_sections_empty",
+              "test_outputs.py::TestWave3Identity::test_in_scope_access_no_legacy_vlans",
+              "test_outputs.py::TestWave3Identity::test_in_scope_no_duplicate_vlans",
+              "test_outputs.py::TestWave3Identity::test_vrf_bindings_canonical",
+              "test_outputs.py::TestWave3Identity::test_access_vlan_assignments",
+              "test_outputs.py::TestWave3Identity::test_assembly_precedence_authoritative",
+              "test_outputs.py::TestWave3Identity::test_in_scope_count_unchanged",
+              "test_outputs.py::TestWave3Identity::test_evidence_stable_after_rerun",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_export_invariants",
+              "test_outputs.py::TestWave3TrunkGateway::test_all_trunk_checks_pass",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_link_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_bundle_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_gateway_on_distribution",
+              "test_outputs.py::TestWave3TrunkGateway::test_violations_seed_cleared",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_no_trunk_all",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_consultation_changes_evidence",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_access_legacy_vlan_fails_vlan_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_trunk_all_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_residual_seed_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_acl_fails_acl_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_vlan_failure_propagates_to_trunk",
+              "test_outputs.py::TestWave3AclWaveRollback::test_immutable_validation_scope_cardinality",
+              "test_outputs.py::TestWave3AclWaveRollback::test_acl_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_all_acl_checks_pass",
+              "test_outputs.py::TestWave3AclWaveRollback::test_policy_catalog_count",
+              "test_outputs.py::TestWave3AclWaveRollback::test_wave_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_canary_precedes_regional_batches",
+              "test_outputs.py::TestWave3AclWaveRollback::test_regional_order_amer_emea_apac",
+              "test_outputs.py::TestWave3AclWaveRollback::test_post_deploy_hook_active",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_validation_scope_device_indexed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_rollback_record",
+              "test_outputs.py::TestWave3AclWaveRollback::test_legacy_hooks_absent",
+              "test_outputs.py::TestWave3AclWaveRollback::test_deprecated_hook_script_removed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshots_carry_pre_change_marker",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshot_is_pre_change",
+              "test_outputs.py::TestWave3AclWaveRollback::test_validation_scope_includes_canary_anchor",
+              "test_outputs.py::TestWave3RollbackPathMutation::test_mutation_rendered_forward_path_rejected"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: I'm starting fresh with a blank terminal at /app. The task is to repair declarative configuration for network segmentation across 96 devices. The goal is to run through a 7-stage pipeline (vlan-check, trunk-check, acl-check, rende | step: Analysis: Good. I can see the directory structure now. Key files exist: segmentation_contract.md, OPERATIONS.md, ROLLBACK.md, and schemas/pipeline/. The task requires running 7 stages through run-netsegctl.sh. I need to examine the operatio | step: Analysis: Now I understand the contract. There are 7 pipeline stages with a specific binding order. The key facts are: 96 devices in inventory, 48-host validation scope immutable, VLAN range 2001-2180 (180 IDs), regional VRF resolution, ACL | step: Analysis: I can see the complete pipeline structure now. The run-netsegctl.sh script delegates to 7 stage scripts in /app/environment/scripts/lib/. The task mentions several specific issues: legacy VLAN IDs, deprecated VRFs, flat ACL names, | step: Analysis: Found key issues: 1) The pre-validate-legacy.sh file exists at /app/environment/legacy/hooks/ and must be removed per the ROLLBACK.md requirement. 2) The trunks/violations_seed.yaml has residual device mappings (acc-emea-fra-lab-0 | step: Analysis: The previous commands seem to have printed the validation scope list. I can see 40 hosts listed (the scope has 48 total). I notice acc-emea-fra-lab-01 and core-apac-sin-01 are in the validation scope, and these are the same device | step: Analysis: I can see the tail end of vlans/catalog.yaml. The legacy_id values are 101-121 shown here, which are in the retired range (101-180). This appears to be part of the VLAN catalog structure. I need to see the full file and understand",
+            "trial_dir": "/workspace/jobs/lab01-haiku-apexora-global-wave-3-campus-fill4/apexora-global-wave-3-campus-seg__ZX7MN8C",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::TestWave3Identity::test_schema_and_device_count",
+              "test_outputs.py::TestWave3Identity::test_evidence_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_vlan_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_all_vlan_checks_pass",
+              "test_outputs.py::TestWave3Identity::test_vlan_catalog_count",
+              "test_outputs.py::TestWave3Identity::test_no_legacy_sources_consulted",
+              "test_outputs.py::TestWave3Identity::test_retired_vlan_families_from_precedence",
+              "test_outputs.py::TestWave3Identity::test_superseded_sections_empty",
+              "test_outputs.py::TestWave3Identity::test_in_scope_access_no_legacy_vlans",
+              "test_outputs.py::TestWave3Identity::test_in_scope_no_duplicate_vlans",
+              "test_outputs.py::TestWave3Identity::test_vrf_bindings_canonical",
+              "test_outputs.py::TestWave3Identity::test_access_vlan_assignments",
+              "test_outputs.py::TestWave3Identity::test_assembly_precedence_authoritative",
+              "test_outputs.py::TestWave3Identity::test_in_scope_count_unchanged",
+              "test_outputs.py::TestWave3Identity::test_evidence_stable_after_rerun",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_export_invariants",
+              "test_outputs.py::TestWave3TrunkGateway::test_all_trunk_checks_pass",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_link_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_bundle_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_gateway_on_distribution",
+              "test_outputs.py::TestWave3TrunkGateway::test_violations_seed_cleared",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_no_trunk_all",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_consultation_changes_evidence",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_access_legacy_vlan_fails_vlan_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_trunk_all_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_residual_seed_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_acl_fails_acl_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_vlan_failure_propagates_to_trunk",
+              "test_outputs.py::TestWave3AclWaveRollback::test_immutable_validation_scope_cardinality",
+              "test_outputs.py::TestWave3AclWaveRollback::test_acl_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_all_acl_checks_pass",
+              "test_outputs.py::TestWave3AclWaveRollback::test_policy_catalog_count",
+              "test_outputs.py::TestWave3AclWaveRollback::test_wave_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_canary_precedes_regional_batches",
+              "test_outputs.py::TestWave3AclWaveRollback::test_regional_order_amer_emea_apac",
+              "test_outputs.py::TestWave3AclWaveRollback::test_post_deploy_hook_active",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_validation_scope_device_indexed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_rollback_record",
+              "test_outputs.py::TestWave3AclWaveRollback::test_legacy_hooks_absent",
+              "test_outputs.py::TestWave3AclWaveRollback::test_deprecated_hook_script_removed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshots_carry_pre_change_marker",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshot_is_pre_change",
+              "test_outputs.py::TestWave3AclWaveRollback::test_validation_scope_includes_canary_anchor",
+              "test_outputs.py::TestWave3RollbackPathMutation::test_mutation_rendered_forward_path_rejected"
+            ],
+            "exception_type": null,
+            "exception_message": ""
+          },
+          {
+            "model": "anthropic/claude-haiku-4-5",
+            "classification": "valid_fail",
+            "summary": "step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: This is a comprehensive network segmentation repair task for Apexora Global Wave 3. The task involves: 1. Current state: Fresh terminal at /app directory with no previous execution 2. Key requirements: - Repair declarative configu | step: Analysis: Good start. I've confirmed the basic structure: - /app/environment contains the configuration - /app/output is where regenerated artifacts go - Three key docs exist: segmentation_contract.md (index), OPERATIONS.md (rules/dependenc | step: Analysis: Excellent. Now I understand the complete pipeline: 1. Immutable inputs: - device_inventory.yaml: 96-host migration_state map - wave3_validation_scope.yaml: 48-host ordered list with dist-hq-dal-main-01 canary - VLAN range: 2001-21 | step: Analysis: Key rollback requirements clarified: 1. Rollback scope: exactly the 48-host validation_scope list (immutable) 2. Every host must have entry in deployment/rollback/bundles.yaml 3. Each entry requires: - Existing durable forward con | step: Analysis: Good structure overview. Key directories identified: - vlans/: catalog and campus definitions - vrfs/: catalog and route targets per region - acl/: catalog, device bindings, rules - interfaces/trunk/: trunk policies - trunks/: lin | step: Analysis: Perfect. The run-netsegctl.sh script is straightforward: - Takes stage name or 'all' - Executes stages in strict binding order when 'all' is used - Each stage is in /app/environment/scripts/lib/ - Uses ENV_ROOT=/app/environment an | step: Analysis: Critical findings: 1. legacy/hooks/pre-validate-legacy.sh EXISTS - must be removed per ROLLBACK.md 2. trunks/violations_seed.yaml has violations listed but should have EMPTY violations list per OPERATIONS.md: - Currently has 2 vio",
+            "trial_dir": "/workspace/jobs/lab01-haiku-apexora-global-wave-3-campus-fill4/apexora-global-wave-3-campus-seg__FvXvnQm",
+            "test_fraction": null,
+            "failed_tests": [
+              "test_outputs.py::TestWave3Identity::test_schema_and_device_count",
+              "test_outputs.py::TestWave3Identity::test_evidence_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_vlan_export_invariants",
+              "test_outputs.py::TestWave3Identity::test_all_vlan_checks_pass",
+              "test_outputs.py::TestWave3Identity::test_vlan_catalog_count",
+              "test_outputs.py::TestWave3Identity::test_no_legacy_sources_consulted",
+              "test_outputs.py::TestWave3Identity::test_retired_vlan_families_from_precedence",
+              "test_outputs.py::TestWave3Identity::test_superseded_sections_empty",
+              "test_outputs.py::TestWave3Identity::test_in_scope_access_no_legacy_vlans",
+              "test_outputs.py::TestWave3Identity::test_in_scope_no_duplicate_vlans",
+              "test_outputs.py::TestWave3Identity::test_vrf_bindings_canonical",
+              "test_outputs.py::TestWave3Identity::test_access_vlan_assignments",
+              "test_outputs.py::TestWave3Identity::test_assembly_precedence_authoritative",
+              "test_outputs.py::TestWave3Identity::test_in_scope_count_unchanged",
+              "test_outputs.py::TestWave3Identity::test_evidence_stable_after_rerun",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_export_invariants",
+              "test_outputs.py::TestWave3TrunkGateway::test_all_trunk_checks_pass",
+              "test_outputs.py::TestWave3TrunkGateway::test_trunk_link_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_bundle_count",
+              "test_outputs.py::TestWave3TrunkGateway::test_gateway_on_distribution",
+              "test_outputs.py::TestWave3TrunkGateway::test_violations_seed_cleared",
+              "test_outputs.py::TestWave3TrunkGateway::test_rendered_no_trunk_all",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_consultation_changes_evidence",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_access_legacy_vlan_fails_vlan_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_trunk_all_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_residual_seed_fails_trunk_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_legacy_acl_fails_acl_check",
+              "test_outputs.py::TestWave3AntiCheat::test_mutation_vlan_failure_propagates_to_trunk",
+              "test_outputs.py::TestWave3AclWaveRollback::test_immutable_validation_scope_cardinality",
+              "test_outputs.py::TestWave3AclWaveRollback::test_acl_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_all_acl_checks_pass",
+              "test_outputs.py::TestWave3AclWaveRollback::test_policy_catalog_count",
+              "test_outputs.py::TestWave3AclWaveRollback::test_wave_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_canary_precedes_regional_batches",
+              "test_outputs.py::TestWave3AclWaveRollback::test_regional_order_amer_emea_apac",
+              "test_outputs.py::TestWave3AclWaveRollback::test_post_deploy_hook_active",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_export_invariants",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_validation_scope_device_indexed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_each_rollback_record",
+              "test_outputs.py::TestWave3AclWaveRollback::test_legacy_hooks_absent",
+              "test_outputs.py::TestWave3AclWaveRollback::test_deprecated_hook_script_removed",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshots_carry_pre_change_marker",
+              "test_outputs.py::TestWave3AclWaveRollback::test_rollback_snapshot_is_pre_change",
+              "test_outputs.py::TestWave3AclWaveRollback::test_validation_scope_includes_canary_anchor",
+              "test_outputs.py::TestWave3RollbackPathMutation::test_mutation_rendered_forward_path_rejected"
+            ],
+            "exception_type": null,
+            "exception_message": ""
           }
         ],
-        "note": "Harbor trials: 2 — 1 solved, 1 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
+        "note": "Harbor trials: 6 — 1 solved, 5 valid fail, 0 timeout, 0 infra. Timeouts and infra are excluded from stump. Denominator is recorded trials, never padded to 5."
       },
-      "stump_pct": 50.0,
+      "stump_pct": 83.3,
       "batch": 1,
       "measured": true,
       "files": [
@@ -5799,14 +6182,14 @@ window.AW_CORPUS = {
         "themes": [
           "anthropic/claude-haiku-4-5: valid fail — test_outputs.py::TestWave3Identity::test_schema_and_device_count, test_outputs.py::TestWave3Identity::test_evidence_export_invariants, test_outputs.py::TestWave3Identity::test_vlan_export_invariants, test_outputs.py::TestWave3Identity::test_all_vlan_checks_pass"
         ],
-        "completed_trials": 2,
-        "stump_pct": 50.0,
+        "completed_trials": 6,
+        "stump_pct": 83.3,
         "by_model": [
           {
             "model": "anthropic/claude-haiku-4-5",
-            "n": 1,
+            "n": 5,
             "solved": 0,
-            "valid_fail": 1,
+            "valid_fail": 5,
             "timeout": 0,
             "infra_error": 0,
             "unknown": 0,
@@ -5814,7 +6197,7 @@ window.AW_CORPUS = {
           }
         ],
         "cheap_recorded": {
-          "anthropic/claude-haiku-4-5": 1
+          "anthropic/claude-haiku-4-5": 5
         },
         "note": "Themes come from Harbor traces and verifier CTRF/stdout. Timeouts and infra are listed and excluded from stump."
       }
