@@ -146,6 +146,38 @@ def credit_blocked(blob: str) -> str | None:
     return None
 
 
+def job_credit_blocked(job_dir: Path) -> str | None:
+    """Scan the whole Harbor job (log + trial exceptions), not just a log tail.
+
+    A reused job directory can hide credit-too-low in the middle of job.log.
+    Unique fill names avoid mixing yesterday's abort with today's trials.
+    """
+    if not job_dir.is_dir():
+        return None
+    job_log = job_dir / "job.log"
+    if job_log.is_file():
+        blob = job_log.read_text(encoding="utf-8", errors="replace")
+        hit = credit_blocked(blob)
+        if hit:
+            return hit
+    result_json = job_dir / "result.json"
+    if result_json.is_file():
+        hit = credit_blocked(result_json.read_text(encoding="utf-8", errors="replace"))
+        if hit:
+            return hit
+    for path in job_dir.glob("*/result.json"):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+        except json.JSONDecodeError:
+            continue
+        exc = data.get("exception_info") or {}
+        blob = " ".join(str(exc.get(key) or "") for key in ("exception_type", "exception_message"))
+        hit = credit_blocked(blob)
+        if hit:
+            return hit
+    return None
+
+
 def probe_http_arm(kind: str) -> dict:
     """Tiny provider probe. Does not print keys or response bodies with secrets."""
     import urllib.error
@@ -299,12 +331,7 @@ def run_harbor(*, package: str, agent: str, model: str, k: int, job_name: str, c
     log(">> " + " ".join(argv))
     jobs_dir.mkdir(parents=True, exist_ok=True)
     proc = subprocess.run(argv, text=True, check=False, capture_output=False)
-    # Harbor streams logs to the terminal; also peek the job log for credit markers.
-    job_log = jobs_dir / job_name / "job.log"
-    blob = ""
-    if job_log.is_file():
-        blob = job_log.read_text(encoding="utf-8", errors="replace")[-8000:]
-    blocked = credit_blocked(blob)
+    blocked = job_credit_blocked(jobs_dir / job_name)
     # Nested Docker vfs grows fast; reclaim unused images between jobs.
     subprocess.run(["docker", "image", "prune", "-f"], check=False, capture_output=True)
     subprocess.run(["docker", "builder", "prune", "-af"], check=False, capture_output=True)
@@ -329,35 +356,51 @@ class StopMeasure(Exception):
 def measure_arm(*, rows: list[dict], model: str, arm: str, batch: int, planned: int, concurrent: int, jobs_dir: Path) -> None:
     for row in rows:
         slug = row["slug"]
-        k = remaining_k(slug, model, planned, jobs_dir)
-        have = attempted_n(slug, model, jobs_dir)
-        recorded = recorded_n(slug, model, jobs_dir)
-        if k <= 0:
+        stalled = 0
+        while True:
+            k = remaining_k(slug, model, planned, jobs_dir)
+            have = attempted_n(slug, model, jobs_dir)
+            recorded = recorded_n(slug, model, jobs_dir)
+            if k <= 0:
+                log(
+                    f"skip {arm} {slug[:48]} — {have} non-infra attempts "
+                    f"(recorded={recorded}) already meet k={planned}"
+                )
+                break
+            stamp = datetime.now(timezone.utc).strftime("%H%M%S")
             log(
-                f"skip {arm} {slug[:48]} — {have} non-infra attempts "
-                f"(recorded={recorded}) already meet k={planned}"
+                f"{arm} {slug[:48]} remaining k={k} "
+                f"(non-infra attempts={have}, recorded including infra={recorded})"
             )
-            continue
-        log(
-            f"{arm} {slug[:48]} remaining k={k} "
-            f"(non-infra attempts={have}, recorded including infra={recorded})"
-        )
-        job = f"lab{batch:02d}-{arm}-{short_slug(slug)}-fill{k}"
-        result = run_harbor(
-            package=slug,
-            agent="terminus-2",
-            model=model,
-            k=k,
-            job_name=job,
-            concurrent=concurrent,
-            jobs_dir=jobs_dir,
-        )
-        if result["blocked"]:
-            raise StopMeasure(f"{arm} blocked ({result['blocked']}) on {slug}")
-        if result["returncode"] != 0:
-            raise StopMeasure(f"{arm} harbor exit {result['returncode']} on {slug}")
-        subprocess.run([sys.executable, str(ROOT / "scripts" / "ingest_lab_jobs.py")], check=False)
-        subprocess.run([sys.executable, str(ROOT / "scripts" / "write_loss_notes.py")], check=False)
+            # Unique name so Harbor does not resume yesterday's aborted fill dir.
+            job = f"lab{batch:02d}-{arm}-{short_slug(slug)}-fill{k}-{stamp}"
+            result = run_harbor(
+                package=slug,
+                agent="terminus-2",
+                model=model,
+                k=k,
+                job_name=job,
+                concurrent=concurrent,
+                jobs_dir=jobs_dir,
+            )
+            if result["blocked"]:
+                raise StopMeasure(f"{arm} blocked ({result['blocked']}) on {slug}")
+            if result["returncode"] != 0:
+                raise StopMeasure(f"{arm} harbor exit {result['returncode']} on {slug}")
+            subprocess.run([sys.executable, str(ROOT / "scripts" / "ingest_lab_jobs.py")], check=False)
+            subprocess.run([sys.executable, str(ROOT / "scripts" / "write_loss_notes.py")], check=False)
+            after = attempted_n(slug, model, jobs_dir)
+            if after <= have:
+                stalled += 1
+                log(
+                    f"{arm} {slug[:48]} added no counted attempts "
+                    f"(still {after}); stall {stalled}/2"
+                )
+                if stalled >= 2:
+                    log(f"leaving {arm} {slug[:48]} short of k={planned}")
+                    break
+            else:
+                stalled = 0
 
 
 def phase_probe(args: argparse.Namespace) -> None:

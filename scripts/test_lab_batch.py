@@ -258,6 +258,18 @@ class RemainingKTests(unittest.TestCase):
             self.assertEqual(attempted_n(slug, model, jobs), 1)
             self.assertEqual(remaining_k(slug, model, 5, jobs), 4)
 
+    def test_job_credit_blocked_reads_full_log_not_tail(self):
+        from run_lab_batch import job_credit_blocked
+
+        with tempfile.TemporaryDirectory() as tmp:
+            job = Path(tmp) / "lab01-haiku-example-fill5"
+            job.mkdir()
+            (job / "job.log").write_text(
+                "credit balance is too low to access the Anthropic API\n" + ("ok trial\n" * 4000),
+                encoding="utf-8",
+            )
+            self.assertEqual(job_credit_blocked(job), "credit balance is too low")
+
     def test_timeout_counts_as_an_attempt(self):
         from run_lab_batch import attempted_n, remaining_k
 
