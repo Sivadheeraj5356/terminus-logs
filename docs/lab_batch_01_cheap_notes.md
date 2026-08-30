@@ -1,6 +1,6 @@
 # Batch 01 — cheap-protocol notes
 
-**Updated:** 2026-08-30T15:34:34Z
+**Updated:** 2026-08-30T16:14:09Z
 **Protocol:** terminus-2, `-k 5`, Haiku + second cheap arm. Frontier 8-run history is separate.
 **Stump:** `valid_fail / (solved + valid_fail)`. Infra and timeout excluded.
 
@@ -11,7 +11,7 @@
 | `the-dyeworks-tool-is-a-command-line-reader-at-app-environmen` | yes | 16 | 3 | 6 | 7 | 0 | 66.7 |
 | `the-root-ca-that-signed-our-east-west-mtls-credentials-is-co` | yes | 6 | 1 | 5 | 0 | 0 | 83.3 |
 | `apexora-global-wave-3-campus-segmentation-is-blocked-across` | yes | 6 | 1 | 5 | 0 | 0 | 83.3 |
-| `i-need-the-offline-binary-cache-closure-planner-in-app-task` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
+| `i-need-the-offline-binary-cache-closure-planner-in-app-task` | yes | 6 | 1 | 3 | 2 | 0 | 75.0 |
 | `the-harborlane-replay-desk-needs-a-reusable-offline-planner` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 | `we-re-putting-together-a-stratified-k-fold-evaluation-kit-un` | yes | 2 | 1 | 1 | 0 | 0 | 50.0 |
 | `wildlife-counting-becomes-a-field-planning-game-when-uncerta` | yes | 2 | 1 | 0 | 0 | 1 | 0.0 |
@@ -68,6 +68,7 @@
 ### `i-need-the-offline-binary-cache-closure-planner-in-app-task`
 
 - anthropic/claude-haiku-4-5: valid fail — test_public_and_visible_samples, test_generated_compatible_cases, test_copied_root_and_deterministic_rerun, test_builds_native_binary
+- anthropic/claude-haiku-4-5: infra (BadRequestError)
 - Failing tests: `test_public_and_visible_samples`, `test_generated_compatible_cases`, `test_copied_root_and_deterministic_rerun`, `test_builds_native_binary`
 
 ### `the-harborlane-replay-desk-needs-a-reusable-offline-planner`
