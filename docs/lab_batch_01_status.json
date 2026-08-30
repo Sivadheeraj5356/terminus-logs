@@ -1,14 +1,14 @@
 {
-  "generated_utc": "2026-08-30T13:04:54Z",
+  "generated_utc": "2026-08-30T16:14:09Z",
   "batch": 1,
   "planned_attempts": 5,
   "haiku_model": "anthropic/claude-haiku-4-5",
   "second_model": "openai/gpt-4o-mini",
   "second_fallback": "anthropic/claude-sonnet-4-5",
   "anthropic": {
-    "ok": true,
-    "status": 200,
-    "blocked": null
+    "ok": false,
+    "status": 400,
+    "blocked": "credit balance is too low"
   },
   "openai": {
     "ok": false,
@@ -16,5 +16,6 @@
     "blocked": "insufficient_quota"
   },
   "harbor_running": [],
-  "note": "Probe only. Do not invent scores. Keys are not written."
+  "stop": "docs/lab_batch_01_stop.json",
+  "note": "Harbor stopped on Anthropic credit-too-low during offline-cache Haiku fill4. Do not invent scores. Keys are not written."
 }

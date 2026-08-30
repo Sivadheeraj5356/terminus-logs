@@ -1,7 +1,7 @@
 # Share Worlds Lab with the founder
 
 **Audience:** CB (Siva) → Raja (`rajaadil07`, GitHub collaborator)  
-**Deadline context:** Gallery + 12 Worlds Lab surfaces are shareable. Cheap k=5 fill **stopped** on Anthropic credit-too-low (Batch 01 partial). Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160.  
+**Deadline context:** Gallery + 12 Worlds Lab surfaces are shareable. Cheap k=5 fill **stopped again** on Anthropic credit-too-low (Batch 01 partial after resume). Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160.  
 **Do not paste API keys.** Keys already leaked in chat — **rotate** Anthropic and OpenAI keys. Never reprint them.
 
 ---
@@ -88,7 +88,7 @@ Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (t
 
 ## 3. Harbor is idle (credit / quota stop)
 
-Do **not** start a second `harbor run`. Anthropic returned **credit-balance-too-low**; OpenAI `gpt-4o-mini` is still **429 insufficient_quota**. Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). The Sonnet second arm was never started.
+Do **not** start a second `harbor run`. Resume on 30 Aug filled more Batch 01 Haiku trials, then Anthropic returned **credit-balance-too-low** on the offline binary-cache fill. OpenAI `gpt-4o-mini` is still **429 insufficient_quota**. Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). The Sonnet second arm was never started.
 
 | Watch | Where |
 | --- | --- |
@@ -105,15 +105,17 @@ python3 scripts/write_loss_notes.py
 
 Then refresh `/lab/index.html`. Measured chips update **only then**. Denominator is recorded trials — never padded to 5 or 8. Timeout, Docker, credit-too-low, and 429 are **infra**, not stump.
 
-Honest snapshot (ingest `2026-08-29T02:02:18Z`):
+Honest snapshot (ingest `2026-08-30T16:14:09Z`):
 
-- Harbor 0.22 + Docker probe: green
+- Harbor 0.22 + Docker probe: green; Harbor **idle** after credit stop
 - Gallery 100; measured target 50; **10** Batch 01 rows have Harbor jobs
 - Batch 01 oracles: 10/10 at 1.0
-- Cheap arm `anthropic/claude-haiku-4-5`: pendulum **0/5** valid_fail; hypersonic **0/5** (1 valid_fail + 4 infra); dyeworks **0/3** infra (aborted); seven other Batch 01 slugs **0/1** (wildlife timeout, not stump)
+- Cheap arm `anthropic/claude-haiku-4-5` chips: pendulum **0/5**; hypersonic **4/9**; dyeworks / root-CA / Apexora / offline-cache **0/5**; four others **0/1**
+- Counted toward k=5 (infra excluded): pendulum/hypersonic/root-CA/Apexora **5/5**; dyeworks **2/5**; offline-cache **3/5**; four others **1/5**
 - Second arm: not started (`gpt-4o-mini` 429; Sonnet never launched)
 - Frontier history still on pendulum/hypersonic (Opus 5 + `openai/gpt-5.6-sol` k=8) and partial dyeworks — extra history, not the going-forward protocol
 - Batches 02–05: frozen jsonl only, **not oracled, not measured**
+- Harbor `cost_usd` ingested: **$65.00** (Haiku **$15.33**, frontier+smoke **$49.67**)
 - Loss notes: [`lab_batch_01_loss_analysis.md`](lab_batch_01_loss_analysis.md). **Not 50/50. Not 160/160.**
 
 Parent Worlds Lab chat: https://cursor.com/agents/bc-6d1b9c8d-8492-40cb-aa39-d597e427826a
@@ -123,5 +125,5 @@ Parent Worlds Lab chat: https://cursor.com/agents/bc-6d1b9c8d-8492-40cb-aa39-d59
 ## 4. Deadline realism
 
 - **Share now:** gallery + 12 surfaces (PR, zip, or local `http.server`).
-- **Not now:** remaining Batch 01 Haiku fills, Sonnet k=5, or batches 02–05 — blocked until credits/quota return.
-- A chip like `claude-haiku-4-5 0/5` means **0 solves out of 5 recorded trials**. A 1-trial probe is `0/1`, never padded to `/5` or `/8`. See the loss note.
+- **Not now:** remaining Batch 01 Haiku fills (dyeworks need 3, offline-cache need 2, four slugs need 4), Sonnet k=5, or batches 02–05 — blocked until credits/quota return.
+- A chip like `claude-haiku-4-5 4/9` means **4 solves out of 9 recorded trials**. A 1-trial probe is `0/1`, never padded to `/5` or `/8`. See the loss note.

@@ -1,16 +1,19 @@
 # Batch 01 loss analysis
 
 Generated 2026-08-28T21:20Z from Harbor `jobs/` via `scripts/ingest_lab_jobs.py`.  
+Updated **2026-08-30T16:14Z** after the cheap k=5 resume hit Anthropic credit-too-low again.  
 `stump_pct = valid_fail / (solved + valid_fail) × 100`. Timeout and infra are excluded. No Caudal/SSB scores. No rubric channel.
 
 ## Headlines
 
 - **Frozen batch 01: 10 tasks.** Go oracle-fail `release-still-signs-edge-go-mod-q1-green-while-the-dependenc` (reward 0.0, 5 `TestLiveProxyIntegrity` failures) was dropped and replaced by `i-need-the-offline-binary-cache-closure-planner-in-app-task` (oracle 1.0). See `docs/lab_batch_01_exclusions.json`.
 - **Oracle: 10/10 reward 1.0** on the frozen ten.
+- **Resume 2026-08-30T13:04–16:14Z:** Probe Anthropic Haiku **HTTP 200**, OpenAI `gpt-4o-mini` **429 insufficient_quota**. Second arm must be `anthropic/claude-sonnet-4-5`. Iterate `scripts/iterate_lab_batches.py --start-batch 1 --end-batch 5 --resume` filled remaining Haiku k (infra does not count). **Stopped** on credit-too-low during offline binary-cache Haiku `-k 4` (trials `…__Y4vX24v`, `…__DXyWUSd`). Harbor idle. **No second `harbor run`.** Sonnet never started. Batches 02–05 not oracled. **Not 50/50.**
+- **Cheap Haiku chips (solved/recorded, not padded):** pendulum **0/5**; hypersonic **4/9** (4 solved on fill4 + 1 valid_fail + 4 prior credit infra); dyeworks **0/5** (2 valid_fail + 3 infra, still need 3 counted); root-CA **0/5**; Apexora **0/5**; offline-cache **0/5** (3 valid_fail + 2 credit infra, still need 2 counted); Harborlane / k-fold / wildlife / booking **0/1**.
 - **Continuation 2026-08-28T19:30Z:** Harbor was idle. Cheap probes (prefix/length only): Anthropic `claude-opus-5` ping **HTTP 200**; OpenAI chat `gpt-5.6-sol` **HTTP 429 insufficient_quota**. GPT remaining trials were not started.
 - **Dyeworks Opus resume** (`harbor job resume -f BadRequestError`) replaced the earlier 7 credit-infra dirs. Got **2 solved + 2 valid_fail**, then Anthropic **credit-balance-too-low** again on 3 trials; the 8th trial (`…__eWdLDth`) was terminated with no `result.json`. **Stop. Remaining 7 packages were not started.** Batch 02 was not started. **Not 160/160.**
 - **Frontier agent coverage:** 2 tasks full 8+8 (pendulum, hypersonic); 1 task partial (dyeworks). **Cheap haiku k=1 (2026-08-28T23:31–00:54Z):** six remaining slugs measured; booking already 0/1.
-- **Cheap haiku k=5 (2026-08-29T00:54–01:59Z):** pendulum fill finished **0/5** valid_fail (~$1.96). Hypersonic haiku `-k 5` recorded **0 solved / 1 valid_fail / 4 infra** (Anthropic **credit balance too low** on four trials). Dyeworks haiku fill aborted after the same credit error (**3 infra**, harbor exit 130). Remaining Batch 01 Haiku fills and Sonnet k=5 **not started**. Batches 02–05 frozen, not run. OpenAI still 429. **Do not invent analysis for unrun rows.**
+- **Cheap haiku k=5 first pass (2026-08-29T00:54–01:59Z):** pendulum fill finished **0/5** valid_fail (~$1.96). Hypersonic haiku `-k 5` recorded **0 solved / 1 valid_fail / 4 infra**. Dyeworks haiku fill aborted (**3 infra**). Remaining fills stopped on credit-too-low.
 - **Frontier recorded slots toward 160: 42/160.** Completed (solved + valid_fail only): **37**. Infra on those slots: 5 (plus incomplete dyeworks Opus 8th trial, not ingested).
 - Smoke extras (not in the 160): 2 pendulum smoke trials (Opus compose solved, GPT valid fail) plus 1 failed Opus smoke (compose plugin missing, infra).
 
@@ -39,12 +42,12 @@ Footnote (reward-first classify, same as `scripts/lab_common.py`): pendulum Opus
 
 | Slug | Ingest n | solved | valid_fail | timeout | infra | stump% | Agent trials? |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| repair-the-pendulum-motion-solver | 25 | 9 | 14 | 0 | 2 | 60.9 | yes (Opus n=10, GPT n=9, haiku n=5 0/5) |
-| hypersonic-fragment-cascade-epoch-atlas | 22 | 10 | 8 | 0 | 4 | 44.4 | yes (8+8 + haiku 0/5: 1 valid_fail, 4 credit infra) |
-| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | 14 | 3 | 4 | 0 | 7 | 57.1 | partial frontier + haiku 3 infra (credit abort) |
-| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
-| apexora-global-wave-3-campus-segmentation-is-blocked-across | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
-| i-need-the-offline-binary-cache-closure-planner-in-app-task | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
+| repair-the-pendulum-motion-solver | 25 | 9 | 14 | 0 | 2 | 60.9 | yes (Opus n=10, GPT n=9, haiku n=5 chip 0/5) |
+| hypersonic-fragment-cascade-epoch-atlas | 26 | 14 | 8 | 0 | 4 | 36.4 | yes (8+8 + haiku chip 4/9: 4 solved + 1 vf + 4 infra) |
+| the-dyeworks-tool-is-a-command-line-reader-at-app-environmen | 16 | 3 | 6 | 0 | 7 | 66.7 | partial frontier + haiku chip 0/5 (2 vf + 3 infra) |
+| the-root-ca-that-signed-our-east-west-mtls-credentials-is-co | 6 | 1 | 5 | 0 | 0 | 83.3 | yes (haiku chip 0/5) |
+| apexora-global-wave-3-campus-segmentation-is-blocked-across | 6 | 1 | 5 | 0 | 0 | 83.3 | yes (haiku chip 0/5) |
+| i-need-the-offline-binary-cache-closure-planner-in-app-task | 6 | 1 | 3 | 0 | 2 | 75.0 | yes (haiku chip 0/5; 2 credit infra; stop) |
 | the-harborlane-replay-desk-needs-a-reusable-offline-planner | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
 | we-re-putting-together-a-stratified-k-fold-evaluation-kit-un | 2 | 1 | 1 | 0 | 0 | 50.0 | yes (haiku n=1 valid_fail + oracle) |
 | wildlife-counting-becomes-a-field-planning-game-when-uncerta | 2 | 1 | 0 | 1 | 0 | 0.0 | yes (haiku timeout; excluded from stump) |
@@ -99,16 +102,17 @@ Agents’ last analyses claim the TypeScript pipeline is complete after checking
 
 Opus fail `…__24tWaEA`: **19 passed, 1 failed** (`test_alpha_collision_occurs_and_matches_reference`, atlas_hash mismatch only). Two GPT k=8 trials passed all 20 tests.
 
-### Hypersonic — cheap Haiku k=5 (0 solved / 1 valid_fail / 4 infra)
+### Hypersonic — cheap Haiku (chip 4/9; counted 5/5)
 
-`anthropic/claude-haiku-4-5`, job `lab01-haiku-hypersonic-fragment-cascade--fill5`. Chip is **0/5** (recorded n includes infra). Stump uses only the one completed agent trial.
+`anthropic/claude-haiku-4-5`. First pass job `lab01-haiku-hypersonic-fragment-cascade--fill5`: 1 valid_fail + 4 credit infra. Resume job `lab01-haiku-hypersonic-fragment-cascade--fill4` (**2026-08-30**): **4/4 solved**, Harbor `cost_usd` **$0.96**. Chip is **4/9** (recorded n includes the four infra). Counted toward k=5: 4 solved + 1 valid_fail.
 
 - `…__AUY7bRz` **valid_fail**: 1 failed, 19 passed. `test_alpha_collision_occurs_and_matches_reference` — `ledger_hash` `259971c0…` vs reference `1779998e…`.
-- `…__KLvpf4E`, `…__AFs2NXw`, `…__Q9Yoc4P`, `…__vLMHRvJ` **infra** (`BadRequestError`, Anthropic **credit balance too low**). Not stumps. No verifier analysis invented for those four.
+- `…__KLvpf4E`, `…__AFs2NXw`, `…__Q9Yoc4P`, `…__vLMHRvJ` **infra** (`BadRequestError`, Anthropic **credit balance too low**). Not stumps.
+- Fill4 `…__S7TMAmw`, `…__Zq6MnPb`, `…__qgU2hSW`, `…__ZJnN3vf` **solved** (reward 1.0).
 
-Harbor then started dyeworks Haiku `-k 5`; that job was **stopped** on the same credit error.
+### Dyeworks — cheap Haiku (chip 0/5; counted 2/5)
 
-### Dyeworks — over-aggressive valid reject (GPT 2/3 completed; valid_fail)
+Job `lab01-haiku-the-dyeworks-tool-is-a-comma-fill5` reused yesterday's aborted dir. 30 Aug added two **valid_fail** (`…__VYo2xQJ`, `…__iebEKBw`, reward 0.0). Three older trials remain **infra** (2 `BadRequestError` credit-too-low + 1 `CancelledError`). Chip **0/5**, not padded. Counted attempts **2**; remaining k=3 not run because iterate had already moved to the next slug, then credits died later on offline-cache.
 
 Both GPT k=8 valid fails are **8 failed, 39 passed**. The patched reader **rejects the valid corpus**: `test_valid_corpus_parses_cleanly`, `test_indirect_value_still_parses`, `test_deep_tree_still_parses`, `test_lot_ref_still_resolves`, `test_boundary_valid_files_still_parse`, `test_generated_valid_parses`, `test_generated_depth_256_nesting_parses`, `test_generated_max_size_file_parses`. stderr is `dyeworksdef: has_children does not match type` (`…__nAs7nWJ`) or `node: sibling chain lacks null terminator` (`…__6FTvzuL`). Trajectories diagnose real ULEB/sectab holes, then the guard is too strict on legal trees. Third GPT trial (`…__Qf54bTE`) is **infra** (`RuntimeError` / tmux send-keys, not a stump). Job left **3/8** (1 running dir + 4 pending) because OpenAI then returned **insufficient_quota**.
 
@@ -116,9 +120,9 @@ Both GPT k=8 valid fails are **8 failed, 39 passed**. The patched reader **rejec
 
 Opus valid fails `…__Au29QTj` and `…__NBB2td6` are identical: **2 failed, 45 passed**. `exploit_alloc.dye` is **accepted (exit 0)** — `test_exploit_alloc_rejected` requires a node-count whose byte size overflows to be rejected. `test_generated_more_nodes_than_count_rejected` also gets exit 0. Two Opus **solves** (`…__uZFqDH3` reward 1.0 after 1800s timeout; `…__B9Z8xMU` 47/47). Three later retries are **credit-balance-too-low** infra (`…__vRaMF4e`, `…__qGvmkvM`, `…__4dYqcT3`). Eighth trial `…__eWdLDth` has **no** `result.json` (worker stopped mid-run).
 
-### Dyeworks — cheap Haiku fill aborted (3 infra; no stump)
+### Dyeworks — over-aggressive valid reject (GPT 2/3 completed; valid_fail)
 
-Job `lab01-haiku-the-dyeworks-tool-is-a-comma-fill5` (`-k 5`) hit Anthropic **credit balance too low** on the first trials. Harbor was stopped (exit 130). Recorded Haiku rows: two `BadRequestError` + one `CancelledError`. **Chip 0/3**, not padded to 0/5. No pytest themes invented — these are infra, not valid_fail.
+Both GPT k=8 valid fails are **8 failed, 39 passed**. The patched reader **rejects the valid corpus**: `test_valid_corpus_parses_cleanly`, `test_indirect_value_still_parses`, `test_deep_tree_still_parses`, `test_lot_ref_still_resolves`, `test_boundary_valid_files_still_parse`, `test_generated_valid_parses`, `test_generated_depth_256_nesting_parses`, `test_generated_max_size_file_parses`. stderr is `dyeworksdef: has_children does not match type` (`…__nAs7nWJ`) or `node: sibling chain lacks null terminator` (`…__6FTvzuL`). Trajectories diagnose real ULEB/sectab holes, then the guard is too strict on legal trees. Third GPT trial (`…__Qf54bTE`) is **infra** (`RuntimeError` / tmux send-keys, not a stump). Job left **3/8** (1 running dir + 4 pending) because OpenAI then returned **insufficient_quota**.
 
 ### Booking Slot Merge — epoch fence / report span (haiku 0/1; valid_fail)
 
@@ -130,17 +134,17 @@ Haiku trial `…__5SqDRHH` (~$0.15, ~3.5 min): **3 failed, 24 passed**. Merge an
 
 This is a recorded **0/1**, not 0/8.
 
-### Root CA mTLS — schedule not exact optimum (haiku 0/1; valid_fail)
+### Root CA mTLS — schedule not exact optimum (haiku chip 0/5)
 
-Trial `…__9cdUGV4` (~$0.25, ~11 min): **3 failed, 6 passed**. Schema and input-hash tests passed. All three `test_schedule_is_the_exact_optimum` fixtures missed (`cycles` 287 vs 346, 333 vs 404, 303 vs 374).
+Trial `…__9cdUGV4` (~$0.25, ~11 min) plus fill4 four more valid_fails (job `lab01-haiku-the-root-ca-that-signed-our--fill4`, **$1.36**). Chip **0/5**. Counted 5/5. First trial: **3 failed, 6 passed**; all three `test_schedule_is_the_exact_optimum` fixtures missed. Fill4 trials also failed schema/optimum checks. No solves. No credit infra on this slug.
 
-### Apexora campus — config not authoritative (haiku 0/1; valid_fail)
+### Apexora campus — config not authoritative (haiku chip 0/5)
 
-Trial `…__9zWrbgo` (~$0.80): **7 failed, 3 passed, 263 errors**. Setup/identity asserts `configuration not yet authoritative` (`config_authoritative_m1`). Anti-cheat mutation tests also failed (legacy VLAN/ACL/trunk). Not infra.
+Trial `…__9zWrbgo` (~$0.80) plus fill4 four more valid_fails (job `lab01-haiku-apexora-global-wave-3-campus-fill4`, **$2.50**). Chip **0/5**. Counted 5/5. Setup/identity still asserts `configuration not yet authoritative`. Not infra.
 
-### Offline binary-cache — proof seal mismatch (haiku 0/1; valid_fail)
+### Offline binary-cache — proof seal mismatch, then credit stop (haiku chip 0/5)
 
-Trial `…__zMsM6oX` (~$0.82): **3 failed, 2 passed**. Closure/TSV matched the oracle; `proof.seal` differed (`8457e6c8…` vs `56fc79c2…`) on public, generated, and copied-root cases.
+Trial `…__zMsM6oX` (~$0.82): **3 failed, 2 passed**; `proof.seal` differed on public/generated/copied-root. Fill4 (`lab01-haiku-i-need-the-offline-binary-ca-fill4`, **$3.23**) added two valid_fail (`…__5UJ6gho`, `…__i5h4um2`) then two **credit-too-low** infra (`…__Y4vX24v`, `…__DXyWUSd`). Chip **0/5**. Counted **3/5**. Harbor stopped here.
 
 ### Harborlane replay — Plan.hs row order (haiku 0/1; valid_fail)
 
@@ -158,28 +162,18 @@ Trial `…__ASNhuY6` (~$0.60, 1800s): **`AgentTimeoutError`**. Classified **time
 
 | Item | State |
 | --- | --- |
-| Harbor process | **Stopped.** Anthropic credit-too-low. No second `harbor run`. See `docs/lab_batch_01_stop.json`. |
-| Cheap 1-shot remaining six | **Done** 2026-08-29T00:54Z. Five valid_fail + wildlife timeout. Booking already 0/1. Remaining `-k 4` fills **not started**. |
-| Cheap pendulum haiku k=5 | **0/5 valid_fail** 2026-08-29T01:44Z. ~$1.96. |
-| Cheap hypersonic haiku k=5 | **0 solved / 1 valid_fail / 4 infra** 2026-08-29T01:57Z. Credit-too-low on four trials. |
-| Cheap dyeworks haiku | **Aborted** 2026-08-29T01:59Z. 3 infra. Chip **0/3**. |
+| Harbor process | **Stopped** 2026-08-30T16:14Z. Anthropic credit-too-low on offline-cache fill4. No second `harbor run`. See `docs/lab_batch_01_stop.json`. |
+| Cheap pendulum haiku | Chip **0/5** valid_fail. Counted 5/5. ~$1.96. |
+| Cheap hypersonic haiku | Chip **4/9**. Counted 5/5 (4 fill4 solves + 1 vf; 4 infra). Fill4 **$0.96**. |
+| Cheap dyeworks haiku | Chip **0/5**. Counted 2/5 (need 3). |
+| Cheap root-CA / Apexora haiku | Chips **0/5** / **0/5**. Counted 5/5 each. |
+| Cheap offline-cache haiku | Chip **0/5**. Counted 3/5. Stopped mid fill4. **$3.23** this job. |
+| Harborlane / k-fold / wildlife / booking | Haiku chips **0/1** (wildlife timeout). Remaining k=4 **not run**. |
 | Second arm (Sonnet / gpt-4o-mini) | **Not started.** OpenAI 429; Anthropic credits exhausted. |
 | Batches 02–05 | Frozen jsonl on disk. **Not oracled, not measured.** |
-| OpenAI | Chat completions **429 insufficient_quota** (`gpt-4o-mini` ping). No GPT cheap arm. |
-| Anthropic haiku | Probe **200**; pendulum k=5 completed without credit-too-low. |
-| Frontier Opus/GPT | Still blocked for remaining 8+8. **Not 160/160.** |
-| Cheap six + booking Harbor cost | **~$3.70** |
+| OpenAI | Chat completions **429 insufficient_quota** (`gpt-4o-mini` ping). |
+| All ingested Harbor `cost_usd` | **$65.00** (frontier+smoke **$49.67**, Haiku **$15.33**) |
 | Docker / Harbor 0.22 | Up |
-
-## Continuation log (2026-08-28T19:30–21:20Z)
-
-Did not re-run pendulum or hypersonic 8+8. Did not use `scripts/run_agents.ps1`. Did not start batch 02.
-
-1. Harbor not running. Keys present (`sk-ant-` len 108; `sk-proj` len 164).
-2. Cheap Anthropic messages ping (`claude-opus-5`, 8+8 tokens) **200**. Cheap OpenAI chat (`gpt-5.6-sol`) **429 insufficient_quota**.
-3. Resumed dyeworks Opus only (filter `BadRequestError`). Seven credit dirs removed and retried at `-n 1`.
-4. Credits failed again on trials 5–7 of that resume. Stopped immediately. Remaining seven slugs (root-CA mTLS, Apexora, offline binary-cache, Harborlane, stratified k-fold, wildlife counting, booking-slot-merge) **never got a `harbor run`**.
-5. Re-ingested. This file updated. Jobs stay gitignored.
 
 ## What the founder sees after this ingest
 
@@ -188,21 +182,19 @@ Serve from repo root (`python -m http.server 8765`) and open:
 - Batch table: [`/lab/index.html?surface=catalog&filter=batch`](../lab/index.html?surface=catalog&filter=batch)
 - Pendulum: [`/lab/index.html?task=repair-the-pendulum-motion-solver`](../lab/index.html?task=repair-the-pendulum-motion-solver)
 - Hypersonic: [`/lab/index.html?task=hypersonic-fragment-cascade-epoch-atlas`](../lab/index.html?task=hypersonic-fragment-cascade-epoch-atlas)
-- Dyeworks: [`/lab/index.html?task=the-dyeworks-tool-is-a-command-line-reader-at-app-environmen`](../lab/index.html?task=the-dyeworks-tool-is-a-command-line-reader-at-app-environmen)
-- Agents: [`/lab/index.html?surface=agents`](../lab/index.html?surface=agents)
+- Spend / Batches: `?surface=spend` · `?surface=batches`
 
-Chips reflect **recorded** trials, not planned 8/8:
+Chips reflect **recorded** trials, never padded to 5 or 8:
 
-- Pendulum: Opus 7/8 k=8 solves + 1 smoke solve; GPT 1/8 k=8; **haiku 0/5**
-- Hypersonic: Opus 7/8; GPT 2/8; **haiku 0/5** (1 valid_fail + 4 credit infra)
-- Dyeworks: Opus **2 solved / 2 valid_fail / 3 infra** of 7 recorded (8th incomplete); GPT **0 solved / 2 valid_fail / 1 infra** of 3 recorded; **haiku 0/3 infra**
-- Other batch rows: haiku **0/1** (or wildlife timeout) — remaining k=4 **not run**
-- Booking Slot Merge: `claude-haiku-4-5 0/1`
+- Pendulum: **haiku 0/5**
+- Hypersonic: **haiku 4/9**
+- Dyeworks / root-CA / Apexora / offline-cache: **haiku 0/5**
+- Harborlane / k-fold / wildlife / booking: **haiku 0/1**
+- Second arm: no chips
+- Batches 02–05: not run
 
-The other 50 gallery rows (outside the frozen tens) stay **not run**. Refresh the lab after ingest; live `jobs/` is gitignored.
+## Cheap k=5 protocol (30 Aug 2026 stop)
 
-## Cheap k=5 protocol (29 Aug 2026)
+Frontier 8+8 stays historical. Cheap k=5 resume filled through Apexora, then died on offline-cache credit-too-low. Sonnet second arm was not started. Live cheap notes: [`lab_batch_01_cheap_notes.md`](lab_batch_01_cheap_notes.md). Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). Batches 02–05 remain frozen in `docs/lab_batch_02.jsonl` … `05.jsonl` with **no Harbor measure**.
 
-Frontier 8+8 is **stopped**. Cheap k=5 Haiku stopped on Anthropic credit-too-low after pendulum 0/5 and hypersonic 0/5 (4 of 5 infra). Sonnet second arm was not started. Live cheap notes: [`lab_batch_01_cheap_notes.md`](lab_batch_01_cheap_notes.md). Stop file: [`lab_batch_01_stop.json`](lab_batch_01_stop.json). Batches 02–05 remain frozen in `docs/lab_batch_02.jsonl` … `05.jsonl` with **no Harbor measure**.
-
-Catalog deep links now use `?surface=catalog` (`surface=tasks` still works). Runs / Traces / Failures / Stump / Spend / Batches are first-class surfaces.
+Catalog deep links use `?surface=catalog` (`surface=tasks` still works). Runs / Traces / Failures / Stump / Spend / Batches are first-class surfaces.
