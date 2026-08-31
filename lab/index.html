@@ -6,7 +6,7 @@
     <title>Applied Work Worlds Lab</title>
     <meta
       name="description"
-      content="Applied Work Worlds Lab: 448 authored Terminal-Bench 2.1-style Harbor packages; 100 public gallery, all hard. Private Harbor 0.22 + terminus-2 trials where recorded. No invented scores."
+      content="Applied Work Worlds Lab: 448 authored Terminal-Bench 2.1-style Harbor packages; 100 public gallery, all hard. Corpus analysis plus private Harbor 0.22 + terminus-2 trials where recorded. No invented scores."
     />
     <meta name="theme-color" content="#FCFAF3" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,6 +33,7 @@
         <button type="button" data-nav="overview">Overview</button>
         <button type="button" data-nav="tasks">Tasks</button>
         <button type="button" data-nav="challenges">Challenges</button>
+        <button type="button" data-nav="analysis">Analysis</button>
       </nav>
 
       <div class="nav-actions">
@@ -46,12 +47,11 @@
 
     <div class="banners" role="status">
       <p class="banner banner-sage" id="banner-research">
-        Research mode. Still developing. Opus 5 and gpt-5.6-sol are measured where Harbor jobs exist.
-        Grok 4.6, GLM, and Kimi are eval queued — no credits.
+        Research mode. Still developing. Opus 5, gpt-5.6-sol, and Haiku are measured where Harbor jobs exist.
       </p>
       <p class="banner banner-peach" id="banner-scores">
         Recorded Harbor scores only. 448 authored inventory · 100 public TB 2.1-style packages.
-        Batch 01 ingest where jobs exist. Remaining gallery eval queued — no credits.
+        Batch 01 ingest where jobs exist. Grok 4.6 and Kimi have no trials on this gallery.
       </p>
     </div>
 
@@ -62,46 +62,59 @@
           <h1>100 public hard worlds from 448 authored Harbor packages</h1>
           <p class="lede">
             Terminal-Bench 2.1-style Harbor packs for terminal agents: unique hard worlds,
-            oracle and tests, offline Docker environments. Remaining frontier models are
-            eval queued — no credits.
+            oracle and tests, offline Docker environments. Overview is catalog analysis —
+            the 100 live on Tasks.
           </p>
         </div>
 
         <section class="metrics" aria-label="Gallery metrics">
           <article>
-            <p class="stat-label">Packs</p>
+            <p class="stat-label">Public</p>
             <p class="stat-value" id="stat-packs">100</p>
             <p class="stat-note" id="stat-packs-note">100 public · 448 inventory</p>
           </article>
           <article>
-            <p class="stat-label">Last measured</p>
-            <p class="stat-value" id="stat-last">—</p>
-            <p class="stat-note" id="stat-last-note">Opus 5 · gpt-5.6-sol</p>
+            <p class="stat-label">Hard</p>
+            <p class="stat-value" id="stat-hard">100/100</p>
+            <p class="stat-note">Author-labeled · task.toml</p>
+          </article>
+          <article>
+            <p class="stat-label">Frozen tens</p>
+            <p class="stat-value" id="stat-frozen">50</p>
+            <p class="stat-note">Batches 01–05 · stop after 05</p>
           </article>
           <article>
             <p class="stat-label">Valid trials</p>
             <p class="stat-value" id="stat-valid">0</p>
             <p class="stat-note" id="stat-valid-note">Harbor completed · infra excluded</p>
           </article>
-          <article>
-            <p class="stat-label">Queued</p>
-            <p class="stat-value" id="stat-queued">3 arms</p>
-            <p class="stat-note">Grok 4.6 · GLM · Kimi</p>
-          </article>
         </section>
 
-        <section class="packs-block" aria-labelledby="packs-heading">
-          <div class="packs-head">
-            <div>
-              <h2 id="packs-heading">The 100 packs</h2>
-              <p class="muted">
-                Every public gallery environment. Solid cells are Harbor ingest only.
-                Dashed cells are eval queued — no credits.
-              </p>
-            </div>
-            <a class="btn btn-solid" href="?surface=tasks" data-nav="tasks">Open the 100-row table</a>
+        <section class="analysis-block" aria-labelledby="overview-analysis-heading">
+          <p class="synth-kicker">Corpus analysis</p>
+          <h2 id="overview-analysis-heading">Coverage of the 100, plus named Batch 01 holes</h2>
+          <p class="muted analysis-disclaimer" id="overview-disclaimer">
+            Catalog counts from the frozen 100-list and inventory. Named failure themes
+            come from Batch 01 Harbor ingest. This is not a Harbor-measured score for the gallery.
+          </p>
+          <div class="prose" id="overview-prose"></div>
+          <div class="chart-split">
+            <article class="chart-card">
+              <h3>Languages on the 100</h3>
+              <p class="muted chart-src">Primary language · public gallery · not a solve rate</p>
+              <div class="bar-chart" id="overview-lang-chart"></div>
+            </article>
+            <article class="chart-card">
+              <h3>TB 2.1 categories</h3>
+              <p class="muted chart-src">Hamilton mix of the 100 · not a solve rate</p>
+              <div class="bar-chart" id="overview-cat-chart"></div>
+            </article>
           </div>
-          <div class="pack-grid" id="pack-grid"></div>
+          <div class="theme-preview" id="overview-themes"></div>
+          <div class="cta-row">
+            <a class="btn btn-solid" href="?surface=tasks" data-nav="tasks" data-filter="all">Browse 100</a>
+            <a class="btn btn-ghost" href="?surface=analysis" data-nav="analysis">Open analysis</a>
+          </div>
         </section>
       </section>
 
@@ -150,8 +163,8 @@
                     <th scope="col">Track</th>
                     <th scope="col">Opus 5</th>
                     <th scope="col">GPT-5.6-sol</th>
+                    <th scope="col">Haiku</th>
                     <th scope="col">Grok 4.6</th>
-                    <th scope="col">GLM</th>
                     <th scope="col">Kimi</th>
                   </tr>
                 </thead>
@@ -183,7 +196,7 @@
           <p class="lede">
             Challenges here is the coverage gallery over the same 100 public worlds —
             domain mix, frozen batches, and Harbor jobs where they exist. It is not
-            three week-scale packs.
+            three week-scale packs, and it is not a 100-card dump.
           </p>
         </div>
         <div class="slice-grid" id="challenge-slices"></div>
@@ -202,14 +215,94 @@
         </div>
       </section>
 
+      <section id="surface-analysis" class="page" hidden>
+        <div class="hero-dh">
+          <p class="eyebrow synth-kicker">Corpus analysis</p>
+          <h1>Catalog mix, freeze, and Batch 01 loss themes</h1>
+          <p class="lede">
+            Real inventory and gallery counts, plus named verifier holes from Batch 01 ingest.
+            Not a Harbor-measured score for the 100. Grok 4.6 and Kimi have no trials here.
+          </p>
+        </div>
+        <section class="metrics metrics-compact" aria-label="Corpus counts">
+          <article>
+            <p class="stat-label">Inventory</p>
+            <p class="stat-value" id="analysis-inventory">448</p>
+            <p class="stat-note">Authored Harbor packages</p>
+          </article>
+          <article>
+            <p class="stat-label">Public</p>
+            <p class="stat-value" id="analysis-public">100</p>
+            <p class="stat-note" id="analysis-hard-note">100/100 hard</p>
+          </article>
+          <article>
+            <p class="stat-label">Tagged</p>
+            <p class="stat-value" id="analysis-tagged">36</p>
+            <p class="stat-note">Packs with subcategory tags</p>
+          </article>
+          <article>
+            <p class="stat-label">Last ingest</p>
+            <p class="stat-value" id="analysis-ingest">—</p>
+            <p class="stat-note">Opus 5 · gpt-5.6-sol · Haiku</p>
+          </article>
+        </section>
+        <div class="chart-split">
+          <article class="chart-card">
+            <h2>Languages on the 100</h2>
+            <p class="muted chart-src">From the frozen jsonl / catalog · not invented solve rates</p>
+            <div class="bar-chart" id="analysis-lang-chart"></div>
+          </article>
+          <article class="chart-card">
+            <h2>Category mix</h2>
+            <p class="muted chart-src">Gallery 100 vs 448 inventory</p>
+            <div id="analysis-cat-compare"></div>
+          </article>
+        </div>
+        <article class="chart-card">
+          <h2>Coverage heatmap</h2>
+          <p class="muted chart-src">Domain × language over the 100. Teal = Harbor jobs ingested.</p>
+          <div class="table-scroll">
+            <table class="matrix" id="analysis-heat"></table>
+          </div>
+        </article>
+        <article class="chart-card">
+          <h2>Subcategory tags</h2>
+          <p class="muted chart-src">Author tags on 36 of 100 packs</p>
+          <div class="tag-row" id="analysis-subs"></div>
+        </article>
+        <article class="chart-card" id="analysis-batches-card">
+          <h2>Batch freeze 01–05</h2>
+          <p class="muted chart-src">Five frozen tens from the 100. Only Batch 01 has Harbor jobs.</p>
+          <div id="analysis-batches"></div>
+        </article>
+        <article class="chart-card">
+          <h2>Going-forward protocol</h2>
+          <p class="muted">Cheap k=5 is the live plan. Frontier 8-run groups stay history.</p>
+          <ul class="plain-list" id="analysis-method"></ul>
+        </article>
+        <div class="page-head">
+          <div>
+            <h2 class="section-title">Batch 01 loss themes</h2>
+            <p class="muted">
+              Named from Harbor verifier stdout and trajectories on the frozen ten.
+              Denominators stay on Tasks as solved / recorded ingest — never padded.
+            </p>
+          </div>
+        </div>
+        <div class="theme-grid" id="analysis-themes"></div>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="?surface=tasks" data-nav="tasks" data-filter="all">Browse 100</a>
+          <a class="btn btn-ghost" href="?surface=tasks&amp;filter=b01" data-nav="tasks" data-filter="b01">Open Batch 01</a>
+        </div>
+      </section>
+
       <section id="surface-models" class="page" hidden>
         <div class="page-head">
           <div>
             <h1>Models</h1>
             <p class="muted">
               448 authored packages; 100 public; private Harbor trials where
-              recorded; remaining analysis when API credits return. Cells are
-              solved / recorded from ingest — never estimates.
+              recorded. Cells are solved / recorded from ingest — never estimates.
             </p>
           </div>
         </div>
@@ -232,9 +325,8 @@
         </div>
         <h2 class="section-kicker">Per-task matrix · 100 gallery rows</h2>
         <p class="muted matrix-note">
-          Featured columns match the models clients asked about. Grok 4.6, GLM,
-          and Kimi stay eval queued — no credits. Other recorded Harbor
-          models (Haiku) appear in the package panel, not as invented frontier scores.
+          Opus 5, gpt-5.6-sol, and Haiku fill only from Harbor ingest. Grok 4.6 and Kimi
+          stay empty. Other recorded models appear in the package panel, not as invented scores.
         </p>
         <div class="table-card">
           <div class="table-scroll">
@@ -245,8 +337,8 @@
                   <th scope="col">Track</th>
                   <th scope="col">Opus 5</th>
                   <th scope="col">GPT-5.6-sol</th>
+                  <th scope="col">Haiku</th>
                   <th scope="col">Grok 4.6</th>
-                  <th scope="col">GLM</th>
                   <th scope="col">Kimi</th>
                 </tr>
               </thead>
@@ -308,7 +400,7 @@
           <ul class="plain-list">
             <li>Oracle <code>harbor run -a oracle -k 1</code> reward 1.0 or the slug is dropped, not footnoted.</li>
             <li>Agent reward 0.0 with no timeout/infra exception is <strong>valid fail</strong>.</li>
-            <li>Timeout, Docker, auth, credit-too-low, and 429 quota are <strong>infra</strong>.</li>
+            <li>Timeout, Docker, auth, and quota exceptions are <strong>infra</strong>.</li>
             <li>Optional <code>nop</code> empty submission should score 0. A world that rewards empty work is a scaffold void.</li>
             <li>Binary channel is Harbor <code>rewards.reward</code>. Rubric channel is off until we author one.</li>
           </ul>
@@ -331,8 +423,8 @@
             <h2>Not measured</h2>
             <p class="muted">
               Claude Code, Codex CLI, and mini-swe-agent are not estimated on this
-              corpus. No invented multipliers. Grok 4.6, GLM, and Kimi have no
-              Harbor trials on this gallery — eval queued, no credits.
+              corpus. No invented multipliers. Grok 4.6 and Kimi have no Harbor
+              trials on this gallery.
             </p>
           </article>
         </div>

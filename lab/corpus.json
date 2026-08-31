@@ -11,7 +11,7 @@
       "stump_pct": true,
       "model_scores": true,
       "copied_caudal_scores": false,
-      "note": "448 authored packages in tasks/latest/; 100 public gallery. Measured Harbor jobs exist only on Batch 01 (partial cheap Haiku + some frontier history). Batches 02–05 frozen, not measured. Not 50/50. Not 160/160. Grok 4.6, GLM, and Kimi were not run. Runtime is private Harbor 0.22 + terminus-2 / oracle.",
+      "note": "448 authored packages in tasks/latest/; 100 public gallery. Measured Harbor jobs exist only on Batch 01 (partial cheap Haiku + some frontier history). Batches 02–05 frozen, not measured. Not 50/50. Not 160/160. Grok 4.6 and Kimi were not run. Runtime is private Harbor 0.22 + terminus-2 / oracle.",
       "stopped": true,
       "invented_stump": false,
       "buyer_platform_claimed": false

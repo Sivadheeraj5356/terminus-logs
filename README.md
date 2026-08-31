@@ -31,7 +31,7 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 `stump_pct = valid_fail / (solved + valid_fail) * 100`. Timeouts and infrastructure errors (auth, Docker, credit-too-low, 429 quota) do not count.
 
-The Worlds Lab is a static **client-facing corpus site** over 100 unique hard Harbor packages (public gallery) drawn from 448 authored packages under `tasks/latest/`. **Public nav:** Overview, Tasks, Challenges (Coverage). There is no below-nav strip, no Lab toggle, and no Spend or Stump surfaces — `?surface=spend` and `?surface=stump` (with or without `internal=1`) show an honest empty page, not invoices or stump tables. Model cells fill only from Harbor ingest. Grok 4.6, GLM, and Kimi are **eval queued — no credits**. Runtime is **private Harbor 0.22 + terminus-2 / oracle**, not a hosted buyer platform.
+The Worlds Lab is a static **client-facing corpus site** over 100 unique hard Harbor packages (public gallery) drawn from 448 authored packages under `tasks/latest/`. **Public nav:** Overview, Tasks, Challenges (Coverage), Analysis. Overview is editorial (hero, metrics, corpus analysis, charts) — the 100 live on Tasks. There is no below-nav strip, no Lab toggle, and no Spend or Stump surfaces — `?surface=spend` and `?surface=stump` (with or without `internal=1`) show an honest empty page, not invoices or stump tables. Model cells fill only from Harbor ingest (Opus 5, gpt-5.6-sol, Haiku). Grok 4.6 and Kimi stay empty. Runtime is **private Harbor 0.22 + terminus-2 / oracle**, not a hosted buyer platform.
 
 Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Measured Harbor jobs exist only on Batch 01 (partial). Batches 02–05 are frozen, not measured. **Not 50/50. Not 160/160.**
 
@@ -49,6 +49,7 @@ Then open:
 - Tasks, all 100: http://127.0.0.1:8765/lab/index.html?surface=tasks
 - Tasks cards: http://127.0.0.1:8765/lab/index.html?surface=tasks&view=cards
 - Challenges / coverage: http://127.0.0.1:8765/lab/index.html?surface=challenges
+- Analysis (corpus mix + Batch 01 loss themes): http://127.0.0.1:8765/lab/index.html?surface=analysis
 - Batch 01 (10 of 100, has jobs): http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=b01
 - Batch 02 (frozen, not_run): http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=b02
 - One package: http://127.0.0.1:8765/lab/index.html?task=repair-the-pendulum-motion-solver

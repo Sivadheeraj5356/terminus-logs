@@ -29,7 +29,7 @@
     ui_building: "UI",
   };
 
-  const PUBLIC_SURFACES = ["overview", "tasks", "challenges"];
+  const PUBLIC_SURFACES = ["overview", "tasks", "challenges", "analysis"];
   const LAB_SURFACES = ["models", "batches", "harness", "runs", "traces", "failures", "verifier", "agents"];
   const BLOCKED_SURFACES = ["spend", "stump"];
   const SURFACES = [...PUBLIC_SURFACES, ...LAB_SURFACES, "unavailable"];
@@ -42,6 +42,9 @@
     catalog: "tasks",
     challenges: "challenges",
     coverage: "challenges",
+    analysis: "analysis",
+    "corpus-analysis": "analysis",
+    preview: "analysis",
     models: "models",
     matrix: "models",
     runs: "runs",
@@ -74,29 +77,87 @@
       match: (name) => /gpt-5\.6-sol/i.test(name),
     },
     {
+      key: "haiku",
+      label: "Haiku",
+      slug: "anthropic/claude-haiku-4-5",
+      tone: "cell-haiku",
+      short: "Haiku",
+      match: (name) => /haiku/i.test(name),
+    },
+    {
       key: "grok",
       label: "Grok 4.6",
       slug: "grok-4.6",
       placeholder: true,
-      note: "eval queued — no credits",
-    },
-    {
-      key: "glm",
-      label: "GLM",
-      slug: "glm",
-      placeholder: true,
-      note: "eval queued — no credits",
+      note: "No Harbor ingest on this gallery.",
     },
     {
       key: "kimi",
       label: "Kimi",
       slug: "kimi",
       placeholder: true,
-      note: "eval queued — no credits",
+      note: "No Harbor ingest on this gallery.",
     },
   ];
 
-  const QUEUED_LABEL = "eval queued — no credits";
+  const LOSS_THEMES = [
+    {
+      slug: "repair-the-pendulum-motion-solver",
+      title: "Pendulum — capture cadence",
+      body: "GPT recovered 0.450 Hz / 0.175 s⁻¹ against ground truth 0.9 Hz / 0.35 s⁻¹. Trajectories treat dt = 0.1 s as the cadence, which halves frequency and decay versus the seeded 20 fps / 0.05 s world.",
+    },
+    {
+      slug: "repair-the-pendulum-motion-solver",
+      title: "Pendulum — extra Graphviz vertex",
+      body: "Opus valid-fail: frequencies were in tolerance but test_graph_node_count_matches_edges saw 193 DOT vertices versus 192 recovery_edges rows.",
+    },
+    {
+      slug: "hypersonic-fragment-cascade-epoch-atlas",
+      title: "Hypersonic — reference hash / epoch time",
+      body: "GPT valid-fails share ledger_hash ≠ reference, hidden flare-trap density, and t_sec 0.05 vs 0.0. Agents check the bundled catalog; hidden fixtures and epoch timestamps still disagree.",
+    },
+    {
+      slug: "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
+      title: "Dyeworks — valid corpus reject vs alloc overflow",
+      body: "GPT patches reject legal trees (has_children / sibling terminator). Opus valid-fails accept exploit_alloc.dye — the overflow node-count must be rejected.",
+    },
+    {
+      slug: "booking-slot-merge",
+      title: "Booking — SPAN off-by-one",
+      body: "Haiku merge mostly passed. SPAN printed 201 vs expected 200 (inclusive end vs fenced interval). Column widths and epoch-regression exit code were off with it.",
+    },
+    {
+      slug: "the-root-ca-that-signed-our-east-west-mtls-credentials-is-co",
+      title: "Root CA — schedule not exact optimum",
+      body: "Haiku trials missed test_schedule_is_the_exact_optimum on the mTLS fixtures. Schema/optimum checks failed; no solves on this slug.",
+    },
+    {
+      slug: "apexora-global-wave-3-campus-segmentation-is-blocked-across",
+      title: "Apexora — config not authoritative",
+      body: "Setup/identity still asserts configuration not yet authoritative. Valid fails, not infra.",
+    },
+    {
+      slug: "i-need-the-offline-binary-cache-closure-planner-in-app-task",
+      title: "Offline cache — proof.seal mismatch",
+      body: "proof.seal differed on public, generated, and copied-root cases before the fill stopped.",
+    },
+    {
+      slug: "the-harborlane-replay-desk-needs-a-reusable-offline-planner",
+      title: "Harborlane — Plan.hs row order",
+      body: "Haskell payload segment ids start at seg-ea-02 versus expected seg-no-00. Compatibility matrix failed the same ordering/schema check.",
+    },
+    {
+      slug: "we-re-putting-together-a-stratified-k-fold-evaluation-kit-un",
+      title: "Stratified k-fold — extra stdout line",
+      body: "assemble printed a JSON object then a CSV path; setup_method JSON-decode hit Extra data. Reward 0.0, valid fail, not infra.",
+    },
+    {
+      slug: "wildlife-counting-becomes-a-field-planning-game-when-uncerta",
+      title: "Wildlife — agent timeout",
+      body: "AgentTimeoutError after 1800s. Classified timeout, excluded from stump. Verifier still ran after cutoff.",
+    },
+  ];
+
   const PLANNED = Number((corpus.lab.harness || {}).planned_attempts) || 5;
   const tasks = corpus.tasks;
   const bySlug = new Map(tasks.map((task) => [task.slug, task]));
@@ -375,14 +436,14 @@
     return agentModels(task).find((row) => spec.match(row.model || "") && recordedN(row) > 0) || null;
   }
 
-  function queuedCell() {
-    return `<span class="cell-queued">${QUEUED_LABEL}</span>`;
+  function emptyCell() {
+    return `<span class="cell-empty">—</span>`;
   }
 
   function modelCell(task, spec) {
-    if (!spec || spec.placeholder) return queuedCell();
+    if (!spec || spec.placeholder) return emptyCell();
     const row = featuredRow(task, spec);
-    if (!row) return queuedCell();
+    if (!row) return emptyCell();
     const recorded = recordedN(row);
     const label = spec.short || spec.label;
     return `<span class="cell-score ${spec.tone || "cell-measured"}">${escapeHtml(label)} ${
@@ -612,7 +673,7 @@
 
   function harborLine(task) {
     const agents = agentModels(task).filter((row) => recordedN(row) > 0);
-    if (!agents.length) return QUEUED_LABEL;
+    if (!agents.length) return "No terminus-2 trials ingested for this pack.";
     return agents
       .map((row) => `${shortModel(row.model)} ${row.solved || 0}/${recordedN(row)} recorded`)
       .join(" · ");
@@ -654,14 +715,14 @@
       .join(" ");
     const featuredHtml = FEATURED_MODELS.map((spec) => {
       if (spec.placeholder) {
-        return `<div>${escapeHtml(spec.label)}: <span class="muted">${QUEUED_LABEL}</span></div>`;
+        return `<div>${escapeHtml(spec.label)}: <span class="muted">—</span></div>`;
       }
       const row = featuredRow(task, spec);
-      if (!row) return `<div>${escapeHtml(spec.label)}: <span class="muted">${QUEUED_LABEL}</span></div>`;
+      if (!row) return `<div>${escapeHtml(spec.label)}: <span class="muted">—</span></div>`;
       return `<div>${escapeHtml(spec.label)}: ${row.solved || 0}/${recordedN(row)} recorded</div>`;
     }).join("");
     const otherAgents = agents.filter(
-      (row) => !/opus-5|gpt-5\.6-sol/i.test(row.model || "")
+      (row) => !/opus-5|gpt-5\.6-sol|haiku/i.test(row.model || "")
     );
     const otherHtml = otherAgents.length
       ? otherAgents
@@ -669,10 +730,10 @@
           .join("")
       : "";
     const measured = hasAgentJobs(task);
-    const statusHead = measured ? "Measured" : "Eval queued — no credits";
+    const statusHead = measured ? "Measured" : "Not measured";
     const statusBody = measured
       ? `${solved} solved · ${fails} valid fail · ${completed} completed Harbor trials. ${harborLine(task)}.`
-      : "No terminus-2 trials ingested for this pack. Grok 4.6, GLM, and Kimi were not run.";
+      : "No terminus-2 trials ingested for this pack.";
     const themes = ((task.analysis && task.analysis.themes) || []).slice(0, 6);
     panelBody.innerHTML = `
       <dl class="meta">
@@ -759,6 +820,7 @@
     let timeout = 0;
     let opusTasks = 0;
     let gptTasks = 0;
+    let haikuTasks = 0;
     tasks.forEach((task) => {
       agentModels(task).forEach((row) => {
         const n = recordedN(row);
@@ -770,6 +832,7 @@
         timeout += row.timeout || 0;
         if (/opus-5/i.test(row.model || "")) opusTasks += 1;
         if (/gpt-5\.6-sol/i.test(row.model || "")) gptTasks += 1;
+        if (/haiku/i.test(row.model || "")) haikuTasks += 1;
       });
     });
     return {
@@ -781,6 +844,7 @@
       timeout,
       opusTasks,
       gptTasks,
+      haikuTasks,
       jobs: tasks.filter(hasJobs).length,
       agents: tasks.filter(hasAgentJobs).length,
     };
@@ -794,109 +858,33 @@
         corpus.lab.inventory_size || 448
       } authored inventory · ${corpus.lab.mvp_size || 100} public TB 2.1-style packages. Last ingest ${formatIngestDate(
         corpus.lab.generated_utc
-      )}. ${stats.jobs} of ${tasks.length} gallery rows have jobs. Remaining eval queued — no credits.`;
+      )}. ${stats.jobs} of ${tasks.length} gallery rows have jobs.`;
     }
   }
 
-  function renderOverview() {
-    const stats = harborStats();
-    const packs = document.getElementById("stat-packs");
-    const packsNote = document.getElementById("stat-packs-note");
-    const last = document.getElementById("stat-last");
-    const lastNote = document.getElementById("stat-last-note");
-    const valid = document.getElementById("stat-valid");
-    const validNote = document.getElementById("stat-valid-note");
-    if (packs) packs.textContent = String(corpus.lab.mvp_size || tasks.length);
-    if (packsNote) {
-      packsNote.textContent = `${corpus.lab.mvp_size || tasks.length} public · ${
-        corpus.lab.inventory_size || 448
-      } inventory`;
-    }
-    if (last) last.textContent = formatIngestDate(corpus.lab.generated_utc);
-    if (lastNote) {
-      lastNote.textContent =
-        stats.opusTasks || stats.gptTasks
-          ? `Opus 5 · gpt-5.6-sol · ${stats.jobs} packs with jobs`
-          : "No featured-model ingest yet";
-    }
-    if (valid) valid.textContent = String(stats.completed);
-    if (validNote) {
-      validNote.textContent = `${stats.recorded} recorded · infra ${stats.infra} · timeout ${stats.timeout} excluded`;
-    }
-    renderBanners(stats);
-    const grid = document.getElementById("pack-grid");
-    if (!grid) return;
-    const ordered = [...tasks].sort((a, b) => Number(hasJobs(b)) - Number(hasJobs(a)) || a.name.localeCompare(b.name));
-    grid.innerHTML = "";
-    ordered.forEach((task) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "pack-card";
-      btn.dataset.slug = task.slug;
-      const hard =
-        String(task.difficulty || "").toLowerCase() === "hard"
-          ? `<span class="pill-hard">Hard</span>`
-          : `<span class="chip chip-warn">${escapeHtml(task.difficulty || "unknown")}</span>`;
-      btn.innerHTML = `
-        <p class="pack-card-meta">${trackPills(task)}${hard}</p>
-        <h3>${escapeHtml(task.name)}</h3>
-        <p class="cat-line">${escapeHtml(categoryLine(task))}</p>
-        <div class="pack-card-models">${FEATURED_MODELS.map((spec) => modelCell(task, spec)).join("")}</div>
-      `;
-      btn.addEventListener("click", () => selectTask(task.slug, true));
-      grid.appendChild(btn);
-    });
+  function galleryLanguageMix() {
+    const fromCharts = ((corpus.lab.charts || {}).language_mix || []).map((row) => [
+      normalizeLang(row.language) || row.language,
+      row.n,
+    ]);
+    if (fromCharts.length) return fromCharts.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return languageCounts();
   }
 
-  function renderChallengeSlices() {
-    const el = document.getElementById("challenge-slices");
+  function renderBarChart(el, rows) {
     if (!el) return;
-    const mix = corpus.lab.category_mix || {};
-    const frozen = frozenCounts();
-    const stops = corpus.lab.stops || {};
-    const domainCards = Object.keys(CATEGORY_LABELS).map((key) => {
-      const n = mix[key] || 0;
-      const jobs = tasks.filter((task) => task.category === key && hasJobs(task)).length;
-      return `<button type="button" class="slice-card" data-filter="${escapeHtml(key)}">
-        <p class="pack-card-meta"><span class="pill-track">TB 2.1</span><span class="pill-hard">Hard</span></p>
-        <h3>${escapeHtml(categoryLabel(key))}</h3>
-        <p class="cat-line">${n} of 100 public packs · ${jobs} with Harbor jobs</p>
-        <p class="muted">${jobs ? `${jobs} measured from ingest` : QUEUED_LABEL}</p>
-      </button>`;
-    });
-    const batchCards = [1, 2, 3, 4, 5].map((n) => {
-      const size = frozen[n] || 0;
-      const slugs = ((corpus.lab.batches || {})[String(n)] || {}).slugs || [];
-      const jobs = slugs.filter((slug) => {
-        const task = bySlug.get(slug);
-        return task && hasJobs(task);
-      }).length;
-      const stop = stops[String(n)];
-      const note = stop
-        ? `Stopped: ${stop.reason || "credit/quota"}`
-        : jobs
-          ? `${jobs} with Harbor jobs`
-          : "Frozen · not run";
-      return `<button type="button" class="slice-card" data-filter="b${String(n).padStart(2, "0")}">
-        <p class="pack-card-meta"><span class="pill-track batch">B${batchLabel(n)}</span><span class="pill-track">TB 2.1</span></p>
-        <h3>Frozen ten ${batchLabel(n)}</h3>
-        <p class="cat-line">${size}/10 seats from the 100</p>
-        <p class="muted">${escapeHtml(note)}</p>
-      </button>`;
-    });
-    el.innerHTML = domainCards.join("") + batchCards.join("");
-    el.querySelectorAll("[data-filter]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        category = btn.getAttribute("data-filter");
-        langFilter = "all";
-        setUrl({ surface: "tasks", filter: category, slug: "", push: true });
-        renderAll();
-      });
-    });
+    const max = Math.max(1, ...rows.map((row) => row[1]));
+    el.innerHTML = rows
+      .map(([label, n]) => {
+        const pct = Math.round((n / max) * 100);
+        return `<div class="bar-row"><span title="${escapeHtml(label)}">${escapeHtml(
+          label
+        )}</span><span class="bar-fill"><b style="width:${pct}%"></b></span><span>${n}</span></div>`;
+      })
+      .join("");
   }
 
-  function renderCoverage() {
-    const table = document.getElementById("coverage-table");
+  function renderHeatmap(table) {
     if (!table) return;
     const cov = (corpus.lab && corpus.lab.coverage) || { domains: [], languages: [], cells: {} };
     const langs = cov.languages || [];
@@ -921,7 +909,7 @@
           })
           .filter(Boolean);
         const uniq = [...new Set(marks)];
-        const cls = cell.measured ? "cell-measured" : cell.selected ? "cell-selected" : "";
+        const cls = cell.measured ? "has-jobs" : cell.selected ? "cell-selected" : "";
         html += `<td class="${cls}">${cell.gallery}${
           uniq.length ? ` <span class="batch-mark">${uniq.join(",")}</span>` : ""
         }${cell.measured ? ` <span class="chip chip-ok">jobs</span>` : ""}</td>`;
@@ -930,6 +918,220 @@
     });
     html += "</tbody>";
     table.innerHTML = html;
+  }
+
+  function renderThemeCards(el, themes) {
+    if (!el) return;
+    el.innerHTML = themes
+      .map((theme) => {
+        const task = bySlug.get(theme.slug);
+        const name = task ? task.name : theme.slug;
+        return `<article class="theme-card">
+          <h3>${escapeHtml(theme.title)}</h3>
+          <p>${escapeHtml(theme.body)}</p>
+          <p class="slug">${escapeHtml(name)}</p>
+        </article>`;
+      })
+      .join("");
+  }
+
+  function overviewProse(stats) {
+    const mix = corpus.lab.category_mix || {};
+    const cats = Object.keys(CATEGORY_LABELS)
+      .map((key) => `${categoryLabel(key)} ${mix[key] || 0}`)
+      .join(", ");
+    const langs = galleryLanguageMix()
+      .map(([lang, n]) => `${lang} ${n}`)
+      .join(", ");
+    const subs = corpus.lab.subcategory_mix || {};
+    const subLine = Object.entries(subs)
+      .sort((a, b) => b[1] - a[1])
+      .map(([key, n]) => `${subcategoryLabel(key)} ${n}`)
+      .join(", ");
+    const tagged = (corpus.lab.integrity || {}).packages_with_subcategory || 36;
+    const frozen = tasks.filter((task) => batchNum(task)).length;
+    const hard = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
+    return `<p>The public gallery is <strong>${
+      corpus.lab.mvp_size || 100
+    }</strong> unique hard Harbor packages drawn from <strong>${
+      corpus.lab.inventory_size || 448
+    }</strong> authored worlds. ${hard} of ${tasks.length} are author-labeled hard. ${frozen} seats are frozen across batches 01–05. Harbor ingest exists on ${
+      stats.jobs
+    } of ${tasks.length} rows (Batch 01).</p>
+    <p>Category mix: ${escapeHtml(cats)}.</p>
+    <p>Primary languages: ${escapeHtml(langs)}.</p>
+    <p>Subcategory tags on ${tagged} packs: ${escapeHtml(subLine) || "none"}.</p>
+    <p>Going forward is cheap k=5 on the frozen tens. Frontier Opus 5 / gpt-5.6-sol 8-run groups on pendulum, hypersonic, and partial dyeworks stay history. Grok 4.6 and Kimi have no ingest — Tasks shows an em dash, not a score.</p>`;
+  }
+
+  function renderOverview() {
+    const stats = harborStats();
+    const packs = document.getElementById("stat-packs");
+    const packsNote = document.getElementById("stat-packs-note");
+    const hard = document.getElementById("stat-hard");
+    const frozenEl = document.getElementById("stat-frozen");
+    const valid = document.getElementById("stat-valid");
+    const validNote = document.getElementById("stat-valid-note");
+    const frozenN = tasks.filter((task) => batchNum(task)).length;
+    const hardN = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
+    if (packs) packs.textContent = String(corpus.lab.mvp_size || tasks.length);
+    if (packsNote) {
+      packsNote.textContent = `${corpus.lab.mvp_size || tasks.length} public · ${
+        corpus.lab.inventory_size || 448
+      } inventory`;
+    }
+    if (hard) hard.textContent = `${hardN}/${tasks.length}`;
+    if (frozenEl) frozenEl.textContent = String(frozenN);
+    if (valid) valid.textContent = String(stats.completed);
+    if (validNote) {
+      validNote.textContent = `${stats.jobs} packs with jobs · ${stats.recorded} recorded · infra ${stats.infra} excluded`;
+    }
+    const prose = document.getElementById("overview-prose");
+    if (prose) prose.innerHTML = overviewProse(stats);
+    const catRows = Object.keys(CATEGORY_LABELS).map((key) => [
+      categoryLabel(key),
+      (corpus.lab.category_mix || {})[key] || 0,
+    ]);
+    renderBarChart(document.getElementById("overview-lang-chart"), galleryLanguageMix());
+    renderBarChart(document.getElementById("overview-cat-chart"), catRows);
+    renderThemeCards(document.getElementById("overview-themes"), LOSS_THEMES.slice(0, 4));
+    renderBanners(stats);
+  }
+
+  function renderAnalysis() {
+    const stats = harborStats();
+    const inv = document.getElementById("analysis-inventory");
+    const pub = document.getElementById("analysis-public");
+    const tagged = document.getElementById("analysis-tagged");
+    const hardNote = document.getElementById("analysis-hard-note");
+    const ingest = document.getElementById("analysis-ingest");
+    const hardN = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
+    const taggedN = (corpus.lab.integrity || {}).packages_with_subcategory || 0;
+    if (inv) inv.textContent = String(corpus.lab.inventory_size || 448);
+    if (pub) pub.textContent = String(corpus.lab.mvp_size || tasks.length);
+    if (tagged) tagged.textContent = String(taggedN);
+    if (hardNote) hardNote.textContent = `${hardN}/${tasks.length} hard`;
+    if (ingest) ingest.textContent = formatIngestDate(corpus.lab.generated_utc);
+
+    renderBarChart(document.getElementById("analysis-lang-chart"), galleryLanguageMix());
+
+    const compare = document.getElementById("analysis-cat-compare");
+    if (compare) {
+      const gallery = corpus.lab.category_mix || {};
+      const inventory = corpus.lab.inventory_category_counts || {};
+      const rows = Object.keys(CATEGORY_LABELS)
+        .map((key) => [key, gallery[key] || 0, inventory[key] || 0]);
+      compare.innerHTML =
+        `<div class="compare-row compare-head"><span>Domain</span><span>100</span><span>448</span></div>` +
+        rows
+          .map(
+            ([key, g, invN]) =>
+              `<div class="compare-row"><span>${escapeHtml(categoryLabel(key))}</span><span>${g}</span><span>${invN}</span></div>`
+          )
+          .join("");
+    }
+
+    renderHeatmap(document.getElementById("analysis-heat"));
+
+    const subs = document.getElementById("analysis-subs");
+    if (subs) {
+      const mix = corpus.lab.subcategory_mix || {};
+      const chips = Object.entries(mix)
+        .sort((a, b) => b[1] - a[1])
+        .map(
+          ([key, n]) =>
+            `<span class="chip">${escapeHtml(subcategoryLabel(key))} ${n}</span>`
+        );
+      chips.push(`<span class="chip chip-muted">${taggedN} of ${tasks.length} tagged</span>`);
+      subs.innerHTML = chips.join("");
+    }
+
+    const batchesEl = document.getElementById("analysis-batches");
+    if (batchesEl) {
+      const frozen = frozenCounts();
+      const meta = corpus.lab.batches || {};
+      batchesEl.innerHTML = [1, 2, 3, 4, 5]
+        .map((n) => {
+          const slugs = (meta[String(n)] || {}).slugs || [];
+          const jobs = slugs.filter((slug) => {
+            const task = bySlug.get(slug);
+            return task && hasJobs(task);
+          }).length;
+          const status = jobs ? `${jobs} with Harbor jobs` : "Frozen · not measured";
+          return `<div class="batch-line"><span>Batch ${batchLabel(n)} · ${
+            frozen[n] || slugs.length
+          }/10</span><span class="muted">${escapeHtml(status)}</span></div>`;
+        })
+        .join("");
+    }
+
+    const method = document.getElementById("analysis-method");
+    if (method) {
+      method.innerHTML = `
+        <li>Live plan: cheap k=5 independent trials per model per frozen task (Harbor <code>-k 5</code>).</li>
+        <li>Frontier Opus 5 / gpt-5.6-sol 8-run groups on pendulum, hypersonic, and partial dyeworks are history, not the going-forward protocol.</li>
+        <li>Chips are solved / recorded. A 1-trial probe is 0/1, never padded to 0/5 or 0/8.</li>
+        <li>Timeout and infra are excluded from completed counts. Oracle must pass or the slug is dropped.</li>
+        <li>Batches 02–05 are frozen jsonl on disk and not measured. Stop after batch 05.</li>
+        <li>Grok 4.6 and Kimi columns stay empty. No invented gallery solve rates.</li>
+        <li>${stats.jobs} of ${tasks.length} public packs have Harbor jobs · ${stats.completed} valid trials · last ingest ${formatIngestDate(
+          corpus.lab.generated_utc
+        )}.</li>
+      `;
+    }
+
+    renderThemeCards(document.getElementById("analysis-themes"), LOSS_THEMES);
+  }
+
+  function renderChallengeSlices() {
+    const el = document.getElementById("challenge-slices");
+    if (!el) return;
+    const mix = corpus.lab.category_mix || {};
+    const frozen = frozenCounts();
+    const stops = corpus.lab.stops || {};
+    const domainCards = Object.keys(CATEGORY_LABELS).map((key) => {
+      const n = mix[key] || 0;
+      const jobs = tasks.filter((task) => task.category === key && hasJobs(task)).length;
+      return `<button type="button" class="slice-card" data-filter="${escapeHtml(key)}">
+        <p class="pack-card-meta"><span class="pill-track">TB 2.1</span><span class="pill-hard">Hard</span></p>
+        <h3>${escapeHtml(categoryLabel(key))}</h3>
+        <p class="cat-line">${n} of 100 public packs · ${jobs} with Harbor jobs</p>
+        <p class="muted">${jobs ? `${jobs} measured from ingest` : "Gallery coverage"}</p>
+      </button>`;
+    });
+    const batchCards = [1, 2, 3, 4, 5].map((n) => {
+      const size = frozen[n] || 0;
+      const slugs = ((corpus.lab.batches || {})[String(n)] || {}).slugs || [];
+      const jobs = slugs.filter((slug) => {
+        const task = bySlug.get(slug);
+        return task && hasJobs(task);
+      }).length;
+      const stop = stops[String(n)];
+      const note = stop
+        ? "Partial · ingest stopped"
+        : jobs
+          ? `${jobs} with Harbor jobs`
+          : "Frozen · not run";
+      return `<button type="button" class="slice-card" data-filter="b${String(n).padStart(2, "0")}">
+        <p class="pack-card-meta"><span class="pill-track batch">B${batchLabel(n)}</span><span class="pill-track">TB 2.1</span></p>
+        <h3>Frozen ten ${batchLabel(n)}</h3>
+        <p class="cat-line">${size}/10 seats from the 100</p>
+        <p class="muted">${escapeHtml(note)}</p>
+      </button>`;
+    });
+    el.innerHTML = domainCards.join("") + batchCards.join("");
+    el.querySelectorAll("[data-filter]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        category = btn.getAttribute("data-filter");
+        langFilter = "all";
+        setUrl({ surface: "tasks", filter: category, slug: "", push: true });
+        renderAll();
+      });
+    });
+  }
+
+  function renderCoverage() {
+    renderHeatmap(document.getElementById("coverage-table"));
   }
 
   function classDot(cls) {
@@ -991,7 +1193,7 @@
           <p class="slug">${escapeHtml(task.slug)}${
             batchNum(task) ? " · batch " + batchLabel(batchNum(task)) : ""
           }</p>
-          ${body || `<p class="muted">${QUEUED_LABEL}</p>`}
+          ${body || `<p class="muted">No recorded agent trials.</p>`}
         </article>`;
       })
       .join("");
@@ -1020,7 +1222,7 @@
             </article>`
           )
           .join("");
-        return `<h2>${escapeHtml(task.name)}</h2>${cards || `<p class="muted">${QUEUED_LABEL}</p>`}`;
+        return `<h2>${escapeHtml(task.name)}</h2>${cards || `<p class="muted">No recorded agent trials.</p>`}`;
       })
       .join("");
   }
@@ -1099,7 +1301,7 @@
         .sort()
         .map((key) => {
           const stop = stops[key] || {};
-          return `Batch ${String(key).padStart(2, "0")} stopped (${stop.reason || "credit/quota"}). Later frozen tens were not run.`;
+          return `Batch ${String(key).padStart(2, "0")} stopped (${stop.reason || "ingest stopped"}). Later frozen tens were not run.`;
         });
       stopBanner.hidden = bits.length === 0;
       stopBanner.textContent = bits.join(" ");
@@ -1126,7 +1328,7 @@
               ? "partial"
               : "not run";
         if (stop) {
-          status = `STOPPED: ${stop.reason || "credit/quota"}`;
+          status = `STOPPED: ${stop.reason || "ingest stopped"}`;
         } else if (earliestStop && n > earliestStop) {
           status = `frozen · not run (stopped at batch ${String(earliestStop).padStart(2, "0")})`;
         } else if (!withJobs) {
@@ -1172,11 +1374,11 @@
   function aggregateFeatured(spec) {
     if (spec.placeholder) {
       return {
-        status: "queued",
+        status: "empty",
         tasks: 0,
         n: 0,
         solved: 0,
-        note: QUEUED_LABEL,
+        note: spec.note || "No Harbor ingest on this gallery.",
       };
     }
     let tasksN = 0;
@@ -1190,7 +1392,7 @@
       solved += row.solved || 0;
     });
     if (!n) {
-      return { status: "queued", tasks: 0, n: 0, solved: 0, note: "No Harbor ingest for this slug on the 100." };
+      return { status: "empty", tasks: 0, n: 0, solved: 0, note: "No Harbor ingest for this slug on the 100." };
     }
     return {
       status: "recorded",
@@ -1205,20 +1407,20 @@
     const banner = document.getElementById("models-banner");
     if (banner) {
       banner.textContent =
-        "448 authored packages. 100 public. Private Harbor trials where recorded (Batch 01, partial). Grok 4.6, GLM, and Kimi are eval queued — no credits, not estimates.";
+        "448 authored packages. 100 public. Private Harbor trials where recorded (Batch 01, partial). Opus 5, gpt-5.6-sol, and Haiku fill from ingest. Grok 4.6 and Kimi have no trials.";
     }
     const summary = document.getElementById("models-summary-rows");
     if (summary) {
       summary.innerHTML = FEATURED_MODELS.map((spec) => {
         const agg = aggregateFeatured(spec);
         const cell =
-          agg.status === "queued"
-            ? `<span class="cell-queued">${QUEUED_LABEL}</span>`
+          agg.status === "empty"
+            ? `<span class="cell-empty">—</span>`
             : `<span class="cell-score cell-measured">${agg.solved}/${agg.n}</span>`;
-        const tasksCell = agg.status === "queued" ? "—" : String(agg.tasks);
+        const tasksCell = agg.status === "empty" ? "—" : String(agg.tasks);
         return `<tr>
           <td class="name">${escapeHtml(spec.label)}<span class="slug">${escapeHtml(spec.slug)}</span></td>
-          <td>${agg.status === "queued" ? `<span class="chip chip-muted">queued</span>` : `<span class="chip chip-ok">recorded</span>`}</td>
+          <td>${agg.status === "empty" ? `<span class="chip chip-muted">not run</span>` : `<span class="chip chip-ok">recorded</span>`}</td>
           <td>${tasksCell}</td>
           <td>${cell}</td>
           <td class="muted">${escapeHtml(agg.note)}</td>
@@ -1326,6 +1528,7 @@
     showSurface(surface);
     renderBanners();
     if (surface === "overview") renderOverview();
+    if (surface === "analysis") renderAnalysis();
     if (surface === "challenges") {
       renderChallengeSlices();
       renderCoverage();
@@ -1355,15 +1558,33 @@
       event.preventDefault();
       const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
       if (isBlockedSurface(id) || id === "unavailable") return;
+      if (id === "tasks") {
+        const filterAttr = button.getAttribute("data-filter");
+        if (filterAttr) {
+          category = filterAttr;
+        } else {
+          const href = button.getAttribute("href") || "";
+          const match = href.match(/[?&]filter=([^&]+)/);
+          if (match) category = decodeURIComponent(match[1]);
+          else if (/surface=tasks/.test(href) && !/[?&]filter=/.test(href)) category = "all";
+        }
+      }
       const keepSlug = id === "tasks" || id === "runs" || id === "traces" || id === "failures";
-      setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", push: true });
+      setUrl({
+        surface: id,
+        slug: keepSlug ? currentSlug() : "",
+        filter: id === "tasks" ? category : "all",
+        lang: id === "tasks" ? langFilter : "all",
+        push: true,
+      });
       renderAll();
     });
   }
 
   bindNav(document.getElementById("nav-main"));
   bindNav(document.querySelector("#surface-unavailable"));
-  bindNav(document.querySelector(".packs-head"));
+  bindNav(document.getElementById("surface-overview"));
+  bindNav(document.getElementById("surface-analysis"));
 
   const brand = document.querySelector(".brand");
   if (brand) {
