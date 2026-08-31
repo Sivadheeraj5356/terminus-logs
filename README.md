@@ -31,7 +31,7 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 `stump_pct = valid_fail / (solved + valid_fail) * 100`. Timeouts and infrastructure errors (auth, Docker, credit-too-low, 429 quota) do not count.
 
-The Worlds Lab is a static **client-facing corpus site** over 100 unique hard Harbor packages (public gallery) drawn from 448 authored packages under `tasks/latest/`. **Public nav:** Worlds, Coverage, Catalog (all 100), Models, Batches, Harness. There is no below-nav strip, no Lab toggle, and no Spend or Stump surfaces — `?surface=spend` and `?surface=stump` (with or without `internal=1`) show an honest empty page, not invoices or stump tables. Model cells fill only from Harbor ingest. Grok 4.6, GLM, and Kimi are labeled **not run** — we do not invent stump % or n/k. Runtime is **private Harbor 0.22 + terminus-2 / oracle**, not a hosted buyer platform.
+The Worlds Lab is a static **client-facing corpus site** over 100 unique hard Harbor packages (public gallery) drawn from 448 authored packages under `tasks/latest/`. **Public nav:** Overview, Tasks, Challenges (Coverage). There is no below-nav strip, no Lab toggle, and no Spend or Stump surfaces — `?surface=spend` and `?surface=stump` (with or without `internal=1`) show an honest empty page, not invoices or stump tables. Model cells fill only from Harbor ingest. Grok 4.6, GLM, and Kimi are **eval queued — no credits**. Runtime is **private Harbor 0.22 + terminus-2 / oracle**, not a hosted buyer platform.
 
 Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Measured Harbor jobs exist only on Batch 01 (partial). Batches 02–05 are frozen, not measured. **Not 50/50. Not 160/160.**
 
@@ -45,20 +45,19 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then open:
 
-- Worlds (default): http://127.0.0.1:8765/lab/index.html
-- Catalog, all 100: http://127.0.0.1:8765/lab/index.html?surface=catalog
-- Catalog cards: http://127.0.0.1:8765/lab/index.html?surface=catalog&view=cards
-- Models (honest matrix): http://127.0.0.1:8765/lab/index.html?surface=models
-- Batch 01 (10 of 100, has jobs): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b01
-- Batch 02 (frozen, not_run): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b02
-- Coverage / Batches / Harness: `?surface=coverage` · `?surface=batches` · `?surface=harness`
+- Overview (default): http://127.0.0.1:8765/lab/index.html
+- Tasks, all 100: http://127.0.0.1:8765/lab/index.html?surface=tasks
+- Tasks cards: http://127.0.0.1:8765/lab/index.html?surface=tasks&view=cards
+- Challenges / coverage: http://127.0.0.1:8765/lab/index.html?surface=challenges
+- Batch 01 (10 of 100, has jobs): http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=b01
+- Batch 02 (frozen, not_run): http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=b02
 - One package: http://127.0.0.1:8765/lab/index.html?task=repair-the-pendulum-motion-solver
 - `surface=spend` / `surface=stump` are not client pages (honest empty, not Spend/Stump)
-- `surface=tasks` still aliases Catalog
+- `surface=catalog` / `surface=worlds` / `surface=coverage` still alias Tasks / Overview / Challenges
 
 Cloudflare quick tunnels (`*.trycloudflare.com`) are **ephemeral**. They die when the VM sleeps or `cloudflared` exits. Do not treat an old hostname as a stable URL. Never commit `.env` or API keys.
 
-Identity is **Applied Work Worlds Lab**. Ink `#0F1F1C`, forest teal `#0F766E`, cream `#F7F4EE`. This is not Senior SWE-Bench, a hosted buyer platform, or Caudal branding. Copy the job (hard TB-style catalog + model columns), not the chrome.
+Identity is **Applied Work Worlds Lab**. Cream `#F3EEE4`, AW green `#1E2F22`, serif headlines. This is not Senior SWE-Bench, Dual-Horizon’s six packs, Snorkel, or a hosted buyer platform. Copy the visual job (cream lab + model columns), not a fake 6-pack dataset.
 
 Gallery vs measured: **448** = inventory; **100** = public gallery (`docs/lab_mvp_100.jsonl`); **10** Batch 01 rows have ingested Harbor jobs. The other 90 catalog rows stay not run.
 

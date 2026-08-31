@@ -1,7 +1,5 @@
 (() => {
   const corpus = window.AW_CORPUS;
-  const laterModal = document.getElementById("later-modal");
-  const laterBody = document.getElementById("later-body");
 
   if (!corpus || !Array.isArray(corpus.tasks)) {
     const empty = document.getElementById("panel-empty");
@@ -31,18 +29,19 @@
     ui_building: "UI",
   };
 
-  const PUBLIC_SURFACES = ["worlds", "coverage", "catalog", "models", "batches", "harness"];
-  const LAB_SURFACES = ["runs", "traces", "failures", "verifier", "agents"];
+  const PUBLIC_SURFACES = ["overview", "tasks", "challenges"];
+  const LAB_SURFACES = ["models", "batches", "harness", "runs", "traces", "failures", "verifier", "agents"];
   const BLOCKED_SURFACES = ["spend", "stump"];
   const SURFACES = [...PUBLIC_SURFACES, ...LAB_SURFACES, "unavailable"];
 
   const SURFACE_ALIASES = {
-    overview: "worlds",
-    worlds: "worlds",
-    coverage: "coverage",
-    tasks: "catalog",
-    corpus: "catalog",
-    catalog: "catalog",
+    overview: "overview",
+    worlds: "overview",
+    tasks: "tasks",
+    corpus: "tasks",
+    catalog: "tasks",
+    challenges: "challenges",
+    coverage: "challenges",
     models: "models",
     matrix: "models",
     runs: "runs",
@@ -62,12 +61,16 @@
       key: "opus",
       label: "Opus 5",
       slug: "anthropic/claude-opus-5",
+      tone: "cell-opus",
+      short: "Opus",
       match: (name) => /claude-opus-5|\bopus-5\b/i.test(name),
     },
     {
       key: "gpt56",
       label: "GPT-5.6-sol",
       slug: "openai/gpt-5.6-sol",
+      tone: "cell-gpt",
+      short: "gpt-5.6-sol",
       match: (name) => /gpt-5\.6-sol/i.test(name),
     },
     {
@@ -75,24 +78,25 @@
       label: "Grok 4.6",
       slug: "grok-4.6",
       placeholder: true,
-      note: "not run",
+      note: "eval queued — no credits",
     },
     {
       key: "glm",
       label: "GLM",
       slug: "glm",
       placeholder: true,
-      note: "not run",
+      note: "eval queued — no credits",
     },
     {
       key: "kimi",
       label: "Kimi",
       slug: "kimi",
       placeholder: true,
-      note: "not run",
+      note: "eval queued — no credits",
     },
   ];
 
+  const QUEUED_LABEL = "eval queued — no credits";
   const PLANNED = Number((corpus.lab.harness || {}).planned_attempts) || 5;
   const tasks = corpus.tasks;
   const bySlug = new Map(tasks.map((task) => [task.slug, task]));
@@ -109,7 +113,6 @@
   let langFilter = params().get("lang") || "all";
   let query = "";
   let catalogView = params().get("view") === "cards" ? "cards" : "table";
-  let previewIndex = 0;
 
   function categoryLabel(value) {
     return CATEGORY_LABELS[value] || value;
@@ -155,23 +158,23 @@
     const raw = requestedSurface();
     if (isBlockedSurface(raw) || isBlockedSurface(SURFACE_ALIASES[raw])) return "unavailable";
     if (raw && SURFACE_ALIASES[raw]) return SURFACE_ALIASES[raw];
-    if (currentSlug()) return "catalog";
+    if (currentSlug()) return "tasks";
     const filter = (params().get("filter") || "").toLowerCase();
-    if (filter && filter !== "all") return "catalog";
-    return "worlds";
+    if (filter && filter !== "all") return "tasks";
+    return "overview";
   }
 
   function setUrl({ slug, surface, filter, lang, view, push }) {
     const url = new URL(window.location.href);
     const nextSlug = slug === undefined ? currentSlug() : slug;
     let nextSurface = surface === undefined ? currentSurface() : surface;
-    if (isBlockedSurface(nextSurface) || nextSurface === "unavailable") nextSurface = "worlds";
+    if (isBlockedSurface(nextSurface) || nextSurface === "unavailable") nextSurface = "overview";
     const nextFilter = filter === undefined ? category : filter;
     const nextLang = lang === undefined ? langFilter : lang;
     const nextView = view === undefined ? catalogView : view;
     if (nextSlug) url.searchParams.set("task", nextSlug);
     else url.searchParams.delete("task");
-    if (nextSurface && nextSurface !== "worlds") url.searchParams.set("surface", nextSurface);
+    if (nextSurface && nextSurface !== "overview") url.searchParams.set("surface", nextSurface);
     else url.searchParams.delete("surface");
     if (nextFilter && nextFilter !== "all") url.searchParams.set("filter", nextFilter);
     else url.searchParams.delete("filter");
@@ -322,7 +325,7 @@
     const next = theme === "dark" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
     const themeColor = document.querySelector('meta[name="theme-color"]');
-    if (themeColor) themeColor.setAttribute("content", next === "dark" ? "#0C1412" : "#F7F4EE");
+    if (themeColor) themeColor.setAttribute("content", next === "dark" ? "#181B16" : "#FCFAF3");
     try {
       localStorage.setItem("aw-lab-theme", next);
     } catch (_) {
@@ -343,7 +346,6 @@
       toggle.addEventListener("click", () => {
         const now = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
         applyTheme(now);
-        if (currentSurface() === "worlds") renderLengthChart();
       });
     }
   }
@@ -373,32 +375,34 @@
     return agentModels(task).find((row) => spec.match(row.model || "") && recordedN(row) > 0) || null;
   }
 
-  function modelCell(task, spec) {
-    if (!spec || spec.placeholder) {
-      return `<span class="chip chip-muted" title="not run">—</span>`;
-    }
-    const row = featuredRow(task, spec);
-    if (!row) return `<span class="chip chip-muted" title="not run">—</span>`;
-    const recorded = recordedN(row);
-    const cls = recorded >= PLANNED ? "chip-ok" : "chip-warn";
-    return `<span class="chip ${cls}">${row.solved || 0}/${recorded}</span>`;
+  function queuedCell() {
+    return `<span class="cell-queued">${QUEUED_LABEL}</span>`;
   }
 
-  function recordedChips(task) {
-    if (!hasJobs(task)) return `<span class="chip chip-muted">not run</span>`;
-    const agents = agentModels(task).filter((row) => recordedN(row) > 0);
-    if (!agents.length) {
-      const oracle = oracleModels(task)[0];
-      const ok = oracle && oracle.solved;
-      return `<span class="chip chip-oracle">${ok ? "oracle" : "jobs"}</span>`;
-    }
-    return agents
-      .map((row) => {
-        const recorded = recordedN(row);
-        const cls = recorded >= PLANNED ? "chip-ok" : "chip-warn";
-        return `<span class="chip ${cls}">${escapeHtml(shortModel(row.model))} ${row.solved || 0}/${recorded}</span>`;
-      })
-      .join(" ");
+  function modelCell(task, spec) {
+    if (!spec || spec.placeholder) return queuedCell();
+    const row = featuredRow(task, spec);
+    if (!row) return queuedCell();
+    const recorded = recordedN(row);
+    const label = spec.short || spec.label;
+    return `<span class="cell-score ${spec.tone || "cell-measured"}">${escapeHtml(label)} ${
+      row.solved || 0
+    }/${recorded}</span>`;
+  }
+
+  function categoryLine(task) {
+    const bits = [categoryLabel(task.category)];
+    const subs = subcategories(task).map(subcategoryLabel).filter(Boolean);
+    if (subs.length) bits.push(subs.join(" · "));
+    return bits.join(" / ");
+  }
+
+  function trackPills(task) {
+    const bn = batchNum(task);
+    const batch = bn
+      ? `<span class="pill-track batch">B${batchLabel(bn)}</span>`
+      : "";
+    return `<span class="pill-track">TB 2.1</span>${batch}`;
   }
 
   function frozenCounts() {
@@ -441,7 +445,7 @@
     if (!scopeEl || !catEl || !langEl) return;
 
     const apply = () => {
-      setUrl({ surface: "catalog", filter: category, lang: langFilter, push: true });
+      setUrl({ surface: "tasks", filter: category, lang: langFilter, push: true });
       renderChips();
       renderCatalog();
       const slug = currentSlug();
@@ -504,42 +508,24 @@
     });
   }
 
-  function staggerDelay(index) {
-    return Math.min(index, 28) * 18;
-  }
-
   function renderTable() {
     const selected = currentSlug();
     const visible = tasks.filter(matches);
     rowsEl.innerHTML = "";
-    visible.forEach((task, index) => {
+    visible.forEach((task) => {
       const tr = document.createElement("tr");
       tr.dataset.slug = task.slug;
-      tr.style.setProperty("--stagger", `${staggerDelay(index)}ms`);
       tr.setAttribute("aria-selected", task.slug === selected ? "true" : "false");
       tr.tabIndex = 0;
-      const langHtml = languageSet(task)
-        .map((lang) => `<span class="chip chip-lang">${escapeHtml(lang)}</span>`)
-        .join(" ");
-      const bn = batchNum(task);
-      const subs = subcategories(task);
-      const subHtml = subs.length
-        ? `<span class="slug">${subs.map(subcategoryLabel).map(escapeHtml).join(" · ")}</span>`
-        : "";
-      const hardFlag =
+      const hard =
         String(task.difficulty || "").toLowerCase() === "hard"
           ? ""
           : `<span class="chip chip-warn">difficulty: ${escapeHtml(task.difficulty || "unknown")}</span>`;
       tr.innerHTML = `
         <td class="name">${escapeHtml(task.name)}
-          <span class="slug">${escapeHtml(task.slug)}${
-            bn ? ` · batch ${batchLabel(bn)}` : ""
-          }</span>
+          <span class="cat-line">${escapeHtml(categoryLine(task))}${hard}</span>
         </td>
-        <td><span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(
-        categoryLabel(task.category)
-      )}</span>${subHtml}${hardFlag}</td>
-        <td>${langHtml || "—"}</td>
+        <td>${trackPills(task)}</td>
         ${FEATURED_MODELS.map((spec) => `<td class="measured">${modelCell(task, spec)}</td>`).join("")}
       `;
       tr.addEventListener("click", () => selectTask(task.slug, true));
@@ -558,41 +544,25 @@
     const selected = currentSlug();
     const visible = tasks.filter(matches);
     cardsEl.innerHTML = "";
-    visible.forEach((task, index) => {
+    visible.forEach((task) => {
       const article = document.createElement("article");
       article.className = "world-card";
       article.dataset.slug = task.slug;
-      article.style.setProperty("--stagger", `${staggerDelay(index)}ms`);
       article.setAttribute("aria-selected", task.slug === selected ? "true" : "false");
       article.tabIndex = 0;
-      const bn = batchNum(task);
       const langs = languageSet(task)
         .map((lang) => `<span class="chip chip-lang">${escapeHtml(lang)}</span>`)
         .join("");
-      const subs = subcategories(task)
-        .map((s) => `<span class="chip chip-lang">${escapeHtml(subcategoryLabel(s))}</span>`)
-        .join("");
       const hard =
         String(task.difficulty || "").toLowerCase() === "hard"
-          ? `<span class="chip chip-ok">hard</span>`
+          ? `<span class="pill-hard">Hard</span>`
           : `<span class="chip chip-warn">${escapeHtml(task.difficulty || "unknown")}</span>`;
       article.innerHTML = `
-        <p class="world-card-meta">
-          <span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(categoryLabel(task.category))}</span>
-          ${hard}
-          ${bn ? `<span class="chip chip-batch">${batchLabel(bn)}</span>` : ""}
-        </p>
+        <p class="world-card-meta">${trackPills(task)}${hard}</p>
         <h3>${escapeHtml(task.name)}</h3>
-        <p class="slug">${escapeHtml(task.slug)}</p>
-        <p class="world-card-langs">${langs || "—"}${subs}</p>
-        <p class="world-card-models">${FEATURED_MODELS.map(
-          (spec) =>
-            `<span class="model-mini"><span class="muted">${escapeHtml(spec.label)}</span> ${modelCell(
-              task,
-              spec
-            )}</span>`
-        ).join("")}</p>
-        <p class="world-card-recorded">${recordedChips(task)}</p>
+        <p class="cat-line">${escapeHtml(categoryLine(task))}</p>
+        <p class="world-card-langs">${langs || "—"}</p>
+        <div class="world-card-models">${FEATURED_MODELS.map((spec) => modelCell(task, spec)).join("")}</div>
       `;
       article.addEventListener("click", () => selectTask(task.slug, true));
       article.addEventListener("keydown", (event) => {
@@ -611,9 +581,11 @@
     const visible = tasks.filter(matches);
     const selectedTask = selected ? bySlug.get(selected) : null;
     const outside = Boolean(selectedTask && !matches(selectedTask));
-    shownEl.textContent = outside
-      ? `${visible.length} of ${tasks.length} · selected package is outside this filter`
-      : `${visible.length} of ${tasks.length}`;
+    if (shownEl) {
+      shownEl.textContent = outside
+        ? `${visible.length} of ${tasks.length} · selected pack is outside this filter`
+        : `${visible.length} of ${tasks.length}`;
+    }
     const tableBtn = document.getElementById("view-table");
     const cardsBtn = document.getElementById("view-cards");
     if (tableBtn) tableBtn.setAttribute("aria-pressed", catalogView === "table" ? "true" : "false");
@@ -638,23 +610,23 @@
       .join("");
   }
 
-  function stumpDisplay(task) {
-    if (!hasAgentJobs(task) || task.stump_pct === null || task.stump_pct === undefined) return "—";
-    const agents = agentModels(task);
-    const completed = agents.reduce((sum, row) => sum + (row.solved || 0) + (row.valid_fail || 0), 0);
-    if (!completed) return "—";
-    return `${task.stump_pct}%`;
+  function harborLine(task) {
+    const agents = agentModels(task).filter((row) => recordedN(row) > 0);
+    if (!agents.length) return QUEUED_LABEL;
+    return agents
+      .map((row) => `${shortModel(row.model)} ${row.solved || 0}/${recordedN(row)} recorded`)
+      .join(" · ");
   }
 
   function renderPanel(task) {
     const kicker = document.querySelector("#panel .panel-kicker");
     if (!task) {
-      if (kicker) kicker.textContent = "Selected package";
+      if (kicker) kicker.textContent = "Selected pack";
       panelTitle.textContent = "Choose a row";
       panelEmpty.hidden = false;
       panelEmpty.innerHTML = `
-        <p>Select a task to open its summary, Harbor files, and ingest status.</p>
-        <p class="hint">Deep links use <code>lab/index.html?surface=catalog&amp;task=&lt;slug&gt;</code>. Default filter is all 100.</p>
+        <p>Select a pack to open its summary, Harbor files, and honest measurement status.</p>
+        <p class="hint">Deep links use <code>lab/index.html?surface=tasks&amp;task=&lt;slug&gt;</code>. Default filter is all 100.</p>
       `;
       panelBody.hidden = true;
       panelBody.innerHTML = "";
@@ -665,45 +637,53 @@
     panelTitle.textContent = task.name;
     if (kicker) {
       kicker.textContent = matches(task)
-        ? "Selected package"
-        : "Selected package (outside current filter)";
+        ? "Selected pack"
+        : "Selected pack (outside current filter)";
     }
-    const agents = agentModels(task);
-    const oracle = oracleModels(task)[0];
-    const roll = task.rollouts || {};
+    const agents = agentModels(task).filter((row) => recordedN(row) > 0);
+    const completed = agents.reduce((sum, row) => sum + (row.solved || 0) + (row.valid_fail || 0), 0);
+    const solved = agents.reduce((sum, row) => sum + (row.solved || 0), 0);
+    const fails = agents.reduce((sum, row) => sum + (row.valid_fail || 0), 0);
     const bn = batchNum(task);
-    const agentHtml = agents.length
-      ? agents
-          .map((row) => {
-            const recorded = recordedN(row);
-            return `<div>${escapeHtml(shortModel(row.model))}: ${row.solved || 0} solved · ${
-              row.valid_fail || 0
-            } valid fail · ${row.infra_error || 0} infra · ${
-              row.timeout || 0
-            } timeout · ${recorded} recorded</div>`;
-          })
-          .join("")
-      : `<span class="muted">No terminus-2 trials ingested.</span>`;
-    const themes = ((task.analysis && task.analysis.themes) || []).slice(0, 6);
-    const subs = subcategories(task);
+    const hard =
+      String(task.difficulty || "").toLowerCase() === "hard"
+        ? `<span class="pill-hard">Hard</span>`
+        : `<span class="chip chip-warn">${escapeHtml(task.difficulty || "unknown")}</span>`;
+    const langs = languageSet(task)
+      .map((lang) => `<span class="chip chip-lang">${escapeHtml(lang)}</span>`)
+      .join(" ");
     const featuredHtml = FEATURED_MODELS.map((spec) => {
       if (spec.placeholder) {
-        return `<div>${escapeHtml(spec.label)}: <span class="muted">not run</span></div>`;
+        return `<div>${escapeHtml(spec.label)}: <span class="muted">${QUEUED_LABEL}</span></div>`;
       }
       const row = featuredRow(task, spec);
-      if (!row) return `<div>${escapeHtml(spec.label)}: <span class="muted">not run</span></div>`;
+      if (!row) return `<div>${escapeHtml(spec.label)}: <span class="muted">${QUEUED_LABEL}</span></div>`;
       return `<div>${escapeHtml(spec.label)}: ${row.solved || 0}/${recordedN(row)} recorded</div>`;
     }).join("");
+    const otherAgents = agents.filter(
+      (row) => !/opus-5|gpt-5\.6-sol/i.test(row.model || "")
+    );
+    const otherHtml = otherAgents.length
+      ? otherAgents
+          .map((row) => `<div>${escapeHtml(shortModel(row.model))}: ${row.solved || 0}/${recordedN(row)} recorded</div>`)
+          .join("")
+      : "";
+    const measured = hasAgentJobs(task);
+    const statusHead = measured ? "Measured" : "Eval queued — no credits";
+    const statusBody = measured
+      ? `${solved} solved · ${fails} valid fail · ${completed} completed Harbor trials. ${harborLine(task)}.`
+      : "No terminus-2 trials ingested for this pack. Grok 4.6, GLM, and Kimi were not run.";
+    const themes = ((task.analysis && task.analysis.themes) || []).slice(0, 6);
     panelBody.innerHTML = `
       <dl class="meta">
         <dt>Category</dt>
-        <dd>${escapeHtml(categoryLabel(task.category))}</dd>
-        <dt>Subcategory</dt>
-        <dd>${subs.length ? escapeHtml(subs.map(subcategoryLabel).join(", ")) : "—"}</dd>
-        <dt>Difficulty</dt>
-        <dd>${escapeHtml(task.difficulty)} <span class="muted">(author label, verified in task.toml)</span></dd>
+        <dd>${escapeHtml(categoryLine(task))}</dd>
+        <dt>Difficulty / horizon</dt>
+        <dd>${hard} <span class="muted">TB 2.1-style · author-labeled ${escapeHtml(
+          task.difficulty || "unknown"
+        )} · Harbor 0.22</span></dd>
         <dt>Languages</dt>
-        <dd>${escapeHtml(languageSet(task).join(", ") || "—")}</dd>
+        <dd>${langs || "—"}</dd>
         <dt>UUID</dt>
         <dd class="mono">${escapeHtml(task.uuid)}</dd>
         <dt>Slug</dt>
@@ -717,22 +697,17 @@
             task.has_tests ? "tests" : "no tests"
           }</span>
         </dd>
-        <dt>Batch</dt>
-        <dd>${bn ? batchLabel(bn) + " selected" : "gallery only"}</dd>
-        <dt>Harbor jobs</dt>
-        <dd>${hasJobs(task) ? escapeHtml(roll.note || "ingested") : "not run"}</dd>
-        <dt>Oracle trial</dt>
-        <dd>${
-          oracle
-            ? `${oracle.solved || 0}/${oracle.n || 0} solved`
-            : `<span class="muted">not ingested</span>`
-        }</dd>
+        <dt>Track</dt>
+        <dd>${trackPills(task)} ${bn ? `<span class="muted">frozen batch ${batchLabel(bn)}</span>` : `<span class="muted">gallery</span>`}</dd>
         <dt>Featured models</dt>
-        <dd>${featuredHtml}</dd>
-        <dt>Agents</dt>
-        <dd>${agentHtml}</dd>
-        <dt>Stump %</dt>
-        <dd>${escapeHtml(stumpDisplay(task))} <span class="muted">(valid fail / completed; infra excluded; analysis later if empty)</span></dd>
+        <dd>${featuredHtml}${otherHtml}</dd>
+        <dt>Status</dt>
+        <dd>
+          <div class="status-block">
+            <p class="status-head">${statusHead}</p>
+            <p>${escapeHtml(statusBody)}</p>
+          </div>
+        </dd>
       </dl>
       ${
         themes.length
@@ -749,14 +724,14 @@
 
   function selectTask(slug, push) {
     const task = bySlug.get(slug);
-    setUrl({ slug, surface: "catalog", push });
-    showSurface("catalog");
+    setUrl({ slug, surface: "tasks", push });
+    showSurface("tasks");
     renderNav();
     renderChips();
     renderCatalog();
     if (!task) {
       renderPanel(null);
-      panelTitle.textContent = "Unknown package";
+      panelTitle.textContent = "Unknown pack";
       panelEmpty.hidden = false;
       panelEmpty.textContent = `No lab row for ?task=${slug}`;
       return;
@@ -768,8 +743,156 @@
     if (row) row.scrollIntoView({ block: "nearest" });
   }
 
+  function formatIngestDate(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return String(iso).slice(0, 10);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  }
+
+  function harborStats() {
+    let recorded = 0;
+    let solved = 0;
+    let validFail = 0;
+    let infra = 0;
+    let timeout = 0;
+    let opusTasks = 0;
+    let gptTasks = 0;
+    tasks.forEach((task) => {
+      agentModels(task).forEach((row) => {
+        const n = recordedN(row);
+        if (!n) return;
+        recorded += n;
+        solved += row.solved || 0;
+        validFail += row.valid_fail || 0;
+        infra += row.infra_error || 0;
+        timeout += row.timeout || 0;
+        if (/opus-5/i.test(row.model || "")) opusTasks += 1;
+        if (/gpt-5\.6-sol/i.test(row.model || "")) gptTasks += 1;
+      });
+    });
+    return {
+      recorded,
+      solved,
+      validFail,
+      completed: solved + validFail,
+      infra,
+      timeout,
+      opusTasks,
+      gptTasks,
+      jobs: tasks.filter(hasJobs).length,
+      agents: tasks.filter(hasAgentJobs).length,
+    };
+  }
+
+  function renderOverview() {
+    const stats = harborStats();
+    const packs = document.getElementById("stat-packs");
+    const packsNote = document.getElementById("stat-packs-note");
+    const last = document.getElementById("stat-last");
+    const lastNote = document.getElementById("stat-last-note");
+    const valid = document.getElementById("stat-valid");
+    const validNote = document.getElementById("stat-valid-note");
+    if (packs) packs.textContent = String(corpus.lab.mvp_size || tasks.length);
+    if (packsNote) {
+      packsNote.textContent = `${corpus.lab.mvp_size || tasks.length} public · ${
+        corpus.lab.inventory_size || 448
+      } inventory`;
+    }
+    if (last) last.textContent = formatIngestDate(corpus.lab.generated_utc);
+    if (lastNote) {
+      lastNote.textContent =
+        stats.opusTasks || stats.gptTasks
+          ? `Opus 5 · gpt-5.6-sol · ${stats.jobs} packs with jobs`
+          : "No featured-model ingest yet";
+    }
+    if (valid) valid.textContent = String(stats.completed);
+    if (validNote) {
+      validNote.textContent = `${stats.recorded} recorded · infra ${stats.infra} · timeout ${stats.timeout} excluded`;
+    }
+    const peach = document.getElementById("banner-scores");
+    if (peach) {
+      peach.textContent = `Recorded Harbor scores only. ${
+        corpus.lab.inventory_size || 448
+      } authored inventory · ${corpus.lab.mvp_size || 100} public TB 2.1-style packages. Last ingest ${formatIngestDate(
+        corpus.lab.generated_utc
+      )}. ${stats.jobs} of ${tasks.length} gallery rows have jobs. Remaining eval queued — no credits.`;
+    }
+    const grid = document.getElementById("pack-grid");
+    if (!grid) return;
+    const ordered = [...tasks].sort((a, b) => Number(hasJobs(b)) - Number(hasJobs(a)) || a.name.localeCompare(b.name));
+    grid.innerHTML = "";
+    ordered.forEach((task) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "pack-card";
+      btn.dataset.slug = task.slug;
+      const hard =
+        String(task.difficulty || "").toLowerCase() === "hard"
+          ? `<span class="pill-hard">Hard</span>`
+          : `<span class="chip chip-warn">${escapeHtml(task.difficulty || "unknown")}</span>`;
+      btn.innerHTML = `
+        <p class="pack-card-meta">${trackPills(task)}${hard}</p>
+        <h3>${escapeHtml(task.name)}</h3>
+        <p class="cat-line">${escapeHtml(categoryLine(task))}</p>
+        <div class="pack-card-models">${FEATURED_MODELS.map((spec) => modelCell(task, spec)).join("")}</div>
+      `;
+      btn.addEventListener("click", () => selectTask(task.slug, true));
+      grid.appendChild(btn);
+    });
+  }
+
+  function renderChallengeSlices() {
+    const el = document.getElementById("challenge-slices");
+    if (!el) return;
+    const mix = corpus.lab.category_mix || {};
+    const frozen = frozenCounts();
+    const stops = corpus.lab.stops || {};
+    const domainCards = Object.keys(CATEGORY_LABELS).map((key) => {
+      const n = mix[key] || 0;
+      const jobs = tasks.filter((task) => task.category === key && hasJobs(task)).length;
+      return `<button type="button" class="slice-card" data-filter="${escapeHtml(key)}">
+        <p class="pack-card-meta"><span class="pill-track">TB 2.1</span><span class="pill-hard">Hard</span></p>
+        <h3>${escapeHtml(categoryLabel(key))}</h3>
+        <p class="cat-line">${n} of 100 public packs · ${jobs} with Harbor jobs</p>
+        <p class="muted">${jobs ? `${jobs} measured from ingest` : QUEUED_LABEL}</p>
+      </button>`;
+    });
+    const batchCards = [1, 2, 3, 4, 5].map((n) => {
+      const size = frozen[n] || 0;
+      const slugs = ((corpus.lab.batches || {})[String(n)] || {}).slugs || [];
+      const jobs = slugs.filter((slug) => {
+        const task = bySlug.get(slug);
+        return task && hasJobs(task);
+      }).length;
+      const stop = stops[String(n)];
+      const note = stop
+        ? `Stopped: ${stop.reason || "credit/quota"}`
+        : jobs
+          ? `${jobs} with Harbor jobs`
+          : "Frozen · not run";
+      return `<button type="button" class="slice-card" data-filter="b${String(n).padStart(2, "0")}">
+        <p class="pack-card-meta"><span class="pill-track batch">B${batchLabel(n)}</span><span class="pill-track">TB 2.1</span></p>
+        <h3>Frozen ten ${batchLabel(n)}</h3>
+        <p class="cat-line">${size}/10 seats from the 100</p>
+        <p class="muted">${escapeHtml(note)}</p>
+      </button>`;
+    });
+    el.innerHTML = domainCards.join("") + batchCards.join("");
+    el.querySelectorAll("[data-filter]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        category = btn.getAttribute("data-filter");
+        langFilter = "all";
+        setUrl({ surface: "tasks", filter: category, slug: "", push: true });
+        renderAll();
+      });
+    });
+  }
+
   function renderCoverage() {
     const table = document.getElementById("coverage-table");
+    if (!table) return;
     const cov = (corpus.lab && corpus.lab.coverage) || { domains: [], languages: [], cells: {} };
     const langs = cov.languages || [];
     const domains = cov.domains || Object.keys(CATEGORY_LABELS);
@@ -804,122 +927,6 @@
     table.innerHTML = html;
   }
 
-  function renderBars(el, items, max) {
-    el.innerHTML = "";
-    const peak = max || Math.max(1, ...items.map((item) => item.n));
-    items.forEach((item) => {
-      const wrap = document.createElement("div");
-      wrap.className = "bar";
-      const height = Math.max(6, Math.round((item.n / peak) * 110));
-      wrap.innerHTML = `<i style="height:${height}px"></i><span>${escapeHtml(item.label)} (${item.n})</span>`;
-      el.appendChild(wrap);
-    });
-  }
-
-  function renderLengthChart() {
-    const svg = document.getElementById("chart-length");
-    const caption = document.getElementById("chart-length-caption");
-    const series = (((corpus.lab.charts || {}).instruction_length || {}).ecdf) || [];
-    const stats = (corpus.lab.charts || {}).instruction_length || {};
-    if (caption) {
-      caption.textContent = stats.n
-        ? `n=${stats.n} · median ${stats.median} chars · p25 ${stats.p25} · p75 ${stats.p75} · max ${stats.max}`
-        : "No instruction lengths in corpus.";
-    }
-    if (!svg) return;
-    if (series.length < 2) {
-      svg.innerHTML = "";
-      return;
-    }
-    const w = 320;
-    const h = 140;
-    const pad = 18;
-    const maxX = series[series.length - 1].chars || 1;
-    const pts = series
-      .map((point) => {
-        const x = pad + (point.chars / maxX) * (w - pad * 2);
-        const y = h - pad - point.frac * (h - pad * 2);
-        return `${x.toFixed(1)},${y.toFixed(1)}`;
-      })
-      .join(" ");
-    const area = `${pad},${h - pad} ${pts} ${w - pad},${h - pad}`;
-    const dark = document.documentElement.getAttribute("data-theme") === "dark";
-    const stroke = dark ? "#2A9A90" : "#0F766E";
-    const fill = dark ? "rgba(42,154,144,0.18)" : "rgba(15,118,110,0.14)";
-    svg.innerHTML = `
-      <polyline fill="${fill}" stroke="none" points="${area}"></polyline>
-      <polyline fill="none" stroke="${stroke}" stroke-width="2" points="${pts}"></polyline>
-    `;
-  }
-
-  function renderPreview() {
-    const previews = corpus.lab.instruction_previews || [];
-    const code = document.getElementById("preview-code");
-    const meta = document.getElementById("preview-meta");
-    const pager = document.getElementById("preview-pager");
-    const dots = document.getElementById("preview-dots");
-    if (!code) return;
-    if (!previews.length) {
-      code.textContent = "No instruction previews in corpus.";
-      return;
-    }
-    const item = previews[previewIndex % previews.length];
-    if (meta) meta.textContent = `${item.chars} chars · ${item.slug}`;
-    code.innerHTML = (item.lines || [])
-      .map(
-        (line) =>
-          `<span class="line"><span class="ln">${line.n}</span><span class="lt">${escapeHtml(line.text || "")}</span></span>`
-      )
-      .join("");
-    if (previews.length > 1 && pager && dots) {
-      pager.hidden = false;
-      dots.innerHTML = "";
-      previews.forEach((_, i) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        if (i === previewIndex) dot.setAttribute("aria-current", "true");
-        dot.addEventListener("click", () => {
-          previewIndex = i;
-          renderPreview();
-        });
-        dots.appendChild(dot);
-      });
-    }
-  }
-
-  function renderWorlds() {
-    const jobs = tasks.filter(hasJobs).length;
-    const agents = tasks.filter(hasAgentJobs).length;
-    const hard = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
-    document.getElementById("stat-packages").textContent = String(corpus.lab.mvp_size || tasks.length);
-    document.getElementById("stat-inventory").textContent = String(corpus.lab.inventory_size || 448);
-    const hardEl = document.getElementById("stat-hard");
-    if (hardEl) hardEl.textContent = String(hard);
-    const hardNote = document.getElementById("stat-hard-note");
-    if (hardNote) {
-      hardNote.textContent =
-        hard === tasks.length
-          ? "Author-labeled hard · verified in task.toml"
-          : `${hard} of ${tasks.length} hard — not silently relabeled`;
-    }
-    document.getElementById("stat-measured").textContent = String(jobs);
-    document.getElementById("stat-measured-note").textContent =
-      `Batch 01 ingest · ${agents} with agent trials · ${tasks.length - jobs} not run`;
-
-    const domains = Object.keys(CATEGORY_LABELS).map((key) => ({
-      label: categoryLabel(key).split(" ")[0],
-      n: (corpus.lab.category_mix || {})[key] || 0,
-    }));
-    renderBars(document.getElementById("chart-domains"), domains);
-    const langs = ((corpus.lab.charts || {}).language_mix || []).slice(0, 8).map((row) => ({
-      label: row.language,
-      n: row.n,
-    }));
-    renderBars(document.getElementById("chart-langs"), langs);
-    renderLengthChart();
-    renderPreview();
-  }
-
   function classDot(cls) {
     if (cls === "solved") return "run-dot solved";
     if (cls === "valid_fail") return "run-dot fail";
@@ -949,6 +956,7 @@
 
   function renderRuns() {
     const el = document.getElementById("runs-body");
+    if (!el) return;
     const rows = withFocusedTask(tasks.filter((task) => batchNum(task) || hasAgentJobs(task)));
     if (!rows.length) {
       el.innerHTML = `<article class="empty-card"><h2>No frozen packages yet</h2><p>Freeze a batch, then ingest Harbor jobs. Dots appear only for recorded trials.</p></article>`;
@@ -978,7 +986,7 @@
           <p class="slug">${escapeHtml(task.slug)}${
             batchNum(task) ? " · batch " + batchLabel(batchNum(task)) : ""
           }</p>
-          ${body || '<p class="muted">Oracle only — no terminus-2 trials · not run</p>'}
+          ${body || `<p class="muted">${QUEUED_LABEL}</p>`}
         </article>`;
       })
       .join("");
@@ -986,6 +994,7 @@
 
   function renderTraces() {
     const el = document.getElementById("traces-body");
+    if (!el) return;
     const focus = currentSlug() ? bySlug.get(currentSlug()) : null;
     const rows = (focus ? [focus] : tasks.filter(hasAgentJobs)).slice(0, 12);
     if (!rows.length) {
@@ -1006,13 +1015,14 @@
             </article>`
           )
           .join("");
-        return `<h2>${escapeHtml(task.name)}</h2>${cards || '<p class="muted">No agent traces · not run</p>'}`;
+        return `<h2>${escapeHtml(task.name)}</h2>${cards || `<p class="muted">${QUEUED_LABEL}</p>`}`;
       })
       .join("");
   }
 
   function renderFailures() {
     const el = document.getElementById("failures-body");
+    if (!el) return;
     const rows = withFocusedTask(
       tasks.filter((task) => task.analysis && (task.analysis.themes || []).length)
     );
@@ -1040,6 +1050,8 @@
   }
 
   function renderVerifier() {
+    const el = document.getElementById("verifier-kpis");
+    if (!el) return;
     const frozen = tasks.filter((task) => batchNum(task));
     const oracleOk = frozen.filter((task) => (oracleModels(task)[0] || {}).solved).length;
     const measured = frozen.filter(hasJobs).length;
@@ -1047,17 +1059,19 @@
       (s, task) => s + agentModels(task).reduce((n, row) => n + (row.infra_error || 0), 0),
       0
     );
-    document.getElementById("verifier-kpis").innerHTML = `
+    el.innerHTML = `
       <article class="chart-card"><p class="stat-label">Frozen packages</p><p class="stat-value">${frozen.length}</p></article>
       <article class="chart-card"><p class="stat-label">Oracle ingested pass</p><p class="stat-value">${oracleOk}</p></article>
       <article class="chart-card"><p class="stat-label">With Harbor jobs</p><p class="stat-value">${measured}</p></article>
-      <article class="chart-card"><p class="stat-label">Infra trials</p><p class="stat-value">${infra}</p><p class="stat-note">Excluded from stump</p></article>
+      <article class="chart-card"><p class="stat-label">Infra trials</p><p class="stat-value">${infra}</p><p class="stat-note">Excluded from completed counts</p></article>
     `;
   }
 
   function renderHarness() {
+    const el = document.getElementById("harness-measured");
+    if (!el) return;
     const h = corpus.lab.harness || {};
-    document.getElementById("harness-measured").innerHTML = `
+    el.innerHTML = `
       <dt>Agent</dt><dd>${escapeHtml(h.agent || "terminus-2")}</dd>
       <dt>Oracle</dt><dd>${escapeHtml(h.oracle || "oracle")}</dd>
       <dt>Empty</dt><dd>${escapeHtml(h.empty || "nop")} (optional)</dd>
@@ -1069,6 +1083,7 @@
 
   function renderBatches() {
     const el = document.getElementById("batches-body");
+    if (!el) return;
     const meta = corpus.lab.batches || {};
     const stops = corpus.lab.stops || {};
     const stoppedBatch = Object.keys(stops).map(Number).filter((n) => n > 0);
@@ -1151,7 +1166,13 @@
 
   function aggregateFeatured(spec) {
     if (spec.placeholder) {
-      return { status: "not run", tasks: 0, n: 0, solved: 0, note: "No Harbor trials. Analysis later when API credits return." };
+      return {
+        status: "queued",
+        tasks: 0,
+        n: 0,
+        solved: 0,
+        note: QUEUED_LABEL,
+      };
     }
     let tasksN = 0;
     let n = 0;
@@ -1164,7 +1185,7 @@
       solved += row.solved || 0;
     });
     if (!n) {
-      return { status: "not run", tasks: 0, n: 0, solved: 0, note: "No Harbor ingest for this slug on the 100." };
+      return { status: "queued", tasks: 0, n: 0, solved: 0, note: "No Harbor ingest for this slug on the 100." };
     }
     return {
       status: "recorded",
@@ -1179,20 +1200,20 @@
     const banner = document.getElementById("models-banner");
     if (banner) {
       banner.textContent =
-        "448 authored packages. 100 public. Private Harbor trials where recorded (Batch 01, partial). Grok 4.6, GLM, and Kimi were not run — cells are — / not run, not estimates. Remaining analysis when API credits return.";
+        "448 authored packages. 100 public. Private Harbor trials where recorded (Batch 01, partial). Grok 4.6, GLM, and Kimi are eval queued — no credits, not estimates.";
     }
     const summary = document.getElementById("models-summary-rows");
     if (summary) {
       summary.innerHTML = FEATURED_MODELS.map((spec) => {
         const agg = aggregateFeatured(spec);
         const cell =
-          agg.status === "not run"
-            ? `<span class="chip chip-muted">not run</span>`
-            : `<span class="chip chip-ok">${agg.solved}/${agg.n}</span>`;
-        const tasksCell = agg.status === "not run" ? "—" : String(agg.tasks);
+          agg.status === "queued"
+            ? `<span class="cell-queued">${QUEUED_LABEL}</span>`
+            : `<span class="cell-score cell-measured">${agg.solved}/${agg.n}</span>`;
+        const tasksCell = agg.status === "queued" ? "—" : String(agg.tasks);
         return `<tr>
-          <td>${escapeHtml(spec.label)}<span class="slug">${escapeHtml(spec.slug)}</span></td>
-          <td>${agg.status === "not run" ? `<span class="chip chip-muted">not run</span>` : `<span class="chip chip-ok">recorded</span>`}</td>
+          <td class="name">${escapeHtml(spec.label)}<span class="slug">${escapeHtml(spec.slug)}</span></td>
+          <td>${agg.status === "queued" ? `<span class="chip chip-muted">queued</span>` : `<span class="chip chip-ok">recorded</span>`}</td>
           <td>${tasksCell}</td>
           <td>${cell}</td>
           <td class="muted">${escapeHtml(agg.note)}</td>
@@ -1202,12 +1223,11 @@
     const matrix = document.getElementById("models-matrix-rows");
     if (!matrix) return;
     matrix.innerHTML = "";
-    tasks.forEach((task, index) => {
+    tasks.forEach((task) => {
       const tr = document.createElement("tr");
-      tr.style.setProperty("--stagger", `${staggerDelay(index)}ms`);
       tr.innerHTML = `
-        <td class="name">${escapeHtml(task.name)}<span class="slug">${escapeHtml(task.slug)}</span></td>
-        <td><span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(categoryLabel(task.category))}</span></td>
+        <td class="name">${escapeHtml(task.name)}<span class="cat-line">${escapeHtml(categoryLine(task))}</span></td>
+        <td>${trackPills(task)}</td>
         ${FEATURED_MODELS.map((spec) => `<td class="measured">${modelCell(task, spec)}</td>`).join("")}
       `;
       tr.addEventListener("click", () => selectTask(task.slug, true));
@@ -1218,6 +1238,7 @@
   function renderAgents() {
     const empty = document.getElementById("agents-empty");
     const body = document.getElementById("agents-body");
+    if (!empty || !body) return;
     const rows = aggregateAgents();
     if (!rows.length) {
       empty.hidden = false;
@@ -1244,8 +1265,6 @@
     const tbody = document.getElementById("agent-rows");
     tbody.innerHTML = rows
       .map((row, i) => {
-        const completed = (row.solved || 0) + (row.valid_fail || 0);
-        const stump = completed ? Math.round(((row.valid_fail || 0) / completed) * 1000) / 10 : "—";
         return `<tr>
           <td>${i + 1}</td>
           <td>${escapeHtml(shortModel(row.model))}<span class="slug">${escapeHtml(row.model)}</span></td>
@@ -1256,14 +1275,13 @@
           <td>${row.valid_fail}</td>
           <td>${row.infra_error}</td>
           <td>${row.timeout}</td>
-          <td>${stump}${stump === "—" ? "" : "%"}</td>
         </tr>`;
       })
       .join("");
 
     const breakdown = document.getElementById("agent-task-breakdown");
     const agentTasks = tasks.filter(hasAgentJobs);
-    breakdown.innerHTML = `<h2>By task</h2><p class="muted">Denominator is recorded Harbor trials for that model, not a padded ${PLANNED}. A 1-trial cheap probe shows 0/1, not 0/${PLANNED}. Infra and timeout are listed and excluded from stump.</p>
+    breakdown.innerHTML = `<h2>By task</h2><p class="muted">Denominator is recorded Harbor trials for that model, not a padded ${PLANNED}. A 1-trial cheap probe shows 0/1, not 0/${PLANNED}. Infra and timeout are listed and excluded from completed counts.</p>
       <div class="table-card"><div class="table-scroll"><table>
         <thead><tr><th>Task</th><th>Model</th><th>Recorded</th><th>Solved</th><th>Valid fail</th><th>Infra</th><th>Timeout</th></tr></thead>
         <tbody>${agentTasks
@@ -1285,6 +1303,7 @@
 
   function renderTasksSub() {
     const el = document.getElementById("tasks-sub");
+    if (!el) return;
     const jobs = tasks.filter(hasJobs).length;
     const frozen = tasks.filter((task) => batchNum(task)).length;
     const hard = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
@@ -1300,9 +1319,12 @@
     catalogView = params().get("view") === "cards" ? "cards" : "table";
     renderNav();
     showSurface(surface);
-    if (surface === "worlds") renderWorlds();
-    if (surface === "coverage") renderCoverage();
-    if (surface === "catalog") {
+    if (surface === "overview") renderOverview();
+    if (surface === "challenges") {
+      renderChallengeSlices();
+      renderCoverage();
+    }
+    if (surface === "tasks") {
       renderTasksSub();
       renderChips();
       renderCatalog();
@@ -1319,66 +1341,30 @@
     if (surface === "agents") renderAgents();
   }
 
-  document.getElementById("nav-main").addEventListener("click", (event) => {
-    const button = event.target.closest("[data-nav]");
-    if (!button) return;
-    event.preventDefault();
-    const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
-    if (isBlockedSurface(id) || id === "unavailable") return;
-    const keepSlug = id === "catalog" || id === "runs" || id === "traces" || id === "failures";
-    setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", push: true });
-    renderAll();
-  });
-
-  document.querySelectorAll("#surface-unavailable [data-nav]").forEach((el) => {
-    el.addEventListener("click", (event) => {
+  function bindNav(root) {
+    if (!root) return;
+    root.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-nav]");
+      if (!button) return;
       event.preventDefault();
-      const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
-      setUrl({ surface: id, slug: "", push: true });
+      const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
+      if (isBlockedSurface(id) || id === "unavailable") return;
+      const keepSlug = id === "tasks" || id === "runs" || id === "traces" || id === "failures";
+      setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", push: true });
       renderAll();
     });
-  });
+  }
 
-  document.querySelector(".brand").addEventListener("click", (event) => {
-    event.preventDefault();
-    setUrl({ surface: "worlds", slug: "", push: true });
-    renderAll();
-  });
+  bindNav(document.getElementById("nav-main"));
+  bindNav(document.querySelector("#surface-unavailable"));
+  bindNav(document.querySelector(".packs-head"));
 
-  document.querySelectorAll(".hero-actions [data-nav]").forEach((el) => {
-    el.addEventListener("click", (event) => {
+  const brand = document.querySelector(".brand");
+  if (brand) {
+    brand.addEventListener("click", (event) => {
       event.preventDefault();
-      const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
-      setUrl({ surface: id, slug: "", push: true });
+      setUrl({ surface: "overview", slug: "", push: true });
       renderAll();
-    });
-  });
-
-  document.getElementById("later-close").addEventListener("click", () => {
-    laterModal.hidden = true;
-  });
-  laterModal.addEventListener("click", (event) => {
-    if (event.target === laterModal) laterModal.hidden = true;
-  });
-
-  document.getElementById("harbor-hub-btn").addEventListener("click", () => {
-    laterBody.textContent =
-      "Harbor Hub is disabled. Worlds Lab runs private Harbor 0.22 locally. This is not a published Harbor Hub dataset.";
-    laterModal.hidden = false;
-  });
-
-  const prev = document.getElementById("preview-prev");
-  const next = document.getElementById("preview-next");
-  if (prev && next) {
-    prev.addEventListener("click", () => {
-      const n = (corpus.lab.instruction_previews || []).length || 1;
-      previewIndex = (previewIndex + n - 1) % n;
-      renderPreview();
-    });
-    next.addEventListener("click", () => {
-      const n = (corpus.lab.instruction_previews || []).length || 1;
-      previewIndex = (previewIndex + 1) % n;
-      renderPreview();
     });
   }
 
@@ -1396,14 +1382,14 @@
   if (viewTable) {
     viewTable.addEventListener("click", () => {
       catalogView = "table";
-      setUrl({ surface: "catalog", view: "table", push: true });
+      setUrl({ surface: "tasks", view: "table", push: true });
       renderCatalog();
     });
   }
   if (viewCards) {
     viewCards.addEventListener("click", () => {
       catalogView = "cards";
-      setUrl({ surface: "catalog", view: "cards", push: true });
+      setUrl({ surface: "tasks", view: "cards", push: true });
       renderCatalog();
     });
   }
@@ -1413,5 +1399,5 @@
   initTheme();
   renderAll();
   const initial = currentSlug();
-  if (initial && currentSurface() === "catalog") selectTask(initial, false);
+  if (initial && currentSurface() === "tasks") selectTask(initial, false);
 })();
