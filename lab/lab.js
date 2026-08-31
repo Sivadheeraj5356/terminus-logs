@@ -32,8 +32,9 @@
   };
 
   const PUBLIC_SURFACES = ["worlds", "coverage", "catalog", "models", "batches", "harness"];
-  const LAB_SURFACES = ["runs", "traces", "stump", "failures", "verifier", "spend", "agents"];
-  const SURFACES = [...PUBLIC_SURFACES, ...LAB_SURFACES];
+  const LAB_SURFACES = ["runs", "traces", "failures", "verifier", "agents"];
+  const BLOCKED_SURFACES = ["spend", "stump"];
+  const SURFACES = [...PUBLIC_SURFACES, ...LAB_SURFACES, "unavailable"];
 
   const SURFACE_ALIASES = {
     overview: "worlds",
@@ -46,13 +47,14 @@
     matrix: "models",
     runs: "runs",
     traces: "traces",
-    stump: "stump",
+    stump: "unavailable",
     failures: "failures",
     verifier: "verifier",
     harness: "harness",
-    spend: "spend",
+    spend: "unavailable",
     batches: "batches",
     agents: "agents",
+    unavailable: "unavailable",
   };
 
   const FEATURED_MODELS = [
@@ -108,7 +110,6 @@
   let query = "";
   let catalogView = params().get("view") === "cards" ? "cards" : "table";
   let previewIndex = 0;
-  let labPinned = params().get("internal") === "1";
 
   function categoryLabel(value) {
     return CATEGORY_LABELS[value] || value;
@@ -142,8 +143,17 @@
     return params().get("task") || "";
   }
 
+  function requestedSurface() {
+    return (params().get("surface") || "").toLowerCase();
+  }
+
+  function isBlockedSurface(id) {
+    return BLOCKED_SURFACES.includes(id);
+  }
+
   function currentSurface() {
-    const raw = (params().get("surface") || "").toLowerCase();
+    const raw = requestedSurface();
+    if (isBlockedSurface(raw) || isBlockedSurface(SURFACE_ALIASES[raw])) return "unavailable";
     if (raw && SURFACE_ALIASES[raw]) return SURFACE_ALIASES[raw];
     if (currentSlug()) return "catalog";
     const filter = (params().get("filter") || "").toLowerCase();
@@ -151,22 +161,14 @@
     return "worlds";
   }
 
-  function isLabSurface(id) {
-    return LAB_SURFACES.includes(id);
-  }
-
-  function isLabMode() {
-    return labPinned || isLabSurface(currentSurface());
-  }
-
-  function setUrl({ slug, surface, filter, lang, view, internal, push }) {
+  function setUrl({ slug, surface, filter, lang, view, push }) {
     const url = new URL(window.location.href);
     const nextSlug = slug === undefined ? currentSlug() : slug;
-    const nextSurface = surface === undefined ? currentSurface() : surface;
+    let nextSurface = surface === undefined ? currentSurface() : surface;
+    if (isBlockedSurface(nextSurface) || nextSurface === "unavailable") nextSurface = "worlds";
     const nextFilter = filter === undefined ? category : filter;
     const nextLang = lang === undefined ? langFilter : lang;
     const nextView = view === undefined ? catalogView : view;
-    const nextInternal = internal === undefined ? labPinned : internal;
     if (nextSlug) url.searchParams.set("task", nextSlug);
     else url.searchParams.delete("task");
     if (nextSurface && nextSurface !== "worlds") url.searchParams.set("surface", nextSurface);
@@ -177,8 +179,7 @@
     else url.searchParams.delete("lang");
     if (nextView && nextView !== "table") url.searchParams.set("view", nextView);
     else url.searchParams.delete("view");
-    if (nextInternal) url.searchParams.set("internal", "1");
-    else url.searchParams.delete("internal");
+    url.searchParams.delete("internal");
     history[push ? "pushState" : "replaceState"](
       { task: nextSlug, surface: nextSurface, filter: nextFilter, lang: nextLang },
       "",
@@ -349,12 +350,9 @@
 
   function renderNav() {
     const active = currentSurface();
-    const labOn = isLabMode();
-    document.body.classList.toggle("lab-mode", labOn);
+    document.body.classList.remove("lab-mode");
     const labNav = document.getElementById("nav-lab");
-    if (labNav) labNav.hidden = !labOn;
-    const toggle = document.getElementById("lab-mode-toggle");
-    if (toggle) toggle.setAttribute("aria-pressed", labOn ? "true" : "false");
+    if (labNav) labNav.hidden = true;
     document.querySelectorAll("[data-nav]").forEach((el) => {
       const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
       if (el.tagName === "BUTTON" || el.tagName === "A") {
@@ -1013,35 +1011,6 @@
       .join("");
   }
 
-  function renderStump() {
-    const el = document.getElementById("stump-body");
-    const rows = tasks.filter(hasAgentJobs);
-    if (!rows.length) {
-      el.innerHTML = `<article class="empty-card"><h2>Stump hidden</h2><p>Need at least one completed agent trial (solved or valid fail). Infra and timeout never count. We do not invent stump for Grok, GLM, Kimi, or any model we did not run.</p></article>`;
-      return;
-    }
-    el.innerHTML = `<div class="table-card"><div class="table-scroll"><table>
-      <thead><tr><th>Task</th><th>Batch</th><th>Completed</th><th>Valid fail</th><th>Stump</th><th>Infra</th><th>Timeout</th></tr></thead>
-      <tbody>${rows
-        .map((task) => {
-          const agents = agentModels(task);
-          const solved = agents.reduce((s, r) => s + (r.solved || 0), 0);
-          const vf = agents.reduce((s, r) => s + (r.valid_fail || 0), 0);
-          const infra = agents.reduce((s, r) => s + (r.infra_error || 0), 0);
-          const timeout = agents.reduce((s, r) => s + (r.timeout || 0), 0);
-          return `<tr>
-            <td class="name">${escapeHtml(task.name)}<span class="slug">${escapeHtml(task.slug)}</span></td>
-            <td>${batchNum(task) ? batchLabel(batchNum(task)) : "—"}</td>
-            <td>${solved + vf}</td>
-            <td>${vf}</td>
-            <td>${escapeHtml(stumpDisplay(task))}</td>
-            <td>${infra}</td>
-            <td>${timeout}</td>
-          </tr>`;
-        })
-        .join("")}</tbody></table></div></div>`;
-  }
-
   function renderFailures() {
     const el = document.getElementById("failures-body");
     const rows = withFocusedTask(
@@ -1096,44 +1065,6 @@
       <dt>Planned attempts</dt><dd>${escapeHtml(String(h.planned_attempts || PLANNED))} independent trials (-k)</dd>
       <dt>n_trials</dt><dd>${escapeHtml(h.n_trials || "n_attempts × tasks × agents")}</dd>
     `;
-  }
-
-  function renderSpend() {
-    const spend = corpus.lab.spend || {};
-    const jobs = spend.jobs || [];
-    const stops = corpus.lab.stops || {};
-    document.getElementById("spend-total").textContent =
-      spend.cost_usd_sum != null ? `$${Number(spend.cost_usd_sum).toFixed(2)}` : "—";
-    document.getElementById("spend-note").textContent = spend.note || "";
-    const stopEl = document.getElementById("spend-stop");
-    const stopBits = Object.keys(stops)
-      .sort()
-      .map((key) => {
-        const stop = stops[key] || {};
-        const reason = stop.reason || "stopped";
-        const detail = stop.detail ? ` ${stop.detail}` : "";
-        return `Batch ${String(key).padStart(2, "0")} Harbor stop: ${reason}.${detail}`;
-      });
-    if (stopEl) {
-      stopEl.hidden = stopBits.length === 0;
-      stopEl.textContent = stopBits.join(" ");
-    }
-    const tbody = document.getElementById("spend-rows");
-    if (!jobs.length) {
-      tbody.innerHTML = `<tr><td colspan="5" class="muted">No Harbor job rollups with cost_usd yet.</td></tr>`;
-      return;
-    }
-    tbody.innerHTML = jobs
-      .map(
-        (row) => `<tr>
-          <td class="mono">${escapeHtml(row.job)}</td>
-          <td>${row.n_total_trials ?? "—"}</td>
-          <td>${row.n_completed_trials ?? "—"}</td>
-          <td>${row.n_errored_trials ?? "—"}</td>
-          <td>${row.cost_usd != null ? "$" + Number(row.cost_usd).toFixed(4) : "—"}</td>
-        </tr>`
-      )
-      .join("");
   }
 
   function renderBatches() {
@@ -1367,7 +1298,6 @@
     category = params().get("filter") || "all";
     langFilter = params().get("lang") || "all";
     catalogView = params().get("view") === "cards" ? "cards" : "table";
-    labPinned = params().get("internal") === "1";
     renderNav();
     showSurface(surface);
     if (surface === "worlds") renderWorlds();
@@ -1382,11 +1312,9 @@
     if (surface === "models") renderModels();
     if (surface === "runs") renderRuns();
     if (surface === "traces") renderTraces();
-    if (surface === "stump") renderStump();
     if (surface === "failures") renderFailures();
     if (surface === "verifier") renderVerifier();
     if (surface === "harness") renderHarness();
-    if (surface === "spend") renderSpend();
     if (surface === "batches") renderBatches();
     if (surface === "agents") renderAgents();
   }
@@ -1396,43 +1324,20 @@
     if (!button) return;
     event.preventDefault();
     const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
+    if (isBlockedSurface(id) || id === "unavailable") return;
     const keepSlug = id === "catalog" || id === "runs" || id === "traces" || id === "failures";
     setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", push: true });
     renderAll();
   });
 
-  const labNav = document.getElementById("nav-lab");
-  if (labNav) {
-    labNav.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-nav]");
-      if (!button) return;
-      const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
-      const keepSlug = id === "catalog" || id === "runs" || id === "traces" || id === "failures";
-      labPinned = true;
-      setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", internal: true, push: true });
+  document.querySelectorAll("#surface-unavailable [data-nav]").forEach((el) => {
+    el.addEventListener("click", (event) => {
+      event.preventDefault();
+      const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
+      setUrl({ surface: id, slug: "", push: true });
       renderAll();
     });
-  }
-
-  const labToggle = document.getElementById("lab-mode-toggle");
-  if (labToggle) {
-    labToggle.addEventListener("click", () => {
-      if (isLabMode()) {
-        labPinned = false;
-        const nextSurface = isLabSurface(currentSurface()) ? "worlds" : currentSurface();
-        setUrl({
-          internal: false,
-          surface: nextSurface,
-          slug: nextSurface === "worlds" ? "" : currentSlug(),
-          push: true,
-        });
-      } else {
-        labPinned = true;
-        setUrl({ internal: true, push: true });
-      }
-      renderAll();
-    });
-  }
+  });
 
   document.querySelector(".brand").addEventListener("click", (event) => {
     event.preventDefault();

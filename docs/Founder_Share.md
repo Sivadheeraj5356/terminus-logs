@@ -1,7 +1,7 @@
 # Share Worlds Lab with the founder
 
 **Audience:** CB (Siva) → Raja (`rajaadil07`, GitHub collaborator)  
-**Deadline context:** Client-facing gallery of 100 hard Harbor packages is shareable. Public nav is Worlds / Coverage / Catalog / Models / Batches / Harness. Spend is lab-only. Cheap k=5 fill **stopped** on a dual-provider probe (2026-08-30T18:24Z): Anthropic **credit-balance-too-low** (Haiku and Sonnet), OpenAI **429 insufficient_quota** on `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, and `gpt-3.5-turbo`. No Harbor job was started this resume. Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160. Do not invent stump for Grok / GLM / Kimi.  
+**Deadline context:** Client-facing gallery of 100 hard Harbor packages is shareable. Public nav is Worlds / Coverage / Catalog / Models / Batches / Harness. No below-nav. Spend and Stump are not client surfaces. Cheap k=5 fill **stopped** on a dual-provider probe (2026-08-30T18:24Z): Anthropic **credit-balance-too-low** (Haiku and Sonnet), OpenAI **429 insufficient_quota** on `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, and `gpt-3.5-turbo`. No Harbor job was started this resume. Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160. Do not invent stump for Grok / GLM / Kimi.  
 **Do not paste API keys.** Keys already leaked in chat — **rotate** Anthropic and OpenAI keys. Never reprint them.
 
 ---
@@ -35,14 +35,9 @@ Public URLs (what to send a data-lab client):
 - Batch 02 (frozen, not_run): `/lab/index.html?surface=catalog&filter=b02`
 - One package: `/lab/index.html?task=repair-the-pendulum-motion-solver`
 
-Lab-only (not in public nav; `Lab` toggle or `?internal=1`):
+No below-nav strip and no Lab toggle. `?internal=1` does not reveal Spend, Stump, or a second nav row. `?surface=spend` and `?surface=stump` show an honest empty page (not invoices, not a stump table). `surface=tasks` still aliases Catalog. `filter=batch` still means Batch 01 (10 of 100).
 
-- Spend: `?surface=spend&internal=1`
-- Traces / Runs / Failures / Stump / Agents: `?surface=traces&internal=1` (same for `runs`, `failures`, `stump`, `agents`)
-- `surface=tasks` still aliases Catalog
-- `filter=batch` still means Batch 01 (10 of 100)
-
-Gallery vs measured: **448** inventory under `tasks/latest/`; **100** public gallery (`docs/lab_mvp_100.jsonl`); Harbor jobs only on **Batch 01** (partial). The other 90 catalog rows stay not run. Spend / `cost_usd` is hidden from public nav so clients do not land on Harbor invoices.
+Gallery vs measured: **448** inventory under `tasks/latest/`; **100** public gallery (`docs/lab_mvp_100.jsonl`); Harbor jobs only on **Batch 01** (partial). The other 90 catalog rows stay not run. Spend / `cost_usd` is not a client surface so clients do not land on Harbor invoices.
 
 ### B. Zip if they cannot clone the private repo
 
@@ -87,7 +82,7 @@ If the tunnel is down, fall back to the PR/clone path in A. GitHub Pages is a we
 | Models | Featured matrix. Empty cells are `—` / not run. No invented stump. Haiku ingest stays in the package panel |
 | Batches | Ledger 01–05: Batch 01 partial; 02–05 frozen, not measured |
 | Harness | terminus-2 + Harbor 0.22 named; no fake Claude Code estimates |
-| Lab-only: Runs / Traces / Failures / Stump / Agents / Spend | Real Batch 01 jobs where they exist; Spend is Harbor `cost_usd`, not on public nav |
+| Spend / Stump | Not client surfaces. Deep links show an honest empty page, not Harbor invoices or invented stump % |
 
 Identity is **Applied Work Worlds Lab**. Layout follows a research-lab / data-lab catalog job (collection of hard worlds, model columns). It is not Senior SWE-Bench and not a hosted buyer-platform brand.
 
