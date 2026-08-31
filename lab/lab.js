@@ -525,7 +525,7 @@
         <td class="name">${escapeHtml(task.name)}
           <span class="cat-line">${escapeHtml(categoryLine(task))}${hard}</span>
         </td>
-        <td>${trackPills(task)}</td>
+        <td><div class="track-cell">${trackPills(task)}</div></td>
         ${FEATURED_MODELS.map((spec) => `<td class="measured">${modelCell(task, spec)}</td>`).join("")}
       `;
       tr.addEventListener("click", () => selectTask(task.slug, true));
@@ -1227,7 +1227,7 @@
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="name">${escapeHtml(task.name)}<span class="cat-line">${escapeHtml(categoryLine(task))}</span></td>
-        <td>${trackPills(task)}</td>
+        <td><div class="track-cell">${trackPills(task)}</div></td>
         ${FEATURED_MODELS.map((spec) => `<td class="measured">${modelCell(task, spec)}</td>`).join("")}
       `;
       tr.addEventListener("click", () => selectTask(task.slug, true));
