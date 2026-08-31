@@ -227,9 +227,10 @@ a:hover {
   gap: 10px;
 }
 
-.local-lab {
+.github-lab {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   height: 32px;
   padding: 0 12px;
   border: 1px solid var(--hairline);
@@ -239,6 +240,19 @@ a:hover {
   letter-spacing: 0.08em;
   color: var(--ink-soft);
   background: var(--sheet);
+  text-decoration: none;
+}
+
+.github-lab:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 28%, var(--hairline));
+  background: var(--header);
+}
+
+.github-lab svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 .btn {
@@ -1459,7 +1473,7 @@ code {
     position: static;
   }
 
-  .local-lab {
+  .github-lab {
     font-size: 0.62rem;
   }
 }
