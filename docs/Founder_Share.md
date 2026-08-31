@@ -1,7 +1,7 @@
 # Share Worlds Lab with the founder
 
 **Audience:** CB (Siva) → Raja (`rajaadil07`, GitHub collaborator)  
-**Deadline context:** Gallery + 12 Worlds Lab surfaces are shareable. Cheap k=5 fill **stopped** on a dual-provider probe (2026-08-30T18:24Z): Anthropic **credit-balance-too-low** (Haiku and Sonnet), OpenAI **429 insufficient_quota** on `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, and `gpt-3.5-turbo`. No Harbor job was started this resume. Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160.  
+**Deadline context:** Client-facing gallery of 100 hard Harbor packages is shareable. Public nav is Worlds / Coverage / Catalog / Models / Batches / Harness. Spend is lab-only. Cheap k=5 fill **stopped** on a dual-provider probe (2026-08-30T18:24Z): Anthropic **credit-balance-too-low** (Haiku and Sonnet), OpenAI **429 insufficient_quota** on `gpt-4o-mini`, `gpt-4o`, `gpt-4.1-mini`, `gpt-4.1-nano`, and `gpt-3.5-turbo`. No Harbor job was started this resume. Batches 02–05 are frozen, not measured. Not 50/50. Not 160/160. Do not invent stump for Grok / GLM / Kimi.  
 **Do not paste API keys.** Keys already leaked in chat — **rotate** Anthropic and OpenAI keys. Never reprint them.
 
 ---
@@ -24,19 +24,25 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then: http://127.0.0.1:8765/lab/index.html
 
-Batch filter (all frozen tens): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch  
-Batch 01 only: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b01  
-`surface=tasks` still aliases Catalog.
-
-Deep links:
+Public URLs (what to send a data-lab client):
 
 - Worlds (default): `/lab/index.html` or `?surface=worlds`
-- Catalog: `/lab/index.html?surface=catalog`
-- Frozen batches: `/lab/index.html?surface=catalog&filter=batch`
+- Catalog, **all 100**: `/lab/index.html?surface=catalog`
+- Catalog cards: `?surface=catalog&view=cards`
+- Models (Opus / GPT-5.6-sol ingest; Grok / GLM / Kimi = not run): `/lab/index.html?surface=models`
+- Coverage / Batches / Harness: `?surface=coverage` · `?surface=batches` · `?surface=harness`
+- Batch 01 only: `/lab/index.html?surface=catalog&filter=b01`
+- Batch 02 (frozen, not_run): `/lab/index.html?surface=catalog&filter=b02`
 - One package: `/lab/index.html?task=repair-the-pendulum-motion-solver`
-- Pendulum Runs / Traces / Failures: `?surface=runs&task=repair-the-pendulum-motion-solver` (same for `traces`, `failures`)
-- Spend / Batches (credit stop): `?surface=spend` · `?surface=batches`
-- Agents (honest ingest, no fake curves): `/lab/index.html?surface=agents`
+
+Lab-only (not in public nav; `Lab` toggle or `?internal=1`):
+
+- Spend: `?surface=spend&internal=1`
+- Traces / Runs / Failures / Stump / Agents: `?surface=traces&internal=1` (same for `runs`, `failures`, `stump`, `agents`)
+- `surface=tasks` still aliases Catalog
+- `filter=batch` still means Batch 01 (10 of 100)
+
+Gallery vs measured: **448** inventory under `tasks/latest/`; **100** public gallery (`docs/lab_mvp_100.jsonl`); Harbor jobs only on **Batch 01** (partial). The other 90 catalog rows stay not run. Spend / `cost_usd` is hidden from public nav so clients do not land on Harbor invoices.
 
 ### B. Zip if they cannot clone the private repo
 
@@ -75,14 +81,15 @@ If the tunnel is down, fall back to the PR/clone path in A. GitHub Pages is a we
 
 | Surface | What is real |
 | --- | --- |
-| Worlds | Applied Work Worlds Lab intro, 100 gallery / 50 measured target, charts from **our** `instruction.md` |
+| Worlds | Client hero: 448 inventory / 100 public gallery, all hard, oracle+tests, private Harbor 0.22 |
 | Coverage | Domain × language matrix; batch 01–05 marks; teal = ingested jobs |
-| Catalog | All 100 rows. Batch chips 01–05. Measured column is **solved / recorded** (haiku 1-trial is `0/1`, not `0/5`) |
-| Runs / Traces / Failures / Stump | One dot per recorded trial; trajectory summaries; named verifier holes |
-| Verifier / Harness / Spend / Batches | Oracle rules, terminus-2 + Harbor 0.22 only, Harbor `cost_usd`, ledger 01–05 |
-| Agents | Only Harbor ingest. **No effort curves.** **No padded 8/8.** |
+| Catalog | **All 100 rows by default.** Category / language / batch chips. Model columns: Opus 5, GPT-5.6-sol from ingest; Grok / GLM / Kimi = **not run** |
+| Models | Featured matrix. Empty cells are `—` / not run. No invented stump. Haiku ingest stays in the package panel |
+| Batches | Ledger 01–05: Batch 01 partial; 02–05 frozen, not measured |
+| Harness | terminus-2 + Harbor 0.22 named; no fake Claude Code estimates |
+| Lab-only: Runs / Traces / Failures / Stump / Agents / Spend | Real Batch 01 jobs where they exist; Spend is Harbor `cost_usd`, not on public nav |
 
-Identity is **Applied Work Worlds Lab**. Layout follows a research-lab chrome (top nav, cream page, ink-teal accent). It is not Senior SWE-Bench and not Snorkel.
+Identity is **Applied Work Worlds Lab**. Layout follows a research-lab / data-lab catalog job (collection of hard worlds, model columns). It is not Senior SWE-Bench and not a hosted buyer-platform brand.
 
 ---
 
@@ -124,6 +131,6 @@ Parent Worlds Lab chat: https://cursor.com/agents/bc-6d1b9c8d-8492-40cb-aa39-d59
 
 ## 4. Deadline realism
 
-- **Share now:** gallery + 12 surfaces (PR, zip, or local `http.server`).
+- **Share now:** client gallery (PR, zip, or local `http.server`). Public Catalog is all 100.
 - **Not now:** remaining Batch 01 Haiku fills (dyeworks need 3, offline-cache need 2, four slugs need 4), OpenAI/Sonnet k=5, or batches 02–05 — blocked until Anthropic credits **and** OpenAI quota return.
 - A chip like `claude-haiku-4-5 4/9` means **4 solves out of 9 recorded trials**. A 1-trial probe is `0/1`, never padded to `/5` or `/8`. See the loss note.

@@ -23,20 +23,17 @@
     debugging: "Debugging",
   };
 
-  const SURFACES = [
-    "worlds",
-    "coverage",
-    "catalog",
-    "runs",
-    "traces",
-    "stump",
-    "failures",
-    "verifier",
-    "harness",
-    "spend",
-    "batches",
-    "agents",
-  ];
+  const SUBCATEGORY_LABELS = {
+    tool_specific: "Tool-specific",
+    db_interaction: "Database",
+    api_integration: "API",
+    long_context: "Long context",
+    ui_building: "UI",
+  };
+
+  const PUBLIC_SURFACES = ["worlds", "coverage", "catalog", "models", "batches", "harness"];
+  const LAB_SURFACES = ["runs", "traces", "stump", "failures", "verifier", "spend", "agents"];
+  const SURFACES = [...PUBLIC_SURFACES, ...LAB_SURFACES];
 
   const SURFACE_ALIASES = {
     overview: "worlds",
@@ -45,6 +42,8 @@
     tasks: "catalog",
     corpus: "catalog",
     catalog: "catalog",
+    models: "models",
+    matrix: "models",
     runs: "runs",
     traces: "traces",
     stump: "stump",
@@ -56,12 +55,48 @@
     agents: "agents",
   };
 
+  const FEATURED_MODELS = [
+    {
+      key: "opus",
+      label: "Opus 5",
+      slug: "anthropic/claude-opus-5",
+      match: (name) => /claude-opus-5|\bopus-5\b/i.test(name),
+    },
+    {
+      key: "gpt56",
+      label: "GPT-5.6-sol",
+      slug: "openai/gpt-5.6-sol",
+      match: (name) => /gpt-5\.6-sol/i.test(name),
+    },
+    {
+      key: "grok",
+      label: "Grok 4.6",
+      slug: "grok-4.6",
+      placeholder: true,
+      note: "not run",
+    },
+    {
+      key: "glm",
+      label: "GLM",
+      slug: "glm",
+      placeholder: true,
+      note: "not run",
+    },
+    {
+      key: "kimi",
+      label: "Kimi",
+      slug: "kimi",
+      placeholder: true,
+      note: "not run",
+    },
+  ];
+
   const PLANNED = Number((corpus.lab.harness || {}).planned_attempts) || 5;
   const tasks = corpus.tasks;
   const bySlug = new Map(tasks.map((task) => [task.slug, task]));
 
   const rowsEl = document.getElementById("rows");
-  const chipsEl = document.getElementById("chips");
+  const cardsEl = document.getElementById("catalog-cards");
   const shownEl = document.getElementById("shown");
   const qEl = document.getElementById("q");
   const panelTitle = document.getElementById("panel-title");
@@ -69,15 +104,26 @@
   const panelBody = document.getElementById("panel-body");
 
   let category = params().get("filter") || "all";
+  let langFilter = params().get("lang") || "all";
   let query = "";
+  let catalogView = params().get("view") === "cards" ? "cards" : "table";
   let previewIndex = 0;
+  let labPinned = params().get("internal") === "1";
 
   function categoryLabel(value) {
     return CATEGORY_LABELS[value] || value;
   }
 
+  function subcategoryLabel(value) {
+    return SUBCATEGORY_LABELS[value] || value;
+  }
+
   function languages(task) {
     return task.languages || [];
+  }
+
+  function subcategories(task) {
+    return task.subcategories || [];
   }
 
   function escapeHtml(value) {
@@ -105,27 +151,44 @@
     return "worlds";
   }
 
-  function setUrl({ slug, surface, filter, push }) {
+  function isLabSurface(id) {
+    return LAB_SURFACES.includes(id);
+  }
+
+  function isLabMode() {
+    return labPinned || isLabSurface(currentSurface());
+  }
+
+  function setUrl({ slug, surface, filter, lang, view, internal, push }) {
     const url = new URL(window.location.href);
     const nextSlug = slug === undefined ? currentSlug() : slug;
     const nextSurface = surface === undefined ? currentSurface() : surface;
     const nextFilter = filter === undefined ? category : filter;
+    const nextLang = lang === undefined ? langFilter : lang;
+    const nextView = view === undefined ? catalogView : view;
+    const nextInternal = internal === undefined ? labPinned : internal;
     if (nextSlug) url.searchParams.set("task", nextSlug);
     else url.searchParams.delete("task");
     if (nextSurface && nextSurface !== "worlds") url.searchParams.set("surface", nextSurface);
     else url.searchParams.delete("surface");
     if (nextFilter && nextFilter !== "all") url.searchParams.set("filter", nextFilter);
     else url.searchParams.delete("filter");
-    history[push ? "pushState" : "replaceState"]({ task: nextSlug, surface: nextSurface, filter: nextFilter }, "", url);
+    if (nextLang && nextLang !== "all") url.searchParams.set("lang", nextLang);
+    else url.searchParams.delete("lang");
+    if (nextView && nextView !== "table") url.searchParams.set("view", nextView);
+    else url.searchParams.delete("view");
+    if (nextInternal) url.searchParams.set("internal", "1");
+    else url.searchParams.delete("internal");
+    history[push ? "pushState" : "replaceState"](
+      { task: nextSlug, surface: nextSurface, filter: nextFilter, lang: nextLang },
+      "",
+      url
+    );
   }
 
   function isOracleModel(name) {
     const value = String(name || "").toLowerCase();
-    return !value || value === "oracle" || orIncludesOracle(value);
-  }
-
-  function orIncludesOracle(value) {
-    return value.includes("oracle");
+    return !value || value === "oracle" || value.includes("oracle");
   }
 
   function agentModels(task) {
@@ -174,10 +237,46 @@
     return m ? Number(m[1]) : 0;
   }
 
+  function normalizeLang(value) {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    const lower = raw.toLowerCase();
+    const map = {
+      go: "Go",
+      golang: "Go",
+      rust: "Rust",
+      rs: "Rust",
+      c: "C",
+      "c++": "C++",
+      cpp: "C++",
+      python: "Python",
+      py: "Python",
+      bash: "Bash",
+      sh: "Bash",
+      shell: "Bash",
+      java: "Java",
+      javascript: "JavaScript",
+      js: "JavaScript",
+      typescript: "TypeScript",
+      ts: "TypeScript",
+      awk: "Awk",
+      minizinc: "MiniZinc",
+      r: "R",
+      haskell: "Haskell",
+      php: "PHP",
+      lua: "Lua",
+      sql: "SQL",
+    };
+    return map[lower] || raw;
+  }
+
+  function languageSet(task) {
+    return languages(task).map(normalizeLang).filter(Boolean);
+  }
+
   function matchesFilter(task) {
     if (!task) return false;
     const batchKey = parseBatchFilter(category);
-    // filter=batch is Batch 01 (10 of 100), matching ?surface=tasks&filter=batch.
     if (category === "batch" && batchNum(task) !== 1) return false;
     if (category === "frozen" && !batchNum(task)) return false;
     if (batchKey && batchNum(task) !== batchKey) return false;
@@ -194,13 +293,25 @@
     ) {
       return false;
     }
+    if (langFilter && langFilter !== "all") {
+      const want = normalizeLang(langFilter).toLowerCase();
+      if (!languageSet(task).some((lang) => lang.toLowerCase() === want)) return false;
+    }
     return true;
   }
 
   function matches(task) {
     if (!matchesFilter(task)) return false;
     if (!query) return true;
-    const hay = [task.name, task.slug, task.category, categoryLabel(task.category), languages(task).join(" ")]
+    const hay = [
+      task.name,
+      task.slug,
+      task.category,
+      categoryLabel(task.category),
+      languages(task).join(" "),
+      subcategories(task).join(" "),
+      subcategories(task).map(subcategoryLabel).join(" "),
+    ]
       .join(" ")
       .toLowerCase();
     return hay.includes(query);
@@ -238,6 +349,12 @@
 
   function renderNav() {
     const active = currentSurface();
+    const labOn = isLabMode();
+    document.body.classList.toggle("lab-mode", labOn);
+    const labNav = document.getElementById("nav-lab");
+    if (labNav) labNav.hidden = !labOn;
+    const toggle = document.getElementById("lab-mode-toggle");
+    if (toggle) toggle.setAttribute("aria-pressed", labOn ? "true" : "false");
     document.querySelectorAll("[data-nav]").forEach((el) => {
       const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
       if (el.tagName === "BUTTON" || el.tagName === "A") {
@@ -253,9 +370,25 @@
     });
   }
 
-  function measuredCell(task) {
-    if (!hasJobs(task)) return `<span class="chip chip-muted">—</span>`;
-    const agents = agentModels(task);
+  function featuredRow(task, spec) {
+    if (!spec || spec.placeholder) return null;
+    return agentModels(task).find((row) => spec.match(row.model || "") && recordedN(row) > 0) || null;
+  }
+
+  function modelCell(task, spec) {
+    if (!spec || spec.placeholder) {
+      return `<span class="chip chip-muted" title="not run">—</span>`;
+    }
+    const row = featuredRow(task, spec);
+    if (!row) return `<span class="chip chip-muted" title="not run">—</span>`;
+    const recorded = recordedN(row);
+    const cls = recorded >= PLANNED ? "chip-ok" : "chip-warn";
+    return `<span class="chip ${cls}">${row.solved || 0}/${recorded}</span>`;
+  }
+
+  function recordedChips(task) {
+    if (!hasJobs(task)) return `<span class="chip chip-muted">not run</span>`;
+    const agents = agentModels(task).filter((row) => recordedN(row) > 0);
     if (!agents.length) {
       const oracle = oracleModels(task)[0];
       const ok = oracle && oracle.solved;
@@ -279,70 +412,137 @@
     return counts;
   }
 
+  function languageCounts() {
+    const counts = new Map();
+    tasks.forEach((task) => {
+      const seen = new Set();
+      languageSet(task).forEach((lang) => {
+        if (seen.has(lang)) return;
+        seen.add(lang);
+        counts.set(lang, (counts.get(lang) || 0) + 1);
+      });
+    });
+    return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }
+
+  function makeChip(key, label, pressed, onClick) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = label;
+    button.setAttribute("aria-pressed", pressed ? "true" : "false");
+    button.addEventListener("click", onClick);
+    return button;
+  }
+
   function renderChips() {
     const counts = corpus.lab.category_mix || {};
     const frozen = frozenCounts();
-    const keys = [
-      "all",
-      "batch",
-      "frozen",
-      "b01",
-      "b02",
-      "b03",
-      "b04",
-      "b05",
-      "measured",
-      "agents",
-      ...Object.keys(CATEGORY_LABELS),
+    const scopeEl = document.getElementById("chips-scope");
+    const catEl = document.getElementById("chips-category");
+    const langEl = document.getElementById("chips-lang");
+    if (!scopeEl || !catEl || !langEl) return;
+
+    const apply = () => {
+      setUrl({ surface: "catalog", filter: category, lang: langFilter, push: true });
+      renderChips();
+      renderCatalog();
+      const slug = currentSlug();
+      if (slug) renderPanel(bySlug.get(slug) || null);
+    };
+
+    scopeEl.innerHTML = "";
+    const scopeKeys = [
+      ["all", `All ${tasks.length}`],
+      ["frozen", `Frozen ${Object.values(frozen).reduce((a, n) => a + n, 0)}`],
+      ["b01", `B01 ${frozen[1] || 0}`],
+      ["b02", `B02 ${frozen[2] || 0}`],
+      ["b03", `B03 ${frozen[3] || 0}`],
+      ["b04", `B04 ${frozen[4] || 0}`],
+      ["b05", `B05 ${frozen[5] || 0}`],
+      ["measured", `Jobs ${corpus.lab.measured_size || 0}`],
+      ["agents", `Agent trials ${tasks.filter(hasAgentJobs).length}`],
     ];
-    chipsEl.innerHTML = "";
-    keys.forEach((key) => {
-      const button = document.createElement("button");
-      const b = parseBatchFilter(key);
-      let label;
-      if (key === "all") label = `All ${tasks.length}`;
-      else if (key === "batch") label = `Batch 01 ${frozen[1] || 10}`;
-      else if (key === "frozen") label = `Frozen ${Object.values(frozen).reduce((a, n) => a + n, 0)}`;
-      else if (b) label = `B${batchLabel(b)} ${frozen[b] || 0}`;
-      else if (key === "measured") label = `Jobs ${corpus.lab.measured_size || 0}`;
-      else if (key === "agents") label = `Agent trials ${tasks.filter(hasAgentJobs).length}`;
-      else label = `${categoryLabel(key)} ${counts[key] || 0}`;
-      button.type = "button";
-      button.textContent = label;
-      button.setAttribute("aria-pressed", key === category ? "true" : "false");
-      button.addEventListener("click", () => {
-        category = key;
-        setUrl({ surface: "catalog", filter: key, push: true });
-        renderChips();
-        renderTable();
-        const slug = currentSlug();
-        if (slug) renderPanel(bySlug.get(slug) || null);
-      });
-      chipsEl.appendChild(button);
+    scopeKeys.forEach(([key, label]) => {
+      const pressed =
+        key === category || (key === "b01" && (category === "batch" || category === "b01"));
+      scopeEl.appendChild(
+        makeChip(key, label, pressed, () => {
+          category = key === "b01" && category === "batch" ? "b01" : key;
+          apply();
+        })
+      );
     });
+
+    catEl.innerHTML = "";
+    catEl.appendChild(
+      makeChip("cat-all", "All categories", !CATEGORY_LABELS[category], () => {
+        if (CATEGORY_LABELS[category]) category = "all";
+        apply();
+      })
+    );
+    Object.keys(CATEGORY_LABELS).forEach((key) => {
+      catEl.appendChild(
+        makeChip(key, `${categoryLabel(key)} ${counts[key] || 0}`, category === key, () => {
+          category = key;
+          apply();
+        })
+      );
+    });
+
+    langEl.innerHTML = "";
+    langEl.appendChild(
+      makeChip("lang-all", "All languages", langFilter === "all", () => {
+        langFilter = "all";
+        apply();
+      })
+    );
+    languageCounts().forEach(([lang, n]) => {
+      langEl.appendChild(
+        makeChip(lang, `${lang} ${n}`, normalizeLang(langFilter) === lang, () => {
+          langFilter = lang;
+          apply();
+        })
+      );
+    });
+  }
+
+  function staggerDelay(index) {
+    return Math.min(index, 28) * 18;
   }
 
   function renderTable() {
     const selected = currentSlug();
     const visible = tasks.filter(matches);
     rowsEl.innerHTML = "";
-    visible.forEach((task) => {
+    visible.forEach((task, index) => {
       const tr = document.createElement("tr");
       tr.dataset.slug = task.slug;
+      tr.style.setProperty("--stagger", `${staggerDelay(index)}ms`);
       tr.setAttribute("aria-selected", task.slug === selected ? "true" : "false");
       tr.tabIndex = 0;
-      const langHtml = languages(task)
+      const langHtml = languageSet(task)
         .map((lang) => `<span class="chip chip-lang">${escapeHtml(lang)}</span>`)
         .join(" ");
       const bn = batchNum(task);
+      const subs = subcategories(task);
+      const subHtml = subs.length
+        ? `<span class="slug">${subs.map(subcategoryLabel).map(escapeHtml).join(" · ")}</span>`
+        : "";
+      const hardFlag =
+        String(task.difficulty || "").toLowerCase() === "hard"
+          ? ""
+          : `<span class="chip chip-warn">difficulty: ${escapeHtml(task.difficulty || "unknown")}</span>`;
       tr.innerHTML = `
         <td class="name">${escapeHtml(task.name)}
-          <span class="slug">${escapeHtml(task.slug)}</span>
+          <span class="slug">${escapeHtml(task.slug)}${
+            bn ? ` · batch ${batchLabel(bn)}` : ""
+          }</span>
         </td>
-        <td><span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(categoryLabel(task.category))}</span></td>
+        <td><span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(
+        categoryLabel(task.category)
+      )}</span>${subHtml}${hardFlag}</td>
         <td>${langHtml || "—"}</td>
-        <td>${bn ? `<span class="chip chip-batch">${batchLabel(bn)}</span>` : `<span class="muted">—</span>`}</td>
-        <td class="measured">${measuredCell(task)}</td>
+        ${FEATURED_MODELS.map((spec) => `<td class="measured">${modelCell(task, spec)}</td>`).join("")}
       `;
       tr.addEventListener("click", () => selectTask(task.slug, true));
       tr.addEventListener("keydown", (event) => {
@@ -353,11 +553,82 @@
       });
       rowsEl.appendChild(tr);
     });
+  }
+
+  function renderCards() {
+    if (!cardsEl) return;
+    const selected = currentSlug();
+    const visible = tasks.filter(matches);
+    cardsEl.innerHTML = "";
+    visible.forEach((task, index) => {
+      const article = document.createElement("article");
+      article.className = "world-card";
+      article.dataset.slug = task.slug;
+      article.style.setProperty("--stagger", `${staggerDelay(index)}ms`);
+      article.setAttribute("aria-selected", task.slug === selected ? "true" : "false");
+      article.tabIndex = 0;
+      const bn = batchNum(task);
+      const langs = languageSet(task)
+        .map((lang) => `<span class="chip chip-lang">${escapeHtml(lang)}</span>`)
+        .join("");
+      const subs = subcategories(task)
+        .map((s) => `<span class="chip chip-lang">${escapeHtml(subcategoryLabel(s))}</span>`)
+        .join("");
+      const hard =
+        String(task.difficulty || "").toLowerCase() === "hard"
+          ? `<span class="chip chip-ok">hard</span>`
+          : `<span class="chip chip-warn">${escapeHtml(task.difficulty || "unknown")}</span>`;
+      article.innerHTML = `
+        <p class="world-card-meta">
+          <span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(categoryLabel(task.category))}</span>
+          ${hard}
+          ${bn ? `<span class="chip chip-batch">${batchLabel(bn)}</span>` : ""}
+        </p>
+        <h3>${escapeHtml(task.name)}</h3>
+        <p class="slug">${escapeHtml(task.slug)}</p>
+        <p class="world-card-langs">${langs || "—"}${subs}</p>
+        <p class="world-card-models">${FEATURED_MODELS.map(
+          (spec) =>
+            `<span class="model-mini"><span class="muted">${escapeHtml(spec.label)}</span> ${modelCell(
+              task,
+              spec
+            )}</span>`
+        ).join("")}</p>
+        <p class="world-card-recorded">${recordedChips(task)}</p>
+      `;
+      article.addEventListener("click", () => selectTask(task.slug, true));
+      article.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          selectTask(task.slug, true);
+        }
+      });
+      cardsEl.appendChild(article);
+    });
+  }
+
+  function renderCatalog() {
+    const tableWrap = document.getElementById("catalog-table-wrap");
+    const selected = currentSlug();
+    const visible = tasks.filter(matches);
     const selectedTask = selected ? bySlug.get(selected) : null;
     const outside = Boolean(selectedTask && !matches(selectedTask));
     shownEl.textContent = outside
       ? `${visible.length} of ${tasks.length} · selected package is outside this filter`
       : `${visible.length} of ${tasks.length}`;
+    const tableBtn = document.getElementById("view-table");
+    const cardsBtn = document.getElementById("view-cards");
+    if (tableBtn) tableBtn.setAttribute("aria-pressed", catalogView === "table" ? "true" : "false");
+    if (cardsBtn) cardsBtn.setAttribute("aria-pressed", catalogView === "cards" ? "true" : "false");
+    if (catalogView === "cards") {
+      if (tableWrap) tableWrap.hidden = true;
+      if (cardsEl) cardsEl.hidden = false;
+      renderCards();
+    } else {
+      if (tableWrap) tableWrap.hidden = false;
+      if (cardsEl) cardsEl.hidden = true;
+      renderTable();
+    }
   }
 
   function fileList(task) {
@@ -385,7 +656,7 @@
       panelEmpty.hidden = false;
       panelEmpty.innerHTML = `
         <p>Select a task to open its summary, Harbor files, and ingest status.</p>
-        <p class="hint">Deep links use <code>lab/index.html?surface=catalog&amp;task=&lt;slug&gt;</code>. A <code>filter=</code> chip can stay; <code>task</code> still opens this panel.</p>
+        <p class="hint">Deep links use <code>lab/index.html?surface=catalog&amp;task=&lt;slug&gt;</code>. Default filter is all 100.</p>
       `;
       panelBody.hidden = true;
       panelBody.innerHTML = "";
@@ -416,14 +687,25 @@
           .join("")
       : `<span class="muted">No terminus-2 trials ingested.</span>`;
     const themes = ((task.analysis && task.analysis.themes) || []).slice(0, 6);
+    const subs = subcategories(task);
+    const featuredHtml = FEATURED_MODELS.map((spec) => {
+      if (spec.placeholder) {
+        return `<div>${escapeHtml(spec.label)}: <span class="muted">not run</span></div>`;
+      }
+      const row = featuredRow(task, spec);
+      if (!row) return `<div>${escapeHtml(spec.label)}: <span class="muted">not run</span></div>`;
+      return `<div>${escapeHtml(spec.label)}: ${row.solved || 0}/${recordedN(row)} recorded</div>`;
+    }).join("");
     panelBody.innerHTML = `
       <dl class="meta">
         <dt>Category</dt>
         <dd>${escapeHtml(categoryLabel(task.category))}</dd>
+        <dt>Subcategory</dt>
+        <dd>${subs.length ? escapeHtml(subs.map(subcategoryLabel).join(", ")) : "—"}</dd>
         <dt>Difficulty</dt>
-        <dd>${escapeHtml(task.difficulty)} <span class="muted">(author label)</span></dd>
+        <dd>${escapeHtml(task.difficulty)} <span class="muted">(author label, verified in task.toml)</span></dd>
         <dt>Languages</dt>
-        <dd>${escapeHtml(languages(task).join(", ") || "—")}</dd>
+        <dd>${escapeHtml(languageSet(task).join(", ") || "—")}</dd>
         <dt>UUID</dt>
         <dd class="mono">${escapeHtml(task.uuid)}</dd>
         <dt>Slug</dt>
@@ -447,10 +729,12 @@
             ? `${oracle.solved || 0}/${oracle.n || 0} solved`
             : `<span class="muted">not ingested</span>`
         }</dd>
+        <dt>Featured models</dt>
+        <dd>${featuredHtml}</dd>
         <dt>Agents</dt>
         <dd>${agentHtml}</dd>
         <dt>Stump %</dt>
-        <dd>${escapeHtml(stumpDisplay(task))} <span class="muted">(valid fail / completed; infra excluded)</span></dd>
+        <dd>${escapeHtml(stumpDisplay(task))} <span class="muted">(valid fail / completed; infra excluded; analysis later if empty)</span></dd>
       </dl>
       ${
         themes.length
@@ -471,7 +755,7 @@
     showSurface("catalog");
     renderNav();
     renderChips();
-    renderTable();
+    renderCatalog();
     if (!task) {
       renderPanel(null);
       panelTitle.textContent = "Unknown package";
@@ -480,7 +764,9 @@
       return;
     }
     renderPanel(task);
-    const row = rowsEl.querySelector(`[data-slug="${CSS.escape(slug)}"]`);
+    const row =
+      rowsEl.querySelector(`[data-slug="${CSS.escape(slug)}"]`) ||
+      (cardsEl && cardsEl.querySelector(`[data-slug="${CSS.escape(slug)}"]`));
     if (row) row.scrollIntoView({ block: "nearest" });
   }
 
@@ -606,12 +892,21 @@
   function renderWorlds() {
     const jobs = tasks.filter(hasJobs).length;
     const agents = tasks.filter(hasAgentJobs).length;
+    const hard = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
     document.getElementById("stat-packages").textContent = String(corpus.lab.mvp_size || tasks.length);
     document.getElementById("stat-inventory").textContent = String(corpus.lab.inventory_size || 448);
-    document.getElementById("stat-batch").textContent = String(corpus.lab.measured_target || 50);
+    const hardEl = document.getElementById("stat-hard");
+    if (hardEl) hardEl.textContent = String(hard);
+    const hardNote = document.getElementById("stat-hard-note");
+    if (hardNote) {
+      hardNote.textContent =
+        hard === tasks.length
+          ? "Author-labeled hard · verified in task.toml"
+          : `${hard} of ${tasks.length} hard — not silently relabeled`;
+    }
     document.getElementById("stat-measured").textContent = String(jobs);
     document.getElementById("stat-measured-note").textContent =
-      `Harbor jobs ingested · ${agents} with agent trials · cheap plan k=${PLANNED}`;
+      `Batch 01 ingest · ${agents} with agent trials · ${tasks.length - jobs} not run`;
 
     const domains = Object.keys(CATEGORY_LABELS).map((key) => ({
       label: categoryLabel(key).split(" ")[0],
@@ -685,7 +980,7 @@
           <p class="slug">${escapeHtml(task.slug)}${
             batchNum(task) ? " · batch " + batchLabel(batchNum(task)) : ""
           }</p>
-          ${body || '<p class="muted">Oracle only — no terminus-2 trials.</p>'}
+          ${body || '<p class="muted">Oracle only — no terminus-2 trials · not run</p>'}
         </article>`;
       })
       .join("");
@@ -713,7 +1008,7 @@
             </article>`
           )
           .join("");
-        return `<h2>${escapeHtml(task.name)}</h2>${cards || '<p class="muted">No agent traces.</p>'}`;
+        return `<h2>${escapeHtml(task.name)}</h2>${cards || '<p class="muted">No agent traces · not run</p>'}`;
       })
       .join("");
   }
@@ -722,7 +1017,7 @@
     const el = document.getElementById("stump-body");
     const rows = tasks.filter(hasAgentJobs);
     if (!rows.length) {
-      el.innerHTML = `<article class="empty-card"><h2>Stump hidden</h2><p>Need at least one completed agent trial (solved or valid fail). Infra and timeout never count.</p></article>`;
+      el.innerHTML = `<article class="empty-card"><h2>Stump hidden</h2><p>Need at least one completed agent trial (solved or valid fail). Infra and timeout never count. We do not invent stump for Grok, GLM, Kimi, or any model we did not run.</p></article>`;
       return;
     }
     el.innerHTML = `<div class="table-card"><div class="table-scroll"><table>
@@ -878,16 +1173,18 @@
             ? "measured"
             : withJobs
               ? "partial"
-              : "oracle pending / blocked";
+              : "not run";
         if (stop) {
           status = `STOPPED: ${stop.reason || "credit/quota"}`;
         } else if (earliestStop && n > earliestStop) {
-          status = `frozen-not-run (stopped at batch ${String(earliestStop).padStart(2, "0")})`;
+          status = `frozen · not run (stopped at batch ${String(earliestStop).padStart(2, "0")})`;
+        } else if (!withJobs) {
+          status = "frozen · not run";
         }
         return `<article class="chart-card">
           <p class="stat-label">Batch ${batchLabel(n)}</p>
           <p class="stat-value">${frozen}/10</p>
-          <p class="stat-note">${withJobs} with jobs · ${withAgents} with agents · ${status}</p>
+          <p class="stat-note">${withJobs} with jobs · ${withAgents} with agents · ${escapeHtml(status)}</p>
         </article>`;
       })
       .join("");
@@ -919,6 +1216,72 @@
       });
     });
     return [...map.values()];
+  }
+
+  function aggregateFeatured(spec) {
+    if (spec.placeholder) {
+      return { status: "not run", tasks: 0, n: 0, solved: 0, note: "No Harbor trials. Analysis later when API credits return." };
+    }
+    let tasksN = 0;
+    let n = 0;
+    let solved = 0;
+    tasks.forEach((task) => {
+      const row = featuredRow(task, spec);
+      if (!row) return;
+      tasksN += 1;
+      n += recordedN(row);
+      solved += row.solved || 0;
+    });
+    if (!n) {
+      return { status: "not run", tasks: 0, n: 0, solved: 0, note: "No Harbor ingest for this slug on the 100." };
+    }
+    return {
+      status: "recorded",
+      tasks: tasksN,
+      n,
+      solved,
+      note: "Harbor ingest only. Denominator is recorded trials, never padded.",
+    };
+  }
+
+  function renderModels() {
+    const banner = document.getElementById("models-banner");
+    if (banner) {
+      banner.textContent =
+        "448 authored packages. 100 public. Private Harbor trials where recorded (Batch 01, partial). Grok 4.6, GLM, and Kimi were not run — cells are — / not run, not estimates. Remaining analysis when API credits return.";
+    }
+    const summary = document.getElementById("models-summary-rows");
+    if (summary) {
+      summary.innerHTML = FEATURED_MODELS.map((spec) => {
+        const agg = aggregateFeatured(spec);
+        const cell =
+          agg.status === "not run"
+            ? `<span class="chip chip-muted">not run</span>`
+            : `<span class="chip chip-ok">${agg.solved}/${agg.n}</span>`;
+        const tasksCell = agg.status === "not run" ? "—" : String(agg.tasks);
+        return `<tr>
+          <td>${escapeHtml(spec.label)}<span class="slug">${escapeHtml(spec.slug)}</span></td>
+          <td>${agg.status === "not run" ? `<span class="chip chip-muted">not run</span>` : `<span class="chip chip-ok">recorded</span>`}</td>
+          <td>${tasksCell}</td>
+          <td>${cell}</td>
+          <td class="muted">${escapeHtml(agg.note)}</td>
+        </tr>`;
+      }).join("");
+    }
+    const matrix = document.getElementById("models-matrix-rows");
+    if (!matrix) return;
+    matrix.innerHTML = "";
+    tasks.forEach((task, index) => {
+      const tr = document.createElement("tr");
+      tr.style.setProperty("--stagger", `${staggerDelay(index)}ms`);
+      tr.innerHTML = `
+        <td class="name">${escapeHtml(task.name)}<span class="slug">${escapeHtml(task.slug)}</span></td>
+        <td><span class="chip cat-${escapeHtml(task.category)}">${escapeHtml(categoryLabel(task.category))}</span></td>
+        ${FEATURED_MODELS.map((spec) => `<td class="measured">${modelCell(task, spec)}</td>`).join("")}
+      `;
+      tr.addEventListener("click", () => selectTask(task.slug, true));
+      matrix.appendChild(tr);
+    });
   }
 
   function renderAgents() {
@@ -993,12 +1356,18 @@
     const el = document.getElementById("tasks-sub");
     const jobs = tasks.filter(hasJobs).length;
     const frozen = tasks.filter((task) => batchNum(task)).length;
-    el.textContent = `${tasks.length} gallery packages · ${corpus.lab.inventory_size} inventory · ${frozen} frozen · ${jobs} with Harbor jobs · cheap plan k=${PLANNED}`;
+    const hard = tasks.filter((t) => String(t.difficulty || "").toLowerCase() === "hard").length;
+    el.textContent = `${tasks.length} gallery packages · ${
+      corpus.lab.inventory_size
+    } inventory · ${hard} hard · ${frozen} frozen · ${jobs} with Harbor jobs · featured model cells are ingest-only`;
   }
 
   function renderAll() {
     const surface = currentSurface();
     category = params().get("filter") || "all";
+    langFilter = params().get("lang") || "all";
+    catalogView = params().get("view") === "cards" ? "cards" : "table";
+    labPinned = params().get("internal") === "1";
     renderNav();
     showSurface(surface);
     if (surface === "worlds") renderWorlds();
@@ -1006,10 +1375,11 @@
     if (surface === "catalog") {
       renderTasksSub();
       renderChips();
-      renderTable();
+      renderCatalog();
       const slug = currentSlug();
       renderPanel(slug ? bySlug.get(slug) : null);
     }
+    if (surface === "models") renderModels();
     if (surface === "runs") renderRuns();
     if (surface === "traces") renderTraces();
     if (surface === "stump") renderStump();
@@ -1024,16 +1394,59 @@
   document.getElementById("nav-main").addEventListener("click", (event) => {
     const button = event.target.closest("[data-nav]");
     if (!button) return;
+    event.preventDefault();
     const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
     const keepSlug = id === "catalog" || id === "runs" || id === "traces" || id === "failures";
     setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", push: true });
     renderAll();
   });
 
+  const labNav = document.getElementById("nav-lab");
+  if (labNav) {
+    labNav.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-nav]");
+      if (!button) return;
+      const id = SURFACE_ALIASES[button.getAttribute("data-nav")] || button.getAttribute("data-nav");
+      const keepSlug = id === "catalog" || id === "runs" || id === "traces" || id === "failures";
+      labPinned = true;
+      setUrl({ surface: id, slug: keepSlug ? currentSlug() : "", internal: true, push: true });
+      renderAll();
+    });
+  }
+
+  const labToggle = document.getElementById("lab-mode-toggle");
+  if (labToggle) {
+    labToggle.addEventListener("click", () => {
+      if (isLabMode()) {
+        labPinned = false;
+        const nextSurface = isLabSurface(currentSurface()) ? "worlds" : currentSurface();
+        setUrl({
+          internal: false,
+          surface: nextSurface,
+          slug: nextSurface === "worlds" ? "" : currentSlug(),
+          push: true,
+        });
+      } else {
+        labPinned = true;
+        setUrl({ internal: true, push: true });
+      }
+      renderAll();
+    });
+  }
+
   document.querySelector(".brand").addEventListener("click", (event) => {
     event.preventDefault();
     setUrl({ surface: "worlds", slug: "", push: true });
     renderAll();
+  });
+
+  document.querySelectorAll(".hero-actions [data-nav]").forEach((el) => {
+    el.addEventListener("click", (event) => {
+      event.preventDefault();
+      const id = SURFACE_ALIASES[el.getAttribute("data-nav")] || el.getAttribute("data-nav");
+      setUrl({ surface: id, slug: "", push: true });
+      renderAll();
+    });
   });
 
   document.getElementById("later-close").addEventListener("click", () => {
@@ -1067,9 +1480,26 @@
   if (qEl) {
     qEl.addEventListener("input", () => {
       query = qEl.value.trim().toLowerCase();
-      renderTable();
+      renderCatalog();
       const slug = currentSlug();
       if (slug) renderPanel(bySlug.get(slug) || null);
+    });
+  }
+
+  const viewTable = document.getElementById("view-table");
+  const viewCards = document.getElementById("view-cards");
+  if (viewTable) {
+    viewTable.addEventListener("click", () => {
+      catalogView = "table";
+      setUrl({ surface: "catalog", view: "table", push: true });
+      renderCatalog();
+    });
+  }
+  if (viewCards) {
+    viewCards.addEventListener("click", () => {
+      catalogView = "cards";
+      setUrl({ surface: "catalog", view: "cards", push: true });
+      renderCatalog();
     });
   }
 

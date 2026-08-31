@@ -31,7 +31,9 @@ Stump percentage is **unknown** until Harbor agent trials exist. Difficulty labe
 
 `stump_pct = valid_fail / (solved + valid_fail) * 100`. Timeouts and infrastructure errors (auth, Docker, credit-too-low, 429 quota) do not count.
 
-The Worlds Lab is a static gallery over 100 unique packages. Twelve surfaces: Worlds, Coverage, Catalog, Runs, Traces, Stump, Failures, Verifier, Harness, Spend, Batches, Agents. Measured chips appear only for frozen batch slugs that have ingested Harbor jobs. Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Going-forward measure is **5 independent trials × two cheap arms** (Haiku + gpt-4o-mini; if mini 429, probe gpt-4o then other cheap OpenAI slugs; Sonnet fallback if every OpenAI slug 429s). Stop after five batches (50 packages).
+The Worlds Lab is a static **client-facing corpus site** over 100 unique hard Harbor packages (public gallery) drawn from 448 authored packages under `tasks/latest/`. **Public nav:** Worlds, Coverage, Catalog (all 100), Models, Batches, Harness. Spend and raw Traces are lab-only (`?internal=1` or the Lab toggle). Model cells fill only from Harbor ingest. Grok 4.6, GLM, and Kimi are labeled **not run** — we do not invent stump % or n/k. Runtime is **private Harbor 0.22 + terminus-2 / oracle**, not a hosted buyer platform.
+
+Chips use **solved / recorded trials** (a 1-trial haiku probe is `0/1`, not `0/5`). Measured Harbor jobs exist only on Batch 01 (partial). Batches 02–05 are frozen, not measured. **Not 50/50. Not 160/160.**
 
 ## Local website
 
@@ -43,17 +45,22 @@ python3 -m http.server 8765 --bind 0.0.0.0
 
 Then open:
 
-- Batch 01 table (10 of 100): http://127.0.0.1:8765/lab/index.html?filter=batch
-- Catalog / Tasks alias: http://127.0.0.1:8765/lab/index.html?surface=tasks
-- Both: http://127.0.0.1:8765/lab/index.html?surface=tasks&filter=batch
-- All frozen tens (50): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=frozen
-- Batch 02: http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b02
+- Worlds (default): http://127.0.0.1:8765/lab/index.html
+- Catalog, all 100: http://127.0.0.1:8765/lab/index.html?surface=catalog
+- Catalog cards: http://127.0.0.1:8765/lab/index.html?surface=catalog&view=cards
+- Models (honest matrix): http://127.0.0.1:8765/lab/index.html?surface=models
+- Batch 01 (10 of 100, has jobs): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b01
+- Batch 02 (frozen, not_run): http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b02
+- Coverage / Batches / Harness: `?surface=coverage` · `?surface=batches` · `?surface=harness`
 - One package: http://127.0.0.1:8765/lab/index.html?task=repair-the-pendulum-motion-solver
+- Lab-only Spend: http://127.0.0.1:8765/lab/index.html?surface=spend&internal=1
 - `surface=tasks` still aliases Catalog
 
 Cloudflare quick tunnels (`*.trycloudflare.com`) are **ephemeral**. They die when the VM sleeps or `cloudflared` exits. Do not treat an old hostname as a stable URL. Never commit `.env` or API keys.
 
-Identity is **Applied Work Worlds Lab**. This is not Senior SWE-Bench, Snorkel, or Caudal branding.
+Identity is **Applied Work Worlds Lab**. Ink `#0F1F1C`, forest teal `#0F766E`, cream `#F7F4EE`. This is not Senior SWE-Bench, a hosted buyer platform, or Caudal branding. Copy the job (hard TB-style catalog + model columns), not the chrome.
+
+Gallery vs measured: **448** = inventory; **100** = public gallery (`docs/lab_mvp_100.jsonl`); **10** Batch 01 rows have ingested Harbor jobs. The other 90 catalog rows stay not run.
 
 Founder share notes (PR / zip / tunnel restart): [`docs/Founder_Share.md`](docs/Founder_Share.md).
 

@@ -306,6 +306,7 @@ def row_to_jsonl(row: dict, rank: int, score: float) -> dict:
         "uuid": uuid,
         "category": row.get("category"),
         "difficulty": row.get("difficulty"),
+        "subcategories": row.get("subcategories") or [],
         "languages": row.get("languages") or [],
         "title": row.get("title"),
         "package_dir": row.get("package_dir") or f"tasks/latest/{slug}",
@@ -363,6 +364,10 @@ def build_corpus_task(catalog_row: dict) -> dict:
     if isinstance(languages, str):
         languages = [languages]
     languages = [normalize_language(lang) for lang in languages]
+    subcategories = catalog_row.get("subcategories") or []
+    if isinstance(subcategories, str):
+        subcategories = [subcategories]
+    subcategories = [str(s).strip() for s in subcategories if str(s).strip()]
     return {
         "slug": slug,
         "uuid": uuid,
@@ -370,6 +375,7 @@ def build_corpus_task(catalog_row: dict) -> dict:
         "title": catalog_row.get("title") or name,
         "category": catalog_row.get("category"),
         "difficulty": catalog_row.get("difficulty") or "unknown",
+        "subcategories": subcategories,
         "languages": languages,
         "summary": summary,
         "instruction_excerpt": excerpt(instruction_text) if instruction_text else excerpt(summary),
@@ -547,6 +553,25 @@ def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: d
                 ),
             },
             "category_mix": {cat: selected_counts.get(cat, 0) for cat in CATEGORY_ORDER},
+            "difficulty_counts": (meta or {}).get("difficulty_counts")
+            or {"hard": sum(1 for t in tasks if (t.get("difficulty") or "").lower() == "hard")},
+            "subcategory_mix": dict(
+                Counter(
+                    sub
+                    for t in tasks
+                    for sub in (t.get("subcategories") or [])
+                )
+            ),
+            "integrity": {
+                "gallery": MVP_SIZE,
+                "inventory": INVENTORY_SIZE,
+                "all_hard": all((t.get("difficulty") or "").lower() == "hard" for t in tasks),
+                "unique_slugs": len({t["slug"] for t in tasks}) == len(tasks),
+                "note": (
+                    "Author-labeled hard, verified against catalog and task.toml. "
+                    "Not a measured stump rate. Model cells stay empty until Harbor ingest."
+                ),
+            },
             "inventory_category_counts": (meta or {}).get("inventory_category_counts"),
             "quotas": (meta or {}).get("quotas"),
             "dropped_near_duplicates": (meta or {}).get("dropped_near_duplicates"),

@@ -1,8 +1,10 @@
 # Worlds Lab on GitHub — founder brief for Raja
 
 **From:** CB (Siva) → Raja (`rajaadil07`)  
-**Repo:** private `terminus-logs` · branch `cursor/applied-work-lab-batch-01-826a` · HEAD `7b79dec0` (matches origin)  
+**Repo:** private `terminus-logs` · branch `cursor/applied-work-lab-batch-01-826a`  
 **Do not paste API keys. Do not invent Harbor scores. Harbor is idle — do not start it.**
+
+Public story: **448** authored inventory · **100** public gallery (all hard) · Harbor jobs only on Batch 01. Spend is **hidden** from public nav.
 
 ---
 
@@ -25,13 +27,17 @@ python3 -m http.server 8765 --bind 0.0.0.0
 | What | URL |
 | --- | --- |
 | Worlds (default) | http://127.0.0.1:8765/lab/index.html |
-| Catalog, Batch 01 (10 of 100) | http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=batch |
-| Catalog, Batch 01 | http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b01 |
+| Catalog, **all 100** | http://127.0.0.1:8765/lab/index.html?surface=catalog |
+| Catalog cards | http://127.0.0.1:8765/lab/index.html?surface=catalog&view=cards |
+| Models (honest matrix) | http://127.0.0.1:8765/lab/index.html?surface=models |
+| Catalog, Batch 01 (jobs) | http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b01 |
 | Catalog, Batch 02 (frozen, not_run) | http://127.0.0.1:8765/lab/index.html?surface=catalog&filter=b02 |
-| Spend | http://127.0.0.1:8765/lab/index.html?surface=spend |
-| Batches | http://127.0.0.1:8765/lab/index.html?surface=batches |
+| Coverage / Batches / Harness | `?surface=coverage` · `?surface=batches` · `?surface=harness` |
+| Lab-only Spend | http://127.0.0.1:8765/lab/index.html?surface=spend&internal=1 |
 
-`filter=batch` and `filter=b01` are the same ten. `filter=frozen` is all 50. `surface=tasks` still aliases Catalog. Repo is private; Raja needs collaborator access.
+Public nav is Worlds · Coverage · Catalog · Models · Batches · Harness. Spend is **not** in the default nav (Lab toggle or `?internal=1`). `filter=batch` and `filter=b01` are the same ten. `filter=frozen` is all 50. `surface=tasks` still aliases Catalog. Repo is private; Raja needs collaborator access.
+
+Gallery vs measured: **448** = `tasks/latest/` inventory; **100** = `docs/lab_mvp_100.jsonl` public gallery (all author-labeled hard, unique slugs); **10** Batch 01 rows have Harbor jobs. The other 90 stay not run. Not 50/50.
 
 ---
 
@@ -48,7 +54,7 @@ terminus-logs/
     lab_measured_results.json  lab_batch_01_stop.json
   scripts/             # Python ingest / freeze / Harbor runner
     ingest_lab_jobs.py  build_lab_corpus.py  run_lab_batch.py …
-  catalog/             # 448-task inventory (not the 12-surface lab)
+  catalog/             # 448-task inventory (not the public lab UI)
   tasks/latest/        # 448 Harbor packages (instruction, Docker, oracle, tests)
   jobs/                # gitignored — live Harbor output, not on GitHub
   .env                 # gitignored — keys, never commit
@@ -60,9 +66,9 @@ terminus-logs/
 
 Four files, no app router:
 
-- `lab/index.html` — chrome, 12 surfaces, Applied Work brand
+- `lab/index.html` — public chrome (Worlds, Coverage, Catalog, Models, Batches, Harness) + Lab toggle
 - `lab/lab.css` — ink / forest teal / cream
-- `lab/lab.js` — surfaces, `?filter=`, chips = solved/recorded
+- `lab/lab.js` — surfaces, `?filter=`, `?lang=`, model cells = ingest only
 - `lab/corpus.js` (+ `lab/corpus.json`) — ingest dump the page reads
 
 Open `lab/index.html` as a file:// page and corpus/file links break. Serve from repo root.
@@ -77,7 +83,7 @@ Static HTML/CSS/JS. No React, no Next, no `package.json`. Inter from Google Font
 
 ## E. What Applied Work is proving
 
-Authored Harbor worlds (instruction, Docker, oracle, tests) selected from 448 unique packages. Private trials. Honest denominators: chips are **solved / recorded**, never padded to `/5` or `/8`. Target is a **100 gallery / 50 measured** set, grown in tens. Layout copies a research-lab job (top nav, catalog, traces) — brand is **Applied Work Worlds Lab**, not Caudal Signal Lab, not Senior SWE-Bench, not Snorkel. Ink `#0F1F1C`, forest teal `#0F766E`, cream `#F7F4EE`. Copy the job, not the brand.
+Authored Harbor worlds (instruction, Docker, oracle, tests) selected from 448 unique packages. Public gallery of **100**, all author-labeled hard. Private trials where recorded. Honest denominators: chips are **solved / recorded**, never padded to `/5` or `/8`. Featured model columns: Opus 5 and GPT-5.6-sol from ingest; Grok 4.6, GLM, and Kimi labeled **not run**. We refused fake stump % and buyer-platform impersonation. Layout copies a data-lab catalog job (collection of hard TB-style worlds, model columns) — brand is **Applied Work Worlds Lab**, not Caudal Signal Lab, not Senior SWE-Bench. Ink `#0F1F1C`, forest teal `#0F766E`, cream `#F7F4EE`. Copy the job, not the brand. Spend / invoices stay off the public nav.
 
 ---
 
@@ -85,10 +91,10 @@ Authored Harbor worlds (instruction, Docker, oracle, tests) selected from 448 un
 
 **Done**
 
-- 12 surfaces shipped: Worlds, Coverage, Catalog, Runs, Traces, Stump, Failures, Verifier, Harness, Spend, Batches, Agents
-- 100-package gallery on disk; batches 01–05 frozen as jsonl
+- Public client site: Worlds, Coverage, Catalog (all 100), Models, Batches, Harness. Spend hidden unless Lab toggle / `?internal=1`
+- 100-package gallery on disk, all hard in `task.toml`; batches 01–05 frozen as jsonl
 - Batch 01: 10/10 oracles at 1.0; real Harbor traces ingested; chips use recorded n
-- Spend/Batches show the stop. Ingested Harbor `cost_usd`: **$65.00** (Haiku **$15.33**, frontier+smoke **$49.67**)
+- Model matrix: Opus 5 / GPT-5.6-sol from ingest on the packages that actually ran; Grok / GLM / Kimi = not run
 
 **Not**
 
@@ -105,13 +111,13 @@ Frontier k=8 history on pendulum/hypersonic is labeled extra history, not the go
 
 **Spoken (≈60s)**
 
-Raja — Worlds Lab is on GitHub. Private repo `terminus-logs`, draft PR one, branch `cursor/applied-work-lab-batch-01-826a`. It is a static site: `lab/index.html`, CSS, JS, plus a corpus file. No React. Clone the PR branch, `python3 -m http.server 8765` from the repo root, open `/lab/index.html`. You get twelve surfaces and a hundred authored Harbor packages. We copy the research-lab job — catalog, traces, spend — under Applied Work branding, ink and teal on cream, not Caudal and not SWE-Bench. Harbor 0.22 is how we run trials, not how we ship the page. Batch 01 has real traces and honest chips: solved over recorded, so a one-shot is 0/1, not 0/5. Batch 02 through 05 are frozen lists only; click Catalog B02 and those rows stay dark, not_run. Cheap fill stopped when both API wallets were empty. We are not claiming 50 of 50. The proof is the gallery, the honest chrome, and the Batch 01 jobs we actually ran.
+Raja — Worlds Lab is on GitHub as a client-facing corpus site. Private repo `terminus-logs`, draft PR one, branch `cursor/applied-work-lab-batch-01-826a`. Static HTML/CSS/JS: clone the PR branch, `python3 -m http.server 8765` from the repo root, open `/lab/index.html`. Public nav is Worlds, Coverage, Catalog, Models, Batches, Harness — one hundred authored hard Harbor packages from a private 448. Catalog defaults to 100 of 100. We copy the data-lab job — collection of hard TB-style worlds and model columns — under Applied Work branding, ink and teal on cream. Harbor 0.22 is how we run trials, not how we ship the page. Spend is off the public nav. Opus and GPT-5.6-sol cells fill only where we ingested jobs; Grok, GLM, and Kimi stay not run. We do not invent stump. Batch 02 through 05 are frozen lists; click Catalog B02 and those rows stay not_run. Cheap fill stopped when both API wallets were empty. We are not claiming 50 of 50 or 448 tested on five frontiers.
 
 **Slack (3 bullets)**
 
 - Worlds Lab UI **is on GitHub**: private `terminus-logs`, draft PR https://github.com/Sivadheeraj5356/terminus-logs/pull/1 — clone `cursor/applied-work-lab-batch-01-826a`, `python3 -m http.server 8765` from repo root, open http://127.0.0.1:8765/lab/index.html
-- Static HTML/CSS/JS in `lab/` (no React). Harbor 0.22 + terminus-2 is the eval runtime. Identity: **Applied Work Worlds Lab** (ink/teal/cream). Copy the job, not Caudal/SWE-Bench/Snorkel.
-- Proof: 100 gallery + 12 honest surfaces + real Batch 01 traces. Catalog `filter=b01` has jobs; `filter=b02` stays **not_run**. Cheap k=5 **partial**, both wallets empty. Not 50/50. Chips = solved/recorded, not fake 8/8.
+- Static HTML/CSS/JS in `lab/` (no React). Public nav: Worlds / Coverage / Catalog (all 100) / Models / Batches / Harness. Spend hidden. Harbor 0.22 + terminus-2 is the eval runtime. Identity: **Applied Work Worlds Lab** (ink/teal/cream).
+- Proof: 448 inventory, 100 hard gallery, honest model columns (Grok/GLM/Kimi = not run). Catalog `filter=b01` has jobs; `filter=b02` stays **not_run**. Cheap k=5 **partial**. Not 50/50. Chips = solved/recorded.
 
 ---
 
@@ -119,7 +125,7 @@ Raja — Worlds Lab is on GitHub. Private repo `terminus-logs`, draft PR one, br
 
 1. Clone the PR branch (section A). Do **not** start Harbor.
 2. From repo root: `python3 -m http.server 8765 --bind 0.0.0.0`
-3. Open Worlds, then Catalog.
-4. Click **B01** (`filter=b01` or `filter=batch`) — ten rows with oracle + Haiku chips at recorded n (e.g. hypersonic `4/9`, booking `0/1`). Click a slug → Runs / Traces / Failures.
-5. Click **B02** (`filter=b02`) — ten frozen rows, chips **— / not_run**. That dark table is the honest story: frozen on disk, not measured.
-6. Spend and Batches show the dual-provider stop (~$65 ingested). Do not walk it as 8/8 complete.
+3. Open Worlds, then Catalog (should read **100 of 100**).
+4. Click **B01** (`filter=b01` or `filter=batch`) — ten rows; Opus / GPT-5.6-sol cells fill only where ingest exists (hypersonic, pendulum, dyeworks). Other featured columns stay **—**. Open the panel for Haiku chips at recorded n (e.g. hypersonic `4/9`, booking `0/1`).
+5. Click **B02** (`filter=b02`) — ten frozen rows, featured cells **— / not_run**. That table is the honest story: frozen on disk, not measured.
+6. Open Models — Grok / GLM / Kimi are labeled not run. Do not walk Spend with a client; it is Lab-only (`?internal=1`). Batches show the dual-provider stop. Do not walk it as 8/8 complete.

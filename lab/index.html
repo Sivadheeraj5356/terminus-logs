@@ -6,7 +6,7 @@
     <title>Applied Work Worlds Lab</title>
     <meta
       name="description"
-      content="Applied Work Worlds Lab: 100 unique Harbor packages. Measured chips appear only after private Harbor jobs exist. Cheap protocol is 5 trials × two arms."
+      content="Applied Work Worlds Lab: 448 authored Terminal-Bench 2.1-style Harbor packages; 100 public gallery, all hard. Private Harbor 0.22 + terminus-2 trials where recorded. No invented stump rates."
     />
     <meta name="theme-color" content="#F7F4EE" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,18 +30,21 @@
         <button type="button" data-nav="worlds">Worlds</button>
         <button type="button" data-nav="coverage">Coverage</button>
         <button type="button" data-nav="catalog">Catalog</button>
-        <button type="button" data-nav="runs">Runs</button>
-        <button type="button" data-nav="traces">Traces</button>
-        <button type="button" data-nav="stump">Stump</button>
-        <button type="button" data-nav="failures">Failures</button>
-        <button type="button" data-nav="verifier">Verifier</button>
-        <button type="button" data-nav="harness">Harness</button>
-        <button type="button" data-nav="spend">Spend</button>
+        <button type="button" data-nav="models">Models</button>
         <button type="button" data-nav="batches">Batches</button>
-        <button type="button" data-nav="agents">Agents</button>
+        <button type="button" data-nav="harness">Harness</button>
       </nav>
 
       <div class="nav-actions">
+        <button
+          type="button"
+          class="btn btn-ghost"
+          id="lab-mode-toggle"
+          aria-pressed="false"
+          title="Show lab-only surfaces (Runs, Traces, Spend)"
+        >
+          Lab
+        </button>
         <a
           class="btn btn-ghost"
           href="https://github.com/Sivadheeraj5356/terminus-logs"
@@ -64,6 +67,17 @@
           <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
         </button>
       </div>
+
+      <nav class="nav-lab" id="nav-lab" hidden aria-label="Lab internals">
+        <span class="nav-lab-label">Lab</span>
+        <button type="button" data-nav="runs">Runs</button>
+        <button type="button" data-nav="traces">Traces</button>
+        <button type="button" data-nav="failures">Failures</button>
+        <button type="button" data-nav="stump">Stump</button>
+        <button type="button" data-nav="agents">Agents</button>
+        <button type="button" data-nav="verifier">Verifier</button>
+        <button type="button" data-nav="spend">Spend</button>
+      </nav>
     </header>
 
     <main id="main">
@@ -73,13 +87,16 @@
             <p class="eyebrow">Applied Work</p>
             <h1>Worlds Lab</h1>
             <p class="lede">
-              One hundred authored Harbor worlds. Fifty of them are the measured
-              set, grown in tens. This is not another lab’s scores.
+              Serious Terminal-Bench 2.1-style Harbor packages that data labs
+              can license or outsource: unique hard worlds, oracle and tests,
+              offline Docker environments, mixed languages and categories.
             </p>
             <p class="lede-sub">
-              Runtime is private Harbor 0.22 + terminus-2. Going-forward trials
-              are 5 per cheap arm. Chips light only after jobs exist, with the
-              real denominator.
+              <strong>448</strong> authored packages in private inventory.
+              <strong>100</strong> in this public gallery — all author-labeled
+              hard. Runtime is private Harbor 0.22 + terminus-2 / oracle.
+              Model cells fill only from recorded Harbor jobs. Remaining
+              analysis when API credits return.
             </p>
             <ol class="points">
               <li>
@@ -88,32 +105,37 @@
                   <h2>Package contract</h2>
                   <p>
                     instruction.md, Docker environment, oracle, and tests.
-                    Selected from 448; the gallery always lists all 100.
+                    Offline Harbor packages — not a rewrite of a public set.
                   </p>
                 </div>
               </li>
               <li>
                 <span class="num">02</span>
                 <div>
-                  <h2>Measure in tens to fifty</h2>
+                  <h2>Public gallery of 100</h2>
                   <p>
-                    Five frozen batches of 10. Cheap protocol: Haiku and a
-                    second arm, 5 independent trials each. Frontier 8-run
-                    history stays labeled as history.
+                    Unique slugs across TB categories and languages, selected
+                    from 448. The catalog lists every row. Batches 02–05 are
+                    frozen lists, not measured.
                   </p>
                 </div>
               </li>
               <li>
                 <span class="num">03</span>
                 <div>
-                  <h2>Valid-fail stump, not a variance poster</h2>
+                  <h2>Honest measurement</h2>
                   <p>
-                    Stump is valid fail over completed trials. Timeouts, Docker
-                    faults, credit-too-low, and 429 quota do not count.
+                    Chips are solved / recorded trials, never padded to 5 or 8.
+                    Grok, GLM, and Kimi were not run. Empty cells stay
+                    <span class="mono">—</span> / not run.
                   </p>
                 </div>
               </li>
             </ol>
+            <div class="hero-actions">
+              <a class="btn btn-solid" href="?surface=catalog" data-nav="catalog">Browse all 100</a>
+              <a class="btn btn-ghost" href="?surface=models" data-nav="models">Model matrix</a>
+            </div>
             <p class="later-link muted">
               Later: <span class="mono">appliedwork.ai</span>
             </p>
@@ -138,24 +160,24 @@
 
         <section class="bento" aria-label="Coverage stats">
           <article>
-            <p class="stat-label">Packages</p>
-            <p class="stat-value" id="stat-packages">100</p>
-            <p class="stat-note">Public gallery, always listed</p>
-          </article>
-          <article>
             <p class="stat-label">Inventory</p>
             <p class="stat-value" id="stat-inventory">448</p>
-            <p class="stat-note">Private Harbor packages</p>
+            <p class="stat-note">Authored Harbor packages</p>
           </article>
           <article>
-            <p class="stat-label">Measured target</p>
-            <p class="stat-value" id="stat-batch">50</p>
-            <p class="stat-note">Five frozen tens · cheap k=5</p>
+            <p class="stat-label">Public gallery</p>
+            <p class="stat-value" id="stat-packages">100</p>
+            <p class="stat-note">All listed · unique slugs</p>
           </article>
           <article>
-            <p class="stat-label">Measured</p>
+            <p class="stat-label">Difficulty</p>
+            <p class="stat-value" id="stat-hard">100</p>
+            <p class="stat-note" id="stat-hard-note">Author-labeled hard</p>
+          </article>
+          <article>
+            <p class="stat-label">Harbor jobs</p>
             <p class="stat-value" id="stat-measured">0</p>
-            <p class="stat-note" id="stat-measured-note">Packages with ingested Harbor jobs</p>
+            <p class="stat-note" id="stat-measured-note">Batch 01 only · remaining not run</p>
           </article>
         </section>
 
@@ -180,8 +202,8 @@
           </article>
         </section>
         <p class="footnote">
-          Harbor 0.22 + terminus-2 / oracle. Going-forward measure is 5 × 2 cheap
-          arms on 50 packages. Frontier 160 is not claimed complete.
+          Harbor 0.22 + terminus-2 / oracle. Gallery is 100 of 448. Measured
+          jobs exist only on Batch 01 (partial). Not 50/50. Not 160/160.
         </p>
       </section>
 
@@ -206,22 +228,37 @@
             <h1>Catalog</h1>
             <p class="muted" id="tasks-sub"></p>
           </div>
+          <div class="view-toggle" role="group" aria-label="Catalog layout">
+            <button type="button" id="view-table" aria-pressed="true">Table</button>
+            <button type="button" id="view-cards" aria-pressed="false">Cards</button>
+          </div>
         </div>
-        <div class="toolbar">
-          <div class="chips" id="chips" role="tablist" aria-label="Task filters"></div>
+        <div class="toolbar catalog-toolbar">
+          <div class="chip-block">
+            <p class="chip-label">Scope</p>
+            <div class="chips" id="chips-scope" role="group" aria-label="Scope filters"></div>
+          </div>
+          <div class="chip-block">
+            <p class="chip-label">Category</p>
+            <div class="chips" id="chips-category" role="group" aria-label="Category filters"></div>
+          </div>
+          <div class="chip-block">
+            <p class="chip-label">Language</p>
+            <div class="chips" id="chips-lang" role="group" aria-label="Language filters"></div>
+          </div>
           <label class="search">
             <span class="sr-only">Filter packages</span>
             <input
               id="q"
               type="search"
-              placeholder="Filter by name, slug, category, or language"
+              placeholder="Filter by name, slug, category, subcategory, or language"
               autocomplete="off"
             />
           </label>
         </div>
         <p id="shown" class="shown" aria-live="polite"></p>
         <div class="tasks-layout">
-          <div class="table-card">
+          <div class="table-card" id="catalog-table-wrap">
             <div class="table-scroll">
               <table>
                 <thead>
@@ -229,14 +266,18 @@
                     <th scope="col">Task</th>
                     <th scope="col">Category</th>
                     <th scope="col">Languages</th>
-                    <th scope="col">Batch</th>
-                    <th scope="col">Measured</th>
+                    <th scope="col">Opus 5</th>
+                    <th scope="col">GPT-5.6-sol</th>
+                    <th scope="col">Grok 4.6</th>
+                    <th scope="col">GLM</th>
+                    <th scope="col">Kimi</th>
                   </tr>
                 </thead>
                 <tbody id="rows"></tbody>
               </table>
             </div>
           </div>
+          <div class="card-grid" id="catalog-cards" hidden></div>
           <aside class="panel" id="panel" aria-labelledby="panel-title">
             <p class="panel-kicker">Selected package</p>
             <h2 id="panel-title">Choose a row</h2>
@@ -245,11 +286,65 @@
               <p class="hint">
                 Deep links use
                 <code>lab/index.html?surface=catalog&amp;task=&lt;slug&gt;</code>.
-                <code>surface=tasks</code> still works.
+                Default catalog is <strong>100 of 100</strong>.
               </p>
             </div>
             <div id="panel-body" hidden></div>
           </aside>
+        </div>
+      </section>
+
+      <section id="surface-models" class="page" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Models</h1>
+            <p class="muted">
+              448 authored packages; 100 public; private Harbor trials where
+              recorded; remaining analysis when API credits return. Cells are
+              solved / recorded from ingest — never estimates.
+            </p>
+          </div>
+        </div>
+        <p class="honest-banner" id="models-banner"></p>
+        <div class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Model</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Tasks</th>
+                  <th scope="col">Solved / recorded</th>
+                  <th scope="col">Note</th>
+                </tr>
+              </thead>
+              <tbody id="models-summary-rows"></tbody>
+            </table>
+          </div>
+        </div>
+        <h2 class="section-kicker">Per-task matrix · 100 gallery rows</h2>
+        <p class="muted matrix-note">
+          Featured columns match the models clients asked about. Grok 4.6, GLM,
+          and Kimi stay <span class="mono">not run</span>. Other recorded Harbor
+          models (Haiku) appear in the package panel, not as invented frontier scores.
+        </p>
+        <div class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Task</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Opus 5</th>
+                  <th scope="col">GPT-5.6-sol</th>
+                  <th scope="col">Grok 4.6</th>
+                  <th scope="col">GLM</th>
+                  <th scope="col">Kimi</th>
+                </tr>
+              </thead>
+              <tbody id="models-matrix-rows"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -259,7 +354,7 @@
             <h1>Runs</h1>
             <p class="muted">
               One dot per recorded Harbor trial. Grids are not padded to 5 or 8.
-              Cheap plan is k=5; frontier 8-run history stays visible where it actually ran.
+              Empty for gallery rows without jobs (batches 02–05 and unmeasured gallery).
             </p>
           </div>
         </div>
@@ -284,8 +379,9 @@
           <div>
             <h1>Stump</h1>
             <p class="muted">
-              <code>valid_fail / (solved + valid_fail)</code>. Timeouts and infra
-              are excluded. Hidden until a package has at least one completed agent trial.
+              <code>valid_fail / (solved + valid_fail)</code> from recorded Harbor
+              trials only. Hidden until a package has at least one completed agent trial.
+              We do not invent stump for models we did not run.
             </p>
           </div>
         </div>
@@ -341,10 +437,20 @@
             <h2>Not measured</h2>
             <p class="muted">
               Claude Code, Codex CLI, and mini-swe-agent are not estimated on this
-              corpus. No invented multipliers.
+              corpus. No invented multipliers. Grok 4.6, GLM, and Kimi have no
+              Harbor trials on this gallery.
             </p>
           </article>
         </div>
+        <article class="empty-card">
+          <h2>Verifier contract</h2>
+          <ul class="plain-list">
+            <li>Oracle must pass or the package does not ship.</li>
+            <li>Empty submission should score 0.</li>
+            <li>Timeout and infra are excluded from stump.</li>
+            <li>Runtime: private Harbor 0.22 + terminus-2 / oracle — not a hosted buyer platform.</li>
+          </ul>
+        </article>
       </section>
 
       <section id="surface-spend" class="page" hidden>
@@ -352,7 +458,7 @@
           <div>
             <h1>Spend</h1>
             <p class="muted">
-              Harbor <code>stats.cost_usd</code> from job rollups. Missing cost is omitted, not invented.
+              Lab-only. Harbor <code>stats.cost_usd</code> from job rollups. Missing cost is omitted, not invented.
               Credit and quota stops are listed instead of padded scores.
             </p>
           </div>
@@ -383,8 +489,9 @@
           <div>
             <h1>Batches</h1>
             <p class="muted">
-              Ledger for the five frozen tens. A batch is not “done” until oracle
-              plus cheap-arm trials are ingested. Stop after 05.
+              Five frozen tens drawn from the 100. A batch is not “done” until
+              oracle plus agent trials are ingested. Batches 02–05 are frozen,
+              not measured. Stop after 05.
             </p>
           </div>
         </div>
@@ -397,8 +504,8 @@
           <div>
             <h1>Agents</h1>
             <p class="muted">
-              Only private Harbor ingest. No effort curves, no copied Opus/GPT
-              scores, no invented 8/8.
+              Lab-only ingest table. Only private Harbor jobs. No effort curves,
+              no copied Opus/GPT scores, no invented 8/8.
             </p>
           </div>
         </div>
@@ -459,8 +566,9 @@
 
     <footer class="foot">
       <p>
-        Applied Work Worlds Lab · private Harbor 0.22 · terminus-2 / oracle ·
-        cheap k=5 · later: <span class="mono">appliedwork.ai</span>
+        Applied Work Worlds Lab · 448 inventory · 100 public gallery ·
+        private Harbor 0.22 · terminus-2 / oracle · later:
+        <span class="mono">appliedwork.ai</span>
       </p>
     </footer>
 
