@@ -84,6 +84,8 @@ body {
   line-height: 1.55;
   letter-spacing: -0.011em;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -341,6 +343,8 @@ html:not([data-theme="dark"]) .icon-sun {
 }
 
 main {
+  flex: 1 0 auto;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 36px 28px 56px;
@@ -700,15 +704,23 @@ h1 {
 }
 
 .footnote,
-.foot {
+.foot-credit {
   color: var(--muted);
   font-size: 0.8125rem;
 }
 
 .foot {
+  flex: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.foot-credit {
   max-width: 1280px;
-  margin: 0 auto 32px;
-  padding: 0 28px;
+  margin: 0 auto;
+  padding: 16px 28px 32px;
 }
 
 .page-head {
@@ -1445,6 +1457,10 @@ code {
     padding: 10px 16px;
   }
 
+  .foot-credit {
+    padding: 14px 16px 28px;
+  }
+
   main {
     padding: 24px 16px 40px;
   }
@@ -1487,8 +1503,8 @@ code {
     padding: 8px 12px 0;
   }
 
-  .foot {
-    padding: 0 12px;
+  .foot-credit {
+    padding: 12px 12px 24px;
   }
 
   .metrics {
