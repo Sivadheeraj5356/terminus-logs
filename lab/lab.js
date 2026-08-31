@@ -698,7 +698,7 @@
           }</span>
         </dd>
         <dt>Track</dt>
-        <dd>${trackPills(task)} ${bn ? `<span class="muted">frozen batch ${batchLabel(bn)}</span>` : `<span class="muted">gallery</span>`}</dd>
+        <dd><div class="track-cell">${trackPills(task)}</div> ${bn ? `<span class="muted">frozen batch ${batchLabel(bn)}</span>` : `<span class="muted">gallery</span>`}</dd>
         <dt>Featured models</dt>
         <dd>${featuredHtml}${otherHtml}</dd>
         <dt>Status</dt>
@@ -786,6 +786,18 @@
     };
   }
 
+  function renderBanners(stats) {
+    stats = stats || harborStats();
+    const peach = document.getElementById("banner-scores");
+    if (peach) {
+      peach.textContent = `Recorded Harbor scores only. ${
+        corpus.lab.inventory_size || 448
+      } authored inventory · ${corpus.lab.mvp_size || 100} public TB 2.1-style packages. Last ingest ${formatIngestDate(
+        corpus.lab.generated_utc
+      )}. ${stats.jobs} of ${tasks.length} gallery rows have jobs. Remaining eval queued — no credits.`;
+    }
+  }
+
   function renderOverview() {
     const stats = harborStats();
     const packs = document.getElementById("stat-packs");
@@ -811,14 +823,7 @@
     if (validNote) {
       validNote.textContent = `${stats.recorded} recorded · infra ${stats.infra} · timeout ${stats.timeout} excluded`;
     }
-    const peach = document.getElementById("banner-scores");
-    if (peach) {
-      peach.textContent = `Recorded Harbor scores only. ${
-        corpus.lab.inventory_size || 448
-      } authored inventory · ${corpus.lab.mvp_size || 100} public TB 2.1-style packages. Last ingest ${formatIngestDate(
-        corpus.lab.generated_utc
-      )}. ${stats.jobs} of ${tasks.length} gallery rows have jobs. Remaining eval queued — no credits.`;
-    }
+    renderBanners(stats);
     const grid = document.getElementById("pack-grid");
     if (!grid) return;
     const ordered = [...tasks].sort((a, b) => Number(hasJobs(b)) - Number(hasJobs(a)) || a.name.localeCompare(b.name));
@@ -1319,6 +1324,7 @@
     catalogView = params().get("view") === "cards" ? "cards" : "table";
     renderNav();
     showSurface(surface);
+    renderBanners();
     if (surface === "overview") renderOverview();
     if (surface === "challenges") {
       renderChallengeSlices();
