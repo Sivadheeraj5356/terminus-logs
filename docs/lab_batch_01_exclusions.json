@@ -1,0 +1,14 @@
+{
+  "note": "Oracle reward was not 1.0. These slugs are removed from the batch-01 selector pool (Caudal drop rule: drop, do not footnote).",
+  "dropped": [
+    {
+      "slug": "release-still-signs-edge-go-mod-q1-green-while-the-dependenc",
+      "uuid": "3fbf9b62-caa3-44f3-82be-20107b3e97da",
+      "category": "build-and-dependency-management",
+      "primary_language": "Go",
+      "oracle_reward": 0.0,
+      "oracle_exception": null,
+      "verifier_note": "oracle trial reward 0.0; 5 TestLiveProxyIntegrity tests failed (21 passed). Not a timeout/infra error."
+    }
+  ]
+}

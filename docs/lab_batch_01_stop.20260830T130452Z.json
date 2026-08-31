@@ -1,0 +1,12 @@
+{
+  "generated_utc": "2026-08-29T01:59:17Z",
+  "batch": 1,
+  "reason": "anthropic credit-balance-too-low",
+  "detail": "Haiku hypersonic k=5 recorded 1 valid_fail + 4 infra (Anthropic credit balance too low). Dyeworks Haiku fill was aborted after the same credit error (harbor exit 130); 3 infra trials recorded, no stump. Remaining Batch 01 Haiku fills and the Sonnet second arm were not started. Batches 02–05 stay frozen, not run. OpenAI gpt-4o-mini remains 429 insufficient_quota. Do not invent scores for unrun rows.",
+  "harbor_exit": 130,
+  "stopped_slug": "the-dyeworks-tool-is-a-command-line-reader-at-app-environmen",
+  "haiku_model": "anthropic/claude-haiku-4-5",
+  "second_arm": "not started",
+  "openai": "429 insufficient_quota",
+  "anthropic": "credit balance too low"
+}

@@ -21,6 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "catalog" / "tasks.jsonl"
 JSONL = ROOT / "docs" / "lab_mvp_100.jsonl"
+BATCH_JSONL = ROOT / "docs" / "lab_batch_01.jsonl"
 CORPUS_JSON = ROOT / "lab" / "corpus.json"
 CORPUS_JS = ROOT / "lab" / "corpus.js"
 TASKS_LATEST = ROOT / "tasks" / "latest"
@@ -305,6 +306,7 @@ def row_to_jsonl(row: dict, rank: int, score: float) -> dict:
         "uuid": uuid,
         "category": row.get("category"),
         "difficulty": row.get("difficulty"),
+        "subcategories": row.get("subcategories") or [],
         "languages": row.get("languages") or [],
         "title": row.get("title"),
         "package_dir": row.get("package_dir") or f"tasks/latest/{slug}",
@@ -362,6 +364,10 @@ def build_corpus_task(catalog_row: dict) -> dict:
     if isinstance(languages, str):
         languages = [languages]
     languages = [normalize_language(lang) for lang in languages]
+    subcategories = catalog_row.get("subcategories") or []
+    if isinstance(subcategories, str):
+        subcategories = [subcategories]
+    subcategories = [str(s).strip() for s in subcategories if str(s).strip()]
     return {
         "slug": slug,
         "uuid": uuid,
@@ -369,9 +375,14 @@ def build_corpus_task(catalog_row: dict) -> dict:
         "title": catalog_row.get("title") or name,
         "category": catalog_row.get("category"),
         "difficulty": catalog_row.get("difficulty") or "unknown",
+        "subcategories": subcategories,
         "languages": languages,
         "summary": summary,
         "instruction_excerpt": excerpt(instruction_text) if instruction_text else excerpt(summary),
+        "instruction_chars": len(instruction_text),
+        "instruction_lines": (
+            instruction_text.count("\n") + (1 if instruction_text else 0)
+        ),
         "package_dir": catalog_row.get("package_dir") or f"tasks/latest/{slug}",
         "has_oracle": bool(catalog_row.get("has_oracle")),
         "has_tests": bool(catalog_row.get("has_tests")),
@@ -382,8 +393,134 @@ def build_corpus_task(catalog_row: dict) -> dict:
             "note": "No private Harbor agent trials are recorded for this package.",
         },
         "stump_pct": None,
+        "batch": None,
+        "measured": False,
         "files": package_pointers(slug),
     }
+
+
+def attach_batch_placeholder(corpus: dict) -> dict:
+    """Mark frozen-batch membership without inventing scores."""
+    from lab_common import PLANNED_ATTEMPTS, coverage_matrix, load_all_batches
+
+    batch_rows = load_all_batches()
+    slug_to_batch = {row["slug"]: int(row.get("batch") or 0) or None for row in batch_rows}
+    batch_slugs = {slug for slug, n in slug_to_batch.items() if n}
+    by_batch: dict[int, list[str]] = {}
+    for row in batch_rows:
+        n = int(row.get("batch") or 0)
+        if n:
+            by_batch.setdefault(n, []).append(row["slug"])
+    measured_slugs = {
+        t["slug"] for t in corpus["tasks"] if (t.get("rollouts") or {}).get("status") == "measured"
+    }
+    for task in corpus["tasks"]:
+        task["batch"] = slug_to_batch.get(task["slug"])
+        if task["slug"] not in measured_slugs:
+            task["measured"] = False
+    lab = corpus["lab"]
+    lab["batch_01_size"] = len(by_batch.get(1) or [])
+    lab["batch_01_slugs"] = by_batch.get(1) or []
+    lab["batches"] = {
+        str(n): {"size": len(slugs), "slugs": slugs}
+        for n, slugs in sorted(by_batch.items())
+    }
+    lab["measured_size"] = len(measured_slugs)
+    lab["measured_target"] = 50
+    lab["measured_slugs"] = sorted(measured_slugs)
+    lab["coverage"] = coverage_matrix(corpus["tasks"], batch_slugs, measured_slugs)
+    lab["harness"] = {
+        "agent": "terminus-2",
+        "oracle": "oracle",
+        "empty": "nop",
+        "harbor": "0.22",
+        "planned_attempts": PLANNED_ATTEMPTS,
+        "n_trials": "n_attempts × n_tasks × n_agents; CLI -k is n_attempts (independent trials)",
+        "estimated_not_measured": ["claude-code", "codex", "mini-swe-agent"],
+    }
+    return corpus
+
+
+def _instruction_preview_lines(text: str, max_lines: int = 12) -> list[dict]:
+    lines = text.splitlines() or [""]
+    return [{"n": i, "text": line[:220]} for i, line in enumerate(lines[:max_lines], start=1)]
+
+
+def enrich_overview_stats(corpus: dict) -> dict:
+    """Attach instruction-length / language charts from our packages only.
+
+    Never invent scores. Lengths come from tasks/latest/<slug>/instruction.md
+    for the 100 gallery rows already in the corpus.
+    """
+    lengths: list[int] = []
+    lang_counts: Counter = Counter()
+    previews: list[dict] = []
+    for task in corpus["tasks"]:
+        slug = task["slug"]
+        path = TASKS_LATEST / slug / "instruction.md"
+        text = path.read_text(encoding="utf-8", errors="replace") if path.is_file() else ""
+        nchars = len(text)
+        nlines = text.count("\n") + (1 if text else 0)
+        task["instruction_chars"] = nchars
+        task["instruction_lines"] = nlines
+        lengths.append(nchars)
+        langs = task.get("languages") or []
+        lang_counts[langs[0] if langs else "—"] += 1
+        if task.get("batch") and len(previews) < 3:
+            previews.append(
+                {
+                    "slug": slug,
+                    "name": task.get("name") or slug,
+                    "chars": nchars,
+                    "lines": _instruction_preview_lines(text),
+                }
+            )
+    lengths.sort()
+
+    def percentile(p: float) -> int:
+        if not lengths:
+            return 0
+        idx = min(len(lengths) - 1, max(0, int(round((p / 100) * (len(lengths) - 1)))))
+        return lengths[idx]
+
+    bins = [(0, 1000), (1000, 2000), (2000, 3000), (3000, 5000), (5000, 10000), (10000, 10**9)]
+    histogram = []
+    for lo, hi in bins:
+        histogram.append(
+            {
+                "lo": lo,
+                "hi": None if hi >= 10**8 else hi,
+                "n": sum(1 for value in lengths if lo <= value < hi),
+            }
+        )
+    ecdf = []
+    if lengths:
+        step = max(1, len(lengths) // 24)
+        for i, value in enumerate(lengths):
+            if i % step == 0 or i == len(lengths) - 1:
+                ecdf.append({"chars": value, "frac": round((i + 1) / len(lengths), 4)})
+
+    lab = corpus.setdefault("lab", {})
+    harness = lab.setdefault("harness", {})
+    harness.setdefault("planned_attempts", 5)
+    lab["charts"] = {
+        "source": "tasks/latest/<slug>/instruction.md for the 100 gallery rows",
+        "copied_other_labs": False,
+        "instruction_length": {
+            "n": len(lengths),
+            "min": lengths[0] if lengths else 0,
+            "p25": percentile(25),
+            "median": percentile(50),
+            "p75": percentile(75),
+            "max": lengths[-1] if lengths else 0,
+            "mean": int(sum(lengths) / len(lengths)) if lengths else 0,
+            "histogram": histogram,
+            "ecdf": ecdf,
+        },
+        "language_mix": [{"language": name, "n": count} for name, count in lang_counts.most_common()],
+    }
+    lab["instruction_previews"] = previews
+    return corpus
 
 
 def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: dict | None) -> dict:
@@ -397,30 +534,52 @@ def write_corpus(selected: list[dict], catalog_by_slug: dict[str, dict], meta: d
     selected_counts = Counter(t["category"] for t in tasks)
     corpus = {
         "lab": {
-            "name": "Applied Work Environments Lab",
+            "name": "Applied Work Worlds Lab",
             "brand": "Applied Work",
             "mvp_size": MVP_SIZE,
             "inventory_size": INVENTORY_SIZE,
             "generated_utc": generated,
             "rollouts_status": "not_run",
-            "runtime": "private Harbor only",
+            "runtime": "private Harbor 0.22 + terminus-2 / oracle",
             "honesty": {
                 "stump_pct": None,
                 "model_scores": False,
                 "copied_caudal_scores": False,
                 "note": (
-                    "This gallery lists authored Harbor packages. It is not a "
-                    "measured signal lab. Rollouts are labeled not run. Do not "
-                    "invent stump percentages or paste another lab's model scores."
+                    "This gallery lists authored Harbor packages. Measured chips "
+                    "appear only after private Harbor jobs exist for a frozen "
+                    "batch slug. Do not invent stump percentages or paste another lab's "
+                    "model scores."
                 ),
             },
             "category_mix": {cat: selected_counts.get(cat, 0) for cat in CATEGORY_ORDER},
+            "difficulty_counts": (meta or {}).get("difficulty_counts")
+            or {"hard": sum(1 for t in tasks if (t.get("difficulty") or "").lower() == "hard")},
+            "subcategory_mix": dict(
+                Counter(
+                    sub
+                    for t in tasks
+                    for sub in (t.get("subcategories") or [])
+                )
+            ),
+            "integrity": {
+                "gallery": MVP_SIZE,
+                "inventory": INVENTORY_SIZE,
+                "all_hard": all((t.get("difficulty") or "").lower() == "hard" for t in tasks),
+                "unique_slugs": len({t["slug"] for t in tasks}) == len(tasks),
+                "note": (
+                    "Author-labeled hard, verified against catalog and task.toml. "
+                    "Not a measured stump rate. Model cells stay empty until Harbor ingest."
+                ),
+            },
             "inventory_category_counts": (meta or {}).get("inventory_category_counts"),
             "quotas": (meta or {}).get("quotas"),
             "dropped_near_duplicates": (meta or {}).get("dropped_near_duplicates"),
         },
         "tasks": tasks,
     }
+    attach_batch_placeholder(corpus)
+    enrich_overview_stats(corpus)
     CORPUS_JSON.parent.mkdir(parents=True, exist_ok=True)
     payload = json.dumps(corpus, ensure_ascii=False, indent=2)
     CORPUS_JSON.write_text(payload + "\n", encoding="utf-8")

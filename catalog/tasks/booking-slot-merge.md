@@ -23,14 +23,14 @@ Terminus-style flags (inspiration only): well-specified=yes, outcome-verified=ye
 
 ## Log summary
 
-Archive `2939c523-a9c0-4197-aac6-3849160e4ac2_submission_2026-07-08T05_37_44.138Z.zip` is a task submission, not a Harbor job. 1 revision zip(s) exist for this submission id. None of the sampled task files include `result.json` or `reward.txt`, so stump % cannot be computed from the archive. Run `stb harbor run` / Harbor locally if you need measured rates.
+Harbor trials: 1 — 1 solved, 0 valid fail, 0 timeout, 0 infra.
 
 ## Agent summary
 
-No agent trajectories were packed in these submission zips. Likely failure modes from the instruction (not from a live run): Agent writes a locally plausible solution that misses a hidden verifier constraint. Agent explores the environment and never produces the required /app or /output artifacts.
+Skipping image OS validation for hb__6c7d33acfdfa3ac2438c0bf8c187cd08: docker inspect returned 1 Collecting main service artifacts
 
 ## Stump the models?
 
-- Local Harbor trials: none in the archive
-- Valid-fail stump %: unknown
-- Band: `no_logs`
+- oracle: 0/1 valid fail (0.0%)
+- Timeouts excluded: 0; infra excluded: 0
+- Band: `too_easy`

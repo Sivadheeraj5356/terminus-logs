@@ -23,14 +23,16 @@ Terminus-style flags (inspiration only): well-specified=yes, outcome-verified=ye
 
 ## Log summary
 
-Archive `bb361b7b-e01f-4068-beac-4c197355eee7_submission_2026-07-11T15_01_05.310Z.zip` is a task submission, not a Harbor job. 1 revision zip(s) exist for this submission id. None of the sampled task files include `result.json` or `reward.txt`, so stump % cannot be computed from the archive. Run `stb harbor run` / Harbor locally if you need measured rates.
+Harbor trials: 20 — 9 solved, 9 valid fail, 0 timeout, 2 infra.
 
 ## Agent summary
 
-No agent trajectories were packed in these submission zips. Likely failure modes from the instruction (not from a live run): Numeric or scientific result is plausible but fails exact/held-out checks.
+step: You are an AI assistant tasked with solving command-line tasks in a Linux environment. You will be given a task description and the output from previously executed commands. Your goal is to solve the task by providing batches of shell comma | step: Analysis: We are at the /app shell prompt with no prior inspection or implementation work shown. The repository contents, README requirements, database schema, and existing recovery modules must be examined before repairing the solver. Plan | step: Analysis: The solver is entirely absent, and the environment package contains no files. The README and schema establish the output contract but do not state capture cadence or image encoding details. Those likely exist in database metadata  | step: Analysis: There are four 48-frame, 64×64 jobs. Each montage has a uniform light background (235) and dark foreground plus occasional full-range corruption. No cadence metadata exists in the database schema, so cadence must be a fixed experi | step: Analysis: Valid frames are extremely easy to classify generically: normal bob images have one connected dark component of about 108–112 pixels centered at y=32, blank occlusions have zero dark pixels, and noise frames have roughly 1,550–1,6 | step: Analysis: The exploratory fit did not run because NumPy 2 removed the ndarray.ptp method. No data or repository state was changed. Replacing it with np.ptp will allow the trajectory extraction and fits to proceed. Plan: Patch the temporary  | step: Analysis: The extracted trajectories fit the intended damped cosine almost perfectly (about 0.03 px RMSE). With the fixed 0.1 s cadence, recovered values are clean seeded-looking parameters: frequencies 0.450, 0.650, 0.875, 1.100 Hz and dec | step: Analysis: The solver now runs successfully and produces numerically precise fits, correct accepted/rejected counts, all 192 per-frame audit rows, and both graph artifacts. A second run succeeds, confirming normal idempotent behavior when al
 
 ## Stump the models?
 
-- Local Harbor trials: none in the archive
-- Valid-fail stump %: unknown
-- Band: `no_logs`
+- anthropic/claude-opus-5: 1/8 valid fail (12.5%)
+- openai/gpt-5.6-sol: 8/9 valid fail (88.9%)
+- oracle: 0/1 valid fail (0.0%)
+- Timeouts excluded: 0; infra excluded: 2
+- Band: `borderline`
