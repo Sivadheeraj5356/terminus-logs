@@ -1,0 +1,8 @@
+# Runtime dependency for the local Harbor/lab tooling.
+# Everything else in scripts/ uses the Python 3.11+ standard library
+# (json, pathlib, tomllib, zipfile, unittest, ...).
+# python-docx powers the docx builders:
+#   scripts/build_appliedwork_docx.py
+#   scripts/build_lab_plan_docx.py
+#   scripts/build_worlds_lab_spec_docx.py
+python-docx==1.2.0
